@@ -1,28 +1,54 @@
-# Decisions where the kanon was silent (candidates for the §17 register)
+# Rules → implementation (srom-typeset)
 
-Implemented and covered by tests. Status: ✔ confirmed by the editor · ○ taken, not yet confirmed.
+The rules are in the **srom-kanon** skill: `references/kanon-redakcyjny.md` (normative, Polish) and `RULES.md` (English
+digest), same § numbers. This file does not restate them. It maps each rule the toolchain enforces to the code and the
+test that prove it, lists conventions that belong to the toolchain only, and keeps the open items.
 
-| # | decision | where |
+Decisions 1–19 of the earlier register (26.09.2026) were confirmed by the editor and moved into Kanon v1.6; their
+old numbers are given in brackets for the record.
+
+## Kanon rules → code → test
+
+| Kanon § | rule (short) | implemented in | tested in |
+|---|---|---|---|
+| § 0 | `[BRAK MIEJSCA/ROKU/WYDAWCY]` printed, blocks the build unless `--draft` [16] | srom.csl, build.py | test_csl, test_e2e, test_check |
+| § 2 | two heading levels; numbered lists `1.` + tab, own style [10] | srom_post.lua | test_e2e, test_docx_in |
+| § 3.1–3.2, 3.5 | quotes, dashes, ranges, ellipsis | normalize.py | test_normalize |
+| § 3.3 | no non-breaking spaces stored; stray nbsp → space [13]; GREP styles in the template | normalize.py, style_spec.json | test_normalize, test_jsx |
+| § 3.4 | no bold/underline; reverse italics (title in an italic title set roman) [11] | srom_post.lua | test_e2e |
+| § 4.1 | verse quotation keeps its line breaks [17] | srom_post.lua | test_e2e |
+| § 5.3 | interlinear example: three styled lines, real tabs [17] | srom_post.lua | test_e2e, test_normalize |
+| § 7.1 | marker before `. , ; :`, after an abbreviation's period [1] | normalize.py | test_normalize |
+| § 7.1 | non-author notes (`– przyp. tłum./red.`, title note) = asterisk series, not numbered (E8) | srom_post.lua, build.py, check.py, JSX | test_e8, test_check |
+| § 7.1 | author-date → footnote conversion [9] | cite_map.py | test_citemap |
+| § 7.2 | first citation forms; physical-form note at the end | srom.csl | test_csl |
+| § 7.2 | page-less citation never blocks; listed in the query sheet (quotation → author, whole work → editor) [7] | srom_post.lua, build.py | test_e2e |
+| § 7.3 | short form; `title-short` with `…` [3]; multi-author short forms [2] | srom.csl | test_csl |
+| § 7.3 | Ibidem only where unambiguous; short form otherwise [8]; same-column check after layout | build.py, `_ibidem.jsx` | test_e2e, test_jsx |
+| § 7.3 | forbidden back-references (op. cit., tamże…) fail the build | srom-kanon linter via build.py | test_lint, test_docx_in |
+| § 7.4 | multi-paragraph footnote kept, flagged [14] | srom_post.lua | test_e2e |
+| § 8.6 | hyperlinks → plain text [12] | srom_post.lua, build.py (verification) | test_e2e |
+| § 9.2 | only sections used, unnumbered, single section without heading [5] | build.py | test_e2e, test_csl |
+| § 9.3 | small caps as character style; particles and institutional authors outside small caps [6] | srom_post.lua, build.py | test_e2e |
+| § 9.5 | Polish collation | build.py | test_csl |
+| § 9.7 | `ISBN 978-…` without colon [4]; missing ISBN listed | srom.csl, build.py | test_csl, test_e2e |
+| § 10.1 | table title above, source below; cell/title/source styles [17] | srom_post.lua | test_e2e |
+| § 12.2 | translation handoff (`handoff.md`), translator notes, added citations | check.py, cite_map.py | test_check, test_e2e |
+| all | the srom-kanon linter runs on the rendered text; ERROR fails the build | build.py, kanon_path.py | test_lint, test_kanon |
+
+## Toolchain conventions (not house rules)
+
+| # | convention | where |
 |---|---|---|
-| 1 | ✔ Note marker goes before `, ; :` as well as before the period (§7.1 names only the period); after an abbreviation period it stays after it (`XV w.[^3]`). | normalize.py |
-| 2 | ✔ (notes only; the bibliography always gives every author in full) Short form of multi-author works: `Mróz, Bartosz, *Tytuł…*`; four or more: `Fiałkowska i in., *…*`; edited volume: surname only, no "(red.)". | srom.csl |
-| 3 | ✔ Short title = `title-short` when given (with `…` if truncated), otherwise the full title. | srom.csl |
-| 4 | ✔ ISBN printed `ISBN 978-…` without a colon (§9.4 shows only the DOI form `DOI: …`). | srom.csl |
-| 5 | ✔ Bibliography: only the sections an article uses are printed, **without numerals**; a single section gets no subheading. | build.py |
-| 6 | ✔ Name particles lower case and outside small caps (`de HEUSCH`); institutional authors not in small caps. | srom_post.lua, build.py |
-| 7 | ✔ **Revised with the editor:** a citation without a page is always allowed and never printed with a placeholder. Every one is listed in the query sheet: as the source of a quotation (marker after ” or «, or in a block quote) → "prosimy o stronę" to the author; otherwise → "odwołanie do całości dzieła", for the editor to confirm. A whole-work citation of an article prints no page range in the note (the range is in the bibliography). | srom_post.lua, build.py |
-| 8 | ✔ *Ibidem* is printed only where it is unambiguous: never inside a sentence, never when the same or the preceding note also cites a literal source (archival unit, press issue…). There the short form is printed instead — never wrong, only less compact. | build.py |
-| 9 | ✔ Author-date conversion: parenthetical → marker at its place (`tekst (A 1985).` → `tekst[^n].`); narrative → marker right after the name (`Ficowski (1985) twierdzi` → `Ficowski[^n] twierdzi`); page-only `(s. 21)` → citation of the work cited just before it (listed; blocks only when there is none); "Name (year)" whose name is no ref author (`w Warszawie (1920)`) is left alone and listed. | cite_map.py |
-| 10 | ✔ Numbered lists (now kanon RULES §2): arabic `1.` never `1)`; number typed as "1." + tab, own style. | srom_post.lua |
-| 11 | ✔ A title inside an italic title is set roman (reverse italics) — flagged for checking. | srom_post.lua |
-| 12 | ✔ Hyperlinks become plain text; URLs stay as text (InDesign can hyperlink them later). | srom_post.lua |
-| 13 | ✔ Non-breaking spaces never stored in the text; stray nbsp → plain space (the template's GREP style is the only source, §3.3). | normalize.py |
-| 14 | ✔ Multi-paragraph footnotes allowed, flagged. | srom_post.lua |
-| 15 | ✔ Comments `<!-- … -->` never print and never block anything; in the Word working copy they are ordinary Word comments, handled by the editor, dropped and listed on import. | build.py, export_work.py, docx_in.py |
-| 16 | ✔ Missing bibliographic data is printed as `[BRAK MIEJSCA]`, `[BRAK ROKU]`, `[BRAK WYDAWCY]` and blocks the build (§0) unless `--draft`. | srom.csl, build.py |
-| 17 | ✔ Verse quotations keep their line breaks (own style, `quote_verse`); interlinear examples (§5.3) are typed in a `::: przyklad` fenced block and become three styled lines with real tabs; tables get cell/title/source styles, formatting from the template's table style. | srom_post.lua, build.py |
-| 18 | ✔ `@key` (author in text) and `[-@key]` (author suppressed) are forbidden: pandoc would print the first citation without its author. | srom_post.lua, check.py |
-| 19 | ✔ The author's own reference list is taken out of the text on import (`_bib.txt`); SROM prints only the bibliography generated from refs.json plus literal sections I–III. | docx_in.py, pdf_extract.py |
-| 20 | ○ Translation handoff (`handoff.md`): the translator's notes `[^t<n>]` … `– przyp. tłum.` and the title note are outside the handoff check; an added citation passes only when declared (`<!-- DODANO: @key -->`); after translation the editor's Word working copy is the master. | check.py, export_work.py, docx_in.py |
-| 21 | ○ House style v2 (`style-sheet.md`): one root style *Podstawa* (Cambria 10.5/13, Polish, baseline grid, non-breaking-space GREP styles — **missing from both current templates**), nine groups; speakers and affiliations roman, not italic (kanon: no italics for proper names); motto italic, indented 30 mm; dialogue = block-quote measure, "Name:" bold via character style, turns without space between; transcript speaker on its own line, bold. | style_spec.json |
+| [15] | Comments `<!-- … -->` never print and never block; in the Word working copy they are Word comments, dropped and listed on import. | build.py, export_work.py, docx_in.py |
+| [18] | `@key` (author in text) and `[-@key]` (author suppressed) are forbidden: pandoc would print the first citation without its author. | srom_post.lua, check.py |
+| [19] | The author's own reference list is taken out on import (`_bib.txt`); SROM prints only the bibliography generated from refs.json plus literal sections. | docx_in.py, pdf_extract.py |
+| E8 | Asterisk notes leave the Word footnotes: in the text a placeholder `*` in character style *Odsyłacz gwiazdkowy*; the notes as paragraphs in *Przypis gwiazdkowy* at the end of the DOCX (title note first), each beginning `* `. The typesetter sets them above the numbered notes and the right number of asterisks per page (`_gwiazdki.jsx` lists them). | srom_post.lua, build.py |
+
+## Open (○ = taken, not yet confirmed by the editor)
+
+| # | item | where |
+|---|---|---|
+| 20 | ○ Translation handoff (`handoff.md`): translator (`[^t<n>]`) and editorial (`[^r<n>]`) notes and the title note are outside the handoff check; an added citation passes only when declared; after translation the editor's Word working copy is the master. | check.py, export_work.py, docx_in.py |
+| 21 | ○ House style v2 (`style-sheet.md`) — in the style discussion. | style_spec.json |
 | 22 | ○ Additions by the translation are declared by `"srom-added"` in `<id>_refs_tlum.json` (survives Word); `DODANO` comments still accepted. | check.py, cite_map.py |

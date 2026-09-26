@@ -673,19 +673,19 @@ def main():
     if re.search(r"^:::\s*\{?\.?przypis-tytulowy", md_text, re.M):
         report["warnings"].append("title note (::: przypis-tytulowy) present: set it as the asterisk note of the title on the first page (kanon § 7.1)")
 
-    # 6. lint (existing srom-kanon linter, if installed)
+    # 6. lint (the srom-kanon skill's linter — required)
+    import kanon_path
     lint_out = ""
-    linter = None
-    for cand in ("/mnt/skills/user/srom-kanon/scripts/lint_srom.py", "/mnt/skills/plugins/srom-kanon/scripts/lint_srom.py",
-                 os.path.join(ROOT, "scripts", "lint_srom.py")):
-        if os.path.exists(cand):
-            linter = cand
-            _, lint_out, _ = run([sys.executable, cand, os.path.join(a.out, stem + ".txt")])
-            break
-    report["linter"] = linter
-    if not lint_out:
-        report["errors"].append("kanon linter (lint_srom.py) not found — cannot certify")
-    elif "--- ERROR ---" in lint_out:
+    kdir = kanon_path.find_kanon()
+    report["linter"] = None
+    if not kdir:
+        report["errors"].append(kanon_path.MISSING)
+    else:
+        report["linter"] = f"{kanon_path.linter(kdir)} (Kanon v{kanon_path.kanon_version(kdir) or '?'})"
+        _, lint_out, lint_err = run([sys.executable, kanon_path.linter(kdir), os.path.join(a.out, stem + ".txt")])
+        if not lint_out:
+            report["errors"].append("kanon linter produced no output — cannot certify: " + lint_err.strip()[:300])
+    if "--- ERROR ---" in lint_out:
         n_err = len(re.findall(r"^\d+:\d+\s+\[", lint_out.split("--- ERROR ---")[1].split("--- WARN ---")[0], re.M))
         report["errors"].append(f"kanon linter: {n_err} ERROR(s) in rendered text — see Lint section")
 

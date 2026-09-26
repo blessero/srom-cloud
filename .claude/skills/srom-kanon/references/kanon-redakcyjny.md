@@ -1,6 +1,6 @@
 # STUDIA ROMOLOGICA – KANON EDYTORSKI (DOKUMENT WEWNĘTRZNY)
 
-**Wersja 1.5 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
+**Wersja 1.6 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
 
 > Zastępuje *Kodeks zecera* 2.0. Wersja dla autorów (*Wskazówki dla autorów*) jest skrótem tego dokumentu i nie zawiera § 13–17. W razie rozbieżności rozstrzyga niniejszy tekst.
 
@@ -16,7 +16,7 @@ System cytowania: **przypisy dolne + pełna bibliografia załącznikowa**. Autor
 
 **Czasopismo jest polskojęzyczne.** Język angielski występuje wyłącznie w metadanych (§ 12).
 
-**Integralność danych.** Jeżeli w źródle brakuje elementu opisu (roku, strony, wydawcy) albo element jest nieczytelny lub niejasny – redaktor **nie uzupełnia go domysłem**. Pytanie idzie do autora; do czasu odpowiedzi pozycja jest oznaczona w pliku roboczym.
+**Integralność danych.** Jeżeli w źródle brakuje elementu opisu (roku, strony, wydawcy) albo element jest nieczytelny lub niejasny – redaktor **nie uzupełnia go domysłem**. Pytanie idzie do autora; do czasu odpowiedzi pozycja jest oznaczona w pliku roboczym znacznikiem `[BRAK MIEJSCA]`, `[BRAK ROKU]` lub `[BRAK WYDAWCY]`. Tekst ze znacznikiem nie przechodzi do składu. Zapis `b.m.`, `b.r.` (§ 7.2) stosuje się wyłącznie wtedy, gdy brak wynika z samego źródła, nie z niekompletnego opisu.
 
 ---
 
@@ -29,8 +29,8 @@ System cytowania: **przypisy dolne + pełna bibliografia załącznikowa**. Autor
 5. Tytuł angielski
 6. Tytuł romski – fakultatywny; weryfikacja u konsultanta językowego
 7. Abstrakt polski – do 1000 znaków ze spacjami
-8. Abstrakt angielski – tłumaczenie polskiego, nie parafraza
-9. Słowa kluczowe: 5–10, polskie i angielskie, średnik jako separator, bez kropki. **Nazwy grup romskich w formie wzorcowej wg kartoteki (§ 6.3)**
+8. Abstrakt angielski – tłumaczenie polskiego, nie parafraza (artykuły tłumaczone – § 12.2.2)
+9. Słowa kluczowe: 5–10, polskie i angielskie, średnik jako separator, bez kropki. **Nazwy grup romskich w formie wzorcowej wg kartoteki (§ 6.3)**; artykuły tłumaczone – § 12.2.2
 10. Tekst główny
 11. Bibliografia (§ 9)
 12. Nota o autorze (do 500 znaków)
@@ -61,7 +61,7 @@ Podstawowy `„ ”`, wewnętrzny `» «`. Glosy znaczeniowe: `‘ ’`.
 - `—` myślnik em – **nie występuje**.
 
 ### 3.3. Spacje nierozdzielające
-Po: `s.`, `t.`, `z.`, `nr`, `r.`, `w.`, `sygn.`, `k.`, inicjałach imion; przed `%`; po jednoliterowych spójnikach i przyimkach (`i`, `a`, `o`, `u`, `w`, `z`). **Nakłada je skład automatycznie (styl GREP)**; redakcja nie wstawia ich ręcznie.
+Po: `s.`, `t.`, `z.`, `nr`, `r.`, `w.`, `sygn.`, `k.`, inicjałach imion; przed `%`; po jednoliterowych spójnikach i przyimkach (`i`, `a`, `o`, `u`, `w`, `z`). **Nakłada je skład automatycznie (styl GREP)**; redakcja nie wstawia ich ręcznie, a w pliku tekstu się ich nie przechowuje – spacja nierozdzielająca zastana w maszynopisie zostaje zamieniona na zwykłą.
 
 ### 3.4. Wyróżnienia
 - **Kursywa**: tytuły dzieł; obcojęzyczne i romskie wyrazy pospolite i terminy (§ 5.1).
@@ -69,6 +69,7 @@ Po: `s.`, `t.`, `z.`, `nr`, `r.`, `w.`, `sygn.`, `k.`, inicjałach imion; przed 
 - **Kapitaliki**: nazwiska w bibliografii (§ 9.3) oraz kategorie gramatyczne w glosach (§ 5.3). Nigdzie indziej.
 - Półgrube, rozstrzelenie, podkreślenie, wersaliki w tekście ciągłym: nie stosuje się.
 - Wyróżnienie autora w cytacie: `[podkr. – J.K.]`.
+- Tytuł w obrębie tytułu składanego kursywą – pismem prostym (kursywa odwrócona): *Recepcja* Cyganów na polskich drogach *w krytyce*.
 
 ### 3.5. Daty i liczby
 
@@ -101,11 +102,12 @@ Zakaz bękartów, wdów, jednoliterowych spójników na końcu wiersza. Minimum 
 ### 4.1. Forma
 - Do 3 wierszy – w tekście, w cudzysłowie.
 - Powyżej 3 wierszy – blok: osobny akapit, stopień o 1 pkt mniejszy, wcięcie z lewej, bez cudzysłowu, bez kursywy.
+- Cytat wierszowany zachowuje podział na wersy.
 - Opuszczenia i ingerencje autora – w nawiasie kwadratowym: `[…]`.
 - Odsyłacz przypisu – po cudzysłowie zamykającym, przed kropką.
 
 ### 4.2. Cytaty obcojęzyczne
-**Tłumaczenie w tekście głównym.** Oryginał w przypisie tylko gdy brzmienie jest przedmiotem analizy. Tłumaczenie własne: `[tłum. własne]` raz, przy pierwszym cytacie.
+**Tłumaczenie w tekście głównym.** Oryginał w przypisie tylko gdy brzmienie jest przedmiotem analizy. Tłumaczenie własne: `[tłum. własne]` raz, przy pierwszym cytacie (w artykułach tłumaczonych formuły się nie stosuje – § 12.2.4 d).
 
 ### 4.3. Tytuły i nazwy obcojęzyczne – reguła nadrzędna
 
@@ -163,14 +165,18 @@ Forma kursywą; glosa morfemowa z kapitalikami kategorii, wyrównana; tłumaczen
 **Autor decyduje o pisowni**; obowiązuje konsekwencja w obrębie artykułu. Nazwy grup – pismo proste, wielka litera, bez kursywy, we wszystkich wariantach: `Kelderasze`, `Kalderash`, `Polska Roma`, `Bergitka Roma`, `Rroma`.
 
 ### 6.3. Kartoteka wzorcowa
-Tekst artykułu: forma autorska. Indeks tomu, słowa kluczowe, rekord deponowany: forma wzorcowa z odsyłaczami od wariantów (`Kalderash zob. Kelderasze`). Nowy wariant dopisuje redaktor prowadzący **przed** wysłaniem tomu do składu.
+Tekst artykułu: forma autorska. Indeks tomu, słowa kluczowe, rekord deponowany: forma wzorcowa z odsyłaczami od wariantów (`Kalderash zob. Kelderasze`). Nowy wariant dopisuje redaktor prowadzący **przed** wysłaniem tomu do składu. W artykułach tłumaczonych tekst przyjmuje formę wzorcową (§ 12.2.6).
 
 ---
 
 ## 7. Przypisy
 
 ### 7.1. Odsyłacz
-Cyfry arabskie, indeks górny, numeracja ciągła w obrębie artykułu, przypisy **dolne**. Odsyłacz **przed kropką**, po cudzysłowie i nawiasie zamykającym; gdy zdanie kończy skrót z kropką – po tej kropce. Przypis do tytułu: gwiazdka `*`, przed przypisem 1.
+Cyfry arabskie, indeks górny, numeracja ciągła w obrębie artykułu, przypisy **dolne**. Odsyłacz **przed kropką, przecinkiem, średnikiem i dwukropkiem**, po cudzysłowie i nawiasie zamykającym; gdy zdanie kończy skrót z kropką (`XV w.`) – po tej kropce.
+
+**Przypisy nieautorskie** – przypis do tytułu, przypisy tłumacza (zakończone formułą `– przyp. tłum.`) i redakcji (`– przyp. red.`) – tworzą odrębny ciąg, oznaczany gwiazdkami (`*`, `**`, `***` …) i liczony od nowa na każdej stronie; na pierwszej stronie artykułu pierwszą gwiazdkę otrzymuje przypis do tytułu. Stoją nad przypisami numerowanymi, tym samym stopniem i krojem co one. Numeracja ciągła obejmuje wyłącznie przypisy autora.
+
+**Konwersja z systemu autor–data** (tekst nadesłany w systemie APA lub harwardzkim): odwołanie w nawiasie ustępuje odsyłaczowi w tym samym miejscu (`tekst (Ficowski 1985).` → `tekst¹.`); odwołanie narracyjne – odsyłaczowi bezpośrednio po nazwisku (`Ficowski (1985) twierdzi` → `Ficowski¹ twierdzi`); samo `(s. 21)` – przywołaniu dzieła przywołanego bezpośrednio przedtem. Rok w nawiasie po nazwie, która nie jest nazwiskiem autora przywoływanego dzieła (`w Warszawie (1920)`), pozostaje bez zmian.
 
 ### 7.2. Pierwsze przywołanie
 
@@ -200,19 +206,21 @@ Zasady wspólne:
 - **Miejsce wydania w brzmieniu ze strony tytułowej**, bez spolszczania: `London`, `New York`, `München`, `Istanbul`; wydania w cyrylicy – ALA-LC: `Moskva`, `Kyïv`. Egzonimy polskie (Londyn, Moskwa) pozostają w tekście głównym.
 - Nazwy wydawnictw w oryginale.
 - `w:` bez nawiasów.
-- Zawsze strona lub zakres stron.
+- Strona lub zakres stron – zawsze, gdy przywołuje się określone miejsce dzieła, a bezwzględnie przy cytacie. Odwołanie do dzieła jako całości podaje się bez strony, także bez zakresu stron artykułu (ten podaje bibliografia). Każde takie odwołanie potwierdza redakcja; brak strony przy cytacie jest pytaniem do autora.
 - Redaktor tomu przed tytułem, gdy cytujemy tom jako całość; po tytule, gdy cytujemy rozdział.
 - **Uwagi o postaci fizycznej i miejscu przechowywania** (maszynopis, rękopis, egzemplarz w bibliotece) – w nawiasie okrągłym **na samym końcu pozycji**.
 
 ### 7.3. Przywołania kolejne
-Forma skrócona: `Ficowski, *Cyganie na polskich drogach…*, s. 51.` Skrócony tytuł ustala się raz i stosuje bez zmian.
+Forma skrócona: `Ficowski, *Cyganie na polskich drogach…*, s. 51.` Skrócony tytuł ustala się raz i stosuje bez zmian; tytuł skrócony kończy wielokropek, tytuł dostatecznie krótki podaje się w pełnym brzmieniu, bez wielokropka.
 
-**`Ibidem`** – wyłącznie gdy przypis bezpośrednio poprzedzający odsyła do tego samego dzieła **i stoi na tej samej kolumnie**; kontrola po złamaniu.
+Prace wieloautorskie: dwóch lub trzech autorów – nazwiska po przecinku (`Mróz, Bartosz, *Tytuł pracy…*`); czterech i więcej – `Fiałkowska i in., *Tytuł pracy…*`; praca zbiorowa – nazwisko redaktora, bez `(red.)`. W bibliografii wymienia się zawsze wszystkich autorów (§ 9.1).
+
+**`Ibidem`** – wyłącznie gdy przypis bezpośrednio poprzedzający odsyła do tego samego dzieła **i stoi na tej samej kolumnie**; kontrola po złamaniu. Nie stosuje się go wewnątrz zdania ani wtedy, gdy ten sam lub poprzedzający przypis przywołuje także źródło inne niż opis bibliograficzny (jednostkę archiwalną, numer prasy, akt prawny); nie występuje też w przypisach nieautorskich ani w przypisie autora następującym bezpośrednio po przypisie nieautorskim. W tych przypadkach – forma skrócona.
 
 **Zakazane:** `op. cit.`, `dz. cyt.`, `idem`, `eadem`, `tenże`, `taż`, `tamże`, `loc. cit.`, `passim` jako zamiennik lokalizacji; oznaczenia literowe przy latach (`2012a`).
 
 ### 7.4. Przypisy rzeczowe
-Dopuszczalne i pożądane. Formuły: `Zob.`, `Por.`, `Szerzej zob.`, `Inaczej:`.
+Dopuszczalne i pożądane. Formuły: `Zob.`, `Por.`, `Szerzej zob.`, `Inaczej:`. Przypis może liczyć więcej niż jeden akapit.
 
 ---
 
@@ -271,7 +279,7 @@ Brzmienie urzędowe, także w zakresie daty (§ 3.5). Akty zagraniczne: nazwa or
 ### 8.6. Źródła internetowe
 > A. Kowalski, *Tytuł tekstu*, w: *Nazwa serwisu*, https://przyklad.pl/tekst [dostęp: 18.03.2025].
 
-Data dostępu obowiązkowa dla źródeł **bez DOI**. Przy DOI – DOI zamiast URL, bez daty dostępu. Media społecznościowe: konto, treść lub tytuł kursywą, platforma, data publikacji, URL, data dostępu; konta prywatne – anonimizacja wg § 8.2.
+Adres URL jest w tekście do składu zwykłym tekstem, nie hiperłączem. Data dostępu obowiązkowa dla źródeł **bez DOI**. Przy DOI – DOI zamiast URL, bez daty dostępu. Media społecznościowe: konto, treść lub tytuł kursywą, platforma, data publikacji, URL, data dostępu; konta prywatne – anonimizacja wg § 8.2.
 
 ### 8.7. Audiowizualia
 > *Papusza*, reż. J. Kos-Krauze, K. Krauze, Polska 2013, 00:42:15.
@@ -294,7 +302,7 @@ Kropka zamyka pole autora. Bez dwukropka po miejscu wydania.
 ### 9.2. Podział
 Możliwe części, w tej kolejności: Wykaz skrótów · Źródła archiwalne (na poziomie zespołu) · Źródła terenowe · Źródła drukowane i prawne · Źródła internetowe (bez DOI) · Literatura przedmiotu.
 
-**Bez numeracji.** Podaje się tylko śródtytuły części faktycznie występujących, w powyższej kolejności.
+**Bez numeracji.** Podaje się tylko śródtytuły części faktycznie występujących, w powyższej kolejności; bibliografia złożona z jednej części nie ma śródtytułu.
 
 Każda pozycja z przypisów musi wystąpić w bibliografii – z wyjątkiem pojedynczych jednostek archiwalnych, pojedynczych numerów prasy, aktów prawnych przywołanych jednorazowo.
 
@@ -304,7 +312,7 @@ Każda pozycja z przypisów musi wystąpić w bibliografii – z wyjątkiem poje
 Przecinek zachowuje zgodność z indeksem osobowym tomu (`MIRGA-WÓJTOWICZ, Elżbieta`).
 
 1. **Prawdziwe kapitaliki OpenType** – nie „All Caps”, nie skalowane wersaliki. Krój bez kapitalików: wersaliki pełne, jak w indeksie.
-2. **Tylko nazwisko.** Przedrostki małą literą: `de HEUSCH, Luc`. Nazwiska złożone – oba człony.
+2. **Tylko nazwisko.** Przedrostki małą literą i bez kapitalików: `de HEUSCH, Luc`. Nazwiska złożone – oba człony. Autor instytucjonalny (urząd, organizacja) – bez kapitalików.
 3. **Kapitaliki to styl znakowy, nie dane.** W CSV i w rekordzie deponowanym nazwisko ma postać normalną (`Mróz`).
 
 ### 9.4. Wzorce
@@ -360,7 +368,7 @@ Ta sama osoba występuje w dwóch formach: w tekście `Biessonow`, w przypisie `
 - pozostałe istotne dla profilu czasopisma: rusiński (łemkowski), serbski, macedoński, rumuński w cyrylicy, języki niesłowiańskie w cyrylicy (dla tekstów romskich w cyrylicy – przed pierwszym użyciem sprawdzić, czy tablica obejmuje romani) – wszystkie w indeksie.
 
 ### 9.7. Identyfikatory
-DOI obowiązkowy dla każdej pozycji, która go posiada (weryfikacja maszynowa przed składem). Zapis `DOI: 10.1234/abcd` – w druku bez prefiksu `https://doi.org/`. ISBN wyłącznie w bibliografii, dla monografii po 1970 r.
+DOI obowiązkowy dla każdej pozycji, która go posiada (weryfikacja maszynowa przed składem). Zapis `DOI: 10.1234/abcd` – w druku bez prefiksu `https://doi.org/`. ISBN wyłącznie w bibliografii, dla monografii po 1970 r., w zapisie `ISBN 978-…` – bez dwukropka.
 
 ---
 
@@ -400,6 +408,7 @@ Numeracja ciągła, osobna: `Il. 1`, `Tab. 1`, `Wykr. 1`. Podpis pod obiektem: n
 | `i in.` | i inni | tylko w przypisach |
 | `W`, `FN`, `N`, `K` | materiały terenowe | |
 | `Ibidem` | tamże | kursywa |
+| `przyp. tłum.`, `przyp. red.` | przypis tłumacza, przypis redakcji | formuła zamykająca przypis nieautorski (§ 7.1) |
 
 **Nie stosuje się:** `str.`, `przeł.`, `[w:]`, `op. cit.`, `dz. cyt.`, `idem`, `eadem`, `tenże`, `taż`, `tamże`, `loc. cit.`, `vide`, `cf.`, `Hrsg.`, `éd.`, `под ред.`; cyfr rzymskich przy wydaniach, tomach i miesiącach.
 
@@ -412,7 +421,78 @@ Czasopismo publikuje w języku polskim. Język angielski występuje wyłącznie 
 **Etykiety aparatu są zawsze polskie** (`red.`, `tłum.`, `w:`, `s.`, `i in.`, `dostęp`) – także przy dziełach obcojęzycznych. W oryginale pozostają wyłącznie elementy identyfikujące źródło: tytuł, nazwa czasopisma, seria, nazwa archiwum i zespołu, miejsce wydania, wydawca.
 
 ### 12.1. Wersja angielska artykułu (model dwujęzyczny)
-Stosowane wyłącznie wtedy, gdy artykuł otrzymuje wersję angielską online pod tym samym DOI. System bez zmian; zmieniają się: cudzysłów `“ ”` / `‘ ’`; etykiety `ed.`, `trans.`, `in:`, `p.` / `pp.`, `et al.`, `[accessed: 18.03.2025]`; cyrylica w tekście – ALA-LC z egzonimami angielskimi (Moscow, Kyiv).
+Stosowane wyłącznie wtedy, gdy artykuł otrzymuje wersję angielską online pod tym samym DOI. System bez zmian; zmieniają się: cudzysłów `“ ”` / `‘ ’`; etykiety `ed.`, `trans.`, `in:`, `p.` / `pp.`, `et al.`, `[accessed: 18.03.2025]`; cyrylica w tekście – ALA-LC z egzonimami angielskimi (Moscow, Kyiv). Nie dotyczy artykułów tłumaczonych (§ 12.2.1).
+
+### 12.2. Artykuły tłumaczone
+
+#### 12.2.1. Zakres i pierwszeństwo
+
+Paragraf dotyczy artykułów publikowanych w przekładzie na język polski z oryginału anglojęzycznego (w rekordzie: `is_translation` = `TAK`); przekłady z innych języków wymagają osobnej regulacji metadanych (§ 12.2.2). Pozostałe paragrafy kanonu stosuje się bez zmian, o ile niniejszy nie stanowi inaczej; w razie kolizji rozstrzyga § 12.2. § 12.1 nie stosuje się: wersją angielską artykułu tłumaczonego jest jego pierwodruk.
+
+#### 12.2.2. Metadane
+
+- Tytuł angielski, abstrakt angielski i angielskie słowa kluczowe – **w brzmieniu oryginału**, bez zmian i bez przekładu zwrotnego. Wyjątek od § 1 pkt 8: przekładem jest abstrakt polski, nie angielski. Przekład zwrotny wprowadziłby do rekordu deponowanego drugą, rozbieżną wersję angielską.
+- Oryginał bez abstraktu lub słów kluczowych – sporządza je tłumacz, w wersji polskiej i angielskiej; wersję angielską zatwierdza autor.
+- Abstrakt oryginału dłuższy niż 1000 znaków (§ 1 pkt 7) – abstrakt polski skraca redakcja, abstrakt angielski pozostaje w brzmieniu oryginału; rozbieżność długości jest dopuszczalna.
+- Tytuł polski – przekład tytułu oryginału, z zachowaniem podziału na tytuł i podtytuł.
+- Słowa kluczowe pochodzą zawsze od autora. Polskie – przekład angielskich; nazwy grup w formie wzorcowej (§ 6.3). Angielskie – autorskie, bez zmian (odstępstwo od § 1 pkt 9). Wątpliwości co do pisowni rozstrzyga się w toku pracy, z wpisem do rejestru decyzji.
+- Rekord: pola `original_title`, `original_source`, `original_doi` wypełnione. Relację `isTranslationOf` generuje moduł deponowania, gdy znany jest DOI oryginału.
+
+#### 12.2.3. Nota o przekładzie i wskazanie tłumacza
+
+- Tłumacz – w nagłówku artykułu, pod afiliacją autora: `Tłumaczenie: Imię Nazwisko`; ponadto w nocie o przekładzie.
+- **Nota o przekładzie jest obowiązkowa**: jawność pierwodruku wyklucza zarzut publikacji zdublowanej. Przypis do tytułu, oznaczony gwiazdką (§ 7.1). Zawiera, w tej kolejności:
+  1. opis pierwodruku według § 7.2, z DOI;
+  2. licencję pierwodruku z adresem jej tekstu albo podstawę zgody na przekład; przy licencjach Creative Commons – wskazanie, że przekład stanowi zmianę utworu, oraz nota o prawach autorskich pierwodruku, jeżeli ją zawiera (wymogi licencji);
+  3. tłumacza;
+  4. zakres ingerencji (§ 12.2.8), jeżeli wystąpiły;
+  5. formułę o cytatach (§ 12.2.4 d).
+
+Wzór:
+> \* Pierwodruk: I. Nazwisko, *Tytuł oryginału*, „Czasopismo”, rrrr, t. nn, nr nn, s. aa–bb, DOI: 10.nnnn/nnnn. © I. Nazwisko. Tekst opublikowany na licencji CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); niniejszy przekład stanowi zmianę utworu w rozumieniu licencji. Tłumaczenie: Imię Nazwisko. Cytaty ze źródeł obcojęzycznych, o ile nie wskazano inaczej, w przekładzie tłumacza artykułu.
+
+#### 12.2.4. Cytaty
+
+| Sytuacja | Postępowanie |
+|---|---|
+| a) Dzieło cytowane przez autora ma wydanie polskie | Cytat według wydania polskiego, ze stroną tego wydania; przypis odsyła do wydania polskiego (§ 4.3); odesłanie autora do oryginału zachowuje się w tym samym przypisie po średniku. Kilka przekładów polskich – najnowsze wydanie naukowe, chyba że starsze jest merytorycznie lepsze (decyzja redakcji, wpis do rejestru decyzji). Przekład własny zamiast wydania polskiego – wyłącznie gdy wydanie nie oddaje brzmienia istotnego dla wywodu; decyzja redakcji, przypis tłumacza podaje powód. |
+| b) Źródło pierwotnie polskie, przytoczone przez autora po angielsku | Przywraca się brzmienie oryginału; przypis wskazuje źródło polskie; odesłanie autora zachowuje się po średniku, poprzedzone formułą `autor cytuje za:`. |
+| c) Źródło w innym języku, przytoczone przez autora w przekładzie angielskim | Przekład z oryginału, jeżeli jest dostępny; w przeciwnym razie z przekładu autora, z adnotacją w przypisie `tłum. z przekładu angielskiego autora`. Materiał terenowy (wypowiedzi rozmówców w przekładzie autora) – jedna formuła w nocie zamiast adnotacji przy każdym cytacie. |
+| d) Źródło anglojęzyczne bez wydania polskiego | Przekład tłumacza artykułu, bez adnotacji przy cytacie – obejmuje go formuła noty (§ 12.2.3). Formuły `[tłum. własne]` (§ 4.2) w przekładzie się nie stosuje: byłaby dwuznaczna. |
+| e) Poezja, pieśń, przysłowie | Jak a–c. Brzmienie oryginału (np. romskie), jeżeli przytacza je autor, pozostaje tam, gdzie umieścił je autor. |
+
+Nieodnalezienie miejsca w wydaniu polskim albo niedostępność oryginału – pozycja w wykazie pytań. Tekstu nie oddaje się do składu z cytatem przełożonym tymczasowo i nieoznaczonym (§ 0, zasada integralności danych).
+
+Bibliografia (§ 9) obejmuje wydanie polskie, z którego pochodzą cytaty w sytuacji a, oraz – skoro odesłanie autora zostaje zachowane – oryginał.
+
+#### 12.2.5. Terminologia
+
+- Terminy i pojęcia – w formie z bazy terminologicznej redakcji. Pozycje o statusie HOUSE, w tym **wszystkie rozstrzygnięcia tomu 18/2025**, obowiązują bez wyjątku.
+- Pierwsze wystąpienie – forma polska, po niej oryginał kursywą w nawiasie okrągłym, w pisowni źródła (§ 4.3). Gdy forma polska jest tożsama z oryginałem (z dokładnością do polskiej końcówki fleksyjnej), nawiasu się nie stawia.
+- W cytatach z wydań polskich (§ 12.2.4 a) terminologia wydania pozostaje bez zmian, także gdy różni się od formy HOUSE; rozbieżność istotną dla wywodu objaśnia przypis tłumacza.
+- Neologizm autorski – jak wyżej; w razie potrzeby przypis tłumacza objaśniający przekład (§ 12.2.7).
+- Pojęcie nieobecne w bazie – kwestia otwarta, rozstrzygana przez redaktora prowadzącego przed oddaniem przekładu, według reguły zapisanej w schemacie bazy. Zmiana formy HOUSE – wyłącznie jego decyzją, z wpisem do rejestru decyzji; obowiązuje od kolejnego tomu (§ 17).
+
+#### 12.2.6. Nazwy grup
+
+- W przekładzie nazwy grup mają formę wzorcową z kartoteki (§ 6.3), bez formy oryginału w nawiasie (odstępstwo od § 6.3, który dla tekstu artykułu przewiduje formę autorską). Kartotekę uzupełnia się w toku pracy: forma dotąd nieustalona – kwestia do rozstrzygnięcia przed oddaniem przekładu.
+- Wyjątek: autoetnonim albo forma, której brzmienie autor czyni przedmiotem analizy – pozostaje w brzmieniu oryginału, pismem prostym (§ 6.2).
+- Ang. Gypsy – przekład według funkcji w tekście: kategoria źródłowa lub opis historyczny – `Cyganie` (§ 6.1 b); autoidentyfikacja – `Cyganie` (§ 6.1 c); w cytacie – odpowiednik oddający rejestr oryginału, bez łagodzenia (§ 6.1 a). Przypis wyjaśniający przy pierwszym wystąpieniu – jak w § 6.1. Pierwsze wystąpienie w każdej funkcji – w wykazie pytań.
+- Wybór terminu przez autora jest respektowany: każdy termin źródła ma własny odpowiednik polski i nie zastępuje się jednego drugim (Gypsy nie staje się „Romowie”, Roma nie staje się „Cyganie”). Ang. Gypsy jako świadomie użyty termin samego autora – `Cyganie`, z przypisem wyjaśniającym przy pierwszym wystąpieniu (§ 6.1); jeżeli autor sam objaśnia swój wybór, przypis tłumacza może do tego objaśnienia odesłać.
+
+#### 12.2.7. Przypisy tłumacza
+
+- Przypis tłumacza jest przypisem nieautorskim: należy do ciągu gwiazdkowego (§ 7.1) i kończy go formuła `– przyp. tłum.`; przypis redakcji – `– przyp. red.`
+- Uzupełnienie w przypisie autora – w nawiasie kwadratowym, zakończone tą samą formułą, np. `[zob. też wydanie polskie: …, s. 45 – przyp. tłum.]`.
+- W tekście głównym tłumacz nie wprowadza ingerencji w nawiasie kwadratowym: nawias kwadratowy w cytacie należy do autora (§ 4.1). Uzupełnienia w tekście głównym – wyłącznie te, które przewiduje § 4.3 (oryginał terminu, przekład tytułu, objaśnienie instytucji, przekład nazwy aktu prawnego), w nawiasie okrągłym, przy pierwszym wystąpieniu.
+
+#### 12.2.8. Ingerencje w treść oryginału
+
+- Tłumacz nie poprawia oryginału bez uzgodnienia. Błędy rzeczowe, błędne daty, nazwiska, odesłania i opisy bibliograficzne trafiają do wykazu pytań.
+- Poprawki uzgodnione z autorem wprowadza się bez oznaczania w tekście; nota o przekładzie odnotowuje, że przekład je uwzględnia. Poprawka istotna dla treści – komentarz (przypis tłumacza) uzgodniony z autorem.
+- Oczywiste omyłki pisarskie (literówka w nazwisku, przestawione cyfry numeru strony) – po sprawdzeniu w źródle poprawia się bez uzgadniania; każda poprawka trafia do wykazu pytań jako informacja.
+- Brak odpowiedzi autora – przekład zgodny z oryginałem; o przypisie tłumacza sygnalizującym problem decyduje redaktor prowadzący.
+- Skróty i pominięcia (np. ilustracji z przyczyn licencyjnych) – wyłącznie za zgodą autora i z informacją w nocie.
 
 ---
 
@@ -483,7 +563,8 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 **Przed przekazaniem do składu**
 - [ ] Komplet elementów z § 1; ORCID; licencja wskazana
 - [ ] Braki w danych źródłowych zgłoszone autorowi, nie uzupełnione domysłem
-- [ ] Wszystkie przypisy mają lokalizację
+- [ ] Każdy cytat ma stronę; odwołania do dzieła jako całości potwierdzone przez redakcję
+- [ ] Brak znaczników `[BRAK …]` (§ 0)
 - [ ] Zero: `op. cit.`, `dz. cyt.`, `idem`, `tenże`, `tamże`, `str.`, `przeł.`, `[w:]`, `2012a`
 - [ ] Inicjały w przypisach, pełne imiona w bibliografii
 - [ ] Przecinek po tytule czasopisma; strona na końcu
@@ -504,6 +585,7 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 
 **Po złamaniu**
 - [ ] `Ibidem` na tej samej kolumnie co przypis poprzedzający
+- [ ] Przypisy nieautorskie nad przypisami numerowanymi; gwiazdki liczone od nowa na każdej stronie, na pierwszej stronie pierwsza dla przypisu do tytułu
 - [ ] Kapitaliki prawdziwe; znaki transliteracji wyświetlają się poprawnie
 - [ ] Wcięcia po cytatach blokowych
 - [ ] Spacje nierozdzielające nałożone (styl GREP); brak wdów, bękartów, jednoliterowych spójników na końcu wiersza
@@ -521,5 +603,6 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.3 | Zastąpienie *Kodeksu zecera* 2.0. `w:` bez nawiasów; przecinek po tytule czasopisma, strona na końcu; cyfry arabskie; `tłum.`; kapitaliki z przecinkiem; miejsca wydania bez spolszczania; transkrypcja PWN/KSNG w tekście, ALA-LC w aparacie; instytucje w cyrylicy w transkrypcji; uwagi o maszynopisie na końcu; archiwa postsowieckie; rejestr podpisów; zasada integralności danych. |
 | 1.4 | Czasopismo określone jako polskojęzyczne; usunięte wersje językowe artykułów (angielska pozostaje jako § 12.1 dla modelu dwujęzycznego); etykiety aparatu zawsze polskie. Daty w aparacie cyframi arabskimi `dd.mm.rrrr`; wyjątek dla aktów prawnych. Przekład tytułu w nawiasie kwadratowym po tytule. Tablice ALA-LC zweryfikowane z LC, uzupełnione o bułgarski i litery sprzed reform; źródła tablic. Kapitaliki dopuszczone w glosach. Spacje nierozdzielające nakładane stylem GREP. Abstrakt do 1000 znaków. |
 | 1.5 | ISO 9 wycofany; ALA-LC także w przykładach językowych. Uzasadnienie ligatur uproszczone. Daty arabskie potwierdzone (miesiące rzymskie odrzucone). |
+| 1.6 | Kanon włączony do narzędzi redakcji (skill srom-kanon) jako tekst normatywny. Słowa kluczowe 5–10; wyliczenia numerowane; bibliografia bez numeracji części, jedna część bez śródtytułu; zniesiony limit ⅓ kolumny dla przypisu rzeczowego; wymogi techniczne ilustracji przeniesione do *Wskazówek dla autorów*. § 0: znaczniki `[BRAK …]`, `b.m.`/`b.r.` tylko przy braku w źródle. § 3.3: spacji nierozdzielających nie przechowuje się w pliku. § 3.4: kursywa odwrócona. § 4.1: cytat wierszowany. § 7.1: odsyłacz także przed przecinkiem, średnikiem, dwukropkiem; przypisy nieautorskie – odrębny ciąg gwiazdkowy nad przypisami numerowanymi; konwersja z systemu autor–data. § 7.2: odwołanie do dzieła jako całości bez strony. § 7.3: długość tytułu skróconego; formy skrócone prac wieloautorskich; ograniczenia `Ibidem`. § 7.4: przypis wieloakapitowy. § 8.6: URL jako tekst. § 9.3: autor instytucjonalny bez kapitalików. § 9.7: zapis ISBN. § 12.2 Artykuły tłumaczone: metadane oryginału (wyjątki od § 1 pkt 8 i 9); § 12.1 nie dla przekładów; nota o przekładzie i wskazanie tłumacza; cytaty w pięciu sytuacjach; terminologia z bazy redakcji, rozstrzygnięcia tomu 18/2025 wiążące; nazwy grup w przekładzie (odstępstwo od § 6.3); przypisy tłumacza; ingerencje; bibliografia przy cytatach z wydań polskich. § 4.2: formuła `[tłum. własne]` nie w przekładach. § 11: `przyp. tłum.`, `przyp. red.` |
 
 Zmiany wchodzą w życie od kolejnego tomu. Tomy opublikowane nie podlegają retroaktywnemu ujednoliceniu.

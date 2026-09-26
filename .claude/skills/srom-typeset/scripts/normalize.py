@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-normalize.py — deterministic typographic normalisation of SROM-MD (kanon v1.5 §3, §4.1, §7.1).
+normalize.py — deterministic typographic normalisation of SROM-MD (kanon §3, §4.1, §7.1).
 
 Only UNAMBIGUOUS transformations are applied; every change is logged (line, rule, before → after).
 Anything that needs judgement is reported as FLAG and left untouched.

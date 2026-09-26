@@ -318,7 +318,7 @@ def main():
     if bib:
         open(base + "_bib.txt", "w", encoding="utf-8").write("\n".join(bib) + "\n")
         extra.append(f"- author's reference list: {len(bib)} entries moved to `{os.path.basename(base)}_bib.txt` (input for refs.json and "
-                     "`cite_map.py audit`). Archival / fieldwork sections (kanon §9 I–III) go back into the text as a `::: {#bibliografia}` block.")
+                     "`cite_map.py audit`). Abbreviation, archival and fieldwork sections (kanon §9.2) go back into the text as a `::: {#bibliografia}` block.")
     if fields["Zotero"] or fields["Mendeley"]:
         harvest(a.docx, lua, a.out, extra)
     if fields["EndNote"]:

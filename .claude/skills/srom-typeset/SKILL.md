@@ -7,7 +7,10 @@ description: Tested toolchain that turns an article for Studia Romologica (SROM)
 
 Priority order: **correct apparatus > nothing silently changed > speed.** Every step is a script with a
 verdict line; nothing goes to InDesign unless `build.py` prints `PASS`. The house rules live in the
-**srom-kanon** skill (RULES.md; its linter is used by the build when installed); this skill implements them.
+**srom-kanon** skill — `references/kanon-redakcyjny.md` (normative, Polish) and `RULES.md` (English digest), same
+§ numbers; this skill implements them and cites them by §, never restates them. srom-kanon is **required**: the build
+runs its linter and fails, saying so, if the skill is missing (looked up next to this skill, in `~/.claude/skills`, or
+`$SROM_KANON`).
 
 Scripts live in `scripts/` next to this file (`S=<skill dir>/scripts`). Requirements: pandoc ≥ 3.1,
 Python ≥ 3.12 with python-docx, lxml, PyMuPDF. Where you run decides the rest:
@@ -68,7 +71,7 @@ translator's query rows) → 7. Never MarkItDown: it loses italics and note mark
   replaced by the short form at build time wherever it would be ambiguous or ungrammatical (inside a
   sentence; next to a literal archival reference in the same or the preceding note); the rest are
   checked for "same column" by `_ibidem.jsx` after layout
-- forbidden forms (op. cit., tamże, idem…) cannot come out of CSL, and the bundled linter fails the
+- forbidden forms (op. cit., tamże, idem…) cannot come out of CSL, and the srom-kanon linter fails the
   build on any in literal notes
 - bibliography sections I–VI assembled, empty ones omitted, renumbered, Polish collation, surnames
   (not particles, not institutions) in the small-caps character style
@@ -112,4 +115,4 @@ styles the spec defines.
 - `references/handoff.md` — what goes to srom-tlumacz and what comes back; the handoff check
 - `references/style-sheet.md` — the house style: every paragraph/character style, hierarchy and values
 - `references/indesign.md` — Word-import preset, template requirements, post-import and Ibidem scripts, first-article verification
-- `references/decisions.md` — decisions where the kanon was silent (for the kanon §17 register)
+- `references/decisions.md` — Kanon rule → implementing file → test; toolchain-only conventions; open items

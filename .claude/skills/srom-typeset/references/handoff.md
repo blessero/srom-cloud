@@ -26,12 +26,12 @@ run through `normalize.py`: Polish typography is applied to the translation, aft
   (kanon § 8: fol. → k., file → sygn., fond → zespół; post-Soviet `f.`, `op.`, `d.`).
 - Paragraph for paragraph: never merge or split paragraphs or notes.
 - Translator's note: label `[^t<n>]`, text ending `– przyp. tłum.`; numbered with the author's notes in print.
-- A citation added to an author's note (e.g. the Polish edition, draft § 12.2.4 a–b): its entry goes in
+- A citation added to an author's note (e.g. the Polish edition, § 12.2.4 a–b): its entry goes in
   `<id>_refs_tlum.json` with `"srom-added": "tlum"` and a non-empty `"srom-source"` (catalogue URL or
   verified ISBN). That marking is the declaration — it survives the Word round trip, unlike comments;
   `<!-- DODANO: @key -->` in the note is still accepted. `cite_map.py audit` skips these entries when
   matching the author's list and fails any without `srom-source`.
-- Translation note on the title (draft § 12.2.3): a `::: przypis-tytulowy` block at the top; set as the
+- Translation note on the title (§ 12.2.3): a `::: przypis-tytulowy` block at the top; set as the
   asterisk note of the title in InDesign.
 - Open items may stay in the text as comments (`<!-- PRZYWRÓCIĆ ORYGINAŁ: … -->`, `<!-- DO SPRAWDZENIA: … -->`):
   in the editor's working copy they become ordinary Word comments. **Nothing in comments blocks anything**:

@@ -85,7 +85,7 @@ def leaves(blocks, kind="p"):
                 out += leaves(it, "li")
         elif t == "Div":
             if b["c"][0][0] in ("refs",) or "przypis-tytulowy" in b["c"][0][1]:
-                continue          # the translation note on the title (kanon draft § 12.2.3) has no source counterpart
+                continue          # the translation note on the title (kanon § 12.2.3) has no source counterpart
             out += leaves(b["c"][1], kind)
     return out
 
@@ -280,7 +280,7 @@ def examples(doc):
 def check_pair(src, tgt, errs, warns, refs=None):
     """source vs translation. Translator notes (label t<n>, or text ending "– przyp. tłum.") and the
     title note (::: przypis-tytulowy) have no source counterpart and are left out of the comparison
-    (IF-TYPESET R1). A citation added in a note (e.g. the Polish edition, draft § 12.2.4 a–b) passes
+    (IF-TYPESET R1). A citation added in a note (e.g. the Polish edition, § 12.2.4 a–b) passes
     only when declared inside that note: <!-- DODANO: @key --> (R2)."""
     SA, TA = ast(src), ast(tgt)
     A, B = leaves(SA["blocks"]), leaves(TA["blocks"])
@@ -307,7 +307,7 @@ def check_pair(src, tgt, errs, warns, refs=None):
         text = " ".join(ser(b["c"]) for b in n if b["t"] in ("Para", "Plain"))
         is_tn = bool(re.fullmatch(r"t\d+", lab)) or bool(TN_FORMULA.search(text))
         if re.fullmatch(r"t\d+", lab) and not TN_FORMULA.search(text):
-            errs.append(f"translator note [^{lab}] does not end with the formula \"– przyp. tłum.\" (draft § 12.2.7)")
+            errs.append(f"translator note [^{lab}] does not end with the formula \"– przyp. tłum.\" (§ 12.2.7)")
         tn_flags.append(is_tn)
     if any(tn_flags):
         warns.append(f"{sum(tn_flags)} translator note(s) left out of the comparison: " +

@@ -195,5 +195,16 @@ check("E6: source label a2 -> printed note 4 (main-text citation and translator 
 code, out, stem, rep = build(md_text="::: przypis-tytulowy\nPrzekład z języka angielskiego: Jan Nowak.\n:::\n\nTekst.\n")
 check("title note: own style, reminder in the report", code == 0 and "asterisk note" in rep, rep[:600])
 
+# kanon §8.6: a URL is plain text, never a hyperlink; §7.4: a note may have several paragraphs (flagged)
+code, out, stem, rep = build(md_text="Zob. [serwis](https://przyklad.pl/tekst) i <https://przyklad.pl/b>[^1].\n\n"
+                                     "[^1]: Pierwszy akapit.\n\n    Drugi akapit przypisu.\n")
+zx = zipfile.ZipFile(os.path.join(out, stem + ".docx"))
+body = zx.read("word/document.xml").decode()
+fnx = zx.read("word/footnotes.xml").decode()
+check("hyperlinks become plain text, URL kept as text (kanon §8.6)", code == 0 and "<w:hyperlink" not in body
+      and "https://przyklad.pl/b" in body and "serwis" in body, rep[:600])
+check("multi-paragraph footnote kept (2 paragraphs) and flagged (kanon §7.4)",
+      fnx.count("Drugi akapit przypisu") == 1 and "multi-paragraph footnote" in rep, rep[:600])
+
 n, ok = len(results), sum(results)
 print(f"E2E ALL PASS {n}/{n}" if ok == n else f"E2E FAILED {n - ok}/{n}")

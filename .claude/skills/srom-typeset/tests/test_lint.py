@@ -1,9 +1,14 @@
-"""G9: the srom-kanon linter (bundled copy) reports zero ERRORs on the rendered sample,
+"""G9: the srom-kanon skill's linter reports zero ERRORs on the rendered sample,
 and — negative control — does report errors on a known-bad text and fails the build."""
 import os, sys, subprocess, tempfile
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FX = os.path.join(ROOT, "tests", "fixtures")
-LINT = os.path.join(ROOT, "scripts", "lint_srom.py")
+sys.path.insert(0, os.path.join(ROOT, "scripts"))
+import kanon_path
+KDIR = kanon_path.find_kanon()
+if not KDIR:
+    print("LINT FAILED — " + kanon_path.MISSING); sys.exit(1)
+LINT = kanon_path.linter(KDIR)
 out = tempfile.mkdtemp()
 subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "build.py"), os.path.join(FX, "sample_article.md"),
                 "--refs", os.path.join(FX, "kanon_refs.json"), "--out", out], capture_output=True)
