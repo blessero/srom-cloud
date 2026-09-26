@@ -81,7 +81,7 @@ Checks run from the repo root. K = .claude/skills/srom-kanon, T = .claude/skills
   EXPECT: /SUITE ALL PASS 1[1-9]\/1[1-9]/
   EVIDENCE: SUITE ALL PASS 11/11
 
-- [ ] Z2: committed, working tree clean
+- [x] Z2: committed, working tree clean
   CHECK: git status --porcelain | wc -l
   EXPECT: /^\s*0\s*$/
-  EVIDENCE: pending
+  EVIDENCE: 0
