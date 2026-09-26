@@ -26,10 +26,8 @@ Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 10/10` (~230 checks, ~30 s
 
 ## 2. Decisions register (`references/decisions.md`)
 
-✔ closed by the editor: 1–19 (incl. 5: only the sections used are printed, without numerals; 7: page-less
-citations never block, listed in the query sheet; 10: numbered lists `1.` allowed; 15: comments never block
-anything). Note: kanon RULES.md as currently in this project is v1.5 and does NOT yet encode these; do not
-sync decisions into it until the editor confirms the kanon is being actively updated (see §5).
+✔ closed by the editor: 1–19 — **since 26.09.2026 in Kanon v1.6** (srom-kanon `references/kanon-redakcyjny.md`,
+§ 17 row 1.6); `decisions.md` is now only a rule → code → test map plus toolchain conventions (15, 18, 19).
 ○ open: **20** handoff rules; **21** house style v2 (in the style discussion, §4); **22** translator additions
 declared by `"srom-added"` in `<id>_refs_tlum.json`.
 
@@ -39,10 +37,14 @@ declared by `"srom-added"` in `<id>_refs_tlum.json`.
    Mac with pandoc 3.8.3 after one fix (the 3.8 DOCX reader put "Table Caption" inside the table caption →
    `docx_in.py` dropped every table caption in the working-copy round trip; fixed, test added). `GATES.md`
    was not in the uploaded archive — the G1–G16 ledger is lost; new gates start in `/GATES.md`.
-2. **srom-kanon / srom-typeset overlap** — recommendation agreed in principle? (see §5) If yes: remove the bundled
-   linter from srom-typeset (require srom-kanon; fail clearly if absent), move closed decisions into kanon RULES,
-   renumber cross-references to RULES numbering, bump RULES header (still says v1.5).
-3. **E8 — asterisk series for non-author notes** (spec §6).
+2. ~~**srom-kanon / srom-typeset overlap**~~ — done 26.09.2026. The Polish Kanon (it existed outside the skills:
+   `0. ASSETS/LLM/Kanon zecera/` 22.09 and `Downloads/srom-kanon 26 Sept/` 26.09 — the newer used) is now
+   `srom-kanon/references/kanon-redakcyjny.md`, **normative, v1.6**: decisions 1–9, 11–14, 16, 17 written into their
+   sections, draft § 12.2 (srom-tlumacz, settled 25.09) incorporated, E8 in § 7.1. `RULES.md` = English digest,
+   renumbered to the Kanon's §§ (it had its own numbering: Cyrillic §10 → § 9.6, captions §11 → § 10 …).
+   srom-typeset: bundled linter removed, `scripts/kanon_path.py` finds srom-kanon, `tests/test_kanon.py` checks
+   versions and that every § cited exists. srom-typeset's § references were Kanon numbers all along — no renumbering.
+3. ~~**E8**~~ — done 26.09.2026 (§6 below: editor ruled *above* the numbered notes, set by hand; style = footnotes).
 4. **House style: reduce the style set** (§4) — editor ran the setup script: it works, but there are too many
    styles for a designer. Discuss first, then change `style_spec.json` (config can map several roles to one style).
 5. **Template → config**: once the style set is settled, fill `config/styles.json` and `template_extra` from the
@@ -108,7 +110,13 @@ Keep two skills, remove the duplication.
   section numbering everywhere (E7). Single bibliography division: heading or not — not covered by RULES (we
   print none).
 
-## 6. E8 — asterisk series for non-author notes (editor's ruling 25.09.2026)
+## 6. E8 — asterisk series for non-author notes (editor's ruling 25.09.2026) — DONE 26.09.2026
+
+Implemented: notes ending `– przyp. tłum./red.` and the title note → `*` in *Odsyłacz gwiazdkowy* at the marker +
+paragraphs in *Przypis gwiazdkowy* (based on *Przypis*) at the end of the DOCX, title note first, each opening `* `;
+no number, no Ibidem in or right after them; checks in the build, `_postimport.jsx`, new `_gwiazdki.jsx`
+(asterisks per page after layout). Editor's answers: **above** the numbered notes, placed by hand; same style
+as footnotes. Original spec kept below for the record.
 
 Title note, translator notes (`– przyp. tłum.`) and editorial notes (`– przyp. red.`) form one series marked
 *, **, *** …, restarting on each page; on the first page the title note takes the first *. Not numbered with the
@@ -126,8 +134,14 @@ author's notes.
 ## 7. Pending for the editor
 
 1. Decide 20, 22; 21 in the style discussion (§4).
-2. Kanon: normative text + version + numbering (§5); confirm the two-skill recommendation.
-3. Relay to srom-tlumacz: E1–E6 done; additions declared via `"srom-added"`; comments never block; E8 queued
-   on the srom-typeset side.
+2. ~~Kanon: normative text + version + numbering~~ — settled 26.09 (Kanon v1.6 in srom-kanon is master). To check in
+   the Kanon diff (commit 97b846e): the Polish wording of the 1.6 additions; whether v1.6 still applies "od tomu 19/2026";
+   the new rule "no Ibidem in / right after a non-author note" (mine, following from E8); the stale 22.09 copy in
+   `0. ASSETS/LLM/Kanon zecera/` (replace or mark superseded).
+3. Relay to srom-tlumacz: E1–E6 done; additions declared via `"srom-added"`; comments never block; **E8 done**
+   (editorial notes `[^r<n>]` + `– przyp. red.`; label and formula must agree; the formula must END the note —
+   `[… – przyp. tłum.]` inside an author's note stays an author's note; translator notes take no printed number,
+   so query rows on them get `*`). `tlumacz-test_handoff.py` should get cases for r-notes and the bracket form.
+   Its draft `kanon-12-2-przeklady-PROJEKT.md` is now in the Kanon (§ 12.2) — the Kanon copy governs.
 4. After the style discussion: the cleaned template as IDML.
 5. First real article → G12 checklist.
