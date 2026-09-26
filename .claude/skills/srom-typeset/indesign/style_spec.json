@@ -6,7 +6,8 @@
     {"name": "Kapitaliki", "props": {"capitalization": "SMALL_CAPS"}, "note": "surnames in the bibliography (typed in normal case)"},
     {"name": "Kapitaliki – glosa", "props": {"capitalization": "CAP_TO_SMALL_CAP"}, "note": "gloss categories 1SG.NOM (typed in capitals); applied by GREP"},
     {"name": "Mówca – etykieta", "props": {"fontStyle": "Bold"}, "note": "speaker label in a dialogue; applied by the build (Word forbids one name for a paragraph and a character style)"},
-    {"name": "Bez podziału", "props": {"noBreak": true}, "old": ["NO BREAK"], "note": "non-breaking spaces (kanon §3.3); applied by GREP"}
+    {"name": "Bez podziału", "props": {"noBreak": true}, "old": ["NO BREAK"], "note": "non-breaking spaces (kanon §3.3); applied by GREP"},
+    {"name": "Odsyłacz gwiazdkowy", "props": {"position": "SUPERSCRIPT"}, "note": "asterisk marker of a non-author note in the text (kanon § 7.1); the build types one * — set the count per page"}
   ],
   "base": {"name": "Podstawa", "props": {"appliedFont": "Cambria", "fontStyle": "Regular", "pointSize": 10.5, "leading": 13,
            "appliedLanguage": "Polish", "justification": "LEFT_JUSTIFIED", "hyphenation": true, "hyphenateAfterFirst": 3,
@@ -27,8 +28,7 @@
       {"name": "Afiliacja", "basedOn": "Podstawa", "props": {"justification": "LEFT_ALIGN", "hyphenation": false, "gridAlignment": "NONE", "spaceAfter": 13}, "note": "roman: kanon — no italics for proper names"},
       {"name": "Abstrakt – nagłówek", "basedOn": "Podstawa", "old": ["Abstrakt tytul"], "props": {"pointSize": 10, "capitalization": "ALL_CAPS", "tracking": 50, "justification": "LEFT_ALIGN", "hyphenation": false, "gridAlignment": "NONE", "spaceBefore": 13}},
       {"name": "Abstrakt", "basedOn": "Podstawa", "old": ["Abstrakt", "Abstrakt ang"], "props": {"pointSize": 10, "leading": 12.5, "gridAlignment": "NONE"}},
-      {"name": "Słowa kluczowe", "basedOn": "Abstrakt", "props": {"spaceBefore": 6.5}},
-      {"name": "Przypis do tytułu", "basedOn": "Podstawa", "props": {"pointSize": 9, "leading": 10.8, "gridAlignment": "NONE"}, "note": "asterisk note of the title, placed by hand on the first page"}
+      {"name": "Słowa kluczowe", "basedOn": "Abstrakt", "props": {"spaceBefore": 6.5}}
     ]},
     {"name": "2 Tekst", "styles": [
       {"name": "Tekst", "basedOn": "Podstawa", "old": ["Tekst"], "props": {"firstLineIndent": 11.34}},
@@ -65,8 +65,9 @@
       {"name": "Bibliografia", "basedOn": "Podstawa", "old": ["Literatura"], "props": {"pointSize": 10, "leftIndent": 11.34, "firstLineIndent": -11.34}},
       {"name": "Nota o autorze", "basedOn": "Podstawa", "props": {"pointSize": 9, "leading": 11, "gridAlignment": "NONE", "spaceBefore": 13}}
     ]},
-    {"name": "7 Przypisy", "keep_as_is": true, "styles": [
-      {"name": "Przypis", "old": ["Przypis"], "props": {}, "note": "footnotes: definition left as it is (handled separately)"}
+    {"name": "7 Przypisy", "styles": [
+      {"name": "Przypis", "keep_as_is": true, "old": ["Przypis"], "props": {}, "note": "footnotes: definition left as it is (handled separately)"},
+      {"name": "Przypis gwiazdkowy", "basedOn": "Przypis", "old": ["Przypis do tytułu"], "props": {}, "note": "non-author notes — title note, przyp. tłum., przyp. red. — one asterisk series *, **, … per page, set by hand ABOVE the numbered notes (kanon § 7.1); same values as Przypis"}
     ]},
     {"name": "8 Strona", "styles": [
       {"name": "Pagina", "basedOn": "Podstawa", "props": {"pointSize": 8, "justification": "LEFT_ALIGN", "hyphenation": false, "gridAlignment": "NONE"}, "note": "running head (now [Basic Paragraph] + overrides on the masters)"},

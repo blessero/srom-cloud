@@ -19,7 +19,7 @@ style sets them (kanon §3.3), and `normalize.py` turns stray nbsp into plain sp
 | italics | `*…*`; a title inside an italic title: `*Tytuł _wewnętrzny_ tomu*` → inner run roman + warning | character style italic |
 | small caps | `[Ficowski]{.smallcaps}` | character style smallcaps |
 | bold, underline | not used (kanon §3.4) — removed with a warning | — |
-| special paragraph | `::: podpis` … `:::` (also `tabela-tytul`, `tabela-zrodlo`, `nota`, `bez-wciecia`, `przypis-tytulowy`) | caption / table_title / table_source / author_note / body_first / title_note (asterisk note of the title, placed by hand on the first page) |
+| special paragraph | `::: podpis` … `:::` (also `tabela-tytul`, `tabela-zrodlo`, `nota`, `bez-wciecia`, `przypis-tytulowy`) | caption / table_title / table_source / author_note / body_first / asterisk_note (the title note: first note of the asterisk series, see Notes) |
 | motto (opening quotation) | `::: motto` … `:::`; optional source line in `::: motto-zrodlo` | Motto (italic; titles inside turn roman) / Motto – źródło; the next paragraph starts unindented |
 | dialogue inside an article (interview, hearing) | `::: dialog` with one turn per paragraph: `Przewodniczący Coe: Na jakim statku…`; a turn without "Name:" continues the previous speaker; stage directions typed in capitals: `[POPRZEDNIA DECYZJA PODTRZYMANA]` | Dialog; "Name:" gets the character style Mówca – etykieta automatically |
 | transcript (conference, discussion) | `::: mowca` with the name on line 1 and the affiliation on line 2 (no blank line between), then the speech as ordinary paragraphs | Mówca / Mówca – afiliacja; the speech starts unindented |
@@ -35,9 +35,13 @@ style sets them (kanon §3.3), and `normalize.py` turns stray nbsp into plain sp
 - Definition: `[^n]: …` directly under the paragraph that contains the marker (keeps chunks
   self-contained for translation). Continuation paragraphs indented by 4 spaces (warned: rare in SROM).
 - Labels just need to be unique; pandoc numbers notes by order of appearance.
-- Translator's note (srom-tlumacz): label `[^t1]`, `[^t2]` …, text ending `– przyp. tłum.`; printed in the
-  one continuous sequence. A citation the translator adds to an author's note is declared in that note:
-  `<!-- DODANO: @key -->` (see `handoff.md`).
+- Non-author notes (kanon § 7.1): translator's `[^t1]` … ending `– przyp. tłum.`, editorial `[^r1]` … ending
+  `– przyp. red.` (a note ending with the formula counts even with another label; `[^t…]`/`[^r…]` without it is
+  an error). With the title note (`::: przypis-tytulowy`) they are one asterisk series, not Word footnotes:
+  the build puts a `*` in character style asterisk_ref at the marker and the note, opening `* `, in
+  asterisk_note at the end of the DOCX (title note first). The typesetter sets them above the numbered notes
+  and the asterisks per page (`_gwiazdki.jsx`). No Ibidem in them or in the author's note right after one.
+  A citation the translator adds to an author's note is declared (see `handoff.md`).
 
 ## Citations inside notes
 

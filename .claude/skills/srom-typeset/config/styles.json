@@ -20,7 +20,7 @@
     "example_gloss": "Przykład – glosa",
     "example_trans": "Przykład – przekład",
     "table_source": "Tabela – źródło",
-    "title_note": "Przypis do tytułu",
+    "asterisk_note": "Przypis gwiazdkowy",
     "list_numbered": "Wyliczenie numerowane",
     "motto": "Motto",
     "motto_source": "Motto – źródło",
@@ -35,7 +35,7 @@
     "nota": "author_note",
     "bez-wciecia": "body_first",
     "tabela-zrodlo": "table_source",
-    "przypis-tytulowy": "title_note",
+    "przypis-tytulowy": "asterisk_note",
     "motto": "motto",
     "motto-zrodlo": "motto_source"
   },
@@ -43,7 +43,8 @@
     "italic": "Kursywa",
     "smallcaps": "Kapitaliki",
     "speaker": "Mówca – etykieta",
-    "roman": "Proste"
+    "roman": "Proste",
+    "asterisk_ref": "Odsyłacz gwiazdkowy"
   },
   "template_extra": {
     "_comment": "template styles the DOCX never uses (placed or applied by hand / by GREP)",

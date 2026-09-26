@@ -1,4 +1,4 @@
-"""G10: render both InDesign script templates with realistic data (incl. Polish diacritics,
+"""G10: render the per-article InDesign script templates (Ibidem, post-import, asterisk series) with realistic data (incl. Polish diacritics,
 quotes, asterisks) and check they are valid ES3 for ExtendScript."""
 import os, sys, json, subprocess, tempfile
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -8,7 +8,7 @@ cfg = json.load(open(os.path.join(ROOT, "config", "styles.json"), encoding="utf-
 out = tempfile.mkdtemp()
 rows = [(2, "*Ibidem*, s. 17.", "Ficowski, *Cyganie na polskich drogach…*, s. 17."),
         (12, "*Ibidem*, s. 5; „Studia”", "Mróz, *Tytuł \"x\"*, s. 5; „Studia”")]
-build.write_jsx(rows, 40, cfg, out, "t")
+build.write_jsx(rows, 40, cfg, out, "t", ["* Pierwodruk: „Tytuł” \"x\" żółć", "* Uwaga – przyp. tłum."], True)
 files = [os.path.join(out, f) for f in sorted(os.listdir(out))]
 r = subprocess.run(["node", os.path.join(ROOT, "tests", "es3check.mjs"), *files], capture_output=True, text=True)
 print(r.stdout + r.stderr)

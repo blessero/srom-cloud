@@ -69,11 +69,25 @@ t("merged/dropped paragraph -> structure ERROR", c == 1 and ("block structure di
 # ---- IF-TYPESET R1/R2 (srom-tlumacz contract) and the title note
 TN = TGT.replace("i ponownie później[^3].", "i ponownie później[^3].[^t1]") + "\n[^t1]: Wyjaśnienie tłumacza – przyp. tłum.\n"
 c, o = run("--pair", s, w("r1.md", TN))
-t("R1: translator note [^t1] ending '– przyp. tłum.' left out of the comparison", c == 0 and "translator note" in o, o)
+t("R1: translator note [^t1] ending '– przyp. tłum.' left out of the comparison", c == 0 and "translator/editorial note" in o, o)
 c, o = run("--pair", s, w("r1b.md", TGT.replace("i ponownie później[^3].", "i ponownie później[^3].[^9]") + "\n[^9]: Uwaga – przyp. tłum.\n"))
 t("R1: translator note recognised by its formula alone (label lost in Word)", c == 0, o)
 c, o = run("--pair", s, w("r1c.md", TN.replace("Wyjaśnienie tłumacza – przyp. tłum.", "Wyjaśnienie tłumacza.")))
-t("R1: [^t1] without the formula -> ERROR", c == 1 and "does not end with the formula" in o, o)
+t("R1: [^t1] without the formula -> ERROR", c == 1 and "must end with the formula" in o, o)
+# E8 (kanon § 7.1): editorial notes [^r<n>] "– przyp. red." join the non-author series; the formula must END the note
+RN = TGT.replace("i ponownie później[^3].", "i ponownie później[^3].[^r1]") + "\n[^r1]: Uwaga redakcji – przyp. red.\n"
+c, o = run("--pair", s, w("e8a.md", RN))
+t("E8: editorial note [^r1] '– przyp. red.' left out of the comparison", c == 0 and "translator/editorial note" in o, o)
+c, o = run("--pair", s, w("e8b.md", RN.replace("Uwaga redakcji – przyp. red.", "Uwaga redakcji.")))
+t("E8: [^r1] without its formula -> ERROR", c == 1 and "[^r1] must end with the formula \"– przyp. red.\"" in o, o)
+c, o = run("--pair", s, w("e8c.md", TN.replace("– przyp. tłum.", "– przyp. red.")))
+t("E8: [^t1] closed by the editorial formula -> ERROR (label and formula must agree)", c == 1 and "[^t1] must end" in o, o)
+c, o = run(w("e8d.md", RN.replace("Uwaga redakcji – przyp. red.", "Uwaga redakcji.")))
+t("E8: single-file check catches [^r1] without formula too", c == 1 and "[^r1] must end" in o, o)
+BR = TGT.replace("zob. też [@mroz2011, s. 90].", "zob. też [@mroz2011, s. 90] [zob. też wydanie polskie, s. 45 – przyp. tłum.]")
+c, o = run("--pair", s, w("e8e.md", BR))
+t("E8: '[… – przyp. tłum.]' closing an AUTHOR's note keeps it an author's note (compared, not left out)",
+  BR != TGT and c == 0 and "left out of the comparison" not in o, o)
 ADD = TGT.replace("[^1]: [@ficowski1985, s. 15].", "[^1]: [@ficowski1985, s. 15]; wyd. pol. [@mroz2011, s. 3]. <!-- DODANO: @mroz2011 -->")
 c, o = run("--pair", s, w("r2.md", ADD))
 t("R2: added citation declared with <!-- DODANO: @key --> passes", c == 0, o)

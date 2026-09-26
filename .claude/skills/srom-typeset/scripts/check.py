@@ -189,6 +189,8 @@ def check_single(path, refs, errs, warns):
         errs.append(f"note definition [^{k}] is never referenced (orphan)")
     for k, v in Counter(refs_).items():
         if v > 1: errs.append(f"note marker [^{k}] used {v}× (each note needs its own label)")
+    for lab, txt in note_defs(body).items():
+        errs += label_errors(lab, txt)
 
     doc = ast(path)
     keys = cites_in(doc["blocks"])
@@ -234,7 +236,29 @@ def check_single(path, refs, errs, warns):
 
 
 # ---------------------------------------------------------------- pair
-TN_FORMULA = re.compile(r"przyp\.\s*tłum\.\s*\]?\s*\.?\s*$")
+# non-author notes (kanon § 7.1): translator's "… – przyp. tłum.", editorial "… – przyp. red." — the formula must END
+# the note; "[… – przyp. tłum.]" at the end is a translator's addition inside an AUTHOR's note (§ 12.2.7) and stays one
+NA_FORMULA = re.compile(r"[–-]\s*przyp\.\s*(tłum|red)\.\s*$")
+NA_LABEL = re.compile(r"([tr])\d+")
+
+
+def na_kind(text):
+    """"tłum" / "red" if the note text ends with the non-author formula, else None"""
+    m = NA_FORMULA.search((text or "").strip())
+    return m.group(1) if m else None
+
+
+def label_kind(lab):
+    """label t<n> -> "tłum", r<n> -> "red", else None"""
+    m = NA_LABEL.fullmatch(lab or "")
+    return {"t": "tłum", "r": "red"}[m.group(1)] if m else None
+
+
+def label_errors(lab, text):
+    k = label_kind(lab)
+    if k and na_kind(text) != k:
+        return [f"note [^{lab}] must end with the formula \"– przyp. {k}.\" (kanon § 7.1)"]
+    return []
 DODANO = re.compile(r"<!--\s*DODANO:\s*(.*?)-->", re.S)
 
 
@@ -278,7 +302,8 @@ def examples(doc):
 
 
 def check_pair(src, tgt, errs, warns, refs=None):
-    """source vs translation. Translator notes (label t<n>, or text ending "– przyp. tłum.") and the
+    """source vs translation. Translator and editorial notes (label t<n>/r<n>, or text ending "– przyp. tłum."/
+    "– przyp. red.") and the
     title note (::: przypis-tytulowy) have no source counterpart and are left out of the comparison
     (IF-TYPESET R1). A citation added in a note (e.g. the Polish edition, § 12.2.4 a–b) passes
     only when declared inside that note: <!-- DODANO: @key --> (R2)."""
@@ -305,17 +330,16 @@ def check_pair(src, tgt, errs, warns, refs=None):
     for j, n in enumerate(nb_raw):
         lab = labels[j] if j < len(labels) else ""
         text = " ".join(ser(b["c"]) for b in n if b["t"] in ("Para", "Plain"))
-        is_tn = bool(re.fullmatch(r"t\d+", lab)) or bool(TN_FORMULA.search(text))
-        if re.fullmatch(r"t\d+", lab) and not TN_FORMULA.search(text):
-            errs.append(f"translator note [^{lab}] does not end with the formula \"– przyp. tłum.\" (§ 12.2.7)")
+        is_tn = bool(label_kind(lab) or na_kind(text))
+        errs += label_errors(lab, text)
         tn_flags.append(is_tn)
     if any(tn_flags):
-        warns.append(f"{sum(tn_flags)} translator note(s) left out of the comparison: " +
+        warns.append(f"{sum(tn_flags)} translator/editorial note(s) left out of the comparison: " +
                      ", ".join(str(j + 1) for j, f in enumerate(tn_flags) if f) + " (target numbering)")
     nb_all = [n for n, f in zip(nb_raw, tn_flags) if not f]
     nb_labels = [labels[j] if j < len(labels) else "" for j, f in enumerate(tn_flags) if not f]
     if len(na_all) != len(nb_all):
-        errs.append(f"note count differs: source {len(na_all)} / target {len(nb_all)} (translator notes excluded)")
+        errs.append(f"note count differs: source {len(na_all)} / target {len(nb_all)} (translator/editorial notes excluded)")
     for i, (x, y) in enumerate(zip(na_all, nb_all), 1):
         ks, kt = cites_in(x), cites_in(y)
         declared = []
@@ -363,8 +387,8 @@ def check_pair(src, tgt, errs, warns, refs=None):
 
 def printed_numbers(src, tgt):
     """{source note label: printed footnote number in the target} — the alignment --pair uses. Printed
-    numbering counts every note in reading order, incl. notes made from citations typed in the main text
-    and translator notes."""
+    numbering counts the author's notes in reading order, incl. notes made from citations typed in the main
+    text; translator/editorial notes are the asterisk series (kanon § 7.1) and take no number."""
     s_labels = marker_labels(open(src, encoding="utf-8").read())
     raw_t = open(tgt, encoding="utf-8").read()
     TA = ast(tgt)
@@ -375,18 +399,23 @@ def printed_numbers(src, tgt):
         elif isinstance(x, dict):
             t = x.get("t")
             if t == "Note" and not in_note:
-                n[0] += 1; pos.append((n[0], x["c"])); return
+                pos.append(x["c"]); return
             if t == "Cite" and not in_note:
-                n[0] += 1; return
+                pos.append(None); return
             if "c" in x: walk(x["c"], in_note)
     walk(TA["blocks"], False)
     t_labels = marker_labels(raw_t)
-    keep = []
-    for j, (num, content) in enumerate(pos):
+    keep, j = [], 0
+    for content in pos:
+        if content is None:          # a citation in the main text: citeproc makes it a numbered note
+            n[0] += 1
+            continue
         lab = t_labels[j] if j < len(t_labels) else ""
+        j += 1
         text = " ".join(ser(b["c"]) for b in content if b["t"] in ("Para", "Plain"))
-        if not (re.fullmatch(r"t\d+", lab) or TN_FORMULA.search(text)):
-            keep.append(num)
+        if not (label_kind(lab) or na_kind(text)):
+            n[0] += 1
+            keep.append(n[0])
     return {lab: keep[i] for i, lab in enumerate(s_labels) if i < len(keep)}
 
 

@@ -15,6 +15,20 @@ local function err(m) io.stderr:write("SROM-ERROR: " .. m .. "\n"); nerr = nerr 
 local function short(inls) local s = stringify(inls); return (#s > 70) and (s:sub(1, 70) .. "…") or s end
 
 local function cstyle(name) return pandoc.Attr("", {}, {{"custom-style", name}}) end
+
+-- non-author note (kanon § 7.1): its text ENDS with "– przyp. tłum." or "– przyp. red." (as check.py na_kind);
+-- "[… – przyp. tłum.]" closing an author's note is an addition inside that note and does not count
+local function is_nonauthor(blocks)
+  local s = stringify(blocks):gsub("%s+$", "")
+  for _, f in ipairs({"przyp%.%s*tłum%.$", "przyp%.%s*red%.$"}) do
+    local i = s:find(f)
+    if i then
+      local before = s:sub(1, i - 1):gsub("%s+$", "")
+      if before:sub(-3) == "–" or before:sub(-1) == "-" then return true end
+    end
+  end
+  return false
+end
 local function styled_para(inls, style) return pandoc.Div({pandoc.Para(inls)}, cstyle(style)) end
 
 ---------------------------------------------------------------- pass A: config
@@ -164,12 +178,14 @@ end
 local note_no = 0
 local function clean(s) return (s:gsub("[\t\n]", " ")) end
 
-local function record(kind, keys, context)
-  io.stderr:write("SROM-NOPAGE: " .. note_no .. "\t" .. kind .. "\t" .. table.concat(keys, " ") .. "\t" .. clean(context) .. "\n")
+local function record(kind, keys, context, label)
+  io.stderr:write("SROM-NOPAGE: " .. (label or note_no) .. "\t" .. kind .. "\t" .. table.concat(keys, " ") .. "\t" .. clean(context) .. "\n")
 end
 
 local function whole_work(blocks, quoted, context, outer)
-  note_no = note_no + 1
+  -- printed numbering counts the author's notes only; a non-author note is reported as "*"
+  local label = nil
+  if not outer and is_nonauthor(blocks) then label = "*" else note_no = note_no + 1 end
   if outer then
     -- a note that citeproc generated from a citation typed in the main text: the note holds the
     -- rendered citation itself, the Cite element (outer) sits around the Note
@@ -197,7 +213,7 @@ local function whole_work(blocks, quoted, context, outer)
         if has_brak(el.content) then
           local keys = {}
           for _, c in ipairs(el.citations) do table.insert(keys, c.id) end
-          record((quoted and k == 1 and not see) and "quote" or "work", keys, context)
+          record((quoted and k == 1 and not see) and "quote" or "work", keys, context, label)
           el.content = pandoc.walk_inline(pandoc.Span(el.content), {Inlines = drop_brak_strony}).content
         end
         before = before .. " " .. stringify(el.content)
@@ -552,12 +568,52 @@ process = function(blocks, ctx)
   return out
 end
 
+---------------------------------------------------------------- pass F: the asterisk series (kanon § 7.1)
+-- Non-author notes (translator's, editorial) and the title note (::: przypis-tytulowy) are one series *, **, …
+-- restarting on every page, set ABOVE the numbered notes. An InDesign story has a single footnote sequence, so
+-- they cannot be Word footnotes: in the text a placeholder "*" in the character style asterisk_ref; the notes
+-- themselves as paragraphs in asterisk_note at the end of the document, the title note first, each opening
+-- with "* ". The typesetter moves them into place and sets the asterisks per page (_gwiazdki.jsx lists them).
+local function asterisk_series(doc)
+  local title, notes, body = pandoc.List(), pandoc.List(), pandoc.List()
+  for _, b in ipairs(doc.blocks) do
+    if b.t == "Div" and has_class(b, "przypis-tytulowy") then title:insert(b.content) else body:insert(b) end
+  end
+  body = pandoc.Blocks(body):walk({
+    Note = function(n)
+      if is_nonauthor(n.content) then
+        notes:insert(n.content)
+        return pandoc.Span({pandoc.Str("*")}, cstyle(C.asterisk_ref))
+      end
+    end,
+  })
+  local function paras(blocks)
+    local out = pandoc.List()
+    for _, b in ipairs(blocks) do
+      if b.t == "Para" or b.t == "Plain" then
+        local inls = pandoc.List()
+        if #out == 0 then inls:extend({pandoc.Str("*"), pandoc.Space()}) end
+        inls:extend(unbreak(b.content))
+        out:insert(styled_para(inls, P.asterisk_note))
+      else
+        err("unsupported block in a non-author note: " .. b.t)
+      end
+    end
+    return out
+  end
+  for _, t in ipairs(title) do body:extend(paras(t)) end
+  for _, n in ipairs(notes) do body:extend(paras(n)) end
+  doc.blocks = body
+  return doc
+end
+
 return {
   { Meta = load_cfg },
   { Pandoc = function(doc) doc.blocks = scan_blocks(doc.blocks, false); return doc end },
   { Note = fix_note_cites },
   inline_pass,
   { Note = style_note },
+  { Pandoc = asterisk_series },
   { Pandoc = function(doc)
       doc.blocks = process(doc.blocks, {mode = "body"})
       if nerr > 0 then error("SROM: " .. nerr .. " error(s) — see SROM-ERROR lines") end

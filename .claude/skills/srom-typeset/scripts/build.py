@@ -9,6 +9,7 @@ Outputs in --out:
     <stem>_report.md            what was built, warnings, flags, verification results
     <stem>_postimport.jsx       run right after placing the DOCX: styles/overrides/footnote count
     <stem>_ibidem.jsx           run after final layout: Ibidem on the same column as the preceding note (§7.3)
+    <stem>_gwiazdki.jsx         (only with non-author notes) after layout: asterisks per page for the * series (§7.1)
     <stem>.txt                  plain text (for linting / proofreading diff)
 
 Exit code 1 = verification failed (do not typeset). Placeholders [BRAK …] fail the build unless --draft.
@@ -21,6 +22,7 @@ CSL = os.path.join(ROOT, "csl", "srom.csl")
 LUA = os.path.join(ROOT, "lua", "srom_post.lua")
 JSX_TPL = os.path.join(ROOT, "indesign", "srom_ibidem_check.jsx.tpl")
 POSTIMPORT_TPL = os.path.join(ROOT, "indesign", "srom_postimport.jsx.tpl")
+ASTERISK_TPL = os.path.join(ROOT, "indesign", "srom_gwiazdki.jsx.tpl")
 FROM = ("markdown-smart-superscript-subscript-strikeout-raw_html-raw_tex-tex_math_dollars"
         "-implicit_figures-fancy_lists-example_lists-task_lists-auto_identifiers")
 SECTIONS = OrderedDict([("I", "Wykaz skrótów"), ("II", "Źródła archiwalne"), ("III", "Źródła terenowe"),
@@ -166,6 +168,8 @@ def make_reference_docx(cfg, path):
             st.font.italic = True
         if key == "smallcaps":
             st.font.small_caps = True
+        if key == "asterisk_ref":
+            st.font.superscript = True
     d.save(path)
     os.remove(tmp)
 
@@ -355,7 +359,8 @@ def postprocess_docx(path, cfg, report):
     return id2name
 
 
-def verify_docx(path, cfg, id2name, expected_notes, report):
+def verify_docx(path, cfg, id2name, expected_notes, report, expected_ast=(0, 0)):
+    """expected_ast: (non-author notes, title notes) — the asterisk series (kanon § 7.1)"""
     from lxml import etree
     z = zipfile.ZipFile(path)
     allowed_p = set(cfg["paragraph"].values())
@@ -402,6 +407,23 @@ def verify_docx(path, cfg, id2name, expected_notes, report):
         res.append(("no leading space in notes", lead == 0, f"{lead} notes start with a space"))
         empty_first = sum(1 for f in notes if not "".join(t.text or "" for t in f.find(W + "p").iter(W + "t")).strip())
         res.append(("footnote number not in an empty paragraph", empty_first == 0, f"{empty_first}"))
+        sys.path.insert(0, os.path.join(ROOT, "scripts"))
+        import check as integrity
+        na_in = [i for i, f in enumerate(notes, 1)
+                 if integrity.na_kind("".join(t.text or "" for t in f.iter(W + "t")))]
+        res.append(("no translator/editorial note among the numbered footnotes (§7.1)", not na_in, f"footnotes {na_in}"))
+    n_na, n_title = expected_ast
+    ast_ref, ast_note = cfg["character"]["asterisk_ref"], cfg["paragraph"]["asterisk_note"]
+    marks = sum(1 for r in doc.iter(W + "rStyle") if id2name.get(r.get(W + "val"), r.get(W + "val")) == ast_ref)
+    heads = 0
+    for p in doc.iter(W + "p"):
+        ps = p.find(W + "pPr/" + W + "pStyle")
+        if ps is not None and id2name.get(ps.get(W + "val"), ps.get(W + "val")) == ast_note \
+                and "".join(t.text or "" for t in p.iter(W + "t")).startswith("* "):
+            heads += 1
+    res.append(("asterisk markers in the text = translator/editorial notes", marks == n_na, f"markers {marks} / notes {n_na}"))
+    res.append(("asterisk notes at the end = notes + title note", heads == n_na + n_title,
+                f"'{ast_note}' notes {heads} / expected {n_na} + {n_title}"))
     hl = len(list(doc.iter(W + "hyperlink"))) + (len(list(fn.iter(W + "hyperlink"))) if fn is not None else 0)
     res.append(("no hyperlinks", hl == 0, f"{hl}"))
     def wt(root):
@@ -450,7 +472,7 @@ def write_queries(outdir, stem, nopage, notes, refs, cited, cite_count, refs_pat
     def cut(t, n=110):
         return t if len(t) <= n else t[:n] + "…"
     for no, kind, keys, ctx in nopage:
-        note = notes[no - 1] if 0 < no <= len(notes) else ""
+        note = notes[no - 1] if isinstance(no, int) and 0 < no <= len(notes) else ""
         if kind == "quote":
             rows.append(("autor", "cytat bez numeru strony — prosimy o stronę", str(no), keys, f"…{ctx[-80:]} | przypis: {cut(note)}"))
         else:
@@ -493,8 +515,9 @@ def write_queries(outdir, stem, nopage, notes, refs, cited, cite_count, refs_pat
         report["warnings"].append(f"query sheet {stem}_pytania.md: " + ", ".join(f"{v}× {k}" for k, v in q.items()))
 
 
-def write_jsx(rows, total, cfg, outdir, stem):
-    """Per-article InDesign scripts (report-only): Ibidem column check + post-import check."""
+def write_jsx(rows, total, cfg, outdir, stem, ast_texts=(), title=False):
+    """Per-article InDesign scripts (report-only): Ibidem column check + post-import check; with non-author
+    notes also the asterisk-series list (ast_texts: the notes in order, each "* …", title note first if title)."""
     def js(x):
         return json.dumps(x, ensure_ascii=True)
     body = ",\n".join(f"  {i}: {{ibid: {js(x)}, full: {js(y)}}}" for i, x, y in rows)
@@ -505,8 +528,20 @@ def write_jsx(rows, total, cfg, outdir, stem):
     para = [v for k, v in cfg["paragraph"].items()] + list(extra.get("paragraph", []))
     char = [v for k, v in cfg["character"].items()] + list(extra.get("character", []))
     tpl = open(POSTIMPORT_TPL, encoding="utf-8").read()
-    open(os.path.join(outdir, stem + "_postimport.jsx"), "w", encoding="utf-8").write(
-        tpl.replace("/*TOTAL*/", str(total)).replace("/*PARA*/", js(para)).replace("/*CHAR*/", js(char)))
+    n_marks = len(ast_texts) - (1 if title else 0)
+    ast = {"/*ASTCHAR*/": js(cfg["character"]["asterisk_ref"]), "/*ASTPARA*/": js(cfg["paragraph"]["asterisk_note"]),
+           "/*ASTMARKS*/": str(n_marks), "/*ASTNOTES*/": str(len(ast_texts))}
+    tpl = tpl.replace("/*TOTAL*/", str(total)).replace("/*PARA*/", js(para)).replace("/*CHAR*/", js(char))
+    for k, v in ast.items():
+        tpl = tpl.replace(k, v)
+    open(os.path.join(outdir, stem + "_postimport.jsx"), "w", encoding="utf-8").write(tpl)
+    if ast_texts:
+        tpl = open(ASTERISK_TPL, encoding="utf-8").read()
+        for k, v in ast.items():
+            tpl = tpl.replace(k, v)
+        tpl = tpl.replace("/*TITLE*/", "true" if title else "false").replace(
+            "/*NOTES*/", ",\n".join("  " + js(t[:70]) for t in ast_texts))
+        open(os.path.join(outdir, stem + "_gwiazdki.jsx"), "w", encoding="utf-8").write(tpl)
 
 
 # ------------------------------------------------------------------ main
@@ -607,10 +642,12 @@ def main():
             report["errors"].append(ln[11:].strip())
         elif ln.startswith("SROM-NOPAGE:"):
             f = ln[12:].strip().split("\t")
-            nopage.append((int(f[0]), f[1], f[2], f[3] if len(f) > 3 else ""))
+            nopage.append((int(f[0]) if f[0].isdigit() else f[0], f[1], f[2], f[3] if len(f) > 3 else ""))
         elif ln.strip() and "SROM:" not in ln:
             report["errors"].append("pandoc: " + ln.strip())
     notes, rows, forced, literal_ibid = [], [], [], []
+    n_na, ast_texts = 0, []
+    n_title = 1 if re.search(r"^:::\s*\{?\.?przypis-tytulowy", md_text, re.M) else 0
     ok = False
     if code:
         report["errors"].append("pandoc/Lua filter failed — DOCX not produced")
@@ -618,7 +655,18 @@ def main():
         A = json.loads(out_a)
         B, _ = pandoc_json(comp_path, base + ["--csl", noibid_csl(work)])
         na, nb = notes_text(A), notes_text(B)
-        pre = pre_notes(pandoc_json(comp_path)[0])
+        pre_all = pre_notes(pandoc_json(comp_path)[0])
+        # §7.1 non-author notes (– przyp. tłum./red.) leave the numbered sequence (Lua pass F); remember which
+        # numbered note follows one: citeproc computed its Ibidem against the non-author note
+        pre, after_na, prev_na = [], [], False
+        for p_ in pre_all:
+            if integrity.na_kind(p_):
+                prev_na = True
+                continue
+            pre.append(p_)
+            after_na.append(prev_na)
+            prev_na = False
+        n_na = len(pre_all) - len(pre)
         if len(pre) != len(na):
             report["errors"].append(f"internal: note sequence mismatch ({len(pre)} before / {len(na)} after citeproc)")
         # §7.3 Ibidem: kept only where it is unambiguous and grammatical; else the short form is printed
@@ -629,9 +677,11 @@ def main():
                 not re.search(r"(?:; |[Zz]ob\. (?:też )?|[Pp]or\. (?:też )?|np\. )\*Ibidem\*", x)
             prev_extra = i >= 2 and i - 2 < len(pre) and extra_source(pre[i - 2])
             cur_extra = i - 1 < len(pre) and extra_source(pre[i - 1])
-            if mid or prev_extra or cur_extra:
+            after = i - 1 < len(after_na) and after_na[i - 1]
+            if mid or prev_extra or cur_extra or after:
                 why = ("Ibidem inside a sentence" if mid else "previous note also cites another (literal) source" if prev_extra
-                       else "this note also cites another (literal) source before it")
+                       else "this note also cites another (literal) source before it" if cur_extra
+                       else "the note before it in the text is a non-author (asterisk) note")
                 forced.append((i, x, y, why))
             else:
                 rows.append((i, x, y))
@@ -640,6 +690,15 @@ def main():
             nda, ndb = note_dicts(A), note_dicts(B)
             for i, _, _, _ in forced:
                 nda[i - 1]["c"] = ndb[i - 1]["c"]
+        # §7.3: no Ibidem inside a non-author note (it is printed apart from the numbered series)
+        ast_style = cfg["paragraph"]["asterisk_note"]
+        def ast_divs(doc):
+            return [b for b in doc["blocks"] if b["t"] == "Div" and dict(b["c"][0][2]).get("custom-style") == ast_style]
+        for x_, y_ in zip(ast_divs(A), ast_divs(B)):
+            if "Ibidem" in ser(x_["c"][1]) and x_ != y_:
+                x_["c"] = copy.deepcopy(y_["c"])
+                report["warnings"].append("Ibidem in a non-author note replaced by the short form: " + ser(y_["c"][1])[:90])
+        ast_texts = [ser(b["c"][1]) for b in ast_divs(A) if ser(b["c"][1]).startswith("* ")]
         merged = os.path.join(work, stem + ".json")
         open(merged, "w", encoding="utf-8").write(json.dumps(A))
         notes = notes_text(A)
@@ -655,14 +714,14 @@ def main():
             (report["warnings"] if a.draft else report["errors"]).append(msg)
         if os.path.exists(docx_path) and not code_d:
             id2name = postprocess_docx(docx_path, cfg, report)
-            ok = verify_docx(docx_path, cfg, id2name, len(notes), report)
+            ok = verify_docx(docx_path, cfg, id2name, len(notes), report, (n_na, n_title))
             for n_, ok_, d_ in report.get("verify", []):
                 if not ok_:
                     report["errors"].append(f"DOCX verification failed — {n_}: {d_}")
 
     # 5. InDesign scripts + author query sheet
     if not a.proof:
-        write_jsx(rows, len(notes), cfg, a.out, stem)
+        write_jsx(rows, len(notes), cfg, a.out, stem, ast_texts, bool(n_title))
     label_map = {}
     if a.pair_src:
         try:
@@ -670,8 +729,11 @@ def main():
         except Exception as e:
             report["warnings"].append(f"--pair-src: note alignment failed ({e}); query rows keep source labels")
     write_queries(a.out, stem, nopage, notes, refs, cited, cite_count, refs_path, work, report, a.queries, label_map)
-    if re.search(r"^:::\s*\{?\.?przypis-tytulowy", md_text, re.M):
-        report["warnings"].append("title note (::: przypis-tytulowy) present: set it as the asterisk note of the title on the first page (kanon § 7.1)")
+    if n_na or n_title:
+        report["warnings"].append(
+            f"asterisk series (kanon § 7.1): {'title note + ' if n_title else ''}{n_na} translator/editorial note(s) are "
+            f"paragraphs in '{cfg['paragraph']['asterisk_note']}' at the end of the DOCX, marked * in the text — set them "
+            f"by hand above the numbered notes; after layout run {stem}_gwiazdki.jsx for the asterisks per page")
 
     # 6. lint (the srom-kanon skill's linter — required)
     import kanon_path

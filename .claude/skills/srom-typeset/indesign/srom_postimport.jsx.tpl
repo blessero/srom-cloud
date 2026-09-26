@@ -6,6 +6,12 @@
 var EXPECTED_TOTAL = /*TOTAL*/;
 var PARA_OK = /*PARA*/;
 var CHAR_OK = /*CHAR*/;
+// kanon § 7.1 asterisk series: markers (character style) in the text, notes (paragraph style) at the end
+var AST_CHAR = /*ASTCHAR*/;
+var AST_PARA = /*ASTPARA*/;
+var AST_MARKS = /*ASTMARKS*/;
+var AST_NOTES = /*ASTNOTES*/;
+var NA_FORMULA = /[\u2013-]\s*przyp\.\s*(t\u0142um|red)\.\s*$/;
 
 function inList(a, s) { var i; for (i = 0; i < a.length; i++) { if (a[i] === s) { return true; } } return false; }
 function inc(o, k) { o[k] = (o[k] || 0) + 1; }
@@ -29,6 +35,7 @@ function scanParas(paras, where, st) {
     p = paras[i];
     nm = p.appliedParagraphStyle.name;
     inc(st.used, nm);
+    if (nm === AST_PARA) { st.astParas++; }
     if (!inList(PARA_OK, nm)) { inc(st.foreign, nm); }
     var ov;
     try { ov = p.styleOverridden; } catch (e) { ov = undefined; }
@@ -41,6 +48,7 @@ function scanParas(paras, where, st) {
     for (j = 0; j < r.length; j++) {
       cs = r[j].appliedCharacterStyle.name;
       if (cs !== "[None]" && cs !== "[Brak]" && !inList(CHAR_OK, cs)) { inc(st.foreignChar, cs); }
+      if (cs === AST_CHAR) { st.astMarks += String(r[j].contents).length; }
     }
   }
 }
@@ -60,7 +68,8 @@ function selectedStory() {
 function main() {
   if (app.documents.length === 0) { alert("SROM post-import: no document open."); return; }
   var doc = app.activeDocument, s, f, i, k, out = [], bad = 0, nFn = 0;
-  var st = {used: {}, foreign: {}, foreignChar: {}, over: 0, overList: [], noOverrideInfo: false};
+  var st = {used: {}, foreign: {}, foreignChar: {}, over: 0, overList: [], noOverrideInfo: false, astMarks: 0, astParas: 0};
+  var naNotes = [];
   // one article in a larger document: put the cursor in its text first; otherwise all stories are checked
   var stories = [];
   var sel = selectedStory();
@@ -71,11 +80,16 @@ function main() {
     for (f = 0; f < stories[s].footnotes.length; f++) {
       nFn++;
       scanParas(stories[s].footnotes[f].paragraphs, "note " + (f + 1), st);
+      if (NA_FORMULA.test(String(stories[s].footnotes[f].texts[0].contents))) { naNotes.push(nFn); }
     }
   }
   out.push("SROM post-import check — " + doc.name);
   out.push("footnotes: " + nFn + " / expected " + EXPECTED_TOTAL + (nFn === EXPECTED_TOTAL ? "  ok" : "  !! MISMATCH"));
   if (nFn !== EXPECTED_TOTAL) { bad++; }
+  out.push("asterisk series: markers " + st.astMarks + " / expected " + AST_MARKS + ", notes " + st.astParas + " / expected " + AST_NOTES +
+           ((st.astMarks === AST_MARKS && st.astParas >= AST_NOTES) ? "  ok" : "  !! MISMATCH"));
+  if (st.astMarks !== AST_MARKS || st.astParas < AST_NOTES) { bad++; }
+  if (naNotes.length) { out.push("!! translator/editorial note(s) among the numbered footnotes: " + naNotes.join(", ")); bad++; }
   out.push("paragraph styles in use:");
   for (k in st.used) { if (st.used.hasOwnProperty(k)) { out.push("   " + k + ": " + st.used[k] + (st.foreign[k] ? "   !! NOT A TEMPLATE STYLE" : "")); if (st.foreign[k]) { bad++; } } }
   for (k in st.foreignChar) { if (st.foreignChar.hasOwnProperty(k)) { out.push("!! foreign character style: " + k + " (" + st.foreignChar[k] + ")"); bad++; } }

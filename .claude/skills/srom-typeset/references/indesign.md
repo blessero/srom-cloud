@@ -12,7 +12,8 @@ text keeps its formatting). What must hold afterwards:
 
 1. Paragraph styles named exactly as the values in `config/styles.json` → `paragraph` — including the
    ones the DOCX uses only occasionally: verse quotation, numbered list (hanging indent, tab stop — the
-   number is typed), table title/cell/source, title note (asterisk), the three interlinear-example lines
+   number is typed), table title/cell/source, the asterisk-note style (title, translator and editorial notes) and its
+   marker character style, the three interlinear-example lines
    (with tab stops; form line italic in the style; gloss categories via a GREP style → small-caps
    character style)
    (case, Polish letters, spaces, en dash). If a template name differs, change the config, not the
@@ -44,14 +45,15 @@ more clicks per article).
 
 ## After placing: `<article>_postimport.jsx`
 
-Copy the two JSX files from the build folder to the Scripts Panel folder (Window ▸ Utilities ▸
+Copy the JSX files from the build folder to the Scripts Panel folder (Window ▸ Utilities ▸
 Scripts ▸ User ▸ Reveal in Finder/Explorer) and double-click. Report-only; changes nothing. If the
 document holds more than one article, put the text cursor in the article first — both scripts then
 check only that story. If this InDesign version does not expose paragraph overrides to scripts, the
 report says so instead of claiming zero.
 `RESULT: OK — import is clean` requires: footnote count = build report, every paragraph style from
 the whitelist, no foreign character styles, **zero paragraphs with overrides** (the "+"), no straight
-quotes / double spaces / em dash / "..." / “.
+quotes / double spaces / em dash / "..." / “, the asterisk markers and notes as counted by the build, and
+no "– przyp. tłum./red." note among the numbered footnotes.
 
 ## After final layout: `<article>_ibidem.jsx`
 
@@ -62,6 +64,18 @@ note before it (page, text frame, column) and prints `REPLACE … with: Ficowski
 type that text, `*…*` in the italic character style, and run the script again until `RESULT: OK`.
 Report file `<document>_ibidem.txt` is saved next to the INDD. Literal (non-CSL) Ibidem notes are
 listed in the build report — check them by eye. Re-run after any reflow.
+
+## After final layout: `<article>_gwiazdki.jsx` (only if the article has non-author notes)
+
+Kanon §7.1: the title note, translator's (`– przyp. tłum.`) and editorial (`– przyp. red.`) notes are one
+series `*`, `**`, `***` …, restarting on every page, set **above the numbered notes**, in the style
+*Przypis gwiazdkowy* (= *Przypis*). They cannot be InDesign footnotes (one footnote sequence per story), so the
+build delivers them as paragraphs at the end of the story (title note first, each opening `* `) and a `*` in
+*Odsyłacz gwiazdkowy* at each marker. By hand: move each note to the foot of its page above the numbered
+notes (e.g. a separate text frame; shorten the main frame so the numbered notes sit below it). The script
+lists every marker with its page and the asterisks it gets (`p. 12  **  Uwaga…`), the title note first on
+the article's first page — set marker and note to that count. Report `<document>_gwiazdki.txt`. Re-run after
+any reflow.
 
 ## First real article — verification (gate G12)
 
@@ -74,6 +88,8 @@ The toolchain is tested up to the DOCX; InDesign behaviour must be confirmed onc
    → count ≈ the counts in the build report's DOCX verification line).
 4. Bibliography: `Bibliografia – dział` headings, surnames in small caps, `de` and institutions not.
 5. nbsp GREP styles visibly working (`s. 15`, `J. Ficowski`, `w Krakowie`).
+6. With non-author notes: markers in *Odsyłacz gwiazdkowy*, notes in *Przypis gwiazdkowy*; after placing them
+   above the numbered notes, `_gwiazdki.jsx` gives the asterisk count per page.
 
 Record the result (screenshot or the two script reports) — that closes G12.
 

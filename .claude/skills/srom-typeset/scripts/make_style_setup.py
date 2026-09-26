@@ -19,7 +19,7 @@ PROPS_PL = {"appliedFont": "krój", "fontStyle": "odmiana", "pointSize": "stopie
             "firstLineIndent": "wcięcie 1. wiersza", "leftIndent": "wcięcie lewe", "spaceBefore": "odstęp przed",
             "spaceAfter": "odstęp po", "justification": "wyrównanie", "capitalization": "wersaliki", "hyphenation": "dzielenie",
             "tracking": "światło", "keepWithNext": "z następnym (wiersze)", "gridAlignment": "siatka", "dropCapCharacters": "inicjał (znaki)",
-            "dropCapLines": "inicjał (wiersze)", "bulletChar": "punktor", "sameParaStyleSpacing": "odstęp w obrębie stylu", "appliedLanguage": "język"}
+            "dropCapLines": "inicjał (wiersze)", "bulletChar": "punktor", "sameParaStyleSpacing": "odstęp w obrębie stylu", "appliedLanguage": "język", "position": "położenie"}
 SKIP = {"hyphenateAfterFirst", "hyphenateBeforeLast", "hyphenateWordsLongerThan", "hyphenateLadderLimit", "hyphenateCapitalizedWords"}
 
 
@@ -46,7 +46,7 @@ def style_sheet(sp):
     for g in sp["groups"]:
         L += ["", f"## {g['name']}", "", "| styl | na bazie | wartości (różnice) | zastępuje | uwagi |", "|---|---|---|---|---|"]
         for st in g["styles"]:
-            L.append(f"| **{st['name']}** | {st.get('basedOn', '(bez zmian)')} | {fmt(st['props']) if not g.get('keep_as_is') else 'bez zmian'} | "
+            L.append(f"| **{st['name']}** | {st.get('basedOn', '(bez zmian)')} | {fmt(st['props']) if not (g.get('keep_as_is') or st.get('keep_as_is')) else 'bez zmian'} | "
                      f"{', '.join(st.get('old', [])) or '—'} | {st.get('note', '')} |")
     L += ["", "## Style znakowe", "", "| styl | wartości | zastępuje | uwagi |", "|---|---|---|---|"]
     L += [f"| **{c['name']}** | {fmt(c['props'])} | {', '.join(c.get('old', [])) or '—'} | {c.get('note', '')} |" for c in sp["character"]]

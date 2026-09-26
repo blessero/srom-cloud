@@ -36,6 +36,7 @@ function setProp(obj, k, v, doc) {
     if (k === "justification") { obj.justification = Justification[v]; }
     else if (k === "capitalization") { obj.capitalization = Capitalization[v]; }
     else if (k === "gridAlignment") { obj.gridAlignment = GridAlignment[v]; }
+    else if (k === "position") { obj.position = Position[v]; }
     else if (k === "bulletChar") {
       obj.bulletsAndNumberingListType = ListType.BULLET_LIST;
       obj.bulletChar.characterType = BulletCharacterType.UNICODE_ONLY;
@@ -120,7 +121,7 @@ function main() {
       s = adopt(doc, st.name, st.old, findPara);
       if (!s) { s = grp.paragraphStyles.add({name: st.name}); log("   created  " + st.name); }
       try { if (s.parent !== grp) { s.move(LocationOptions.AT_END, grp); } } catch (e) { log("   ! move " + st.name + ": " + e); }
-      all.push({style: s, spec: st, keep: g.keep_as_is === true});
+      all.push({style: s, spec: st, keep: g.keep_as_is === true || st.keep_as_is === true});
     }
   }
 

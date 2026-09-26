@@ -191,9 +191,9 @@ q6 = os.path.join(tempfile.mkdtemp(), "q6.csv")
 open(q6, "w", encoding="utf-8-sig").write("adresat;rodzaj;przypis;dzieło;szczegóły\nautor;AUTHOR-QUERY;a2;;pytanie\n")
 code, out, stem, rep = build(md_text="Tekst [@ficowski1985, s. 3], A[^1] dalej[^t1] i b[^2].\n\n[^1]: Pierwszy.\n\n[^t1]: Uwaga – przyp. tłum.\n\n[^2]: Drugi.\n", extra=("--queries", q6, "--pair-src", srcp))
 q = open(os.path.join(out, stem + "_pytania.md"), encoding="utf-8").read()
-check("E6: source label a2 -> printed note 4 (main-text citation and translator note counted)", "| autor | AUTHOR-QUERY | 4 |" in q, q)
+check("E6: source label a2 -> printed note 3 (main-text citation counted; translator note is in the * series, kanon § 7.1)", "| autor | AUTHOR-QUERY | 3 |" in q, q)
 code, out, stem, rep = build(md_text="::: przypis-tytulowy\nPrzekład z języka angielskiego: Jan Nowak.\n:::\n\nTekst.\n")
-check("title note: own style, reminder in the report", code == 0 and "asterisk note" in rep, rep[:600])
+check("title note: asterisk-note style, reminder in the report", code == 0 and "asterisk series" in rep and "title note" in rep, rep[:600])
 
 # kanon §8.6: a URL is plain text, never a hyperlink; §7.4: a note may have several paragraphs (flagged)
 code, out, stem, rep = build(md_text="Zob. [serwis](https://przyklad.pl/tekst) i <https://przyklad.pl/b>[^1].\n\n"

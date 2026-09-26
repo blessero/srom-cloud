@@ -36,7 +36,7 @@ the DOCX reader; the tests are what proves the toolchain still does what this fi
 | 4b footnoted | Claude keys literal notes → `[@key, s. N]` (archival, fieldwork, laws stay literal) | `check.py --keyed art.md art_keyed.md --refs refs.json` → `CHECK OK` | — |
 | 5 Word | `python3 $S/export_work.py art.md -o art_robocza.docx` → you edit in Word → `docx_in.py art_robocza.docx -o art.md` (lossless) | `IMPORT OK` | the Word file is the master once exported; proof: `build.py --proof` |
 | 6 build | `python3 $S/build.py art.md --refs refs.json --out build/` | `PASS` / `FAIL` + `_report.md` | warnings; **`_pytania.md/.csv`** = the query sheet for author and editor |
-| 7 InDesign | place DOCX with preset "SROM – pandoc", run `_postimport.jsx`, after layout `_ibidem.jsx` | `RESULT: OK` | per `references/indesign.md` |
+| 7 InDesign | place DOCX with preset "SROM – pandoc", run `_postimport.jsx`, after layout `_ibidem.jsx` (and `_gwiazdki.jsx` if written) | `RESULT: OK` | per `references/indesign.md` |
 
 Re-run step 2 after 4a/5 (normalize is idempotent). `check.py art.md --refs refs.json` can be run
 at any time; `build.py` runs it itself.
@@ -81,6 +81,10 @@ translator's query rows) → 7. Never MarkItDown: it loses italics and note mark
   list, image in text, code block outside `::: przyklad`, literal and CSL entries in one bibliography
   section, an unconverted author-date reference to a work in refs.json, any kanon-linter ERROR, any
   DOCX verification failure
+- non-author notes (kanon §7.1: title note, `– przyp. tłum.`, `– przyp. red.`) are **not** Word footnotes:
+  a `*` in its character style at the marker, the notes (opening `* `, title note first) in their own style at
+  the end of the DOCX, for the typesetter to set above the numbered notes; `_gwiazdki.jsx` gives the
+  asterisks per page. They take no footnote number and no Ibidem; verified in the DOCX and after import
 - a citation without a page **never** blocks: it is printed without placeholder and listed in the
   query sheet — "cytat bez numeru strony" (to the author) when it is the source of a quotation,
   "odwołanie do całości dzieła" (to the editor) otherwise. The sheet also lists missing ISBNs, long

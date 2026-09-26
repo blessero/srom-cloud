@@ -24,7 +24,6 @@ GREP styles in Podstawa (inherited by all text styles) — character style *Bez 
 | **Abstrakt – nagłówek** | Podstawa | stopień 10; wersaliki ALL_CAPS; światło 50; wyrównanie LEFT_ALIGN; dzielenie nie; siatka NONE; odstęp przed 13 | Abstrakt tytul |  |
 | **Abstrakt** | Podstawa | stopień 10; interlinia 12.5; siatka NONE | Abstrakt, Abstrakt ang |  |
 | **Słowa kluczowe** | Abstrakt | odstęp przed 6.5 | — |  |
-| **Przypis do tytułu** | Podstawa | stopień 9; interlinia 10.8; siatka NONE | — | asterisk note of the title, placed by hand on the first page |
 
 ## 2 Tekst
 
@@ -81,6 +80,7 @@ GREP styles in Podstawa (inherited by all text styles) — character style *Bez 
 | styl | na bazie | wartości (różnice) | zastępuje | uwagi |
 |---|---|---|---|---|
 | **Przypis** | (bez zmian) | bez zmian | Przypis | footnotes: definition left as it is (handled separately) |
+| **Przypis gwiazdkowy** | Przypis | — | Przypis do tytułu | non-author notes — title note, przyp. tłum., przyp. red. — one asterisk series *, **, … per page, set by hand ABOVE the numbered notes (kanon § 7.1); same values as Przypis |
 
 ## 8 Strona
 
@@ -107,6 +107,7 @@ GREP styles in Podstawa (inherited by all text styles) — character style *Bez 
 | **Kapitaliki – glosa** | wersaliki CAP_TO_SMALL_CAP | — | gloss categories 1SG.NOM (typed in capitals); applied by GREP |
 | **Mówca – etykieta** | odmiana Bold | — | speaker label in a dialogue; applied by the build (Word forbids one name for a paragraph and a character style) |
 | **Bez podziału** | noBreak tak | NO BREAK | non-breaking spaces (kanon §3.3); applied by GREP |
+| **Odsyłacz gwiazdkowy** | położenie SUPERSCRIPT | — | asterisk marker of a non-author note in the text (kanon § 7.1); the build types one * — set the count per page |
 
 Bez zmian (przypisy): Indeks gorny, Footnote reference.
 
