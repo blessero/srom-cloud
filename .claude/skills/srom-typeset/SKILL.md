@@ -1,0 +1,110 @@
+---
+name: srom-typeset
+description: Tested toolchain that turns an article for Studia Romologica (SROM) — a Polish Word file with footnotes, an author-date/Harvard manuscript, or a foreign-language PDF/DOCX — into a kanon-compliant Polish DOCX that imports into the SROM InDesign template with named paragraph/character styles and real footnotes (first citation / short form / Ibidem generated from CSL-JSON). For translated articles it prepares the frozen source and takes the translation back; the translating itself is srom-tlumacz's (separate chat). Use whenever an SROM article is imported from DOCX/PDF, converted from author-date to footnotes, keyed into refs.json, exported as a Word working copy or proof, checked for note/marker integrity or translation handoff, built, or placed in InDesign; also for "SROM-MD", "refs.json", "build.py", "Ibidem check", "import do InDesign", "skład SROM". Complements srom-kanon (rules), srom-tlumacz (translation) and srom-scholarly-curator (metadata).
+---
+
+# srom-typeset — from manuscript to InDesign
+
+Priority order: **correct apparatus > nothing silently changed > speed.** Every step is a script with a
+verdict line; nothing goes to InDesign unless `build.py` prints `PASS`. The house rules live in the
+**srom-kanon** skill (RULES.md; its linter is used by the build when installed); this skill implements them.
+
+Scripts live in `scripts/` next to this file (`S=<skill dir>/scripts`). Everything runs in the
+sandbox with pandoc ≥ 3.1, Python 3 (python-docx, lxml, PyMuPDF). Work in `/home/claude/<article>/`,
+hand every intermediate file to the user (`present_files`) — the sandbox resets between sessions.
+
+**Preflight, once per session (≈ 30 s):** `python3 <skill dir>/tests/run_all.py` → `SUITE ALL PASS 10/10`. A different pandoc version can change
+citeproc behaviour; the tests are what proves the toolchain still does what this file says.
+
+## The pipeline
+
+| step | command | verdict | judgment needed (Claude / editor) |
+|---|---|---|---|
+| 1a DOCX in | `python3 $S/docx_in.py art.docx -o art.md` | `IMPORT OK/CHECK n` | `_import.md`: pending track changes, fake superscript notes, manual headings. The author's reference list goes to `art_bib.txt`; Zotero/Mendeley fields are harvested into `art_cited.md` + `art_refs.json` |
+| 1b PDF in | `python3 $S/pdf_extract.py art.pdf -o src.md [--pages a-b]` | `EXTRACT OK/CHECK n` | `_extract.md`: hyphen joins, headings, dropped lines; reference list → `src_bib.txt` |
+| 2 normalise | `python3 $S/normalize.py art.md -o art.md --log art_norm.md` | change log + flags | resolve every flag |
+| 3 refs | Claude writes `refs.json` from `_bib.txt` (or completes `_refs.json`) per `references/srom-md.md` | `cite_map.py audit --refs refs.json --bib art_bib.txt` → `CITEMAP OK` | every PROBLEM line |
+| 4a author-date | `python3 $S/cite_map.py scan art.md --refs refs.json --apply art_fn.md` | `CITEMAP OK/FAIL` | INFLECTED, IN-NOTE, NOT-CITED?, PAGE-ONLY rows |
+| 4b footnoted | Claude keys literal notes → `[@key, s. N]` (archival, fieldwork, laws stay literal) | `check.py --keyed art.md art_keyed.md --refs refs.json` → `CHECK OK` | — |
+| 5 Word | `python3 $S/export_work.py art.md -o art_robocza.docx` → you edit in Word → `docx_in.py art_robocza.docx -o art.md` (lossless) | `IMPORT OK` | the Word file is the master once exported; proof: `build.py --proof` |
+| 6 build | `python3 $S/build.py art.md --refs refs.json --out build/` | `PASS` / `FAIL` + `_report.md` | warnings; **`_pytania.md/.csv`** = the query sheet for author and editor |
+| 7 InDesign | place DOCX with preset "SROM – pandoc", run `_postimport.jsx`, after layout `_ibidem.jsx` | `RESULT: OK` | per `references/indesign.md` |
+
+Re-run step 2 after 4a/5 (normalize is idempotent). `check.py art.md --refs refs.json` can be run
+at any time; `build.py` runs it itself.
+
+## Scenarios
+
+**A. Polish Word file, footnotes** — 1a → 2 → 3 → 4b → 6 → 7. If the author used Zotero/Mendeley, 1a has
+already keyed the citations (`_cited.md`): complete `_refs.json`, run `--keyed art.md art_cited.md`, go on
+from the `_cited` file. Keying by hand is the only non-deterministic step; `--keyed` proves no page,
+note or work was lost. *Lite variant* for an article whose notes are already kanon-clean: skip 3–4,
+keep notes literal, put the whole bibliography as literal sections in the `::: {#bibliografia}` block.
+Styles, markers and linter are still enforced, but first/short/Ibidem sequence is then the author's
+and nothing verifies it.
+
+**B. Author-date manuscript** — 1a → 2 → 3 → 4a → 2 → 6 → 7 (Zotero/Mendeley: 1a already converted it).
+`cite_map` never guesses a work: AMBIGUOUS/UNKNOWN/UNPARSED/PAGE-ONLY? block `--apply` until resolved or
+explicitly released (`--allow-unknown`, `--allow-unparsed`); a page-only "(s. 21)" becomes a citation of the
+work cited just before it and is listed.
+
+**C. Translated article** — the translating is srom-tlumacz's, in its own chat; the contract is
+`references/handoff.md`. Here: 1a/1b → 3 → 4a/4b **in the source language** → `check.py` → hand over
+`<id>_src.md` + refs.json (+ working copy and `--proof` for you). Back: `<id>_pl.md` → working copy → your
+edits in Word → `docx_in.py` → `check.py --pair <id>_src.md <id>_pl.md` → 2 → 6 (`--queries` merges the
+translator's query rows) → 7. Never MarkItDown: it loses italics and note markers.
+
+## What the build guarantees (tests: `tests/`)
+
+- every paragraph and every italic/small-caps run carries a **named style** from `config/styles.json`
+  (body, headings, quotes, verse, lists, tables, interlinear examples, bibliography, captions); no
+  direct formatting, no Word footnote-reference style, no `w:lang`, no hyperlinks, tabs as real tabs
+- first citation / short form / *Ibidem* computed by `csl/srom.csl` (kanon §7.2–7.3). *Ibidem* is
+  replaced by the short form at build time wherever it would be ambiguous or ungrammatical (inside a
+  sentence; next to a literal archival reference in the same or the preceding note); the rest are
+  checked for "same column" by `_ibidem.jsx` after layout
+- forbidden forms (op. cit., tamże, idem…) cannot come out of CSL, and the bundled linter fails the
+  build on any in literal notes
+- bibliography sections I–VI assembled, empty ones omitted, renumbered, Polish collation, surnames
+  (not particles, not institutions) in the small-caps character style
+- the build **fails** on: unknown key, marker without note or orphan note, `@key` / `[-@key]`
+  citations, missing bibliographic data `[BRAK MIEJSCA/ROKU/WYDAWCY]` (kanon §0; `--draft` for proofs
+  only), open editor comments (PRZYWRÓCIĆ, DO SPRAWDZENIA, TODO, FIXME), heading level 3, numbered
+  list, image in text, code block outside `::: przyklad`, literal and CSL entries in one bibliography
+  section, an unconverted author-date reference to a work in refs.json, any kanon-linter ERROR, any
+  DOCX verification failure
+- a citation without a page **never** blocks: it is printed without placeholder and listed in the
+  query sheet — "cytat bez numeru strony" (to the author) when it is the source of a quotation,
+  "odwołanie do całości dzieła" (to the editor) otherwise. The sheet also lists missing ISBNs, long
+  titles without a short form, and every `[BRAK …]` with its work.
+
+## Hard rules
+
+- Never invent bibliographic data. A missing field stays missing and produces `[BRAK …]`.
+- Never hand-edit the DOCX. Fix the SROM-MD or refs.json and rebuild.
+- Style names in `config/styles.json` must equal the template's names exactly; until confirmed from
+  the template IDML they are placeholders (see `references/indesign.md`).
+- *Ibidem* legality depends on layout (same column): always run `_ibidem.jsx` on final pages.
+
+## Tests
+
+`python3 tests/run_all.py` after any change to the CSL, the Lua filter, config or scripts (and as the
+session preflight). `test_pdf.py` needs LibreOffice to generate its PDF; `test_jsx.py` parses as strict
+ES3 with acorn if installed (`npm i acorn` in `/home/claude/es3`), otherwise with a weaker parser.
+
+## House style in InDesign
+
+`indesign/style_spec.json` is the one definition of the SROM paragraph and character styles (names,
+hierarchy, values, GREP rules, which old template styles they replace). `python3 scripts/make_style_setup.py`
+renders from it `indesign/srom_style_setup.jsx` (run once on a copy of the template: creates/renames/merges
+styles, sets values, adds the non-breaking-space GREP styles, retires Word leftovers) and
+`references/style-sheet.md` (the readable style sheet), and checks that `config/styles.json` names only
+styles the spec defines.
+
+## References
+
+- `references/srom-md.md` — SROM-MD format, citation syntax, refs.json field conventions, roles
+- `references/handoff.md` — what goes to srom-tlumacz and what comes back; the handoff check
+- `references/style-sheet.md` — the house style: every paragraph/character style, hierarchy and values
+- `references/indesign.md` — Word-import preset, template requirements, post-import and Ibidem scripts, first-article verification
+- `references/decisions.md` — decisions where the kanon was silent (for the kanon §17 register)

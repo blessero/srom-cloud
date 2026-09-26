@@ -1,0 +1,75 @@
+{
+  "_comment": "Style names MUST equal the InDesign template names exactly (case, diacritics, spaces). PLACEHOLDERS until confirmed against the template IDML.",
+  "paragraph": {
+    "h1": "Śródtytuł 1",
+    "h2": "Śródtytuł 2",
+    "body": "Tekst",
+    "body_first": "Tekst bez wcięcia",
+    "quote": "Cytat blokowy",
+    "list": "Wyliczenie",
+    "footnote": "Przypis",
+    "bib_title": "Bibliografia – tytuł",
+    "bib_section": "Bibliografia – dział",
+    "bib_entry": "Bibliografia",
+    "caption": "Podpis",
+    "table_title": "Tabela – tytuł",
+    "author_note": "Nota o autorze",
+    "quote_verse": "Cytat – wiersz",
+    "table_cell": "Tabela – treść",
+    "example_form": "Przykład – forma",
+    "example_gloss": "Przykład – glosa",
+    "example_trans": "Przykład – przekład",
+    "table_source": "Tabela – źródło",
+    "title_note": "Przypis do tytułu",
+    "list_numbered": "Wyliczenie numerowane",
+    "motto": "Motto",
+    "motto_source": "Motto – źródło",
+    "dialog": "Dialog",
+    "speaker": "Mówca",
+    "speaker_affiliation": "Mówca – afiliacja"
+  },
+  "roles": {
+    "_comment": "fenced-div class -> paragraph key above; lets front matter or special blocks carry a style",
+    "podpis": "caption",
+    "tabela-tytul": "table_title",
+    "nota": "author_note",
+    "bez-wciecia": "body_first",
+    "tabela-zrodlo": "table_source",
+    "przypis-tytulowy": "title_note",
+    "motto": "motto",
+    "motto-zrodlo": "motto_source"
+  },
+  "character": {
+    "italic": "Kursywa",
+    "smallcaps": "Kapitaliki",
+    "speaker": "Mówca – etykieta",
+    "roman": "Proste"
+  },
+  "template_extra": {
+    "_comment": "template styles the DOCX never uses (placed or applied by hand / by GREP)",
+    "paragraph": [
+      "Podstawa",
+      "Tytuł artykułu",
+      "Autor",
+      "Afiliacja",
+      "Abstrakt – nagłówek",
+      "Abstrakt",
+      "Słowa kluczowe",
+      "Tekst – inicjał",
+      "Pagina",
+      "Folio",
+      "Spis treści",
+      "Spis treści – autor",
+      "Spis treści – języki"
+    ],
+    "character": [
+      "Bez podziału",
+      "Kapitaliki – glosa",
+      "Indeks gorny"
+    ]
+  },
+  "bibliography": {
+    "_comment": "kanon: only the sections an article uses are printed; true = prefix them with consecutive Roman numerals",
+    "section_numbers": false
+  }
+}
