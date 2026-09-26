@@ -9,12 +9,17 @@ Priority order: **correct apparatus > nothing silently changed > speed.** Every 
 verdict line; nothing goes to InDesign unless `build.py` prints `PASS`. The house rules live in the
 **srom-kanon** skill (RULES.md; its linter is used by the build when installed); this skill implements them.
 
-Scripts live in `scripts/` next to this file (`S=<skill dir>/scripts`). Everything runs in the
-sandbox with pandoc ≥ 3.1, Python 3 (python-docx, lxml, PyMuPDF). Work in `/home/claude/<article>/`,
-hand every intermediate file to the user (`present_files`) — the sandbox resets between sessions.
+Scripts live in `scripts/` next to this file (`S=<skill dir>/scripts`). Requirements: pandoc ≥ 3.1,
+Python ≥ 3.12 with python-docx, lxml, PyMuPDF. Where you run decides the rest:
+- **Claude Code on the editor's Mac** — Python is the venv `~/.venvs/srom/bin/python` (the system
+  `python3` is too old; wherever this file says `python3`, use the venv). Work in the article's own folder
+  in the editor's project, never inside the skill directory. InDesign is installed locally.
+- **claude.ai sandbox** — `python3`; work in `/home/claude/<article>/` and hand every intermediate file to
+  the user (`present_files`) — the sandbox resets between sessions.
 
-**Preflight, once per session (≈ 30 s):** `python3 <skill dir>/tests/run_all.py` → `SUITE ALL PASS 10/10`. A different pandoc version can change
-citeproc behaviour; the tests are what proves the toolchain still does what this file says.
+**Preflight, once per session (≈ 30 s):** `python3 <skill dir>/tests/run_all.py` → `SUITE ALL PASS 10/10`
+(on the Mac it switches itself to the venv). A different pandoc version can change citeproc behaviour and
+the DOCX reader; the tests are what proves the toolchain still does what this file says.
 
 ## The pipeline
 
@@ -90,7 +95,7 @@ translator's query rows) → 7. Never MarkItDown: it loses italics and note mark
 
 `python3 tests/run_all.py` after any change to the CSL, the Lua filter, config or scripts (and as the
 session preflight). `test_pdf.py` needs LibreOffice to generate its PDF; `test_jsx.py` parses as strict
-ES3 with acorn if installed (`npm i acorn` in `/home/claude/es3`), otherwise with a weaker parser.
+ES3 with acorn if installed (sandbox: `npm i acorn` in `/home/claude/es3`; Mac: `~/.venvs/srom/node`), otherwise with a weaker parser.
 
 ## House style in InDesign
 

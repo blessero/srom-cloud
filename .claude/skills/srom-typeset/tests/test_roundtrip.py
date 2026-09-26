@@ -35,6 +35,8 @@ for fx in ("sample_article.md", "blocks.md", "roundtrip.md"):
     w, back, r = roundtrip(os.path.join(FX, fx), fx[:-3])
     t(f"{fx}: working copy recognised on import", "working copy round trip" in r.stdout, r.stdout + r.stderr)
     t(f"{fx}: round trip is lossless (identical document tree)", tree(os.path.join(FX, fx)) == tree(back), open(back, encoding="utf-8").read()[:1200])
+    if fx == "blocks.md":   # pandoc 3.8 puts the "Table Caption" style inside the caption: it must survive
+        t("blocks.md: table caption survives the round trip", "Tabela 1. Liczebność Romów" in open(back, encoding="utf-8").read())
 
 src = os.path.join(FX, "sample_article.md")
 w, back, r = roundtrip(src, "s")

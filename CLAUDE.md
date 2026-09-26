@@ -9,6 +9,13 @@ ISSN 1689-4758). Three skills in `.claude/skills/`:
 
 State, open decisions and the work queue: `docs/HANDOVER-*.md` — read before starting.
 
+## Environment (editor's Mac)
+- `.claude/skills/` in this repo is the only working copy; `~/.claude/skills/srom-*` are symlinks to it
+  (`tools/setup_mac.sh`). claude.ai gets copies via `sh tools/package_skills.sh` → `dist/*.skill` (upload by hand).
+- Python: venv `~/.venvs/srom/bin/python` (3.13 + python-docx, lxml, PyMuPDF); system `python3` is 3.9 and too
+  old — `run_all.py` switches to the venv itself, other scripts must be called with the venv.
+- pandoc 3.8.3, node + acorn (`~/.venvs/srom/node`), InDesign 2026. No LibreOffice → `test_pdf.py` reports SKIP.
+
 ## Working rules
 - The editor (Michał) writes tersely and wants conclusions first, honest critique, errors and limits flagged.
   English for work talk; Polish, in an elevated editorial register, for anything written for the journal.

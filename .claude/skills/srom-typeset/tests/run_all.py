@@ -1,5 +1,15 @@
 """Preflight: runs every test file; last line SUITE ALL PASS n/n or SUITE FAILED."""
 import os, re, subprocess, sys
+# the editor's Mac: system python3 is too old / lacks python-docx -> re-run in the SROM venv if there is one
+VENV = os.path.expanduser("~/.venvs/srom/bin/python")
+def _usable():
+    try:
+        import docx, fitz, lxml  # noqa: F401
+    except ImportError:
+        return False
+    return sys.version_info >= (3, 12)
+if not _usable() and os.path.exists(VENV) and os.path.realpath(sys.executable) != os.path.realpath(VENV):
+    os.execv(VENV, [VENV] + sys.argv)
 here = os.path.dirname(os.path.abspath(__file__))
 ok_rx = re.compile(r"ALL PASS \d+/\d+|LINT 0 ERROR|JSX-DONE|PDF SKIP")
 files = sorted(f for f in os.listdir(here) if f.startswith("test_") and f.endswith(".py"))

@@ -35,7 +35,10 @@ declared by `"srom-added"` in `<id>_refs_tlum.json`.
 
 ## 3. Queue for Claude (in order)
 
-1. **Repo setup** (§7), run the suite, confirm green on the editor's machine (pandoc version may differ).
+1. ~~**Repo setup**~~ — done 26.09.2026 (Claude Code): git repo, skills symlinked, venv; suite green on the
+   Mac with pandoc 3.8.3 after one fix (the 3.8 DOCX reader put "Table Caption" inside the table caption →
+   `docx_in.py` dropped every table caption in the working-copy round trip; fixed, test added). `GATES.md`
+   was not in the uploaded archive — the G1–G16 ledger is lost; new gates start in `/GATES.md`.
 2. **srom-kanon / srom-typeset overlap** — recommendation agreed in principle? (see §5) If yes: remove the bundled
    linter from srom-typeset (require srom-kanon; fail clearly if absent), move closed decisions into kanon RULES,
    renumber cross-references to RULES numbering, bump RULES header (still says v1.5).

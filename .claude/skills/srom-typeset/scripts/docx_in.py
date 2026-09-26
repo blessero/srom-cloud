@@ -166,6 +166,17 @@ def harvest(docx, lua, out_md, report_lines):
 LUA_RT = r"""
 local function cs(el) return el.attributes and el.attributes["custom-style"] end
 local stringify = pandoc.utils.stringify
+-- pandoc 3.8 (docx+styles) wraps the caption inside the table in a "Table Caption" Div: unwrap it there,
+-- before pass1 drops the standalone "Table Caption" paragraph that older pandoc left next to the table
+local pass0 = {
+  Table = function(t)
+    t.caption.long = t.caption.long:walk({
+      Div = function(d) if cs(d) == "Table Caption" then return d.content end end,
+    })
+    t.attributes["custom-style"] = nil                -- also added to the table itself by pandoc >= 3.8
+    return t
+  end,
+}
 local pass1 = {
   Span = function(s) if cs(s) then return s.content end end,
   CodeBlock = function(c)
@@ -216,7 +227,7 @@ local pass3 = {
     return doc
   end,
 }
-return {pass1, pass2, pass3}
+return {pass0, pass1, pass2, pass3}
 """
 WRITE_RT = WRITE.replace("-fenced_code_attributes", "")
 

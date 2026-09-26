@@ -1,9 +1,11 @@
 // ES3 syntax check (acorn ecmaVersion 3) + ES5-API denylist for ExtendScript.
 import { createRequire } from "module";
 import fs from "fs";
+import os from "os";
 const require = createRequire(import.meta.url);
 let acorn = null;
-for (const p of [process.env.ACORN || "", "/home/claude/es3/node_modules/acorn", "acorn"]) {
+for (const p of [process.env.ACORN || "", "/home/claude/es3/node_modules/acorn",
+                 os.homedir() + "/.venvs/srom/node/node_modules/acorn", "acorn"]) {
   if (!p) continue;
   try { acorn = require(p); break; } catch (e) {}
 }
