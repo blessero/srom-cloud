@@ -598,6 +598,11 @@ def main():
     clean_path = os.path.join(work, stem + ".clean.md")
     open(clean_path, "w", encoding="utf-8").write(md_text)
     pre, _ = pandoc_json(clean_path)
+    tl = integrity.translators(pre.get("meta"))     # Kanon § 12.2.3 (E10): header data, not printed
+    if tl is not None and (not tl or not all(tl)):
+        report["errors"].append("front matter 'tlumaczenie' is empty — give the translator's name (Kanon § 12.2.3)")
+    elif tl:
+        report["header"] = tl
     cited = []
     def grab(x):
         if x.get("t") == "Cite":
@@ -763,6 +768,10 @@ def main():
            "", "## Errors"] + ([f"- {e}" for e in report["errors"]] or ["- none"])
     rep += ["", "## Warnings (review)"] + ([f"- {w}" for w in report["warnings"]] or ["- none"])
     rep += ["", "## DOCX verification"] + [f"- [{'x' if ok_ else ' '}] {n}: {d}" for n, ok_, d in report.get("verify", [])]
+    if report.get("header"):
+        rep += ["", "## Header data (not printed — set in InDesign; copy to the master CSV)",
+                f"- translator(s), Kanon § 12.2.3: {', '.join(report['header'])} → `translators_struct`: "
+                f"`{integrity.translators_struct(report['header'])}` (given name | surname split at the last space — check)"]
     rep += ["", "## Ibidem replaced by the short form at build time (§7.3)"]
     rep += [f"- {i}: {y}  — {why}" for i, x, y, why in forced] or ["- none"]
     rep += ["", "## Ibidem map (note → form to use if it lands on a different column)"]

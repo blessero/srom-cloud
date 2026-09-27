@@ -60,7 +60,8 @@ work cited just before it and is listed.
 `references/handoff.md`. Here: 1a/1b → 3 → 4a/4b **in the source language** → `check.py` → hand over
 `<id>_src.md` + refs.json (+ working copy and `--proof` for you). Back: `<id>_pl.md` → working copy → your
 edits in Word → `docx_in.py` → `check.py --pair <id>_src.md <id>_pl.md` → 2 → 6 (`--queries` merges the
-translator's query rows) → 7. Never MarkItDown: it loses italics and note markers.
+translator's query rows) → 7. The translator's name is front matter `tlumaczenie:` (not printed; the build report
+gives the `translators_struct` value for the master CSV). Never MarkItDown: it loses italics and note markers.
 
 ## What the build guarantees (tests: `tests/`)
 

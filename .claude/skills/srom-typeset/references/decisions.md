@@ -34,6 +34,8 @@ old numbers are given in brackets for the record.
 | § 9.7 | `ISBN 978-…` without colon [4]; missing ISBN listed | srom.csl, build.py | test_csl, test_e2e |
 | § 10.1 | table title above, source below; cell/title/source styles [17] | srom_post.lua | test_e2e |
 | § 12.2 | translation handoff (`handoff.md`), translator notes, added citations | check.py, cite_map.py | test_check, test_e2e |
+| § 12.2.3 | translator = header data: front matter `tlumaczenie`, reported for the CSV, kept through Word (E10) | check.py, build.py, export_work.py, docx_in.py | test_e10 |
+| § 3.4, § 6.3 | kartoteka: foreign exonyms italic (`italic_house`); structure | srom-kanon `references/kartoteka.tsv` | test_kanon |
 | all | the srom-kanon linter runs on the rendered text; ERROR fails the build | build.py, kanon_path.py | test_lint, test_kanon |
 
 ## Toolchain conventions (not house rules)

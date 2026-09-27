@@ -13,7 +13,7 @@ docx_in.py — author's Word file -> SROM-MD (then run normalize.py).
   numbered lists, hyperlinks, manual line breaks
 Last line: IMPORT OK / IMPORT CHECK n
 """
-import argparse, json, os, re, subprocess, sys, zipfile
+import argparse, html, json, os, re, subprocess, sys, zipfile
 from collections import Counter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -254,8 +254,23 @@ def roundtrip(docx, out, lua_path):
     if r.returncode:
         sys.exit(r.stderr)
     md = restore_tokens(move_defs(r.stdout))
+    # front matter `tlumaczenie` (E10) comes back from the custom property export_work.py wrote
+    tl = custom_property(docx, "srom-tlumaczenie")
+    if tl:
+        names = [n.strip() for n in tl.split(" ;; ") if n.strip()]
+        md = "---\ntlumaczenie:\n" + "".join(f"  - {json.dumps(n, ensure_ascii=False)}\n" for n in names) + "---\n\n" + md
     open(out, "w", encoding="utf-8").write(md)
     return md
+
+
+def custom_property(docx, name):
+    """value of a Word custom document property, or None"""
+    with zipfile.ZipFile(docx) as z:
+        if "docProps/custom.xml" not in z.namelist():
+            return None
+        x = z.read("docProps/custom.xml").decode("utf-8")
+    m = re.search(r'<property[^>]*\bname="' + re.escape(name) + r'"[^>]*>\s*<vt:lpwstr>(.*?)</vt:lpwstr>', x, re.S)
+    return html.unescape(m.group(1)) if m else None
 
 
 def main():

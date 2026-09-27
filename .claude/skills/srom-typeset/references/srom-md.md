@@ -28,6 +28,18 @@ style sets them (kanon §3.3), and `normalize.py` turns stray nbsp into plain sp
 | interlinear example (§5.3) | `::: przyklad` with a fenced block: line 1 form, line 2 gloss, line 3 translation, columns aligned with 2+ spaces | example_form / example_gloss / example_trans, columns as real tabs |
 | editor comment | `<!-- … -->` | removed before building; one containing PRZYWRÓCIĆ / DO SPRAWDZENIA / TODO / FIXME **fails the build** until resolved |
 
+## Front matter
+
+SROM-MD has no header: title, author, affiliation, abstract and keywords are set in InDesign from the master CSV
+(Kanon § 13.3). The only front-matter field the toolchain reads is `tlumaczenie` (translated articles, Kanon
+§ 12.2.3), a string or a YAML list; not printed, reported for the CSV, kept through the Word working copy:
+
+```
+---
+tlumaczenie: "Imię Nazwisko"
+---
+```
+
 ## Notes
 
 - Marker: `[^n]` **before** . , ; : and after a closing quote or parenthesis; after an abbreviation

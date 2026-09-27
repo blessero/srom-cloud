@@ -254,6 +254,38 @@ def label_kind(lab):
     return {"t": "tłum", "r": "red"}[m.group(1)] if m else None
 
 
+def _meta_text(x):
+    if isinstance(x, list):
+        return "".join(_meta_text(i) for i in x)
+    if not isinstance(x, dict):
+        return ""
+    t, c = x.get("t"), x.get("c")
+    if t in ("Str", "MetaString"):
+        return c
+    if t in ("Space", "SoftBreak", "LineBreak"):
+        return " "
+    return _meta_text(c) if isinstance(c, list) else ""
+
+
+def translators(meta):
+    """Kanon § 12.2.3 (E10): the translator name(s) from the front-matter field `tlumaczenie` (string or list).
+    None = field absent; a list, possibly with empty names, otherwise."""
+    v = (meta or {}).get("tlumaczenie")
+    if v is None:
+        return None
+    items = v["c"] if v.get("t") == "MetaList" else [v]
+    return [re.sub(r"\s+", " ", _meta_text(i)).strip() for i in items]
+
+
+def translators_struct(names):
+    """master-CSV format (curator C1): Given|Surname|Affiliation|ORCID ;; … — split at the last space"""
+    out = []
+    for n in names:
+        given, _, surname = n.rpartition(" ")
+        out.append(f"{given}|{surname}||")
+    return " ;; ".join(out)
+
+
 def label_errors(lab, text):
     k = label_kind(lab)
     if k and na_kind(text) != k:
