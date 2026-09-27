@@ -50,7 +50,8 @@ Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 10/10` (~230 checks, ~30 s
 copy) and stage 2 (translation, srom-tlumacz) are finished and tested first; stage 3 (build for InDesign, styles,
 G12) after.
 
-4. **Stage-1 test on MB's PDF** (D7 re-scoped): `pdf_extract.py` → normalize → refs/keying → working copy; report
+4. **Stage-1 test on MB's PDF** (D7 re-scoped; English, born-digital; MB puts it in `work/` — git-ignored, article texts never
+   committed; scans are out of scope, MB OCRs externally): `pdf_extract.py` → normalize → refs/keying → working copy; report
    every manual step and every failure; fix and add tests.
 5. **E9 typed notes** (T2): `docx_in.py --typed-notes`, page-aware pairing, never guess; test file
    `Dom_Communities Stripped Mac copy.docx` in srom-tlumacz's folder (read-only). The Fotta RTF is not a case
