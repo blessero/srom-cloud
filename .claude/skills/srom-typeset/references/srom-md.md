@@ -76,7 +76,9 @@ pisze [@mroz2011]") is fine: if it would come out as *Ibidem*, the build prints 
   is lost, exactly as with `s.`/`p.`; the year is dropped by the short form, which is normal.
 - Abbreviated ranges are keyed in full: `214–31` → `s. 214–231` (the check counts them as equal).
 - Other locators in braces, as written or with the Polish label: act.scene.line `{4.1.883}`, signatures `{S2ʳ}`,
-  lines `{w. 93–96}`; "n.p." = no page → `[@key]`, what follows it stays text.
+  lines `{w. 93–96}`; "n.p." = no page → `[@key]`, but a book/chapter given with it is the locator:
+  "n.p. (book 11, chapter 2)" → `{ks. 11, rozdz. 2}`. Forms without a Kanon rule (act.scene.line, signatures) are
+  queries for the editor.
 - The same work named in another form in one note (`M.W., 60` where the list and the other notes have
   `M. W., M. A.`) is keyed to the same work; the check accepts the name without spaces and a literal author's
   first part. List the variant in the report: the printed short form comes from refs.json and is uniform.
