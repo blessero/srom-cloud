@@ -59,6 +59,10 @@ r = subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "build.py"), o
                     "--refs", os.path.join(FX, "kanon_refs.json"), "--out", out2], capture_output=True, text=True)
 rep = open(os.path.join(out2, "sample_article_report.md"), encoding="utf-8").read()
 t("with srom-kanon the build PASSES and the report names the Kanon version", r.returncode == 0 and f"Kanon v{kv}" in rep, rep[:600])
+zk = [os.path.relpath(f, os.path.dirname(ROOT)) for d_ in (ROOT, K) for f in glob.glob(os.path.join(d_, "**", "*"), recursive=True)
+      if os.path.isfile(f) and not f.endswith((".pyc", ".docx")) and f != os.path.abspath(__file__)
+      and re.search(r"(?i)kodeks\w*\s+zecer", open(f, encoding="utf-8", errors="ignore").read())]
+t("no reference to the retired Kodeks zecera in either skill (MB 27.09.2026)", not zk, zk)
 t("srom-typeset bundles no linter of its own", not os.path.exists(os.path.join(ROOT, "scripts", "lint_srom.py")))
 
 n, ok = len(res), sum(res)

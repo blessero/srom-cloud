@@ -2,7 +2,7 @@
 
 **Wersja 1.6 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
 
-> Zastępuje *Kodeks zecera* 2.0. Wersja dla autorów (*Wskazówki dla autorów*) jest skrótem tego dokumentu i nie zawiera § 13–17. W razie rozbieżności rozstrzyga niniejszy tekst.
+> Wersja dla autorów (*Wskazówki dla autorów*) jest skrótem tego dokumentu i nie zawiera § 13–17. W razie rozbieżności rozstrzyga niniejszy tekst.
 
 ---
 
@@ -525,7 +525,7 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 
 **Usunięcie `op. cit.` i pokrewnych.** Zmuszają do cofania się w tekście, są nieinterpretowalne dla parserów i syntezatorów mowy, zawodzą przy dostępie fragmentarycznym.
 
-**Przecinek po tytule czasopisma.** *Kodeks zecera* go wymagał, ale tom 18 stosował obie formy. Zapis jednolity, ze stroną na końcu, nie wymaga pamiętania wyjątków.
+**Przecinek po tytule czasopisma.** Tom 18 stosował obie formy. Zapis jednolity, ze stroną na końcu, nie wymaga pamiętania wyjątków.
 
 **Kapitaliki z przecinkiem.** Wersaliki rozwiązują dwuznaczność przy wielu autorach; przecinek zachowuje zgodność z indeksem tomu.
 
@@ -533,7 +533,7 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 
 **Miejsca wydania bez spolszczania.** Miejsce wydania identyfikuje źródło i odpowiada stronie tytułowej.
 
-**Transkrypcja w tekście, ALA-LC w aparacie.** Tekst czyta polski czytelnik; aparat służy odnalezieniu źródła, a katalogi indeksują na ALA-LC. *Kodeks zecera* nazywał swój system „slawistycznym”, ale jego tablica była ISO 9.
+**Transkrypcja w tekście, ALA-LC w aparacie.** Tekst czyta polski czytelnik; aparat służy odnalezieniu źródła, a katalogi indeksują na ALA-LC.
 
 **Ligatury pominięte.** Nie są potrzebne do wyszukiwania i są kłopotliwe w składzie. Jeden system (ALA-LC) obowiązuje w całym aparacie, bez wyjątków.
 
@@ -600,7 +600,7 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.0 | Wersja pierwotna. Usunięcie `op. cit.`, forma skrócona, DOI i ORCID, kodowanie rozmówców. |
 | 1.1 | Rok na końcu pozycji; redaktor tomu przed tytułem; rejestr dat; reguła oryginał/przekład; nazwy własne bez kursywy; kartoteka wzorcowa. |
 | 1.2 | Kapitaliki w nazwiskach; wcięcie po cytacie blokowym; uzasadnienia i wyzwalacze; wersja redakcyjna i autorska. |
-| 1.3 | Zastąpienie *Kodeksu zecera* 2.0. `w:` bez nawiasów; przecinek po tytule czasopisma, strona na końcu; cyfry arabskie; `tłum.`; kapitaliki z przecinkiem; miejsca wydania bez spolszczania; transkrypcja PWN/KSNG w tekście, ALA-LC w aparacie; instytucje w cyrylicy w transkrypcji; uwagi o maszynopisie na końcu; archiwa postsowieckie; rejestr podpisów; zasada integralności danych. |
+| 1.3 | `w:` bez nawiasów; przecinek po tytule czasopisma, strona na końcu; cyfry arabskie; `tłum.`; kapitaliki z przecinkiem; miejsca wydania bez spolszczania; transkrypcja PWN/KSNG w tekście, ALA-LC w aparacie; instytucje w cyrylicy w transkrypcji; uwagi o maszynopisie na końcu; archiwa postsowieckie; rejestr podpisów; zasada integralności danych. |
 | 1.4 | Czasopismo określone jako polskojęzyczne; usunięte wersje językowe artykułów (angielska pozostaje jako § 12.1 dla modelu dwujęzycznego); etykiety aparatu zawsze polskie. Daty w aparacie cyframi arabskimi `dd.mm.rrrr`; wyjątek dla aktów prawnych. Przekład tytułu w nawiasie kwadratowym po tytule. Tablice ALA-LC zweryfikowane z LC, uzupełnione o bułgarski i litery sprzed reform; źródła tablic. Kapitaliki dopuszczone w glosach. Spacje nierozdzielające nakładane stylem GREP. Abstrakt do 1000 znaków. |
 | 1.5 | ISO 9 wycofany; ALA-LC także w przykładach językowych. Uzasadnienie ligatur uproszczone. Daty arabskie potwierdzone (miesiące rzymskie odrzucone). |
 | 1.6 | Kanon włączony do narzędzi redakcji (skill srom-kanon) jako tekst normatywny. Słowa kluczowe 5–10; wyliczenia numerowane; bibliografia bez numeracji części, jedna część bez śródtytułu; zniesiony limit ⅓ kolumny dla przypisu rzeczowego; wymogi techniczne ilustracji przeniesione do *Wskazówek dla autorów*. § 0: znaczniki `[BRAK …]`, `b.m.`/`b.r.` tylko przy braku w źródle. § 3.3: spacji nierozdzielających nie przechowuje się w pliku. § 3.4: kursywa odwrócona. § 4.1: cytat wierszowany. § 7.1: odsyłacz także przed przecinkiem, średnikiem, dwukropkiem; przypisy nieautorskie – odrębny ciąg gwiazdkowy nad przypisami numerowanymi; konwersja z systemu autor–data. § 7.2: odwołanie do dzieła jako całości bez strony. § 7.3: długość tytułu skróconego; formy skrócone prac wieloautorskich; ograniczenia `Ibidem`. § 7.4: przypis wieloakapitowy. § 8.6: URL jako tekst. § 9.3: autor instytucjonalny bez kapitalików. § 9.7: zapis ISBN. § 12.2 Artykuły tłumaczone: metadane oryginału (wyjątki od § 1 pkt 8 i 9); § 12.1 nie dla przekładów; nota o przekładzie i wskazanie tłumacza; cytaty w pięciu sytuacjach; terminologia z bazy redakcji, rozstrzygnięcia tomu 18/2025 wiążące; nazwy grup w przekładzie (odstępstwo od § 6.3); przypisy tłumacza; ingerencje; bibliografia przy cytatach z wydań polskich. § 4.2: formuła `[tłum. własne]` nie w przekładach. § 11: `przyp. tłum.`, `przyp. red.` |

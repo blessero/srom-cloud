@@ -207,7 +207,7 @@ Record: DOI · titles · authors + ORCID + affiliation (**no capitals in surname
 - Arabic apparatus dates: one format; `dd.mm` is the Polish/European default. Roman months considered and rejected (they help only US readers, marginal here). Earlier volumes stay as printed.
 - Tie-bars dropped; ISO 9 not used anywhere. One system: ALA-LC.
 - Imprint place unpolonised: it is a retrieval key.
-- Transcription in body / ALA-LC in apparatus: reader vs retrieval. Kodeks's "Slavist" label for an ISO 9 table was an error.
+- Transcription in body / ALA-LC in apparatus: reader vs retrieval.
 - Title translation right after the title: the end-of-record slot belongs to physical-form notes.
 - Romani group names roman: proper nouns are never italicised.
 
