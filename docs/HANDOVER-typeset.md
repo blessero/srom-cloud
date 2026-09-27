@@ -23,7 +23,7 @@ Nothing here needs re-deriving; decisions marked ✔ are the editor's and closed
 | InDesign | `indesign/style_spec.json` → `scripts/make_style_setup.py` → `srom_style_setup.jsx` + `references/style-sheet.md` | house style definition and setup script |
 | docs | `references/*.md` | srom-md (format), handoff (contract with srom-tlumacz), indesign, decisions, style-sheet |
 
-Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 10/10` (~230 checks, ~30 s). Unlazy ledger: `GATES.md`
+Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 14/14` (~330 checks). Unlazy ledger: `GATES.md`
 (G1–G16 met; G12 = InDesign import, abandoned here: needs the editor or a machine with InDesign).
 
 ## 2. Decisions register (`references/decisions.md`)
@@ -50,9 +50,18 @@ Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 10/10` (~230 checks, ~30 s
 copy) and stage 2 (translation, srom-tlumacz) are finished and tested first; stage 3 (build for InDesign, styles,
 G12) after.
 
-4. **Stage-1 test on MB's PDF** (D7 re-scoped; English, born-digital; MB puts it in `work/` — git-ignored, article texts never
-   committed; scans are out of scope, MB OCRs externally): `pdf_extract.py` → normalize → refs/keying → working copy; report
-   every manual step and every failure; fix and add tests.
+4. **Stage-1 test on MB's PDF** — done 27.09.2026, waiting for MB's answers. Article: Ndiaye, "Black Roma" (RQ 75,
+   2022), `work/ndiaye/` (git-ignored). Stage 1 complete: `ndiaye_src.md` (133 notes keyed, `check.py --keyed` OK),
+   `refs.json` (84, `cite_map audit` OK), `ndiaye_src_robocza.docx` (round trip identical), `build/…_korekta.docx`
+   (`build.py --source`, 0 issues). Open: `work/ndiaye/ndiaye_queries.md` Q1–Q17 (MB). Keying is scripted in
+   `work/ndiaye/key.py` (re-run after any change to the extraction); refs in `refs.py`.
+   What the PDF broke, all fixed with tests (commits d62b8b5 … 214da89): obfuscated italic font names, raised
+   note-number lines, caps headings below body size, front matter, title note, verse, captions, reference list at
+   note size, foot block below notes, URL breaks (now from the PDF's link targets), hyphen joins (document
+   evidence), unlabelled short-form pages in the keyed check, English lists in the audit, source proof mode,
+   bracket escapes in the Word round trip, Kanon § 3.2 full ranges (+ normalize RANGE-FULL), linter BIB-COLON on
+   "Roma:". `test_pdf.py` hand-set pages now run on the Mac; new `test_pdf_layout.py`.
+   Next: MB's answers → apply to refs/keying → hand `ndiaye_src.md` + refs.json to srom-tlumacz (stage 2).
 5. **E9 typed notes** (T2): `docx_in.py --typed-notes`, page-aware pairing, never guess; test file
    `Dom_Communities Stripped Mac copy.docx` in srom-tlumacz's folder (read-only). The Fotta RTF is not a case
    (no notes at all).
