@@ -88,7 +88,10 @@ put(p1, LM, last_body_y + 44, "reviewers for their generous reading.", fs=NS)
 x = put(p1, 60, last_body_y + 58, "1", fs=6.4)
 x = put(p1, x, last_body_y + 58, " Smith, 35", fs=NS)
 put(p1, x, last_body_y + 62, "–69; the pro-", fs=NS)
-put(p1, LM, last_body_y + 74, "duction of the text was slow.", fs=NS)
+put(p1, LM, last_body_y + 74, "duction of the text was slow, see https://www.example.org/", fs=NS)
+put(p1, LM, last_body_y + 86, "2018/feb/old-road-and-the-mill-", fs=NS)
+put(p1, LM, last_body_y + 98, "and-the-field.", fs=NS)
+put(p1, LM, last_body_y + 140, "Test Journal 12 (2020): 1–30 © The Author(s), 2020. doi: 10.1234/tj.2020.1", fs=NS)
 
 # page 2: running head, paragraph continued from page 1, two-line caps heading, verse with marker 2,
 # notes 2 (whole first line on one baseline) and 3 (raised start + superscript e)
@@ -155,9 +158,14 @@ D = md + "\n---REPORT---\n" + rep + r.stdout + r.stderr
 notes = {m.group(1): m.group(2) for m in re.finditer(r"^\[\^(\d+)\]:\s*(.+)$", md, re.M)}
 t("EXTRACT OK, 3 notes, 3 markers in order", "EXTRACT OK" in r.stdout and sorted(notes) == ["1", "2", "3"]
   and re.findall(r"\[\^(\d+)\](?!:)", md) == ["1", "2", "3"], D)
+t("URL broken after a slash: no space; after a hyphen: hyphen kept and listed",
+  "https://www.example.org/2018/feb/old-road-and-the-mill-and-the-field." in notes.get("1", "")
+  and "URL" in rep and "hyphen kept — check the address" in rep, D)
+t("block set apart below the notes (journal, licence, DOI) not in the last note; page 1: with the front matter",
+  "doi" not in notes.get("1", "") and "Test Journal 12 (2020)" in front and "set apart below the notes" in rep, D + front)
 t("raised note start joined without a space: 'Smith, 35–69'", notes.get("1", "").startswith("Smith, 35–69;"), notes)
 t("note line joined with evidence: pro-|duction -> production (word found in the text)",
-  "the production of the text" in notes.get("1", "") and "(prefix, but found in the text)" in rep, D)
+  "the production of the text was slow" in notes.get("1", "") and "(prefix, but found in the text)" in rep, D)
 t("note number on the line's own baseline, smaller -> note 2",
   notes.get("2") == "Whole first line on one baseline, number only smaller, and a second line of the same note.", notes)
 t("superscript inside a note line kept in place: 'XVIIe siècle' (listed)",

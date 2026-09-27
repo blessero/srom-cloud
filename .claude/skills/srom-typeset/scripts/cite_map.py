@@ -385,12 +385,28 @@ def render_bib(refs_path, keys):
 
 STOP = {"In", "W", "Red", "Eds", "Ed", "Hrsg", "Vol", "No", "Nr", "Pp", "S", "The", "A", "An", "And", "Of", "Und",
         "Der", "Die", "Das", "La", "Le", "Les", "Et", "Trans", "Transl", "Tłum", "Edited", "By", "Accessed", "Retrieved",
-        "Available", "Dostęp", "Online", "Doi", "Isbn", "Http", "Https", "Www", "Press"}
+        "Available", "Dostęp", "Online", "Doi", "Isbn", "Http", "Https", "Www", "Press",
+        "Tome", "Tomo", "Tom", "Volume", "Band", "Bd", "Teil"}           # volume labels: rendered as "t."
+MONTHS = {fold(m) for m in ("January February March April May June July August September October November December "
+                            "janvier février mars avril mai juin juillet août septembre octobre novembre décembre "
+                            "Januar Februar März Juni Juli Oktober Dezember").split()}
+
+
+def expand_ranges(s):
+    """abbreviated page ranges as English sources write them: 110–24 -> 110–124 (Kanon § 3.2 prints them in full)"""
+    def f(m):
+        a, b = m.group(1), m.group(2)
+        if len(b) < len(a):
+            full = a[:len(a) - len(b)] + b
+            if int(full) > int(a):
+                return f"{a}–{full}"
+        return m.group(0)
+    return re.sub(r"(?<!\d)(?<!\d\.)(\d{2,5})[-–](\d{1,4})(?!\d|\.\d)", f, s)
 
 
 def tokens(s):
     s = re.sub(r"https?://\S+", " ", s)
-    nums = Counter(int(n) for n in re.findall(r"\d+", re.sub(r"(?<=\d)[-–](?=\d)", " ", s)))
+    nums = Counter(int(n) for n in re.findall(r"\d+", re.sub(r"(?<=\d)[-–](?=\d)", " ", expand_ranges(s))))
     words = {fold(w) for w in re.findall(rf"[{UP}][\w’'\-]{{2,}}", s) if w.split("-")[0].capitalize() not in STOP}
     return nums, words
 
@@ -410,6 +426,13 @@ def audit(refs_paths, bib_path):
         if m:
             nm = fold(m.group(1).rstrip(","))
             cand = [r for r in refs if not r.get("srom-added") and primary_names(r) and fold(primary_names(r)[0]) == nm]
+        if not cand:
+            # family names of more than one word (Touam Bona, Park Hong), a capitalised particle (Van Lannep),
+            # a literal author (M. W., M. A.): the entry starts with the whole name
+            fl = fold(re.sub(r"^[-–•*]\s", "", ln))
+            cand = [r for r in refs if not r.get("srom-added") and primary_names(r)
+                    and re.match(re.escape(fold(primary_names(r)[0])) + r"[,.\s]", fl)]
+        if cand:
             if ym and len(cand) > 1:
                 y = ym.group(1)[:4]
                 cand = [r for r in cand if y in ref_years(r)] or cand
@@ -426,6 +449,9 @@ def audit(refs_paths, bib_path):
         rn, rw = tokens(rendered + " " + json.dumps(r, ensure_ascii=False))
         miss_n = on - rn
         miss_w = sorted(ow - rw)
+        dp = ((r.get("issued") or {}).get("date-parts") or [[]])[0]
+        if len(dp) >= 2:                   # the month is in the date; its name is rendered in Polish
+            miss_w = [w for w in miss_w if w not in MONTHS]
         if miss_n or miss_w:
             problems.append(f"{r['id']}: in original but not in ref/rendering — numbers {dict(miss_n) or '—'}, words {miss_w or '—'}\n"
                             f"      original: {ln}\n      SROM:     {rendered.strip()}")

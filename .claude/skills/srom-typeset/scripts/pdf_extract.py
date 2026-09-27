@@ -20,7 +20,7 @@ What it recovers, and how:
   headings           larger font, bold, or in capitals after a gap (also when smaller than the body) -> # / ##
   opening small caps "THIS ESSAY BEGINS in …" -> "This essay begins in …" (listed: check proper names)
   block quotes       smaller font or indented both sides, outside the note zone -> >
-  verse              >= 3 one-line quotation paragraphs at the same indent        -> > line\ (line breaks kept)
+  verse              >= 3 one-line quotation paragraphs at the same indent        -> one > quotation, line breaks kept
   captions           "Figure 1." / "Rycina 1." … -> ::: podpis; "Table 1." … -> ::: tabela-tytul
   reference list     after a heading "Bibliography"/"References"/… (any size): hanging indent -> one entry per
                      line in <out>_bib.txt; taken out of the text (decision 19)
@@ -192,6 +192,8 @@ def span_md(spans, for_note=False):
                 continue
             if st:
                 odd.append(st)
+                if len(parts) >= 2 and parts[-1][0] == "r" and not parts[-1][1].strip():
+                    parts.pop()        # kerning space before a raised letter: "XVII" " " "e" -> XVIIe
         parts.append(("i" if is_italic(s) and t.strip() else "r", t))
     out = []
     for kind, t in parts:
@@ -222,6 +224,11 @@ def join_lines(texts, joins):
         t = t.strip()
         if not out:
             out = t
+            continue
+        if re.search(r"(?:https?://|www\.)\S*$", out) and re.search(r"[-/._=?&#~]\**$", out):
+            if out.endswith("-"):      # the URL's own hyphen, or the typesetter's? (laviedesi-|dees): cannot tell
+                joins.append(f"URL {out.split()[-1][-25:]}|{t.split()[0][:25]} -> hyphen kept — check the address")
+            out = out + t              # a URL broken at the line end: no space inside it (Kanon § 8.6)
             continue
         m = re.search(r"([\w’']+)[-\u00ad](\**)$", out)
         nxt = re.match(r"(\**)([a-ząćęłńóśźżäöüéèáíúčšž][\w’']*)", t)
@@ -340,8 +347,14 @@ def main():
                     L.zone = "title"
             if top == len(suffix):
                 continue
-        for L in suffix[top:]:
+        zone = suffix[top:]
+        for j, L in enumerate(zone):
             L.zone = "note"
+            # a block set well apart below the notes (licence, DOI, copyright line) is not part of the last note
+            if j and L.y - zone[j - 1].y > 2.2 * 1.25 * N:
+                for F in zone[j:]:
+                    F.zone = "foot"
+                break
 
     # column sanity
     for pno, ls in all_lines.items():
@@ -424,6 +437,10 @@ def main():
                 notes[cur].append(txt)
             first_in_zone = False
 
+    foot = [L for pno in all_lines for L in all_lines[pno] if L.zone == "foot"]
+    for L in foot:
+        dropped.append(f"p{L.page}: {L.text.strip()[:60]} (set apart below the notes)")
+
     # ---------- body paragraphs
     body_lines = [L for pno in all_lines for L in all_lines[pno] if L.zone == "body"]
     title_note = [L for pno in all_lines for L in all_lines[pno] if L.zone == "title"]
@@ -462,6 +479,8 @@ def main():
             front_md.append([])
         front_md[-1].append(span_md(L.spans)[0])
     front_md = [join_lines(x, joins) for x in front_md]
+    if front_md and any(L.page == p0 for L in foot):     # page-1 foot block: journal, licence, DOI -> with the front matter
+        front_md.append(join_lines([span_md(L.spans)[0] for L in foot if L.page == p0], joins))
 
     head_sizes = sorted({L.size for L in body_lines if L.size > B * 1.1}, reverse=True)
     any_caps = any(L.caps_head for L in body_lines)
