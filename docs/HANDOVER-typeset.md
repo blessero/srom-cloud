@@ -55,7 +55,7 @@ G12) after.
 5. **E9 typed notes** (T2): `docx_in.py --typed-notes`, page-aware pairing, never guess; test file
    `Dom_Communities Stripped Mac copy.docx` in srom-tlumacz's folder (read-only). The Fotta RTF is not a case
    (no notes at all).
-6. **Kartoteka E12 flags**: Nawar, Gurbati, Halabi — endonym or exonym, asked of srom-tlumacz (T8).
+6. ~~Kartoteka E12 flags~~ — done (E13/T9): Nawar, Gurbati, Halabi italic; Mutribowie, Gadżar, Garaczi roman (assimilated).
 7. Stage 3, later: house style / reduce the style set (§4, D3) → template as IDML → `config/styles.json` and
    `template_extra` from it → G12 first article in InDesign (the JSX can possibly be run directly against InDesign
    via AppleScript `do script` — untested).

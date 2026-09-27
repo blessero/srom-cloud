@@ -78,8 +78,10 @@ if os.path.isfile(kp):
     ex = re.search(r"Wyjątek – egzonimy obce\*\*: (.*?)\. Etnonimy", sec34, re.S)
     named = re.findall(r"\*([^*,()]+)\*", ex.group(1)) if ex else []
     ital = {r[0] for r in body if r[8] == "y"}
-    t("every foreign exonym the Kanon names in § 3.4 is italic in the kartoteka, and no other row is",
-      named and set(named) == ital, (named, sorted(ital)))
+    t("every foreign exonym the Kanon names in § 3.4 as an example is italic in the kartoteka",
+      named and set(named) <= ital, (named, sorted(ital)))
+    t("kartoteka: every italic row says why (E12/E13)", all("E12" in r[7] or "E13" in r[7] for r in body if r[8] == "y"),
+      [r[0] for r in body if r[8] == "y" and not ("E12" in r[7] or "E13" in r[7])])
 zk = [os.path.relpath(f, os.path.dirname(ROOT)) for d_ in (ROOT, K) for f in glob.glob(os.path.join(d_, "**", "*"), recursive=True)
       if os.path.isfile(f) and not f.endswith((".pyc", ".docx")) and f != os.path.abspath(__file__)
       and re.search(r"(?i)kodeks\w*\s+zecer", open(f, encoding="utf-8", errors="ignore").read())]
