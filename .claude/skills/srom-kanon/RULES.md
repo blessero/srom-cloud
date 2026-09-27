@@ -139,7 +139,7 @@ Same construction as the note, four differences only: **`Surname, Given-name.`**
 **9.2 Divisions**, in this order, only those present, headed but **unnumbered**; a bibliography with a single division has no division heading: Abbreviations · Archives (fonds level) · Fieldwork · Printed/legal · Web without DOI · Literature. Coverage: every cited work, except single archival units, single press issues, one-off legal acts; and the author's whole bibliography, cited or not.
 **9.3 Small caps:** genuine OpenType (fallback: full caps, as in the index); surname only; particles lowercase and outside small caps (`de HEUSCH, Luc`); institutional authors not in small caps. **Character style, never data.** Comma kept for consistency with the volume index.
 **9.5 Order:** Polish collation by transliterated form; same author chronological, then by title; sole-author works before co-authored.
-**9.7 Identifiers:** DOI mandatory where one exists, printed `DOI: 10.1234/abcd` (no `https://doi.org/`). ISBN only in the bibliography and only when the author gives it (not added), printed `ISBN 978-…` without a colon.
+**9.7 Identifiers:** DOI mandatory where one exists, printed `DOI: 10.1234/abcd` (no `https://doi.org/`). An article without DOI (online journal): its URL in the bibliography in the DOI's place. ISBN only in the bibliography and only when the author gives it (not added), printed `ISBN 978-…` without a colon.
 
 ### 9.6. Cyrillic
 

@@ -346,7 +346,15 @@
         </group>
         <choose>
           <if type="webpage post post-weblog" match="none">
-            <text variable="DOI" prefix="DOI: "/>
+            <choose>
+              <if variable="DOI">
+                <text variable="DOI" prefix="DOI: "/>
+              </if>
+              <else-if type="article-journal article-magazine article-newspaper" match="any">
+                <!-- Kanon § 9.7: an article without DOI (online journal) - its URL in the DOI's place -->
+                <text macro="access"/>
+              </else-if>
+            </choose>
           </if>
         </choose>
         <text variable="ISBN" prefix="ISBN "/>

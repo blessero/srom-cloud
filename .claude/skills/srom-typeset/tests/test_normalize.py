@@ -27,6 +27,7 @@ CASES = [
     # spaces, ellipsis, omissions
     ("Tekst  z   wieloma\u00a0spacjami , i ( nawiasem ) .", "Tekst z wieloma spacjami, i (nawiasem).", None),
     ("Opuszczenie (...) i [...] oraz wielokropek...", "Opuszczenie […] i […] oraz wielokropek…", None),
+    ("„Romani (adjective). . . . When referring” i „słowa . . . dalej”.", "„Romani (adjective). […] When referring” i „słowa […] dalej”.", None),
     ("Znak\u00admiękki\u200b usunięty.", "Znakmiękki usunięty.", None),
     # note markers
     ("Zdanie kończy się.[^1] Następne,[^2] i dalej", "Zdanie kończy się[^1]. Następne[^2], i dalej", None),

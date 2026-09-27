@@ -128,6 +128,9 @@ class Normalizer:
         body = self.sub("TRAIL", r" +$", "", body, ln)
 
         # ellipsis and omissions (§3.5, §4.1)
+        # English spaced dots (". . .", ". . . ." at a sentence end) mark an omission in a quotation -> […] (logged: check)
+        body = self.sub("OMISSION-SPACED", r"(?<=\S)\. \. \. \.(?= |$)", ". […]", body, ln)     # full stop + omission
+        body = self.sub("OMISSION-SPACED", r" ?(?<!\[)\. \. \.(?= |$|[,;:!?”’)])", " […]", body, ln)
         body = self.sub("ELLIPSIS", r"\.\.\.", "…", body, ln)
         body = self.sub("OMISSION", r"[\(\[]\s*…\s*[\)\]]", "[…]", body, ln)
 

@@ -108,6 +108,17 @@ roman = lambda rs, w: any(st == "roman" and w in t for st, t in rs) and not any(
 check("inner title roman in body text (*Tytule _wewnętrznym_ tomu*)", roman(body_r, "wewnętrznym") and any("Tytule" in t and st != "roman" for st, t in body_r), body_r)
 check("inner title roman at the end of an italic title, in the note and the bibliography (no stray **)",
       roman(note_r, "Les Fourberies") and roman(bib_r, "Les Fourberies") and "**" not in zi.read("word/document.xml").decode(), (note_r, bib_r))
+# article without DOI (online journal): URL in the bibliography in the DOI's place (Kanon § 9.7); with DOI: DOI only
+ub = os.path.join(tempfile.mkdtemp(), "refs.json")
+json.dump([{"id": "online2019", "type": "article-journal", "author": [{"family": "Wagner", "given": "Sydnee"}], "title": "Bodies",
+            "container-title": "Synapsis", "issued": {"date-parts": [[2019, 6, 10]]}, "URL": "https://example.org/bodies/"},
+           {"id": "doi2009", "type": "article-journal", "author": [{"family": "Asséo", "given": "Henriette"}], "title": "Travestissement",
+            "container-title": "Les Dossiers du Grihl", "issued": {"date-parts": [[2009]]}, "DOI": "10.4000/x.1", "URL": "https://doi.org/10.4000/x.1"}],
+          open(ub, "w", encoding="utf-8"), ensure_ascii=False)
+code_u, out_u, stem_u, rep_u = build(md_text="A[^1] b[^2].\n\n[^1]: [@online2019].\n\n[^2]: [@doi2009].\n", refs=ub)
+bib_u = open(os.path.join(out_u, stem_u + ".txt"), encoding="utf-8").read().split("Bibliografia")[-1]
+check("article without DOI: year and URL printed in the bibliography; with DOI: DOI, no URL",
+      "2019" in bib_u and "https://example.org/bodies/" in bib_u and "DOI: 10.4000/x.1" in bib_u and "https://doi.org" not in bib_u, bib_u)
 check("uncited work of the author's list printed, reported", "Książka bez wydawcy" in bib_b and "printed though not cited" in rep_b and "nopub1990" in rep_b, rep_b[:800])
 check("early print (1662) without printer: no [BRAK WYDAWCY]; a 1990 book without publisher still has it",
       "marriage broaker, London 1662" in txt_b and "Książka bez wydawcy, [BRAK WYDAWCY], Kraków 1990" in bib_b, txt_b[-800:])
