@@ -155,5 +155,31 @@ t("keyed: tamże keyed to a different work than the previous note -> ERROR", c =
 c, o = run("--keyed", KO, w("k4.md", kk.replace(" oraz[^4]", " oraz").replace("[^4]: ANK, 29/456, sygn. 12, k. 41.\n", "")))
 t("keyed: dropped note -> ERROR", c == 1 and "note count differs" in o, o)
 
+# ---- keyed, short-form notes with unlabelled pages (English/French journals: "Hornback, 35–69")
+SREFS = w("short_refs.json", json.dumps([
+    {"id": "hornback2018", "type": "book", "author": [{"family": "Hornback", "given": "Robert"}], "title": "Racism and Early Blackface",
+     "publisher": "Palgrave", "publisher-place": "Cham", "issued": {"date-parts": [[2018]]}},
+    {"id": "ndiaye2021", "type": "article-journal", "author": [{"family": "Ndiaye", "given": "Noémie"}], "title": "Come Aloft",
+     "container-title": "ELR", "volume": "51", "page": "121–151", "issued": {"date-parts": [[2021]]}},
+    {"id": "ndiaye2022", "type": "book", "author": [{"family": "Ndiaye", "given": "Noémie"}], "title": "Scripts of Blackness",
+     "publisher": "UPenn Press", "publisher-place": "Philadelphia", "issued": {"date-parts": [[2022]]}},
+    {"id": "mw1662", "type": "book", "author": [{"literal": "M. W., M. A."}], "title": "The marriage broaker",
+     "publisher": "X", "publisher-place": "London", "issued": {"date-parts": [[1662]]}}], ensure_ascii=False))
+SO = w("short_o.md", "A[^1] b[^2] c[^3] d[^4].\n\n[^1]: Hornback, 35–69.\n\n[^2]: See Ndiaye, 2021, 145–51; Ndiaye, 2022, 214–31.\n\n"
+       "[^3]: “Peace”: M.W., 60.\n\n[^4]: M. W., M. A., 34–36.\n")
+SK = ("A[^1] b[^2] c[^3] d[^4].\n\n[^1]: [@hornback2018, s. 35–69].\n\n[^2]: Zob. [@ndiaye2021, s. 145–151; @ndiaye2022, s. 214–231].\n\n"
+      "[^3]: „Peace”: [@mw1662, s. 60].\n\n[^4]: [@mw1662, s. 34–36].\n")
+def runk(o, k):
+    r = subprocess.run([sys.executable, CHECK, "--keyed", o, k, "--refs", SREFS], capture_output=True, text=True)
+    return r.returncode, r.stdout + r.stderr
+c, o = runk(SO, w("short_k.md", SK))
+t("keyed short form: unlabelled pages, abbreviated ranges expanded, 'M.W.' for 'M. W., M. A.' -> CHECK OK", c == 0 and "CHECK OK" in o, o)
+c, o = runk(SO, w("short_k1.md", SK.replace("s. 214–231", "s. 214–230")))
+t("keyed short form: unlabelled page changed (214–31 keyed as 214–230) -> ERROR", c == 1 and "page/folio numbers lost" in o and "231" in o, o)
+c, o = runk(SO, w("short_k2.md", SK.replace("[@hornback2018, s. 35–69]", "[@hornback2018, s. 35]")))
+t("keyed short form: page dropped from a range (Hornback, 35–69 -> s. 35) -> ERROR", c == 1 and "69" in o, o)
+c, o = runk(SO, w("short_k3.md", SK.replace("[@mw1662, s. 60]", "[@hornback2018, s. 60]")))
+t("keyed short form: wrong work for 'M.W.' -> ERROR", c == 1 and "@hornback2018" in o, o)
+
 n, ok = len(results), sum(results)
 print(f"CHECK ALL PASS {n}/{n}" if ok == n else f"CHECK FAILED {n - ok}/{n}")

@@ -76,6 +76,37 @@ json.dump([r for r in refs if r["id"] == "ficowski1985"], open(sub, "w"), ensure
 c, o = cm("audit", "--refs", sub, "--bib", bib)
 t("audit: original entry with no ref caught", c == 1 and "not mapped to exactly one ref" in o, o)
 
+# ---- audit, English (Chicago) reference list: names of more than one word, literal author, abbreviated ranges,
+# volume labels, month names (stage-1 test on a journal PDF, 27.09.2026)
+ebib = os.path.join(d, "ebib.txt")
+open(ebib, "w", encoding="utf-8").write(
+    "Touam Bona, Dénètem. Fugitif, où cours-tu? Paris: Presses Universitaires de France, 2016.\n"
+    "Van Lannep, William, ed. The London Stage. Carbondale: Southern Illinois University Press, 1965.\n"
+    "M. W., M. A. A comedy called The marriage broaker. London: Printer, 1662.\n"
+    "McKee, Sally. “Domestic Slavery in Renaissance Italy.” Slavery and Abolition 29.3 (2008): 305–26.\n"
+    "Plésiat, Mathieu. Les Tsiganes; Tome 2. Paris: L’Harmattan, 2010.\n"
+    "Matache, Margareta. “Roma Share a Common Struggle.” Guardian, 20 February 2018.\n")
+eref = [
+    {"id": "touambona2016", "type": "book", "author": [{"family": "Touam Bona", "given": "Dénètem"}], "title": "Fugitif, où cours-tu?",
+     "publisher": "Presses Universitaires de France", "publisher-place": "Paris", "issued": {"date-parts": [[2016]]}},
+    {"id": "vanlannep1965", "type": "book", "editor": [{"family": "Van Lannep", "given": "William"}], "title": "The London Stage",
+     "publisher": "Southern Illinois University Press", "publisher-place": "Carbondale", "issued": {"date-parts": [[1965]]}},
+    {"id": "mw1662", "type": "book", "author": [{"literal": "M. W., M. A."}], "title": "A comedy called The marriage broaker",
+     "publisher": "Printer", "publisher-place": "London", "issued": {"date-parts": [[1662]]}},
+    {"id": "mckee2008", "type": "article-journal", "author": [{"family": "McKee", "given": "Sally"}], "title": "Domestic Slavery in Renaissance Italy",
+     "container-title": "Slavery and Abolition", "volume": "29", "issue": "3", "page": "305–326", "issued": {"date-parts": [[2008]]}},
+    {"id": "plesiat2010", "type": "book", "author": [{"family": "Plésiat", "given": "Mathieu"}], "title": "Les Tsiganes", "volume": "2",
+     "publisher": "L’Harmattan", "publisher-place": "Paris", "issued": {"date-parts": [[2010]]}},
+    {"id": "matache2018", "type": "article-newspaper", "author": [{"family": "Matache", "given": "Margareta"}],
+     "title": "Roma Share a Common Struggle", "container-title": "Guardian", "issued": {"date-parts": [[2018, 2, 20]]}}]
+esub = os.path.join(d, "esub.json"); json.dump(eref, open(esub, "w", encoding="utf-8"), ensure_ascii=False)
+c, o = cm("audit", "--refs", esub, "--bib", ebib)
+t("audit, English list: Touam Bona, Van Lannep, literal M. W., 305–26 = 305–326, Tome = t., February = 2 -> OK", c == 0 and "CITEMAP OK" in o, o)
+eref[3]["page"] = "305–316"
+json.dump(eref, open(esub, "w", encoding="utf-8"), ensure_ascii=False)
+c, o = cm("audit", "--refs", esub, "--bib", ebib)
+t("audit, English list: wrong end of an abbreviated range (305–26 vs 305–316) caught", c == 1 and "mckee2008" in o and "326" in o, o)
+
 po = os.path.join(d, "po.md"); open(po, "w", encoding="utf-8").write("Pierwszy akapit (s. 4).\n\nDrugi (Ficowski 1985: 3).\n\nTrzeci akapit (s. 9).\n")
 c, o = cm("scan", po, "--refs", REFS, "--apply", os.path.join(d, "po_out.md"))
 t("page-only with no earlier citation blocks; later one follows the previous paragraph's work", c == 1 and "PAGE-ONLY?" in o and "['ficowski1985']" in o, o)

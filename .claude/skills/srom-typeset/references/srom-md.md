@@ -70,6 +70,18 @@ Forbidden: `@key` without brackets and `[-@key]` — pandoc would print the firs
 author. Write the name in prose and cite normally. A citation after prose inside a note ("Szerzej
 pisze [@mroz2011]") is fine: if it would come out as *Ibidem*, the build prints the short form.
 
+**Keying short-form notes** (English and French journals: "Hornback, 35–69.", "Ndiaye, 2022, 214–31.", "Brome, 4.1.883."):
+- A bare number after the author (and the year, where the author has several works) is the page:
+  `Hornback, 35–69.` → `[@hornback2018, s. 35–69].` `check.py --keyed` reads these unlabelled pages and fails if one
+  is lost, exactly as with `s.`/`p.`; the year is dropped by the short form, which is normal.
+- Abbreviated ranges are keyed in full: `214–31` → `s. 214–231` (the check counts them as equal).
+- Other locators in braces, as written or with the Polish label: act.scene.line `{4.1.883}`, signatures `{S2ʳ}`,
+  lines `{w. 93–96}`; "n.p." = no page → `[@key]`, what follows it stays text.
+- The same work named in another form in one note (`M.W., 60` where the list and the other notes have
+  `M. W., M. A.`) is keyed to the same work; the check accepts the name without spaces and a literal author's
+  first part. List the variant in the report: the printed short form comes from refs.json and is uniform.
+- Lead-ins: see → zob., see also → zob. też, cf. → por. (handoff.md).
+
 Stay **literal** (plain text in the note, kanon §8): archival units (§8.1), fieldwork codes (§8.2),
 single press issues, legal acts cited once, statistics tables without a stable record.
 

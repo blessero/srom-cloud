@@ -91,6 +91,9 @@ put(p1, x, last_body_y + 62, "–69; the pro-", fs=NS)
 put(p1, LM, last_body_y + 74, "duction of the text was slow, see https://www.example.org/", fs=NS)
 put(p1, LM, last_body_y + 86, "2018/feb/old-road-and-the-mill-", fs=NS)
 put(p1, LM, last_body_y + 98, "and-the-field.", fs=NS)
+for yy in (74, 86, 98):
+    p1.insert_link({"kind": pymupdf.LINK_URI, "uri": "https://www.example.org/2018/feb/old-road-and-the-mill-and-the-field",
+                    "from": pymupdf.Rect(LM, last_body_y + yy - 9, RM, last_body_y + yy + 2)})
 put(p1, LM, last_body_y + 140, "Test Journal 12 (2020): 1–30 © The Author(s), 2020. doi: 10.1234/tj.2020.1", fs=NS)
 
 # page 2: running head, paragraph continued from page 1, two-line caps heading, verse with marker 2,
@@ -124,6 +127,7 @@ put(p2, LM, ny + 12, "and a second line of the same note.", fs=NS)
 x = put(p2, 60, ny + 20, "3", fs=6.4)
 x = put(p2, x, ny + 20, " Asséo,", fs=NS)
 x2 = put(p2, x, ny + 24, " 1974: “Le XVII", fs=NS)
+x2 = put(p2, x2, ny + 24, " ", fs=3)          # kerning space in the small size, on the baseline
 x3 = put(p2, x2, ny + 20, "e", fs=6.4)
 put(p2, x3, ny + 24, " siècle”.", fs=NS)
 
@@ -143,7 +147,12 @@ put(p3, LM, y, "after the figure the same sentence goes on and ends here."); y +
 put(p3, 175, y, "BIBLIOGRAPHY", fs=10.5); y += 18
 put(p3, LM, y, "Acton, Thomas. Gypsy Politics and Social Change. London: Routledge", fs=NS); y += 12
 put(p3, 60, y, "and Kegan Paul, 1974.", fs=NS); y += 12
-put(p3, LM, y, "Fraser, Angus. The Gypsies. Oxford: Blackwell, 1992.", fs=NS); y += 12
+put(p3, LM, y, "Fraser, Angus. The Gypsies. Oxford: Blackwell, 1992. https://www.gyp-", fs=NS); y += 12
+put(p3, 60, y, "sylore.org/fraser.html.", fs=NS); y += 12
+for yy in (y - 24, y - 12):
+    p3.insert_link({"kind": pymupdf.LINK_URI, "uri": "https://www.gypsylore.org/fraser.html", "from": pymupdf.Rect(LM, yy - 9, RM, yy + 2)})
+put(p3, LM, y, "Galland, Nora. Name-Calling. Shakespeare en devenir 12 (2017): https://www.ex.org/i.php?id¼12.", fs=NS)
+p3.insert_link({"kind": pymupdf.LINK_URI, "uri": "https://www.ex.org/i.php?id=12", "from": pymupdf.Rect(LM, y - 9, RM, y + 2)}); y += 12
 
 d = tempfile.mkdtemp()
 pdf = os.path.join(d, "journal.pdf"); doc.save(pdf)
@@ -160,7 +169,7 @@ t("EXTRACT OK, 3 notes, 3 markers in order", "EXTRACT OK" in r.stdout and sorted
   and re.findall(r"\[\^(\d+)\](?!:)", md) == ["1", "2", "3"], D)
 t("URL broken after a slash: no space; after a hyphen: hyphen kept and listed",
   "https://www.example.org/2018/feb/old-road-and-the-mill-and-the-field." in notes.get("1", "")
-  and "URL" in rep and "hyphen kept — check the address" in rep, D)
+  and "URL" in rep and "hyphen kept (link target)" in rep, D)
 t("block set apart below the notes (journal, licence, DOI) not in the last note; page 1: with the front matter",
   "doi" not in notes.get("1", "") and "Test Journal 12 (2020)" in front and "set apart below the notes" in rep, D + front)
 t("raised note start joined without a space: 'Smith, 35–69'", notes.get("1", "").startswith("Smith, 35–69;"), notes)
@@ -188,8 +197,13 @@ t("verse -> one quotation, forced line breaks, marker on the last line",
 t("caption -> ::: podpis, placed after the paragraph it interrupted; paragraph rejoined",
   re.search(r"\[\^3\] after the figure the same sentence goes on and ends here\.\n\n\[\^3\]: .*\n\n::: podpis\nFigure 1\. A drawing", md) is not None, D)
 t("reference list at note size -> _bib.txt, one entry per item; out of the text with its heading",
-  bib == ["Acton, Thomas. Gypsy Politics and Social Change. London: Routledge and Kegan Paul, 1974.",
-          "Fraser, Angus. The Gypsies. Oxford: Blackwell, 1992."] and "BIBLIOGRAPHY" not in md and "Acton" not in md, (bib, D))
+  bib[:1] == ["Acton, Thomas. Gypsy Politics and Social Change. London: Routledge and Kegan Paul, 1974."] and len(bib) == 3 and "BIBLIOGRAPHY" not in md and "Acton" not in md, (bib, D))
+t("URL hyphen at a line break decided by the link target: typesetter's removed, the address's own kept",
+  bib[1:2] == ["Fraser, Angus. The Gypsies. Oxford: Blackwell, 1992. https://www.gypsylore.org/fraser.html."]
+  and "hyphen removed (link target)" in rep and "hyphen kept (link target)" in rep, (bib, D))
+t("URL text with a wrong glyph (id¼12) replaced by its link target, listed",
+  bib[2:] == ["Galland, Nora. Name-Calling. Shakespeare en devenir 12 (2017): https://www.ex.org/i.php?id=12."]
+  and "differs from its link target" in rep, (bib, D))
 t("running head dropped", "TEST JOURNAL" not in md, D)
 
 n, ok = len(res), sum(res)

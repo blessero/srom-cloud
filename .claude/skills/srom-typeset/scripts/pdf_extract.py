@@ -44,6 +44,7 @@ KEEP_HYPHEN_PREFIXES = {"self", "non", "anti", "post", "pre", "co", "well", "cro
                         "pro", "ex", "inter", "intra", "multi", "trans", "ultra", "counter", "mid", "socio",
                         "post", "euro", "afro", "indo", "anglo", "franco", "polish", "roma", "sinti"}
 CAPTION_RX = re.compile(r"^\**(?:(Figure|Fig\.|Plate|Illustration|Rycina|Ryc\.|Ilustracja|Fot\.|Abb\.|Abbildung)|(Table|Tabela|Tab\.|Tabelle))\**\s*\d+[.:]")
+LINKS = set()       # URI targets of the PDF's link annotations: what a click opens, the authority for URL text
 VOCAB = set()       # words (lowercase, hyphenated ones too) that occur inside lines of the document being read
 TEXT_FLAGS = pymupdf.TEXT_PRESERVE_WHITESPACE | pymupdf.TEXT_MEDIABOX_CLIP  # ligatures expanded
 
@@ -226,8 +227,16 @@ def join_lines(texts, joins):
             out = t
             continue
         if re.search(r"(?:https?://|www\.)\S*$", out) and re.search(r"[-/._=?&#~]\**$", out):
-            if out.endswith("-"):      # the URL's own hyphen, or the typesetter's? (laviedesi-|dees): cannot tell
-                joins.append(f"URL {out.split()[-1][-25:]}|{t.split()[0][:25]} -> hyphen kept — check the address")
+            if out.endswith("-"):      # the URL's own hyphen, or the typesetter's (laviedesi-|dees)? the link decides
+                head = re.search(r"(?:https?://|www\.)\S*$", out).group(0)
+                tail = re.match(r"\S*", t).group(0).rstrip(".,;:)”’")
+                if any(u.startswith(head[:-1] + tail) for u in LINKS):
+                    joins.append(f"URL {head[-25:]}|{tail[:25]} -> hyphen removed (link target)")
+                    out = out[:-1]
+                elif any(u.startswith(head + tail) for u in LINKS):
+                    joins.append(f"URL {head[-25:]}|{tail[:25]} -> hyphen kept (link target)")
+                else:
+                    joins.append(f"URL {head[-25:]}|{tail[:25]} -> hyphen kept, no link in the PDF — check the address")
             out = out + t              # a URL broken at the line end: no space inside it (Kanon § 8.6)
             continue
         m = re.search(r"([\w’']+)[-\u00ad](\**)$", out)
@@ -282,6 +291,8 @@ def main():
         chars[L.size] += len(L.text)
     B = chars.most_common(1)[0][0]
 
+    for pg in pages:
+        LINKS.update(l["uri"] for l in pg.get_links() if l.get("uri"))
     for L in (l for ls in all_lines.values() for l in ls):
         VOCAB.update(w.lower() for w in re.findall(r"[^\W\d_][\w’']*(?:-[^\W\d_][\w’']*)*", re.sub(r"\S+-\s*$", "", L.text)))
 
@@ -629,6 +640,23 @@ def main():
             if n in notes:
                 out += [f"[^{n}]: " + join_lines(notes[n], joins), ""]
     md = "\n".join(out).rstrip() + "\n"
+
+    def link_fix(text):
+        """URL text that differs from its link target in a character or two (a glyph mapped wrongly:
+        "?id¼1859" for "?id=1859") takes the target; listed"""
+        def f(m):
+            u = m.group(0).rstrip(".,;:)”’")
+            if u in LINKS:
+                return m.group(0)
+            near = [x for x in LINKS if len(x) == len(u) and sum(a != b for a, b in zip(x, u)) <= 2]
+            if len(near) == 1:
+                warns.append(f"URL text {u!r} differs from its link target -> {near[0]!r} (the link used)")
+                return near[0] + m.group(0)[len(u):]
+            return m.group(0)
+        return re.sub(r"(?:https?://|www\.)\S+", f, text)
+    md = link_fix(md)
+    bib_entries = [link_fix(x) for x in bib_entries]
+    front_md = [link_fix(x) for x in front_md]
     img_pages = [pno for pno in all_lines if doc[pno - 1].get_images()]
     if img_pages:
         warns.append(f"images on pages {img_pages}: not extracted (figures are placed by hand); captions -> ::: podpis")

@@ -19,6 +19,9 @@ Exit 1 if any ERROR. Last line: CHECK OK / CHECK FAIL n error(s).
 import argparse, json, os, re, subprocess, sys, tempfile
 from collections import Counter
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from cite_map import expand_ranges      # 210–13 -> 210–213
+
 FROM = ("markdown-smart-superscript-subscript-strikeout-raw_html-raw_tex-tex_math_dollars"
         "-implicit_figures-fancy_lists-example_lists-task_lists-auto_identifiers")
 AUTHOR_DATE = re.compile(
@@ -464,9 +467,43 @@ def locator_numbers(text):
     return c
 
 
+SHORT_LOC = r"(?:,\s?(?:1[5-9]\d\d|20\d\d)[a-z]?)?,\s?(\d+[a-z]?(?:\s?[–-]\s?\d+[a-z]?)?(?:,\s?\d+[a-z]?(?:\s?[–-]\s?\d+[a-z]?)?)*)(?![\d.]\d)"
+
+
+def squeeze(s):
+    """folded, without spaces: "M.W." == "M. W." """
+    return re.sub(r"\s+", "", fold_txt(s))
+
+
+def name_forms(ref):
+    """how an original note may name the work's author: family name, a literal author, or its first part
+    ("M. W." for "M. W., M. A.")"""
+    out = []
+    for p in (ref.get("author") or ref.get("editor") or []):
+        n = p.get("family") or p.get("literal") or ""
+        if n:
+            out.append(n)
+            if p.get("literal") and "," in n:
+                out.append(n.split(",")[0])
+    return out
+
+
+def shortform_numbers(text, refs, keys):
+    """pages in short-form notes without a label, as most English and French journals write them:
+    "Hornback, 35–69", "Ndiaye, 2022, 214–31", "M. W., M. A., 45" -> the numbers after the author (and year)
+    of a work the keyed note cites. Abbreviated ranges count in full (210–13 = 210–213)."""
+    t, c = squeeze(expand_ranges(text)), Counter()
+    for n in {squeeze(x) for key in keys for x in name_forms(refs.get(key) or {})}:   # one author, two works: once
+        for m in re.finditer(re.escape(n) + SHORT_LOC.replace("\\s?", ""), t):
+            for x in re.findall(r"\d+", m.group(1)):
+                c[int(x)] += 1
+    return c
+
+
 def check_keyed(orig, keyed, refs_path, errs, warns):
     """Renders the keyed file exactly as build.py will and compares it note by note with the author's
-    original notes: every page/folio number must survive, every cited key's author must be named in
+    original notes: every page/folio number must survive (labelled "s. 15", "p. 15", or bare after the author
+    in short-form notes, "Hornback, 35–69"; abbreviated ranges counted in full), every cited key's author must be named in
     the original note (or the original note is an ibid./tamże pointing at the same work)."""
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import build
@@ -486,10 +523,11 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
     prev_keys = []
     for i, (o, k) in enumerate(zip(on, kn), 1):
         keys = kkeys[i - 1] if i - 1 < len(kkeys) else []
-        lost = locator_numbers(o) - locator_numbers(k)
+        o_loc = locator_numbers(expand_ranges(o)) | shortform_numbers(o, refs, keys)
+        lost = o_loc - locator_numbers(expand_ranges(k))
         if lost:
             errs.append(f"note {i}: page/folio numbers lost in keying {dict(lost)}\n        original: {o[:160]}\n        rendered: {k[:160]}")
-        other = numbers(o) - numbers(k) - locator_numbers(o)
+        other = numbers(expand_ranges(o)) - numbers(k) - o_loc
         if other:
             warns.append(f"note {i}: other numbers not in rendering {dict(other)} (a year dropped by the short form is normal): {o[:100]}")
         if not keys:
@@ -499,13 +537,14 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
             if keys != prev_keys[-1:] and keys != prev_keys:
                 errs.append(f"note {i}: original is ibid./tamże but keyed {keys} ≠ previous note {prev_keys}")
         else:
-            fo = fold_txt(o)
+            fo, so = fold_txt(o), squeeze(o)
             for key in keys:
                 r = refs.get(key)
                 if not r:
                     continue
-                names = [p.get("family") or p.get("literal") or "" for p in (r.get("author") or r.get("editor") or [])]
-                if names and not any(fold_txt(n) in fo or fold_txt(n)[:max(4, len(n) - 3)] in fo for n in names if n):
+                names = name_forms(r)
+                if names and not any(fold_txt(n) in fo or fold_txt(n)[:max(4, len(n) - 3)] in fo or squeeze(n) in so
+                                     for n in names if n):
                     ttl = fold_txt((r.get("title-short") or r.get("title") or "")[:18].rstrip("…"))
                     if not (len(ttl) >= 8 and ttl in fo):
                         errs.append(f"note {i}: @{key} ({', '.join(names)}) — neither author nor title found in the original note: {o[:120]}")

@@ -393,7 +393,8 @@ MONTHS = {fold(m) for m in ("January February March April May June July August S
 
 
 def expand_ranges(s):
-    """abbreviated page ranges as English sources write them: 110–24 -> 110–124 (Kanon § 3.2 prints them in full)"""
+    """abbreviated page ranges as English sources write them: 110–24 -> 110–124, for comparing numbers
+    (the Kanon's examples are full ranges, § 3.2; whether that is a rule: MB-decisions D10)"""
     def f(m):
         a, b = m.group(1), m.group(2)
         if len(b) < len(a):
