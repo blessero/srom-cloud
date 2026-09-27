@@ -61,10 +61,10 @@ G12) after.
    evidence), unlabelled short-form pages in the keyed check, English lists in the audit, source proof mode,
    bracket escapes in the Word round trip, Kanon § 3.2 full ranges (+ normalize RANGE-FULL), linter BIB-COLON on
    "Roma:". `test_pdf.py` hand-set pages now run on the Mac; new `test_pdf_layout.py`.
-   28.09.2026: MB's answers applied (see `work/ndiaye/ndiaye_queries.md`, top). Next: process the text (MB):
-   online-journal articles without DOI (year, URL) is the one open point; then hand `ndiaye_src.md`, refs.json,
-   `ndiaye_src_front.md` to srom-tlumacz (stage 2). Future (MB, not now): a sourcing step for missing publisher/
-   place (search, list for MB's approval per item) and ISBN lookup via a catalogue API.
+   28.09.2026: MB's answers applied; online-journal articles print year + URL (Kanon § 9.7); source handed to
+   srom-tlumacz (T12; D7 removed from MB-decisions as resolved). Waiting: srom-tlumacz's receipt (T12) and its side
+   of T11 (front matter). Figures: image files/permissions at stage 3. Future (MB, not now): a sourcing step for
+   missing publisher/place (search, list for MB's approval per item) and ISBN lookup via a catalogue API.
 5. **E9 typed notes** (T2): `docx_in.py --typed-notes`, page-aware pairing, never guess; test file
    `Dom_Communities Stripped Mac copy.docx` in srom-tlumacz's folder (read-only). The Fotta RTF is not a case
    (no notes at all).
