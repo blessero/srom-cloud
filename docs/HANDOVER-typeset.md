@@ -1,6 +1,8 @@
-# srom-typeset — handover (state at 26.09.2026)
+# srom-typeset — handover (state at 27.09.2026)
 
-For the next session (Claude Code). Read this, then `CLAUDE.md`, then `skills/srom-typeset/SKILL.md`.
+For the next session (Claude Code). Start with `../_handoffs/tlumacz-to-typeset.md` (incoming) and
+`../_handoffs/MB-decisions.md` (the one list of MB's decisions — this file keeps none), per `../CLAUDE.md`. Then this,
+`CLAUDE.md`, and `skills/srom-typeset/SKILL.md`. Outgoing messages: `../_handoffs/typeset-to-tlumacz.md` (T-items).
 Nothing here needs re-deriving; decisions marked ✔ are the editor's and closed.
 
 ## 1. What exists
@@ -28,8 +30,7 @@ Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 10/10` (~230 checks, ~30 s
 
 ✔ closed by the editor: 1–19 — **since 26.09.2026 in Kanon v1.6** (srom-kanon `references/kanon-redakcyjny.md`,
 § 17 row 1.6); `decisions.md` is now only a rule → code → test map plus toolchain conventions (15, 18, 19).
-○ open: **20** handoff rules; **21** house style v2 (in the style discussion, §4); **22** translator additions
-declared by `"srom-added"` in `<id>_refs_tlum.json`.
+○ open: 20, 21, 22 → `MB-decisions.md` D1, D3, D2.
 
 ## 3. Queue for Claude (in order)
 
@@ -52,8 +53,13 @@ declared by `"srom-added"` in `<id>_refs_tlum.json`.
 6. **G12**: first real article end to end; InDesign checklist in `references/indesign.md`. In Claude Code on the
    editor's machine the JSX can possibly be run directly against InDesign (AppleScript `do script` on a Mac) —
    untested, worth trying.
-7. Later: ICML output as a fallback to Word import (pandoc writes ICML with footnotes; needs a style-renaming
-   step); `tb_check.py` slot when srom-tlumacz ships it (CLI fixed in `handoff.md`).
+7. **E10 translator line** (T3): after srom-tlumacz OKs the markup — YAML `tlumaczenie:`; `handoff.md` first;
+   report line for `translators_struct`; must survive the Word round trip (today it is dropped).
+8. **E9 typed notes** (T2): `docx_in.py --typed-notes`, page-aware pairing; test file `Dom_Communities Stripped
+   Mac copy.docx` in srom-tlumacz's folder (read-only).
+9. **E11 kartoteka** (T4): `srom-kanon/references/kartoteka.tsv` + structure test, after `MB-decisions.md` D9 (and D8).
+10. Later: ICML output as a fallback to Word import (pandoc writes ICML with footnotes; needs a style-renaming
+   step); wire `tb_check.py` into scenario C when srom-tlumacz ships it (E5; CLI fixed in `handoff.md`).
 
 ## 4. House style — everything needed for the style discussion
 
@@ -133,15 +139,5 @@ author's notes.
 
 ## 7. Pending for the editor
 
-1. Decide 20, 22; 21 in the style discussion (§4).
-2. ~~Kanon: normative text + version + numbering~~ — settled 26.09 (Kanon v1.6 in srom-kanon is master). To check in
-   the Kanon diff (commit 97b846e): the Polish wording of the 1.6 additions; whether v1.6 still applies "od tomu 19/2026";
-   the new rule "no Ibidem in / right after a non-author note" (mine, following from E8); the stale 22.09 copy in
-   `0. ASSETS/LLM/Kanon zecera/` (replace or mark superseded).
-3. Relay to srom-tlumacz: E1–E6 done; additions declared via `"srom-added"`; comments never block; **E8 done**
-   (editorial notes `[^r<n>]` + `– przyp. red.`; label and formula must agree; the formula must END the note —
-   `[… – przyp. tłum.]` inside an author's note stays an author's note; translator notes take no printed number,
-   so query rows on them get `*`). `tlumacz-test_handoff.py` should get cases for r-notes and the bracket form.
-   Its draft `kanon-12-2-przeklady-PROJEKT.md` is now in the Kanon (§ 12.2) — the Kanon copy governs.
-4. After the style discussion: the cleaned template as IDML.
-5. First real article → G12 checklist.
+Moved to `../_handoffs/MB-decisions.md` (27.09.2026): D1 (decision 20), D2 (22), D3 (21, style set), D4 (Kanon
+v1.6 — decided), D7 (first article, G12), D9 (kartoteka). The template as IDML follows D3.
