@@ -10,7 +10,7 @@ Translation is not done here. srom-typeset prepares the source and takes the tra
 | `<id>_src.md` | srom-tlumacz | frozen source in SROM-MD: text, italics, headings, quotes, notes under their paragraphs; every bibliographic reference already a citation token `[@key, s. N]` (author-date converted, footnote style keyed); lead-ins "see/cf." already "zob./por." |
 | `refs.json` | both | the bibliography data behind the tokens (audited against the author's list) |
 | `<id>_src_robocza.docx` | editor | the same text as a Word working copy (`export_work.py`): real footnotes, tokens visible and editable |
-| `<id>_src_korekta.docx` | editor | reading proof with the full Polish apparatus rendered (`build.py --proof`): checks the conversion, not for editing |
+| `<id>_src_korekta.docx` | editor | reading proof with the full Polish apparatus rendered (`build.py --source`: a proof in which the source's own typography — English quotes, em dashes, marker after the period — is counted, not reported as errors; `normalize.py` applies Polish typography to the translation): checks the conversion, not for editing |
 
 The Polish apparatus (red., w:, s., tłum., short forms, *Ibidem*) is generated from refs.json at build time,
 so nothing in the citations is translated. Titles in tokens stay as in the source (kanon). The source is not

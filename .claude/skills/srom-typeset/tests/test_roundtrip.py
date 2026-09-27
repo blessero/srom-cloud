@@ -38,6 +38,15 @@ for fx in ("sample_article.md", "blocks.md", "roundtrip.md"):
     if fx == "blocks.md":   # pandoc 3.8 puts the "Table Caption" style inside the caption: it must survive
         t("blocks.md: table caption survives the round trip", "Tabela 1. Liczebność Romów" in open(back, encoding="utf-8").read())
 
+# editorial brackets come back as written (text level, not only the tree): no \\[ … \\] escapes
+bk = os.path.join(d, "brackets.md")
+BK = ("Within CSEE [Central and South Eastern Europe], the “children of [a national] group” […] stay.[^1]\n\n"
+      "[^1]: A note with [@ficowski1985, s. 15] and an insertion [sic].\n")
+open(bk, "w", encoding="utf-8").write(BK)
+w, back, r = roundtrip(bk, "brackets")
+t("editorial brackets survive the round trip as plain text (file identical)", open(back, encoding="utf-8").read() == BK,
+  open(back, encoding="utf-8").read())
+
 src = os.path.join(FX, "sample_article.md")
 w, back, r = roundtrip(src, "s")
 b1 = py(os.path.join(S, "build.py"), src, "--refs", REFS, "--out", os.path.join(d, "b1"))

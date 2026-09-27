@@ -84,7 +84,7 @@ RULES = [
     ("BIB-COLON", "ERROR",
      r"\b(?:Kraków|Warszawa|Tarnów|Poznań|Wrocław|Gdańsk|Łódź|Lublin|Katowice|Toruń|"
      r"Olsztyn|Rzeszów|Szczecin|Białystok|Moskva|Kyïv|London|New York|Berlin|Paris|"
-     r"Budapest|Praha|Sofiia|Beograd|Wien|Roma|Madrid|Istanbul)\s*:",
+     r"Budapest|Praha|Sofiia|Beograd|Wien|Roma|Madrid|Istanbul)\s*:(?=\s*[A-ZŁŚŻŹĆ])",   # imprint: a publisher follows ("Roma: a phase" is prose)
      "No colon after place of publication: Wydawnictwo, Miejsce rok.", None, 0),
     ("PLACE-POLONISED", "WARN",
      r"\b(?:Londyn|Nowy Jork|Paryż|Monachium|Filadelfia|Waszyngton|Wiedeń|Rzym|"

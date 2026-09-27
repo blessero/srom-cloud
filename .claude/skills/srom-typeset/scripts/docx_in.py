@@ -241,7 +241,11 @@ def restore_tokens(md):
     highlighted markers ⟦X⟧ -> <!-- X -->"""
     def tok(m):
         inner = _unescape(m.group(1))
-        return "[" + inner + "]" if "@" in inner else m.group(0)
+        if "@" in inner:
+            return "[" + inner + "]"
+        # editorial brackets in the text ("[Central and South Eastern Europe]", "[…]"): pandoc escapes them on the
+        # way back; plain brackets read the same unless something after them would make a link/span/footnote
+        return "[" + m.group(1) + "]" if not re.match(r"[(\[{:]", md[m.end():m.end() + 1]) and "^" not in inner else m.group(0)
     md = re.sub(r"\\\[((?:[^\]\\]|\\.)*?)\\\]", tok, md)
     md = re.sub(r"⟦(.*?)⟧", lambda m: "<!-- " + _unescape(m.group(1)).strip() + " -->", md, flags=re.S)
     return md
