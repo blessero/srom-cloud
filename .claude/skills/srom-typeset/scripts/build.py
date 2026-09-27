@@ -485,9 +485,6 @@ def write_queries(outdir, stem, nopage, notes, refs, cited, cite_count, refs_pat
         rows.append(("autor", "brak danych bibliograficznych: " + ", ".join(found), "", key, cut(refs[key].get("title", ""))))
     for k in cited:
         r = refs[k]
-        yr = (r.get("issued", {}).get("date-parts") or [[None]])[0][0]
-        if r.get("type") == "book" and not r.get("ISBN") and isinstance(yr, int) and yr >= 1970:
-            rows.append(("autor", "monografia po 1970 r. bez ISBN (§9.1) — podać lub potwierdzić brak", "", k, cut(r.get("title", ""))))
         if cite_count[k] >= 2 and not r.get("title-short") and len((r.get("title") or "").split()) > 5:
             rows.append(("redakcja", "długi tytuł bez formy skróconej (title-short) — ustalić (§7.3)", "", k, cut(r.get("title", ""))))
     import csv
@@ -583,6 +580,11 @@ def main():
     refs_list = []
     for rp in a.refs or []:
         refs_list += json.load(open(rp, encoding="utf-8"))
+    for r in refs_list:
+        # Kanon § 0: an early printed book (to 1800) with no printer/publisher in the imprint is not a gap
+        yr = ((r.get("issued") or {}).get("date-parts") or [[None]])[0][0]
+        if not r.get("publisher") and isinstance(yr, int) and yr <= 1800:
+            r["srom-early-print"] = "1"
     refs_path = os.path.join(work, "refs.json")
     json.dump(refs_list, open(refs_path, "w", encoding="utf-8"), ensure_ascii=False)
     refs = {r["id"]: r for r in refs_list}
@@ -629,13 +631,17 @@ def main():
     missing = [k for k in cited if k not in refs]
     if missing:
         report["errors"].append(f"citation keys not in refs: {missing}")
+    fixed = [f"{r['id']}: {f} “{v}” (as written) → corrected" for r in refs_list for f, v in (r.get("srom-as-written") or {}).items()]
+    if fixed:
+        report["warnings"].append("corrections of the author's data (approved; refs.json srom-as-written): " + "; ".join(fixed))
     uncited = [k for k in refs if k not in cited]
     if uncited:
-        report["warnings"].append(f"refs never cited (not printed in bibliography): {uncited}")
+        report["warnings"].append(f"printed though not cited in the notes (the author's bibliography, Kanon § 9.2): {uncited}")
     cited = [k for k in cited if k in refs]
+    printed = cited + uncited
 
     # 2. bibliography sections
-    composed = build_bibliography(md_text, refs, cited, refs_path, work, report)
+    composed = build_bibliography(md_text, refs, printed, refs_path, work, report)
     comp_path = os.path.join(work, stem + ".md")
     open(comp_path, "w", encoding="utf-8").write(composed)
 

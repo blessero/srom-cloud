@@ -156,6 +156,7 @@
       <if variable="publisher">
         <text variable="publisher"/>
       </if>
+      <else-if variable="srom-early-print"/>
       <else-if type="motion_picture webpage post post-weblog" match="none">
         <text value="[BRAK WYDAWCY]"/>
       </else-if>

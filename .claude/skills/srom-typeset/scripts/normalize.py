@@ -236,7 +236,33 @@ class Normalizer:
                 in_def = False
             in_note = in_def or "^[" in raw
             out.append(self.line(raw, n, in_note) if raw.strip() else "")
-        return "\n".join(out)
+        return "\n".join(self.note_fullstop(out))
+
+    def note_fullstop(self, out):
+        """a note ends with a full stop (…, ?, ! count; so does one inside a closing quote): an obvious slip in the
+        source ("…: Mills, 3") is corrected and logged"""
+        ends = []                          # index of the last non-empty line of each note
+        cur = None
+        for i, raw in enumerate(out):
+            if re.match(r"\[\^[^\]]+\]:", raw):
+                if cur is not None:
+                    ends.append(cur)
+                cur = i
+            elif cur is not None and raw.strip():
+                if raw.startswith("    "):
+                    cur = i
+                else:
+                    ends.append(cur)
+                    cur = None
+        if cur is not None:
+            ends.append(cur)
+        for i in ends:
+            t = out[i].rstrip()
+            core = t.rstrip("”’»«)]*_")
+            if core and core[-1] not in ".!?…" and not t.endswith("-->"):
+                self.log.append((i + 1, "NOTE-FULLSTOP", t[-30:], t[-30:] + "."))
+                out[i] = t + "."
+        return out
 
     def report(self):
         r = [f"# normalize.py — {len(self.log)} change(s), {len(self.flags)} flag(s)", ""]

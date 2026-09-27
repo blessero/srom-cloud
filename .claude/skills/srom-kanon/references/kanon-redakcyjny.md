@@ -16,7 +16,7 @@ System cytowania: **przypisy dolne + pełna bibliografia załącznikowa**. Autor
 
 **Czasopismo jest polskojęzyczne.** Język angielski występuje wyłącznie w metadanych (§ 12).
 
-**Integralność danych.** Jeżeli w źródle brakuje elementu opisu (roku, strony, wydawcy) albo element jest nieczytelny lub niejasny – redaktor **nie uzupełnia go domysłem**. Pytanie idzie do autora; do czasu odpowiedzi pozycja jest oznaczona w pliku roboczym znacznikiem `[BRAK MIEJSCA]`, `[BRAK ROKU]` lub `[BRAK WYDAWCY]`. Tekst ze znacznikiem nie przechodzi do składu. Zapis `b.m.`, `b.r.` (§ 7.2) stosuje się wyłącznie wtedy, gdy brak wynika z samego źródła, nie z niekompletnego opisu.
+**Integralność danych.** Jeżeli w źródle brakuje elementu opisu (roku, strony, wydawcy) albo element jest nieczytelny lub niejasny – redaktor **nie uzupełnia go domysłem**. Pytanie idzie do autora; do czasu odpowiedzi pozycja jest oznaczona w pliku roboczym znacznikiem `[BRAK MIEJSCA]`, `[BRAK ROKU]` lub `[BRAK WYDAWCY]`. Tekst ze znacznikiem nie przechodzi do składu. Zapis `b.m.`, `b.r.` (§ 7.2) stosuje się wyłącznie wtedy, gdy brak wynika z samego źródła, nie z niekompletnego opisu. Stare druki (do 1800 r.): brak drukarza lub nakładcy w adresie wydawniczym nie jest brakiem opisu – element pomija się bez znacznika.
 
 ---
 
@@ -208,6 +208,8 @@ Zasady wspólne:
 - Nazwy wydawnictw w oryginale.
 - `w:` bez nawiasów.
 - Strona lub zakres stron – zawsze, gdy przywołuje się określone miejsce dzieła, a bezwzględnie przy cytacie. Odwołanie do dzieła jako całości podaje się bez strony, także bez zakresu stron artykułu (ten podaje bibliografia). Każde takie odwołanie potwierdza redakcja; brak strony przy cytacie jest pytaniem do autora.
+- Lokalizacja inna niż strona – etykieta polska, liczby arabskie: dramat `akt 4, sc. 1, w. 883`; wersy `w. 93–96`; karty starodruków według sygnatur `k. S2r`, `k. D4v`; księga i rozdział `ks. 11, rozdz. 2`.
+- Odesłania: `zob.`, `zob. też`, `por.`; przytoczenie z drugiej ręki – `cyt. za`.
 - Redaktor tomu przed tytułem, gdy cytujemy tom jako całość; po tytule, gdy cytujemy rozdział.
 - **Uwagi o postaci fizycznej i miejscu przechowywania** (maszynopis, rękopis, egzemplarz w bibliotece) – w nawiasie okrągłym **na samym końcu pozycji**.
 
@@ -280,7 +282,7 @@ Brzmienie urzędowe, także w zakresie daty (§ 3.5). Akty zagraniczne: nazwa or
 ### 8.6. Źródła internetowe
 > A. Kowalski, *Tytuł tekstu*, w: *Nazwa serwisu*, https://przyklad.pl/tekst [dostęp: 18.03.2025].
 
-Adres URL jest w tekście do składu zwykłym tekstem, nie hiperłączem. Data dostępu obowiązkowa dla źródeł **bez DOI**. Przy DOI – DOI zamiast URL, bez daty dostępu. Media społecznościowe: konto, treść lub tytuł kursywą, platforma, data publikacji, URL, data dostępu; konta prywatne – anonimizacja wg § 8.2.
+Adres URL jest w tekście do składu zwykłym tekstem, nie hiperłączem. Datę dostępu podaje się dla źródeł **bez DOI**, jeżeli podał ją autor; redakcja jej nie ustala, a jej brak nie jest pytaniem do autora. Przy DOI – DOI zamiast URL, bez daty dostępu. Media społecznościowe: konto, treść lub tytuł kursywą, platforma, data publikacji, URL, data dostępu; konta prywatne – anonimizacja wg § 8.2.
 
 ### 8.7. Audiowizualia
 > *Papusza*, reż. J. Kos-Krauze, K. Krauze, Polska 2013, 00:42:15.
@@ -296,7 +298,7 @@ Zapis bibliograficzny jest **tą samą konstrukcją co przypis**, z czterema ró
 1. **Nazwisko, przecinek, imię**; nazwisko kapitalikami (§ 9.3); imiona w pełnym brzmieniu.
 2. **Wszyscy autorzy wymienieni** – `i in.` nie występuje.
 3. Pełny zakres stron artykułu lub rozdziału.
-4. DOI, a dla monografii po 1970 r. ISBN.
+4. DOI; ISBN – jeżeli podał go autor.
 
 Kropka zamyka pole autora. Bez dwukropka po miejscu wydania.
 
@@ -305,7 +307,7 @@ Możliwe części, w tej kolejności: Wykaz skrótów · Źródła archiwalne (n
 
 **Bez numeracji.** Podaje się tylko śródtytuły części faktycznie występujących, w powyższej kolejności; bibliografia złożona z jednej części nie ma śródtytułu.
 
-Każda pozycja z przypisów musi wystąpić w bibliografii – z wyjątkiem pojedynczych jednostek archiwalnych, pojedynczych numerów prasy, aktów prawnych przywołanych jednorazowo.
+Każda pozycja z przypisów musi wystąpić w bibliografii – z wyjątkiem pojedynczych jednostek archiwalnych, pojedynczych numerów prasy, aktów prawnych przywołanych jednorazowo. Drukuje się całą bibliografię autora, także pozycje nieprzywołane w przypisach.
 
 ### 9.3. Kapitaliki w nazwiskach
 > MRÓZ, Lech, BARTOSZ, Adam. *Tytuł pracy*, Wydawnictwo, Warszawa 1998.
@@ -369,7 +371,7 @@ Ta sama osoba występuje w dwóch formach: w tekście `Biessonow`, w przypisie `
 - pozostałe istotne dla profilu czasopisma: rusiński (łemkowski), serbski, macedoński, rumuński w cyrylicy, języki niesłowiańskie w cyrylicy (dla tekstów romskich w cyrylicy – przed pierwszym użyciem sprawdzić, czy tablica obejmuje romani) – wszystkie w indeksie.
 
 ### 9.7. Identyfikatory
-DOI obowiązkowy dla każdej pozycji, która go posiada (weryfikacja maszynowa przed składem). Zapis `DOI: 10.1234/abcd` – w druku bez prefiksu `https://doi.org/`. ISBN wyłącznie w bibliografii, dla monografii po 1970 r., w zapisie `ISBN 978-…` – bez dwukropka.
+DOI obowiązkowy dla każdej pozycji, która go posiada (weryfikacja maszynowa przed składem). Zapis `DOI: 10.1234/abcd` – w druku bez prefiksu `https://doi.org/`. ISBN wyłącznie w bibliografii i tylko wtedy, gdy podał go autor (redakcja go nie uzupełnia), w zapisie `ISBN 978-…` – bez dwukropka.
 
 ---
 
@@ -606,6 +608,6 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.3 | `w:` bez nawiasów; przecinek po tytule czasopisma, strona na końcu; cyfry arabskie; `tłum.`; kapitaliki z przecinkiem; miejsca wydania bez spolszczania; transkrypcja PWN/KSNG w tekście, ALA-LC w aparacie; instytucje w cyrylicy w transkrypcji; uwagi o maszynopisie na końcu; archiwa postsowieckie; rejestr podpisów; zasada integralności danych. |
 | 1.4 | Czasopismo określone jako polskojęzyczne; usunięte wersje językowe artykułów (angielska pozostaje jako § 12.1 dla modelu dwujęzycznego); etykiety aparatu zawsze polskie. Daty w aparacie cyframi arabskimi `dd.mm.rrrr`; wyjątek dla aktów prawnych. Przekład tytułu w nawiasie kwadratowym po tytule. Tablice ALA-LC zweryfikowane z LC, uzupełnione o bułgarski i litery sprzed reform; źródła tablic. Kapitaliki dopuszczone w glosach. Spacje nierozdzielające nakładane stylem GREP. Abstrakt do 1000 znaków. |
 | 1.5 | ISO 9 wycofany; ALA-LC także w przykładach językowych. Uzasadnienie ligatur uproszczone. Daty arabskie potwierdzone (miesiące rzymskie odrzucone). |
-| 1.6 | Kanon włączony do narzędzi redakcji (skill srom-kanon) jako tekst normatywny. Słowa kluczowe 5–10; wyliczenia numerowane; bibliografia bez numeracji części, jedna część bez śródtytułu; zniesiony limit ⅓ kolumny dla przypisu rzeczowego; wymogi techniczne ilustracji przeniesione do *Wskazówek dla autorów*. § 0: znaczniki `[BRAK …]`, `b.m.`/`b.r.` tylko przy braku w źródle. § 3.2: zakresy liczbowe w pełnym zapisie. § 3.3: spacji nierozdzielających nie przechowuje się w pliku. § 3.4: kursywa odwrócona; egzonimy obce kursywą (wyjątek od zasady nazw własnych), z uzasadnieniem w § 14. § 4.1: cytat wierszowany. § 7.1: odsyłacz także przed przecinkiem, średnikiem, dwukropkiem; przypisy nieautorskie – odrębny ciąg gwiazdkowy nad przypisami numerowanymi; konwersja z systemu autor–data. § 7.2: odwołanie do dzieła jako całości bez strony. § 7.3: długość tytułu skróconego; formy skrócone prac wieloautorskich; ograniczenia `Ibidem`. § 7.4: przypis wieloakapitowy. § 8.6: URL jako tekst. § 9.3: autor instytucjonalny bez kapitalików. § 9.7: zapis ISBN. § 12.2 Artykuły tłumaczone: metadane oryginału (wyjątki od § 1 pkt 8 i 9); § 12.1 nie dla przekładów; nota o przekładzie i wskazanie tłumacza; cytaty w pięciu sytuacjach; terminologia z bazy redakcji, rozstrzygnięcia tomu 18/2025 wiążące; nazwy grup w przekładzie (odstępstwo od § 6.3); przypisy tłumacza; ingerencje; bibliografia przy cytatach z wydań polskich. § 4.2: formuła `[tłum. własne]` nie w przekładach. § 11: `przyp. tłum.`, `przyp. red.` |
+| 1.6 | Kanon włączony do narzędzi redakcji (skill srom-kanon) jako tekst normatywny. Słowa kluczowe 5–10; wyliczenia numerowane; bibliografia bez numeracji części, jedna część bez śródtytułu; zniesiony limit ⅓ kolumny dla przypisu rzeczowego; wymogi techniczne ilustracji przeniesione do *Wskazówek dla autorów*. § 0: znaczniki `[BRAK …]`, `b.m.`/`b.r.` tylko przy braku w źródle. § 3.2: zakresy liczbowe w pełnym zapisie. § 0: stare druki bez drukarza w adresie – bez znacznika. § 7.2: lokalizacje inne niż strona; `cyt. za`. § 8.6: data dostępu tylko od autora. § 9.1, § 9.7: ISBN tylko od autora. § 9.2: cała bibliografia autora. § 3.3: spacji nierozdzielających nie przechowuje się w pliku. § 3.4: kursywa odwrócona; egzonimy obce kursywą (wyjątek od zasady nazw własnych), z uzasadnieniem w § 14. § 4.1: cytat wierszowany. § 7.1: odsyłacz także przed przecinkiem, średnikiem, dwukropkiem; przypisy nieautorskie – odrębny ciąg gwiazdkowy nad przypisami numerowanymi; konwersja z systemu autor–data. § 7.2: odwołanie do dzieła jako całości bez strony. § 7.3: długość tytułu skróconego; formy skrócone prac wieloautorskich; ograniczenia `Ibidem`. § 7.4: przypis wieloakapitowy. § 8.6: URL jako tekst. § 9.3: autor instytucjonalny bez kapitalików. § 9.7: zapis ISBN. § 12.2 Artykuły tłumaczone: metadane oryginału (wyjątki od § 1 pkt 8 i 9); § 12.1 nie dla przekładów; nota o przekładzie i wskazanie tłumacza; cytaty w pięciu sytuacjach; terminologia z bazy redakcji, rozstrzygnięcia tomu 18/2025 wiążące; nazwy grup w przekładzie (odstępstwo od § 6.3); przypisy tłumacza; ingerencje; bibliografia przy cytatach z wydań polskich. § 4.2: formuła `[tłum. własne]` nie w przekładach. § 11: `przyp. tłum.`, `przyp. red.` |
 
 Zmiany wchodzą w życie od kolejnego tomu. Tomy opublikowane nie podlegają retroaktywnemu ujednoliceniu.

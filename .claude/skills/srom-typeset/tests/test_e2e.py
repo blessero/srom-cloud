@@ -11,11 +11,20 @@ def check(name, ok, detail=""):
     results.append(ok)
     print(("PASS " if ok else "FAIL ") + name + ("" if ok else "  :: " + str(detail)))
 
-def build(md_text=None, md_path=None, extra=(), refs=REFS):
+def article_refs(md_path, refs):
+    """an article's refs.json holds its author's bibliography only: the fixture's works this text cites (the build
+    prints every entry of refs.json, Kanon § 9.2)"""
+    keys = set(re.findall(r"@([\w-]+)", open(md_path, encoding="utf-8").read()))
+    p = os.path.join(tempfile.mkdtemp(), "refs.json")
+    json.dump([r for r in json.load(open(refs, encoding="utf-8")) if r["id"] in keys], open(p, "w", encoding="utf-8"), ensure_ascii=False)
+    return p
+
+def build(md_text=None, md_path=None, extra=(), refs=None):
     d = tempfile.mkdtemp()
     if md_text is not None:
         md_path = os.path.join(d, "art.md")
         open(md_path, "w", encoding="utf-8").write(md_text)
+    refs = refs or article_refs(md_path, REFS)
     out = os.path.join(d, "out")
     r = subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "build.py"), md_path, "--refs", refs,
                         "--out", out, *extra], capture_output=True, text=True)
@@ -69,7 +78,22 @@ check("sentence text intact around markers (abbrev. period, closing quote)", "XV
 jsx = open(os.path.join(out, stem + "_ibidem.jsx"), encoding="utf-8").read()
 check("ibidem JSX lists notes 2, 7, 9 with short-form fallback", all(f"  {n}: {{" in jsx for n in (2, 7, 9)) and "EXPECTED_TOTAL = 10;" in jsx)
 check("postimport JSX has whitelist + total", "EXPECTED_TOTAL = 10;" in open(os.path.join(out, stem + "_postimport.jsx"), encoding="utf-8").read())
-check("ISBN gap listed in the author query sheet", "ficowski1985" in open(os.path.join(out, stem + "_pytania.md"), encoding="utf-8").read() and "bez ISBN" in open(os.path.join(out, stem + "_pytania.md"), encoding="utf-8").read())
+check("no ISBN query (Kanon § 9.1, 9.7: ISBN only when the author gives it)", "ISBN" not in open(os.path.join(out, stem + "_pytania.md"), encoding="utf-8").read())
+
+# the author's whole bibliography is printed (Kanon § 9.2); an early print without a printer is not a gap (§ 0)
+eb = os.path.join(tempfile.mkdtemp(), "refs.json")
+json.dump([r for r in json.load(open(REFS, encoding="utf-8")) if r["id"] == "ficowski1985"] + [
+    {"id": "mw1662", "type": "book", "author": [{"literal": "M. W., M. A."}], "title": "A comedy called The marriage broaker",
+     "publisher-place": "London", "issued": {"date-parts": [[1662]]}},
+    {"id": "nopub1990", "type": "book", "author": [{"family": "Nowy", "given": "Jan"}], "title": "Książka bez wydawcy",
+     "publisher-place": "Kraków", "issued": {"date-parts": [[1990]]}}], open(eb, "w", encoding="utf-8"), ensure_ascii=False)
+code_b, out_b, stem_b, rep_b = build(md_text="Tekst[^1] i dalej[^2].\n\n[^1]: [@ficowski1985, s. 15].\n\n[^2]: [@mw1662, s. 30].\n",
+                                     refs=eb, extra=("--draft",))
+txt_b = open(os.path.join(out_b, stem_b + ".txt"), encoding="utf-8").read()
+bib_b = txt_b[txt_b.find("Bibliografia"):]
+check("uncited work of the author's list printed, reported", "Książka bez wydawcy" in bib_b and "printed though not cited" in rep_b and "nopub1990" in rep_b, rep_b[:800])
+check("early print (1662) without printer: no [BRAK WYDAWCY]; a 1990 book without publisher still has it",
+      "marriage broaker, London 1662" in txt_b and "Książka bez wydawcy, [BRAK WYDAWCY], Kraków 1990" in bib_b, txt_b[-800:])
 
 # ---------------------------------------------------------------- failure modes
 def fails(label, md, needle, extra=()):

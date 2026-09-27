@@ -485,6 +485,8 @@ def name_forms(ref):
             out.append(n)
             if p.get("literal") and "," in n:
                 out.append(n.split(",")[0])
+    aw = ref.get("srom-as-written") or {}          # an approved correction: the author's form still counts
+    out += [v for k, v in aw.items() if k in ("author", "editor") and v]
     return out
 
 

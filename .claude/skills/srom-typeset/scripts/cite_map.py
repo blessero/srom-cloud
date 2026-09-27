@@ -35,13 +35,14 @@ NAME = rf"(?:(?:de|van|von|der|den|di|da|le|la|du|del|ten|ter)\s)*[{UP}][\w’'\
 NAMES = rf"{NAME}(?:(?:,\s|\s(?:i|and|&|und|et)\s){NAME})*(?:\s(?:i\sin\.|et\sal\.|i\sinni|u\.\sa\.))?(?:\s\((?:red|eds?|Hrsg|oprac)\.\))?"
 YEAR = r"(?:1[5-9]\d\d|20\d\d)(?:/(?:1[5-9]\d\d|20\d\d))?[a-z]?|b\.\s?d\.|n\.\s?d\.|w\sdruku|in\spress"
 LOC = r"(?:[:,]\s?(?:s\.|str\.|pp?\.|S\.)?\s?[^;()\[\]]+?)?"
-PREFIX = r"(?:(?:zob\.|por\.|np\.|see|cf\.|e\.g\.|vgl\.|zob\.\steż|see\salso)\s)?"
+PREFIX = r"(?:(?:zob\.|por\.|np\.|see|cf\.|e\.g\.|vgl\.|zob\.\steż|see\salso|cyt\.\sza|quoted\sin|cited\sin)\s)?"
 ITEM = re.compile(rf"^\s*(?P<pre>{PREFIX})(?P<names>{NAMES}),?\s(?P<year>{YEAR})(?P<loc>{LOC})\s*$")
 _ED = r"\((?:red|eds?|Hrsg|oprac)\.\)"
 PAREN = re.compile(rf"(?<!\])\s?\(((?:[^()\[\]]|{_ED})*?(?:1[5-9]\d\d|20\d\d|b\.\s?d\.|n\.\s?d\.)(?:[^()\[\]]|{_ED})*?)\)")
 NARR = re.compile(rf"(?P<names>{NAMES})\s\((?P<year>{YEAR})(?P<loc>{LOC})\)")
 BARE = re.compile(rf"(?P<pre>{PREFIX})(?P<names>{NAME}(?:\s(?:i|and|&)\s{NAME})?(?:\s(?:i\sin\.|et\sal\.))?),?\s(?P<year>{YEAR})(?P<loc>:\s?[\d–\-, ]+(?:\s(?:i\sn\.|passim))?)?(?=[;.,)]|$)")
-PREFIX_MAP = {"see": "zob.", "see also": "zob. też", "cf.": "por.", "e.g.": "np.", "vgl.": "por."}
+PREFIX_MAP = {"see": "zob.", "see also": "zob. też", "cf.": "por.", "e.g.": "np.", "vgl.": "por.",
+              "quoted in": "cyt. za", "cited in": "cyt. za"}
 NONPAGE = [(r"^(?:tab\.|tabl\.|table)\s?", "tabl. "), (r"^(?:fig\.|rys\.|ryc\.)\s?", "rys. "), (r"^(?:k\.|fol\.|ff?\.\s?(?=\d))\s?", "k. "),
            (r"^(?:rozdz\.|ch\.|chap\.|Kap\.)\s?", "rozdz. "), (r"^(?:przyp\.|n\.|fn\.)\s?", "przyp. ")]
 CASE_SUFFIXES = sorted(["iego", "ego", "emu", "owie", "owi", "ami", "ach", "ów", "om", "em", "ej", "ie", "ą", "ę",
@@ -70,6 +71,13 @@ def primary_names(ref):
         part = p.get("non-dropping-particle", "")
         out.append((part + " " + fam).strip() if part else fam)
     return out
+
+
+def as_written_names(ref):
+    """the author's own form of a corrected name (refs.json "srom-as-written": {"editor": "Van Lannep"}):
+    the entry still matches the author's list and notes"""
+    aw = ref.get("srom-as-written") or {}
+    return [v for k, v in aw.items() if k in ("author", "editor") and v]
 
 
 def ref_years(ref):
@@ -431,8 +439,8 @@ def audit(refs_paths, bib_path):
             # family names of more than one word (Touam Bona, Park Hong), a capitalised particle (Van Lannep),
             # a literal author (M. W., M. A.): the entry starts with the whole name
             fl = fold(re.sub(r"^[-–•*]\s", "", ln))
-            cand = [r for r in refs if not r.get("srom-added") and primary_names(r)
-                    and re.match(re.escape(fold(primary_names(r)[0])) + r"[,.\s]", fl)]
+            cand = [r for r in refs if not r.get("srom-added") and any(
+                    re.match(re.escape(fold(n)) + r"[,.\s]", fl) for n in primary_names(r)[:1] + as_written_names(r))]
         if cand:
             if ym and len(cand) > 1:
                 y = ym.group(1)[:4]

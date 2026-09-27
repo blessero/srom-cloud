@@ -102,10 +102,19 @@ eref = [
 esub = os.path.join(d, "esub.json"); json.dump(eref, open(esub, "w", encoding="utf-8"), ensure_ascii=False)
 c, o = cm("audit", "--refs", esub, "--bib", ebib)
 t("audit, English list: Touam Bona, Van Lannep, literal M. W., 305–26 = 305–326, Tome = t., February = 2 -> OK", c == 0 and "CITEMAP OK" in o, o)
+eref[1]["editor"][0]["family"] = "Van Lennep"; eref[1]["srom-as-written"] = {"editor": "Van Lannep"}
+json.dump(eref, open(esub, "w", encoding="utf-8"), ensure_ascii=False)
+c, o = cm("audit", "--refs", esub, "--bib", ebib)
+t("audit: approved correction (Van Lannep -> Van Lennep, srom-as-written) still matches the author's list", c == 0 and "CITEMAP OK" in o, o)
 eref[3]["page"] = "305–316"
 json.dump(eref, open(esub, "w", encoding="utf-8"), ensure_ascii=False)
 c, o = cm("audit", "--refs", esub, "--bib", ebib)
 t("audit, English list: wrong end of an abbreviated range (305–26 vs 305–316) caught", c == 1 and "mckee2008" in o and "326" in o, o)
+
+qi = os.path.join(d, "qi.md"); open(qi, "w", encoding="utf-8").write("Zdanie (quoted in Ficowski 1985: 3).\n")
+c, o = cm("scan", qi, "--refs", REFS, "--apply", os.path.join(d, "qi_out.md"))
+qo = open(os.path.join(d, "qi_out.md"), encoding="utf-8").read() if os.path.exists(os.path.join(d, "qi_out.md")) else o
+t("lead-in 'quoted in' -> 'cyt. za' (Kanon § 7.2)", "Cyt. za @ficowski1985, s. 3" in qo, qo)
 
 po = os.path.join(d, "po.md"); open(po, "w", encoding="utf-8").write("Pierwszy akapit (s. 4).\n\nDrugi (Ficowski 1985: 3).\n\nTrzeci akapit (s. 9).\n")
 c, o = cm("scan", po, "--refs", REFS, "--apply", os.path.join(d, "po_out.md"))

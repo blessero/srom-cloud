@@ -1,7 +1,7 @@
 """E10 — Kanon § 12.2.3: the translator is header data. Front matter `tlumaczenie` (string or list) is not printed,
 is reported with the master-CSV value (translators_struct), fails the build when empty, and survives the Word
 working copy (export_work.py -> docx_in.py) and the handoff check."""
-import os, sys, subprocess, tempfile, zipfile
+import json, os, sys, subprocess, tempfile, zipfile
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 S, FX = os.path.join(ROOT, "scripts"), os.path.join(ROOT, "tests", "fixtures")
 REFS = os.path.join(FX, "kanon_refs.json")
@@ -16,14 +16,16 @@ def md(name, front):
     p = os.path.join(d, name); open(p, "w", encoding="utf-8").write(front + BODY); return p
 def build(p):
     out = os.path.join(d, os.path.basename(p) + "_out")
-    r = py(os.path.join(S, "build.py"), p, "--refs", REFS, "--out", out)
+    sub = os.path.join(d, "refs_sub.json")     # the article's own refs: only what it cites (all of refs.json is printed)
+    json.dump([x for x in json.load(open(REFS, encoding="utf-8")) if x["id"] == "ficowski1985"], open(sub, "w", encoding="utf-8"), ensure_ascii=False)
+    r = py(os.path.join(S, "build.py"), p, "--refs", sub, "--out", out)
     stem = os.path.splitext(os.path.basename(p))[0]
     return r.returncode, open(os.path.join(out, stem + "_report.md"), encoding="utf-8").read(), open(os.path.join(out, stem + ".txt"), encoding="utf-8").read()
 
 one = md("one.md", '---\ntlumaczenie: "Jan Nowak"\n---\n\n')
 code, rep, txt = build(one)
 t("one translator: PASS, reported with translators_struct", code == 0 and "## Header data" in rep and "`Jan|Nowak||`" in rep, rep[:900])
-t("the translator is not printed", "Nowak" not in txt, txt[:200])
+t("the translator is not printed (text before the bibliography)", "Nowak" not in txt.split("Bibliografia")[0], txt[:200])
 two = md("two.md", '---\ntlumaczenie:\n  - "Jan Nowak"\n  - "Anna Maria Kowalska-Wróbel"\n---\n\n')
 code, rep, txt = build(two)
 t("two translators: both, in order, joined ' ;; '", code == 0 and "`Jan|Nowak|| ;; Anna Maria|Kowalska-Wróbel||`" in rep, rep[:900])

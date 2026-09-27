@@ -8,7 +8,7 @@ The journal publishes **in Polish only**. English exists only in metadata (title
 
 ## 0. Integrity
 
-Missing year/page/publisher, illegible or ambiguous element → **stop, flag, ask**. Never reconstruct. In the working file the gap is marked `[BRAK MIEJSCA]` / `[BRAK ROKU]` / `[BRAK WYDAWCY]`; a text with a marker does not go to typesetting. `b.m.` / `b.r.` only when the source itself lacks the element.
+Missing year/page/publisher, illegible or ambiguous element → **stop, flag, ask**. Never reconstruct. In the working file the gap is marked `[BRAK MIEJSCA]` / `[BRAK ROKU]` / `[BRAK WYDAWCY]`; a text with a marker does not go to typesetting. `b.m.` / `b.r.` only when the source itself lacks the element. Early printed books (to 1800): no printer or publisher in the imprint is not a gap — omitted, no marker.
 
 ## 1. Front matter
 
@@ -94,6 +94,8 @@ Superscript arabic, continuous, foot of page. Marker **before the period, comma,
 | Unpublished | `J. Kopańska, *Tytuł*, Uniwersytet Jagielloński, Kraków 2018, s. 60 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej).` |
 
 Initial + surname (`R.L. Turner`). Publisher before place; no comma between place and year. **Imprint place as on title page, not Polonised**; Cyrillic imprints in ALA-LC (Polish exonyms stay in body prose). Publishers in original. Labels always Polish. `w:` unbracketed. Editor before title for whole volumes, after for chapters. **Physical-form/location notes in round brackets at the very end.**
+**Non-page locators** (§ 7.2): Polish labels, arabic numerals — `akt 4, sc. 1, w. 883`, `w. 93–96`, signatures `k. S2r`, `ks. 11, rozdz. 2`. Lead-ins `zob.`, `zob. też`, `por.`; second-hand `cyt. za`.
+
 **Locator:** always when a specific place is cited, without exception for a quotation. A reference to the work as a whole has no page (and no article page range — the bibliography has it); the editor confirms each; a quotation without a page is a query to the author.
 
 ### 7.3. Subsequent citations
@@ -115,7 +117,7 @@ Archive names never translated.
 
 **8.3 Press:** `J. Nowak, *Tytuł*, „Gazeta Krakowska”, 1963, nr 145, s. 3.` · unnumbered: `„Czas”, 03.05.1928, s. 2`.
 **8.4 Legal (official wording):** `Ustawa z dnia 6 stycznia 2005 r. …, Dz.U. 2005 nr 17 poz. 141, art. 20.` · `Wyrok TK z dnia 8 listopada 2016 r., sygn. akt P 126/15.`
-**8.6 Web:** `A. Kowalski, *Tytuł tekstu*, w: *Nazwa serwisu*, https://… [dostęp: 18.03.2025].` DOI replaces URL and access date. URLs are plain text in the typesetting file, never hyperlinks.
+**8.6 Web:** `A. Kowalski, *Tytuł tekstu*, w: *Nazwa serwisu*, https://… [dostęp: 18.03.2025].` DOI replaces URL and access date; the access date only when the author gives it (not added, not queried). URLs are plain text in the typesetting file, never hyperlinks.
 **8.7 AV:** `*Papusza*, reż. J. Kos-Krauze, K. Krauze, Polska 2013, 00:42:15.` · `*Tytuł nagrania*, nagranie audio, 1978 r., Archiwum MET, sygn. AT/N/45.`
 
 ## 9. Bibliography
@@ -134,10 +136,10 @@ Same construction as the note, four differences only: **`Surname, Given-name.`**
 | Unpublished | `Kopańska, Joanna. *Tytuł*, Uniwersytet Jagielloński, Kraków 2018 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej).` |
 | Informant | `W12 – mężczyzna, ur. 1951, Polska Roma, Tarnów, wywiad 14.06.2019; nagranie: Archiwum MET, sygn. AT/W/12.` |
 
-**9.2 Divisions**, in this order, only those present, headed but **unnumbered**; a bibliography with a single division has no division heading: Abbreviations · Archives (fonds level) · Fieldwork · Printed/legal · Web without DOI · Literature. Coverage: every cited work, except single archival units, single press issues, one-off legal acts.
+**9.2 Divisions**, in this order, only those present, headed but **unnumbered**; a bibliography with a single division has no division heading: Abbreviations · Archives (fonds level) · Fieldwork · Printed/legal · Web without DOI · Literature. Coverage: every cited work, except single archival units, single press issues, one-off legal acts; and the author's whole bibliography, cited or not.
 **9.3 Small caps:** genuine OpenType (fallback: full caps, as in the index); surname only; particles lowercase and outside small caps (`de HEUSCH, Luc`); institutional authors not in small caps. **Character style, never data.** Comma kept for consistency with the volume index.
 **9.5 Order:** Polish collation by transliterated form; same author chronological, then by title; sole-author works before co-authored.
-**9.7 Identifiers:** DOI mandatory where one exists, printed `DOI: 10.1234/abcd` (no `https://doi.org/`). ISBN only in the bibliography, monographs after 1970, printed `ISBN 978-…` without a colon.
+**9.7 Identifiers:** DOI mandatory where one exists, printed `DOI: 10.1234/abcd` (no `https://doi.org/`). ISBN only in the bibliography and only when the author gives it (not added), printed `ISBN 978-…` without a colon.
 
 ### 9.6. Cyrillic
 

@@ -31,6 +31,9 @@ CASES = [
     # note markers
     ("Zdanie kończy się.[^1] Następne,[^2] i dalej", "Zdanie kończy się[^1]. Następne[^2], i dalej", None),
     ("W 1943 r.[^3] zmarł.", "W 1943 r.[^3] zmarł.", None),
+    ("[^7]: Tekst przypisu bez kropki: [@mills1997, s. 3]", "[^7]: Tekst przypisu bez kropki: [@mills1997, s. 3].", None),
+    ("[^8]: Czy tak? „Pytanie?”", "[^8]: Czy tak? „Pytanie?”", None),
+    ("[^9]: Rok (2022)", "[^9]: Rok (2022).", None),
     ("Cytat „słowa[^4]” koniec.", "Cytat „słowa”[^4] koniec.", None),
     ("Cytat „słowa”.[^5]", "Cytat „słowa”[^5].", None),
     ("Tekst.[@ficowski1985, s. 15-20]", "Tekst[@ficowski1985, s. 15–20].", None),

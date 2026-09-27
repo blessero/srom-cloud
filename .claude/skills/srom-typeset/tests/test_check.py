@@ -182,6 +182,12 @@ t("keyed short form: unlabelled pages, abbreviated ranges expanded, 'M.W.' for '
   c == 0 and "CHECK OK" in o and "WARN" not in o, o)
 c, o = runk(SO, w("short_k4.md", SK.replace("[^8]: [@chang2020, s. 24]", "[^8]: [@chang2020, s. 42]")))
 t("keyed short form: page of a two-author work changed -> ERROR", c == 1 and "note 8" in o and "24" in o, o)
+VL = w("vl_refs.json", json.dumps([{"id": "vanlennep1965", "type": "book", "editor": [{"family": "Van Lennep", "given": "William"}],
+    "srom-as-written": {"editor": "Van Lannep"}, "title": "The London Stage", "publisher": "SIUP", "publisher-place": "Carbondale",
+    "issued": {"date-parts": [[1965]]}}], ensure_ascii=False))
+r = subprocess.run([sys.executable, CHECK, "--keyed", w("vl_o.md", "A[^1].\n\n[^1]: See Van Lannep, 256.\n"),
+                    w("vl_k.md", "A[^1].\n\n[^1]: Zob. [@vanlennep1965, s. 256].\n"), "--refs", VL], capture_output=True, text=True)
+t("keyed: corrected name (Van Lennep) keyed where the author wrote Van Lannep (srom-as-written) -> CHECK OK", r.returncode == 0, r.stdout)
 c, o = runk(SO, w("short_k1.md", SK.replace("s. 214–231", "s. 214–230")))
 t("keyed short form: unlabelled page changed (214–31 keyed as 214–230) -> ERROR", c == 1 and "page/folio numbers lost" in o and "231" in o, o)
 c, o = runk(SO, w("short_k2.md", SK.replace("[@hornback2018, s. 35–69]", "[@hornback2018, s. 35]")))

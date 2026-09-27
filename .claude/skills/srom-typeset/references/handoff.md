@@ -7,8 +7,9 @@ Translation is not done here. srom-typeset prepares the source and takes the tra
 
 | file | for | what it is |
 |---|---|---|
-| `<id>_src.md` | srom-tlumacz | frozen source in SROM-MD: text, italics, headings, quotes, notes under their paragraphs; every bibliographic reference already a citation token `[@key, s. N]` (author-date converted, footnote style keyed); lead-ins "see/cf." already "zob./por." |
+| `<id>_src.md` | srom-tlumacz | frozen source in SROM-MD: text, italics, headings, quotes, notes under their paragraphs; every bibliographic reference already a citation token `[@key, s. N]` (author-date converted, footnote style keyed); lead-ins "see/cf./quoted in" already "zob./por./cyt. za" |
 | `refs.json` | both | the bibliography data behind the tokens (audited against the author's list) |
+| `<id>_src_front.md` | srom-tlumacz | the original's title, author and affiliation, abstract, keywords (if any), as in the source (`pdf_extract.py` → `_front.md`; from DOCX by hand); not part of the text |
 | `<id>_src_robocza.docx` | editor | the same text as a Word working copy (`export_work.py`): real footnotes, tokens visible and editable |
 | `<id>_src_korekta.docx` | editor | reading proof with the full Polish apparatus rendered (`build.py --source`: a proof in which the source's own typography — English quotes, em dashes, marker after the period — is counted, not reported as errors; `normalize.py` applies Polish typography to the translation): checks the conversion, not for editing |
 
@@ -49,6 +50,10 @@ run through `normalize.py`: Polish typography is applied to the translation, aft
   `przypis` cell holds the note label from `<id>_src.md` — the build turns it into the printed number.
 
 ## Back: what srom-typeset accepts
+
+`<id>_front_pl.md` from srom-tlumacz (Kanon § 12.2.2): the Polish title (title and subtitle kept apart), the
+Polish abstract, the Polish keywords; the English ones stay as in the original. Header data for the master CSV,
+not built into the DOCX.
 
 `<id>_pl.md` from srom-tlumacz is turned into the editor's working copy; **the editor's Word file is the
 master** from then on:

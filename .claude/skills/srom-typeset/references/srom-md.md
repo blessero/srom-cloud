@@ -82,7 +82,7 @@ pisze [@mroz2011]") is fine: if it would come out as *Ibidem*, the build prints 
 - The same work named in another form in one note (`M.W., 60` where the list and the other notes have
   `M. W., M. A.`) is keyed to the same work; the check accepts the name without spaces and a literal author's
   first part. List the variant in the report: the printed short form comes from refs.json and is uniform.
-- Lead-ins: see → zob., see also → zob. też, cf. → por. (handoff.md).
+- Lead-ins: see → zob., see also → zob. też, cf. → por., quoted in / cited in → cyt. za (Kanon § 7.2; handoff.md).
 
 Stay **literal** (plain text in the note, kanon §8): archival units (§8.1), fieldwork codes (§8.2),
 single press issues, legal acts cited once, statistics tables without a stable record.
@@ -138,3 +138,4 @@ Typed by Claude from the author's bibliography and notes, then verified: `cite_m
 | `note` | physical-form remark, printed in ( ) at the end (`maszynopis pracy doktorskiej…`) |
 | `citation-label` | the author-date label when a/b suffixes exist (`"Nowak 2010b"`) — used by cite_map |
 | `srom-section` | `I`–`VI` override of the bibliography section |
+| `srom-as-written` | an approved correction of the author's data keeps the author's form: `{"editor": "Van Lannep", "publisher-place": "Droit"}`; the audit and `check.py --keyed` accept it, the build report lists it |
