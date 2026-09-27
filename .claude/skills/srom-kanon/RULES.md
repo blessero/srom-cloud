@@ -24,7 +24,7 @@ Two heading levels: `1. CAPS`, `1.2. Bold roman`; no unnumbered headings. First-
 
 Quotes `„ ”`, inner `» «`; glosses `‘ ’` (§ 3.1). `–` unspaced for ranges, spaced for dashes; **no em dash** (§ 3.2). Single-character `…`; omissions `[…]`.
 **Non-breaking spaces** (after `s. t. z. nr r. w. sygn. k.`, initials, one-letter words; before `%`) are applied by the typesetter's GREP style — never typed by the editor and never stored in the text; a stray one is replaced by a plain space (§ 3.3).
-Italics: titles; foreign/Romani common nouns. **Never: proper names.** A title inside an italic title is set roman (reverse italics). Small caps: bibliography surnames and gloss categories only. No bold, letter-spacing, underline or caps in running text (§ 3.4).
+Italics: titles; foreign/Romani common nouns. **Never: proper names** — except foreign exonyms not assimilated in Polish (*Ciganos*, *Gitanos*, *Bohémiens*, *Zigeuner*, *Tsiganes*): foreign words, italic every time, also when the word itself is discussed; endonyms (Calon, Sinti) and assimilated exonyms (Cyganie, Bosza) roman. A title inside an italic title is set roman (reverse italics). Small caps: bibliography surnames and gloss categories only. No bold, letter-spacing, underline or caps in running text (§ 3.4).
 Breaks: no widows/orphans, no one-letter word at line end, no split surnames/abbreviations/dates/signatures; URLs break only after a slash or before a dot (§ 3.6).
 
 ### 3.5. Dates and numbers
@@ -66,7 +66,7 @@ Common nouns italic on first use (§ 5.1). Gloss: `rom. *kris* ‘sąd’` (§ 5
 ## 6. Ethnonyms, group names, authority file
 
 `Rom/Romowie/Romka` capitalised, `romski` lowercase. `Cyganie` capitalised, only in quotes/titles, historical source category, or self-identification, with a note on first use. `Porajmos`, `Samudaripen`, `Zagłada` capitalised (§ 6.1).
-**Author chooses spelling of group names**; consistent within the article; roman, never italic (§ 6.2). Authority file: author's form in text; standard form in index/keywords/deposit; see-references from variants; translated articles use the standard form in the text (§ 6.3, § 12.2.6).
+**Author chooses spelling of group names**; consistent within the article; roman, never italic (§ 6.2), except foreign exonyms (§ 3.4). Authority file: author's form in text; standard form in index/keywords/deposit; see-references from variants, kept in `references/kartoteka.tsv` (column `italic_house` marks the foreign exonyms); translated articles use the standard form in the text (§ 6.3, § 12.2.6).
 
 ## 7. Footnotes
 
@@ -209,7 +209,7 @@ Record: DOI · titles · authors + ORCID + affiliation (**no capitals in surname
 - Imprint place unpolonised: it is a retrieval key.
 - Transcription in body / ALA-LC in apparatus: reader vs retrieval.
 - Title translation right after the title: the end-of-record slot belongs to physical-form notes.
-- Romani group names roman: proper nouns are never italicised.
+- Romani group names roman: proper nouns are never italicised. Foreign exonyms italic: an outside label in a foreign language, not assimilated in Polish, is a foreign word, not a name.
 
 ---
 
@@ -220,7 +220,7 @@ Record: DOI · titles · authors + ORCID + affiliation (**no capitals in surname
 3. `Ibidem` in the same column as the preceding note — after layout.
 4. Metryczki: could town + group + birth year + role identify someone? Flag, never decide.
 5. Register: `1943 r.` in body, or `w 1943 roku` in a caption.
-6. Italics: common noun vs proper name.
+6. Italics: common noun vs proper name; foreign exonym vs endonym (check the kartoteka).
 7. Group-name spelling consistent; variants in the authority file; keywords in standard form.
 8. Footnote names = initials; bibliography names = full.
 9. Editor placement: before title (whole volume) vs after (chapter).

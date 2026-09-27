@@ -59,6 +59,27 @@ r = subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "build.py"), o
                     "--refs", os.path.join(FX, "kanon_refs.json"), "--out", out2], capture_output=True, text=True)
 rep = open(os.path.join(out2, "sample_article_report.md"), encoding="utf-8").read()
 t("with srom-kanon the build PASSES and the report names the Kanon version", r.returncode == 0 and f"Kanon v{kv}" in rep, rep[:600])
+# kartoteka wzorcowa (Kanon § 6.3; D9): structure, no open decision flags, agrees with § 3.4
+import csv
+kp = os.path.join(K, "references", "kartoteka.tsv")
+t("kartoteka.tsv exists in srom-kanon", os.path.isfile(kp))
+if os.path.isfile(kp):
+    kr = list(csv.reader(open(kp, encoding="utf-8"), delimiter="\t"))
+    HEAD = ["source_form", "en_variants", "pl_standard_vol18", "pl_attested", "articles", "italic_vol18", "flag", "note", "italic_house"]
+    t("kartoteka header", kr[0] == HEAD, kr[0])
+    body = kr[1:]
+    t("kartoteka rows complete (9 fields, form and standard filled, italic_house y/n)",
+      body and all(len(r) == 9 and r[0] and r[2] and r[8] in ("y", "n") for r in body),
+      [r for r in body if not (len(r) == 9 and r[0] and r[2] and r[8] in ("y", "n"))][:3])
+    t("kartoteka: one row per source form", len({r[0] for r in body}) == len(body))
+    t("kartoteka: no row waits for MB (flags only SV = only in the Polish, E12 = endonym/exonym to check)",
+      all(set(r[6].split()) <= {"SV", "E12"} for r in body), [r[:1] + r[6:7] for r in body if not set(r[6].split()) <= {"SV", "E12"}])
+    sec34 = kan.split("### 3.4.")[1].split("### 3.5.")[0]
+    ex = re.search(r"Wyjątek – egzonimy obce\*\*: (.*?)\. Etnonimy", sec34, re.S)
+    named = re.findall(r"\*([^*,()]+)\*", ex.group(1)) if ex else []
+    ital = {r[0] for r in body if r[8] == "y"}
+    t("every foreign exonym the Kanon names in § 3.4 is italic in the kartoteka, and no other row is",
+      named and set(named) == ital, (named, sorted(ital)))
 zk = [os.path.relpath(f, os.path.dirname(ROOT)) for d_ in (ROOT, K) for f in glob.glob(os.path.join(d_, "**", "*"), recursive=True)
       if os.path.isfile(f) and not f.endswith((".pyc", ".docx")) and f != os.path.abspath(__file__)
       and re.search(r"(?i)kodeks\w*\s+zecer", open(f, encoding="utf-8", errors="ignore").read())]
