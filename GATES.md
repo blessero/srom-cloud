@@ -94,32 +94,32 @@ Scope: MB delegated D1, D2, D9, D8(e)→E12 and decisions 15/18/19 to srom-types
 put E12 into the Kanon, create the kartoteka from srom-tlumacz's seed, implement E10 (translator in YAML front
 matter), re-scope D3/D7 (InDesign later; stage-1 test on MB's PDF next), answer srom-tlumacz.
 
-- [ ] C1: MB-decisions.md records D1, D2, D9, D8(e)/E12 decisions and the D3/D7 re-scope
+- [x] C1: MB-decisions.md records D1, D2, D9, D8(e)/E12 decisions and the D3/D7 re-scope
   CHECK: grep -c "delegated the call to srom-typeset\|re-scoped" ../_handoffs/MB-decisions.md
   EXPECT: /\b([5-9]|1[0-9])\b/
-  EVIDENCE: pending
+  EVIDENCE: 6
 
-- [ ] C2: Kanon § 3.4, § 6.2, § 14, § 17 carry the exonym rule; RULES.md digest too
+- [x] C2: Kanon § 3.4, § 6.2, § 14, § 17 carry the exonym rule; RULES.md digest too
   CHECK: grep -c "egzonim" .claude/skills/srom-kanon/references/kanon-redakcyjny.md; grep -c "exonym" .claude/skills/srom-kanon/RULES.md
   EXPECT: /\b[4-9]\b[\s\S]*\b[2-9]\b/
-  EVIDENCE: pending
+  EVIDENCE: 6 | 7
 
-- [ ] C3: kartoteka.tsv in srom-kanon, all 35 seed rows, house italics column, no open flags; structure test passes
+- [x] C3: kartoteka.tsv in srom-kanon, all 35 seed rows, house italics column, no open flags; structure test passes
   CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-typeset/tests/test_kanon.py | tail -1
   EXPECT: /KANON ALL PASS \d+\/\d+/
-  EVIDENCE: pending
+  EVIDENCE: KANON ALL PASS 18/18
 
-- [ ] C4: E10 — handoff.md + srom-md.md document `tlumaczenie:`; build reports translators_struct; survives the Word round trip
+- [x] C4: E10 — handoff.md + srom-md.md document `tlumaczenie:`; build reports translators_struct; survives the Word round trip
   CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-typeset/tests/test_e10.py | tail -1
   EXPECT: /E10 ALL PASS \d+\/\d+/
-  EVIDENCE: pending
+  EVIDENCE: E10 ALL PASS 9/9
 
-- [ ] C5: typeset-to-tlumacz.md answers E12, reports E10 done (their test side), kartoteka created
+- [x] C5: typeset-to-tlumacz.md answers E12, reports E10 done (their test side), kartoteka created
   CHECK: grep -c "^## T[6-9]" ../_handoffs/typeset-to-tlumacz.md
   EXPECT: /\b[2-9]\b/
-  EVIDENCE: pending
+  EVIDENCE: 3
 
-- [ ] C6: suite green, committed, clean tree
+- [x] C6: suite green, committed, clean tree
   CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; git status --porcelain | wc -l
   EXPECT: /SUITE ALL PASS (\d+)\/\1[\s\S]*\n\s*0\s*$/
-  EVIDENCE: pending
+  EVIDENCE: SUITE ALL PASS 13/13 | 0
