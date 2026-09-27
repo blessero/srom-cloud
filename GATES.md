@@ -95,7 +95,7 @@ put E12 into the Kanon, create the kartoteka from srom-tlumacz's seed, implement
 matter), re-scope D3/D7 (InDesign later; stage-1 test on MB's PDF next), answer srom-tlumacz.
 
 - [ ] C1: MB-decisions.md records D1, D2, D9, D8(e)/E12 decisions and the D3/D7 re-scope
-  CHECK: grep -c "DECIDED.*delegated to srom-typeset\|re-scoped" ../_handoffs/MB-decisions.md
+  CHECK: grep -c "delegated the call to srom-typeset\|re-scoped" ../_handoffs/MB-decisions.md
   EXPECT: /\b([5-9]|1[0-9])\b/
   EVIDENCE: pending
 

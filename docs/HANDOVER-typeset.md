@@ -1,4 +1,4 @@
-# srom-typeset — handover (state at 27.09.2026)
+# srom-typeset — handover (state at 27.09.2026, evening)
 
 For the next session (Claude Code). Start with `../_handoffs/tlumacz-to-typeset.md` (incoming) and
 `../_handoffs/MB-decisions.md` (the one list of MB's decisions — this file keeps none), per `../CLAUDE.md`. Then this,
@@ -46,20 +46,25 @@ Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 10/10` (~230 checks, ~30 s
    srom-typeset: bundled linter removed, `scripts/kanon_path.py` finds srom-kanon, `tests/test_kanon.py` checks
    versions and that every § cited exists. srom-typeset's § references were Kanon numbers all along — no renumbering.
 3. ~~**E8**~~ — done 26.09.2026 (§6 below: editor ruled *above* the numbered notes, set by hand; style = footnotes).
-4. **House style: reduce the style set** (§4) — editor ran the setup script: it works, but there are too many
-   styles for a designer. Discuss first, then change `style_spec.json` (config can map several roles to one style).
-5. **Template → config**: once the style set is settled, fill `config/styles.json` and `template_extra` from the
-   real template (IDML), re-run `make_style_setup.py`.
-6. **G12**: first real article end to end; InDesign checklist in `references/indesign.md`. In Claude Code on the
-   editor's machine the JSX can possibly be run directly against InDesign (AppleScript `do script` on a Mac) —
-   untested, worth trying.
-7. **E10 translator line** (T3): after srom-tlumacz OKs the markup — YAML `tlumaczenie:`; `handoff.md` first;
-   report line for `translators_struct`; must survive the Word round trip (today it is dropped).
-8. **E9 typed notes** (T2): `docx_in.py --typed-notes`, page-aware pairing; test file `Dom_Communities Stripped
-   Mac copy.docx` in srom-tlumacz's folder (read-only).
-9. **E11 kartoteka** (T4): `srom-kanon/references/kartoteka.tsv` + structure test, after `MB-decisions.md` D9 (and D8).
-10. Later: ICML output as a fallback to Word import (pandoc writes ICML with footnotes; needs a style-renaming
+**Order of work (MB 27.09.2026, `MB-decisions.md` D3/D7):** stage 1 (source PDF/Word → SROM-MD → Word working
+copy) and stage 2 (translation, srom-tlumacz) are finished and tested first; stage 3 (build for InDesign, styles,
+G12) after.
+
+4. **Stage-1 test on MB's PDF** (D7 re-scoped): `pdf_extract.py` → normalize → refs/keying → working copy; report
+   every manual step and every failure; fix and add tests.
+5. **E9 typed notes** (T2): `docx_in.py --typed-notes`, page-aware pairing, never guess; test file
+   `Dom_Communities Stripped Mac copy.docx` in srom-tlumacz's folder (read-only). The Fotta RTF is not a case
+   (no notes at all).
+6. **Kartoteka E12 flags**: Nawar, Gurbati, Halabi — endonym or exonym, asked of srom-tlumacz (T8).
+7. Stage 3, later: house style / reduce the style set (§4, D3) → template as IDML → `config/styles.json` and
+   `template_extra` from it → G12 first article in InDesign (the JSX can possibly be run directly against InDesign
+   via AppleScript `do script` — untested).
+8. Later: ICML output as a fallback to Word import (pandoc writes ICML with footnotes; needs a style-renaming
    step); wire `tb_check.py` into scenario C when srom-tlumacz ships it (E5; CLI fixed in `handoff.md`).
+
+Done 27.09.2026: E10 translator front matter (T7, `test_e10.py`); E11/D9 kartoteka (`srom-kanon/references/
+kartoteka.tsv`, T8); E12 foreign exonyms italic (Kanon § 3.4, T6); Kodeks zecera references removed; decisions
+15, 18, 19 stay in srom-typeset as toolchain conventions (MB delegated the call).
 
 ## 4. House style — everything needed for the style discussion
 
