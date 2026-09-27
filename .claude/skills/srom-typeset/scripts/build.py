@@ -438,6 +438,10 @@ def verify_docx(path, cfg, id2name, expected_notes, report, expected_ast=(0, 0))
 
 
 # ------------------------------------------------------------------ ibidem map (§7.3: Ibidem only on the same column)
+SOURCE_TYPO_VERIFY = {"no em dash", "no English quotes “"}
+SOURCE_TYPO_LINT = {"EMDASH", "NOTE-AFTERDOT", "QUOTE-EN-IN-PL", "RANGE-SHORT", "SPACE-BEFOREPUNCT"}
+
+
 def noibid_csl(workdir):
     s = open(CSL, encoding="utf-8").read()
     s = s.replace('<if position="ibid-with-locator">', '<if position="ibid-with-locator" variable="srom-never" match="all">')
@@ -558,9 +562,15 @@ def main():
     ap.add_argument("--proof", action="store_true",
                     help="reading proof: always writes <stem>_korekta.docx with the full apparatus rendered, even with "
                          "errors (e.g. an English source before translation); not for InDesign")
+    ap.add_argument("--source", action="store_true",
+                    help="proof of an untranslated source (<id>_src.md, handoff.md): implies --proof; Polish running-text "
+                         "typography (quotes, em dash, marker after a period, elided ranges, spaced ellipsis) is not applied "
+                         "to the source — counted in the report, not errors; every other check stays an error")
     ap.add_argument("--queries", action="append", default=[],
                     help="extra query rows (CSV adresat;rodzaj;przypis;dzieło;szczegóły, e.g. from srom-tlumacz) merged into _pytania")
     a = ap.parse_args()
+    if a.source:
+        a.proof = True
 
     os.makedirs(a.out, exist_ok=True)
     stem = os.path.splitext(os.path.basename(a.md))[0]
@@ -721,7 +731,9 @@ def main():
             id2name = postprocess_docx(docx_path, cfg, report)
             ok = verify_docx(docx_path, cfg, id2name, len(notes), report, (n_na, n_title))
             for n_, ok_, d_ in report.get("verify", []):
-                if not ok_:
+                if not ok_ and a.source and n_ in SOURCE_TYPO_VERIFY:
+                    report.setdefault("source_typo", []).append(f"{n_}: {d_}")
+                elif not ok_:
                     report["errors"].append(f"DOCX verification failed — {n_}: {d_}")
 
     # 5. InDesign scripts + author query sheet
@@ -753,7 +765,14 @@ def main():
         if not lint_out:
             report["errors"].append("kanon linter produced no output — cannot certify: " + lint_err.strip()[:300])
     if "--- ERROR ---" in lint_out:
-        n_err = len(re.findall(r"^\d+:\d+\s+\[", lint_out.split("--- ERROR ---")[1].split("--- WARN ---")[0], re.M))
+        err_part = lint_out.split("--- ERROR ---")[1].split("--- WARN ---")[0]
+        ids = re.findall(r"^\d+:\d+\s+\[([A-Z-]+)\]", err_part, re.M)
+        if a.source:
+            typo = Counter(i for i in ids if i in SOURCE_TYPO_LINT)
+            report.setdefault("source_typo", []).extend(f"linter [{k}]: {v}" for k, v in sorted(typo.items()))
+            ids = [i for i in ids if i not in SOURCE_TYPO_LINT]
+        n_err = len(ids)
+    if "--- ERROR ---" in lint_out and n_err:
         report["errors"].append(f"kanon linter: {n_err} ERROR(s) in rendered text — see Lint section")
 
     success = ok and not report["errors"]
@@ -766,6 +785,9 @@ def main():
            f"- Ibidem notes to check after layout: {len(rows)} (run {stem}_ibidem.jsx)"
            + (f"; literal (non-CSL) Ibidem notes, check by hand: {literal_ibid}" if literal_ibid else ""),
            "", "## Errors"] + ([f"- {e}" for e in report["errors"]] or ["- none"])
+    if report.get("source_typo"):
+        rep += ["", "## Source language: Polish typography not applied (handoff.md; normalize.py runs on the translation)"] \
+            + [f"- {x}" for x in report["source_typo"]]
     rep += ["", "## Warnings (review)"] + ([f"- {w}" for w in report["warnings"]] or ["- none"])
     rep += ["", "## DOCX verification"] + [f"- [{'x' if ok_ else ' '}] {n}: {d}" for n, ok_, d in report.get("verify", [])]
     if report.get("header"):

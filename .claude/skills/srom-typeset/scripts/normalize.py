@@ -147,6 +147,11 @@ class Normalizer:
         # spaced range only in unambiguous contexts: page/folio labels, or year–year
         body = self.sub("RANGE-SPACED", r"(\b(?:s|k|l|ark)\. \d{1,4}) ?[–-] ?(\d{1,4})\b", r"\1–\2", body, ln)
         body = self.sub("RANGE-YEARS", r"\b((?:1[5-9]|20)\d{2}) [–-] ((?:1[5-9]|20)\d{2})\b", r"\1–\2", body, ln)
+        # abbreviated range written in full (Kanon § 3.2): 214–31 -> 214–231, 1544–45 -> 1544–1545 (logged)
+        body = self.sub("RANGE-FULL", r"(?<![\w/.\-–])(\d{2,4})–(\d{1,3})(?![\w/.\-–])",
+                        lambda m: m.group(1) + "–" + m.group(1)[:len(m.group(1)) - len(m.group(2))] + m.group(2)
+                        if len(m.group(2)) < len(m.group(1)) and int(m.group(1)[:len(m.group(1)) - len(m.group(2))] + m.group(2)) > int(m.group(1))
+                        else m.group(0), body, ln)
         for m in re.finditer(rf"[{LO}]–[{LO}]", body):
             self.flag(ln, "ENDASH-IN-WORD", body[max(0, m.start() - 20): m.end() + 20])
         if not in_note and re.match(r"[–—] ", body):

@@ -492,12 +492,15 @@ def shortform_numbers(text, refs, keys):
     """pages in short-form notes without a label, as most English and French journals write them:
     "Hornback, 35–69", "Ndiaye, 2022, 214–31", "M. W., M. A., 45" -> the numbers after the author (and year)
     of a work the keyed note cites. Abbreviated ranges count in full (210–13 = 210–213)."""
-    t, c = squeeze(expand_ranges(text)), Counter()
+    t, found = squeeze(expand_ranges(text)), {}
+    years = {str(y[0]) for key in keys for f in ("issued", "original-date")
+             for y in ((refs.get(key) or {}).get(f) or {}).get("date-parts", []) if y}
     for n in {squeeze(x) for key in keys for x in name_forms(refs.get(key) or {})}:   # one author, two works: once
         for m in re.finditer(re.escape(n) + SHORT_LOC.replace("\\s?", ""), t):
-            for x in re.findall(r"\d+", m.group(1)):
-                c[int(x)] += 1
-    return c
+            if m.group(1) in years:
+                continue                 # "Ndiaye, 2021." — the year of a work cited whole, not a page
+            found[m.start(1)] = m.group(1)   # by position: "Chang" inside "Rucker-Chang, 24" is the same locator
+    return Counter(int(x) for loc in found.values() for x in re.findall(r"\d+", loc))
 
 
 def check_keyed(orig, keyed, refs_path, errs, warns):
@@ -520,16 +523,20 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
     kkeys = [cites_in(n) for n in kraw]
     if len(on) != len(kn):
         errs.append(f"note count differs: original {len(on)} / keyed {len(kn)} — keying must not add or drop notes")
-    prev_keys = []
+    prev_keys, prev_loc = [], Counter()
     for i, (o, k) in enumerate(zip(on, kn), 1):
         keys = kkeys[i - 1] if i - 1 < len(kkeys) else []
         o_loc = locator_numbers(expand_ranges(o)) | shortform_numbers(o, refs, keys)
         lost = o_loc - locator_numbers(expand_ranges(k))
+        if lost and IBID.match(k) and keys == prev_keys and not (lost - prev_loc):
+            lost = Counter()             # same work, same page as the note before: a bare Ibidem is right
         if lost:
             errs.append(f"note {i}: page/folio numbers lost in keying {dict(lost)}\n        original: {o[:160]}\n        rendered: {k[:160]}")
-        other = numbers(expand_ranges(o)) - numbers(k) - o_loc
+        years = Counter(int(y[0]) for key in keys for f in ("issued", "original-date")
+                        for y in ((refs.get(key) or {}).get(f) or {}).get("date-parts", []) if y)
+        other = numbers(expand_ranges(o)) - numbers(expand_ranges(k)) - o_loc - Counter({y: 99 for y in years})
         if other:
-            warns.append(f"note {i}: other numbers not in rendering {dict(other)} (a year dropped by the short form is normal): {o[:100]}")
+            warns.append(f"note {i}: other numbers not in rendering {dict(other)}: {o[:100]}")
         if not keys:
             if norm_ws(o) != norm_ws(k):
                 warns.append(f"note {i}: literal note differs after rendering: {o[:80]} | {k[:80]}")
@@ -549,6 +556,7 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
                     if not (len(ttl) >= 8 and ttl in fo):
                         errs.append(f"note {i}: @{key} ({', '.join(names)}) — neither author nor title found in the original note: {o[:120]}")
         prev_keys = keys or prev_keys
+        prev_loc = o_loc if keys else prev_loc
 
 
 def fold_txt(s):

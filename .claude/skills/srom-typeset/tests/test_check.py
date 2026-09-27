@@ -164,16 +164,24 @@ SREFS = w("short_refs.json", json.dumps([
     {"id": "ndiaye2022", "type": "book", "author": [{"family": "Ndiaye", "given": "Noémie"}], "title": "Scripts of Blackness",
      "publisher": "UPenn Press", "publisher-place": "Philadelphia", "issued": {"date-parts": [[2022]]}},
     {"id": "mw1662", "type": "book", "author": [{"literal": "M. W., M. A."}], "title": "The marriage broaker",
-     "publisher": "X", "publisher-place": "London", "issued": {"date-parts": [[1662]]}}], ensure_ascii=False))
-SO = w("short_o.md", "A[^1] b[^2] c[^3] d[^4].\n\n[^1]: Hornback, 35–69.\n\n[^2]: See Ndiaye, 2021, 145–51; Ndiaye, 2022, 214–31.\n\n"
-       "[^3]: “Peace”: M.W., 60.\n\n[^4]: M. W., M. A., 34–36.\n")
-SK = ("A[^1] b[^2] c[^3] d[^4].\n\n[^1]: [@hornback2018, s. 35–69].\n\n[^2]: Zob. [@ndiaye2021, s. 145–151; @ndiaye2022, s. 214–231].\n\n"
-      "[^3]: „Peace”: [@mw1662, s. 60].\n\n[^4]: [@mw1662, s. 34–36].\n")
+     "publisher": "X", "publisher-place": "London", "issued": {"date-parts": [[1662]]}},
+    {"id": "chang2020", "type": "book", "author": [{"family": "Chang", "given": "Felix"}, {"family": "Rucker-Chang", "given": "Sunnie"}],
+     "title": "Roma Rights", "publisher": "CUP", "publisher-place": "Cambridge", "issued": {"date-parts": [[2020]]}}], ensure_ascii=False))
+SO = w("short_o.md", "A[^1] b[^2] c[^3] d[^4] e[^5] f[^6] g[^7] h[^8].\n\n[^1]: Hornback, 35–69.\n\n[^2]: See Ndiaye, 2021, 145–51; Ndiaye, 2022, 214–31.\n\n"
+       "[^3]: “Peace”: M.W., 60.\n\n[^4]: M. W., M. A., 34–36.\n\n[^5]: Ndiaye, 2021.\n\n[^6]: M. W., M. A., 20.\n\n"
+       "[^7]: M. W., M. A., 20.\n\n[^8]: Chang and Rucker-Chang, 24.\n")
+SK = ("A[^1] b[^2] c[^3] d[^4] e[^5] f[^6] g[^7] h[^8].\n\n[^1]: [@hornback2018, s. 35–69].\n\n[^2]: Zob. [@ndiaye2021, s. 145–151; @ndiaye2022, s. 214–231].\n\n"
+      "[^3]: „Peace”: [@mw1662, s. 60].\n\n[^4]: [@mw1662, s. 34–36].\n\n[^5]: [@ndiaye2021].\n\n[^6]: [@mw1662, s. 20].\n\n"
+      "[^7]: [@mw1662, s. 20].\n\n[^8]: [@chang2020, s. 24].\n")
 def runk(o, k):
     r = subprocess.run([sys.executable, CHECK, "--keyed", o, k, "--refs", SREFS], capture_output=True, text=True)
     return r.returncode, r.stdout + r.stderr
 c, o = runk(SO, w("short_k.md", SK))
-t("keyed short form: unlabelled pages, abbreviated ranges expanded, 'M.W.' for 'M. W., M. A.' -> CHECK OK", c == 0 and "CHECK OK" in o, o)
+t("keyed short form: unlabelled pages, abbreviated ranges expanded, 'M.W.' for 'M. W., M. A.', year of a work cited "
+  "whole, same page again as bare Ibidem, 'Chang' inside 'Rucker-Chang' -> CHECK OK, no year warnings",
+  c == 0 and "CHECK OK" in o and "WARN" not in o, o)
+c, o = runk(SO, w("short_k4.md", SK.replace("[^8]: [@chang2020, s. 24]", "[^8]: [@chang2020, s. 42]")))
+t("keyed short form: page of a two-author work changed -> ERROR", c == 1 and "note 8" in o and "24" in o, o)
 c, o = runk(SO, w("short_k1.md", SK.replace("s. 214–231", "s. 214–230")))
 t("keyed short form: unlabelled page changed (214–31 keyed as 214–230) -> ERROR", c == 1 and "page/folio numbers lost" in o and "231" in o, o)
 c, o = runk(SO, w("short_k2.md", SK.replace("[@hornback2018, s. 35–69]", "[@hornback2018, s. 35]")))
