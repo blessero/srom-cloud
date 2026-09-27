@@ -207,14 +207,30 @@ def parse_literal_bib(block, report=None):
     return secs
 
 
+NESTED_EMPH_LUA = """
+local function inner(inls)
+  return pandoc.walk_inline(pandoc.Span(inls), {Emph = function(e)
+    local md = pandoc.write(pandoc.Pandoc({pandoc.Plain(e.content)}), "markdown-smart"):gsub("%s+$", "")
+    return pandoc.RawInline("markdown", "_" .. md .. "_")
+  end}).content
+end
+function Emph(e) return pandoc.Emph(inner(e.content)) end
+"""
+
+
 def csl_entries(keys, refs_path, workdir):
     if not keys:
         return []
     mini = os.path.join(workdir, "bib_mini.md")
     with open(mini, "w", encoding="utf-8") as f:
         f.write("---\nlang: pl-PL\nnocite: '" + ", ".join("@" + k for k in keys) + "'\n---\n\n")
+    # a title inside an italic title comes out of citeproc as Emph in Emph, which the Markdown writer prints as
+    # "*… *Inner**" — unreadable on the way back; write the inner one as _…_ (SROM-MD: *Tytuł _wewnętrzny_*)
+    nested = os.path.join(workdir, "bib_nested.lua")
+    with open(nested, "w", encoding="utf-8") as f:
+        f.write(NESTED_EMPH_LUA)
     code, out, err = run(["pandoc", mini, "-f", FROM, "--citeproc", "--csl", CSL, "--bibliography", refs_path,
-                          "-t", "markdown-smart-citations", "--wrap=none"])
+                          "--lua-filter", nested, "-t", "markdown-smart-citations", "--wrap=none"])
     if code:
         sys.exit(err)
     entries, cur = [], None

@@ -91,6 +91,23 @@ code_b, out_b, stem_b, rep_b = build(md_text="Tekst[^1] i dalej[^2].\n\n[^1]: [@
                                      refs=eb, extra=("--draft",))
 txt_b = open(os.path.join(out_b, stem_b + ".txt"), encoding="utf-8").read()
 bib_b = txt_b[txt_b.find("Bibliografia"):]
+# inner title inside an italic title (Kanon § 3.4): a separate roman run, in the text, the notes and the bibliography
+ib = os.path.join(tempfile.mkdtemp(), "refs.json")
+json.dump([{"id": "levin1967", "type": "article-journal", "author": [{"family": "Levin", "given": "Harry"}],
+            "title": "A Note on <i>Les Fourberies de Scapin</i>", "container-title": "Yale French Studies", "volume": "38",
+            "page": "128–137", "issued": {"date-parts": [[1967]]}}], open(ib, "w", encoding="utf-8"), ensure_ascii=False)
+code_i, out_i, stem_i, rep_i = build(md_text="Tekst o *Tytule _wewnętrznym_ tomu*[^1].\n\n[^1]: [@levin1967, s. 130].\n", refs=ib)
+zi = zipfile.ZipFile(os.path.join(out_i, stem_i + ".docx"))
+def runs(xml, after):
+    x = xml[xml.find(after):]
+    return [((re.search(r'w:rStyle w:val="([^"]+)"', r) or [None, "roman"])[1], "".join(re.findall(r"<w:t[^>]*>([^<]*)", r)))
+            for r in re.findall(r"<w:r>(.*?)</w:r>", x)[:8]]
+body_r, note_r = runs(zi.read("word/document.xml").decode(), "Tekst o"), runs(zi.read("word/footnotes.xml").decode(), "Levin")
+bib_r = runs(zi.read("word/document.xml").decode(), ">Levin<")
+roman = lambda rs, w: any(st == "roman" and w in t for st, t in rs) and not any(st != "roman" and w in t for st, t in rs)
+check("inner title roman in body text (*Tytule _wewnętrznym_ tomu*)", roman(body_r, "wewnętrznym") and any("Tytule" in t and st != "roman" for st, t in body_r), body_r)
+check("inner title roman at the end of an italic title, in the note and the bibliography (no stray **)",
+      roman(note_r, "Les Fourberies") and roman(bib_r, "Les Fourberies") and "**" not in zi.read("word/document.xml").decode(), (note_r, bib_r))
 check("uncited work of the author's list printed, reported", "Książka bez wydawcy" in bib_b and "printed though not cited" in rep_b and "nopub1990" in rep_b, rep_b[:800])
 check("early print (1662) without printer: no [BRAK WYDAWCY]; a 1990 book without publisher still has it",
       "marriage broaker, London 1662" in txt_b and "Książka bez wydawcy, [BRAK WYDAWCY], Kraków 1990" in bib_b, txt_b[-800:])

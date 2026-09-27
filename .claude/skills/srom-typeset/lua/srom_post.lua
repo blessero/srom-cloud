@@ -292,16 +292,28 @@ local inline_pass = {
     return out
   end,
   Emph = function(el)
-    -- nested italics (title inside a title): inner run set roman
-    local inner = pandoc.walk_inline(pandoc.Span(el.content), {
-      Span = function(s)
-        if s.attributes["custom-style"] == C.italic then
-          warn("nested italics set roman, verify: " .. short(s.content))
-          return s.content
-        end
+    -- nested italics (title inside a title, Kanon § 3.4): the italic run is split and the inner title set as a
+    -- roman run between its parts ("*A Note on _Les Fourberies_*" -> italic "A Note on " + roman "Les Fourberies")
+    local out, cur = pandoc.List(), pandoc.List()
+    local function flush()
+      if #cur > 0 then out:insert(pandoc.Span(cur, cstyle(C.italic))); cur = pandoc.List() end
+    end
+    for _, x in ipairs(el.content) do
+      if x.t == "Span" and x.attributes["custom-style"] == C.italic then
+        warn("nested italics set roman, verify: " .. short(x.content))
+        flush()
+        out:extend(x.content)
+      else
+        -- deeper nesting (inside quotes, links): unwrap as before; rare
+        cur:insert(pandoc.walk_inline(x, {Span = function(s)
+          if s.attributes["custom-style"] == C.italic then
+            warn("nested italics (deep) set roman, verify: " .. short(s.content)); return s.content
+          end
+        end}))
       end
-    })
-    return pandoc.Span(inner.content, cstyle(C.italic))
+    end
+    flush()
+    return out
   end,
   SmallCaps = function(el)
     -- kanon §9.3: particles stay lower case and outside small caps ("de HEUSCH, Luc")
