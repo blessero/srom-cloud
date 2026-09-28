@@ -6,11 +6,11 @@ decision is recorded where it takes effect (Kanon, handover, handoff item, commi
 
 Rules:
 - New item under **Open**: `## D<n> — <subject> (dd.mm.yyyy, <module>)`, then the question, the options, the
-  module's recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D18**.
+  module's recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D19**.
 - A partial answer (item still open) is a new line under the item: `- dd.mm.yyyy DECIDED: … (MB)`.
 - `MB-decisions-archive.md` keeps the text of items closed before 27.09.2026; it is not appended to.
 
-**Needs MB now: D17 (Pahulich, stage 1) — nothing in it blocks the translation.**
+**Needs MB now: D17 (Pahulich, stage 1) — nothing in it blocks the translation; D18 (German stage-1 test).**
 
 ## Open (scheduled, or waiting for a later moment)
 
@@ -58,3 +58,19 @@ Source frozen and handed to srom-tlumacz (T18); none of this blocks the translat
   Leroy (2021)" missing from the bibliography.
 - E1 Kanon § 8.6: web sources print no publication date even when the author gives one (Matache 2016). Proposal:
   print it.
+
+## D18 — German stage-1 test (Scheffknecht, Neujahrsblätter Lustenau 1, 2010): open points (28.09.2026, srom-typeset)
+Stage 1 done, source frozen in `srom-typeset/work/scheffknecht/`; **not handed to srom-tlumacz**. Detail and proposals:
+`srom-typeset/work/scheffknecht/scheffknecht_queries.md` (A–E).
+- A1 stage 2: srom-tlumacz is EN→PL. Keep as a test (recommended), a DE→PL trial in srom-tlumacz, or a human translator.
+- A2 rights: no licence; the imprint allows quotation with attribution only. Recommendation: written consent of the author
+  and the Historisches Archiv Lustenau before publication; image permissions (VLA, Staatsarchiv Augsburg) at stage 3.
+- A3 **29 of 35 works have no publisher** (German practice) → `[BRAK WYDAWCY]`, which Kanon § 0 keeps out of typesetting.
+  Recommendation: the publisher-sourcing step you planned (catalogue lookup, each item for your approval). Will recur with
+  every German/Austrian/Swiss source.
+- A4 series (14 works): no Kanon form, the CSL prints nothing. Recommendation: "(Series, n)" at the end of the description.
+- A5 German "von" (von Hippel): no Kanon rule. Recommendation: library form "Hippel, Wolfgang von", sorted under H.
+- A6 archive abbreviations (VLA, HoA, HistA, PfA, StaatsA, StadtA) never expanded in the source (Kanon § 8.1); HoA unknown.
+- A7 a stray raised "1" after the text's last word: delete (recommended) or ask the author. A8 early printed lists held in
+  archives stay literal (recommended).
+- B1–B7 slips in the author's data kept as written ("approve B" = all proposals).
