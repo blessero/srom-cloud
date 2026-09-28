@@ -6,11 +6,11 @@ decision is recorded where it takes effect (Kanon, handover, handoff item, commi
 
 Rules:
 - New item under **Open**: `## D<n> — <subject> (dd.mm.yyyy, <module>)`, then the question, the options, the
-  module's recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D17**.
+  module's recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D18**.
 - A partial answer (item still open) is a new line under the item: `- dd.mm.yyyy DECIDED: … (MB)`.
 - `MB-decisions-archive.md` keeps the text of items closed before 27.09.2026; it is not appended to.
 
-**Needs MB now: nothing.**
+**Needs MB now: D17 (Pahulich, stage 1) — nothing in it blocks the translation.**
 
 ## Open (scheduled, or waiting for a later moment)
 
@@ -43,3 +43,18 @@ Kanon § 13.2: the printed *Informacje dla autorów* in vol. 18/2025 say authors
 the licence agreement says the opposite. The text in print and on the website must be **replaced**, not supplemented.
 Needed from MB: the replacement wording (or who writes it) and where it goes (website page; vol. 19 front matter).
 srom-typeset can draft the Polish text on request. Blocks: the OA announcement. Detail: Kanon § 13.2.
+
+## D17 — Pahulich (CRS 8/1, 2025), stage 1: open points (28.09.2026, srom-typeset)
+Source frozen and handed to srom-tlumacz (T18); none of this blocks the translation. Detail and proposals:
+`srom-typeset/work/pahulich/pahulich_queries.md` (items A–E).
+- A1 **licence of the original: CC BY-NC 4.0** (Crossref; the PDF has no statement). Is SROM's distribution
+  non-commercial, and do we ask the author/CRS for consent? Recommendation: ask for written consent. Blocks
+  publication (the translation note's licence line), not the translation.
+- A2 a converted citation and the author's note 1 stand side by side (printed 1 and 2): keep two notes, or merge.
+  Recommendation: merge (then notes renumber, new T-item).
+- B1–B11 errors in the author's bibliography (titles, a wrong DOI for Césaire 2000, garbled Slovak imprint, missing
+  places of two dissertations, a Facebook tracking parameter in a URL): kept as written; "approve B" = all proposals.
+- D1–D2 questions to the author: an author-less "(1992, 81)" in the original's note 2 (probably Fraser); "Jenkins and
+  Leroy (2021)" missing from the bibliography.
+- E1 Kanon § 8.6: web sources print no publication date even when the author gives one (Matache 2016). Proposal:
+  print it.
