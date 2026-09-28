@@ -254,3 +254,38 @@ Checks run from the repo root. K = .claude/skills/srom-kanon, T = .claude/skills
   EXPECT: /SUITE ALL PASS (\d+)\/\1[\s\S]*\n\s*0\s*$/
   EVIDENCE: SUITE ALL PASS 15/15 | 0
 
+
+## Stage-1 test 3 — Scheffknecht (Neujahrsblätter Lustenau 1/2010, German, endnotes, full-note citations) — 28.09.2026
+
+- [x] S1: extractor handles this layout generically, each with a test (test_pdf_de.py): ragged right with block
+  paragraphs (no false breaks at short lines), quotations indented ~1 em (one quotation, inner paragraphs), a
+  quoted numbered list (no Markdown list), InDesign control characters (U+0007) and soft hyphens (U+00AD) removed,
+  suspended hyphen before a conjunction kept ("Diebs- und"), line-end slash spaced as the document spaces it,
+  marker in the title -> title note, raised digit inside a note is not a marker (²1990), caption beside an image
+  without "Abb." -> ::: podpis
+  CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-typeset/tests/test_pdf_de.py | tail -1
+  EXPECT: /PDF-DE ALL PASS \d+\/\d+/
+  EVIDENCE: PDF-DE ALL PASS 18/18
+- [x] S2: no regression on the earlier PDFs: Ndiaye and Pahulich extract byte-identical to the baseline taken before
+  the change (or every difference explained)
+  CHECK: see EVIDENCE (diff against scratchpad baselines)
+  EVIDENCE: Ndiaye and Pahulich .md, _bib.txt, _front.md byte-identical to the baseline; _extract.md differs only by
+  new report lines (layout line; captions matched by image; soft hyphen label on Enlighten~|ment; two Pahulich
+  page breaks after a sentence end now listed: pp. 46/47 "…Eastern Europe." | "In Moldavia…", pp. 54/55
+  "…Lucassen 1998)." | "Many historians…" — possibly lost paragraph breaks in the Pahulich source, see handover)
+- [ ] S3: the article extracts clean: 120 numbered notes + title note, markers contiguous, every word of the PDF's
+  article pages present in the output (word-bag comparison), stray marker(s) flagged, not dropped
+  CHECK: cd work && ~/.venvs/srom/bin/python ../.claude/skills/srom-typeset/scripts/pdf_extract.py njb-2010-zigeuner-im-reichshof-lustenau_wolfgang-scheffknecht.pdf --pages 4-32 -o scheffknecht/scheffknecht_pdf.md | tail -1
+  EXPECT: /EXTRACT (OK|CHECK 1)/
+- [ ] S4: refs.json: every published work cited in the notes keyed (no bibliography in the source: built from the
+  first full citations); archival sources stay literal; nothing invented, gaps as [BRAK …] and listed
+  CHECK: cd work/scheffknecht && ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/check.py --keyed scheffknecht_pre.md scheffknecht_src.md --refs refs.json | tail -1
+  EXPECT: /CHECK OK/
+- [ ] S5: source passes check and builds as a source proof; Word working copy round trip lossless
+  CHECK: cd work/scheffknecht && V=~/.venvs/srom/bin/python; S=../../.claude/skills/srom-typeset/scripts; $V $S/check.py scheffknecht_src.md --refs refs.json | tail -1; $V $S/build.py scheffknecht_src.md --refs refs.json --source --out build/ | tail -1
+  EXPECT: /CHECK OK[\s\S]*PROOF/
+- [ ] S6: what the German test showed about the toolchain (CSL/Kanon for German sources, citation keying) written
+  up; open points for MB in MB-decisions.md (D18) with a queries file; nothing for srom-tlumacz sent without MB
+- [ ] S7: suite green, committed, clean tree
+  CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; git status --porcelain | wc -l
+  EXPECT: /SUITE ALL PASS (\d+)\/\1[\s\S]*\n\s*0\s*$/
