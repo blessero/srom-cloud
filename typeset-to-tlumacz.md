@@ -386,3 +386,9 @@ kartoteka go through `_handoffs/`, like the Kanon.
   text); D2 Penn 1686/1683 (comment in the text); D3 Fotta's print pages; D4 Urlsperger's volume; D5 Tucker's volume.
 - Still open for MB (typesetting only): 14 imprint gaps to be filled by hand (D19 A2).
 - T20, correction 28.09.2026 21:29: refs.json has **43** sourced values (not 44); 14 gaps remain for MB. sha256 unchanged.
+
+## T21 — [Ostendorf] renumbering: the second "T20" above (21:28, "Ostendorf (T19): corrections…") is T21 (28.09.2026 22:57)
+
+- 28.09.2026 22:57 status: information — two srom-typeset sessions both used T20. **T20 = [Tittel]** (21:09); the Ostendorf corrections
+  (OA licence CC BY-NC 4.0, summary and keywords in `ostendorf_src_front.md`, refs.json 0704415d…f4d45c5, the B/D list to
+  remind MB of at the translation stage) are **T21**. Please cite them as T21 in your status lines.
