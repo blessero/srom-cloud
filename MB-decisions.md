@@ -5,46 +5,24 @@ decision on an item, or is asked to resolve it itself, **removes the item** once
 decision is recorded where it takes effect (Kanon, handover, handoff item, commit). No history here.
 
 Rules:
-- New item under **Open**: `## D<n> — <subject> (dd.mm.yyyy, <module>)`, then the question, the options, the
-  module's recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D19**.
-- A partial answer (item still open) is a new line under the item: `- dd.mm.yyyy DECIDED: … (MB)`.
+- **Grouped by text.** Each article has its own `## Text: <Author> — <short title> (<source>)` section; items that
+  concern no single text go under `## Journal-wide` or `## Tooling and workflow`. An item about two texts goes in
+  each text's section as a one-line pointer to the full item. Remove a text's section when it is empty.
+- New item: `### D<n> — <subject> (dd.mm.yyyy HH:MM, <module>)`, then the question, the options, the module's
+  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D19**.
+- A partial answer (item still open) is a new line under the item: `- dd.mm.yyyy HH:MM DECIDED: … (MB)`.
+- Times (from 28.09.2026 16:45) are local time from the machine clock (`date '+%d.%m.%Y %H:%M'`); older entries
+  keep their date only.
 - `MB-decisions-archive.md` keeps the text of items closed before 27.09.2026; it is not appended to.
 
-**Needs MB now: D17 (Pahulich, stage 1) — nothing in it blocks the translation; D18 (German stage-1 test).**
+## Needs MB now
+- **Pahulich:** D17 — nothing in it blocks the translation.
+- **Scheffknecht:** D18 — German stage-1 test.
 
-## Open (scheduled, or waiting for a later moment)
+## Text: Pahulich — CRS 8/1 (2025)
+Stage 1 done, source with srom-tlumacz (T18).
 
-## D3 — House style v2 / reducing the InDesign style set (27.09.2026, srom-typeset)
-Stage 3 (typesetting). Deferred by MB until stages 1–2 are finished and tested; then a style discussion with MB and
-the cleaned template as IDML. Detail: `srom-typeset/docs/HANDOVER-typeset.md` § 4.
-
-## D5 — Translator credit: what is still open (27.09.2026, srom-tlumacz)
-Curator skill updated (C1 items 1–3, 5). Waiting, by MB's decision, until the rest is finalised: showing the
-translator on the WordPress page (C1 item 4) and the desktop upload of the new curator .skill.
-Question before that upload: **is mu-plugin v2.3 the current one?** The .skill MB attached on 27.09 carried v2.0; the
-update was built on the copy installed for Claude Code (v2.3, checked again 28.09.2026: `srom-scholarly.php` Version 2.3),
-so uploading it brings v2.3 and locked decision #4 to desktop Claude. This is the skill's copy, not what runs on the site.
-Detail: `curator-update-2026-09-27/CHANGES.md` ("Which version this is built on").
-- 28.09.2026 DECIDED: the live site is old (untouched since about June 2026). No upload now: when the work here is
-  finished, MB updates the curator skill in desktop Claude and the plugin on the site together. (MB)
-
-## D6 (c) — Vol. 19 translation shortlist (27.09.2026, srom-tlumacz)
-Deferred by MB (26.09.2026). (a) and (b) are closed.
-
-## D15 — Licence: withdraw the CC BY-NC-ND option? (28.09.2026, srom-typeset)
-Kanon § 13.2 marks it "DO ROZSTRZYGNIĘCIA – kolegium redakcyjne". Today the author chooses CC BY / BY-NC / BY-NC-ND
-(default BY-NC). Options: (a) keep the choice; (b) withdraw ND, keep BY / BY-NC; (c) one licence for the whole journal.
-srom-typeset's recommendation: (b) at least — ND rules out the DOAJ Seal (§ 13.2); (c) is the dominant practice.
-Blocks nothing in stages 1–2; matters for the licence field of the master CSV and the Crossref deposit.
-Kolegium's decision, via MB. Detail: `srom-typeset/.claude/skills/srom-kanon/references/kanon-redakcyjny.md` § 13.2.
-
-## D16 — PILNE before any open-access announcement: vol. 18 copyright-transfer clause (28.09.2026, srom-typeset)
-Kanon § 13.2: the printed *Informacje dla autorów* in vol. 18/2025 say authors transfer copyright to the Redakcja;
-the licence agreement says the opposite. The text in print and on the website must be **replaced**, not supplemented.
-Needed from MB: the replacement wording (or who writes it) and where it goes (website page; vol. 19 front matter).
-srom-typeset can draft the Polish text on request. Blocks: the OA announcement. Detail: Kanon § 13.2.
-
-## D17 — Pahulich (CRS 8/1, 2025), stage 1: open points (28.09.2026, srom-typeset)
+### D17 — Pahulich (CRS 8/1, 2025), stage 1: open points (28.09.2026, srom-typeset)
 Source frozen and handed to srom-tlumacz (T18); none of this blocks the translation. Detail and proposals:
 `srom-typeset/work/pahulich/pahulich_queries.md` (items A–E).
 - A1 **licence of the original: CC BY-NC 4.0** (Crossref; the PDF has no statement). Is SROM's distribution
@@ -62,7 +40,10 @@ Source frozen and handed to srom-tlumacz (T18); none of this blocks the translat
 - 28.09.2026 DECIDED: E1 (web publication date) — Kanon § 8.6: dated web texts print their publication date, taken
   from the page when missing (MB).
 
-## D18 — German stage-1 test (Scheffknecht, Neujahrsblätter Lustenau 1, 2010): open points (28.09.2026, srom-typeset)
+## Text: Scheffknecht — Neujahrsblätter Lustenau 1 (2010)
+Stage 1 done (German test), not handed to srom-tlumacz.
+
+### D18 — German stage-1 test (Scheffknecht, Neujahrsblätter Lustenau 1, 2010): open points (28.09.2026, srom-typeset)
 Stage 1 done, source frozen in `srom-typeset/work/scheffknecht/`; **not handed to srom-tlumacz**. Detail and proposals:
 `srom-typeset/work/scheffknecht/scheffknecht_queries.md` (A–E).
 - A1 stage 2: srom-tlumacz is EN→PL. Keep as a test (recommended), a DE→PL trial in srom-tlumacz, or a human translator.
@@ -77,3 +58,39 @@ Stage 1 done, source frozen in `srom-typeset/work/scheffknecht/`; **not handed t
 - A7 a stray raised "1" after the text's last word: delete (recommended) or ask the author. A8 early printed lists held in
   archives stay literal (recommended).
 - B1–B7 slips in the author's data kept as written ("approve B" = all proposals).
+
+## Journal-wide (policy, not tied to one text)
+
+### D15 — Licence: withdraw the CC BY-NC-ND option? (28.09.2026, srom-typeset)
+Kanon § 13.2 marks it "DO ROZSTRZYGNIĘCIA – kolegium redakcyjne". Today the author chooses CC BY / BY-NC / BY-NC-ND
+(default BY-NC). Options: (a) keep the choice; (b) withdraw ND, keep BY / BY-NC; (c) one licence for the whole journal.
+srom-typeset's recommendation: (b) at least — ND rules out the DOAJ Seal (§ 13.2); (c) is the dominant practice.
+Blocks nothing in stages 1–2; matters for the licence field of the master CSV and the Crossref deposit.
+Kolegium's decision, via MB. Detail: `srom-typeset/.claude/skills/srom-kanon/references/kanon-redakcyjny.md` § 13.2.
+
+### D16 — PILNE before any open-access announcement: vol. 18 copyright-transfer clause (28.09.2026, srom-typeset)
+Kanon § 13.2: the printed *Informacje dla autorów* in vol. 18/2025 say authors transfer copyright to the Redakcja;
+the licence agreement says the opposite. The text in print and on the website must be **replaced**, not supplemented.
+Needed from MB: the replacement wording (or who writes it) and where it goes (website page; vol. 19 front matter).
+srom-typeset can draft the Polish text on request. Blocks: the OA announcement. Detail: Kanon § 13.2.
+
+## Volume 19 planning
+
+### D6 (c) — Vol. 19 translation shortlist (27.09.2026, srom-tlumacz)
+Deferred by MB (26.09.2026). (a) and (b) are closed.
+
+## Tooling and workflow (scheduled, waiting for a later moment)
+
+### D3 — House style v2 / reducing the InDesign style set (27.09.2026, srom-typeset)
+Stage 3 (typesetting). Deferred by MB until stages 1–2 are finished and tested; then a style discussion with MB and
+the cleaned template as IDML. Detail: `srom-typeset/docs/HANDOVER-typeset.md` § 4.
+
+### D5 — Translator credit: what is still open (27.09.2026, srom-tlumacz)
+Curator skill updated (C1 items 1–3, 5). Waiting, by MB's decision, until the rest is finalised: showing the
+translator on the WordPress page (C1 item 4) and the desktop upload of the new curator .skill.
+Question before that upload: **is mu-plugin v2.3 the current one?** The .skill MB attached on 27.09 carried v2.0; the
+update was built on the copy installed for Claude Code (v2.3, checked again 28.09.2026: `srom-scholarly.php` Version 2.3),
+so uploading it brings v2.3 and locked decision #4 to desktop Claude. This is the skill's copy, not what runs on the site.
+Detail: `curator-update-2026-09-27/CHANGES.md` ("Which version this is built on").
+- 28.09.2026 DECIDED: the live site is old (untouched since about June 2026). No upload now: when the work here is
+  finished, MB updates the curator skill in desktop Claude and the plugin on the site together. (MB)
