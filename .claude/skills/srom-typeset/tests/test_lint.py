@@ -19,9 +19,11 @@ open(bad, "w", encoding="utf-8").write('Tekst "cytat" i op. cit. oraz 1990-2000.
 lb = subprocess.run([sys.executable, LINT, bad], capture_output=True, text=True).stdout
 control = "--- ERROR ---" in lb and "ABBR-OPCIT" in lb
 # BIB-COLON: an imprint colon is an error, the ethnonym Roma before a colon in prose is not (Roma = Rome in the list)
-open(bad, "w", encoding="utf-8").write("J. Kowalski, Tytuł, Kraków: Universitas 2001. Historia Romów: a phase, the French Roma: faza.\n")
+open(bad, "w", encoding="utf-8").write("J. Kowalski, Tytuł, Kraków: Universitas 2001. Historia Romów: a phase, the French Roma: faza.\n"
+                                       "Pierwodruk: N. Ndiaye, Black Roma: Afro-Romani Connections (E15, a title).\n"
+                                       "Smith, J. (2001). Title. London: Routledge.\n")
 lc = subprocess.run([sys.executable, LINT, bad], capture_output=True, text=True).stdout
-control = control and lc.count("[BIB-COLON]") == 1
+control = control and lc.count("[BIB-COLON]") == 2
 # build must fail on lint ERROR: '"' survives normalisation only if normalise was skipped; op. cit. in a literal note
 md = os.path.join(out, "opcit.md")
 open(md, "w", encoding="utf-8").write("Tekst[^1].\n\n[^1]: Kowalski, op. cit., s. 5.\n")

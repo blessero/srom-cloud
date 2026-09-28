@@ -19,6 +19,7 @@ CASES = [
     ("w 1918 – 20 lat później", "w 1918 – 20 lat później", None),
     ("polsko-romski słownik", "polsko-romski słownik", None),
     ("Zob. s. 214–31, 110-24 i lata 1544–45; s. 35–69, 5–6 osób, 2–3.", "Zob. s. 214–231, 110–124 i lata 1544–1545; s. 35–69, 5–6 osób, 2–3.", None),
+    ("Tamże, s. 214–31. W latach 1990–91. Wartość 3.14–15.", "Tamże, s. 214–231. W latach 1990–1991. Wartość 3.14–15.", None),
     ("Adres: 33-100 Tarnów.", "Adres: 33-100 Tarnów.", "POSTCODE-OR-RANGE"),
     ("Zob. https://x.pl/2019-2020/a-b oraz DOI 10.1234/ab-12-34.", "Zob. https://x.pl/2019-2020/a-b oraz DOI 10.1234/ab-12-34.", None),
     ("ISBN 978-83-08-01234-5 i data 2019-05-03.", "ISBN 978-83-08-01234-5 i data 2019-05-03.", None),

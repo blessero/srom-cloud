@@ -151,7 +151,7 @@ class Normalizer:
         body = self.sub("RANGE-SPACED", r"(\b(?:s|k|l|ark)\. \d{1,4}) ?[–-] ?(\d{1,4})\b", r"\1–\2", body, ln)
         body = self.sub("RANGE-YEARS", r"\b((?:1[5-9]|20)\d{2}) [–-] ((?:1[5-9]|20)\d{2})\b", r"\1–\2", body, ln)
         # abbreviated range written in full (Kanon § 3.2): 214–31 -> 214–231, 1544–45 -> 1544–1545 (logged)
-        body = self.sub("RANGE-FULL", r"(?<![\w/.\-–])(\d{2,4})–(\d{1,3})(?![\w/.\-–])",
+        body = self.sub("RANGE-FULL", r"(?<![\w/.\-–])(\d{2,4})–(\d{1,3})(?![\w/\-–]|\.\d)",
                         lambda m: m.group(1) + "–" + m.group(1)[:len(m.group(1)) - len(m.group(2))] + m.group(2)
                         if len(m.group(2)) < len(m.group(1)) and int(m.group(1)[:len(m.group(1)) - len(m.group(2))] + m.group(2)) > int(m.group(1))
                         else m.group(0), body, ln)

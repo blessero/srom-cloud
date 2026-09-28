@@ -122,11 +122,21 @@ check("article without DOI: year and URL printed in the bibliography; with DOI: 
 check("uncited work of the author's list printed, reported", "Książka bez wydawcy" in bib_b and "printed though not cited" in rep_b and "nopub1990" in rep_b, rep_b[:800])
 check("early print (1662) without printer: no [BRAK WYDAWCY]; a 1990 book without publisher still has it",
       "marriage broaker, London 1662" in txt_b and "Książka bez wydawcy, [BRAK WYDAWCY], Kraków 1990" in bib_b, txt_b[-800:])
+q_b = open(os.path.join(out_b, stem_b + "_pytania.md"), encoding="utf-8").read()
+check("uncited entry with [BRAK WYDAWCY]: a query row for the author (the build fails on it)", "nopub1990" in q_b, q_b[-600:])
+# E15: the no-page context is the last 90 characters before the note; a byte cut split "ó" and build.py died on stderr
+code_8, out_8, stem_8, rep_8 = build(md_text="Tekst " + "ó" * 60 + "x[^1].\n\n[^1]: [@ficowski1985].\n", extra=("--draft",))
+q_8 = open(os.path.join(out_8, stem_8 + "_pytania.md"), encoding="utf-8").read() if os.path.exists(os.path.join(out_8, stem_8 + "_pytania.md")) else rep_8[-400:]
+check("no-page context cut on a character boundary (E15): build runs, query row has whole letters",
+      "óx" in q_8 and "\ufffd" not in q_8, q_8[-400:])
 
 # ---------------------------------------------------------------- failure modes
 def fails(label, md, needle, extra=()):
     code, out, stem, rep = build(md_text=md, extra=extra)
     check(label, code == 1 and needle in rep, rep[:900])
+fails("E15: two title-note blocks -> build error naming the one-block form (handoff.md)",
+      "::: przypis-tytulowy\nNota o przekładzie.\n:::\n\n::: przypis-tytulowy\nPodziękowania.\n:::\n\nTekst[^1].\n\n[^1]: [@ficowski1985, s. 15].\n",
+      "2 title-note blocks")
 
 fails("unknown citation key stops the build", "Tekst[^1].\n\n[^1]: [@nieistnieje, s. 5].\n", "citation keys not in refs")
 fails("marker without definition stops the build (pandoc alone would print '[^2]')", "Tekst[^1] i[^2].\n\n[^1]: Nota.\n", "[^2] has no definition")

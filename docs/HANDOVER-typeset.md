@@ -1,4 +1,4 @@
-# srom-typeset — handover (state at 27.09.2026, evening)
+# srom-typeset — handover (state at 28.09.2026)
 
 For the next session (Claude Code). Start with `../_handoffs/tlumacz-to-typeset.md` (incoming) and
 `../_handoffs/MB-decisions.md` (the one list of MB's decisions — this file keeps none), per `../CLAUDE.md`. Then this,
@@ -65,6 +65,15 @@ G12) after.
    srom-tlumacz (T12; D7 removed from MB-decisions as resolved). Waiting: srom-tlumacz's receipt (T12) and its side
    of T11 (front matter). Figures: image files/permissions at stage 3. Future (MB, not now): a sourcing step for
    missing publisher/place (search, list for MB's approval per item) and ISBN lookup via a catalogue API.
+   28.09.2026, later: review of the stage-1 commits (d62b8b5..70b8242) found four bugs, fixed with tests:
+   RANGE-FULL skipped a range before a full stop; uncited entries with `[BRAK …]` had no query row; the Lua filter
+   cut the no-page context by bytes (split "ó", build.py died on stderr — E15); BIB-COLON fired on titles ("Black
+   Roma: Afro-Romani"). E15: one title-note block per article (contract; check.py error), pending MB D12. E14:
+   Romni/gadjo and early-modern "Egyptians" → MB D13. Ruggle title ". . ." → `[…]` in `work/ndiaye/refs.py`
+   (refs.json re-generated; T14 gives the new sha256). Waiting: srom-tlumacz's side of T14, MB on D12–D14.
+   Known, not fixed (minor): `pdf_extract.link_fix` replaces URL text by a link target differing in ≤ 2 characters
+   (listed in the report, can pick a sibling URL); range expansion exists twice (`normalize.py` RANGE-FULL,
+   `cite_map.expand_ranges`).
 5. **E9 typed notes** (T2): `docx_in.py --typed-notes`, page-aware pairing, never guess; test file
    `Dom_Communities Stripped Mac copy.docx` in srom-tlumacz's folder (read-only). The Fotta RTF is not a case
    (no notes at all).

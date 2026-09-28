@@ -37,7 +37,7 @@ PANDOC_VERSION = subprocess.run(["pandoc", "--version"], capture_output=True, te
 
 
 def run(cmd, **kw):
-    r = subprocess.run(cmd, capture_output=True, text=True, **kw)
+    r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace", **kw)
     return r.returncode, r.stdout, r.stderr
 
 
@@ -468,7 +468,8 @@ def noibid_csl(workdir):
 
 
 def placeholders_by_key(refs_path, keys, workdir):
-    """render each cited work once (bibliography form) and collect its [BRAK …] placeholders"""
+    """render each printed work once (bibliography form: cited, or uncited from the author's list) and collect its
+    [BRAK …] placeholders"""
     if not keys:
         return {}
     mini = os.path.join(workdir, "brak.md")
@@ -485,7 +486,7 @@ def placeholders_by_key(refs_path, keys, workdir):
     return out
 
 
-def write_queries(outdir, stem, nopage, notes, refs, cited, cite_count, refs_path, workdir, report, extra=(), label_map=None):
+def write_queries(outdir, stem, nopage, notes, refs, cited, printed, cite_count, refs_path, workdir, report, extra=(), label_map=None):
     """Author/editor query sheet: everything a human must answer or confirm, one row each.
     <stem>_pytania.md (readable) and <stem>_pytania.csv (Excel, ';', UTF-8 BOM)."""
     rows = []   # (adresat, rodzaj, przypis, dzieło, szczegół)
@@ -497,7 +498,7 @@ def write_queries(outdir, stem, nopage, notes, refs, cited, cite_count, refs_pat
             rows.append(("autor", "cytat bez numeru strony — prosimy o stronę", str(no), keys, f"…{ctx[-80:]} | przypis: {cut(note)}"))
         else:
             rows.append(("redakcja", "odwołanie do całości dzieła (bez strony) — potwierdzić", str(no), keys, f"…{ctx[-80:]} | przypis: {cut(note)}"))
-    for key, found in sorted(placeholders_by_key(refs_path, cited, workdir).items()):
+    for key, found in sorted(placeholders_by_key(refs_path, printed, workdir).items()):
         rows.append(("autor", "brak danych bibliograficznych: " + ", ".join(found), "", key, cut(refs[key].get("title", ""))))
     for k in cited:
         r = refs[k]
@@ -684,7 +685,7 @@ def main():
             report["errors"].append("pandoc: " + ln.strip())
     notes, rows, forced, literal_ibid = [], [], [], []
     n_na, ast_texts = 0, []
-    n_title = 1 if re.search(r"^:::\s*\{?\.?przypis-tytulowy", md_text, re.M) else 0
+    n_title = len(re.findall(r"^:::\s*\{?\.?przypis-tytulowy", md_text, re.M))   # more than one: check.py's error
     ok = False
     if code:
         report["errors"].append("pandoc/Lua filter failed — DOCX not produced")
@@ -767,7 +768,7 @@ def main():
             label_map = integrity.printed_numbers(a.pair_src, a.md)
         except Exception as e:
             report["warnings"].append(f"--pair-src: note alignment failed ({e}); query rows keep source labels")
-    write_queries(a.out, stem, nopage, notes, refs, cited, cite_count, refs_path, work, report, a.queries, label_map)
+    write_queries(a.out, stem, nopage, notes, refs, cited, printed, cite_count, refs_path, work, report, a.queries, label_map)
     if n_na or n_title:
         report["warnings"].append(
             f"asterisk series (kanon § 7.1): {'title note + ' if n_title else ''}{n_na} translator/editorial note(s) are "

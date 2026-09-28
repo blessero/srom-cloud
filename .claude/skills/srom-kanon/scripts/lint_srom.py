@@ -82,9 +82,10 @@ RULES = [
     ("JOURNAL-COMMA", "ERROR", r"[\u201d\"]\s+" + YEAR + r"\b",
      "Comma after the journal title: „Tytuł”, 1947, t. 1, z. 2, s. 310.", None, 0),
     ("BIB-COLON", "ERROR",
-     r"\b(?:Kraków|Warszawa|Tarnów|Poznań|Wrocław|Gdańsk|Łódź|Lublin|Katowice|Toruń|"
+     r"(?:^|(?<=[,.;]\s)|(?<=\())(?:Kraków|Warszawa|Tarnów|Poznań|Wrocław|Gdańsk|Łódź|Lublin|Katowice|Toruń|"
      r"Olsztyn|Rzeszów|Szczecin|Białystok|Moskva|Kyïv|London|New York|Berlin|Paris|"
-     r"Budapest|Praha|Sofiia|Beograd|Wien|Roma|Madrid|Istanbul)\s*:(?=\s*[A-ZŁŚŻŹĆ])",   # imprint: a publisher follows ("Roma: a phase" is prose)
+     r"Budapest|Praha|Sofiia|Beograd|Wien|Roma|Madrid|Istanbul)\s*:(?=\s*[A-ZŁŚŻŹĆ])",   # imprint: the place opens an element (after , . ; or "(") and a publisher follows;
+     # "Roma: a phase" (prose) and "*Black Roma: Afro-Romani…*" (a title) are not imprints
      "No colon after place of publication: Wydawnictwo, Miejsce rok.", None, 0),
     ("PLACE-POLONISED", "WARN",
      r"\b(?:Londyn|Nowy Jork|Paryż|Monachium|Filadelfia|Waszyngton|Wiedeń|Rzym|"

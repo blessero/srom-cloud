@@ -12,7 +12,10 @@ local cfg, P, C, R
 local nerr = 0
 local function warn(m) io.stderr:write("SROM-WARN: " .. m .. "\n") end
 local function err(m) io.stderr:write("SROM-ERROR: " .. m .. "\n"); nerr = nerr + 1 end
-local function short(inls) local s = stringify(inls); return (#s > 70) and (s:sub(1, 70) .. "…") or s end
+-- cut on character boundaries: a byte cut can split a Polish letter, and invalid UTF-8 on stderr breaks build.py (E15)
+local function head(s, n) local i = utf8.offset(s, n + 1); return i and s:sub(1, i - 1) or s end
+local function tail(s, n) local i = utf8.offset(s, -n); return i and s:sub(i) or s end
+local function short(inls) local s = stringify(inls); return (utf8.len(s) or #s) > 70 and (head(s, 70) .. "…") or s end
 
 local function cstyle(name) return pandoc.Attr("", {}, {{"custom-style", name}}) end
 
@@ -240,14 +243,14 @@ local function scan_inlines(inls, in_quote)
   local seen = ""
   for i, el in ipairs(inls) do
     if el.t == "Note" then
-      local ctx = seen:sub(-90)
+      local ctx = tail(seen, 90)
       el.content = whole_work(el.content, in_quote or quote_end(inls[i - 1]), ctx)
     elseif el.t == "Cite" then
       check_modes({el})
       local q = in_quote or quote_end(inls[i - 1])
       local c = el.content
       for j, sub in ipairs(c) do
-        if sub.t == "Note" then sub.content = whole_work(sub.content, q, seen:sub(-90), el) end
+        if sub.t == "Note" then sub.content = whole_work(sub.content, q, tail(seen, 90), el) end
       end
       el.content = c
     elseif el.t ~= "Image" and el.t ~= "Str" and el.content and type(el.content) ~= "string" then

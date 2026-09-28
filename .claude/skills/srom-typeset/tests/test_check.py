@@ -95,6 +95,11 @@ c, o = run("--pair", s, w("r2b.md", ADD.replace(" <!-- DODANO: @mroz2011 -->", "
 t("R2: undeclared added citation -> ERROR with the fix", c == 1 and "undeclared addition ['mroz2011']" in o, o)
 c, o = run("--pair", s, w("r4.md", "::: przypis-tytulowy\nPrzekład z języka angielskiego: Jan Nowak.\n:::\n\n" + TGT))
 t("title note div (translation note) has no source counterpart — not a structure error", c == 0, o)
+TN = "::: przypis-tytulowy\nPierwodruk: nota o przekładzie.\n\nPodziękowania autorki.\n:::\n\n"
+c, o = run("--pair", s, w("r5.md", TN + TGT))
+t("E15: translation note + author's note on the title as two paragraphs of one block -> OK", c == 0, o)
+c, o = run("--pair", s, w("r6.md", TN.replace("\n\nPodziękowania", "\n:::\n\n::: przypis-tytulowy\nPodziękowania") + TGT))
+t("E15: two title-note blocks -> ERROR naming the one-block form", c == 1 and "2 title-note blocks" in o and "further paragraph" in o, o)
 
 # ---- srom-tlumacz requests E1, E2, E4
 EX_S = "Tekst.\n\n::: przyklad\n```\n(1)  Me   dikhav\n     1SG  see.1SG\n     ‘I see.’\n```\n:::\n"

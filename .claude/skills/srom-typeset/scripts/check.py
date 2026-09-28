@@ -192,6 +192,10 @@ def check_single(path, refs, errs, warns):
         errs.append(f"note definition [^{k}] is never referenced (orphan)")
     for k, v in Counter(refs_).items():
         if v > 1: errs.append(f"note marker [^{k}] used {v}× (each note needs its own label)")
+    n_title = len(re.findall(r"^:::\s*\{?\.?przypis-tytulowy", body, re.M))
+    if n_title > 1:
+        errs.append(f"{n_title} title-note blocks (::: przypis-tytulowy) — one title note: the translation note first, "
+                    "the author's own note on the title as a further paragraph of the same block (handoff.md, E15)")
     for lab, txt in note_defs(body).items():
         errs += label_errors(lab, txt)
 
