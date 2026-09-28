@@ -70,7 +70,7 @@ G12) after.
    cut the no-page context by bytes (split "ó", build.py died on stderr — E15); BIB-COLON fired on titles ("Black
    Roma: Afro-Romani"). E15: one title-note block per article (contract; check.py error), pending MB D12. E14:
    Romni/gadjo and early-modern "Egyptians" → MB D13. Ruggle title ". . ." → `[…]` in `work/ndiaye/refs.py`
-   (refs.json re-generated; T14 gives the new sha256). Waiting: srom-tlumacz's side of T14, MB on D12–D14.
+   (refs.json re-generated; T14 gives the new sha256). MB decided D12–D14 the same day (T15): one title note; Romka/Romki, gadjo kept, „Egipcjanie” (kartoteka); Kanon v1.7. Waiting: srom-tlumacz's side of T14/T15.
    Known, not fixed (minor): `pdf_extract.link_fix` replaces URL text by a link target differing in ≤ 2 characters
    (listed in the report, can pick a sibling URL); range expansion exists twice (`normalize.py` RANGE-FULL,
    `cite_map.expand_ranges`).

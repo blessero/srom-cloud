@@ -45,7 +45,7 @@ run through `normalize.py`: Polish typography is applied to the translation, aft
   note of the asterisk series (first `*` on the article's first page). **One block per article**: when the
   author has a note on the title too (acknowledgements), it follows the translation note as a further paragraph
   of the same block — one `*` at the title (Kanon § 7.1: the title note takes the first asterisk). Two blocks are
-  an error in `check.py` and the build (E15; pending MB's confirmation, `MB-decisions.md` D12).
+  an error in `check.py` and the build (E15; MB 28.09.2026, Kanon v1.7 § 7.1).
 - Open items may stay in the text as comments (`<!-- PRZYWRÓCIĆ ORYGINAŁ: … -->`, `<!-- DO SPRAWDZENIA: … -->`):
   in the editor's working copy they become ordinary Word comments. **Nothing in comments blocks anything**:
   the editor handles them; on import they are dropped and listed in the import report.

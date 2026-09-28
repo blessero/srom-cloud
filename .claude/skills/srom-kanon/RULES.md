@@ -1,4 +1,4 @@
-# SROM RULES — English digest of the Kanon (v1.6)
+# SROM RULES — English digest of the Kanon (v1.7)
 
 Normative text: `references/kanon-redakcyjny.md` — *Kanon edytorski Studia Romologica* (Polish, internal), in this skill. This file is its compact English digest; **section numbers are the Kanon's**. If the two differ, the Kanon governs and this file is corrected. New rules go into the Kanon first (with a § 17 entry), then here.
 
@@ -72,7 +72,7 @@ Common nouns italic on first use (§ 5.1). Gloss: `rom. *kris* ‘sąd’` (§ 5
 
 ### 7.1. Marker and note series
 Superscript arabic, continuous, foot of page. Marker **before the period, comma, semicolon and colon**, after closing quote/bracket; after an abbreviation's own period (`XV w.³`).
-**Non-author notes** — title note, translator's notes (ending `– przyp. tłum.`), editorial notes (`– przyp. red.`) — are **one separate series** marked `*`, `**`, `***` …, restarting on every page; on the first page the title note takes the first `*`. They stand **above** the numbered notes, same size and face. Continuous numbering covers the author's notes only.
+**Non-author notes** — title note, translator's notes (ending `– przyp. tłum.`), editorial notes (`– przyp. red.`) — are **one separate series** marked `*`, `**`, `***` …, restarting on every page; on the first page the title note takes the first `*`. There is one title note: in a translation, the translation note first, then the author's own note on the title as a further paragraph. They stand **above** the numbered notes, same size and face. Continuous numbering covers the author's notes only.
 **Author-date conversion:** parenthetical `(A 1985)` → marker in its place; narrative `Ficowski (1985) twierdzi` → marker right after the name; page-only `(s. 21)` → citation of the work cited just before; `Name (year)` where the name is no cited author (`w Warszawie (1920)`) stays.
 
 ### 7.2. First citation
