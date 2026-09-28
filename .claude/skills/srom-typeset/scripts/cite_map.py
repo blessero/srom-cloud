@@ -13,8 +13,9 @@ scan   finds every author-date reference, resolves it to a refs.json key by surn
          in a note  "Szerzej: Mróz (2011: 90)." / "Zob. Mróz 2011: 90." -> "Szerzej: [@mroz2011, s. 90]."
        Status per hit: OK · INFLECTED (Polish case form matched by stem — verify) · TRIMMED (narrative "Likewise,
        Grellmann (1807)": matched on the name after the last comma — verify) · YEAR-ONLY ("… Law and Kovats state
-       … (2018, 78)": the one work of that year by authors named earlier in the paragraph — verify) · YEAR-ONLY? (no such
-       work: left unchanged, listed — a date, or convert by hand) · IN-NOTE (verify
+       … (2018, 78)": the one work of that year by authors named earlier in the paragraph, else the work cited directly
+       before it if its year matches — verify) · YEAR-UNIQUE (neither: the author's only work of that year — check) ·
+       YEAR-ONLY? (no such work: left unchanged, listed — a date, or convert by hand) · IN-NOTE (verify
        grammar) · NOT-CITED? (narrative "Name (year)" whose name is not a ref author, e.g. "w Warszawie
        (1920)" — left unchanged, listed) · PAGE-ONLY ("(s. 21)": converted as a citation of the work
        cited just before it, listed) · PAGE-ONLY? (no earlier citation) · AMBIGUOUS · UNKNOWN · UNPARSED.
@@ -177,17 +178,42 @@ def resolve(names_s, year_s, refs):
 YEARONLY = re.compile(rf"^\s*(?P<year>{YEAR})(?P<loc>{LOC})\s*$")
 
 
-def resolve_context(before, year_s, refs):
-    """"(2018, 78)" with no name: the work of that year whose author(s) are named earlier in the same paragraph
-    ("Ian Law and Martin Kovats state that … (2018, 78)", Kanon § 7.1). All the ref's family names (the first,
-    for four or more) must occur there; of several, the one named last. -> (status, [keys])"""
+WHY = {"YEAR-ONLY": "author named before it, or the work cited directly before it",
+       "YEAR-UNIQUE": "the author's only work of that year; the work cited before it is another — check"}
+
+
+def resolve_context(before, year_s, refs, prev_key=None, has_loc=False):
+    """"(2018, 78)" with no name (Kanon § 7.1), in this order:
+    1. the work of that year whose author(s) are named earlier in the same paragraph or note ("Ian Law and Martin
+       Kovats state that … (2018, 78)"): all the ref's family names (the first, for four or more) occur there; of
+       several, the one named last -> YEAR-ONLY
+    2. the work cited directly before it (prev_key), if its year is that year -> YEAR-ONLY
+    3. the author's only work of that year in refs.json -> YEAR-UNIQUE (listed: the work cited before it is
+       another, or there is none)
+    4. none -> YEAR-ONLY? (left in the text, listed)                                   -> (status, [keys])
+    Steps 2-3 only with a locator ("(1992, 81)"): a bare "(1991)" is a date unless step 1 finds its author."""
     m = re.match(r"^(\d{4})", year_s.strip())
     if not m:
         return "YEAR-ONLY?", []
+    st, keys = _named_before(before, m.group(1), refs)
+    if st != "YEAR-ONLY?":
+        return st, keys
+    if not has_loc:                 # a bare "(1991)" in running text is a date unless its author is named (step 1)
+        return "YEAR-ONLY?", []
+    byid = {r["id"]: r for r in refs}
+    if prev_key in byid and m.group(1) in ref_years(byid[prev_key]):
+        return "YEAR-ONLY", [prev_key]
+    same = [r["id"] for r in refs if m.group(1) in ref_years(r) and not r.get("srom-added")]
+    if len(same) == 1:
+        return "YEAR-UNIQUE", same
+    return "YEAR-ONLY?", []
+
+
+def _named_before(before, year, refs):
     words = [(w.start(), fold(re.sub(r"[’']s$", "", w.group(0)))) for w in re.finditer(r"[^\W\d_][\w’'\-]*", before)]
     cands = []
     for r in refs:
-        if m.group(1) not in ref_years(r):
+        if year not in ref_years(r):
             continue
         for names in (primary_names(r), as_written_primary(r)):
             need = [fold(n) for n in (names[:1] if len(names) >= 4 else names)]
@@ -249,7 +275,7 @@ def parse_items(content, refs):
 
 
 def worst(statuses):
-    for s in ("UNPARSED", "UNKNOWN", "AMBIGUOUS", "INFLECTED", "TRIMMED", "YEAR-ONLY", "OK"):
+    for s in ("UNPARSED", "UNKNOWN", "AMBIGUOUS", "INFLECTED", "TRIMMED", "YEAR-UNIQUE", "YEAR-ONLY", "OK"):
         if s in statuses:
             return s
     return "OK"
@@ -272,6 +298,7 @@ def scan(md_text, refs):
     last_key = [None]          # last work cited in the main text so far (page-only "(s. 21)" refers to it)
     in_bib = False
     prev_para = [""]            # a block quotation's source is named in the paragraph that leads into it
+    before_marker = {}          # note label -> the work cited in the text just before its marker
     for ln_no, line in enumerate(lines, 1):
         if line.strip() and not line.startswith(("[^", ":::", "#", ">")):
             prev_para[0] = line
@@ -296,13 +323,14 @@ def scan(md_text, refs):
                 items, sts, cands = parse_items(content, refs)
                 y = YEARONLY.match(content) if items is None else None
                 if y:
-                    st, keys = resolve_context(text[:m.start()], y.group("year"), refs)
-                    if st != "YEAR-ONLY":
+                    st, keys = resolve_context(text[:m.start()], y.group("year"), refs, before_marker.get(head.strip()[2:-2]),
+                                              bool(y.group("loc")))
+                    if st not in ("YEAR-ONLY", "YEAR-UNIQUE"):
                         hits.append(Hit(where, m.group(0).strip(), st, keys, None,
                                         "year without a name: no single work of that year by an author named earlier in the note — left unchanged"))
                         return m.group(0)
                     rep = " " + cite_body([("", keys[0], locator(y.group("loc")))], False)
-                    hits.append(Hit(where, m.group(0).strip(), st, keys, rep.strip(), "author named earlier in the note"))
+                    hits.append(Hit(where, m.group(0).strip(), st, keys, rep.strip(), WHY[st]))
                     return rep
                 if items is None:
                     if ITEM_HINT.search(content):
@@ -361,14 +389,14 @@ def scan(md_text, refs):
             y = YEARONLY.match(content) if items is None else None
             if y:
                 ctx = (prev_para[0] + "\n" if line.startswith(">") else "") + line[:m.start()]
-                st, keys = resolve_context(ctx, y.group("year"), refs)
-                if st != "YEAR-ONLY":
+                st, keys = resolve_context(ctx, y.group("year"), refs, last_key[0], bool(y.group("loc")))
+                if st not in ("YEAR-ONLY", "YEAR-UNIQUE"):
                     hits.append(Hit(where, m.group(0).strip(), st, keys, None,
                                     "year without a name: no single work of that year by an author named earlier in the paragraph — left unchanged"))
                     return m.group(0)
                 lab = new_label()
                 body = cite_body([("", keys[0], locator(y.group("loc")))], True)
-                hits.append(Hit(where, m.group(0).strip(), st, keys, f"[^{lab}]", f"[^{lab}]: {body}. (author named earlier in the paragraph)"))
+                hits.append(Hit(where, m.group(0).strip(), st, keys, f"[^{lab}]", f"[^{lab}]: {body}. ({WHY[st]})"))
                 new_defs.append(f"[^{lab}]: {body}.")
                 return f"[^{lab}]"
             if items is None:
@@ -388,7 +416,7 @@ def scan(md_text, refs):
 
         def body_paren_tracked(m):
             r = body_paren(m)
-            if hits and hits[-1].where == where and hits[-1].keys and hits[-1].status in ("OK", "INFLECTED", "TRIMMED", "YEAR-ONLY"):
+            if hits and hits[-1].where == where and hits[-1].keys and hits[-1].status in ("OK", "INFLECTED", "TRIMMED", "YEAR-ONLY", "YEAR-UNIQUE"):
                 last_key[0] = hits[-1].keys[-1]
             return r
 
@@ -422,9 +450,13 @@ def scan(md_text, refs):
             if not best:
                 break
             m, fn = best
+            for lab in re.findall(r"\[\^([^\]\s]+)\]", line[pos:m.start()]):
+                before_marker[lab] = last_key[0]
             pieces.append(line[pos:m.start()])
             pieces.append(fn(m))
             pos = m.end()
+        for lab in re.findall(r"\[\^([^\]\s]+)\]", line[pos:]):
+            before_marker[lab] = last_key[0]
         pieces.append(line[pos:])
         new = "".join(pieces)
         new = re.sub(r"(?<=\.)(\[\^c\d+\])\.", r"\1", new)      # "XV w. (A 1985)." -> "XV w.[^c1]"

@@ -73,7 +73,7 @@ Common nouns italic on first use (§ 5.1). Gloss: `rom. *kris* ‘sąd’` (§ 5
 ### 7.1. Marker and note series
 Superscript arabic, continuous, foot of page. Marker **before the period, comma, semicolon and colon**, after closing quote/bracket; after an abbreviation's own period (`XV w.³`).
 **Non-author notes** — title note, translator's notes (ending `– przyp. tłum.`), editorial notes (`– przyp. red.`) — are **one separate series** marked `*`, `**`, `***` …, restarting on every page; on the first page the title note takes the first `*`. There is one title note: in a translation, the translation note first, then the author's own note on the title as a further paragraph. They stand **above** the numbered notes, same size and face. Continuous numbering covers the author's notes only.
-**Author-date conversion:** parenthetical `(A 1985)` → marker in its place; narrative `Ficowski (1985) twierdzi` → marker right after the name; page-only `(s. 21)` → citation of the work cited just before; `Name (year)` where the name is no cited author (`w Warszawie (1920)`) stays.
+**Author-date conversion:** parenthetical `(A 1985)` → marker in its place; narrative `Ficowski (1985) twierdzi` → marker right after the name; page-only `(s. 21)` → citation of the work cited just before; year and page without a name `(1992, 81)` → the work of the author named earlier in the sentence/note, else the work cited just before if the year matches, else the author's only work of that year, queried; a work cited but missing from the author's list → query with a proposed description (author confirms), not added; `Name (year)` where the name is no cited author (`w Warszawie (1920)`) stays.
 
 ### 7.2. First citation
 **Journal rule:** title, **comma**, year, volume, issue/number — all comma-separated — **page last.**
@@ -117,7 +117,7 @@ Archive names never translated.
 
 **8.3 Press:** `J. Nowak, *Tytuł*, „Gazeta Krakowska”, 1963, nr 145, s. 3.` · unnumbered: `„Czas”, 03.05.1928, s. 2`.
 **8.4 Legal (official wording):** `Ustawa z dnia 6 stycznia 2005 r. …, Dz.U. 2005 nr 17 poz. 141, art. 20.` · `Wyrok TK z dnia 8 listopada 2016 r., sygn. akt P 126/15.`
-**8.6 Web:** `A. Kowalski, *Tytuł tekstu*, w: *Nazwa serwisu*, https://… [dostęp: 18.03.2025].` DOI replaces URL and access date; the access date only when the author gives it (not added, not queried). URLs are plain text in the typesetting file, never hyperlinks.
+**8.6 Web:** `A. Kowalski, *Tytuł tekstu*, w: *Nazwa serwisu*, https://… [dostęp: 18.03.2025].` DOI replaces URL and access date; the access date only when the author gives it (not added, not queried). A dated web text (blog post, article or release on a site, reprint on a page) prints its publication date after the site, `dd.mm.rrrr` (`…, w: *Serwis*, 05.10.2016, https://…`); missing or incomplete → taken from the page (text or page metadata) and filled in, listed in the query sheet; a reprint is cited where the author cites it. An undated page (changing content: institution page, database) has no date; marked as checked in the record. URLs are plain text in the typesetting file, never hyperlinks.
 **8.7 AV:** `*Papusza*, reż. J. Kos-Krauze, K. Krauze, Polska 2013, 00:42:15.` · `*Tytuł nagrania*, nagranie audio, 1978 r., Archiwum MET, sygn. AT/N/45.`
 
 ## 9. Bibliography

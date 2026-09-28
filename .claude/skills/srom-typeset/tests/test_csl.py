@@ -67,6 +67,7 @@ NOTES = [
     ("nowak1963", "s. 3", "J. Nowak, *Tytuł artykułu*, „Gazeta Krakowska”, 1963, nr 145, s. 3."),
     ("nsp2021", "{tabl. 14}", "*Narodowy Spis Powszechny Ludności i Mieszkań 2021. Wyniki wstępne*, GUS, Warszawa 2022, tabl. 14."),
     ("kowalskiweb", None, "A. Kowalski, *Tytuł tekstu*, w: *Nazwa serwisu*, https://przyklad.pl/tekst [dostęp: 18.03.2025]."),
+    ("nowakblog", None, "A. Nowak, *Tytuł wpisu*, w: *Nazwa serwisu*, 05.10.2016, https://przyklad.pl/wpis."),
     ("papusza", "00:42:15", "*Papusza*, reż. J. Kos-Krauze, K. Krauze, Polska 2013, 00:42:15."),
     ("czas1928", "s. 2", "„Czas”, 03.05.1928, s. 2."),
 ]

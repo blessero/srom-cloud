@@ -18,5 +18,6 @@
  {"id":"nsp2021","type":"report","title":"Narodowy Spis Powszechny Ludności i Mieszkań 2021. Wyniki wstępne","publisher":"GUS","publisher-place":"Warszawa","issued":{"date-parts":[[2022]]}},
  {"id":"kowalskiweb","type":"webpage","author":[{"family":"Kowalski","given":"Andrzej"}],"title":"Tytuł tekstu","container-title":"Nazwa serwisu","URL":"https://przyklad.pl/tekst","accessed":{"date-parts":[[2025,3,18]]}},
  {"id":"papusza","type":"motion_picture","title":"Papusza","director":[{"family":"Kos-Krauze","given":"Joanna"},{"family":"Krauze","given":"Krzysztof"}],"publisher-place":"Polska","issued":{"date-parts":[[2013]]}},
+ {"id":"nowakblog","type":"post-weblog","author":[{"family":"Nowak","given":"Anna"}],"title":"Tytuł wpisu","container-title":"Nazwa serwisu","URL":"https://przyklad.pl/wpis","issued":{"date-parts":[[2016,10,5]]}},
  {"id":"czas1928","type":"article-newspaper","container-title":"Czas","issued":{"date-parts":[[1928,5,3]]}}
 ]

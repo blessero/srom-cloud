@@ -149,4 +149,6 @@ Typed by Claude from the author's bibliography and notes, then verified: `cite_m
 | `note` | physical-form remark, printed in ( ) at the end (`maszynopis pracy doktorskiej…`) |
 | `citation-label` | the author-date label when a/b suffixes exist (`"Nowak 2010b"`) — used by cite_map |
 | `srom-section` | `I`–`VI` override of the bibliography section |
+| `srom-undated` | `true`: a web page checked and found without a publication date (§ 8.6) — no query row for it |
+| `srom-candidate` | set by `lookup.py missing` on a proposed entry for a work missing from the author's list; such an entry goes into refs.json only after the author confirms it (then the field is removed) |
 | `srom-as-written` | the author's form of a field changed in refs.json — an approved correction (`{"editor": "Van Lannep", "publisher-place": "Droit"}`) or a form the Kanon prescribes (ALA-LC for the author's romanization, § 9.6: `{"author": "Byelikov", "title": "Istoriya Tsygan"}`); `author`/`editor` hold family names only, several in order separated by `;` (`"Kirey; Serdyuk"`); the audit, `cite_map scan` (the text's "Byelikov 2003") and `check.py --keyed` accept it, the build report lists it |

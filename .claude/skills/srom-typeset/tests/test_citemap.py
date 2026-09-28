@@ -187,6 +187,19 @@ t("in a note: comma locator inside the token ('Law and Kovats 2018, 78' -> [@law
   "[@law2018, s. 78]." in no and "[Zob. też @law2012]." in no, o + no)
 t("in a note: '(1992, 81)' with no author named -> left as written, YEAR-ONLY?", "affairs (1992, 81);" in no and "YEAR-ONLY?" in o, o + no)
 
+# ---- "(year, page)" with no name refers to the work cited directly before it (MB 28.09.2026, Kanon § 7.1)
+yr = os.path.join(d, "yr.md")
+open(yr, "w", encoding="utf-8").write(
+    "Hancock notes it (Hancock 2008, 3). Then more.[^1] Later (Robinson 2000, 5), in Moldavia.[^2] In 1991 (1991) it fell.\n\n"
+    "[^1]: As shown (2008, 181).\n\n[^2]: Under Ottoman rule (2015, 81); Law 2012, 9.\n")
+c, o = cm("scan", yr, "--refs", esub2, "--apply", os.path.join(d, "yr_out.md"))
+yo = open(os.path.join(d, "yr_out.md"), encoding="utf-8").read() if os.path.exists(os.path.join(d, "yr_out.md")) else ""
+t("note '(2008, 181)', no name: the work cited just before its marker, year matching -> hancock2008",
+  "[^1]: As shown [@hancock2008, s. 181]." in yo, o + yo)
+t("note '(2015, 81)', no name, the work before the marker is another year (robinson2000): the only 2015 work -> YEAR-UNIQUE, listed",
+  "[@melamed2015, s. 81]" in yo and "YEAR-UNIQUE" in o, o + yo)
+t("bare '(1991)' in running text stays a date", "In 1991 (1991) it fell." in yo, o + yo)
+
 ren = os.path.join(d, "ren.md")
 open(ren, "w", encoding="utf-8").write("First (Law 2012).[^1] Then Melamed (2015) and more.[^t1]\n\n[^1]: An author's note (Law and Kovats 2018, 78).\n\n"
                                        "[^t1]: A translator's note – przyp. tłum.\n\nNext (Robinson 2000).[^2]\n\n[^2]: Second author's note.\n")

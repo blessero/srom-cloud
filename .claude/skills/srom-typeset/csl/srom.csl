@@ -262,8 +262,10 @@
         </group>
       </else-if>
       <else-if type="webpage post post-weblog" match="any">
+        <!-- Kanon § 8.6: a dated web text (blog post, article on a site) prints its publication date after the site -->
         <group delimiter=", ">
           <text macro="container"/>
+          <text macro="date-full"/>
           <text macro="access"/>
         </group>
       </else-if>
