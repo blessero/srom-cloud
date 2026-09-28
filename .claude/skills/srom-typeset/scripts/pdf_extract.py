@@ -29,7 +29,7 @@ What it recovers, and how:
                      widths paragraphs run on from) and BLOCK paragraphs (space, no indent: an indented run is a
                      quotation, even at ~1 em); margins pooled per side (recto/verso); page breaks after a sentence
                      end on a full line are listed
-  numbered items     "5. Zu Aesch …" with a hanging indent: one paragraph per item, "5\." (no Markdown list)
+  numbered items     "5. Zu Aesch …" with a hanging indent: one paragraph per item, escaped "5\\." (no Markdown list)
   headings           larger font, bold, or in capitals after a gap (also when smaller than the body) -> # / ##
   opening small caps "THIS ESSAY BEGINS in …" -> "This essay begins in …" (listed: check proper names)
   block quotes       smaller font, indented both sides, or every line at one left indent, outside the note zone -> >
