@@ -255,7 +255,7 @@ Checks run from the repo root. K = .claude/skills/srom-kanon, T = .claude/skills
   EVIDENCE: SUITE ALL PASS 15/15 | 0
 
 
-## Stage-1 test 3 — Scheffknecht (Neujahrsblätter Lustenau 1/2010, German, endnotes, full-note citations) — 28.09.2026
+## Stage-1 test 3 — Scheffknecht (Neujahrsblätter Lustenau 1/2010, German, endnotes, full-note citations) — done 28.09.2026
 
 - [x] S1: extractor handles this layout generically, each with a test (test_pdf_de.py): ragged right with block
   paragraphs (no false breaks at short lines), quotations indented ~1 em (one quotation, inner paragraphs), a
@@ -273,19 +273,27 @@ Checks run from the repo root. K = .claude/skills/srom-kanon, T = .claude/skills
   new report lines (layout line; captions matched by image; soft hyphen label on Enlighten~|ment; two Pahulich
   page breaks after a sentence end now listed: pp. 46/47 "…Eastern Europe." | "In Moldavia…", pp. 54/55
   "…Lucassen 1998)." | "Many historians…" — possibly lost paragraph breaks in the Pahulich source, see handover)
-- [ ] S3: the article extracts clean: 120 numbered notes + title note, markers contiguous, every word of the PDF's
+- [x] S3: the article extracts clean: 120 numbered notes + title note, markers contiguous, every word of the PDF's
   article pages present in the output (word-bag comparison), stray marker(s) flagged, not dropped
   CHECK: cd work && ~/.venvs/srom/bin/python ../.claude/skills/srom-typeset/scripts/pdf_extract.py njb-2010-zigeuner-im-reichshof-lustenau_wolfgang-scheffknecht.pdf --pages 4-32 -o scheffknecht/scheffknecht_pdf.md | tail -1
   EXPECT: /EXTRACT (OK|CHECK 1)/
-- [ ] S4: refs.json: every published work cited in the notes keyed (no bibliography in the source: built from the
+  EVIDENCE: EXTRACT CHECK 1 issue(s) = the stray "1" after the last word (kept as a comment, D18 A7); 120 notes + title
+  note; wordcheck.py: 10482 words, "lost 3 / extra 8" all the checker's own joins (Diebs- und, württem~-bergischen) and
+  five superscript edition digits — nothing lost
+- [x] S4: refs.json: every published work cited in the notes keyed (no bibliography in the source: built from the
   first full citations); archival sources stay literal; nothing invented, gaps as [BRAK …] and listed
   CHECK: cd work/scheffknecht && ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/check.py --keyed scheffknecht_pre.md scheffknecht_src.md --refs refs.json | tail -1
   EXPECT: /CHECK OK/
-- [ ] S5: source passes check and builds as a source proof; Word working copy round trip lossless
+  EVIDENCE: CHECK OK (35 works, 46 notes keyed + the title note, 74 literal; warnings only for series numbers the CSL does
+  not print, D18 A4); 29 × [BRAK WYDAWCY] listed in the query sheet
+- [x] S5: source passes check and builds as a source proof; Word working copy round trip lossless
   CHECK: cd work/scheffknecht && V=~/.venvs/srom/bin/python; S=../../.claude/skills/srom-typeset/scripts; $V $S/check.py scheffknecht_src.md --refs refs.json | tail -1; $V $S/build.py scheffknecht_src.md --refs refs.json --source --out build/ | tail -1
   EXPECT: /CHECK OK[\s\S]*PROOF/
-- [ ] S6: what the German test showed about the toolchain (CSL/Kanon for German sources, citation keying) written
+  EVIDENCE: CHECK OK | PROOF … (0 issue(s)); working copy: IMPORT OK, 0 differing lines (comments aside)
+- [x] S6: what the German test showed about the toolchain (CSL/Kanon for German sources, citation keying) written
   up; open points for MB in MB-decisions.md (D18) with a queries file; nothing for srom-tlumacz sent without MB
-- [ ] S7: suite green, committed, clean tree
+  EVIDENCE: _handoffs b37aa1e (D18); work/scheffknecht/scheffknecht_queries.md A–E; handover § 3 item 4b
+- [x] S7: suite green, committed, clean tree
   CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; git status --porcelain | wc -l
   EXPECT: /SUITE ALL PASS (\d+)\/\1[\s\S]*\n\s*0\s*$/
+  EVIDENCE: SUITE ALL PASS 16/16 | 0

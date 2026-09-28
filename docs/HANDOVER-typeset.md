@@ -91,6 +91,21 @@ G12) after.
    (YEAR-ONLY), possessive, "di" particle inside "Jodi", comma before a name (TRIMMED), author's spelling via
    `srom-as-written` (ALA-LC names), italic "(*Ibid.*, 2)", comma locator and "See also" in notes, `--renumber`.
    After MB answers D17: B-items into `refs.py`; A2 (merge notes 1/2) in `prep.py`; new T-item with new sha256.
+4b. **Stage-1 test 3: Scheffknecht, German** (Neujahrsblätter Lustenau 1/2010, endnotes, full-note citations, no
+   bibliography; `work/scheffknecht/`, git-ignored) — done 28.09.2026, **not handed over** (srom-tlumacz is EN→PL): MB's
+   points in `MB-decisions.md` D18 (detail `work/scheffknecht/scheffknecht_queries.md`). Pipeline: `pdf_extract --pages
+   4-32` → `key.py` (relabel PDF 2–121 → 1–120, keying, `key_log.md`) → `check.py --keyed` → `build.py --source` →
+   `export_work.py`; `refs.py` → refs.json (35 works typed from the notes). `wordcheck.py` there: every PDF word in the output.
+   What German/this layout broke, fixed with tests (e1d52df … and the next commits): ragged right + space-marked paragraphs
+   (layout measured first), ~1-em quotations, recto/verso margins, InDesign U+0007/tabs, soft and suspended hyphens,
+   virgule slashes, marker in the title → title note, endnote pages without heading, raised edition digits in notes,
+   captions beside images, numbered items, overprinted unmapped glyphs (`test_pdf_de.py`); a citation in the title note
+   (build: through citeproc as the first note, then back into the asterisk series); `check.py --keyed` for full
+   citations (range before "hier S.", Sp./Anm., "wie Anmerkung"); refs `note` "word:" swallowed by pandoc → error.
+   Found on the way: Pahulich may have lost two paragraph breaks at page breaks (pp. 46/47 "…Eastern Europe." | "In
+   Moldavia…", pp. 54/55 "…Lucassen 1998)." | "Many historians…"): the extractor now lists such breaks; check against
+   the journal's HTML before D17 is applied. Kanon gaps raised in D18: publishers missing in German citation practice,
+   series, "von".
 5. **Next text for translation** (srom-tlumacz HANDOVER § 7a): MB sends it here first — stage 1 (freeze
    `<id>_src.md` + refs.json + `<id>_src_front.md`, T-item), as with Ndiaye. A DOCX with typed notes needs E9 first.
    ~~**E9 typed notes**~~ — done 28.09.2026 (T17): `docx_in.py --typed-notes`; Dom file 52/52 pairs right
@@ -185,6 +200,6 @@ author's notes.
 
 ## 7. Pending for the editor
 
-Only in `../_handoffs/MB-decisions.md`. srom-typeset's open items there: D3 (style set; the template as IDML
+Only in `../_handoffs/MB-decisions.md`. srom-typeset's open items there: D17 (Pahulich), D18 (German test), D3 (style set; the template as IDML
 follows it), D15 (licence ND option, kolegium), D16 (vol. 18 copyright clause, before any OA announcement).
 D1, D2, D4, D7, D9, D12–D14 are closed.
