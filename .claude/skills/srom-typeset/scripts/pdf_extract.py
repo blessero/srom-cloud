@@ -30,7 +30,8 @@ What it recovers, and how:
   front matter       page 1 above the first text line (title in larger type, author, abstract; a chapter numeral set
                      larger above a book chapter's title does not count as the title) -> <out>_front.md,
                      not the text (SROM-MD has no header; Kanon § 13.3); with an "Abstract"/"Keywords" heading in
-                     the first pages, everything up to the next heading (title/bio page, keywords box in a column)
+                     the first pages, everything up to the next text heading after the last of them (title/bio page,
+                     keywords box in a column; On_Culture: metadata page, then title and abstract)
   paragraphs         first-line indent, short last line, vertical gap; a paragraph interrupted by a figure
                      caption is rejoined (full last line, no sentence end, or lower case after it), the caption
                      placed after it. The layout is measured first: RAGGED right (a line is short only below the
@@ -38,9 +39,11 @@ What it recovers, and how:
                      quotation, even at ~1 em); margins pooled per side (recto/verso); page breaks after a sentence
                      end on a full line are listed
   numbered items     "5. Zu Aesch …" with a hanging indent: one paragraph per item, escaped "5\\." (no Markdown list)
-  headings           larger font, bold, or in capitals after a gap (also when smaller than the body) -> # / ##
+  headings           larger font, bold, or in capitals after a gap (also when smaller than the body) -> # / ##;
+                     the journal's decoration taken off: "1_Introduction" -> "1. Introduction", "_Endnotes" (listed)
   opening small caps "THIS ESSAY BEGINS in …" -> "This essay begins in …" (listed: check proper names)
-  block quotes       smaller font, indented both sides, or every line at one left indent, outside the note zone -> >
+  block quotes       smaller font, indented both sides, or every line at one left indent, outside the note zone -> >;
+                     a quotation justified to its own right edge (most lines end at one x) is measured against that edge
   verse              >= 3 one-line quotation paragraphs at the same indent        -> one > quotation, line breaks kept
   captions           "Figure 1." / "Rycina 1." … -> ::: podpis; "Table 1." … -> ::: tabela-tytul; short text set
                      smaller than the body beside, above or below an image -> ::: podpis (listed)
@@ -54,6 +57,9 @@ What it recovers, and how:
                      (light-|brown beside "dark-brown"; flagged); before a capital (anti-|Roma) kept; before a conjunction
                      (Diebs-|und) kept with its space; a soft hyphen always joined; a slash at a line end joined
                      without a space, unless the document spaces its slashes in text of that style (virgules); a URL broken inside a token joined when a link target has it whole;
+                     a URL hyphen at a line end: the link target decides, else the same address written whole inside a
+                     line elsewhere, else kept and flagged; a URL closed by ">" ends there; before an opening quotation
+                     mark (anti-|“gypsy”) the hyphen stays, no space
                      every join listed for proofreading
 Report: <out>_extract.md with note/marker contiguity, joins, dropped lines, warnings.
 Last line: EXTRACT OK / EXTRACT CHECK n issue(s)   (issues = broken note sequence, unmatched
@@ -65,15 +71,18 @@ from collections import Counter, defaultdict
 
 import pymupdf
 
-NOTES_RX = re.compile(r"(?i)^(notes|endnotes|przypisy|anmerkungen|notes and references)$")
-FRONT_RX = re.compile(r"(?i)^(abstract|summary|keywords|key words|streszczenie|słowa kluczowe|résumé|mots[- ]clés|zusammenfassung|schlagwörter|schlüsselwörter)$")
-BIB_RX = re.compile(r"(?i)^(\d+\.\s*)?(references|bibliography|works cited|literature|literatura|bibliografia|sources|źródła|literaturverzeichnis)$")
+# a heading may carry the journal's decoration: a leading underscore ("_Abstract", "_Endnotes", "1_Introduction" in
+# On_Culture) — matched here, and taken off the text's headings ("1_Introduction" -> "1. Introduction", listed)
+NOTES_RX = re.compile(r"(?i)^_?(notes|endnotes|przypisy|anmerkungen|notes and references)$")
+FRONT_RX = re.compile(r"(?i)^_?(abstract|summary|keywords|key words|streszczenie|słowa kluczowe|résumé|mots[- ]clés|zusammenfassung|schlagwörter|schlüsselwörter)$")
+BIB_RX = re.compile(r"(?i)^_?(\d+[._]\s*)?(references|bibliography|works cited|literature|literatura|bibliografia|sources|źródła|literaturverzeichnis)$")
 KEEP_HYPHEN_PREFIXES = {"self", "non", "anti", "post", "pre", "co", "well", "cross", "semi", "quasi", "neo", "pan",
                         "pro", "ex", "inter", "intra", "multi", "trans", "ultra", "counter", "mid", "socio",
                         "post", "euro", "afro", "indo", "anglo", "franco", "polish", "roma", "sinti"}
 CAPTION_RX = re.compile(r"^\**(?:(Figure|Fig\.|Plate|Illustration|Rycina|Ryc\.|Ilustracja|Fot\.|Abb\.|Abbildung)|(Table|Tabela|Tab\.|Tabelle))\**\s*\d+[.:]")
 LINKS = set()       # URI targets of the PDF's link annotations: what a click opens, the authority for URL text
 VOCAB = set()       # words (lowercase, hyphenated ones too) that occur inside lines of the document being read
+URLDOC = set()      # URLs written whole inside a line of the document (not running to a line end): evidence for breaks
 UNMAPPED = []       # (page, overprinted glyphs dropped, unmapped glyphs kept, span text)
 SLASH = {True: Counter(), False: Counter()}   # italic?/roman -> in-line "word/ word" (spaced) vs "word/word" (closed)
 # a hyphen at a line end before one of these is a suspended hyphen (Diebs- und Räuberbanden, pre- and post-war): kept, with the space
@@ -353,6 +362,18 @@ def left_margin(counter):
     return min(common) if common else min(counter)
 
 
+def url_evidence(head, tail):
+    """a URL broken after a hyphen, no link target: the same address written whole inside a line elsewhere in the
+    document decides (compared up to the first "/" after the break: host or path segment). True = the hyphen is the
+    address's own, False = the typesetter's, None = no evidence"""
+    def seg(u):
+        cut = u.find("/", len(head) - 1)
+        return u[:cut] if cut > 0 else u
+    joined, kept = seg(head[:-1] + tail), seg(head + tail)
+    a, b = any(u.startswith(joined) for u in URLDOC), any(u.startswith(kept) for u in URLDOC)
+    return None if a == b else b
+
+
 def join_lines(texts, joins):
     """join line texts of one paragraph; line-end hyphenation removed and logged"""
     out = ""
@@ -361,7 +382,10 @@ def join_lines(texts, joins):
         if not out:
             out = t
             continue
-        if re.search(r"(?:https?://|www\.)\S*$", out) and re.search(r"[-/._=?&#~]\**$", out):
+        # a URL at the line end is open (broken) unless closed by ">" or a quotation mark: "<http://…-6>." ends it
+        um0 = re.search(r"(?:https?://|www\.)\S*$", out)
+        open_url = um0 is not None and not re.search(r"[>”\"]", um0.group(0))
+        if open_url and re.search(r"[-/._=?&#~]\**$", out):
             if out.endswith("-"):      # the URL's own hyphen, or the typesetter's (laviedesi-|dees)? the link decides
                 head = re.search(r"(?:https?://|www\.)\S*$", out).group(0)
                 tail = re.match(r"\S*", t).group(0).rstrip(".,;:)”’")
@@ -370,11 +394,16 @@ def join_lines(texts, joins):
                     out = out[:-1]
                 elif any(u.startswith(head + tail) for u in LINKS):
                     joins.append(f"URL {head[-25:]}|{tail[:25]} -> hyphen kept (link target)")
+                elif (ev := url_evidence(head, tail)) is not None:
+                    joins.append(f"URL {head[-25:]}|{tail[:25]} -> hyphen {'kept' if ev else 'removed'} (the same address "
+                                 f"elsewhere in the document)")
+                    if not ev:
+                        out = out[:-1]
                 else:
                     joins.append(f"URL {head[-25:]}|{tail[:25]} -> hyphen kept, no link in the PDF — check the address")
             out = out + t              # a URL broken at the line end: no space inside it (Kanon § 8.6)
             continue
-        um = re.search(r"(?:https?://|www\.)\S*$", out)
+        um = um0 if open_url else None
         if um and t and any(u.startswith(um.group(0) + re.match(r"\S*", t).group(0).rstrip(".,;:)”’")) for u in LINKS):
             joins.append(f"URL {um.group(0)[-25:]}|{t[:25]} -> joined (link target)")   # broken inside a token, no hyphen
             out = out + t
@@ -412,6 +441,10 @@ def join_lines(texts, joins):
                 joins.append(f"{frag}-|{nxt.group(2)} -> {frag}{nxt.group(2)}"
                              + (f" (prefix, but {why})" if frag.lower() in KEEP_HYPHEN_PREFIXES else ""))
                 out = out[:m.start(0)] + frag + m.group(2) + t
+            continue
+        if re.search(r"[^\W\d_]-\**$", out) and re.match(r"\**[“‘„«»\"]", t):   # anti-|“gypsy”: a compound on a quoted word
+            joins.append(f"{out[-12:].split()[-1]}|{t.split()[0][:20]} -> hyphen kept, no space (quotation mark follows)")
+            out = out + t
             continue
         if re.search(r"[^\W\d_]-\**$", out) and re.match(r"[\*“‘\"(]*[A-ZÀ-ÞĄĆĘŁŃÓŚŹŻČŠŽ]", t):   # anti-|Roma, Polish-|Lithuanian
             joins.append(f"{out[-12:].split()[-1]}|{t.split()[0][:20]} -> hyphen kept (capital follows)")
@@ -468,6 +501,8 @@ def main():
         for sp in L.spans:
             SLASH[is_italic(sp)]["spaced"] += len(re.findall(r"[^\W\d_]/ [^\W\d_]", sp["text"]))
             SLASH[is_italic(sp)]["closed"] += len(re.findall(r"[^\W\d_]/[^\W\d_]", sp["text"]))
+        URLDOC.update(m.group(0) for m in re.finditer(r"(?:https?://|www\.)[^\s<>”\"]+", L.text)
+                      if L.text[m.end():].strip())
         VOCAB.update(w.lower() for w in re.findall(r"[^\W\d_][\w’']*(?:-[^\W\d_][\w’']*)*", re.sub(r"\S+-\s*$", "", L.text)))
 
     # headers / footers
@@ -744,12 +779,14 @@ def main():
             while cand and cand[-1].head and cand[-1].size < tsize - 0.1 and (again(cand[-1]) or not styled):
                 cand.pop()
             front = cand
-    # an "Abstract"/"Keywords" heading near the start: everything up to the first other heading on that page
-    # or the next is front matter too (journals that give pages to title, bio, abstract and keywords before the text)
+    # an "Abstract"/"Keywords" heading near the start: everything up to the first other heading after the last of
+    # them (on that page or the next) is front matter too (journals that give pages to title, bio, abstract and
+    # keywords before the text; On_Culture: keywords, publication date, how to cite on page 1, title and abstract on 2)
     fi = next((j for j, L in enumerate(body_lines) if L.head and FRONT_RX.match(L.text.strip()) and L.page < p0 + 3), None)
     if fi is not None:
-        last = max(L.page for L in body_lines[fi:] if L.head and FRONT_RX.match(L.text.strip()) and L.page < p0 + 3)
-        fe = next((j for j in range(fi + 1, len(body_lines)) if body_lines[j].head
+        fl = max(j for j, L in enumerate(body_lines) if L.head and FRONT_RX.match(L.text.strip()) and L.page < p0 + 3)
+        last = body_lines[fl].page
+        fe = next((j for j in range(fl + 1, len(body_lines)) if body_lines[j].head
                    and not FRONT_RX.match(body_lines[j].text.strip())), None)
         if fe is not None and body_lines[fe].page <= last + 1:
             front = body_lines[:fe]
@@ -801,6 +838,22 @@ def main():
         if L.bib:
             bib_left[L.page] = min(bib_left.get(L.page, L.x0), L.x0)
 
+    # a block quotation set justified to its own right edge, inside the text's (both sides indented): its lines end
+    # well short of the text's right margin, and would each be read as a paragraph (then a "verse"). A run of lines at
+    # one indent and size where most lines (all but the last) end at the same x is justified: that x is its margin
+    run = []
+    for L in body_lines + [None]:
+        cand = L is not None and not L.head and (L.size < 0.95 * B or L.x0 > margin.get(L.page, L.x0) + 0.6 * L.size)
+        if run and not (cand and L.page == run[-1].page and abs(L.x0 - run[-1].x0) <= 1.5
+                        and abs(L.size - run[-1].size) <= 0.3 and 0 < L.y - run[-1].y < 1.6 * 1.25 * L.size):
+            edge = max(R.x1 for R in run)
+            if len(run) >= 3 and sum(1 for R in run[:-1] if edge - R.x1 < 3) >= max(2, 0.6 * (len(run) - 1)):
+                for R in run:
+                    R.qedge = edge
+            run = []
+        if cand:
+            run.append(L)
+
     paras = []
     prev = None
     for L in body_lines:
@@ -838,6 +891,8 @@ def main():
                 pRm = max(rights[prev.page]) if rights[prev.page] else prev.x1
                 pLm0 = margin.get(prev.page, prev.x0)
                 short = (prev.x1 - pLm0) < ragged_cut * (pRm - pLm0) if ragged_cut else prev.x1 < Rm - 2.5 * prev.size
+                if kind == "q" and getattr(prev, "qedge", None) and getattr(L, "qedge", None):
+                    short = prev.x1 < prev.qedge - 2.5 * prev.size     # justified quotation: its own right edge
                 prev_short = short and (not ragged or ragged_cut is not None)
                 # positions relative to each line's own page margin (a quotation running on from a recto to a verso)
                 pLm = margin.get(prev.page, prev.x0)
@@ -986,6 +1041,10 @@ def main():
             t = join_lines(texts, joins)
             if kind in ("p", "q"):
                 t = re.sub(r"^(\d{1,3})([.)])(\s)", r"\1\\\2\3", t)     # "5. Zu Aesch …" is not a Markdown list
+            if kind.startswith("h") and re.match(r"(\d+)?_(?=\S)", t):
+                # the journal's decoration: "1_Introduction" -> "1. Introduction", "_Conclusion" -> "Conclusion"
+                t0, t = t, re.sub(r"^(\d+)?_(?=\S)", lambda m: f"{m.group(1)}. " if m.group(1) else "", t)
+                warns.append(f"heading decoration: {t0[:40]!r} -> {t[:40]!r}")
             if kind == "h1":
                 out.append("# " + t)
             elif kind == "h2":
