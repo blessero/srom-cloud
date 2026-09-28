@@ -185,15 +185,15 @@ Checks run from the repo root. K = .claude/skills/srom-kanon, T = .claude/skills
   EXPECT: /^1\s*$/
   EVIDENCE: 1
 
-- [ ] F11: packages rebuilt for claude.ai: dist/srom-kanon.skill is v1.7
+- [x] F11: packages rebuilt for claude.ai: dist/srom-kanon.skill is v1.7
   CHECK: unzip -p dist/srom-kanon.skill srom-kanon/SKILL.md | grep -c "Kanon v1.7"
   EXPECT: /^[1-9]\s*$/
-  EVIDENCE:
+  EVIDENCE: 1 (dist/ rebuilt after commit 2 of this batch; git-ignored)
 
-- [ ] F12: suite green, committed, clean tree
+- [x] F12: suite green, committed, clean tree
   CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; git status --porcelain | wc -l
   EXPECT: /SUITE ALL PASS (\d+)\/\1[\s\S]*\n\s*0\s*$/
-  EVIDENCE:
+  EVIDENCE: SUITE ALL PASS 14/14 | 0
 
 ## E9 — typed notes in DOCX sources (T2; queued, not started)
 
