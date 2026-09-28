@@ -120,6 +120,12 @@ G12) after.
    Note: another session committed my in-progress `pdf_extract.py` as aaecba0 while I worked (content is mine, fine).
    Known, not fixed (minor): the query sheet prints broken asterisks around a roman phrase inside an italic title
    (O'Reilly, *Divide et impera*); the DOCX is right.
+   28.09.2026, after MB's answers (T20, D19): the chapter **is OA, CC BY-NC 4.0** (my T19 "not OA" was wrong: the PDF stamp
+   and Crossref name only the Cambridge Core terms — always check the publisher's landing page); summary + 10 keywords
+   exist online only (in `_src_front.md`). Imprint gaps sourced from the LoC catalogue (`work/ostendorf/source_imprints.py`,
+   SRU/MARC, evidence in `imprints.tsv` and refs `srom-sourced`): 43 values, 14 left to MB by hand. Kanon § 7.2/§ 9.4 and
+   § 9.3/§ 9.5 (particles by the name's language, LC NAF) in ea50df6. Reusable for D18 A3 (German publishers):
+   `source_imprints.py` works for any refs.json (run in the article folder).
 4d. **Stage-1 test 5: Tittel** ("Racial and Social Dimensions of Antiziganism", *On_Culture* 10, 2020, Giessen; endnotes
    with full Chicago citations incl. place and publisher, no bibliography; `work/tittel/`, git-ignored) — done 28.09.2026,
    handed over (T20); rights no obstacle (CC BY 4.0). MB's points in `MB-decisions.md` D20 (detail

@@ -375,3 +375,8 @@ Checks run from the repo root. K = .claude/skills/srom-kanon, T = .claude/skills
   CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; git status --porcelain | wc -l
   EXPECT: /SUITE ALL PASS (\d+)\/\1[\s\S]*\n\s*0\s*$/
   EVIDENCE: SUITE ALL PASS 19/19 | 0
+- [x] O9 (after MB's answers): licence verified on the publisher's pages (CC BY-NC 4.0); imprint gaps sourced with evidence;
+  the rest listed for MB; Kanon § 7.2/§ 9.3/§ 9.5 with tests
+  CHECK: cd work/ostendorf && grep -c "BRAK MIEJSCA\]\|BRAK WYDAWCY\]" build/ostendorf_src_pytania.md; ~/.venvs/srom/bin/python -c "import json;print(sum(1 for r in json.load(open('refs.json')) if r.get('srom-sourced')))"
+  EXPECT: /^14\s+43\s*$/
+  EVIDENCE: 14 | 43 (43 works, one value each; the 14 in ostendorf_queries A2)
