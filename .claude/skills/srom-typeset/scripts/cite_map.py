@@ -392,7 +392,7 @@ def render_bib(refs_path, keys):
 
 
 STOP = {"In", "W", "Red", "Eds", "Ed", "Hrsg", "Vol", "No", "Nr", "Pp", "S", "The", "A", "An", "And", "Of", "Und",
-        "Der", "Die", "Das", "La", "Le", "Les", "Et", "Trans", "Transl", "Tłum", "Edited", "By", "Accessed", "Retrieved",
+        "Der", "Die", "Das", "La", "Le", "Les", "Et", "Trans", "Transl", "Translated", "Tłum", "Edited", "By", "Accessed", "Retrieved",
         "Available", "Dostęp", "Online", "Doi", "Isbn", "Http", "Https", "Www", "Press",
         "Tome", "Tomo", "Tom", "Volume", "Band", "Bd", "Teil"}           # volume labels: rendered as "t."
 MONTHS = {fold(m) for m in ("January February March April May June July August September October November December "
@@ -414,6 +414,7 @@ def expand_ranges(s):
 
 
 def tokens(s):
+    s = unicodedata.normalize("NFC", s)          # a PDF text layer may give "á" as a + combining accent
     s = re.sub(r"https?://\S+", " ", s)
     nums = Counter(int(n) for n in re.findall(r"\d+", re.sub(r"(?<=\d)[-–](?=\d)", " ", expand_ranges(s))))
     words = {fold(w) for w in re.findall(rf"[{UP}][\w’'\-]{{2,}}", s) if w.split("-")[0].capitalize() not in STOP}

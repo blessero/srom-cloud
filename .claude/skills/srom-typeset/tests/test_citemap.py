@@ -111,6 +111,20 @@ json.dump(eref, open(esub, "w", encoding="utf-8"), ensure_ascii=False)
 c, o = cm("audit", "--refs", esub, "--bib", ebib)
 t("audit, English list: wrong end of an abbreviated range (305–26 vs 305–316) caught", c == 1 and "mckee2008" in o and "326" in o, o)
 
+# ---- audit: a list ripped from a PDF with decomposed accents; "Translated by" (stage-1 test 28.09.2026, Pahulich)
+nbib = os.path.join(d, "nbib.txt")
+open(nbib, "w", encoding="utf-8").write(
+    "Horva\u0301thova\u0301, Emilia. 1964. Cigа\u0301ni na Slovensku. Bratislava: SAV.\n".replace("Cigа", "Ciga")
+    + "Willems, Wim. 1997. In Search of the True Gypsy. Translated by Don Bloch. London: F. Cass.\n")
+nref = [
+    {"id": "horvathova1964", "type": "book", "author": [{"family": "Horváthová", "given": "Emilia"}], "title": "Cigáni na Slovensku",
+     "publisher": "SAV", "publisher-place": "Bratislava", "issued": {"date-parts": [[1964]]}},
+    {"id": "willems1997", "type": "book", "author": [{"family": "Willems", "given": "Wim"}], "title": "In Search of the True Gypsy",
+     "translator": [{"family": "Bloch", "given": "Don"}], "publisher": "F. Cass", "publisher-place": "London", "issued": {"date-parts": [[1997]]}}]
+nsub = os.path.join(d, "nsub.json"); json.dump(nref, open(nsub, "w", encoding="utf-8"), ensure_ascii=False)
+c, o = cm("audit", "--refs", nsub, "--bib", nbib)
+t("audit: decomposed accents (a + U+0301) match the composed refs; 'Translated by' is a label", c == 0 and "CITEMAP OK" in o, o)
+
 qi = os.path.join(d, "qi.md"); open(qi, "w", encoding="utf-8").write("Zdanie (quoted in Ficowski 1985: 3).\n")
 c, o = cm("scan", qi, "--refs", REFS, "--apply", os.path.join(d, "qi_out.md"))
 qo = open(os.path.join(d, "qi_out.md"), encoding="utf-8").read() if os.path.exists(os.path.join(d, "qi_out.md")) else o

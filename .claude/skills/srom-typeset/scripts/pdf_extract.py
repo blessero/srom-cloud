@@ -38,7 +38,7 @@ Last line: EXTRACT OK / EXTRACT CHECK n issue(s)   (issues = broken note sequenc
 markers/notes, multi-column pages, non-digit superscripts — fix before translating).
 Limits: single-column text flow; scanned PDFs need OCR first; tables/figures are not rebuilt.
 """
-import argparse, re, sys
+import argparse, re, sys, unicodedata
 from collections import Counter, defaultdict
 
 import pymupdf
@@ -759,6 +759,14 @@ def main():
         for n in miss_mark:
             md += f"\n[^{n}]: " + join_lines(notes[n], joins) + "\n"
 
+    # the text layer may give accented letters decomposed ("a" + combining acute): written composed (NFC), which
+    # the kanon linter, the name matching in cite_map and InDesign all expect
+    nfd = sum(1 for x in [md] + bib_entries + front_md for w in x.split() if unicodedata.normalize("NFC", w) != w)
+    md = unicodedata.normalize("NFC", md)
+    bib_entries = [unicodedata.normalize("NFC", x) for x in bib_entries]
+    front_md = [unicodedata.normalize("NFC", x) for x in front_md]
+    if nfd:
+        warns.append(f"{nfd} word(s) with decomposed accents (a + combining mark) composed (NFC)")
     open(a.out, "w", encoding="utf-8").write(md)
     if bib_entries:
         bp = a.out.rsplit(".", 1)[0] + "_bib.txt"
