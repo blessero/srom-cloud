@@ -20,7 +20,7 @@ Python ≥ 3.12 with python-docx, lxml, PyMuPDF. Where you run decides the rest:
 - **claude.ai sandbox** — `python3`; work in `/home/claude/<article>/` and hand every intermediate file to
   the user (`present_files`) — the sandbox resets between sessions.
 
-**Preflight, once per session (≈ 30 s):** `python3 <skill dir>/tests/run_all.py` → `SUITE ALL PASS 14/14`
+**Preflight, once per session (≈ 30 s):** `python3 <skill dir>/tests/run_all.py` → `SUITE ALL PASS 15/15`
 (on the Mac it switches itself to the venv). A different pandoc version can change citeproc behaviour and
 the DOCX reader; the tests are what proves the toolchain still does what this file says.
 

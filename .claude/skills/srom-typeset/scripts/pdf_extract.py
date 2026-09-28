@@ -6,28 +6,32 @@ pdf_extract.py — born-digital article PDF -> SROM-MD source for translation (n
 
 What it recovers, and how:
   italics            font name (Italic/Oblique/-It, or a style suffix .I/.BI on obfuscated names) or flag -> *…*
-  note markers       small raised digits in the text (or superscript flag)     -> [^n]
-  footnotes          bottom-of-page zone in the note font size (separator rule
-                     if drawn), each note starting with its number (raised, or just set smaller);
+  note markers       small raised digits in the text (or superscript flag), also bracketed "[12]" -> [^n]
+  footnotes          bottom-of-page zone in the note font size (the size under the separator rule if one is
+                     drawn, else the commonest small size low on the page), each note starting with its number
+                     (raised, or just set smaller);
                      a zone that starts without a number continues the previous note -> [^n]: … after its paragraph
   raised line parts  a note number with the first words on a raised baseline, a superscript (XVIIᵉ): merged into
                      their line when nothing overlaps horizontally (else "35" | "–69" would split)
   title note         page 1: an unnumbered block at the foot, clear of the body   -> ::: przypis-tytulowy (listed)
   front matter       page 1 above the first text line (title in larger type, author, abstract) -> <out>_front.md,
-                     not the text (SROM-MD has no header; Kanon § 13.3)
+                     not the text (SROM-MD has no header; Kanon § 13.3); with an "Abstract"/"Keywords" heading in
+                     the first pages, everything up to the next heading (title/bio page, keywords box in a column)
   paragraphs         first-line indent, short last line, vertical gap; a paragraph interrupted by a figure
                      caption is rejoined, the caption placed after it
   headings           larger font, bold, or in capitals after a gap (also when smaller than the body) -> # / ##
   opening small caps "THIS ESSAY BEGINS in …" -> "This essay begins in …" (listed: check proper names)
-  block quotes       smaller font or indented both sides, outside the note zone -> >
+  block quotes       smaller font, indented both sides, or every line at one left indent, outside the note zone -> >
   verse              >= 3 one-line quotation paragraphs at the same indent        -> one > quotation, line breaks kept
   captions           "Figure 1." / "Rycina 1." … -> ::: podpis; "Table 1." … -> ::: tabela-tytul
   reference list     after a heading "Bibliography"/"References"/… (any size): hanging indent -> one entry per
-                     line in <out>_bib.txt; taken out of the text (decision 19)
+                     line in <out>_bib.txt; taken out of the text (decision 19); a repeated-author dash (typed, or
+                     drawn as a rule) takes the author of the entry above (listed)
   headers/footers    page numbers and lines repeating across pages             -> dropped (listed)
   line-end hyphens   joined ("Ro-/mani" -> "Romani"); the document decides where it can (the joined or the
                      hyphenated word found inside a line elsewhere), else kept after prefixes such as
-                     self-/non-/post- and flagged; every join listed for proofreading
+                     self-/non-/post- and flagged; before a capital (anti-|Roma) kept; a slash at a line end joined
+                     without a space; every join listed for proofreading
 Report: <out>_extract.md with note/marker contiguity, joins, dropped lines, warnings.
 Last line: EXTRACT OK / EXTRACT CHECK n issue(s)   (issues = broken note sequence, unmatched
 markers/notes, multi-column pages, non-digit superscripts — fix before translating).
@@ -39,6 +43,7 @@ from collections import Counter, defaultdict
 import pymupdf
 
 NOTES_RX = re.compile(r"(?i)^(notes|endnotes|przypisy|anmerkungen|notes and references)$")
+FRONT_RX = re.compile(r"(?i)^(abstract|summary|keywords|key words|streszczenie|słowa kluczowe|résumé|mots[- ]clés|zusammenfassung|schlagwörter|schlüsselwörter)$")
 BIB_RX = re.compile(r"(?i)^(\d+\.\s*)?(references|bibliography|works cited|literature|literatura|bibliografia|sources|źródła|literaturverzeichnis)$")
 KEEP_HYPHEN_PREFIXES = {"self", "non", "anti", "post", "pre", "co", "well", "cross", "semi", "quasi", "neo", "pan",
                         "pro", "ex", "inter", "intra", "multi", "trans", "ultra", "counter", "mid", "socio",
@@ -105,7 +110,7 @@ def page_lines(page, W):
     final = []
     for ln in out:
         txt = "".join(s["text"] for s in ln).strip()
-        if re.fullmatch(r"[\d*†‡,\s]+", txt) and final:
+        if re.fullmatch(r"[\d*†‡,\s\[\]]+", txt) and final:
             host = None
             for cand in reversed(final[-3:]):
                 cs = max(s["size"] for s in cand)
@@ -123,7 +128,7 @@ def page_lines(page, W):
     res = []
     for ln in final:
         txt = "".join(s["text"] for s in ln).strip()
-        if res and re.fullmatch(r"[\d*†‡,\s]+", "".join(s["text"] for s in res[-1]).strip()):
+        if res and re.fullmatch(r"[\d*†‡,\s\[\]]+", "".join(s["text"] for s in res[-1]).strip()):
             prev = res[-1]
             ps = prev[0]["size"]
             cs = max(s["size"] for s in ln)
@@ -164,7 +169,7 @@ def merge_raised(lines):
     """A cluster sitting less than 0.6 of the next line's size above it, with no span overlapping that line's
     spans horizontally, is a raised part of that line, not a line of its own: a note number set with the first
     words of the note on a raised baseline ("40 Vallée, 45:" above "“Il se noircit…"), a superscript ("XVIIᵉ").
-    Real lines are a full leading apart and overlap horizontally."""
+    Real lines are a full leading apart and overlap horizontally; a line of another column is far to the side."""
     lines = sorted(lines, key=lambda ln: min(s["y"] for s in ln))
     out = []
     for i, ln in enumerate(lines):
@@ -173,7 +178,10 @@ def merge_raised(lines):
             dy = min(s["y"] for s in nxt) - max(s["y"] for s in ln)
             ink = lambda l: [s for s in l if s["text"].strip()]
             overlap = any(a["x0"] < b["x1"] - 0.5 and b["x0"] < a["x1"] - 0.5 for a in ink(ln) for b in ink(nxt))
-            if 0 < dy < 0.6 * max(s["size"] for s in nxt) and not overlap:
+            # and it sits next to that line's text, not a column away (a keywords box beside an abstract)
+            sz = max(s["size"] for s in nxt)
+            near = any(max(b["x0"] - a["x1"], a["x0"] - b["x1"]) < 1.5 * sz for a in ink(ln) for b in ink(nxt))
+            if 0 < dy < 0.6 * sz and not overlap and near:
                 nxt[:0] = ln
                 continue
         out.append(ln)
@@ -187,9 +195,11 @@ def span_md(spans, for_note=False):
         t = s["text"]
         if s["sup"]:
             st = t.strip()
-            if re.fullmatch(r"\d{1,3}", st):
-                parts.append(("m", st))
-                markers.append(int(st))
+            mm = re.fullmatch(r"(\d{1,3})|\[(\d{1,3})\]", st)      # 12, or bracketed [12] (Critical Romani Studies)
+            if mm:
+                n = mm.group(1) or mm.group(2)
+                parts.append(("m", n))
+                markers.append(int(n))
                 continue
             if st:
                 odd.append(st)
@@ -256,6 +266,14 @@ def join_lines(texts, joins):
                              + (f" (prefix, but {why})" if frag.lower() in KEEP_HYPHEN_PREFIXES else ""))
                 out = out[:m.start(0)] + frag + m.group(2) + t
             continue
+        if re.search(r"[^\W\d_]-\**$", out) and re.match(r"[\*“‘\"(]*[A-ZÀ-ÞĄĆĘŁŃÓŚŹŻČŠŽ]", t):   # anti-|Roma, Polish-|Lithuanian
+            joins.append(f"{out[-12:].split()[-1]}|{t.split()[0][:20]} -> hyphen kept (capital follows)")
+            out = out + t
+            continue
+        if re.search(r"[^\W\d_”’]/\**$", out) and re.match(r"\**[^\W\d_]", t):   # police/|carceral: no space after a slash at a line end
+            joins.append(f"{out[-12:].split()[-1]}|{t.split()[0][:20]} -> joined at the slash")
+            out = out + t
+            continue
         if re.search(r"\d–\**$", out) and re.match(r"\**\d", t):   # 1939–|1945
             out = out + t
             continue
@@ -316,28 +334,49 @@ def main():
             keep.append(L)
         all_lines[pno] = keep
 
-    # note font size: most common size below body size among bottom-of-page lines
+    # short horizontal rules: a note separator, or a drawn repeated-author rule opening a reference-list line
+    # ("———. 2008." set as a line, not as glyphs): the rule ends where the line's text begins, on its baseline
+    rules_at = {}
+    for pno, ls in all_lines.items():
+        page = doc[pno - 1]
+        rules_at[pno] = []
+        try:
+            drs = page.get_drawings()
+        except Exception:
+            drs = []
+        for dr in drs:
+            r = dr.get("rect")
+            if not (r and r.height < 2.5 and 8 < r.width < 0.6 * page.rect.width):
+                continue
+            host = next((L for L in ls if abs(L.x0 - r.x1) < 3 and 0 <= L.y - r.y1 < 0.6 * L.size), None)
+            if host is not None and r.width < 12 * host.size:
+                host.spans.insert(0, dict(host.spans[0], text="———", font="rule", x0=r.x0, x1=r.x1, sup=False, flags=0))
+                host.x0, host.text = r.x0, "———" + host.text
+                warns.append(f"page {pno}: drawn rule before {host.text[3:30]!r} -> ——— (repeated author)")
+            elif r.width >= 20:
+                rules_at[pno].append(r.y0)
+
+    # note font size: the size of the lines right under a note separator; else the most common size below
+    # the body size among bottom-of-page lines (a reference list set between the two must not win)
+    under = Counter()
+    for pno, ls in all_lines.items():
+        for y in rules_at[pno]:
+            L = next((L for L in ls if L.y - L.size > y), None)
+            if L is not None and L.size < 0.95 * B and L.y - y < 3 * B:
+                under[L.size] += 1
     small = Counter()
     for pno, ls in all_lines.items():
         H = doc[pno - 1].rect.height
         for L in ls:
             if L.size < 0.95 * B and L.y > 0.4 * H:
                 small[L.size] += len(L.text)
-    N = small.most_common(1)[0][0] if small else None
+    N = under.most_common(1)[0][0] if under else small.most_common(1)[0][0] if small else None
 
     # footnote zones
     for pno, ls in all_lines.items():
         if N is None or not ls:
             continue
-        page = doc[pno - 1]
-        rules = []
-        try:
-            for dr in page.get_drawings():
-                r = dr.get("rect")
-                if r and r.height < 2.5 and 20 < r.width < 0.6 * page.rect.width:
-                    rules.append(r.y0)
-        except Exception:
-            pass
+        rules = rules_at[pno]
         i = len(ls)
         while i > 0 and abs(ls[i - 1].size - N) < 0.35:
             i -= 1
@@ -367,14 +406,15 @@ def main():
                     F.zone = "foot"
                 break
 
-    # column sanity
+    # column sanity (reported once the front matter is known: columns there are read in column order)
+    col_pages = []
     for pno, ls in all_lines.items():
         body = [L for L in ls if L.zone == "body" and abs(L.size - B) < 0.35]
         if len(body) > 8:
             xs = sorted(L.x0 for L in body)
             W = doc[pno - 1].rect.width
             if xs[-1] - xs[0] > 0.35 * W and sum(1 for x in xs if x > xs[0] + 0.35 * W) > 3:
-                issues.append(f"page {pno}: text starts at very different x positions — two columns? reading order must be verified")
+                col_pages.append(pno)
 
     # endnotes: a heading "Notes"/"Endnotes"/"Przypisy" turns the following lines (to the next heading) into the note zone
     endnote_mode = False
@@ -482,13 +522,34 @@ def main():
             while cand and cand[-1].head and cand[-1].size < tsize - 0.1:
                 cand.pop()
             front = cand
+    # an "Abstract"/"Keywords" heading near the start: everything up to the first other heading on that page
+    # or the next is front matter too (journals that give pages to title, bio, abstract and keywords before the text)
+    fi = next((j for j, L in enumerate(body_lines) if L.head and FRONT_RX.match(L.text.strip()) and L.page < p0 + 3), None)
+    if fi is not None:
+        last = max(L.page for L in body_lines[fi:] if L.head and FRONT_RX.match(L.text.strip()) and L.page < p0 + 3)
+        fe = next((j for j in range(fi + 1, len(body_lines)) if body_lines[j].head
+                   and not FRONT_RX.match(body_lines[j].text.strip())), None)
+        if fe is not None and body_lines[fe].page <= last + 1:
+            front = body_lines[:fe]
+            warns.append(f"front matter: pages {p0}–{body_lines[fe - 1].page} up to the heading "
+                         f"{body_lines[fe].text.strip()[:40]!r} (abstract/keywords section)")
+        else:
+            warns.append("an abstract/keywords heading, but no text heading right after it: front matter left in the text — check")
     body_lines = [L for L in body_lines if L not in front]
+    for pno in col_pages:
+        if any(L.page == pno for L in body_lines):
+            issues.append(f"page {pno}: text starts at very different x positions — two columns? reading order must be verified")
+        else:
+            warns.append(f"page {pno}: two columns in the front matter, read column by column — check the order")
+    # reading order in the front matter: a column far right (a keywords box beside the abstract) after the rest of its page
+    front.sort(key=lambda L: (L.page, L.x0 > 0.6 * doc[L.page - 1].rect.width, L.y))
     front_md = []
     for j, L in enumerate(front):
         pv = front[j - 1] if j else None
-        if pv is None or abs(L.size - pv.size) > 0.35 or L.y - pv.y > 1.6 * 1.25 * L.size:
+        if pv is None or abs(L.size - pv.size) > 0.35 or L.y - pv.y > 1.6 * 1.25 * L.size or L.page != pv.page \
+                or abs(L.x0 - pv.x0) > 0.2 * doc[L.page - 1].rect.width or re.match(r"\s*[•▪■◦·]", L.text):
             front_md.append([])
-        front_md[-1].append(span_md(L.spans)[0])
+        front_md[-1].append(re.sub(r"^(\s*[•▪■◦·])\s*", r"\1 ", span_md(L.spans)[0].replace("\t", " ")))
     front_md = [join_lines(x, joins) for x in front_md]
     if front_md and any(L.page == p0 for L in foot):     # page-1 foot block: journal, licence, DOI -> with the front matter
         front_md.append(join_lines([span_md(L.spans)[0] for L in foot if L.page == p0], joins))
@@ -567,8 +628,10 @@ def main():
     for P in paras:
         geo = P["geo"]
         # same-size quotations: >= 2 lines, all indented left, all but the last short of the right margin
+        # (or indented left only, every line at one indent: a block quotation set full out to the right margin)
         if P["kind"] == "p" and not P["bib"] and len(geo) >= 2 and all(x0 > lm + 2.2 * sz for x0, x1, lm, rm, sz in geo) \
-                and all(x1 < rm - 0.8 * sz for x0, x1, lm, rm, sz in geo[:-1]):
+                and (all(x1 < rm - 0.8 * sz for x0, x1, lm, rm, sz in geo[:-1])
+                     or max(g[0] for g in geo) - min(g[0] for g in geo) < 1.5):
             P["kind"] = "q"
         m = CAPTION_RX.match(P["texts"][0].strip())
         if m and P["kind"] in ("p", "q") and not P["bib"]:
@@ -656,6 +719,18 @@ def main():
         return re.sub(r"(?:https?://|www\.)\S+", f, text)
     md = link_fix(md)
     bib_entries = [link_fix(x) for x in bib_entries]
+    # "———. 2008. …" (repeated author, typed or drawn): the author of the entry above, so that each line of
+    # <out>_bib.txt stands alone for the audit; listed
+    for j, e in enumerate(bib_entries):
+        m = re.match(r"^\s*(?:[—–]{2,}|-{3,}|_{3,})\s*([.,])\s*", e)
+        if not m:
+            continue
+        au = re.match(r"^(.+?)\.\s+(?:\(?\[?\d{4}|n\.\s?d\.|forthcoming|in press)", bib_entries[j - 1]) if j else None
+        if au is None:
+            issues.append(f"reference list: repeated-author dash with no author above to take: {e[:60]!r}")
+            continue
+        bib_entries[j] = au.group(1) + "." + (" " + e[m.end():] if m.group(1) == "." else ", " + e[m.end():])
+        warns.append(f"reference list: ——— -> {au.group(1)!r} (repeated author): {bib_entries[j][:70]!r}")
     front_md = [link_fix(x) for x in front_md]
     img_pages = [pno for pno in all_lines if doc[pno - 1].get_images()]
     if img_pages:
