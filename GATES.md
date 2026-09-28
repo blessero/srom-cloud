@@ -339,3 +339,4 @@ Checks run from the repo root. K = .claude/skills/srom-kanon, T = .claude/skills
 - [x] O8: suite green, committed, clean tree
   CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; git status --porcelain | wc -l
   EXPECT: /SUITE ALL PASS (\d+)\/\1[\s\S]*\n\s*0\s*$/
+  EVIDENCE: SUITE ALL PASS 18/18 | 0
