@@ -54,10 +54,13 @@ Source frozen and handed to srom-tlumacz (T18); none of this blocks the translat
   Recommendation: merge (then notes renumber, new T-item).
 - B1–B11 errors in the author's bibliography (titles, a wrong DOI for Césaire 2000, garbled Slovak imprint, missing
   places of two dissertations, a Facebook tracking parameter in a URL): kept as written; "approve B" = all proposals.
-- D1–D2 questions to the author: an author-less "(1992, 81)" in the original's note 2 (probably Fraser); "Jenkins and
-  Leroy (2021)" missing from the bibliography.
-- E1 Kanon § 8.6: web sources print no publication date even when the author gives one (Matache 2016). Proposal:
-  print it.
+- D1–D2 questions to the author: an author-less "(1992, 81)" in the original's note 2 — by the rule of 28.09 (Kanon
+  § 7.1) the work cited before it is Červinski 2008 (year differs), so it goes to Fraser 1992, the only 1992 work,
+  flagged; "Jenkins and Leroy (2021)" missing from the bibliography — Crossref: D. Jenkins, J. Leroy (eds.),
+  *Histories of Racial Capitalism*, Columbia UP 2021, DOI 10.7312/jenk19074 (or its Introduction), for the author to
+  confirm.
+- 28.09.2026 DECIDED: E1 (web publication date) — Kanon § 8.6: dated web texts print their publication date, taken
+  from the page when missing (MB).
 
 ## D18 — German stage-1 test (Scheffknecht, Neujahrsblätter Lustenau 1, 2010): open points (28.09.2026, srom-typeset)
 Stage 1 done, source frozen in `srom-typeset/work/scheffknecht/`; **not handed to srom-tlumacz**. Detail and proposals:
