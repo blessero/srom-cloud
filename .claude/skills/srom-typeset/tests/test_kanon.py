@@ -43,10 +43,28 @@ for f in glob.glob(os.path.join(ROOT, "**", "*"), recursive=True):
     for m in re.finditer(r"§ ?(\d+(?:\.\d+)*)", txt):
         if m.group(1) not in heads:
             bad.append(f"{rel}:{txt[:m.start()].count(chr(10)) + 1} §{m.group(1)}")
-    if re.search(r"draft § ?12|kanon v1\.[0-5]|§ ?9 I", txt) and rel != os.path.join("tests", "test_kanon.py"):
+    if re.search(r"draft § ?12|§ ?9 I", txt) and rel != os.path.join("tests", "test_kanon.py"):
         drafts.append(rel)
 t("every § cited by srom-typeset exists in the Kanon", not bad, bad)
-t("no stale wording (draft § 12…, kanon v1.x, roman-numbered bibliography sections)", not drafts, drafts)
+t("no stale wording (draft § 12…, roman-numbered bibliography sections)", not drafts, drafts)
+
+# a Kanon version other than the current one, in either skill, any case ("Kanon v1.6", "Wersja 1.5", "version 1.4");
+# only the Kanon itself may name old versions (§ 17 register, § 14 rationale)
+old = []
+for base in (ROOT, K):
+    for f in glob.glob(os.path.join(base, "**", "*"), recursive=True):
+        if os.path.isdir(f) or "__pycache__" in f or f.endswith((".pyc", ".docx", ".pdf", ".skill")):
+            continue
+        if f.endswith("kanon-redakcyjny.md") or f == os.path.abspath(__file__):
+            continue
+        try:
+            txt = open(f, encoding="utf-8").read()
+        except UnicodeDecodeError:
+            continue
+        for m in re.finditer(r"(?i)\b(?:v|wersj[aięy]|version)\s?(1\.\d+)\b", txt):
+            if m.group(1) != kv:
+                old.append(f"{os.path.relpath(f, os.path.dirname(base))}:{txt[:m.start()].count(chr(10)) + 1} {m.group(0)}")
+t(f"no Kanon version other than v{kv} in srom-typeset or srom-kanon", not old, old)
 
 out = tempfile.mkdtemp()
 env = dict(os.environ, SROM_KANON=os.path.join(out, "nowhere"))

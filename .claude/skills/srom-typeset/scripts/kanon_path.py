@@ -26,7 +26,7 @@ def linter(kanon_dir):
 
 
 def kanon_version(kanon_dir):
-    """version of the normative Kanon text ("Wersja 1.6") or None"""
+    """version of the normative Kanon text (its header "**Wersja X.Y") or None"""
     p = os.path.join(kanon_dir, "references", "kanon-redakcyjny.md")
     if not os.path.isfile(p):
         return None

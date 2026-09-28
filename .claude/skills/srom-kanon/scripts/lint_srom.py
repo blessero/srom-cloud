@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-lint_srom.py — check a manuscript against the Studia Romologica Kanon (v1.6; references/kanon-redakcyjny.md).
+lint_srom.py — check a manuscript against the Studia Romologica Kanon (references/kanon-redakcyjny.md; version in its header).
 
 Covers only mechanically detectable rules. The judgment checks in RULES.md §J
 still have to be done by reading. WARN items may be legitimate — judge each.

@@ -123,3 +123,94 @@ matter), re-scope D3/D7 (InDesign later; stage-1 test on MB's PDF next), answer 
   CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; git status --porcelain | wc -l
   EXPECT: /SUITE ALL PASS (\d+)\/\1[\s\S]*\n\s*0\s*$/
   EVIDENCE: SUITE ALL PASS 13/13 | 0
+
+---
+
+# Gates: batch 28.09.2026 — cross-module review, E16; E9 (queued)
+
+Scope: the cross-module review of 28.09.2026 (`../_handoffs/review-28.09.2026.md`, message for srom-typeset items
+1–9): E16 (Word round trip splits the one title note), docs aligned with the contract, stale text, D15/D16, packages.
+E9 (typed notes in DOCX sources) is queued here with its gates open.
+Note: commits f2c8bc0..bb13dc8 (27–28.09.2026, incl. contract changes T11 and D12) ran without a gate batch; their
+evidence is the suite cases named in the commit messages. Not reconstructed.
+Checks run from the repo root. K = .claude/skills/srom-kanon, T = .claude/skills/srom-typeset.
+
+- [x] F1: E16 — multi-paragraph blocks survive the Word round trip; comment before punctuation; mowca line break
+  CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-typeset/tests/test_roundtrip.py | tail -1
+  EXPECT: /ROUNDTRIP ALL PASS (\d+)\/\1/
+  EVIDENCE: ROUNDTRIP ALL PASS 18/18 (the 3 new cases fail on the scripts of bb13dc8)
+
+- [x] F2: MB's working copy imports to one title-note block, pair CHECK OK, build PASS
+  CHECK: N=../srom-tlumacz/work/ndiaye; D=$(mktemp -d); V=~/.venvs/srom/bin/python; T=.claude/skills/srom-typeset; $V $T/scripts/docx_in.py $N/ndiaye_robocza_v2.docx -o $D/v2.md >/dev/null; grep -c przypis-tytulowy $D/v2.md; $V $T/scripts/check.py --pair $N/src/ndiaye_src.md $D/v2.md --refs $N/src/refs.json --refs $N/ndiaye_refs_tlum.json | tail -1; $V $T/scripts/build.py $D/v2.md --refs $N/src/refs.json --refs $N/ndiaye_refs_tlum.json --pair-src $N/src/ndiaye_src.md --out $D/b | tail -1 | cut -c1-4
+  EXPECT: /^1\s+CHECK OK\s+PASS\s*$/
+  EVIDENCE: 1 | CHECK OK | PASS (file dated 28.09.2026 02:41; it is MB's working file and will change)
+
+- [x] F3: srom-tlumacz's contract test sees E16 closed (run read-only)
+  CHECK: ~/.venvs/srom/bin/python ../srom-tlumacz/tlumacz-test_handoff.py | grep -E "E16|HANDOFF CONTRACT"
+  EXPECT: /GAP CLOSED ok\s+E16[\s\S]*HANDOFF CONTRACT (\d+)\/\1/
+  EVIDENCE: GAP CLOSED ok  E16: … | HANDOFF CONTRACT 30/30
+
+- [x] F4: SKILL.md and srom-md.md no longer say comments fail the build (contract: never block)
+  CHECK: cat .claude/skills/srom-typeset/SKILL.md .claude/skills/srom-typeset/references/srom-md.md | grep -c "open editor comments\|fails the build\*\* until resolved"
+  EXPECT: /^0\s*$/
+  EVIDENCE: 0 | 0
+
+- [x] F5: srom-kanon SKILL.md quick rule 9 carries the § 3.4 foreign-exonym exception
+  CHECK: grep -c "Exception (§ 3.4)" .claude/skills/srom-kanon/SKILL.md
+  EXPECT: /^1\s*$/
+  EVIDENCE: 1
+
+- [x] F6: Kanon § 13.2 open items are D15/D16 in MB-decisions.md; the archive header says it is frozen
+  CHECK: grep -c "^## D1[56] " ../_handoffs/MB-decisions.md; grep -c "nothing is appended" ../_handoffs/MB-decisions-archive.md
+  EXPECT: /^2\s+1\s*$/
+  EVIDENCE: 2 | 1
+
+- [x] F7: decisions 20 and 22 (D1, D2) no longer shown open; handover § 2 and § 7 current
+  CHECK: grep -cE "^\| 2[02] \| ○" .claude/skills/srom-typeset/references/decisions.md
+  EXPECT: /^0\s*$/
+  EVIDENCE: 0
+
+- [x] F8: scenario C (SKILL.md) names the T11 files and --pair-src; handoff.md points to the front_pl format
+  CHECK: grep -c "_front_pl.md\|_refs_tlum.json\|--pair-src" .claude/skills/srom-typeset/SKILL.md; grep -c "tlumacz-front_check.py" .claude/skills/srom-typeset/references/handoff.md
+  EXPECT: /^[3-9]\s+[1-9]\s*$/
+  EVIDENCE: 3 | 1
+
+- [x] F9: no Kanon version other than the current one in either skill, any case (test widened)
+  CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-typeset/tests/test_kanon.py | tail -1
+  EXPECT: /KANON ALL PASS (\d+)\/\1/
+  EVIDENCE: KANON ALL PASS 20/20 (the new case failed on 5 files before the fix)
+
+- [x] F10: E16 answered in the outgoing file
+  CHECK: grep -c "^## T16 — re E16" ../_handoffs/typeset-to-tlumacz.md
+  EXPECT: /^1\s*$/
+  EVIDENCE: 1
+
+- [ ] F11: packages rebuilt for claude.ai: dist/srom-kanon.skill is v1.7
+  CHECK: unzip -p dist/srom-kanon.skill srom-kanon/SKILL.md | grep -c "Kanon v1.7"
+  EXPECT: /^[1-9]\s*$/
+  EVIDENCE:
+
+- [ ] F12: suite green, committed, clean tree
+  CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; git status --porcelain | wc -l
+  EXPECT: /SUITE ALL PASS (\d+)\/\1[\s\S]*\n\s*0\s*$/
+  EVIDENCE:
+
+## E9 — typed notes in DOCX sources (T2; queued, not started)
+
+- [ ] G1: `docx_in.py --typed-notes` pairs each superscript body marker with the note paragraph of the same number on
+  the same page (page-ID strings as page breaks); never guesses: missing, repeated or unpaired numbers are listed
+  and the import says IMPORT CHECK
+  CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-typeset/tests/test_docx_in.py | tail -1
+  EXPECT: /DOCXIN ALL PASS (\d+)\/\1/ with typed-notes cases (clean, missing, repeated, garbled run) among them
+  EVIDENCE:
+
+- [ ] G2: on the Dom file (srom-tlumacz sources, read-only) every pair made is right and every number not paired
+  is listed (E9 correction: notes 2, 49, 50 and the garbled 48–50 region)
+  CHECK: run on `Dom_Communities_Stripped_Mac_copy.docx`; compare the pairs with the PDF by hand
+  EXPECT: 0 wrong pairs; the unpaired numbers listed by number
+  EVIDENCE:
+
+- [ ] G3: docs (SKILL.md step 1, handoff.md scenario C) and a T-item to srom-tlumacz
+  CHECK: grep -c "typed-notes" .claude/skills/srom-typeset/SKILL.md; grep -c "^## T.* re E9" ../_handoffs/typeset-to-tlumacz.md
+  EXPECT: /^[1-9]\s+[1-9]\s*$/
+  EVIDENCE:

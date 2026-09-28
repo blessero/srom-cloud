@@ -1,11 +1,12 @@
 # SROM tools — project instructions
 
 Repository of the production tools for *Studia Romologica* (Polish-language annual, Romani studies,
-ISSN 1689-4758). Three skills in `.claude/skills/`:
+ISSN 1689-4758). Two skills in `.claude/skills/`:
 - **srom-kanon** — the house rules (normative) and their linter.
 - **srom-typeset** — manuscript → SROM-MD → DOCX → InDesign; citations via CSL; checks; Word working copies.
-- **srom-tlumacz** — EN→PL translation module (judgement layer); talks to srom-typeset only through
-  `srom-typeset/references/handoff.md`.
+
+The EN→PL translation module **srom-tlumacz** is a separate folder (`../srom-tlumacz/`, its own session; not a skill
+here, packaging deferred); it talks to srom-typeset only through `.claude/skills/srom-typeset/references/handoff.md`.
 
 State, open decisions and the work queue: `docs/HANDOVER-*.md` — read before starting.
 
@@ -14,7 +15,8 @@ State, open decisions and the work queue: `docs/HANDOVER-*.md` — read before s
   (`tools/setup_mac.sh`). claude.ai gets copies via `sh tools/package_skills.sh` → `dist/*.skill` (upload by hand).
 - Python: venv `~/.venvs/srom/bin/python` (3.13 + python-docx, lxml, PyMuPDF); system `python3` is 3.9 and too
   old — `run_all.py` switches to the venv itself, other scripts must be called with the venv.
-- pandoc 3.8.3, node + acorn (`~/.venvs/srom/node`), InDesign 2026. No LibreOffice → `test_pdf.py` reports SKIP.
+- pandoc 3.8.3, node + acorn (`~/.venvs/srom/node`), InDesign 2026. No LibreOffice → `test_pdf.py` skips its LibreOffice part (Word-made PDF);
+  the hand-set pages run.
 
 ## Working rules
 - The editor (Michał) writes tersely and wants conclusions first, honest critique, errors and limits flagged.

@@ -20,7 +20,7 @@ Python ≥ 3.12 with python-docx, lxml, PyMuPDF. Where you run decides the rest:
 - **claude.ai sandbox** — `python3`; work in `/home/claude/<article>/` and hand every intermediate file to
   the user (`present_files`) — the sandbox resets between sessions.
 
-**Preflight, once per session (≈ 30 s):** `python3 <skill dir>/tests/run_all.py` → `SUITE ALL PASS 10/10`
+**Preflight, once per session (≈ 30 s):** `python3 <skill dir>/tests/run_all.py` → `SUITE ALL PASS 14/14`
 (on the Mac it switches itself to the venv). A different pandoc version can change citeproc behaviour and
 the DOCX reader; the tests are what proves the toolchain still does what this file says.
 
@@ -58,9 +58,11 @@ work cited just before it and is listed.
 
 **C. Translated article** — the translating is srom-tlumacz's, in its own chat; the contract is
 `references/handoff.md`. Here: 1a/1b → 3 → 4a/4b **in the source language** → `check.py` → hand over
-`<id>_src.md` + refs.json (+ working copy and `build.py --source` proof for you). Back: `<id>_pl.md` → working copy → your
-edits in Word → `docx_in.py` → `check.py --pair <id>_src.md <id>_pl.md` → 2 → 6 (`--queries` merges the
-translator's query rows) → 7. The translator's name is front matter `tlumaczenie:` (not printed; the build report
+`<id>_src.md` + refs.json + `<id>_src_front.md` (+ working copy and `build.py --source` proof for you). Back:
+`<id>_pl.md`, `<id>_refs_tlum.json` (the translation's added citations), `<id>_front_pl.md` (Polish title, abstract,
+keywords: header data for the CSV, not built) → working copy → your edits in Word → `docx_in.py` →
+`check.py --pair <id>_src.md <id>_pl.md --refs refs.json --refs <id>_refs_tlum.json` → 2 → 6 with both `--refs`,
+`--pair-src <id>_src.md` and `--queries` (merges the translator's query rows) → 7. The translator's name is front matter `tlumaczenie:` (not printed; the build report
 gives the `translators_struct` value for the master CSV). Never MarkItDown: it loses italics and note markers.
 
 ## What the build guarantees (tests: `tests/`)
@@ -78,10 +80,13 @@ gives the `translators_struct` value for the master CSV). Never MarkItDown: it l
   (not particles, not institutions) in the small-caps character style
 - the build **fails** on: unknown key, marker without note or orphan note, `@key` / `[-@key]`
   citations, missing bibliographic data `[BRAK MIEJSCA/ROKU/WYDAWCY]` (kanon §0; `--draft` for proofs
-  only), open editor comments (PRZYWRÓCIĆ, DO SPRAWDZENIA, TODO, FIXME), heading level 3, numbered
+  only), heading level 3, numbered
   list, image in text, code block outside `::: przyklad`, literal and CSL entries in one bibliography
   section, an unconverted author-date reference to a work in refs.json, any kanon-linter ERROR, any
   DOCX verification failure
+- editor comments `<!-- … -->` (PRZYWRÓCIĆ, DO SPRAWDZENIA …) **never** block (`handoff.md`): removed before
+  building and listed as a warning in `_report.md`; in the Word working copy they are Word comments, dropped on
+  import and listed in `_import.md`. Open items are tracked by whoever wrote them, not by the build
 - non-author notes (kanon §7.1: title note, `– przyp. tłum.`, `– przyp. red.`) are **not** Word footnotes:
   a `*` in its character style at the marker, the notes (opening `* `, title note first) in their own style at
   the end of the DOCX, for the typesetter to set above the numbered notes; `_gwiazdki.jsx` gives the

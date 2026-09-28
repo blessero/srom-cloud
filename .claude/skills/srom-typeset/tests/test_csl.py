@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Kanon v1.5 examples as a test suite for csl/srom.csl (raw citeproc output, before srom_post.lua)."""
+"""Kanon examples (§ 7, § 9) as a test suite for csl/srom.csl (raw citeproc output, before srom_post.lua)."""
 import json, os, subprocess, sys, tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))

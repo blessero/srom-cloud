@@ -56,7 +56,8 @@ run through `normalize.py`: Polish typography is applied to the translation, aft
 
 `<id>_front_pl.md` from srom-tlumacz (Kanon § 12.2.2): the Polish title (title and subtitle kept apart), the
 Polish abstract, the Polish keywords; the English ones stay as in the original. Header data for the master CSV,
-not built into the DOCX.
+not built into the DOCX. Its format (sections, order, headings) is the docstring of srom-tlumacz's
+`tlumacz-front_check.py`, which checks it (`FRONT OK`).
 
 `<id>_pl.md` from srom-tlumacz is turned into the editor's working copy; **the editor's Word file is the
 master** from then on:
@@ -72,8 +73,8 @@ python3 $S/build.py <id>_pl.md --refs refs.json --refs <id>_refs_tlum.json --pai
 ```
 
 In Word: tokens can be corrected in place (keep the brackets and `@key`); paragraphs styled "SROM …" keep
-their style; comments are yours to handle (dropped and listed on import); tracked changes are accepted on
-import.
+their style — consecutive paragraphs in one block style (title note, motto, nota, dialog) come back as one block
+(E16); comments are yours to handle (dropped and listed on import); tracked changes are accepted on import.
 
 `check.py --pair` (handoff check): same paragraphs and headings, same note markers per paragraph, same
 citation keys in each note in the same order — translator/editorial notes and the title note left out, declared

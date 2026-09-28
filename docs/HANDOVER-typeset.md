@@ -2,7 +2,7 @@
 
 For the next session (Claude Code). Start with `../_handoffs/tlumacz-to-typeset.md` (incoming) and
 `../_handoffs/MB-decisions.md` (the one list of MB's decisions — this file keeps none), per `../CLAUDE.md`. Then this,
-`CLAUDE.md`, and `skills/srom-typeset/SKILL.md`. Outgoing messages: `../_handoffs/typeset-to-tlumacz.md` (T-items).
+`CLAUDE.md`, and `.claude/skills/srom-typeset/SKILL.md`. Outgoing messages: `../_handoffs/typeset-to-tlumacz.md` (T-items).
 Nothing here needs re-deriving; decisions marked ✔ are the editor's and closed.
 
 ## 1. What exists
@@ -23,14 +23,14 @@ Nothing here needs re-deriving; decisions marked ✔ are the editor's and closed
 | InDesign | `indesign/style_spec.json` → `scripts/make_style_setup.py` → `srom_style_setup.jsx` + `references/style-sheet.md` | house style definition and setup script |
 | docs | `references/*.md` | srom-md (format), handoff (contract with srom-tlumacz), indesign, decisions, style-sheet |
 
-Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 14/14` (~330 checks). Unlazy ledger: `GATES.md`
-(G1–G16 met; G12 = InDesign import, abandoned here: needs the editor or a machine with InDesign).
+Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 14/14` (~330 checks). Unlazy ledger: `/GATES.md`, batches from
+26.09.2026 on (the older G1–G16 ledger was lost, § 3 item 1; its G12, the InDesign import, is stage 3 / D3).
 
 ## 2. Decisions register (`references/decisions.md`)
 
 ✔ closed by the editor: 1–19 — **since 26.09.2026 in Kanon v1.6** (srom-kanon `references/kanon-redakcyjny.md`,
 § 17 row 1.6); `decisions.md` is now only a rule → code → test map plus toolchain conventions (15, 18, 19).
-○ open: 20, 21, 22 → `MB-decisions.md` D1, D3, D2.
+○ open: 21 → `MB-decisions.md` D3. 20 and 22 ✔ decided 27.09.2026 (D1, D2: as implemented).
 
 ## 3. Queue for Claude (in order)
 
@@ -46,14 +46,14 @@ Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 14/14` (~330 checks). Unla
    srom-typeset: bundled linter removed, `scripts/kanon_path.py` finds srom-kanon, `tests/test_kanon.py` checks
    versions and that every § cited exists. srom-typeset's § references were Kanon numbers all along — no renumbering.
 3. ~~**E8**~~ — done 26.09.2026 (§6 below: editor ruled *above* the numbered notes, set by hand; style = footnotes).
-**Order of work (MB 27.09.2026, `MB-decisions.md` D3/D7):** stage 1 (source PDF/Word → SROM-MD → Word working
+**Order of work (MB 27.09.2026; D3 still open, D7 resolved):** stage 1 (source PDF/Word → SROM-MD → Word working
 copy) and stage 2 (translation, srom-tlumacz) are finished and tested first; stage 3 (build for InDesign, styles,
 G12) after.
 
 4. **Stage-1 test on MB's PDF** — done 27.09.2026, waiting for MB's answers. Article: Ndiaye, "Black Roma" (RQ 75,
    2022), `work/ndiaye/` (git-ignored). Stage 1 complete: `ndiaye_src.md` (133 notes keyed, `check.py --keyed` OK),
    `refs.json` (84, `cite_map audit` OK), `ndiaye_src_robocza.docx` (round trip identical), `build/…_korekta.docx`
-   (`build.py --source`, 0 issues). Open: `work/ndiaye/ndiaye_queries.md` Q1–Q17 (MB). Keying is scripted in
+   (`build.py --source`, 0 issues). `work/ndiaye/ndiaye_queries.md` Q1–Q17: answered by MB 28.09.2026, applied. Keying is scripted in
    `work/ndiaye/key.py` (re-run after any change to the extraction); refs in `refs.py`.
    What the PDF broke, all fixed with tests (commits d62b8b5 … 214da89): obfuscated italic font names, raised
    note-number lines, caps headings below body size, front matter, title note, verse, captions, reference list at
@@ -71,10 +71,18 @@ G12) after.
    Roma: Afro-Romani"). E15: one title-note block per article (contract; check.py error), pending MB D12. E14:
    Romni/gadjo and early-modern "Egyptians" → MB D13. Ruggle title ". . ." → `[…]` in `work/ndiaye/refs.py`
    (refs.json re-generated; T14 gives the new sha256). MB decided D12–D14 the same day (T15): one title note; Romka/Romki, gadjo kept, „Egipcjanie” (kartoteka); Kanon v1.7. Waiting: srom-tlumacz's side of T14/T15.
+   28.09.2026, after the cross-module review (`../_handoffs/review-28.09.2026.md`): E16 fixed (Word round trip
+   re-joins multi-paragraph blocks; comment before punctuation; `::: mowca` line break) → T16; MB's
+   `ndiaye_robocza_v2.docx` imports to pair CHECK OK and builds with 0 errors. Docs aligned with the contract
+   (comments never block), scenario C / T11, stale versions (now caught by `test_kanon.py`), D15/D16 from Kanon
+   § 13.2. Gates: `GATES.md` batch 28.09.2026. Not mine, left open: `_handoffs/README.md:18` contract path (whichever
+   session MB asks); stale `srom-kanon.skill` / `srom-typeset.skill` at the repo root (26.09, git-ignored).
    Known, not fixed (minor): `pdf_extract.link_fix` replaces URL text by a link target differing in ≤ 2 characters
    (listed in the report, can pick a sibling URL); range expansion exists twice (`normalize.py` RANGE-FULL,
    `cite_map.expand_ranges`).
-5. **E9 typed notes** (T2): `docx_in.py --typed-notes`, page-aware pairing, never guess; test file
+5. **Next text for translation** (srom-tlumacz HANDOVER § 7a): MB sends it here first — stage 1 (freeze
+   `<id>_src.md` + refs.json + `<id>_src_front.md`, T-item), as with Ndiaye. A DOCX with typed notes needs E9 first.
+   **E9 typed notes** (T2; gates open in `GATES.md`): `docx_in.py --typed-notes`, page-aware pairing, never guess; test file
    `Dom_Communities Stripped Mac copy.docx` in srom-tlumacz's folder (read-only). The Fotta RTF is not a case
    (no notes at all).
 6. ~~Kartoteka E12 flags~~ — done (E13/T9): Nawar, Gurbati, Halabi italic; Mutribowie, Gadżar, Garaczi roman (assimilated).
@@ -137,11 +145,9 @@ Keep two skills, remove the duplication.
   work to srom-typeset's build (which runs the linter).
 - **Keep on purpose**: `tests/test_csl.py` mirrors kanon §7/§9 example strings — it is the drift detector between
   rules and CSL.
-- **Kanon housekeeping for the editor**: the full Polish kanon is no longer in the project, but RULES.md still
-  says "where this file and the canon differ, the canon governs" and "v1.5" — decide which text is normative
-  (RULES.md, or restore the full kanon inside the kanon skill as `references/`), bump the version, and use one
-  section numbering everywhere (E7). Single bibliography division: heading or not — not covered by RULES (we
-  print none).
+- ~~Kanon housekeeping~~ — done 26.09.2026 (§ 3 item 2): the Polish Kanon is normative inside srom-kanon
+  (`references/kanon-redakcyjny.md`), one section numbering everywhere; one bibliography division has no heading
+  (Kanon v1.6).
 
 ## 6. E8 — asterisk series for non-author notes (editor's ruling 25.09.2026) — DONE 26.09.2026
 
@@ -166,5 +172,6 @@ author's notes.
 
 ## 7. Pending for the editor
 
-Moved to `../_handoffs/MB-decisions.md` (27.09.2026): D1 (decision 20), D2 (22), D3 (21, style set), D4 (Kanon
-v1.6 — decided), D7 (first article, G12), D9 (kartoteka). The template as IDML follows D3.
+Only in `../_handoffs/MB-decisions.md`. srom-typeset's open items there: D3 (style set; the template as IDML
+follows it), D15 (licence ND option, kolegium), D16 (vol. 18 copyright clause, before any OA announcement).
+D1, D2, D4, D7, D9, D12–D14 are closed.

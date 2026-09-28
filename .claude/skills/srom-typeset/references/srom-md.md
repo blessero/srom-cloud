@@ -26,7 +26,7 @@ style sets them (kanon §3.3), and `normalize.py` turns stray nbsp into plain sp
 | verse quotation | `> wers pierwszy\` newline `> wers drugi` (backslash = forced line break), or a line block (lines starting with a vertical bar) | quote_verse, line breaks kept; elsewhere a forced break becomes a space (warned) |
 | table | pipe table; title as `Table: Tab. 1. …` under it or a `::: tabela-tytul` div above; source in `::: tabela-zrodlo` below (kanon §10) | table_title, table_cell, table_source — rules and widths from the template's table style |
 | interlinear example (§5.3) | `::: przyklad` with a fenced block: line 1 form, line 2 gloss, line 3 translation, columns aligned with 2+ spaces | example_form / example_gloss / example_trans, columns as real tabs |
-| editor comment | `<!-- … -->` | removed before building; one containing PRZYWRÓCIĆ / DO SPRAWDZENIA / TODO / FIXME **fails the build** until resolved |
+| editor comment | `<!-- … -->` (e.g. PRZYWRÓCIĆ, DO SPRAWDZENIA) | removed before building and listed as a warning in `_report.md`; **never blocks** (`handoff.md`); a Word comment in the working copy |
 
 ## Front matter
 
