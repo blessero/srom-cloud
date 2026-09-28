@@ -147,7 +147,7 @@ Typed by Claude from the author's bibliography and notes, then verified: `cite_m
 |---|---|
 | `id` | `surnameYEAR`, ASCII, lower case; suffix for collisions (`nowak2010b`) |
 | `type` | book, chapter, article-journal, article-newspaper, entry-encyclopedia, thesis, report, webpage, motion_picture, paper-conference |
-| `author` / `editor` / `translator` / `director` | `{"family": "Mróz", "given": "Lech"}` — normal case, never capitals; particles `{"family": "Heusch", "non-dropping-particle": "de"}`; institution `{"literal": "GUS"}` |
+| `author` / `editor` / `translator` / `director` | `{"family": "Mróz", "given": "Lech"}` — normal case, never capitals; particles per Kanon § 9.5 (the name's own language, LC NAF heading): a preposition particle is `dropping-particle` (`{"family": "Fuente", "given": "Alejandro", "dropping-particle": "de la"}` → note "A. de la Fuente", short form "Fuente", bibliography "Fuente, Alejandro de la", sorted under F); an article or fused particle (`La Fontaine`, American `Van Buren`) stays in `family`; Portuguese compound surnames sort under the last element — not expressible in CSL-JSON: keep the full surname in `family` and list the case when the person is a first author; institution `{"literal": "GUS"}` |
 | `title` | as published; Cyrillic transliterated per kanon §9.6; an omission marked in the author's list (". . ." in a long early-modern title) → `[…]` (§ 3.5, § 4.1), the words stay |
 | `title-short` | the short title for later citations, **with** `…` if truncated (`Cyganie na polskich drogach…`) |
 | `original-title` | Polish translation of a foreign title, printed in [ ] |

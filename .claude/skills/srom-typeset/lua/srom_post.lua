@@ -350,7 +350,7 @@ local inline_pass = {
     return out
   end,
   SmallCaps = function(el)
-    -- kanon §9.3: particles stay lower case and outside small caps ("de HEUSCH, Luc")
+    -- kanon §9.3: particles stay lower case and outside small caps ("HEUSCH, Luc de"; placed per § 9.5)
     local t = stringify(el)
     if PARTICLES[t] then return el.content end
     return pandoc.Span(el.content, cstyle(C.smallcaps))

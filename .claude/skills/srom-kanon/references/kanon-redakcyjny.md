@@ -194,6 +194,8 @@ Cyfry arabskie, indeks górny, numeracja ciągła w obrębie artykułu, przypisy
 | Artykuł – tom i zeszyt | S. Płoski, *Relacja von dem Bacha o powstaniu warszawskim*, „Dzieje Najnowsze”, 1947, t. 1, z. 2, s. 310. |
 | Artykuł obcojęzyczny | R.L. Turner, *The position of Romani*, „Journal of the Gypsy Lore Society”, 1926, t. 5, nr 4, s. 145. |
 | Przekład | I. Hancock, *Tytuł*, tłum. J. Nowak, Wydawnictwo, Warszawa 2007, s. 33. |
+| Edycja źródła | F. Paucke, *Tytuł*, red. E. Becker-Donner, Wydawnictwo, Wien 1959, s. 183. |
+| Przekład i redakcja tej samej osoby | J. Nowak, *Tytuł*, tłum. i red. J. Robertson, Wydawnictwo, DeLand 1932, s. 118. |
 | Kolejne wydanie | A. Bartosz, *Tytuł*, wyd. 3 popr., Wydawnictwo, Tarnów 2019, s. 51. |
 | Wielotomowa | A. Kowalski, *Tytuł*, t. 2: *Tytuł tomu*, Wydawnictwo, Kraków 2015, s. 77. |
 | Hasło | A. Nowak, *Romani chib*, w: *Tytuł encyklopedii*, t. 4, Wydawnictwo, Warszawa 2010, s. 221. |
@@ -210,7 +212,8 @@ Zasady wspólne:
 - Strona lub zakres stron – zawsze, gdy przywołuje się określone miejsce dzieła, a bezwzględnie przy cytacie. Odwołanie do dzieła jako całości podaje się bez strony, także bez zakresu stron artykułu (ten podaje bibliografia). Każde takie odwołanie potwierdza redakcja; brak strony przy cytacie jest pytaniem do autora.
 - Lokalizacja inna niż strona – etykieta polska, liczby arabskie: dramat `akt 4, sc. 1, w. 883`; wersy `w. 93–96`; karty starodruków według sygnatur `k. S2r`, `k. D4v`; księga i rozdział `ks. 11, rozdz. 2`.
 - Odesłania: `zob.`, `zob. też`, `por.`; przytoczenie z drugiej ręki – `cyt. za`.
-- Redaktor tomu przed tytułem, gdy cytujemy tom jako całość; po tytule, gdy cytujemy rozdział.
+- Redaktor tomu przed tytułem, gdy cytujemy tom jako całość; po tytule, gdy cytujemy rozdział. Edycja tekstu autora (źródło wydane przez badacza): autor przed tytułem, wydawca naukowy po tytule – `red.`; ta sama osoba jako tłumacz i redaktor – raz, `tłum. i red.`
+- Tekst bez autora w tomie zbiorowym (list, dokument, hasło) – redakcja ustala autora ze spisu treści lub nagłówka tomu; gdy się nie da – opis od tytułu, redaktor tomu po tytule tomu; każdy taki opis trafia do wykazu pytań.
 - **Uwagi o postaci fizycznej i miejscu przechowywania** (maszynopis, rękopis, egzemplarz w bibliotece) – w nawiasie okrągłym **na samym końcu pozycji**.
 
 ### 7.3. Przywołania kolejne
@@ -323,7 +326,7 @@ Każda pozycja z przypisów musi wystąpić w bibliografii – z wyjątkiem poje
 Przecinek zachowuje zgodność z indeksem osobowym tomu (`MIRGA-WÓJTOWICZ, Elżbieta`).
 
 1. **Prawdziwe kapitaliki OpenType** – nie „All Caps”, nie skalowane wersaliki. Krój bez kapitalików: wersaliki pełne, jak w indeksie.
-2. **Tylko nazwisko.** Przedrostki małą literą i bez kapitalików: `de HEUSCH, Luc`. Nazwiska złożone – oba człony. Autor instytucjonalny (urząd, organizacja) – bez kapitalików.
+2. **Tylko nazwisko.** Przedrostki małą literą i bez kapitalików, na miejscu wskazanym w § 9.5: `HEUSCH, Luc de`, `FUENTE, Alejandro de la`, `HIPPEL, Wolfgang von`. Nazwiska złożone – oba człony. Autor instytucjonalny (urząd, organizacja) – bez kapitalików.
 3. **Kapitaliki to styl znakowy, nie dane.** W CSV i w rekordzie deponowanym nazwisko ma postać normalną (`Mróz`).
 
 ### 9.4. Wzorce
@@ -339,6 +342,7 @@ Przecinek zachowuje zgodność z indeksem osobowym tomu (`MIRGA-WÓJTOWICZ, Elż
 | Artykuł | Kołaczek, Małgorzata. *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 211–228. DOI: 10.1234/srom.2012.5.11. |
 | Artykuł – tom i zeszyt | Turner, Ralph L. *The position of Romani*, „Journal of the Gypsy Lore Society”, 1926, t. 5, nr 4, s. 145–189. |
 | Przekład | Hancock, Ian. *Tytuł*, tłum. J. Nowak, Wydawnictwo, Warszawa 2007. |
+| Edycja źródła | Paucke, Florian. *Tytuł*, red. E. Becker-Donner, Wydawnictwo, Wien 1959. |
 | Cyrylica | Demeter, Nadezhda. *Istoriia tsygan*, Nauka, Moskva 2018. |
 | Niepublikowana | Kopańska, Joanna. *Tytuł*, Uniwersytet Jagielloński, Kraków 2018 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej). |
 | Zespół archiwalny | Archiwum Narodowe w Krakowie (ANK), zespół 29/456: Starostwo Powiatowe w Tarnowie, sygn. 1–48. |
@@ -347,6 +351,13 @@ Przecinek zachowuje zgodność z indeksem osobowym tomu (`MIRGA-WÓJTOWICZ, Elż
 
 ### 9.5. Szeregowanie
 Alfabetycznie wg nazwiska pierwszego autora, porządek polski. Ten sam autor – chronologicznie; ten sam autor i rok – alfabetycznie wg tytułu. Prace autorskie przed współautorskimi. Pozycje transliterowane – wg formy transliterowanej.
+
+**Nazwiska z przedrostkiem i nazwiska złożone** – w formie hasła zgodnej ze zwyczajem języka osoby, jak w kartotece haseł wzorcowych Biblioteki Kongresu (LC NAF; także VIAF), i według tej formy szeregowane (tak samo *Chicago Manual of Style*, indeksy i bibliografie):
+- przedrostek-przyimek (niem. `von`, niderl. `van` w Holandii, fr. `de`, hiszp. `de`, `de la`, port. `da`, `dos`) – po imieniu: `Hippel, Wolfgang von`, `Fuente, Alejandro de la`, `Heusch, Luc de`;
+- rodzajnik lub przedrostek zrośnięty z nazwiskiem (fr. `La`, `Le`, `Du`; nazwiska angielskie i amerykańskie: `De Witt`, `Van Buren`) – na początku: `La Fontaine, Jean de`;
+- nazwiska hiszpańskie złożone – pod pierwszym członem (`Gómez Alfaro, Antonio`); portugalskie i brazylijskie – pod ostatnim (`Costa, Elisa Maria Lopes da`);
+- nazwiska islandzkie (patronimiczne) – pod imieniem (`Guðmundur Hálfdanarson`).
+W przypisie pierwszym nazwisko w pełnym brzmieniu (`A. de la Fuente`, `W. von Hippel`); w formie skróconej – bez przedrostka-przyimka (`Fuente`, `Hippel`).
 
 ### 9.6. Cyrylica – transkrypcja i transliteracja
 
@@ -617,6 +628,6 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.4 | Czasopismo określone jako polskojęzyczne; usunięte wersje językowe artykułów (angielska pozostaje jako § 12.1 dla modelu dwujęzycznego); etykiety aparatu zawsze polskie. Daty w aparacie cyframi arabskimi `dd.mm.rrrr`; wyjątek dla aktów prawnych. Przekład tytułu w nawiasie kwadratowym po tytule. Tablice ALA-LC zweryfikowane z LC, uzupełnione o bułgarski i litery sprzed reform; źródła tablic. Kapitaliki dopuszczone w glosach. Spacje nierozdzielające nakładane stylem GREP. Abstrakt do 1000 znaków. |
 | 1.5 | ISO 9 wycofany; ALA-LC także w przykładach językowych. Uzasadnienie ligatur uproszczone. Daty arabskie potwierdzone (miesiące rzymskie odrzucone). |
 | 1.6 | Kanon włączony do narzędzi redakcji (skill srom-kanon) jako tekst normatywny. Słowa kluczowe 5–10; wyliczenia numerowane; bibliografia bez numeracji części, jedna część bez śródtytułu; zniesiony limit ⅓ kolumny dla przypisu rzeczowego; wymogi techniczne ilustracji przeniesione do *Wskazówek dla autorów*. § 0: znaczniki `[BRAK …]`, `b.m.`/`b.r.` tylko przy braku w źródle. § 3.3: spacji nierozdzielających nie przechowuje się w pliku. § 3.4: kursywa odwrócona. § 4.1: cytat wierszowany. § 7.1: odsyłacz także przed przecinkiem, średnikiem, dwukropkiem; przypisy nieautorskie – odrębny ciąg gwiazdkowy nad przypisami numerowanymi; konwersja z systemu autor–data. § 7.2: odwołanie do dzieła jako całości bez strony. § 7.3: długość tytułu skróconego; formy skrócone prac wieloautorskich; ograniczenia `Ibidem`. § 7.4: przypis wieloakapitowy. § 8.6: URL jako tekst. § 9.3: autor instytucjonalny bez kapitalików. § 9.7: zapis ISBN. § 12.2 Artykuły tłumaczone: metadane oryginału (wyjątki od § 1 pkt 8 i 9); § 12.1 nie dla przekładów; nota o przekładzie i wskazanie tłumacza; cytaty w pięciu sytuacjach; terminologia z bazy redakcji, rozstrzygnięcia tomu 18/2025 wiążące; nazwy grup w przekładzie (odstępstwo od § 6.3); przypisy tłumacza; ingerencje; bibliografia przy cytatach z wydań polskich. § 4.2: formuła `[tłum. własne]` nie w przekładach. § 11: `przyp. tłum.`, `przyp. red.` |
-| 1.7 | Rozstrzygnięcia z 27–28.09.2026: § 0: stare druki bez drukarza w adresie – bez znacznika. § 3.2: zakresy liczbowe w pełnym zapisie. § 3.4: egzonimy obce kursywą (wyjątek od zasady nazw własnych), z uzasadnieniem w § 14. § 6.3: kartoteka wzorcowa w pliku `kartoteka.tsv`, egzonimy obce w niej oznaczone. § 7.1: jeden przypis do tytułu – w przekładzie nota o przekładzie, po niej przypis autora do tytułu jako dalszy akapit. § 7.2: lokalizacje inne niż strona; `cyt. za`. § 8.6: data dostępu tylko od autora. § 9.1, § 9.7: ISBN tylko od autora; artykuł bez DOI – URL w bibliografii. § 9.2: cała bibliografia autora. Uzupełnienie 28.09.2026 (MB): § 7.1: rok ze stroną bez nazwiska – dzieło przywołane bezpośrednio przedtem; praca spoza bibliografii autora – wykaz pytań z propozycją opisu. § 8.6: tekst datowany w sieci – data publikacji, ustalana ze strony, gdy jej brak. |
+| 1.7 | Rozstrzygnięcia z 27–28.09.2026: § 0: stare druki bez drukarza w adresie – bez znacznika. § 3.2: zakresy liczbowe w pełnym zapisie. § 3.4: egzonimy obce kursywą (wyjątek od zasady nazw własnych), z uzasadnieniem w § 14. § 6.3: kartoteka wzorcowa w pliku `kartoteka.tsv`, egzonimy obce w niej oznaczone. § 7.1: jeden przypis do tytułu – w przekładzie nota o przekładzie, po niej przypis autora do tytułu jako dalszy akapit. § 7.2: lokalizacje inne niż strona; `cyt. za`. § 8.6: data dostępu tylko od autora. § 9.1, § 9.7: ISBN tylko od autora; artykuł bez DOI – URL w bibliografii. § 9.2: cała bibliografia autora. Uzupełnienie 28.09.2026 (MB): § 7.1: rok ze stroną bez nazwiska – dzieło przywołane bezpośrednio przedtem; praca spoza bibliografii autora – wykaz pytań z propozycją opisu. § 8.6: tekst datowany w sieci – data publikacji, ustalana ze strony, gdy jej brak. Uzupełnienie 28.09.2026 (MB, tekst Ostendorf): § 7.2, § 9.4: edycja źródła – wydawca naukowy po tytule (`red.`), tłumacz i redaktor w jednej osobie – `tłum. i red.`; tekst bez autora w tomie zbiorowym – autor ustalany przez redakcję, inaczej opis od tytułu i pytanie. § 9.3, § 9.5: nazwiska z przedrostkiem i złożone – forma hasła wg zwyczaju języka osoby (LC NAF). |
 
 Zmiany wchodzą w życie od kolejnego tomu. Tomy opublikowane nie podlegają retroaktywnemu ujednoliceniu.

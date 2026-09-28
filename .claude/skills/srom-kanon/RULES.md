@@ -88,12 +88,14 @@ Superscript arabic, continuous, foot of page. Marker **before the period, comma,
 | Article | `M. Kołaczek, *Tytuł*, „Studia Romologica”, 2012, nr 5, s. 217.` |
 | Article vol+issue | `S. Płoski, *Tytuł*, „Dzieje Najnowsze”, 1947, t. 1, z. 2, s. 310.` |
 | Translation | `I. Hancock, *Tytuł*, tłum. J. Nowak, Wydawnictwo, Warszawa 2007, s. 33.` |
+| Edition of a source | `F. Paucke, *Tytuł*, red. E. Becker-Donner, Wydawnictwo, Wien 1959, s. 183.` |
+| Translator = editor | `J. Nowak, *Tytuł*, tłum. i red. J. Robertson, Wydawnictwo, DeLand 1932, s. 118.` |
 | Edition | `A. Bartosz, *Tytuł*, wyd. 3 popr., Wydawnictwo, Tarnów 2019, s. 51.` |
 | Multivolume | `A. Kowalski, *Tytuł*, t. 2: *Tytuł tomu*, …, s. 77.` |
 | Foreign imprint | `A. Marsh, *Ethnicity and Identity*, w: *We are Here*, red. E. Uzpeder, EDROM, Istanbul 2008, s. 21.` |
 | Unpublished | `J. Kopańska, *Tytuł*, Uniwersytet Jagielloński, Kraków 2018, s. 60 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej).` |
 
-Initial + surname (`R.L. Turner`). Publisher before place; no comma between place and year. **Imprint place as on title page, not Polonised**; Cyrillic imprints in ALA-LC (Polish exonyms stay in body prose). Publishers in original. Labels always Polish. `w:` unbracketed. Editor before title for whole volumes, after for chapters. **Physical-form/location notes in round brackets at the very end.**
+Initial + surname (`R.L. Turner`). Publisher before place; no comma between place and year. **Imprint place as on title page, not Polonised**; Cyrillic imprints in ALA-LC (Polish exonyms stay in body prose). Publishers in original. Labels always Polish. `w:` unbracketed. Editor before title for whole volumes, after for chapters; a scholarly editor of an author's text after the title (`red.`); translator and editor the same people once (`tłum. i red.`). An unsigned text in a collection: the editors establish the author (volume's contents, heading), else title first and a query. **Physical-form/location notes in round brackets at the very end.**
 **Non-page locators** (§ 7.2): Polish labels, arabic numerals — `akt 4, sc. 1, w. 883`, `w. 93–96`, signatures `k. S2r`, `ks. 11, rozdz. 2`. Lead-ins `zob.`, `zob. też`, `por.`; second-hand `cyt. za`.
 
 **Locator:** always when a specific place is cited, without exception for a quotation. A reference to the work as a whole has no page (and no article page range — the bibliography has it); the editor confirms each; a quotation without a page is a query to the author.
@@ -137,8 +139,8 @@ Same construction as the note, four differences only: **`Surname, Given-name.`**
 | Informant | `W12 – mężczyzna, ur. 1951, Polska Roma, Tarnów, wywiad 14.06.2019; nagranie: Archiwum MET, sygn. AT/W/12.` |
 
 **9.2 Divisions**, in this order, only those present, headed but **unnumbered**; a bibliography with a single division has no division heading: Abbreviations · Archives (fonds level) · Fieldwork · Printed/legal · Web without DOI · Literature. Coverage: every cited work, except single archival units, single press issues, one-off legal acts; and the author's whole bibliography, cited or not.
-**9.3 Small caps:** genuine OpenType (fallback: full caps, as in the index); surname only; particles lowercase and outside small caps (`de HEUSCH, Luc`); institutional authors not in small caps. **Character style, never data.** Comma kept for consistency with the volume index.
-**9.5 Order:** Polish collation by transliterated form; same author chronological, then by title; sole-author works before co-authored.
+**9.3 Small caps:** genuine OpenType (fallback: full caps, as in the index); surname only; particles lowercase and outside small caps, placed as § 9.5 says (`HEUSCH, Luc de`); institutional authors not in small caps. **Character style, never data.** Comma kept for consistency with the volume index.
+**9.5 Order:** Polish collation by transliterated form; same author chronological, then by title; sole-author works before co-authored. **Particles and compound surnames:** the heading form of the name's own language, as in LC NAF/VIAF (also Chicago): preposition particles after the given name (`Hippel, Wolfgang von`, `Fuente, Alejandro de la`, `Heusch, Luc de`); articles and fused particles first (`La Fontaine`, English/American `De Witt`, `Van Buren`); Spanish compounds under the first element, Portuguese/Brazilian under the last (`Costa, Elisa Maria Lopes da`); Icelandic under the forename. First note: full form (`A. de la Fuente`); short form without the preposition particle (`Fuente`).
 **9.7 Identifiers:** DOI mandatory where one exists, printed `DOI: 10.1234/abcd` (no `https://doi.org/`). An article without DOI (online journal): its URL in the bibliography in the DOI's place. ISBN only in the bibliography and only when the author gives it (not added), printed `ISBN 978-…` without a colon.
 
 ### 9.6. Cyrillic

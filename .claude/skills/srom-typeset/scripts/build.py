@@ -527,6 +527,9 @@ def write_queries(outdir, stem, nopage, notes, refs, cited, printed, cite_count,
         if r.get("type") in ("webpage", "post", "post-weblog") and len(dp) < 3 and not r.get("srom-undated"):
             rows.append(("redakcja", "tekst w sieci bez pełnej daty publikacji — ustalić ze strony (§ 8.6; lookup.py webdate); "
                          "strona bez daty: \"srom-undated\": true", "", k, r.get("URL", "")))
+        if r.get("type") in ("chapter", "paper-conference", "entry-encyclopedia", "entry-dictionary") and not r.get("author"):
+            rows.append(("redakcja", "tekst bez autora w tomie zbiorowym — ustalić autora ze spisu treści lub nagłówka tomu "
+                         "(§ 7.2); do tego czasu opis od tytułu", "", k, cut(r.get("title", ""))))
         if cite_count[k] >= 2 and not r.get("title-short") and len((r.get("title") or "").split()) > 5:
             rows.append(("redakcja", "długi tytuł bez formy skróconej (title-short) — ustalić (§7.3)", "", k, cut(r.get("title", ""))))
     import csv

@@ -159,6 +159,13 @@ json.dump([{"id": "bezmiejsca", "type": "book", "author": [{"family": "Nowak", "
 code, out, stem, rep = build(md_text="Tekst[^1].\n\n[^1]: [@bezmiejsca, s. 3].\n", refs=noplace)
 q = open(os.path.join(out, stem + "_pytania.md"), encoding="utf-8").read()
 check("missing place of publication -> [BRAK MIEJSCA] stops the build, author asked", code == 1 and "[BRAK MIEJSCA]" in rep and "bezmiejsca" in q, rep[:700] + q)
+unsigned = os.path.join(tempfile.mkdtemp(), "us.json")
+json.dump([{"id": "list1900", "type": "chapter", "title": "Lettre au Père", "container-title": "Relations", "editor": [{"family": "Thwaites", "given": "Reuben"}],
+            "publisher": "Burrows", "publisher-place": "Cleveland", "issued": {"date-parts": [[1900]]}}], open(unsigned, "w"), ensure_ascii=False)
+code, out, stem, rep = build(md_text="Tekst[^1].\n\n[^1]: [@list1900, s. 314].\n", refs=unsigned)
+q = open(os.path.join(out, stem + "_pytania.md"), encoding="utf-8").read()
+check("unsigned text in a collection: builds title-first, listed for the editors to establish the author (§ 7.2)",
+      code == 0 and "tekst bez autora w tomie zbiorowym" in q and "list1900" in q, q + rep[:400])
 tagged = os.path.join(tempfile.mkdtemp(), "tg.json")
 json.dump([{"id": "tagged", "type": "thesis", "author": [{"family": "Nowak", "given": "Jan"}], "title": "Tożsamość w Anglii, <i>c.</i> 1607–1623",
             "publisher": "Uniwersytet", "issued": {"date-parts": [[2023]]}}], open(tagged, "w"), ensure_ascii=False)
@@ -189,7 +196,7 @@ code, out, stem, rep = build(md_text="Cytat „z polskiego oryginału”[^1]. <!
 check("comments never block (PRZYWRÓCIĆ included); listed; the citation inside is not counted", code == 0 and "PRZYWRÓCIĆ" in rep and "footnotes: 1 " in rep, rep[:900])
 
 pref = os.path.join(tempfile.mkdtemp(), "p.json")
-json.dump([{"id": "heusch1966", "type": "book", "author": [{"family": "Heusch", "given": "Luc", "non-dropping-particle": "de"}],
+json.dump([{"id": "heusch1966", "type": "book", "author": [{"family": "Heusch", "given": "Luc", "dropping-particle": "de"}],
             "title": "À la découverte des Tsiganes", "publisher": "Institut de Sociologie", "publisher-place": "Bruxelles", "issued": {"date-parts": [[1966]]}},
            {"id": "gus2022", "type": "report", "author": [{"literal": "Główny Urząd Statystyczny"}], "title": "Raport",
             "publisher": "GUS", "publisher-place": "Warszawa", "issued": {"date-parts": [[2022]]}}], open(pref, "w"), ensure_ascii=False)
