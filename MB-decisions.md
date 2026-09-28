@@ -9,7 +9,7 @@ Rules:
   concern no single text go under `## Journal-wide` or `## Tooling and workflow`. An item about two texts goes in
   each text's section as a one-line pointer to the full item. Remove a text's section when it is empty.
 - New item: `### D<n> — <subject> (dd.mm.yyyy HH:MM, <module>)`, then the question, the options, the module's
-  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D19**.
+  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D20**.
 - A partial answer (item still open) is a new line under the item: `- dd.mm.yyyy HH:MM DECIDED: … (MB)`.
 - Times (from 28.09.2026 16:45) are local time from the machine clock (`date '+%d.%m.%Y %H:%M'`); older entries
   keep their date only.
@@ -18,6 +18,8 @@ Rules:
 ## Needs MB now
 - **Pahulich:** D17 — nothing in it blocks the translation.
 - **Scheffknecht:** D18 — German stage-1 test.
+- **Ostendorf:** D19 — A1 (rights: CUP, not open access) decides whether the translation starts; the rest blocks
+  typesetting only.
 
 ## Text: Pahulich — CRS 8/1 (2025)
 Stage 1 done, source with srom-tlumacz (T18).
@@ -58,6 +60,33 @@ Stage 1 done, source frozen in `srom-typeset/work/scheffknecht/`; **not handed t
 - A7 a stray raised "1" after the text's last word: delete (recommended) or ask the author. A8 early printed lists held in
   archives stay literal (recommended).
 - B1–B7 slips in the author's data kept as written ("approve B" = all proposals).
+- 28.09.2026 17:35 pointer (srom-typeset): A3 and A5 recur for Ostendorf — D19 A2 (places/publishers, CUP Chicago
+  style) and D19 A4 (particles, sorting); one decision for both.
+
+## Text: Ostendorf — The Romani Atlantic, ch. 3 (CUP 2026)
+Stage 1 done, source with srom-tlumacz (T19), rights pending (D19 A1).
+
+### D19 — Ostendorf, "Familiar Outsiders Abroad" (The Romani Atlantic, CUP 2026), stage 1: open points (28.09.2026 17:35, srom-typeset)
+Source frozen in `srom-typeset/work/ostendorf/` and handed to srom-tlumacz (T19). Detail, evidence and proposals:
+`srom-typeset/work/ostendorf/ostendorf_queries.md` (A–D).
+- A1 **rights: © Cambridge University Press, not open access** (Cambridge Core terms; no licence). Permission of CUP and
+  the author needed (Kanon § 12.2.3 (2): basis of consent in the translation note). Recommendation: ask now; you decide
+  whether srom-tlumacz starts before permission. Blocks publication (and the translation, if you say so).
+- A2 **place missing in 44 works, publisher in 14** (58 of 83; CUP's Chicago notes: publisher without place, old works
+  place without publisher) → `[BRAK …]`. Same as D18 A3. Recommendation: the sourcing step (catalogue lookup, item by item
+  for your approval) for both texts.
+- A3 two printing conventions with no Kanon line, implemented provisionally because the CSL dropped data (`decisions.md`
+  23): an edition of a source prints its editor after the title (`red.`; "trans. and ed." → `tłum. i red.`); a chapter
+  without an author (a letter in an edited volume) opens with its title, the volume's editor after the volume title.
+  Recommendation: approve, then a line each in Kanon § 7.2 (alternative for editions: `oprac.`).
+- A4 particles and sorting ("de la Fuente" under D; "A Gentleman of Elvas" and titles "A …" under A): decide with D18 A5.
+- A5 the original is a book chapter (Kanon § 12.2 and the master CSV assume a journal article): curator check before the
+  record; no abstract/keywords in the original → translator drafts both, author approves the English (§ 12.2.2).
+- B1–B10 slips in the author's data, several verified (Galletti "Hispanoaméria"; Fotta's year/pages are FirstView;
+  note 26 is a letter **by** du Poisson, checked in Thwaites vol. 67; "Cambell" → Campbell; "New Granada" → Grenada;
+  "Braumuller University"; "de Litoral"; "Notes and Documents:"): kept as written; "approve B" = all proposals.
+- D1–D5 questions to the author: 1747 vs 1745 and whose journey (Moreno Alonso, text vs note 25); Penn 1686 vs 1683
+  (note 35); Fotta's print pages; Urlsperger "erster" vs vol. 3; Tucker's volume.
 
 ## Journal-wide (policy, not tied to one text)
 

@@ -295,3 +295,32 @@ kartoteka go through `_handoffs/`, like the Kanon.
   author's note), notes renumber from 2 on (145); B/C — refs.json fields only (tokens and keys stay); A1 — the
   original is **CC BY-NC 4.0** (Crossref), MB decides on consent/NC before publication (your translation note's
   licence line). Any change comes as a new T-item with new sha256.
+
+## T19 — source ready: Ostendorf, "Familiar Outsiders Abroad" (The Romani Atlantic, CUP 2026, ch. 3) (28.09.2026 17:40)
+
+- 28.09.2026 status: ready for you, **rights pending** — please confirm receipt with a status line; queries go in an
+  E-item. The chapter is © Cambridge University Press, not open access: MB decides (`MB-decisions.md` D19 A1) whether you
+  start before CUP and the author give permission. Nothing else in D19 blocks the translation.
+- Files (read-only for you; `srom-typeset/work/ostendorf/`, git-ignored), sha256:
+  `ostendorf_src.md` 66aa4b80…710e5ae (text, 5 sections, 62 notes: 54 keyed, 2 of them partly literal; 8 literal),
+  `refs.json` 81e15276…c25dca5 (83 works, typed from the notes: the chapter has no bibliography),
+  `ostendorf_src_front.md` 3c6ffd4b…b926eec (title with subtitle, author, the book line from Crossref; **no abstract, no
+  keywords, no affiliation** in the original → Kanon § 12.2.2: you draft abstract and keywords, Polish and English; the
+  author approves the English). For reference: `build/ostendorf_src_korekta.docx` (the Polish apparatus as it will
+  print), `ostendorf_queries.md` (MB's points, verified slips, questions to the author).
+- The original: a book chapter with Chicago full notes, labels = printed numbers 1–62, no title note (your translation
+  note is the only one; the first-edition description needs the place of publication, D19 A2/A5).
+- Checks at hand-off: `check.py --keyed` OK (now reading Chicago pages), `check.py` OK, `--pair` with itself OK, Word
+  round trip identical (bar the two comments), every word and number of the PDF in the extraction (its text layer had no
+  digits and no small capitals; the digits were verified against the PDF's link targets).
+- Literal notes (Kanon § 8): archival 29, 32 and the first half of 30; press 49, 50, 52, 53, 54, 59 (19th-century US
+  newspapers — the § 8.3 date form is yours); note 14 keeps the URL of the digitised Schmidl manuscript. Author's prose
+  inside notes: 11, 12, 14, 38; lead-ins in 5, 11, 52 ("see" → zob.).
+- Two comments in the text (DO SPRAWDZENIA, D1 and D2 of the queries): the year of Moreno Alonso's "journey" (1747 vs
+  "1745" in note 25) and Penn's "1686 promotional tract" (note 35: 1683). Translate as printed until the author answers.
+- Group names: the author italicises *Bohémiens*, *Zigeuner* but not Gitanos/Ciganos (italic in the kartoteka, T6). Not in
+  the kartoteka: *cingani*, *Zingaros*/*Zingari*, *Zingances*, *Chinganéros*, *Bohemes*, "Gipsies" (variant),
+  "Anglo-Romani" — yours to settle before delivery (§ 12.2.6), via E-items. Early-modern "Egyptians" → „Egipcjanie” (D13).
+- May still change after MB: B-items (refs.json fields only; tokens and keys stay — except B3, note 26, where the key
+  `poisson1900` stays and gains an author), A2 (places/publishers filled in refs.json), A3 (how an edition's editor
+  prints). Any change comes as a new T-item with new sha256.
