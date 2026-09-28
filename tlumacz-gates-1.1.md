@@ -21,6 +21,7 @@ Scope: fix every interface later leaves depend on — plan, termbase schema and 
   CHECK: python3 tlumacz-check_tb.py --precedent
   EXPECT: precedent verified: 4/4
   EVIDENCE: precedent verified: 4/4
+  NOTE 28.09.2026: a re-run now gives 11/11 (rows added in 1.3.1): drift in a file meant to change. Gate closed as of 26.09.2026.
 
 - [x] G5: every ESTABLISHED row cites at least two sources
   CHECK: python3 tlumacz-check_tb.py --evidence
@@ -46,6 +47,7 @@ Scope: fix every interface later leaves depend on — plan, termbase schema and 
   CHECK: python3 "$(python3 tlumacz_paths.py srom-kanon)/scripts/lint_srom.py" kanon-12-2-przeklady-PROJEKT.md --json | python3 -c "import json,sys; d=json.load(sys.stdin); print('lint errors:', sum(i['severity']=='ERROR' for i in d['issues']))"
   EXPECT: lint errors: 0
   EVIDENCE: lint errors: 0
+  NOTE 28.09.2026: a re-run now gives 1 ERROR: the draft is superseded (Kanon v1.6 § 12.2) and the linter has changed since. Gate closed as of 24.09.2026.
 
 - [x] G10: manual — § 12.2 read adversarially against kanon v1.5 for conflicts; every conflict either resolved in the draft or listed as ▲
   EVIDENCE: first pass fixed 7 conflicts (§ 1 pkt 9, § 6.3 ×2, § 7.1, § 4.3 main-text additions, § 12.1, § 6.1 quote register) and added bibliography for case a. Review pass added: scope limited to English originals (metadata rules assume an English title); CC BY attribution completed (licence URI, copyright notice); several Polish translations of one work (▲ 12); field-material formula in case c; identity rule for first use; Polish-edition terminology kept in quotations. Lint 0 ERROR after edits; open items measured: 12. 25.09.2026: MB's rulings written in; asterisk series for translator notes stated as an exception to § 7.1; 3 open items remain (3, 6, 7); lint 0 ERROR. Later 25.09.2026: items 3, 6, 7 ruled; non-author notes (title, translator, editorial) as one asterisk series; `przyp. red.` added to § 11; 0 open items; lint 0 ERROR.

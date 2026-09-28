@@ -26,6 +26,7 @@ Scope: receive the source, answer T11 (front matter both ways), survey what the 
   CHECK: grep -c '^## D11 ' ../_handoffs/MB-decisions.md
   EXPECT: /^1$/m
   EVIDENCE: 1
+  NOTE 28.09.2026: a re-run now gives 0: D11 was answered and removed from MB-decisions.md, as its rules require. Gate closed as of 28.09.2026.
 
 - [x] G6: receipt and front-matter format sent to srom-typeset
   CHECK: grep -c -E '^## E14 |^- T12 — 28.09.2026 status: received' ../_handoffs/tlumacz-to-typeset.md

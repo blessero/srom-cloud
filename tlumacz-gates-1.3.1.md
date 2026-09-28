@@ -33,6 +33,7 @@ Harvest rule (declared): group names = capitalised tokens in the English texts t
   CHECK: grep -c '^## D8 ' ../_handoffs/MB-decisions.md
   EXPECT: /^1$/m
   EVIDENCE: 1
+  NOTE 28.09.2026: a re-run now gives 0: D8 was answered and removed from MB-decisions.md, as its rules require. Gate closed as of 27.09.2026.
 
 - [x] G7: kartoteka seed passed to srom-typeset (Kanon/kartoteka are edited only there)
   CHECK: grep -c '^## E11 ' ../_handoffs/tlumacz-to-typeset.md

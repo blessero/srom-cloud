@@ -16,6 +16,10 @@ _T = os.environ.get("SROM_TYPESET") or skill_dir("srom-typeset")
 S = os.path.join(_T, "scripts") if _T and os.path.exists(os.path.join(_T, "scripts", "check.py")) else None
 if not S:
     print("srom-typeset not found (set SROM_TYPESET)"); sys.exit(2)
+try:
+    import docx  # noqa: F401  srom-typeset's scripts run under this interpreter (sys.executable)
+except ImportError:
+    print(f"python-docx missing for {sys.executable}: run with ~/.venvs/srom/bin/python"); sys.exit(2)
 D = tempfile.mkdtemp()
 
 
@@ -161,6 +165,37 @@ rc, out = front(FPL.replace("; Molière\n\n# Keywords", "\n\n# Keywords"))
 expect("T11: four keywords fail (5–10)", rc == 1 and "4 keywords" in out)
 rc, out = front(FPL.replace("<!-- do zatwierdzenia przez autora -->\n", ""))
 expect("T11: drafted English keywords without the approval line fail", rc == 1 and "do zatwierdzenia" in out)
+
+# E3, E5 (27.09.2026, T1): contract text only — the literal-note rule and the terminology slot with the fixed CLI
+expect("E3: handoff.md keeps the literal-note rule (kanon § 8: fol. → k., file → sygn., fond → zespół)",
+       "Literal notes" in HO and "fol. → k., file → sygn., fond → zespół" in HO)
+expect("E5: handoff.md keeps the terminology slot with the fixed tb_check.py CLI",
+       "tb_check.py <id>_src.md <id>_pl.md --tb tlumacz-tb.tsv --csv <id>_pytania_tb.csv" in HO)
+
+# E6 (27.09.2026, T1): query rows name the source note label; build.py --pair-src turns it into the printed number.
+# A case where the three differ: a citation in the main text takes printed note 1, and two translator notes (no
+# number, * series) shift the labels after the Word round trip. Source label 3 -> target label 5 -> printed 4.
+SRC6 = w("src6.md", "Intro [@fic1989, s. 3] text.[^1] More.[^2] End.[^3]\n\n[^1]: First.\n\n[^2]: Second.\n\n[^3]: Third.\n")
+PL6 = w("pl6.md", "Wstęp [@fic1989, s. 3] tekst[^1]. Dalej[^t1][^2]. Koniec[^t2][^3].\n\n[^1]: Pierwszy.\n\n"
+                  "[^t1]: Uwaga – przyp. tłum.\n\n[^2]: Drugi.\n\n[^t2]: Druga uwaga – przyp. tłum.\n\n[^3]: Trzeci.\n")
+Q6 = w("q6.csv", "\ufeffadresat;rodzaj;przypis;dzieło;szczegóły\nautor;q-two;2;;x\nautor;q-three;3;;y\nredakcja;q-body;;;akapit 1\n")
+pl6_docx = os.path.join(D, "pl6_robocza.docx"); pl6_back = os.path.join(D, "pl6_back.md")
+subprocess.run([sys.executable, os.path.join(S, "export_work.py"), PL6, "-o", pl6_docx], capture_output=True)
+subprocess.run([sys.executable, os.path.join(S, "docx_in.py"), pl6_docx, "-o", pl6_back], capture_output=True)
+back6 = open(pl6_back, encoding="utf-8").read() if os.path.exists(pl6_back) else ""
+rc, out = pair(SRC6, pl6_back) if back6 else (9, "no round-trip file")
+expect("E6: fixture survives the Word round trip (labels renumbered, CHECK OK)", rc == 0 and "[^5]: Trzeci." in back6)
+def rows6(extra):
+    od = tempfile.mkdtemp(dir=D)
+    subprocess.run([sys.executable, os.path.join(S, "build.py"), pl6_back, "--refs", REFS, "--out", od, "--queries", Q6,
+                    "--draft"] + extra, capture_output=True, text=True)
+    f = next(iter(glob.glob(os.path.join(od, "*_pytania.csv"))), None)
+    return {r.split(";")[1]: r.split(";")[2] for r in open(f, encoding="utf-8-sig").read().splitlines()[1:]} if f else {}
+m = rows6(["--pair-src", SRC6])
+expect("E6: --pair-src maps source labels 2, 3 to printed 3, 4; a row without a label stays empty",
+       m.get("q-two") == "3" and m.get("q-three") == "4" and m.get("q-body") == "")
+m0 = rows6([])
+expect("E6 control: without --pair-src the cells keep the source labels 2, 3", m0.get("q-two") == "2" and m0.get("q-three") == "3")
 
 # KNOWN GAPS (requests E1, E2, E4): these should flip when srom-typeset changes
 rc, out = pair(w("ex_s.md", "A.\n\n::: przyklad\n```\nme dikhav o kher\nI see.1SG DEF house\n'I see the house'\n```\n:::\n\nB.\n"),

@@ -9,17 +9,21 @@ You are building and running **srom-tlumacz**, the EN→PL translation module fo
 4. If MB asks "what's pending / what next", answer from HANDOVER.md § Pending and § Next — his items first, then yours.
 
 ## Checks
-    python3 tlumacz-check_tb.py --schema --shape --vocab --precedent --evidence
-    python3 tlumacz-check_tb.py --selftest
-    python3 tlumacz-test_handoff.py
-    node "$(python3 tlumacz_paths.py unlazy)/scripts/gate-check.mjs" --run tlumacz-gates-1.1.md
-(gate-check drops the first file argument unless a flag precedes it — keep `--run` first.)
+    ~/.venvs/srom/bin/python tlumacz-check_tb.py --schema --shape --vocab --precedent --evidence
+    ~/.venvs/srom/bin/python tlumacz-check_tb.py --selftest
+    ~/.venvs/srom/bin/python tlumacz-test_handoff.py
+Use the venv (srom-typeset's interpreter, with python-docx): the handoff test runs srom-typeset's scripts under the
+interpreter that runs it. `python3` is whatever comes first on PATH (miniconda 3.13 today; /usr/bin/python3 is 3.9
+without python-docx, and the test then stops with a message).
+gate-check is not a standing check: `--run` re-runs only unticked gates, so on a closed leaf "ALL MET" re-measures
+nothing. Use it to close a leaf (`gate-check.mjs --run <file>`; keep `--run` first, or the first file is dropped).
 
 ## Working rules
 - **Language:** reply in the language MB writes in. Internal analysis in English. Polish deliverables (translations, kanon text, letters) in the elevated register of Polish academic and editorial writing.
 - **Style with MB:** conclusions first, terse, no re-explaining settled decisions. Candid critique; flag your own errors and limits plainly. When MB says "explain" or "don't get it", use very plain language.
 - **Never fabricate.** Bibliographic and historical claims need two independent sources before delivery. Missing data is flagged (`[BRAK …]`), never reconstructed. No invented "official" Polish names for institutions, offices or acts.
-- **unlazy discipline:** every leaf of the plan starts by writing its gates file (`tlumacz-gates-<leaf>.md`), and ends only when gate-check reports ALL MET. Numbers in reports are measured, not estimated.
+- **unlazy discipline:** every leaf of the plan starts by writing its gates file (`tlumacz-gates-<leaf>.md`), and ends only when gate-check reports ALL MET. Numbers in reports are measured, not estimated. A gate's CHECK tests what the leaf produced, not files meant to change later (`MB-decisions.md`, row counts of the termbase, drafts that will be superseded): those drift and the closed gate stops holding.
+- **git:** this folder is a git repository (since 28.09.2026). Commit at the end of each piece of work; `.gitignore` says what is left out and where its sha256 is.
 - **Ownership:** write only this folder's files (table in `tlumacz-PLAN.md` § Contract). Never edit srom-typeset, srom-kanon or srom-scholarly-curator files; messages to them go in `../_handoffs/tlumacz-to-typeset.md` (rules: `../_handoffs/README.md`; the one shared folder this module writes to).
 - **Blind baseline (leaf 1.2):** closed 27.09.2026 (11/11). Drafts and hashes stay in `tlumacz-baseline-1.2/`; do not edit them (they are the reference for leaf 1.5.1).
 - **Translation-time rules** (full list in PLAN § IF-KANON and Kanon v1.7 § 12.2, in the srom-kanon skill: `references/kanon-redakcyjny.md` — the Kanon governs): termbase HOUSE rows are binding; tie-break per `tlumacz-tb-schema.md`; errors in the source go to the query sheet, never silently fixed; quotes from works with a Polish edition use that edition. The translator's name goes in YAML front matter `tlumaczenie:` at the top of `<id>_pl.md` (never as a body paragraph). Group names: the kartoteka in srom-kanon (`references/kartoteka.tsv`) governs; place names: candidates from `sources/prng/`, chosen per passage.

@@ -4,13 +4,15 @@ Pliki: `ndiaye_pl.md` (tekst, 133 przypisy + 2 przypisy tłumacza + 1 przypis ty
 
 ## 1. Do uzupełnienia przez MB — strony i brzmienie wydań polskich (znaczniki `DO SPRAWDZENIA` w tekście)
 
-- S1 – przyp. 44 i tekst przed nim: *Chory z urojenia*, intermedium I. Przekładu Boya nie ma w Wolnych Lekturach — w tekście **przekład roboczy z francuskiego**; podmienić na brzmienie Boya, dopisać wydanie i stronę.
-- S2 – przyp. 49: *Szelmostwa Skapena*, akt III (Zerbineta): „bandy Cyganów, z tych, co to wałęsając się…” — strona.
-- S3 – przyp. 50: akt I: „małe nieporozumienie”, „Bardzo się brzydko obszedł ze mną” — strona.
-- S4 – przyp. 51: akt I: „trzy lata galer mniej czy więcej…” — strona.
-- S5 – przyp. 68: akt III, scena z workiem: „Baczność! Oto znów jakaś podejrzana figura” — strona.
-- S6 – przyp. 69: akt II, Skapen do Leandra: „nie ma pomiędzy nim a panem ani cienia podobieństwa…” — strona.
-- S7 – przyp. 112 i tekst przed nim: C. P. Hong, *Pomniejsze uczucia*, tłum. A. Zano, Tajfuny 2024 — **brzmienie i strona** (w tekście przekład roboczy z angielskiego; oryginał s. 198).
+**Ta lista jest jedynym zabezpieczeniem.** Komentarze nie zatrzymują kompilacji (`handoff.md`: komentarze niczego nie blokują; `build.py` usuwa je z ostrzeżeniem i kończy się wynikiem PASS). W kopii roboczej Worda stają się komentarzami Worda, a po imporcie znikają z tekstu i zostają tylko w raporcie importu. Pozycja jest zamknięta dopiero wtedy, gdy MB ją rozstrzygnie: wtedy „otwarte” → „zamknięte dd.mm.rrrr (MB)”. Stan 28.09.2026: 7 otwartych.
+
+- S1 [otwarte] – przyp. 44 i tekst przed nim: *Chory z urojenia*, intermedium I. Przekładu Boya nie ma w Wolnych Lekturach — w tekście **przekład roboczy z francuskiego**; podmienić na brzmienie Boya, dopisać wydanie i stronę.
+- S2 [otwarte] – przyp. 49: *Szelmostwa Skapena*, akt III (Zerbineta): „bandy Cyganów, z tych, co to wałęsając się…” — strona.
+- S3 [otwarte] – przyp. 50: akt I: „małe nieporozumienie”, „Bardzo się brzydko obszedł ze mną” — strona.
+- S4 [otwarte] – przyp. 51: akt I: „trzy lata galer mniej czy więcej…” — strona.
+- S5 [otwarte] – przyp. 68: akt III, scena z workiem: „Baczność! Oto znów jakaś podejrzana figura” — strona.
+- S6 [otwarte] – przyp. 69: akt II, Skapen do Leandra: „nie ma pomiędzy nim a panem ani cienia podobieństwa…” — strona.
+- S7 [otwarte] – przyp. 112 i tekst przed nim: C. P. Hong, *Pomniejsze uczucia*, tłum. A. Zano, Tajfuny 2024 — **brzmienie i strona** (w tekście przekład roboczy z angielskiego; oryginał s. 198).
 
 Wydanie Boya: cytuję *Dzieła*, t. 6, Warszawa 1922 (podstawa tekstu Wolnych Lektur; tekst w `research/boy_skapen.txt`). Najnowsze wydanie naukowe to PIW 1988 (3 tomy). Jeśli strony z 1988 — zmienić wpis `molier1922` w `ndiaye_refs_tlum.json`. Cytaty S2–S6 sprawdziłem z tekstem Boya słowo w słowo.
 
