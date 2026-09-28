@@ -468,11 +468,25 @@ SIGLUM_DEF = re.compile(r"(?i)\b(?:hereafter(?: abbreviated as| cited as| referr
                         r"|im Folgenden(?: zitiert als)?:?|zit\. als)\s+([A-ZÀ-Ž][\w.\- ]{0,20}?\w)(?=\s*[),;.])")
 
 
+# a page after "here:" (Chicago: the chapter's range, then "here: 102–103"); a Kant Akademie-Ausgabe page ("AA VII 324–325")
+EXTRA_LOC = re.compile(r"\b(?:here:?|AA\s?[IVXL]+,?)\s?(\d+[a-z]?(?:\s?[–-]\s?\d+[a-z]?)?(?:,\s?\d+[a-z]?(?:[–-]\d+)?)*)")
+# a volume named in the note ("Vol. IV", "Bd. 13"): the keyed work must be that volume (or cite it as "t. N")
+VOL_RX = re.compile(r"\b(?:Vol\.|vol\.|Bd\.|Band|Tome|tome)\s?([IVXLC]+|\d+)\b")
+
+
+def roman_or_int(x):
+    if x.isdigit():
+        return int(x)
+    v = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100}
+    return sum(-v[a] if v[a] < v.get(b, 0) else v[a] for a, b in zip(x, x[1:] + " "))
+
+
 def locator_numbers(text):
     c = Counter()
-    for m in LOCATOR_NUM.finditer(text.replace("\u00a0", " ")):
-        for n in re.findall(r"\d+", m.group(1)):
-            c[int(n)] += 1
+    for rx in (LOCATOR_NUM, EXTRA_LOC):
+        for m in rx.finditer(text.replace("\u00a0", " ")):
+            for n in re.findall(r"\d+", m.group(1)):
+                c[int(n)] += 1
     return c
 
 
@@ -586,6 +600,14 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
                                          # "Original: „…”, Ibidem.")
         if lost:
             errs.append(f"{lab(i)}: page/folio numbers lost in keying {dict(lost)}\n        original: {o[:160]}\n        rendered: {k[:160]}")
+        if keys:
+            have = {roman_or_int(str(v)) for key in keys for f in ("volume", "collection-number")
+                    for v in [(refs.get(key) or {}).get(f)] if v and re.fullmatch(r"\d+|[IVXLC]+", str(v))}
+            have |= {int(x) for x in re.findall(r"\bt\.\s?(\d+)", k)}
+            vols = {roman_or_int(v) for v in VOL_RX.findall(o)}
+            if vols - have:
+                errs.append(f"{lab(i)}: volume {sorted(vols - have)} named in the original, not the keyed work's volume "
+                            f"({sorted(have) or 'none'}): {o[:120]}")
         years = Counter(int(y[0]) for key in keys for f in ("issued", "original-date")
                         for y in ((refs.get(key) or {}).get(f) or {}).get("date-parts", []) if y)
         # a cross-reference to the note with the first citation ("wie Anmerkung 13", "see note 4") is replaced by the

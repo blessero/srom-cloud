@@ -317,6 +317,35 @@ c, o = runo(OO, w("onc_k3.md", OK_.replace("todt geschossen,” [@zeller1842, s.
 t("keyed: after a quotation, a different page (not the bare Ibidem) -> ERROR", c == 1 and "823" in o, o)
 c, o = runo(w("onc_o4.md", open(OO, encoding="utf-8").read().replace("823.\n\n[^5]", "822.\n\n[^5]")), w("onc_k4.md", OK_))
 t("keyed: Ibidem after a quotation where the note before cites another page -> ERROR", c == 1 and "823" in o, o)
+# a page after "here:" and a Kant Akademie-Ausgabe page ("420/AA VII 324–325") are locators; a volume named in the note
+# ("Vol. IV") must be the keyed work's (two volumes by one editor with one title)
+HREFS = w("here_refs.json", json.dumps([
+    {"id": "decker2018", "type": "chapter", "author": [{"family": "Decker", "given": "Oliver"}], "title": "Die Leipziger Studie",
+     "container-title": "Flucht ins Autoritäre", "page": "65–115", "publisher": "PV", "publisher-place": "Gießen", "issued": {"date-parts": [[2018]]}},
+    {"id": "kant2010a", "type": "chapter", "author": [{"family": "Kant", "given": "Immanuel"}], "title": "Anthropology",
+     "container-title": "AHE", "page": "227–429", "publisher": "CUP", "publisher-place": "Cambridge", "issued": {"date-parts": [[2010]]}},
+    {"id": "raithby3", "type": "book", "author": [{"family": "Raithby", "given": "John"}], "title": "The Statutes at Large", "volume": "3",
+     "publisher": "EyS", "publisher-place": "London", "issued": {"date-parts": [[1811]]}},
+    {"id": "raithby4", "type": "book", "author": [{"family": "Raithby", "given": "John"}], "title": "The Statutes at Large", "volume": "4",
+     "publisher": "EyS", "publisher-place": "London", "issued": {"date-parts": [[1811]]}}], ensure_ascii=False))
+HO = w("here_o.md", "A[^1] b[^2] c[^3].\n\n"
+       "[^1]: Oliver Decker, “Die Leipziger Studie,” in *Flucht ins Autoritäre* (Gießen: PV, 2018), 65–115, here: 102–103.\n\n"
+       "[^2]: Immanuel Kant, “Anthropology,” in *AHE* (Cambridge: CUP, 2010), 227–429, here: 420/AA VII 324–325.\n\n"
+       "[^3]: Raithby, *Statutes at large Vol. IV*, 233.\n")
+HK = ("A[^1] b[^2] c[^3].\n\n[^1]: [@decker2018, s. 102–103].\n\n[^2]: [@kant2010a, {s. 420 / AA VII 324–325}].\n\n"
+      "[^3]: [@raithby4, s. 233].\n")
+def runh(k):
+    r = subprocess.run([sys.executable, CHECK, "--keyed", HO, w("here_k.md", k), "--refs", HREFS], capture_output=True, text=True)
+    return r.returncode, r.stdout + r.stderr
+c, o = runh(HK)
+t("keyed: 'here: 102–103' after the chapter's range, '420/AA VII 324–325', 'Vol. IV' = the work's volume -> CHECK OK",
+  c == 0 and "CHECK OK" in o and "WARN" not in o, o)
+c, o = runh(HK.replace("s. 102–103]", "s. 102]"))
+t("keyed: the page after 'here:' cut (102–103 -> 102) -> ERROR", c == 1 and "103" in o, o)
+c, o = runh(HK.replace("{s. 420 / AA VII 324–325}", "s. 420"))
+t("keyed: the Akademie-Ausgabe page dropped -> ERROR", c == 1 and "324" in o, o)
+c, o = runh(HK.replace("[@raithby4, s. 233]", "[@raithby3, s. 233]"))
+t("keyed: 'Vol. IV' keyed to vol. 3 of the same work -> ERROR", c == 1 and "volume [4]" in o, o)
 
 n, ok = len(results), sum(results)
 print(f"CHECK ALL PASS {n}/{n}" if ok == n else f"CHECK FAILED {n - ok}/{n}")
