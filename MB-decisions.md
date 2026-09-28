@@ -25,6 +25,8 @@ Question before that upload: **is mu-plugin v2.3 the current one?** The .skill M
 update was built on the copy installed for Claude Code (v2.3, checked again 28.09.2026: `srom-scholarly.php` Version 2.3),
 so uploading it brings v2.3 and locked decision #4 to desktop Claude. This is the skill's copy, not what runs on the site.
 Detail: `curator-update-2026-09-27/CHANGES.md` ("Which version this is built on").
+- 28.09.2026 DECIDED: the live site is old (untouched since about June 2026). No upload now: when the work here is
+  finished, MB updates the curator skill in desktop Claude and the plugin on the site together. (MB)
 
 ## D6 (c) — Vol. 19 translation shortlist (27.09.2026, srom-tlumacz)
 Deferred by MB (26.09.2026). (a) and (b) are closed.
