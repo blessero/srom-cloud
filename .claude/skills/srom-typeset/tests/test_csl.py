@@ -62,6 +62,12 @@ NOTES = [
     ("kowalski2015", "s. 77", "A. Kowalski, *Tytuł*, t. 2: *Tytuł tomu*, Wydawnictwo, Kraków 2015, s. 77."),
     ("nowak2010", "s. 221", "A. Nowak, *Romani chib*, w: *Tytuł encyklopedii*, t. 4, Wydawnictwo, Warszawa 2010, s. 221."),
     ("marsh2008", "s. 21", "A. Marsh, *Ethnicity and Identity*, w: *We are Here*, red. E. Uzpeder, EDROM, Istanbul 2008, s. 21."),
+    # not in the Kanon's table (provisional, MB-decisions): an edition of a source — the editor after the title, as for a
+    # chapter's volume; "trans. and ed." by the same person once; a chapter (letter) without an author opens with its title
+    ("zrodlo1959", "s. 3", "J. Nowak, *Tytuł źródła*, red. A. Kowalska, Wydawnictwo, Wien 1959, s. 3."),
+    ("relacja1932", "s. 118", "J. Nowak, *Relacja*, tłum. i red. J. Robertson, Wydawnictwo, DeLand 1932, s. 118."),
+    ("relacja1933", "s. 5", "J. Nowak, *Relacja druga*, red. A. Kowalska, tłum. J. Robertson, Wydawnictwo, DeLand 1933, s. 5."),
+    ("list1900", "s. 314", "*Tytuł listu*, w: *Tytuł tomu*, red. R.G. Thwaites, t. 67, Wydawnictwo, Cleveland 1900, s. 314."),
     ("kopanska2018", "s. 60", "J. Kopańska, *Tytuł*, Uniwersytet Jagielloński, Kraków 2018, s. 60 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej)."),
     ("demeter2018", "s. 5", "N. Demeter, *Istoriia tsygan* [Historia Cyganów], Nauka, Moskva 2018, s. 5."),
     ("nowak1963", "s. 3", "J. Nowak, *Tytuł artykułu*, „Gazeta Krakowska”, 1963, nr 145, s. 3."),
@@ -81,6 +87,8 @@ BIB = {
     "kolaczek2012": "[Kołaczek]{.sc}, Małgorzata. *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 211–228. DOI: 10.1234/srom.2012.5.11.",
     "turner1926": "[Turner]{.sc}, Ralph L. *The position of Romani*, „Journal of the Gypsy Lore Society”, 1926, t. 5, nr 4, s. 145–189.",
     "hancock2007": "[Hancock]{.sc}, Ian. *Tytuł*, tłum. J. Nowak, Wydawnictwo, Warszawa 2007.",
+    "zrodlo1959": "[Nowak]{.sc}, Jan. *Tytuł źródła*, red. A. Kowalska, Wydawnictwo, Wien 1959.",
+    "list1900": "*Tytuł listu*, w: *Tytuł tomu*, red. R.G. Thwaites, t. 67, Wydawnictwo, Cleveland 1900.",
     "demeter2018": "[Demeter]{.sc}, Nadezhda. *Istoriia tsygan* [Historia Cyganów], Nauka, Moskva 2018.",
     "kopanska2018": "[Kopańska]{.sc}, Joanna. *Tytuł*, Uniwersytet Jagielloński, Kraków 2018 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej).",
     "kowalskiweb": "[Kowalski]{.sc}, Andrzej. *Tytuł tekstu*, w: *Nazwa serwisu*, https://przyklad.pl/tekst [dostęp: 18.03.2025].",
@@ -123,6 +131,8 @@ def main():
         # short form (§7.3)
         n2 = notes_of(render("A [@ficowski1985, s. 15]. B [@mroz1998, s. 1]. C [@ficowski1985, s. 51].")["blocks"])
         pairs.append(("short-form", n2[2], "Ficowski, *Cyganie na polskich drogach…*, s. 51."))
+        n3 = notes_of(render("A [@list1900, s. 314]. B [@mroz1998, s. 1]. C [@list1900, s. 315].")["blocks"])
+        pairs.append(("short-form, chapter without author", n3[2], "*Tytuł listu*, s. 315."))
         check("NOTES", pairs)
     if what in ("bib", "all"):
         keys = ", ".join("@" + k for k in BIB)

@@ -54,3 +54,4 @@ old numbers are given in brackets for the record.
 | # | item | where |
 |---|---|---|
 | 21 | ○ House style v2 (`style-sheet.md`) — in the style discussion (MB-decisions D3, stage 3). | style_spec.json |
+| 23 | ○ 28.09.2026, Ostendorf (MB-decisions D19): not in Kanon § 7.2's table, printed provisionally rather than dropped — a book with an author **and** an editor (an edition of a source, "ed. E. Becker-Donner") prints `red. E. Becker-Donner` after the title; editor and translator the same people ("trans. and ed.") print once, `tłum. i red.`; a chapter without an author (a letter in an edited volume) opens with its title, the volume's editor after the volume title (`w: *Tom*, red. X`), never in the author's place. Before: the editor of an authored book was not printed at all, and an anonymous chapter printed the volume's editor as its author. | srom.csl; test_csl.py |

@@ -459,7 +459,7 @@ def printed_numbers(src, tgt):
 
 
 # ---------------------------------------------------------------- keyed (literal notes -> [@key] citations)
-LOCATOR_NUM = re.compile(r"\b(?:s|k|l|ark|tabl|p|pp|str|S|Sp|szp|Anm|przyp)\.\s?(\d+[a-z]?(?:\s?[–-]\s?\d+[a-z]?)?(?:,\s?\d+[a-z]?(?:[–-]\d+)?)*)")
+LOCATOR_NUM = re.compile(r"\b(?:s|k|l|ark|tabl|p|pp|str|S|Sp|szp|Anm|przyp)\.\s?((?:[ivxlc]+,\s?)*\d+[a-z]?(?:\s?[–-]\s?\d+[a-z]?)?(?:,\s?(?:\d+[a-z]?(?:[–-]\d+)?|[ivxlc]+))*)")   # "s. iv, 358"
 IBID = re.compile(r"(?i)^\W*(ibidem|ibid\.?|tamże|tamze|tenże|taż|idem|eadem)\b")
 
 
@@ -510,6 +510,21 @@ def shortform_numbers(text, refs, keys):
     return Counter(int(x) for loc in found.values() for x in re.findall(r"\d+", loc))
 
 
+# Chicago notes (English books and journals): the page follows the publication parenthesis ("(Routledge, 1992), 5",
+# "(2003): 125–130") or a short title ("Cressy, *Gypsies*, 5–10", "Galletti, “Los Gitanos como Otro,” 121–22"); a
+# volume before it ("5:365", "I:183 … and II:452", "1: iv, 358") is not the page; "103n24" = page 103, note 24
+_CL_ONE = r"(?:(?:[IVX]+|\d+):\s?)?(?:\d+|[ivxlc]+)(?:n\d+)?(?:\s?[–-]\s?\d+)?"
+CHICAGO_LOC = re.compile(r"(?:\)\s?[,:]|\*,|,”)\s?(" + _CL_ONE + r"(?:(?:,\s?|,?\s(?:and|&)\s)" + _CL_ONE + r")*)(?![\d/.]\d)(?!\d)")
+
+
+def chicago_numbers(text):
+    c = Counter()
+    for m in CHICAGO_LOC.finditer(text.replace("\u00a0", " ")):
+        for n in re.findall(r"\d+", re.sub(r"(?:[IVX]+|\d+):\s?", "", m.group(1))):
+            c[int(n)] += 1
+    return c
+
+
 def check_keyed(orig, keyed, refs_path, errs, warns):
     """Renders the keyed file exactly as build.py will and compares it note by note with the author's
     original notes: every page/folio number must survive (labelled "s. 15", "p. 15", or bare after the author
@@ -543,7 +558,8 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
     prev_keys, prev_loc = [], Counter()
     for i, (o, k) in enumerate(zip(on, kn), 1):
         keys = kkeys[i - 1] if i - 1 < len(kkeys) else []
-        o_loc = locator_numbers(expand_ranges(o)) | shortform_numbers(o, refs, keys)
+        o_loc = locator_numbers(expand_ranges(o)) | shortform_numbers(o, refs, keys) \
+            | (chicago_numbers(expand_ranges(o)) if keys else Counter())
         lost = o_loc - locator_numbers(expand_ranges(k))
         # a first citation giving the chapter's/article's own range before the page ("S.41-74, hier S.56"): the note
         # prints the page only, the range is the work's `page` field, printed in the bibliography (Kanon § 7.2)
@@ -551,8 +567,9 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
             rng = numbers(expand_ranges((refs.get(key) or {}).get("page", "")))
             if rng and not (rng - lost):
                 lost -= rng
-        if lost and IBID.match(k) and keys == prev_keys and not (lost - prev_loc):
-            lost = Counter()             # same work, same page as the note before: a bare Ibidem is right
+        if lost and IBID.match(k) and (keys == prev_keys or keys[:1] == prev_keys[-1:]) and not (lost - prev_loc):
+            lost = Counter()             # same work, same page as the note before: a bare Ibidem is right (also
+                                         # opening a note that goes on to cite other works)
         if lost:
             errs.append(f"{lab(i)}: page/folio numbers lost in keying {dict(lost)}\n        original: {o[:160]}\n        rendered: {k[:160]}")
         years = Counter(int(y[0]) for key in keys for f in ("issued", "original-date")
@@ -560,7 +577,10 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
         # a cross-reference to the note with the first citation ("wie Anmerkung 13", "see note 4") is replaced by the
         # short form: its number goes with it
         xref = Counter(int(n) for n in re.findall(r"(?i)\b(?:wie Anm(?:erkung|\.)|see note|cf\. note|zob\. przyp\.)\s?(\d+)", o))
-        other = numbers(expand_ranges(o)) - numbers(expand_ranges(k)) - o_loc - Counter({y: 99 for y in years}) - xref
+        # what the bibliography prints, not the note: DOI, URL, an article's or chapter's own range
+        bib_only = Counter({n: 99 for key in keys for f in ("DOI", "URL", "page")
+                            for n in numbers(expand_ranges(str((refs.get(key) or {}).get(f, ""))))})
+        other = numbers(expand_ranges(o)) - numbers(expand_ranges(k)) - o_loc - Counter({y: 99 for y in years}) - xref - bib_only
         if other:
             warns.append(f"{lab(i)}: other numbers not in rendering {dict(other)}: {o[:100]}")
         if not keys:

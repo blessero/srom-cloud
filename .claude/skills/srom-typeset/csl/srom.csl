@@ -32,31 +32,61 @@
       <term name="editor" form="short"><single>red.</single><multiple>red.</multiple></term>
       <term name="editor" form="verb-short">red.</term>
       <term name="translator" form="verb-short">tłum.</term>
+      <term name="editortranslator" form="verb-short">tłum. i red.</term>
       <term name="director" form="verb-short">reż.</term>
     </terms>
   </locale>
 
   <!-- ============ names ============ -->
+  <!-- a chapter (letter, entry) without an author opens with its title: the volume's editor is printed after the
+       volume title (§ 7.2), never in the author's place -->
   <macro name="author-note">
-    <names variable="author">
-      <name initialize-with="." delimiter=", " delimiter-precedes-et-al="never"/>
-      <substitute>
-        <names variable="editor">
+    <choose>
+      <if type="chapter paper-conference entry-encyclopedia entry-dictionary" match="any">
+        <names variable="author">
           <name initialize-with="." delimiter=", " delimiter-precedes-et-al="never"/>
-          <label form="short" prefix=" (" suffix=")"/>
         </names>
-      </substitute>
-    </names>
+      </if>
+      <else>
+        <names variable="author">
+          <name initialize-with="." delimiter=", " delimiter-precedes-et-al="never"/>
+          <substitute>
+            <names variable="editor">
+              <name initialize-with="." delimiter=", " delimiter-precedes-et-al="never"/>
+              <label form="short" prefix=" (" suffix=")"/>
+            </names>
+          </substitute>
+        </names>
+      </else>
+    </choose>
   </macro>
   <macro name="author-short">
-    <names variable="author">
-      <name form="short" delimiter=", " delimiter-precedes-et-al="never"/>
-      <substitute>
-        <names variable="editor"/>
-      </substitute>
-    </names>
+    <choose>
+      <if type="chapter paper-conference entry-encyclopedia entry-dictionary" match="any">
+        <names variable="author">
+          <name form="short" delimiter=", " delimiter-precedes-et-al="never"/>
+        </names>
+      </if>
+      <else>
+        <names variable="author">
+          <name form="short" delimiter=", " delimiter-precedes-et-al="never"/>
+          <substitute>
+            <names variable="editor"/>
+          </substitute>
+        </names>
+      </else>
+    </choose>
   </macro>
   <macro name="author-bib">
+    <choose>
+      <if type="chapter paper-conference entry-encyclopedia entry-dictionary" match="any">
+        <names variable="author">
+          <name name-as-sort-order="all" sort-separator=", " delimiter=", " delimiter-precedes-last="always">
+            <name-part name="family" font-variant="small-caps"/>
+          </name>
+        </names>
+      </if>
+      <else>
     <names variable="author">
       <name name-as-sort-order="all" sort-separator=", " delimiter=", " delimiter-precedes-last="always">
         <name-part name="family" font-variant="small-caps"/>
@@ -70,15 +100,29 @@
         </names>
       </substitute>
     </names>
+      </else>
+    </choose>
   </macro>
   <macro name="author-sort">
-    <names variable="author">
-      <name name-as-sort-order="all" sort-separator=", " delimiter=", "/>
-      <substitute>
-        <names variable="editor"/>
-        <text variable="title"/>
-      </substitute>
-    </names>
+    <choose>
+      <if type="chapter paper-conference entry-encyclopedia entry-dictionary" match="any">
+        <names variable="author">
+          <name name-as-sort-order="all" sort-separator=", " delimiter=", "/>
+          <substitute>
+            <text variable="title"/>
+          </substitute>
+        </names>
+      </if>
+      <else>
+        <names variable="author">
+          <name name-as-sort-order="all" sort-separator=", " delimiter=", "/>
+          <substitute>
+            <names variable="editor"/>
+            <text variable="title"/>
+          </substitute>
+        </names>
+      </else>
+    </choose>
   </macro>
   <macro name="container-editors">
     <names variable="container-author editor">
@@ -88,6 +132,15 @@
   </macro>
   <macro name="translator">
     <names variable="translator">
+      <label form="verb-short" suffix=" "/>
+      <name initialize-with="." delimiter=", "/>
+    </names>
+  </macro>
+  <!-- a book with an author and an editor (an edition of a source: "ed. E. Becker-Donner"): the editor after the
+       title, as for a chapter's volume (§ 7.2); editor and translator the same people ("trans. and ed.") -> once,
+       "tłum. i red.". A book without an author has its editor in the author's place (substituted there, so not here). -->
+  <macro name="editor-translator">
+    <names variable="editor translator" delimiter=", ">
       <label form="verb-short" suffix=" "/>
       <name initialize-with="." delimiter=", "/>
     </names>
@@ -280,7 +333,7 @@
       </else-if>
       <else>
         <group delimiter=", ">
-          <text macro="translator"/>
+          <text macro="editor-translator"/>
           <text macro="edition"/>
           <text macro="volume-book"/>
           <text macro="publisher"/>

@@ -19,5 +19,9 @@
  {"id":"kowalskiweb","type":"webpage","author":[{"family":"Kowalski","given":"Andrzej"}],"title":"Tytuł tekstu","container-title":"Nazwa serwisu","URL":"https://przyklad.pl/tekst","accessed":{"date-parts":[[2025,3,18]]}},
  {"id":"papusza","type":"motion_picture","title":"Papusza","director":[{"family":"Kos-Krauze","given":"Joanna"},{"family":"Krauze","given":"Krzysztof"}],"publisher-place":"Polska","issued":{"date-parts":[[2013]]}},
  {"id":"nowakblog","type":"post-weblog","author":[{"family":"Nowak","given":"Anna"}],"title":"Tytuł wpisu","container-title":"Nazwa serwisu","URL":"https://przyklad.pl/wpis","issued":{"date-parts":[[2016,10,5]]}},
- {"id":"czas1928","type":"article-newspaper","container-title":"Czas","issued":{"date-parts":[[1928,5,3]]}}
+ {"id":"czas1928","type":"article-newspaper","container-title":"Czas","issued":{"date-parts":[[1928,5,3]]}},
+ {"id":"zrodlo1959","type":"book","author":[{"family":"Nowak","given":"Jan"}],"title":"Tytuł źródła","editor":[{"family":"Kowalska","given":"Anna"}],"publisher":"Wydawnictwo","publisher-place":"Wien","issued":{"date-parts":[[1959]]}},
+ {"id":"relacja1932","type":"book","author":[{"family":"Nowak","given":"Jan"}],"title":"Relacja","editor":[{"family":"Robertson","given":"James"}],"translator":[{"family":"Robertson","given":"James"}],"publisher":"Wydawnictwo","publisher-place":"DeLand","issued":{"date-parts":[[1932]]}},
+ {"id":"relacja1933","type":"book","author":[{"family":"Nowak","given":"Jan"}],"title":"Relacja druga","editor":[{"family":"Kowalska","given":"Anna"}],"translator":[{"family":"Robertson","given":"James"}],"publisher":"Wydawnictwo","publisher-place":"DeLand","issued":{"date-parts":[[1933]]}},
+ {"id":"list1900","type":"chapter","title":"Tytuł listu","container-title":"Tytuł tomu","editor":[{"family":"Thwaites","given":"Reuben Gold"}],"volume":"67","publisher":"Wydawnictwo","publisher-place":"Cleveland","issued":{"date-parts":[[1900]]},"title-short":"Tytuł listu"}
 ]

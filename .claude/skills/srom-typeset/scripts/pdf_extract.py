@@ -10,7 +10,9 @@ What it recovers, and how:
   footnotes          bottom-of-page zone in the note font size (the size under the separator rule if one is
                      drawn, else the commonest small size low on the page), each note starting with its number
                      (raised, or just set smaller);
-                     a zone that starts without a number continues the previous note -> [^n]: … after its paragraph
+                     a zone that starts without a number continues the previous note -> [^n]: … after its paragraph;
+                     with no rule drawn, unnumbered lines atop the zone continue the previous page's note only when that
+                     note ends mid-sentence and they sit at the notes' left edges (else: a quotation at note size; listed)
   raised line parts  a note number with the first words on a raised baseline, a superscript (XVIIᵉ): merged into
                      their line when nothing overlaps horizontally (else "35" | "–69" would split)
   title note         page 1: an unnumbered block at the foot, clear of the body   -> ::: przypis-tytulowy (listed);
@@ -21,7 +23,12 @@ What it recovers, and how:
   endnotes           no heading needed: pages set wholly at the note size are notes; their top line continues a note
   control chars      U+0007 (InDesign indent-to-here) and other C0 codes removed, tabs -> spaces; soft hyphens removed
   unmapped glyphs    U+FFFD printed exactly over mapped text (overprint) dropped, listed; any other -> issue
-  front matter       page 1 above the first text line (title in larger type, author, abstract) -> <out>_front.md,
+  misread glyphs     private-use old-style figures / small capitals (Adobe legacy PUA, Linotype LT Std U+F643–F64C)
+                     -> digits / capitals; a spacing accent printed over a letter composed with it ("Savi´c" -> "Savić");
+                     "¼" from a TeX math font -> "="; word spaces set as gaps with no space glyph (letterspaced small
+                     caps, one text object per word) inserted; all counted in the report; unknown private-use -> issue
+  front matter       page 1 above the first text line (title in larger type, author, abstract; a chapter numeral set
+                     larger above a book chapter's title does not count as the title) -> <out>_front.md,
                      not the text (SROM-MD has no header; Kanon § 13.3); with an "Abstract"/"Keywords" heading in
                      the first pages, everything up to the next heading (title/bio page, keywords box in a column)
   paragraphs         first-line indent, short last line, vertical gap; a paragraph interrupted by a figure
@@ -43,7 +50,8 @@ What it recovers, and how:
   headers/footers    page numbers and lines repeating across pages             -> dropped (listed)
   line-end hyphens   joined ("Ro-/mani" -> "Romani"); the document decides where it can (the joined or the
                      hyphenated word found inside a line elsewhere), else kept after prefixes such as
-                     self-/non-/post- and flagged; before a capital (anti-|Roma) kept; before a conjunction
+                     self-/non-/post- and flagged, or when the text has another compound on the same second element
+                     (light-|brown beside "dark-brown"; flagged); before a capital (anti-|Roma) kept; before a conjunction
                      (Diebs-|und) kept with its space; a soft hyphen always joined; a slash at a line end joined
                      without a space, unless the document spaces its slashes in text of that style (virgules); a URL broken inside a token joined when a link target has it whole;
                      every join listed for proofreading
@@ -542,8 +550,11 @@ def main():
             endnote_page = i == 0 and any(starts(X) for X in suffix)
             # no rule to mark the zone: unnumbered lines atop it continue the previous page's note when that note
             # ends mid-sentence, and start at the notes' left edge (a note-size quotation above the notes is indented)
-            # (the notes' left edges: where a note starts, and where its second line runs, for a hanging number)
-            edges = [X.x0 for X in suffix if starts(X)] + [Y.x0 for X, Y in zip(suffix, suffix[1:]) if starts(X) and not starts(Y)]
+            # (the notes' left edges: where a note starts, where its second line runs, where the text after a hanging
+            # number begins, and where the open note's own lines ran on the page before)
+            edges = [X.x0 for X in suffix if starts(X)] + [Y.x0 for X, Y in zip(suffix, suffix[1:]) if starts(X) and not starts(Y)] \
+                + [X.spans[1]["x0"] for X in suffix if note_number(X) and len(X.spans) > 1] \
+                + ([was_open.x0] if was_open is not None and not starts(was_open) else [])
             runs_on = was_open is not None and not starts(suffix[0]) and any(abs(suffix[0].x0 - e) < 0.5 * N for e in edges)
             if runs_on:
                 warns.append(f"page {pno}: note zone opens without a number after a note ending mid-sentence "

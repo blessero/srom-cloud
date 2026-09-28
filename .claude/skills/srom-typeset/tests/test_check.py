@@ -234,5 +234,51 @@ t("keyed: page changed in the title note -> ERROR named 'title note'", c == 1 an
 c, o = runk(SO, w("short_k3.md", SK.replace("[@mw1662, s. 60]", "[@hornback2018, s. 60]")))
 t("keyed short form: wrong work for 'M.W.' -> ERROR", c == 1 and "@hornback2018" in o, o)
 
+# Chicago full citations (stage-1 test 4, Ostendorf, CUP): the page after the publication parenthesis or a short title
+# is a locator; a volume before it ("5:365", "I:183 … and II:452", "1: iv, 358") is not; "103n24" = page + note; an
+# Ibidem opening a note that cites more works; DOI, URL, article range belong to the bibliography (no warning)
+CREFS = w("chi_refs.json", json.dumps([
+    {"id": "weinstein1960", "type": "book", "author": [{"family": "Weinstein", "given": "Donald"}], "title": "Ambassador from Venice",
+     "publisher": "UMP", "publisher-place": "Minneapolis", "issued": {"date-parts": [[1960]]}},
+    {"id": "actas1915", "type": "book", "title": "Actas da Camara", "volume": "5", "publisher": "AM", "publisher-place": "São Paulo",
+     "issued": {"date-parts": [[1915]]}},
+    {"id": "paucke1959", "type": "book", "author": [{"family": "Paucke", "given": "Florian"}], "title": "Zwettler Codex 420",
+     "publisher": "Braumüller", "publisher-place": "Wien", "issued": {"date-parts": [[1959]]}},
+    {"id": "lambert1813", "type": "book", "author": [{"family": "Lambert", "given": "John"}], "title": "Travels", "publisher": "R",
+     "publisher-place": "London", "issued": {"date-parts": [[1813]]}},
+    {"id": "tabili2003", "type": "article-journal", "author": [{"family": "Tabili", "given": "Laura"}], "title": "Race Is a Relationship",
+     "container-title": "JSH", "volume": "37", "issue": "1", "page": "125–130", "DOI": "10.1353/jsh.2003.0162", "issued": {"date-parts": [[2003]]}},
+    {"id": "herzog2003", "type": "book", "author": [{"family": "Herzog", "given": "Tamar"}], "title": "Defining Nations",
+     "title-short": "Defining Nations…", "publisher": "YUP", "publisher-place": "New Haven", "issued": {"date-parts": [[2003]]}},
+    {"id": "galletti2021", "type": "article-journal", "author": [{"family": "Galletti", "given": "Patricia"}], "title": "Los Gitanos como Otro",
+     "container-title": "IJRS", "volume": "3", "issue": "2", "DOI": "10.17583/ijrs.8527", "issued": {"date-parts": [[2021]]}}], ensure_ascii=False))
+CO = w("chi_o.md", "A[^1] b[^2] c[^3] d[^4] e[^5] f[^6] g[^7] h[^8].\n\n"
+       "[^1]: Donald Weinstein, *Ambassador from Venice* (University of Minnesota Press, 1960), 73, 103n24.\n\n"
+       "[^2]: *Actas da Camara* (Archivo Municipal, 1915), 5:365.\n\n"
+       "[^3]: Florian Paucke, *Zwettler Codex 420* (Braumüller, 1959), I:183, 239 and II:452.\n\n"
+       "[^4]: John Lambert, *Travels* (London, 1813), 1: iv, 358.\n\n"
+       "[^5]: Laura Tabili, “Race Is a Relationship,” *JSH* 37, no. 1 (2003): 125–130, https://dx.doi.org/10.1353/jsh.2003.0162.\n\n"
+       "[^6]: Patricia Galletti, “Los Gitanos como Otro,” *IJRS* 3, no. 2 (2021): 119, https://doi.org/10.17583/ijrs.8527.\n\n"
+       "[^7]: Tamar Herzog, *Defining Nations* (Yale University Press, 2003), 133.\n\n"
+       "[^8]: Herzog, *Defining Nations*, 133; Galletti, “Los Gitanos como Otro,” 121–22.\n")
+CK = ("A[^1] b[^2] c[^3] d[^4] e[^5] f[^6] g[^7] h[^8].\n\n[^1]: [@weinstein1960, {s. 73, 103, przyp. 24}].\n\n"
+      "[^2]: [@actas1915, s. 365].\n\n[^3]: [@paucke1959, {t. 1, s. 183, 239 i t. 2, s. 452}].\n\n"
+      "[^4]: [@lambert1813, {t. 1, s. iv, 358}].\n\n[^5]: [@tabili2003].\n\n[^6]: [@galletti2021, s. 119].\n\n"
+      "[^7]: [@herzog2003, s. 133].\n\n[^8]: [@herzog2003, s. 133; @galletti2021, s. 121–122].\n")
+def runc(o, k):
+    r = subprocess.run([sys.executable, CHECK, "--keyed", o, k, "--refs", CREFS], capture_output=True, text=True)
+    return r.returncode, r.stdout + r.stderr
+c, o = runc(CO, w("chi_k.md", CK))
+t("keyed Chicago: pages after '(Publisher, Year),' and '(Year):', volume:page, 103n24, roman page, Ibidem opening a "
+  "note with more works, DOI/article range not warned -> CHECK OK, no warnings", c == 0 and "CHECK OK" in o and "WARN" not in o, o)
+c, o = runc(CO, w("chi_k1.md", CK.replace("s. 119]", "s. 118]")))
+t("keyed Chicago: journal page after '(2021):' changed -> ERROR", c == 1 and "note 6" in o and "119" in o, o)
+c, o = runc(CO, w("chi_k2.md", CK.replace(" i t. 2, s. 452", "")))
+t("keyed Chicago: second volume's page (… and II:452) dropped -> ERROR", c == 1 and "452" in o, o)
+c, o = runc(CO, w("chi_k3.md", CK.replace("{s. 73, 103, przyp. 24}", "{s. 73, 103}")))
+t("keyed Chicago: note number of '103n24' dropped -> ERROR", c == 1 and "24" in o, o)
+c, o = runc(CO, w("chi_k4.md", CK.replace("@galletti2021, s. 121–122", "@galletti2021, s. 121")))
+t("keyed Chicago: page after a quoted short title ('…Otro,” 121–22') cut -> ERROR", c == 1 and "122" in o, o)
+
 n, ok = len(results), sum(results)
 print(f"CHECK ALL PASS {n}/{n}" if ok == n else f"CHECK FAILED {n - ok}/{n}")

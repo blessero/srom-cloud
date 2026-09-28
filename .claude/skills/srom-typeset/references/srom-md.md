@@ -95,6 +95,16 @@ M. Häberlein/M. Zürn. St. Katharinen 2001, S.41-74, hier S.56, Anm. 52."; late
 - `²1990` (edition) → `edition`; `Bd.` → `volume`; a series in parentheses → `collection-title`/`collection-number`
   (not printed yet: no Kanon rule). `note` must not open with "word:" (pandoc reads it as a field; the build stops).
 
+**Keying Chicago full citations** (English books and book chapters, e.g. Cambridge UP: "Kate Flint, *The Transatlantic
+Indian* (Princeton University Press, 2009), 12."; "Tabili, “Race Is a Relationship,” *JSH* 37, no. 1 (2003): 125–130"):
+- the page after the publication parenthesis or after a short title → `s.`; a volume before it (`5:365`, `I:183 … and
+  II:452`, `1: iv, 358`) → `{t. 1, s. 183 i t. 2, s. 452}` (no `;` inside braces: it splits the citation), or the work's
+  `volume` when that volume is the work cited; `103n24` → `{s. 103, przyp. 24}`; an article cited whole with its range →
+  `[@key]`, the range to `page`. `check.py --keyed` counts these pages and fails if one is lost; DOIs, URLs and an article's
+  own range are expected to leave the note (bibliography only).
+- "Anonymous" → no author (title first, `srom-as-written`); "trans. and ed." by the same people → `editor` + `translator`
+  (printed once, `tłum. i red.`); "PhD diss." → `thesis`, university as `publisher`, `note: "praca doktorska"`.
+
 Stay **literal** (plain text in the note, kanon §8): archival units (§8.1), fieldwork codes (§8.2),
 single press issues, legal acts cited once, statistics tables without a stable record.
 
