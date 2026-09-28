@@ -28,7 +28,7 @@ the DOCX reader; the tests are what proves the toolchain still does what this fi
 
 | step | command | verdict | judgment needed (Claude / editor) |
 |---|---|---|---|
-| 1a DOCX in | `python3 $S/docx_in.py art.docx -o art.md` | `IMPORT OK/CHECK n` | `_import.md`: pending track changes, fake superscript notes, manual headings. The author's reference list goes to `art_bib.txt`; Zotero/Mendeley fields are harvested into `art_cited.md` + `art_refs.json` |
+| 1a DOCX in | `python3 $S/docx_in.py art.docx -o art.md` | `IMPORT OK/CHECK n` | `_import.md`: pending track changes, fake superscript notes, manual headings. The author's reference list goes to `art_bib.txt`; Zotero/Mendeley fields are harvested into `art_cited.md` + `art_refs.json`. Notes typed as text (superscript digits + numbered note paragraphs page by page, a PDF rip): add `--typed-notes` → real notes labelled with the source numbers; read every REPAIRED / GAP / LOST TEXT line against the PDF |
 | 1b PDF in | `python3 $S/pdf_extract.py art.pdf -o src.md [--pages a-b]` | `EXTRACT OK/CHECK n` | `_extract.md`: hyphen joins, headings, verse, captions, retyped small caps, dropped lines; reference list → `src_bib.txt`; title/author/abstract → `src_front.md` (for the CSV) |
 | 2 normalise | `python3 $S/normalize.py art.md -o art.md --log art_norm.md` | change log + flags | resolve every flag |
 | 3 refs | Claude writes `refs.json` from `_bib.txt` (or completes `_refs.json`) per `references/srom-md.md` | `cite_map.py audit --refs refs.json --bib art_bib.txt` → `CITEMAP OK` | every PROBLEM line |

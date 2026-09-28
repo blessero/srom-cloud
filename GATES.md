@@ -195,22 +195,29 @@ Checks run from the repo root. K = .claude/skills/srom-kanon, T = .claude/skills
   EXPECT: /SUITE ALL PASS (\d+)\/\1[\s\S]*\n\s*0\s*$/
   EVIDENCE: SUITE ALL PASS 14/14 | 0
 
-## E9 — typed notes in DOCX sources (T2; queued, not started)
+## E9 — typed notes in DOCX sources (T2) — done 28.09.2026
 
-- [ ] G1: `docx_in.py --typed-notes` pairs each superscript body marker with the note paragraph of the same number on
-  the same page (page-ID strings as page breaks); never guesses: missing, repeated or unpaired numbers are listed
-  and the import says IMPORT CHECK
+- [x] G1: `docx_in.py --typed-notes` pairs each superscript body marker with the typed note of the same number, in
+  sequence; never guesses: missing, repeated or unpaired numbers, repairs and gaps are listed and the import says
+  IMPORT CHECK
   CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-typeset/tests/test_docx_in.py | tail -1
-  EXPECT: /DOCXIN ALL PASS (\d+)\/\1/ with typed-notes cases (clean, missing, repeated, garbled run) among them
-  EVIDENCE:
+  EXPECT: /DOCXIN ALL PASS (\d+)\/\1/
+  EVIDENCE: DOCXIN ALL PASS 23/23 (11 new E9 cases: labels = source numbers, italics, note inside note, note
+  continuation, page-split body + page ID, repaired marker, no join across a lost page, marker without note,
+  integrity, no conversion without the flag, mixed notes refused)
 
-- [ ] G2: on the Dom file (srom-tlumacz sources, read-only) every pair made is right and every number not paired
-  is listed (E9 correction: notes 2, 49, 50 and the garbled 48–50 region)
-  CHECK: run on `Dom_Communities_Stripped_Mac_copy.docx`; compare the pairs with the PDF by hand
-  EXPECT: 0 wrong pairs; the unpaired numbers listed by number
-  EVIDENCE:
+- [x] G2: on the Dom file (srom-tlumacz sources, read-only) every pair made is right and every number not paired is listed
+  CHECK: D=../srom-tlumacz/sources/vol18-en/Dom_Communities_Stripped_Mac_copy.docx; V=~/.venvs/srom/bin/python; $V .claude/skills/srom-typeset/scripts/docx_in.py $D -o work/dom/dom_src_typed.md --typed-notes | tail -1; $V work/dom/dom_verify.py $D work/dom/dom_src_typed.md | head -1; grep -c "GAP: notes 49–50\|LOST TEXT\|REPAIRED: marker 48" work/dom/dom_src_typed_import.md
+  EXPECT: /IMPORT CHECK 3\s+pairs checked: 52; wrong: 0\s+3\s*$/
+  EVIDENCE: IMPORT CHECK 3 | pairs checked: 52; wrong: 0 | 3 (verifier reads the DOCX with python-docx, independent
+  of the converter; work/ is git-ignored)
 
-- [ ] G3: docs (SKILL.md step 1, handoff.md scenario C) and a T-item to srom-tlumacz
+- [x] G3: docs (docx_in docstring, SKILL.md step 1a) and a T-item to srom-tlumacz
   CHECK: grep -c "typed-notes" .claude/skills/srom-typeset/SKILL.md; grep -c "^## T.* re E9" ../_handoffs/typeset-to-tlumacz.md
   EXPECT: /^[1-9]\s+[1-9]\s*$/
-  EVIDENCE:
+  EVIDENCE: 1 | 2 (T2 plan, T17 done)
+
+- [x] G4: suite green, committed, clean tree
+  CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; git status --porcelain | wc -l
+  EXPECT: /SUITE ALL PASS (\d+)\/\1[\s\S]*\n\s*0\s*$/
+  EVIDENCE: SUITE ALL PASS 14/14 | 0

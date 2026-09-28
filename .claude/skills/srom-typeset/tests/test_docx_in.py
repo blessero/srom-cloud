@@ -68,5 +68,61 @@ r = subprocess.run([sys.executable, os.path.join(S, "docx_in.py"), td, "-o", os.
 trep = open(os.path.join(d, "tabs_import.md"), encoding="utf-8").read()
 t("tab-aligned paragraph (interlinear example typed in Word) flagged", "TABS" in trep and "(1)" in trep and trep.count("TABS") == 1 and "IMPORT CHECK" in r.stdout, trep)
 
+# ---- E9 --typed-notes: a file laid out like its PDF — superscript digits in the body, each page's notes typed as
+# numbered paragraphs after that page's text, paragraphs split at page breaks (Dom file, vol. 18)
+from docx.enum.style import WD_STYLE_TYPE
+D = _docx.Document()
+D.styles.add_style("Note", WD_STYLE_TYPE.PARAGRAPH)
+def para(style, *parts):
+    p = D.add_paragraph(style=style)
+    for x in parts:
+        r = p.add_run(x.lstrip("^/"))
+        r.font.superscript = x.startswith("^")
+        r.italic = x.startswith("/")
+BT, NT = "Body Text", "Note"
+para(BT, "Pierwszy akapit z przypisem", "^1", " i drugim", "^2", " oraz trzecim", "^3", " ciągnie się na następną")
+para(NT, "^1", " Pierwszy przypis, ", "/Tytuł", ".")
+para(NT, "2 Drugi przypis. ", "^3", " Trzeci przypis wpisany w drugi,")
+para(NT, "ciąg dalszy trzeciego.")
+para(BT, "900430271992")
+para(BT, "stronę i tu się kończy.")
+para(BT, "Nowy akapit", "^4", " bez kropki")
+para(BT, "5. Dalszy tekst po zgubionym odsyłaczu", "^6", ".")
+para(NT, "^4", " Czwarty.")
+para(NT, "^5", " Piąty.")
+para(NT, "^6", " Szósty.")
+para(BT, "Akapit z odsyłaczem", "^7", " urwany na")
+para(NT, "^7", " Siódmy.")
+para(BT, "zdaniu, dalej", "^10", ".")
+para(NT, "^10", " Dziesiąty.")
+para(BT, "Odsyłacz bez przypisu", "^11", ".")
+tn = os.path.join(d, "typed.docx"); D.save(tn)
+r = subprocess.run([sys.executable, os.path.join(S, "docx_in.py"), tn, "-o", os.path.join(d, "tn.md"), "--typed-notes"], capture_output=True, text=True)
+md = open(os.path.join(d, "tn.md"), encoding="utf-8").read()
+trep = open(os.path.join(d, "tn_import.md"), encoding="utf-8").read()
+defs = dict(re.findall(r"^\[\^(\d+)\]: (.*)$", md, re.M))
+t("E9: typed notes become real notes, labelled with the source numbers (8 = 1–7, 10)",
+  sorted(map(int, defs)) == [1, 2, 3, 4, 5, 6, 7, 10] and "8 markers paired" in trep, (r.stdout, r.stderr, md, trep))
+t("E9: note text kept with italics; the number is not part of it", defs.get("1") == "Pierwszy przypis, *Tytuł*.", defs)
+t("E9: a note typed inside the previous one is split off (Dom: note 2)",
+  defs.get("2") == "Drugi przypis." and defs.get("3", "").startswith("Trzeci przypis"), defs)
+t("E9: a note's continuation line (note style) is joined to it",
+  defs.get("3") == "Trzeci przypis wpisany w drugi, ciąg dalszy trzeciego.", defs)
+t("E9: a body paragraph split by the page (and its notes) is joined; page-ID string dropped",
+  "na następną stronę i tu się kończy." in md and "900430271992" not in md and "page-ID string dropped" in trep, md)
+t("E9: marker typed at a paragraph start („5. Dalszy…”) repaired, listed for verification",
+  "bez kropki[^5]. Dalszy tekst" in md and "REPAIRED: marker 5" in trep, (md, trep))
+t("E9: never joined across a missing page — note and marker numbers skip (7 → 10): listed, not guessed",
+  "urwany na\n" in md and "\nzdaniu, dalej[^10]" in md and "LOST TEXT?" in trep and "GAP: notes 8–9" in trep, (md, trep))
+t("E9: a marker without a note stays text and is listed; the import says IMPORT CHECK",
+  "[^11]" not in md and "MARKER WITHOUT NOTE: [11]" in trep and "IMPORT CHECK" in r.stdout, (md, trep, r.stdout))
+c = subprocess.run([sys.executable, os.path.join(S, "check.py"), os.path.join(d, "tn.md")], capture_output=True, text=True)
+t("E9: the result passes the integrity check", c.returncode == 0, c.stdout)
+r0 = subprocess.run([sys.executable, os.path.join(S, "docx_in.py"), tn, "-o", os.path.join(d, "tn0.md")], capture_output=True, text=True)
+t("E9: without --typed-notes nothing is converted (0 notes, typed digits flagged)",
+  "[^" not in open(os.path.join(d, "tn0.md"), encoding="utf-8").read() and "FAKE-NOTE" in open(os.path.join(d, "tn0_import.md"), encoding="utf-8").read())
+rx = subprocess.run([sys.executable, os.path.join(S, "docx_in.py"), docx, "-o", os.path.join(d, "mixed.md"), "--typed-notes"], capture_output=True, text=True)
+t("E9: a file that already has real Word notes is refused (mixed notes)", rx.returncode != 0 and "already has real Word footnotes" in rx.stderr, rx.stderr)
+
 n, ok = len(res), sum(res)
 print(f"DOCXIN ALL PASS {n}/{n}" if ok == n else f"DOCXIN FAILED {n - ok}/{n}")

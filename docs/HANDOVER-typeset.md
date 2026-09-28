@@ -82,9 +82,11 @@ G12) after.
    `cite_map.expand_ranges`).
 5. **Next text for translation** (srom-tlumacz HANDOVER § 7a): MB sends it here first — stage 1 (freeze
    `<id>_src.md` + refs.json + `<id>_src_front.md`, T-item), as with Ndiaye. A DOCX with typed notes needs E9 first.
-   **E9 typed notes** (T2; gates open in `GATES.md`): `docx_in.py --typed-notes`, page-aware pairing, never guess; test file
-   `Dom_Communities Stripped Mac copy.docx` in srom-tlumacz's folder (read-only). The Fotta RTF is not a case
-   (no notes at all).
+   ~~**E9 typed notes**~~ — done 28.09.2026 (T17): `docx_in.py --typed-notes`; Dom file 52/52 pairs right
+   (`work/dom/`), one page missing from that DOCX (notes 49–50), marker 48 repaired — both for MB. Dom not frozen
+   (stage 1 when MB wants it). The Fotta RTF is not a case (no notes at all).
+   Known, not fixed: the docx import keeps Word's right-to-left quote marks as spans (`[’]{dir="rtl"}`, Dom notes
+   11, 46; any file) — strip them in import or normalize.
 6. ~~Kartoteka E12 flags~~ — done (E13/T9): Nawar, Gurbati, Halabi italic; Mutribowie, Gadżar, Garaczi roman (assimilated).
 7. Stage 3, later: house style / reduce the style set (§4, D3) → template as IDML → `config/styles.json` and
    `template_extra` from it → G12 first article in InDesign (the JSX can possibly be run directly against InDesign

@@ -11,6 +11,9 @@ docx_in.py — author's Word file -> SROM-MD (then run normalize.py).
 - flagged in <out>_import.md: bold-only paragraphs (manual headings?), superscript digits typed by hand
   (fake footnote numbers), other superscripts, images (replaced by a ::: podpis placeholder), tables,
   numbered lists, hyperlinks, manual line breaks
+- --typed-notes (E9): notes typed as text, laid out like the PDF the file came from (superscript digits in the body,
+  each page's notes as numbered paragraphs after its text, paragraphs split at page breaks) -> real notes labelled
+  with the source numbers; split paragraphs joined; every repair and every gap listed (see typed_notes)
 Last line: IMPORT OK / IMPORT CHECK n
 """
 import argparse, html, json, os, re, subprocess, sys, zipfile
@@ -298,10 +301,292 @@ def custom_property(docx, name):
     return html.unescape(m.group(1)) if m else None
 
 
+# ------------------------------------------------------------------ typed notes (E9): --typed-notes
+FN_REL = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/footnotes"
+FN_CT = "application/vnd.openxmlformats-officedocument.wordprocessingml.footnotes+xml"
+TERMINAL = tuple('.!?…:;”"’)»')
+
+
+def typed_notes(src, dst):
+    """A DOCX laid out like the PDF it came from (E9): superscript digits typed in the body, each page's notes typed
+    as paragraphs after that page's text, paragraphs split at page breaks. Rewritten into real Word footnotes in
+    `dst`, pairing marker N with note N in sequence. Never guesses: every repair and every gap is listed.
+    Returns (report lines, number of problems, the note numbers in order)."""
+    from lxml import etree
+    Wn = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
+    z = zipfile.ZipFile(src)
+    doc = etree.fromstring(z.read("word/document.xml"))
+    body = doc.find(Wn + "body")
+    sup_styles = set()
+    if "word/styles.xml" in z.namelist():
+        for st in etree.fromstring(z.read("word/styles.xml")).iter(Wn + "style"):
+            va = st.find(f"{Wn}rPr/{Wn}vertAlign")
+            if va is not None and va.get(Wn + "val") == "superscript":
+                sup_styles.add(st.get(Wn + "styleId"))
+    fn_xml = z.read("word/footnotes.xml") if "word/footnotes.xml" in z.namelist() else None
+    if fn_xml is not None and any(f.get(Wn + "type") is None for f in etree.fromstring(fn_xml).iter(Wn + "footnote")):
+        sys.exit("--typed-notes: the file already has real Word footnotes — not converted (mixed notes: do it by hand)")
+
+    def is_sup(r):
+        rpr = r.find(Wn + "rPr")
+        if rpr is None:
+            return False
+        va, rs = rpr.find(Wn + "vertAlign"), rpr.find(Wn + "rStyle")
+        return (va is not None and va.get(Wn + "val") == "superscript") or (rs is not None and rs.get(Wn + "val") in sup_styles)
+
+    def rtext(r):
+        return "".join(t.text or "" for t in r.iter(Wn + "t"))
+
+    def text(p):
+        return "".join(t.text or "" for t in p.iter(Wn + "t"))
+
+    def plain(p):
+        """text without the superscript note numbers (for "does the paragraph end a sentence?")"""
+        return "".join(rtext(r) for r in p.iter(Wn + "r") if sup_digits(r) is None)
+
+    def style(p):
+        s = p.find(f"{Wn}pPr/{Wn}pStyle")
+        return s.get(Wn + "val") if s is not None else ""
+
+    def sup_digits(r):
+        s = rtext(r).strip()
+        return int(s) if is_sup(r) and s.isdigit() and len(s) <= 3 else None
+
+    def lead(p):
+        """(N, superscript?) when the paragraph opens with a note number"""
+        for r in p.iter(Wn + "r"):
+            s = rtext(r)
+            if not s.strip():
+                continue
+            if sup_digits(r) is not None:
+                return sup_digits(r), True
+            break
+        m = re.match(r"\s*(\d{1,3})[.)]?\s+\S", text(p))
+        return (int(m.group(1)), False) if m else (None, False)
+
+    def strip_lead(p, rx):
+        """remove the leading match of rx from the paragraph's text, across runs"""
+        m = re.match(rx, text(p))
+        n = len(m.group(0)) if m else 0
+        for t in p.iter(Wn + "t"):
+            if n <= 0:
+                break
+            s = t.text or ""
+            t.text, n = s[n:], n - len(s)
+        for r in list(p.iter(Wn + "r")):                          # an emptied superscript run would stay superscript
+            if not rtext(r) and r.find(Wn + "t") is not None and r.getparent() is not None:
+                r.getparent().remove(r)
+
+    def content(p):
+        return [c for c in p if c.tag != Wn + "pPr"]
+
+    def space_run():
+        r = etree.Element(Wn + "r")
+        t = etree.SubElement(r, Wn + "t")
+        t.text = " "
+        t.set("{http://www.w3.org/XML/1998/namespace}space", "preserve")
+        return r
+
+    paras = [c for c in body if c.tag == Wn + "p"]
+    heading = lambda p: re.match(r"(?i)(heading|nagłówek|title|tytuł)", style(p) or "")
+    # styles: the style of paragraphs that open with a superscript number vs of paragraphs carrying markers inside
+    from collections import Counter as _C
+    ns = _C(style(p) for p in paras if lead(p)[1])
+    bs = _C(style(p) for p in paras if not lead(p)[1] and any(sup_digits(r) is not None for r in p.iter(Wn + "r")))
+    note_style = ns.most_common(1)[0][0] if ns else None
+    body_style = bs.most_common(1)[0][0] if bs else None
+    styled = note_style is not None and note_style != body_style
+
+    # pass 1: classify, in document order
+    items, nxt, cur, markers, notes = [], 1, None, {}, {}
+    gap_since_body, notes_since_body, last_body, repeated, last_marker, last_tail = False, False, None, set(), 0, ""
+    rep, problems = [], 0
+    for i, p in enumerate(paras):
+        tx = text(p)
+        if not tx.strip():
+            continue
+        if re.fullmatch(r"\s*\d{8,}\s*", tx):
+            items.append(("drop", p, None)); rep.append(f"- page-ID string dropped: {tx.strip()}")
+            continue
+        if re.match(r"\s*\d{10,}", tx):
+            rep.append(f"- GARBLED: paragraph opens with a long digit string (page ID glued to text?) — left as is: {tx[:60]}")
+            problems += 1
+        n, sup = lead(p)
+        is_note = n is not None and not heading(p) and (
+            (sup and n >= nxt) or (not sup and n == nxt and (n in markers or (styled and style(p) == note_style)))
+            or (not sup and n > nxt and styled and style(p) == note_style))
+        if is_note:
+            if n > nxt:
+                gap_since_body = True
+                rep.append(f"- GAP: notes {nxt}–{n - 1} not found before note {n}" if n - 1 > nxt else f"- GAP: note {nxt} not found before note {n}")
+                problems += 1
+            splits, k = [], n + 1
+            for c in content(p)[1:]:
+                if c.tag == Wn + "r" and sup_digits(c) == k:       # the next note typed inside this one (E9: note 2)
+                    splits.append((c, k)); k += 1
+            items.append(("note", p, (n, splits)))
+            for m_ in [n] + [s[1] for s in splits]:
+                if m_ in notes:
+                    repeated.add(m_)
+                notes[m_] = i
+            nxt, cur, notes_since_body = k, n, True
+            continue
+        if cur is not None and styled and style(p) == note_style:
+            items.append(("notecont", p, None))
+            continue
+        # body
+        cur = None
+        join = repair = None
+        first = next((sup_digits(r) for r in p.iter(Wn + "r") if sup_digits(r) is not None), None)
+        if last_body is not None and not heading(p):
+            # a paragraph never ends mid-sentence: split by a page break. Next starting in lower case: always;
+            # in upper case only with evidence of the break (notes in between, or a comma/dash before it)
+            prev = last_tail                                       # end of the text so far (after any join)
+            if prev and not prev.endswith(TERMINAL) and (
+                    tx.lstrip()[:1].islower() or (tx.lstrip()[:1].isupper() and (notes_since_body or prev.endswith((",", "–", "-"))))):
+                # a page is missing when notes were skipped, or when this paragraph's first marker skips numbers
+                if gap_since_body or (first is not None and first > last_marker + 1):
+                    rep.append(f"- LOST TEXT? note/marker numbers skip here, paragraphs not joined: „…{prev[-40:]}” / „{plain(p).strip()[:40]}…”")
+                    problems += 1
+                else:
+                    join = True
+        if last_body is not None and not notes_since_body and not heading(p):
+            m = re.match(r"\s*(\d{1,3})(?=[.,;:)]?\s)", tx)
+            if m and not last_tail.endswith(TERMINAL):
+                repair = int(m.group(1))                          # "…appellation" / "48. In the case": checked below
+        for r in p.iter(Wn + "r"):
+            if sup_digits(r) is not None:
+                n_ = sup_digits(r)
+                if n_ in markers:
+                    repeated.add(n_)
+                markers[n_] = i
+                last_marker = max(last_marker, n_)
+        items.append(("body", p, (join, repair)))
+        if not join:
+            last_body = p if not heading(p) else None
+        last_tail = plain(p).rstrip() if not heading(p) else ""
+        notes_since_body = gap_since_body = False
+
+    # a repair only where note N exists and no marker N does
+    fixed = {}
+    for kind, p, x in items:
+        if kind == "body" and x[1] is not None and x[1] in notes and x[1] not in markers:
+            fixed[id(p)] = x[1]; markers[x[1]] = -1
+            rep.append(f"- REPAIRED: marker {x[1]} typed at the start of a paragraph („{text(p).strip()[:30]}…”) → marker "
+                       f"at the end of the previous paragraph, paragraphs joined — verify against the PDF"); problems += 1
+    for n_ in sorted(repeated):
+        rep.append(f"- REPEATED: number {n_} occurs more than once (marker or note) — not paired"); problems += 1
+    no_note = sorted(n_ for n_ in markers if n_ not in notes)
+    no_marker = sorted(n_ for n_ in notes if n_ not in markers)
+    late = sorted(n_ for n_ in markers if n_ in notes and markers[n_] > notes[n_])
+    if no_note:
+        rep.append(f"- MARKER WITHOUT NOTE: {no_note} — left as superscript text"); problems += 1
+    if no_marker:
+        rep.append(f"- NOTE WITHOUT MARKER: {no_marker} — left in the text as a paragraph"); problems += 1
+    if late:
+        rep.append(f"- NOTE BEFORE ITS MARKER: {late} — not paired"); problems += 1
+    pair = {n_ for n_ in markers if n_ in notes and n_ not in repeated and n_ not in late}
+
+    # pass 2: rewrite
+    fnotes, prev_body, cur_p = {}, None, None
+    for kind, p, x in items:
+        if kind == "drop":
+            body.remove(p)
+        elif kind == "note":
+            n, splits = x
+            if n not in pair and not any(s[1] in pair for s in splits):
+                cur_p = None
+                continue
+            body.remove(p)
+            strip_lead(p, r"\s*\d{1,3}[.)]?\s*")
+            pp = p.find(Wn + "pPr")
+            if pp is not None:
+                p.remove(pp)
+            fnotes[n], cur_p = [p], p
+            for c, k in splits:
+                p2 = etree.Element(Wn + "p")
+                kids = content(cur_p)
+                for e in kids[kids.index(c) + 1:]:
+                    p2.append(e)
+                cur_p.remove(c)
+                strip_lead(p2, r"\s*")
+                fnotes[k], cur_p = [p2], p2
+        elif kind == "notecont":
+            if cur_p is None:
+                continue
+            body.remove(p)
+            cur_p.append(space_run())
+            for e in content(p):
+                cur_p.append(e)
+        else:
+            cur_p = None
+            join, _ = x
+            n_fix = fixed.get(id(p))
+            if n_fix is not None and prev_body is not None:
+                strip_lead(p, r"\s*\d{1,3}")
+                r = etree.SubElement(prev_body, Wn + "r")
+                rpr = etree.SubElement(r, Wn + "rPr")
+                etree.SubElement(rpr, Wn + "vertAlign").set(Wn + "val", "superscript")
+                etree.SubElement(r, Wn + "t").text = str(n_fix)
+                for e in content(p):
+                    prev_body.append(e)
+                body.remove(p)
+                continue
+            if join and prev_body is not None:
+                rep.append(f"- joined across a page: „…{plain(prev_body).rstrip()[-30:]}” + „{text(p).strip()[:30]}…”")
+                prev_body.append(space_run())
+                for e in content(p):
+                    prev_body.append(e)
+                body.remove(p)
+                continue
+            prev_body = p if not heading(p) else None
+    # markers -> footnote references
+    used = set()
+    for p in body.iter(Wn + "p"):
+        for r in list(p.iter(Wn + "r")):
+            n_ = sup_digits(r)
+            if n_ in pair and n_ in fnotes and n_ not in used:
+                used.add(n_)
+                for c in [c for c in r if c.tag != Wn + "rPr"]:
+                    r.remove(c)
+                etree.SubElement(r, Wn + "footnoteReference").set(Wn + "id", str(n_))
+    root = etree.fromstring(fn_xml) if fn_xml is not None else etree.Element(Wn + "footnotes", nsmap={"w": Wn[1:-1]})
+    for n_ in sorted(used):
+        f = etree.SubElement(root, Wn + "footnote")
+        f.set(Wn + "id", str(n_))
+        for p in fnotes[n_]:
+            f.append(p)
+    files = {n: z.read(n) for n in z.namelist()}
+    files["word/document.xml"] = etree.tostring(doc, xml_declaration=True, encoding="UTF-8", standalone=True)
+    files["word/footnotes.xml"] = etree.tostring(root, xml_declaration=True, encoding="UTF-8", standalone=True)
+    rels = files["word/_rels/document.xml.rels"].decode("utf-8")
+    if FN_REL not in rels:
+        rels = rels.replace("</Relationships>", f'<Relationship Id="rIdSromTypedNotes" Type="{FN_REL}" Target="footnotes.xml"/></Relationships>')
+        files["word/_rels/document.xml.rels"] = rels.encode("utf-8")
+    ct = files["[Content_Types].xml"].decode("utf-8")
+    if "/word/footnotes.xml" not in ct:
+        ct = ct.replace("</Types>", f'<Override PartName="/word/footnotes.xml" ContentType="{FN_CT}"/></Types>')
+        files["[Content_Types].xml"] = ct.encode("utf-8")
+    with zipfile.ZipFile(dst, "w", zipfile.ZIP_DEFLATED) as out:
+        for n, b in files.items():
+            out.writestr(n, b)
+    head = [f"- **typed notes (--typed-notes)**: {len(used)} markers paired with their notes"
+            + (f"; note style „{note_style}”, body style „{body_style}”" if styled else "; no separate note style — continuation lines of notes not recognised")]
+    return head + rep, problems, sorted(used)
+
+
+def relabel(md, numbers):
+    """pandoc numbers notes 1…n in order; give them back the source's numbers (note labels = source numbers)"""
+    m = {str(i): str(n) for i, n in enumerate(numbers, 1)}
+    return re.sub(r"\[\^(\d+)\]", lambda x: "[^" + m.get(x.group(1), x.group(1)) + "]", md)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("docx")
     ap.add_argument("-o", "--out", required=True)
+    ap.add_argument("--typed-notes", action="store_true",
+                    help="notes typed as text (superscript digits + numbered note paragraphs, page by page): make them real notes (E9)")
     a = ap.parse_args()
     z = zipfile.ZipFile(a.docx)
     doc_xml = z.read("word/document.xml").decode("utf-8", "replace")
@@ -333,8 +618,12 @@ def main():
         print(f"written {a.out} (working copy round trip)")
         print("IMPORT OK")
         return
+    src, tn_rep, tn_n, tn_nums = a.docx, [], 0, None
+    if a.typed_notes:
+        src = a.out.rsplit(".", 1)[0] + "_typed-notes.docx"
+        tn_rep, tn_n, tn_nums = typed_notes(a.docx, src)
     open(lua, "w", encoding="utf-8").write(LUA_IN)
-    r = subprocess.run(["pandoc", a.docx, "-f", "docx", "--track-changes=accept", "--lua-filter", lua, "-t", "json"],
+    r = subprocess.run(["pandoc", src, "-f", "docx", "--track-changes=accept", "--lua-filter", lua, "-t", "json"],
                        capture_output=True, text=True)
     if r.returncode:
         os.remove(lua)
@@ -344,17 +633,19 @@ def main():
     # pandoc turns Word tabs into spaces: find tab-aligned paragraphs in the XML itself
     from lxml import etree
     Wn = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
-    for par in etree.fromstring(z.read("word/document.xml")).iter(Wn + "p"):
+    for par in etree.fromstring(zipfile.ZipFile(src).read("word/document.xml")).iter(Wn + "p"):
         if any(r_.find(Wn + "tab") is not None for r_ in par.iter(Wn + "r")):
             txt = "".join(t.text or "" for t in par.iter(Wn + "t"))
             msgs.append("TABS\ttab-aligned paragraph — interlinear example (retype as ::: przyklad) or a table? " + txt[:60])
     r2 = subprocess.run(["pandoc", "-f", "json", "-t", WRITE, "--wrap=none", "--markdown-headings=atx"],
                         input=json.dumps(ast), capture_output=True, text=True)
-    md = move_defs(r2.stdout)
+    md = move_defs(r2.stdout if tn_nums is None else relabel(r2.stdout, tn_nums))
     md, bib = split_bibliography(md)
     open(a.out, "w", encoding="utf-8").write(md)
     base = a.out.rsplit(".", 1)[0]
-    extra = []
+    extra = list(tn_rep)
+    if tn_rep:
+        extra.append(f"- the converted file (real notes) is `{os.path.basename(src)}` — open it in Word to compare")
     if bib:
         open(base + "_bib.txt", "w", encoding="utf-8").write("\n".join(bib) + "\n")
         extra.append(f"- author's reference list: {len(bib)} entries moved to `{os.path.basename(base)}_bib.txt` (input for refs.json and "
@@ -375,7 +666,7 @@ def main():
     rep += ["", "Next: python3 normalize.py " + a.out]
     rp = base + "_import.md"
     open(rp, "w", encoding="utf-8").write("\n".join(rep) + "\n")
-    n = len(issues) + (1 if (ins or dele or comments) else 0)
+    n = len(issues) + tn_n + (1 if (ins or dele or comments) else 0)
     print(f"written {a.out} · report {rp}")
     print("IMPORT OK" if not n else f"IMPORT CHECK {n}")
 
