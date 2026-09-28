@@ -91,5 +91,32 @@ t("import report lists the Word comment; text carries no comment", "DO SPRAWDZEN
 b = py(os.path.join(S, "build.py"), back3, "--refs", REFS, "--out", os.path.join(d, "b3"))
 t("build passes regardless of comments", b.returncode == 0, b.stdout)
 
+# E16: Word styles are per paragraph — a block of several paragraphs must come back as ONE block (the one title
+# note of D12 above all); blocks that are one paragraph each by nature stay separate even when adjacent
+mb = os.path.join(d, "multi.md")
+MB = ("# Tytuł\n\n::: przypis-tytulowy\nTłumaczenie z języka angielskiego: Anna Nowak.\n\n"
+      "Autorka dziękuje recenzentom.\n:::\n\n::: motto\nWers pierwszy.\n\nWers drugi.\n:::\n\n"
+      "::: nota\nNota, akapit pierwszy.\n\nNota, akapit drugi.\n:::\n\n::: dialog\nA: Jeden.\n\nB: Dwa.\n:::\n\n"
+      "Tekst.[^1]\n\n[^1]: Przypis.\n\n::: podpis\nRyc. 1. Pierwsza.\n:::\n\n::: podpis\nRyc. 2. Druga.\n:::\n\n"
+      "::: mowca\nJan Kowalski\nUniwersytet Warszawski\n:::\n\n::: mowca\nAnna Nowak\nUniwersytet Jagielloński\n:::\n")
+open(mb, "w", encoding="utf-8").write(MB)
+w, back, r = roundtrip(mb, "multi")
+bm = open(back, encoding="utf-8").read()
+t("E16: multi-paragraph blocks (title note, motto, nota, dialog) come back whole; podpis/mowca stay separate",
+  tree(mb) == tree(back), bm)
+c = py(os.path.join(S, "check.py"), "--pair", mb, back)
+t("E16: pair check after the Word round trip: one title-note block, CHECK OK",
+  c.returncode == 0 and bm.count("przypis-tytulowy") == 1, c.stdout + bm)
+
+# a comment between a citation token and punctuation: Word drops the comment, the space before it must go too
+# (the build prints "[@key];"); a file exported before the fix still has "[@key] ;": closed up on import
+cp = os.path.join(d, "cpunct.md")
+open(cp, "w", encoding="utf-8").write("Tekst.[^1] Dalej.[^2]\n\n[^1]: [@ficowski1985, s. 15] <!-- DO SPRAWDZENIA: S2 – strona -->; "
+                                      "oryginał: „x”.\n\n[^2]: [@mroz2011] ; stary eksport.\n")
+w, back, r = roundtrip(cp, "cpunct")
+cb = open(back, encoding="utf-8").read()
+t("comment before punctuation: token and punctuation come back together; old-export gap closed on import",
+  "[@ficowski1985, s. 15]; oryginał" in cb and "[@mroz2011]; stary" in cb, cb)
+
 n, ok = len(res), sum(res)
 print(f"ROUNDTRIP ALL PASS {n}/{n}" if ok == n else f"ROUNDTRIP FAILED {n - ok}/{n}")

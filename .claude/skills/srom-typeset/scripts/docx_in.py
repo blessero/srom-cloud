@@ -188,6 +188,7 @@ local pass1 = {
     if c:sub(1, 5) == "SROM " then
       local cls = c:sub(6)
       if cls == "przyklad" then return d.content end   -- rebuilt around the code block
+      if cls == "mowca" then d = d:walk({LineBreak = function() return pandoc.SoftBreak() end}) end  -- export_work.py
       return pandoc.Div(d.content, pandoc.Attr("", {cls}))
     end
     if c == "Table Caption" then return {} end        -- the reader already attached it to the table
@@ -227,7 +228,24 @@ local pass3 = {
     return doc
   end,
 }
-return {pass0, pass1, pass2, pass3}
+-- Word styles are per paragraph, so a block of several paragraphs comes back as one Div per paragraph (E16):
+-- re-join consecutive Divs of a class whose paragraphs form one unit. Not podpis / tabela-* (one caption each),
+-- przyklad (one example per code block) or mowca (the first line of each block is a speaker).
+local JOIN = {["przypis-tytulowy"] = true, nota = true, motto = true, ["motto-zrodlo"] = true, dialog = true,
+              ["bez-wciecia"] = true}
+local function join_class(b) return b.t == "Div" and #b.classes == 1 and JOIN[b.classes[1]] and b.classes[1] end
+local pass4 = {
+  Pandoc = function(doc)
+    local out = pandoc.List()
+    for _, b in ipairs(doc.blocks) do
+      local c, prev = join_class(b), out[#out]
+      if c and prev and join_class(prev) == c then prev.content:extend(b.content) else out:insert(b) end
+    end
+    doc.blocks = out
+    return doc
+  end,
+}
+return {pass0, pass1, pass2, pass3, pass4}
 """
 WRITE_RT = WRITE.replace("-fenced_code_attributes", "")
 
@@ -248,13 +266,16 @@ def restore_tokens(md):
         return "[" + m.group(1) + "]" if not re.match(r"[(\[{:]", md[m.end():m.end() + 1]) and "^" not in inner else m.group(0)
     md = re.sub(r"\\\[((?:[^\]\\]|\\.)*?)\\\]", tok, md)
     md = re.sub(r"⟦(.*?)⟧", lambda m: "<!-- " + _unescape(m.group(1)).strip() + " -->", md, flags=re.S)
+    # "[@key] <!-- X -->;" exported before 28.09.2026 left the space when Word dropped the comment
+    md = re.sub(r"(\[[^\]\n]*@[^\]\n]*\])[ \t]+(?=[.,;:])", r"\1", md)
     return md
 
 
 def roundtrip(docx, out, lua_path):
     open(lua_path, "w", encoding="utf-8").write(LUA_RT)
     r = subprocess.run(["pandoc", docx, "-f", "docx+styles", "--track-changes=accept", "--lua-filter", lua_path,
-                        "-t", WRITE_RT, "--wrap=none", "--markdown-headings=atx"], capture_output=True, text=True)
+                        # preserve: the reader makes no soft breaks of its own, only the ::: mowca line break above
+                        "-t", WRITE_RT, "--wrap=preserve", "--markdown-headings=atx"], capture_output=True, text=True)
     if r.returncode:
         sys.exit(r.stderr)
     md = restore_tokens(move_defs(r.stdout))

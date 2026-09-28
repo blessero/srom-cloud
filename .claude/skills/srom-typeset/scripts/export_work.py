@@ -27,21 +27,29 @@ LUA_OUT = r'''
 return {{
   Div = function(d)
     if d.identifier == "bibliografia" then d.attributes["custom-style"] = "SROM bibliografia"; return d end
-    if #d.classes > 0 then d.attributes["custom-style"] = "SROM " .. d.classes[1]; return d end
+    if #d.classes > 0 then
+      d.attributes["custom-style"] = "SROM " .. d.classes[1]
+      -- ::: mowca: speaker and affiliation are two lines of one paragraph; Word keeps only a hard break
+      if d.classes[1] == "mowca" then d = d:walk({SoftBreak = function() return pandoc.LineBreak() end}) end
+      return d
+    end
   end,
 }}
 '''
 
 
 def comments_to_word(text):
-    """<!-- X --> -> a real Word comment anchored at that spot (dropped again on import; never blocks)"""
+    """<!-- X --> -> a real Word comment anchored at that spot (dropped again on import; never blocks).
+    The build drops the spaces before a comment (check.strip_comments): "[@key] <!-- X -->;" prints "[@key];".
+    Word would keep that space, so when punctuation follows, the comment is anchored after the punctuation."""
     n = [0]
     def rep(m):
         n[0] += 1
-        body = re.sub(r"\s+", " ", m.group(1)).strip().replace("]", "\\]").replace("[", "\\[")
-        return (f'[{body}]{{.comment-start id="{n[0]}" author="SROM" date="2026-01-01T00:00:00Z"}}'
-                f'[]{{.comment-end id="{n[0]}"}}')
-    return re.sub(r"<!--(.*?)-->", rep, text, flags=re.S)
+        body = re.sub(r"\s+", " ", m.group(2)).strip().replace("]", "\\]").replace("[", "\\[")
+        anchor = (f'[{body}]{{.comment-start id="{n[0]}" author="SROM" date="2026-01-01T00:00:00Z"}}'
+                  f'[]{{.comment-end id="{n[0]}"}}')
+        return m.group(3) + anchor if m.group(3) else m.group(1) + anchor
+    return re.sub(r"([ \t]*)<!--(.*?)-->([.,;:!?)»”]*)", rep, text, flags=re.S)
 
 
 def main():
