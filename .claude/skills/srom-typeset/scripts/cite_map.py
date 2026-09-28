@@ -11,7 +11,10 @@ scan   finds every author-date reference, resolves it to a refs.json key by surn
                     "(zob. Mróz 2011; Hancock 2007)"     -> one note          [^c2]: [Zob. @mroz2011; @hancock2007].
          narrative  "Ficowski (1985: 15) twierdzi"       -> "Ficowski[^c3] twierdzi"
          in a note  "Szerzej: Mróz (2011: 90)." / "Zob. Mróz 2011: 90." -> "Szerzej: [@mroz2011, s. 90]."
-       Status per hit: OK · INFLECTED (Polish case form matched by stem — verify) · IN-NOTE (verify
+       Status per hit: OK · INFLECTED (Polish case form matched by stem — verify) · TRIMMED (narrative "Likewise,
+       Grellmann (1807)": matched on the name after the last comma — verify) · YEAR-ONLY ("… Law and Kovats state
+       … (2018, 78)": the one work of that year by authors named earlier in the paragraph — verify) · YEAR-ONLY? (no such
+       work: left unchanged, listed — a date, or convert by hand) · IN-NOTE (verify
        grammar) · NOT-CITED? (narrative "Name (year)" whose name is not a ref author, e.g. "w Warszawie
        (1920)" — left unchanged, listed) · PAGE-ONLY ("(s. 21)": converted as a citation of the work
        cited just before it, listed) · PAGE-ONLY? (no earlier citation) · AMBIGUOUS · UNKNOWN · UNPARSED.
@@ -31,7 +34,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CSL = os.path.join(ROOT, "csl", "srom.csl")
 
 UP = "A-ZŁŚŻŹĆŃÓĘĄÄÖÜÉÈÁÍÚČŠŽŘŐŰÇÑ"
-NAME = rf"(?:(?:de|van|von|der|den|di|da|le|la|du|del|ten|ter)\s)*[{UP}][\w’'\-]+"
+NAME = rf"(?:\b(?:de|van|von|der|den|di|da|le|la|du|del|ten|ter)\s)*[{UP}][\w’'\-]+"
 NAMES = rf"{NAME}(?:(?:,\s|\s(?:i|and|&|und|et)\s){NAME})*(?:\s(?:i\sin\.|et\sal\.|i\sinni|u\.\sa\.))?(?:\s\((?:red|eds?|Hrsg|oprac)\.\))?"
 YEAR = r"(?:1[5-9]\d\d|20\d\d)(?:/(?:1[5-9]\d\d|20\d\d))?[a-z]?|b\.\s?d\.|n\.\s?d\.|w\sdruku|in\spress"
 LOC = r"(?:[:,]\s?(?:s\.|str\.|pp?\.|S\.)?\s?[^;()\[\]]+?)?"
@@ -74,10 +77,17 @@ def primary_names(ref):
 
 
 def as_written_names(ref):
-    """the author's own form of a corrected name (refs.json "srom-as-written": {"editor": "Van Lannep"}):
-    the entry still matches the author's list and notes"""
+    """the author's own form of a corrected or transliterated name (refs.json "srom-as-written": {"editor": "Van Lannep"};
+    several family names in order: {"author": "Kirey; Serdyuk"}): the entry still matches the author's list and text"""
     aw = ref.get("srom-as-written") or {}
-    return [v for k, v in aw.items() if k in ("author", "editor") and v]
+    return [n.strip() for k, v in aw.items() if k in ("author", "editor") and v for n in v.split(";") if n.strip()]
+
+
+def as_written_primary(ref):
+    """the author's spelling of the names a citation is made with: the authors, else the editors (as primary_names)"""
+    aw = ref.get("srom-as-written") or {}
+    key = "author" if ref.get("author") else "editor"
+    return [n.strip() for n in (aw.get(key) or "").split(";") if n.strip()]
 
 
 def ref_years(ref):
@@ -93,8 +103,20 @@ def split_names(s):
     s = re.sub(r"\s\((?:red|eds?|Hrsg|oprac)\.\)$", "", s.strip())
     etal = bool(re.search(r"\s(?:i\sin\.|et\sal\.|i\sinni|u\.\sa\.)$", s))
     s = re.sub(r"\s(?:i\sin\.|et\sal\.|i\sinni|u\.\sa\.)$", "", s)
-    parts = [p for p in re.split(r",\s|\s(?:i|and|&|und|et)\s", s) if p]
+    parts = [re.sub(r"[’']s$", "", p) for p in re.split(r",\s|\s(?:i|and|&|und|et)\s", s) if p]   # Robinson’s (2000)
     return parts, etal
+
+
+def resolve_narr(names_s, year_s, refs):
+    """narrative "Name (year)": as resolve; if unknown, the name after the last comma alone ("Likewise, Grellmann
+    (1807)", "Claiming …, Grellmann (1807)") -> TRIMMED (listed; the words before the comma are not names)"""
+    st, keys = resolve(names_s, year_s, refs)
+    if st == "UNKNOWN" and ", " in names_s:
+        tail = names_s.rsplit(", ", 1)[1]
+        st2, keys2 = resolve(tail, year_s, refs)
+        if st2 in ("OK", "INFLECTED"):
+            return "TRIMMED", keys2
+    return st, keys
 
 
 def resolve(names_s, year_s, refs):
@@ -132,6 +154,15 @@ def resolve(names_s, year_s, refs):
             exact.append(r)
         elif [stem(x) for x in cmp_names] == [stem(x) for x in want]:
             inflected.append(r)
+    if not exact and not inflected:
+        # the author's spelling of a name the refs give in another form (ALA-LC "Bielikov" for the author's "Byelikov")
+        for r in refs:
+            aw = as_written_primary(r)
+            if not aw or not (ref_years(r) & years if not nodate else not ref_years(r)):
+                continue
+            cmp_names = aw[:1] if etal else aw
+            if (etal or len(aw) == len(names)) and [fold(x) for x in cmp_names] == [fold(x) for x in names[:len(cmp_names)]]:
+                exact.append(r)
     for pool, tag in ((exact, "OK"), (inflected, "INFLECTED")):
         if letter and len(pool) > 1:
             lab = [r for r in pool if (r.get("citation-label") or "").strip().endswith(yr)]
@@ -141,6 +172,37 @@ def resolve(names_s, year_s, refs):
         if len(pool) > 1:
             return "AMBIGUOUS", [r["id"] for r in pool]
     return "UNKNOWN", []
+
+
+YEARONLY = re.compile(rf"^\s*(?P<year>{YEAR})(?P<loc>{LOC})\s*$")
+
+
+def resolve_context(before, year_s, refs):
+    """"(2018, 78)" with no name: the work of that year whose author(s) are named earlier in the same paragraph
+    ("Ian Law and Martin Kovats state that … (2018, 78)", Kanon § 7.1). All the ref's family names (the first,
+    for four or more) must occur there; of several, the one named last. -> (status, [keys])"""
+    m = re.match(r"^(\d{4})", year_s.strip())
+    if not m:
+        return "YEAR-ONLY?", []
+    words = [(w.start(), fold(re.sub(r"[’']s$", "", w.group(0)))) for w in re.finditer(r"[^\W\d_][\w’'\-]*", before)]
+    cands = []
+    for r in refs:
+        if m.group(1) not in ref_years(r):
+            continue
+        for names in (primary_names(r), as_written_primary(r)):
+            need = [fold(n) for n in (names[:1] if len(names) >= 4 else names)]
+            if not need:
+                continue
+            pos = [max((p for p, w in words if w == n), default=-1) for n in need]
+            if min(pos) >= 0:
+                cands.append((max(pos), r["id"]))
+                break
+    if not cands:
+        return "YEAR-ONLY?", []
+    cands.sort(reverse=True)
+    if len(cands) > 1 and cands[0][0] == cands[1][0]:
+        return "AMBIGUOUS", [k for _, k in cands]
+    return "YEAR-ONLY", [cands[0][1]]
 
 
 def locator(loc):
@@ -187,7 +249,7 @@ def parse_items(content, refs):
 
 
 def worst(statuses):
-    for s in ("UNPARSED", "UNKNOWN", "AMBIGUOUS", "INFLECTED", "OK"):
+    for s in ("UNPARSED", "UNKNOWN", "AMBIGUOUS", "INFLECTED", "TRIMMED", "YEAR-ONLY", "OK"):
         if s in statuses:
             return s
     return "OK"
@@ -209,7 +271,10 @@ def scan(md_text, refs):
     hits, out = [], []
     last_key = [None]          # last work cited in the main text so far (page-only "(s. 21)" refers to it)
     in_bib = False
+    prev_para = [""]            # a block quotation's source is named in the paragraph that leads into it
     for ln_no, line in enumerate(lines, 1):
+        if line.strip() and not line.startswith(("[^", ":::", "#", ">")):
+            prev_para[0] = line
         if line.startswith("::: {#bibliografia}"):
             in_bib = True
         if in_bib:
@@ -229,6 +294,16 @@ def scan(md_text, refs):
             def note_paren(m):
                 content = m.group(1)
                 items, sts, cands = parse_items(content, refs)
+                y = YEARONLY.match(content) if items is None else None
+                if y:
+                    st, keys = resolve_context(text[:m.start()], y.group("year"), refs)
+                    if st != "YEAR-ONLY":
+                        hits.append(Hit(where, m.group(0).strip(), st, keys, None,
+                                        "year without a name: no single work of that year by an author named earlier in the note — left unchanged"))
+                        return m.group(0)
+                    rep = " " + cite_body([("", keys[0], locator(y.group("loc")))], False)
+                    hits.append(Hit(where, m.group(0).strip(), st, keys, rep.strip(), "author named earlier in the note"))
+                    return rep
                 if items is None:
                     if ITEM_HINT.search(content):
                         hits.append(Hit(where, m.group(0).strip(), "UNPARSED", [], None))
@@ -242,7 +317,7 @@ def scan(md_text, refs):
                 return rep
 
             def note_narr(m):
-                st, keys = resolve(m.group("names"), m.group("year"), refs)
+                st, keys = resolve_narr(m.group("names"), m.group("year"), refs)
                 if st == "UNKNOWN":
                     hits.append(Hit(where, m.group(0), "NOT-CITED?", [], None, "name not in refs.json — left unchanged"))
                     return m.group(0)
@@ -269,7 +344,7 @@ def scan(md_text, refs):
         where = f"line {ln_no}"
 
         def body_narr(m):
-            st, keys = resolve(m.group("names"), m.group("year"), refs)
+            st, keys = resolve_narr(m.group("names"), m.group("year"), refs)
             if st == "UNKNOWN":
                 # "w Warszawie (1920)", "Konferencja w Genewie (1971)": not a citation unless the name is a ref author
                 hits.append(Hit(where, m.group(0), "NOT-CITED?", [], None, "name not in refs.json — left unchanged; if it IS a citation, add the work to refs.json"))
@@ -283,6 +358,19 @@ def scan(md_text, refs):
         def body_paren(m):
             content = m.group(1)
             items, sts, cands = parse_items(content, refs)
+            y = YEARONLY.match(content) if items is None else None
+            if y:
+                ctx = (prev_para[0] + "\n" if line.startswith(">") else "") + line[:m.start()]
+                st, keys = resolve_context(ctx, y.group("year"), refs)
+                if st != "YEAR-ONLY":
+                    hits.append(Hit(where, m.group(0).strip(), st, keys, None,
+                                    "year without a name: no single work of that year by an author named earlier in the paragraph — left unchanged"))
+                    return m.group(0)
+                lab = new_label()
+                body = cite_body([("", keys[0], locator(y.group("loc")))], True)
+                hits.append(Hit(where, m.group(0).strip(), st, keys, f"[^{lab}]", f"[^{lab}]: {body}. (author named earlier in the paragraph)"))
+                new_defs.append(f"[^{lab}]: {body}.")
+                return f"[^{lab}]"
             if items is None:
                 if ITEM_HINT.search(content):
                     hits.append(Hit(where, m.group(0).strip(), "UNPARSED", [], None))
@@ -300,7 +388,7 @@ def scan(md_text, refs):
 
         def body_paren_tracked(m):
             r = body_paren(m)
-            if hits and hits[-1].where == where and hits[-1].keys and hits[-1].status in ("OK", "INFLECTED"):
+            if hits and hits[-1].where == where and hits[-1].keys and hits[-1].status in ("OK", "INFLECTED", "TRIMMED", "YEAR-ONLY"):
                 last_key[0] = hits[-1].keys[-1]
             return r
 
@@ -318,7 +406,7 @@ def scan(md_text, refs):
 
         def body_narr_tracked(m):
             r = body_narr(m)
-            if hits[-1].keys and hits[-1].status in ("OK", "INFLECTED"):
+            if hits[-1].keys and hits[-1].status in ("OK", "INFLECTED", "TRIMMED"):
                 last_key[0] = hits[-1].keys[-1]
             return r
 

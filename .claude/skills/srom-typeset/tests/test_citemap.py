@@ -145,5 +145,39 @@ json.dump([{"id": "ficowski1985pl", "type": "book", "author": [{"family": "Ficow
 c, o = cm("audit", "--refs", sub, "--refs", tlr, "--bib", bib1)
 t("E2: srom-added entry with a source passes the audit", c == 0, o)
 
+# ---- English author-date prose (stage-1 test 28.09.2026, Pahulich): possessive, first name ending in a particle,
+# comma before the name, year without a name, block quotation, transliterated name kept as the author wrote it
+eref2 = [
+    {"id": "robinson2000", "type": "book", "author": [{"family": "Robinson", "given": "Cedric J."}], "title": "Black Marxism", "issued": {"date-parts": [[2000]]}},
+    {"id": "melamed2015", "type": "article-journal", "author": [{"family": "Melamed", "given": "Jodi"}], "title": "Racial Capitalism", "issued": {"date-parts": [[2015]]}},
+    {"id": "grellmann1807", "type": "book", "author": [{"family": "Grellmann", "given": "H.M.G."}], "title": "Dissertation", "issued": {"date-parts": [[1807]]}},
+    {"id": "law2018", "type": "book", "author": [{"family": "Law", "given": "Ian"}, {"family": "Kovats", "given": "Martin"}], "title": "Rethinking Roma", "issued": {"date-parts": [[2018]]}},
+    {"id": "law2012", "type": "book", "author": [{"family": "Law", "given": "Ian"}], "title": "Red Racisms", "issued": {"date-parts": [[2012]]}},
+    {"id": "hancock2008", "type": "chapter", "author": [{"family": "Hancock", "given": "Ian"}], "title": "Stereotype", "issued": {"date-parts": [[2008]]}},
+    {"id": "bielikov2003", "type": "thesis", "author": [{"family": "Bielikov", "given": "Oleksandr"}], "title": "Tsyhansʹke naselennia",
+     "issued": {"date-parts": [[2003]]}, "srom-as-written": {"author": "Byelikov"}},
+    {"id": "kirei1984", "type": "chapter", "author": [{"family": "Kireĭ", "given": "N.I."}, {"family": "Serdiuk", "given": "A.O."}], "title": "Izuchenie",
+     "editor": [{"family": "Kireĭ", "given": "N.I."}], "issued": {"date-parts": [[1984]]}, "srom-as-written": {"author": "Kirey; Serdyuk", "editor": "Kirey"}}]
+esub2 = os.path.join(d, "esub2.json"); json.dump(eref2, open(esub2, "w", encoding="utf-8"), ensure_ascii=False)
+eng = os.path.join(d, "eng.md")
+open(eng, "w", encoding="utf-8").write(
+    "These histories support Cedric Robinson’s (2000) argument. As Jodi Melamed (2015) notes, it is so.\n\n"
+    "Claiming to produce the first work about Roma, Grellmann (1807) synthesized it. Ian Law and Martin Kovats state that it began "
+    "as early as 1422 (2018, 78). Münster wrote *Cosmographia* (1544).\n\n"
+    "Romani scholar Ian Hancock asserts:\n\n> […] the need to categorize the plants (2008, 183).\n\n"
+    "Settled lives (Byelikov 2003, 87; Kirey and Serdyuk 1984, 113–114).\n")
+c, o = cm("scan", eng, "--refs", esub2, "--apply", os.path.join(d, "eng_out.md"))
+eo = open(os.path.join(d, "eng_out.md"), encoding="utf-8").read() if os.path.exists(os.path.join(d, "eng_out.md")) else ""
+t("possessive: Robinson’s (2000) -> Robinson’s[^c1]", "Robinson’s[^c1] argument" in eo and "[^c1]: [@robinson2000]." in eo, o + eo)
+t("'Jodi Melamed (2015)': 'di' inside a first name is no particle", "Jodi Melamed[^c2] notes" in eo and "[@melamed2015]" in eo, o + eo)
+t("'…, Grellmann (1807)': matched on the name after the comma, TRIMMED (listed)", "about Roma, Grellmann[^c3] synthesized" in eo and "TRIMMED" in o, o + eo)
+t("'(2018, 78)' with Law and Kovats named earlier -> law2018 (not law2012), YEAR-ONLY listed",
+  "1422[^c4]." in eo and "[^c4]: [@law2018, s. 78]." in eo and "YEAR-ONLY" in o, o + eo)
+t("'(1544)' after a title: no work of that year by a named author -> left, YEAR-ONLY? (not blocking)",
+  "*Cosmographia* (1544)." in eo and "YEAR-ONLY?" in o and c == 0, o + eo)
+t("block quotation '(2008, 183)': author named in the lead-in paragraph -> hancock2008", "[@hancock2008, s. 183]" in eo, o + eo)
+t("author's spelling of a transliterated name (srom-as-written 'Byelikov', 'Kirey; Serdyuk') resolves",
+  "[@bielikov2003, s. 87; @kirei1984, s. 113–114]" in eo, o + eo)
+
 n, ok = len(res), sum(res)
 print(f"CITEMAP ALL PASS {n}/{n}" if ok == n else f"CITEMAP FAILED {n - ok}/{n}")

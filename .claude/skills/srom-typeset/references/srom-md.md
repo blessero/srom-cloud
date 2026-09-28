@@ -138,4 +138,4 @@ Typed by Claude from the author's bibliography and notes, then verified: `cite_m
 | `note` | physical-form remark, printed in ( ) at the end (`maszynopis pracy doktorskiej…`) |
 | `citation-label` | the author-date label when a/b suffixes exist (`"Nowak 2010b"`) — used by cite_map |
 | `srom-section` | `I`–`VI` override of the bibliography section |
-| `srom-as-written` | an approved correction of the author's data keeps the author's form: `{"editor": "Van Lannep", "publisher-place": "Droit"}`; the audit and `check.py --keyed` accept it, the build report lists it |
+| `srom-as-written` | the author's form of a field changed in refs.json — an approved correction (`{"editor": "Van Lannep", "publisher-place": "Droit"}`) or a form the Kanon prescribes (ALA-LC for the author's romanization, § 9.6: `{"author": "Byelikov", "title": "Istoriya Tsygan"}`); `author`/`editor` hold family names only, several in order separated by `;` (`"Kirey; Serdyuk"`); the audit, `cite_map scan` (the text's "Byelikov 2003") and `check.py --keyed` accept it, the build report lists it |

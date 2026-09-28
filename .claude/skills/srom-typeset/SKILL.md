@@ -32,7 +32,7 @@ the DOCX reader; the tests are what proves the toolchain still does what this fi
 | 1b PDF in | `python3 $S/pdf_extract.py art.pdf -o src.md [--pages a-b]` | `EXTRACT OK/CHECK n` | `_extract.md`: hyphen joins, headings, verse, captions, retyped small caps, dropped lines; reference list → `src_bib.txt`; title/author/abstract → `src_front.md` (for the CSV) |
 | 2 normalise | `python3 $S/normalize.py art.md -o art.md --log art_norm.md` | change log + flags | resolve every flag |
 | 3 refs | Claude writes `refs.json` from `_bib.txt` (or completes `_refs.json`) per `references/srom-md.md` | `cite_map.py audit --refs refs.json --bib art_bib.txt` → `CITEMAP OK` | every PROBLEM line |
-| 4a author-date | `python3 $S/cite_map.py scan art.md --refs refs.json --apply art_fn.md` | `CITEMAP OK/FAIL` | INFLECTED, IN-NOTE, NOT-CITED?, PAGE-ONLY rows |
+| 4a author-date | `python3 $S/cite_map.py scan art.md --refs refs.json --apply art_fn.md` | `CITEMAP OK/FAIL` | INFLECTED, TRIMMED, YEAR-ONLY, IN-NOTE, NOT-CITED?, YEAR-ONLY?, PAGE-ONLY rows |
 | 4b footnoted | Claude keys literal notes → `[@key, s. N]` (archival, fieldwork, laws stay literal) | `check.py --keyed art.md art_keyed.md --refs refs.json` → `CHECK OK` | — |
 | 5 Word | `python3 $S/export_work.py art.md -o art_robocza.docx` → you edit in Word → `docx_in.py art_robocza.docx -o art.md` (lossless) | `IMPORT OK` | the Word file is the master once exported; proof: `build.py --proof` |
 | 6 build | `python3 $S/build.py art.md --refs refs.json --out build/` | `PASS` / `FAIL` + `_report.md` | warnings; **`_pytania.md/.csv`** = the query sheet for author and editor |
