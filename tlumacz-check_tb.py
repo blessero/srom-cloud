@@ -9,7 +9,9 @@
                the cited line is informative only — a moved line is a WARN, a missing quote an error.
                Two cite forms: `l. N: «…»` (old text extraction) and `md <art>: «…»` (clean text,
                sources/vol18-md/<art>_pl.md, from leaf 1.3.1)
-  --evidence   ESTABLISHED rows carry >= 2 sources, or "MB verified dd.mm.yyyy" (MB's own survey)
+  --evidence   ESTABLISHED rows carry >= 2 sources, or "MB verified dd.mm.yyyy" (MB's own survey);
+               every `TR <key>: «…»` quote occurs in the training file named for <key> in
+               training/sources.tsv (whitespace-normalised); every CANDIDATE row has at least one (leaf 1.3.5)
   --selftest   corrupts temporary copies and confirms each check above fails on them
 
 Paths resolved by tlumacz_paths.py (./, sources/, ../sources, ../_shared, /mnt/project); override with
@@ -144,6 +146,32 @@ def run_checks(a):
         print(f"established rows: {len(est)}, all with >=2 sources" if not short
               else f"established rows: {len(short)} under-evidenced")
         ok &= not short
+
+        tdir = os.path.join(os.path.dirname(os.path.abspath(a.tb_file)), "training")
+        if not os.path.isfile(os.path.join(tdir, "sources.tsv")):
+            tdir = os.path.join(HERE, "training")
+        tfiles = {}
+        if os.path.isfile(os.path.join(tdir, "sources.tsv")):
+            with open(os.path.join(tdir, "sources.tsv"), encoding="utf-8") as f:
+                for rec in csv.DictReader(f, delimiter="\t"):
+                    tfiles[rec["key"]] = os.path.join(tdir, rec["file"])
+        texts, n_q, bad_q = {}, 0, []
+        for r in rows:
+            for key, q in re.findall(r"TR (\w+): «(.+?)»", r["evidence"]):
+                n_q += 1
+                if key not in texts:
+                    fp = tfiles.get(key)
+                    texts[key] = norm(open(fp, encoding="utf-8").read()) if fp and os.path.isfile(fp) else None
+                if texts[key] is None or norm(q) not in texts[key]:
+                    bad_q.append(f"{r['concept_id']}: TR {key}: «{q}»")
+        for b in bad_q: print("  training quote not found:", b)
+        print(f"training quotes verified: {n_q - len(bad_q)}/{n_q}")
+        cand = [r for r in rows if r["status"] == "CANDIDATE"]
+        bare = [r["concept_id"] for r in cand if not re.search(r"TR \w+: «.+?»", r["evidence"])]
+        if bare: print("  CANDIDATE rows without a training quote:", *bare)
+        print(f"candidate rows: {len(cand)}, each with a verified training quote" if not (bare or bad_q)
+              else f"candidate rows: {len(bare)} without a quote, {len(bad_q)} quote(s) not found")
+        ok &= not bad_q and not bare
     return ok
 
 
@@ -157,6 +185,9 @@ def selftest(a):
         ("--vocab", lambda h, rs: (h, [r[:h.index("status")] + ["LOCKED"] + r[h.index("status") + 1:] for r in rs])),
         ("--precedent", lambda h, rs: (h, [[c.replace("«", "«xq") for c in r] for r in rs])),
         ("--evidence", lambda h, rs: (h, [r[:h.index("evidence")] + [""] + r[h.index("evidence") + 1:] for r in rs])),
+        ("--evidence", lambda h, rs: (h, [[c.replace("TR taradejna: «", "TR taradejna: «xq") for c in r] for r in rs])),   # training quote altered
+        ("--evidence", lambda h, rs: (h, [r[:h.index("evidence")] + [re.sub(r"TR \w+: «.+?»", "", r[h.index("evidence")])]
+                                          + r[h.index("evidence") + 1:] for r in rs])),                           # CANDIDATE without quote
     ]
     header, raw = load_tb(a.tb_file)
     caught = 0

@@ -20,7 +20,7 @@ One row per **concept**, not per English word. Every inflected or spelling varia
 | `first_use` | form at first occurrence in the article | kanon § 4.3: Polish form, then the original in italics in round brackets, as spelled in the source |
 | `grammar` | gender, declension, number, aspect | anything a translator could get wrong in inflection |
 | `note` | scope, connotation, conditions of use | including interference with other Polish senses |
-| `evidence` | sources for `pl_standing` | ` \| `-separated; bibliographic data only as far as verified (kanon § 0: no reconstruction) |
+| `evidence` | sources for `pl_standing` | ` \| `-separated; bibliographic data only as far as verified (kanon § 0: no reconstruction). A source in the training corpus is cited `TR <key>: «quote»` (`<key>` from `training/sources.tsv`); the checker finds the quote in the file (whitespace-normalised). Works the training article only cites count for nothing until read: they go in `note` as "via <key>" |
 | `precedent` | SROM occurrences | `SRom vol/year, author, line` in the project text file |
 | `decided` | date and decider | `dd.mm.rrrr MB`; empty for OPEN |
 
@@ -33,11 +33,12 @@ ETHNONYM rows point to the *kartoteka wzorcowa* (kanon § 6.3) in `note` and do 
 - **HOUSE** — binding. Applied without re-weighing. Includes every vol. 18 rendering.
 - **PROVISIONAL** — used in a current draft, awaiting MB's sign-off; becomes HOUSE or is replaced.
 - **OPEN** — no decision; raised to MB before drafting, never settled silently by the translator.
+- **CANDIDATE** — a Polish form harvested from native scholarship read for reference (`training/`, leaf 1.3.5), not a house decision. The translator takes it as the first candidate, still applies FLOOR and the ranks to the passage, and lists it in the article's queries the first time a text needs it; MB's decision then makes it HOUSE (or replaces it). `evidence` carries at least one verified training quote (see `evidence` below).
 
 ### `pl_standing`
 - **ESTABLISHED** — at least two independent native Polish scholarly publications use the form (different authors; translations do not count). The two-source rule binds the translator's (Claude's) own survey. When MB has verified the form himself, `evidence` = `MB verified dd.mm.yyyy` is sufficient (MB 28.09.2026).
 - **COMPETING** — two or more Polish forms, each with native use.
-- **ATTESTED** — one native use found.
+- **ATTESTED** — one native use found. The training corpus does not relax the two-source rule (1.3.5, MB left the choice to the translator 28.09.2026): a form in one training article is ATTESTED, in two by different authors ESTABLISHED.
 - **COINED** — no prior Polish use found; house or translator coinage.
 - **NONE** — no Polish equivalent; the original is retained (kanon § 4.3).
 - **UNCHECKED** — not yet surveyed.

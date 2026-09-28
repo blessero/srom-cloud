@@ -26,6 +26,8 @@ Work folder: `srom-tlumacz/` (Claude Code from 26.09.2026); files keep the flat 
 | `tlumacz-baseline-1.2/` | 1.2 | passages (`<art>_src.md`, built by `build_src.py`), blind drafts (`<art>_blind.md`), query sheets, `manifest.sha256`, checks `measure.py`; later `<art>_mb.md` and the divergence tables |
 | `tlumacz-1.3.1/` | 1.3.1 | kartoteka seed, termbase candidates, findings, checks `measure131.py` |
 | `sources/vol18-md/` | 1.3.1 | clean text of the eight vol. 18 files (EN + PL), `manifest.sha256`; precedent anchors `md <art>: «…»` |
+| `training/` | 1.3.5 | native Polish reading corpus from MB: texts (git-ignored), `sources.tsv` (key → file, bibliographic line), `manifest.sha256`; quoted in the termbase as `TR <key>: «…»` |
+| `tlumacz-rasa.md` | 1.3.5 | register: race, racialisation and surroundings (concepts, historical names and etymologies, old Polish texts and editions, doubts, works to source); not binding |
 | `sources/prng/` | 1.3.3 | PRNG world register (14,268 records, properties only), `fetch_prng.py`, `manifest.sha256`, README |
 | `tlumacz-front_check.py` | 1.5.2a | checker of `<id>_front_pl.md` (format in its docstring; T11, E14) |
 | `work/<id>/` | 1.5.2 | per-article work: `src/` (read-only copy of srom-typeset's hand-off + sha256), intake, drafts, research |
@@ -66,6 +68,7 @@ Termbase: TSV, UTF-8, tab-separated, one header row, multi-values separated by `
     - 1.3.2 Core concept seed driven by the vol. 19 translation shortlist ... tlumacz-gates-1.3.2.md
     - 1.3.3 Gazetteers: PRNG/KSNG places; institutions, legal acts, offices with tiers ... tlumacz-gates-1.3.3.md
     - 1.3.4 EN interference checklist from 1.2 error inventory ... tlumacz-gates-1.3.4.md
+    - 1.3.5 Training corpus from MB (native Polish articles): race vocabulary → CANDIDATE termbase rows + register `tlumacz-rasa.md` ... tlumacz-gates-1.3.5.md
   - 1.4 Tooling .............................. tlumacz-gates-node-1.4.md
     - 1.4.1 SKILL.md and references (pass sequence 0–7) ... tlumacz-gates-1.4.1.md
     - 1.4.2 Scripts: tb_lookup (→ per-article glossary; ambiguous hits reported, never applied), tb_check, calque_lint; preservation is delegated to srom-typeset `check.py --pair`, not rebuilt. tb_check CLI fixed now for srom-typeset's hook (E5): `tb_check.py <id>_src.md <id>_pl.md --tb tlumacz-tb.tsv --csv <id>_pytania_tb.csv`, last line `TB OK` or `TB CHECK n`, exit 0 (advisory) ... tlumacz-gates-1.4.2.md
@@ -107,3 +110,4 @@ Inputs still needed: the vol. 19 translation shortlist (1.3.2; `MB-decisions.md`
 - 28.09.2026 — session closed at MB's request (context size; HANDOVER § 7a). Next: MB brings a second text, run as 1.5.2-style intake → draft with `work/ndiaye/` as template. Leaf 1.4.1 (packaging as a skill) deferred until the procedure has run on 1–2 more texts.
 - 28.09.2026 — cross-module review (`../_handoffs/review-28.09.2026.md`) applied: git repository (snapshot f637928 before the fixes); open comments never block (PLAN OUT-TEXT/OUT-QUOTES corrected, S1–S7 tracked in `ndiaye_uwagi.md`); § Contract, pending handoffs and HANDOVER brought up to date; OUT-FRONT and `tlumaczenie:` added; handoff test +5 cases (E3, E5 contract text; E6 source label → printed number after the Word round trip, with a control): 30/30 against srom-typeset bb13dc8; checks run with the venv, python-docx preflight; gate-check dropped from the standing checks (it re-runs only unticked gates); a re-run of all 36 CHECKs by hand: 4 closed gates drifted (1.1 G4, G9; 1.3.1 G6; 1.5.2a G5), annotated, not reopened.
 - 28.09.2026 — T16: E16 fixed upstream (ce291a2), verified: GAP CLOSED, 30/30; MB's v2 Word file imports → CHECK OK → build PASS. `_handoffs/` put under git (MB); D5: no upload now, curator skill and site plugin updated together at the end (MB).
+- 28.09.2026 19:14 — leaf 1.3.5 opened at MB's request [general]: two Polish articles in `training/` (Taradejna, Folia Sociologica 88/2024; Nowak, „Klio” 72/2024). Two-source rule kept (MB left it to me); new status CANDIDATE; 17 rows C-0019–C-0035 (4 ESTABLISHED, 12 ATTESTED, 1 NONE); C-0001 evidence + native „urasawiania”; checker verifies `TR` quotes (23/23), selftest 9/9; register `tlumacz-rasa.md` (13 doubts, 18 works to source).
