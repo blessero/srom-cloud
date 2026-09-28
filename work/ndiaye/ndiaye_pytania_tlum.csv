@@ -1,0 +1,15 @@
+﻿adresat;rodzaj;przypis;dzieło;szczegóły
+redakcja;strona wydania polskiego (S1) – cytat do podmiany;44;Molier, Chory z urojenia, tłum. Boy-Żeleński;"Tekst Boya niedostępny w Wolnych Lekturach; w tekście przekład roboczy z francuskiego. Podmienić na brzmienie Boya i dopisać wydanie + stronę w przypisie 44."
+redakcja;strona wydania polskiego (S2);49;@molier1922;Szelmostwa Skapena, akt III (opowieść Zerbinety): „bandy Cyganów, z tych, co to wałęsając się…”.
+redakcja;strona wydania polskiego (S3);50;@molier1922;"Szelmostwa Skapena, akt I: „małe nieporozumienie”; „Bardzo się brzydko obszedł ze mną”."
+redakcja;strona wydania polskiego (S4);51;@molier1922;Szelmostwa Skapena, akt I: „trzy lata galer mniej czy więcej…”.
+redakcja;strona wydania polskiego (S5);68;@molier1922;Szelmostwa Skapena, akt III, scena z workiem: „Baczność! Oto znów jakaś podejrzana figura”.
+redakcja;strona wydania polskiego (S6);69;@molier1922;Szelmostwa Skapena, akt II, Skapen do Leandra: „nie ma pomiędzy nim a panem ani cienia podobieństwa…”.
+redakcja;strona i brzmienie wydania polskiego (S7);112;@hong2024;"Pomniejsze uczucia (tłum. A. Zano, 2024): cytat z s. 198 oryginału; w tekście przekład roboczy z angielskiego."
+redakcja;wybór wydania Boya;49;@molier1922;Cytuję Dzieła, t. 6, 1922 (podstawa tekstu Wolnych Lektur). Najnowsze wydanie naukowe: PIW 1988 (3 tomy). Jeśli strony z wydania 1988 – zmienić wpis w ndiaye_refs_tlum.json.
+redakcja;dane pierwodruku – brak numeru zeszytu;;nota o przekładzie;„Renaissance Quarterly” 75 (2022): numer zeszytu nie podany w pliku źródłowym → [BRAK nr] w nocie o przekładzie.
+autor;rozbieżność daty;40;@vallee1657;"Tekst: Le fidelle esclave (1662); przypis cytuje wydanie z 1657 roku. Która data jest właściwa?"
+autor;rozbieżność daty;32;@head1688;"Tekst: skrócone wydanie The English Rogue z 1679 roku; przypis cytuje wydanie z 1688 roku. Proszę potwierdzić."
+autor;informacja: poprawiona omyłka;;;„the genocidal 1682 status” (2×, sekcje o Szelmostwach Skapena): odczytane jako „statute” – w przekładzie „ludobójcza deklaracja z 1682 roku” (por. „the king’s declaration of July 1682”).
+autor;słowa kluczowe do zatwierdzenia;;;"Oryginał nie ma słów kluczowych; tłumacz zaproponował 9 angielskich i 9 polskich (ndiaye_front_pl.md) – angielskie zatwierdza autorka (Kanon § 12.2.2)."
+autor;informacja: poprawiona omyłka;37;;„danzas de cascabales”: poprawione na „cascabeles” (hiszp. cascabel – dzwoneczek).

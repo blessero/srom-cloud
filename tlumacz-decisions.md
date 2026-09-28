@@ -1,0 +1,14 @@
+# srom-tlumacz — decision log (append-only)
+
+Every HOUSE decision or change, dated, with rationale (see `tlumacz-tb-schema.md`, decision rule 1).
+
+- 24.09.2026 MB — C-0001–C-0004 locked as vol. 18 precedent (urasowienie, subaltern, spleciona matryca, u-nieobecnianie).
+- 27.09.2026 MB — C-0001 urasowienie: canonical; „poddawani rasowej kategoryzacji” allowed as secondary stylistic form, never first occurrence. Why: style (repetition) and grammar.
+- 27.09.2026 MB — C-0005 gypsylorist: default „cyganolodzy” (vol. 18); „gypsyloryści” allowed per article where the text criticises the old-school scholars. Why: Polish cyganolog is near-neutral, the English term pejorative.
+- 27.09.2026 MB — historical/political place names (e.g. Podkarpatská Rus): no fixed mapping; decided each time by chronology, geography and politics; the gazetteer (1.3.3) lists candidates with period and scope.
+- 27.09.2026 MB — procedure: the translator asks for the pronouns of authors and of persons whose names are declined, before drafting (from leaf 1.2 GENDER errors).
+- 27.09.2026 MB (D8) — all as recommended: C-0006 romologia canonical, „studia romskie” for style; C-0001 imperfective urasawiać / urasawianie / urasawiany; Lom (not Łom); Romanies and Roma both „Romowie”; C-0007–C-0011 and the C-0005 addition approved → HOUSE. Garachi / Karachi: both legitimate, the author's form decides (kartoteka variant). „Travellersi” primary, „Wędrowcy” a synonym. Italics of foreign exonyms (*Ciganos* etc.): not decided, passed to srom-typeset (E12).
+- 28.09.2026 MB (D11, Ndiaye) — (1) the author is a woman, she/her. (2) srom-tlumacz delivers a preliminary translation; MB edits it; credit „Tłumaczenie: Michał Bartosz” (`tlumaczenie:` and the translation note). (3) MB looks up the pages of Polish editions himself; srom-tlumacz marks every one in the text and lists them at the end. (4) Term table in `work/ndiaye/ndiaye_intake.md` § 3: all as recommended (lower-case „czarni / biali”; „Maurowie” for *Mores*, „Murzyn” where English sources say *Blackamoor* / *negro*).
+- 28.09.2026 MB — termbase: the seven Ndiaye terms (D11) added as HOUSE rows C-0012–C-0018 (biała supremacja, czarność, studia nad czarnością, matryca rasowa, kapitalizm rasowy, krytyczna teoria rasy, zniewoleni); pl_standing UNCHECKED, no SRom precedent yet.
+- 28.09.2026 MB — C-0012–C-0018: Polish usage checked by MB.
+- 28.09.2026 MB — rule: the two-source requirement for ESTABLISHED applies to Claude's own survey; MB's verification suffices (evidence 'MB verified dd.mm.yyyy'). C-0012–C-0018 → ESTABLISHED.

@@ -1,0 +1,105 @@
+# Plan: srom-tlumacz v1 — EN→PL translation module for Studia Romologica
+
+Depth: tree 4   Mode: orchestrated (one leaf per conversation in the SROM_Naczelny Project; no subagents in claude.ai)
+Budget note: several sessions. Leaf 1.2 (baseline) precedes the asset leaves by design: remedies are built for measured error classes, not imagined ones.
+
+Scope decisions (MB, 24.09.2026): EN→PL only; no PL→EN component — one exception (MB, 25.09.2026): author keywords of Polish-original articles are translated PL→EN for metadata, using the same termbase. Vol. 18 terminology is binding house precedent. Tie-break order for competing Polish equivalents: established Polish usage > SROM consistency > fidelity to source concept > clarity for non-specialists (encoded with a fidelity floor, see tlumacz-tb-schema.md).
+
+## Contract
+
+### Files and ownership
+
+Work folder: `srom-tlumacz/` (Claude Code from 26.09.2026); files keep the flat `tlumacz-` prefix (kanon drafts: `kanon-`); inputs in `sources/`; paths resolved by `tlumacz_paths.py`. No two leaves write the same file; merges into the termbase are made only after MB's sign-off.
+
+| File | Owner leaf | Content |
+|---|---|---|
+| `tlumacz-PLAN.md` | all (append-only status log) | this plan |
+| `tlumacz-gates-<leaf>.md` | that leaf | acceptance gates |
+| `tlumacz-tb-schema.md` | 1.1 | termbase fields, controlled vocabularies, decision rule, evidence standard |
+| `tlumacz-check_tb.py` | 1.1 | termbase integrity checks (schema, row shape and `sense`, vocabulary, vol. 18 precedent quotes, evidence count) with a negative-control selftest; moves into the skill in 1.4.2 |
+| `tlumacz-tb.tsv` | 1.1 (header, seed), 1.3.1, 1.3.2, per-article merges | the termbase |
+| `tlumacz-gaz-places.tsv` | 1.3.3 | PRNG/KSNG exonyms + house historical-toponym policy |
+| `tlumacz-gaz-bodies.tsv` | 1.3.3 | institutions, legal acts, offices, with tier (OFFICIAL / CONVENTIONAL / GLOSS) |
+| `tlumacz-interference-en.md` | 1.3.4 | EN→PL interference checklist, built from 1.2 findings |
+| `tlumacz-decisions.md` | per-article, append-only | dated log of every HOUSE decision and change, with rationale |
+| `kanon-12-2-przeklady-PROJEKT.md` | 1.1 | draft kanon section on translated articles |
+| `tlumacz-baseline-1.2/` | 1.2 | passages (`<art>_src.md`, built by `build_src.py`), blind drafts (`<art>_blind.md`), query sheets, `manifest.sha256`, checks `measure.py`; later `<art>_mb.md` and the divergence tables |
+| `tlumacz-1.3.1/` | 1.3.1 | kartoteka seed, termbase candidates, findings, checks `measure131.py` |
+| `sources/vol18-md/` | 1.3.1 | clean text of the eight vol. 18 files (EN + PL), `manifest.sha256`; precedent anchors `md <art>: «…»` |
+| `sources/prng/` | 1.3.3 | PRNG world register (14,268 records, properties only), `fetch_prng.py`, `manifest.sha256`, README |
+| `tlumacz-front_check.py` | 1.5.2a | checker of `<id>_front_pl.md` (format in its docstring; T11, E14) |
+| `work/<id>/` | 1.5.2 | per-article work: `src/` (read-only copy of srom-typeset's hand-off + sha256), intake, drafts, research |
+| `tlumacz-test_handoff.py` | 1.1 | contract test of srom-typeset's handoff as used here; rerun after every srom-typeset update |
+| `../_handoffs/tlumacz-to-typeset.md` | 1.1 | messages and change requests to srom-typeset (E1–E9…), append-only; moved from `tlumacz-requests-to-typeset.md` 26.09.2026 |
+| skill `srom-tlumacz/` (SKILL.md, references/, scripts/) | 1.4.x | procedure and tooling; references only stable text |
+
+### Per-article outputs (IDs = master CSV `article_id`)
+
+srom-tlumacz is the translation step inside srom-typeset's scenario C. The contract's source of truth is srom-typeset `references/handoff.md`; `tlumacz-test_handoff.py` proves the parts relied on here. In: `<id>_src.md` (frozen SROM-MD, every reference a `[@key …]` token) + `refs.json`. Out: the files below. After return the editor's Word working copy is the master. srom-tlumacz does not duplicate what srom-typeset enforces: structure, note markers, citation keys, numbers, typography, kanon lint, DOCX.
+
+- OUT-TEXT `<id>_pl.md` — SROM-MD (srom-typeset `references/srom-md.md`) translated from `<id>_src.md`, paragraph for paragraph; tokens, markers, locators and block lines copied unchanged; translator notes `[^t<n>]` ending `– przyp. tłum.` (printed as a separate asterisk series, MB 25.09.2026; rendering is E8); added citations declared by `"srom-added"` on their entry in `<id>_refs_tlum.json` (primary: survives Word edits; the in-note `<!-- DODANO: @key -->` still works); translation note in `::: przypis-tytulowy`. In `::: przyklad` line 1 (form) is unchanged, line 2 gets Polish lexical glosses with Leipzig category labels unchanged, line 3 is translated in ‘ ’. Must give `check.py --pair <id>_src.md <id>_pl.md --refs …` → `CHECK OK`. Anything unresolved stays in the text as a blocking comment, so srom-typeset's build fails until it is settled: `<!-- PRZYWRÓCIĆ ORYGINAŁ: … -->` for § 12.2.4 a–b, `<!-- DO SPRAWDZENIA: … -->` for OPEN terms and author queries.
+- OUT-REVIEW `<id>_review.docx` — bilingual review sheet built from `src.md` and `pl.md` (1:1 paragraph alignment is guaranteed by the pair check): one row per paragraph and per note; columns: ref, EN, PL, flags (TB, QUOTE, QUERY, NUM, NAME). Format fixed in 1.4.3.
+- OUT-QUERIES `<id>_pytania_tlum.csv` — UTF-8 with BOM, `;`, header `adresat;rodzaj;przypis;dzieło;szczegóły`; merged by `build.py --queries` into the one article sheet. `adresat`: autor / redakcja. `rodzaj` in Polish, like the build's own rows: „błąd w oryginale — do decyzji”, „termin do rozstrzygnięcia”, „cytat — wydanie polskie / oryginał do ustalenia”, „niejednoznaczność oryginału — pytanie do autora”. `przypis`: the note label from `<id>_src.md` (stable; printed numbers are not known before the Word round trip, and `[^t…]` labels do not survive it — see E6); location of body-text items in `szczegóły`. Errors in the source are recorded, never silently corrected.
+- OUT-QUOTES `<id>_quotes.tsv` — quotation re-sourcing sheet; columns: ID, location, cited work, class (PL-EDITION, PL-ORIGINAL, THIRD-LANG, EN-NO-PL, VERSE), action, status. Classes map one-to-one to kanon draft § 12.2.4 a–e; every open row has exactly one blocking comment in `pl.md`.
+- OUT-TBROWS `<id>_tb-rows.tsv` — new or changed termbase rows in the exact `tlumacz-tb.tsv` schema, for merge after sign-off. The per-article glossary used while translating is generated from the termbase by `tb_lookup` — a derived view, never edited by hand.
+- OUT-REFS `<id>_refs_tlum.json` — CSL-JSON entries the translation adds (Polish editions, Polish originals: draft § 12.2.4 a–b), per srom-md.md conventions. Every entry carries `"srom-added": "tlum"` and a non-empty `"srom-source"` (library-catalogue record URL or verified ISBN): data taken from a catalogue record, never from memory; a missing field stays missing (`[BRAK …]`). srom-typeset reports this implemented (26.09.2026); to be verified by extending `tlumacz-test_handoff.py`.
+
+### Cross-module interfaces
+
+- IF-KANON — The translator applies, at translation time, kanon § 4.2–4.3, § 5 (incl. § 5.3 glossed examples), § 6, § 8 (literal archival, fieldwork and legal notes get Polish apparatus labels) and draft § 12.2; nothing else from the kanon. Section numbers are those of the full kanon v1.5; srom-kanon's RULES.md uses a different compact numbering, and the full kanon file is no longer in project knowledge although srom-typeset reports later kanon changes — the current full text is needed before § 12.2 is adopted (E7). Typography, apparatus formatting and bibliography remain with srom-typeset, whose build runs the kanon linter and fails on any ERROR. Ethnonym house forms are read from the *kartoteka wzorcowa* (§ 6.3); termbase ETHNONYM rows point to it and never duplicate it. Dependency: the kartoteka's file location is not yet known to this plan.
+- IF-TYPESET — Owner: srom-typeset. Translator notes outside the pair comparison, declared added citations and the title note as `::: przypis-tytulowy` are implemented there (its decision 20) and verified by `tlumacz-test_handoff.py` (14/14 contract cases, 26.09.2026). Requests are in `../_handoffs/tlumacz-to-typeset.md`: E1, E2, E4, E8 and the `srom-added` declaration verified here; E7 closed (Kanon v1.6 in srom-kanon); E3, E5, E6 reported done, not tested here; E9 (hand-typed notes) open.
+- IF-CURATOR — Master CSV already carries `is_translation`, `original_title`, `original_source`, `original_doi`; `generate_crossref_xml.py` emits `original_language_title` and `isTranslationOf`. Gap, owned by srom-scholarly-curator and not changed here: no translator column, so the translator credit required by draft § 12.2.2 cannot reach the deposit. Whether Crossref's contributor roles include `translator` is to be verified in that module.
+
+### Conventions
+
+Termbase: TSV, UTF-8, tab-separated, one header row, multi-values separated by ` | `. Dates in kanon format `dd.mm.rrrr`. Precedent quotes («…») are the anchors; line numbers refer to `/mnt/project/Studia_Romologica_nr_18_2025.pdf` (a text extraction despite the extension; CRLF stripped) and are informative only — the checker searches the whole whitespace-normalised text and reports a moved line as a warning. Once the final DOCX of vol. 18 arrives, anchors are re-pointed to it in 1.3.1.
+
+## Tree
+
+- 1 srom-tlumacz v1 (EN→PL)
+  - 1.1 Contracts ............................ tlumacz-gates-1.1.md
+  - 1.2 Baseline: blind translation of four vol. 18 passages (one per article, MB 26.09.2026), divergence analysis, error-class inventory ... tlumacz-gates-1.2.md
+        Blind protocol: fresh conversation; sources extracted and frozen with srom-typeset; no read of `tlumacz-tb.tsv`, the vol. 18 Polish text or project-knowledge search on its terms before the draft is saved; the draft's sha256 is written into the leaf's gates before the reference is opened. The four HOUSE terms are already known (memory) and are excluded from scoring.
+  - 1.3 Knowledge assets ..................... tlumacz-gates-node-1.3.md
+    - 1.3.1 Vol. 18 precedent mining (all translated articles), incl. harvesting the standard Polish group-name forms into the kartoteka wzorcowa seed (item 7 ruling: text uses the standard form, no original in brackets) ... tlumacz-gates-1.3.1.md
+    - 1.3.2 Core concept seed driven by the vol. 19 translation shortlist ... tlumacz-gates-1.3.2.md
+    - 1.3.3 Gazetteers: PRNG/KSNG places; institutions, legal acts, offices with tiers ... tlumacz-gates-1.3.3.md
+    - 1.3.4 EN interference checklist from 1.2 error inventory ... tlumacz-gates-1.3.4.md
+  - 1.4 Tooling .............................. tlumacz-gates-node-1.4.md
+    - 1.4.1 SKILL.md and references (pass sequence 0–7) ... tlumacz-gates-1.4.1.md
+    - 1.4.2 Scripts: tb_lookup (→ per-article glossary; ambiguous hits reported, never applied), tb_check, calque_lint; preservation is delegated to srom-typeset `check.py --pair`, not rebuilt. tb_check CLI fixed now for srom-typeset's hook (E5): `tb_check.py <id>_src.md <id>_pl.md --tb tlumacz-tb.tsv --csv <id>_pytania_tb.csv`, last line `TB OK` or `TB CHECK n`, exit 0 (advisory) ... tlumacz-gates-1.4.2.md
+    - 1.4.3 Output templates (review sheet; query rows in `_pytania` format; quotes sheet) ... tlumacz-gates-1.4.3.md
+  - 1.5 Validation ........................... tlumacz-gates-node-1.5.md
+    - 1.5.1 Re-run of 1.2 passages with the full module; every 1.2 divergence resolved or logged ... tlumacz-gates-1.5.1.md
+    - 1.5.2 Pilot on a real vol. 19 text; MB signs off the review sheet ... tlumacz-gates-1.5.2.md
+
+Inputs still needed: the current full kanon text (E7); final Polish DOCX of vol. 18 translated articles (for 1.2, 1.3.1); vol. 19 translation shortlist (1.3.2, 1.5.2); PRNG world-register export or the 2019 KSNG list (1.3.3); location of the kartoteka wzorcowa (IF-KANON).
+
+## Pending handoffs (remind MB)
+
+- srom-scholarly-curator: master CSV needs a translator column (credit in the header, § 12.2.3) and the Crossref contributor role `translator` verified; MB holds this until other curator items accumulate.
+- srom-typeset: `../_handoffs/tlumacz-to-typeset.md` (E9 open); rerun `tlumacz-test_handoff.py` after its changes.
+- srom-kanon: the *kartoteka wzorcowa* (kanon § 6.3) is planned but not created (MB, 26.09.2026). Its seed is harvested in 1.3.1 and handed to srom-kanon as owner.
+
+## Status log
+
+- 24.09.2026 plan written; contract fixed; leaf 1.1 started with gates file
+- 24.09.2026 leaf 1.1 verified: 10/10 gates met; § 12.2 draft carries 11 open items for MB; next leaf 1.2 blocked on vol. 18 final Polish DOCX
+- 24.09.2026 review pass: contract re-based on srom-typeset scenario C (IF-TYPESET R1–R4); preserve_check dropped as duplicate of check.py --pair; termbase gains `sense`; checker hardened (shape, selftest); § 12.2 draft extended (12 open items)
+- 25.09.2026 contract aligned with installed srom-typeset (handoff.md): R1, R2, R4 verified upstream, R3 moot; OUT-REFS added; queries in `_pytania_tlum.csv`; requests E1–E7 filed
+- 25.09.2026 MB rulings: fidelity floor confirmed (exclusions raised as queries); § 12.2 items 1, 2, 4, 5, 8–12 settled, 3, 6, 7 open; translator notes as a separate asterisk series (E8 to srom-typeset)
+- 25.09.2026 MB rulings: keywords always the author's (EN kept, PL translated; PL→EN keywords for Polish-original articles); item 6 yes; group names in standard Polish form, no bracketed original; all non-author notes one asterisk series restarting per page. § 12.2 has no open items; adoption waits for the current full kanon text.
+- 25.09.2026 received vol. 18 pairs (uploads, this chat only): PL DOCX with footnotes — Ostendorf 81, Fotta 79, Marushiakova 48, Takács 32; EN — Takács rev (32 notes, matches), Ostendorf (0 notes), Dom Communities (0 notes, "stripped"), Fotta RTF from PDF (0 note objects). Not read here, to keep 1.2 blind.
+- 26.09.2026 moved to Claude Code (HANDOVER.md, CLAUDE.md); srom-typeset reports E1–E6 done and the refs_tlum.json declaration; kartoteka confirmed not yet created
+- 26.09.2026 `../_handoffs/` created (MB); requests file moved there as `tlumacz-to-typeset.md`. Handoff test rewritten for the `srom-added` contract + E8 cases: 14/14, E1/E2/E4 closed. Kanon v1.6 (srom-kanon `references/kanon-redakcyjny.md`) is normative and contains § 12.2; the PROJEKT draft is superseded. Own error corrected: Dom Communities EN has notes, but typed as plain text (54 numbered, not Word notes) → E9; Takács EN has 33 Word notes, not 32.
+- 27.09.2026 self-check after MB's review: timing of Kanon v1.6 confirmed from git (srom-typeset 97b846e 26.09 19:34, E8 54b2b22 19:44; this session's first run 19:07) — it was concurrent. Two own errors corrected: Dom notes are interleaved per page, not a list at the end, and body markers do not repeat (E9 correction); Takács 33 = title note + 32, no discrepancy. § 12.2 adopted verbatim bar a move into § 7.1/§ 11. Curator C1 drafted (`../_handoffs/tlumacz-to-curator.md`); E10 (translator header line) filed.
+- 27.09.2026 leaf 1.2 part A: gates file first; four passages (Takács 1381, Ostendorf 1577, Fotta 1699, Dom 1686 body words, measured), blind drafts, 31 query rows; checks with negative controls (house check strengthened to per-paragraph counts after a control slipped through); manifest sha256 956ef922… recorded 03:22 before any Polish opened. Gates 8/11: G9–G11 wait for MB's Polish vol. 18 files.
+- 27.09.2026 leaf 1.2 part B: hashes re-verified (8 OK) before opening `vol18-PL-HOLD/`; MB's passages extracted (`extract_mb.py`); 81 divergences classed (`divergences.tsv`), inventory measured: 15 errors of mine (QUOTE 3, MEANING 3, TERM 3, TERM-HOUSE 3, KANON 2, GENDER 1); gates 10/11, G11 = MB review. Curator skill updated at MB's explicit request (exception to the ownership rule, this change only): `translators_struct` → Crossref translator role; 11/11 tests, XSD-valid; backup + package in `../_handoffs/curator-update-2026-09-27/`.
+- 27.09.2026 MB review of 1.2: rulings recorded (C-0001 secondary form; new C-0005 gypsylorist with context rule; historical toponyms per case; pronouns Wakeley-Smith m., Shmidt f.); inventory recount 16 errors of mine; gates 1.2 11/11 ALL MET. `tlumacz-decisions.md` started. Parent `../CLAUDE.md` and `../_handoffs/MB-decisions.md` adopted (MB): pending items now live in MB-decisions (D4–D6 recorded).
+- 27.09.2026 leaf 1.3.1: gates first (after a read-only survey of the texts); clean vol. 18 texts in `sources/vol18-md/`; kartoteka seed 35 rows (46/46 forms verified), termbase candidates 6 new + 2 changed (valid on a temporary merge); check_tb accepts `md <art>` citations; negative controls caught (seed, coverage, quotes). Inconsistencies → MB-decisions D8; seed → srom-typeset E11. Gates 7/8: G8 (merge) waits for D8.
+- 27.09.2026 — 1.3.1 closed ALL MET 8/8: D8 answered (all as recommended; (d) Karachi as variant; (e) → E12), termbase merged to 11 HOUSE rows (check_tb 11/11, selftest 7/7, handoff 14/14). Answered T1–T5 in `_handoffs/tlumacz-to-typeset.md`. PRNG world file: page 1 only (150/14,268); its source is the 2019 KSNG list.
+- 27.09.2026 — T6–T8 answered (E13: Nawar, Gurbati, Halabi etc. are exonyms, two sources). T7 contract tested here: handoff 18/18. PRNG world register fetched in full (14,268 records, `sources/prng/`). MB: setup closed for testing; next is the first real article (D7); 1.3.3 helper and 1.3.4 checklist done at its intake.
+- 28.09.2026 — 1.5.2a (pilot intake, Ndiaye "Black Roma", T12) ALL MET 7/7: source copied + verified; T11 front matter: `tlumacz-front_check.py` + 5 contract cases (handoff 23/23); intake (`work/ndiaye/ndiaye_intake.md`): quotation rules per note, Polish editions (BN), 20 term proposals, 4 group names → E14; draft blocked by MB-decisions D11 (pronouns, translator credit).
+- 28.09.2026 — D11 answered (she/her; MB credited, preliminary translation; MB does the pages; terms as recommended). 1.5.2b (pilot draft, Ndiaye) ALL MET 7/7: `work/ndiaye/ndiaye_pl.md` (12.5k words, 133 + 2 t-notes + 2 title notes), pair check OK, FRONT OK, build OK via `build_tolerant.py` (E15: srom-typeset UTF-8 bug), leftover English 0 (negative control caught), 7 page/quote marks = 7 in the review sheet, full re-read (9 fixes), Word working copy round trip CHECK OK. E15 sent.
+- 28.09.2026 — termbase +7 HOUSE rows (C-0012–C-0018, Ndiaye D11); check_tb 18 rows 0 problems, selftest 7/7.
+- 28.09.2026 — T13–T15 applied: refs.json re-copied (6a058001…), title blocks merged (D12), Romka/Romki + *gadjo* + „Egipcjanie” (D13), Kanon v1.7 (D14); `build_tolerant.py` removed (E15 fixed upstream); build exit 0, 0 errors; handoff 25/25 + KNOWN GAP E16 (Word round trip splits the title note) → E16 sent; `ndiaye_robocza_v2.docx`.

@@ -1,0 +1,82 @@
+art	id	where	class	verdict	mine	mb	note
+takacs	T1	P1	SYNTAX	EQ	rozciąga się obszar praktyki	leży praktyka	MB literal; both acceptable
+takacs	T2	P1	SYNTAX	ME	Na przełomie XIX i XX wieku	Przez cały koniec XIX i początek XX wieku	MB calques 'throughout the late…'; mine idiomatic
+takacs	T3	P1	TERM-HOUSE	ME	urasawiano Romów „jako niebezpiecznych Innych”	„poddawani rasowej kategoryzacji jako niebezpieczni inni”	MB 27.09.2026: urasowienie canonical; the periphrasis allowed as a secondary stylistic form (C-0001). Mine was right as the default
+takacs	T3b	P1	QUOTE	MB	część cytatu wyjęta poza cudzysłów	cały cytat w cudzysłowie	my liberty with a quotation; better: byli w mediach „urasawiani jako niebezpieczni Inni”
+takacs	T4	P1	GENDER	MB	Jak wykazuje Dalen Wakeley-Smith	Dalen Wakeley-Smith wykazał	MB 27.09.2026: Dalen Wakeley-Smith is a man – MB's „wykazał” correct; my neutral form was a workaround
+takacs	T5	P1	TERM	EQ	rozpowszechnianych przez agencje prasowe	przedrukowywanych	syndicated: mine more precise, MB shorter
+takacs	T6	P2–P3	KANON	MB	*Serbian Gypsies*, *Servian Gypsies* bez przekładu	*Serbscy Cyganie* (*Servian Gypsies*), *Cygańska rodzina* (*Gypsy family*)	MB gives the reader Polish; Kanon § 4.3 order would be original + (przekład)
+takacs	T7	P5	MEANING	ME	niemal niewykonalne	karkołomne	'prohibitive' = so hard as to prevent
+takacs	T8	P5	MEANING	EQ	*Rome Family* (oryginał)	„Romska rodzina”	'Rome' may be a surname; MB's reading unverified
+takacs	T9	P6	TERM	ME	komisarza imigracyjnego	Komisarza ds. Imigracji	capitalised quasi-official title – house rule: no invented official Polish names
+takacs	T10	P4	MEANING	MB	jako obywatel tego kraju…”	jako obywatele tego kraju”.	'as nationals' – plural; my slip
+takacs	T11	P10	SYNTAX	ME	(tok zdania zachowany)	…wypatrującymi sposobności do sklecenia historii…, wstrząsnąć czytelnika…	MB coordination breaks
+takacs	T12	P10	TERM	ME	ciężarem publicznym (*public charges*)	darmozjadach	legal category of US immigration law; MB loses it
+takacs	T13	n12	TERM	MB	»obsługiwał« Ellis Island	»pisał relacje« z Ellis Island	'cover' in the journalistic sense
+takacs	T14	P1	PUNCT	ME	–	sposób w jaki (bez przecinka)	MB comma missing
+takacs	T15	all	PUNCT	EQ	„New York Times” (nieodmienione)	„New York Timesa”	both current; house style to fix
+ostendorf	O1	H1	MEANING	ME	Natura historii	Rola historii	'nature' ≠ 'role'; best perhaps „Istota historii”
+ostendorf	O2	P1	PUNCT	ME	Choć	Mimo, że	MB comma error (mimo że)
+ostendorf	O3	P2	SYNTAX	ME	*w* historii, zamiast szukania *ich* historii	*w* historii, zamiast poszukiwania historii *o* Romach	MB calque 'historia o'
+ostendorf	O4	P2	MEANING	ME	zyskują głębię i żywość	zyskują na głębi, złożoności	'vibrant' ≠ złożoność
+ostendorf	O5	H2	SYNTAX	ME	Brak historyzacji dziejów…	Brakująca historyzacja historii…	MB calque; 'historyzacja historii'
+ostendorf	O6	P4	SYNTAX	ME	Ukuty przeze mnie termin przywodzi na myśl	Moje ukucie tego terminu przypomina	MB calque
+ostendorf	O7	P4	SYNTAX	ME	jest zasadniczą przyczyną	w fundamentalny sposób spowodował	MB calque
+ostendorf	O8	P4	TERM	EQ	dziki zbiór	buntowniczy zbiór	'rogue': neither ideal (samozwańczy? nieprawomocny?)
+ostendorf	O9	P5	TERM-HOUSE	EQ	„gypsyloryści” (*gypsylorists*)	„cyganolodzy”	MB 27.09.2026: context rule – „cyganolodzy” default, „gypsyloryści” where the text criticises the old-school scholars (termbase C-0005)
+ostendorf	O10	P6	TERM	ME	krytyczny zwrot kulturowy	*critical cultural turn*	MB left untranslated; Kanon § 4.3: Polish term (+ original)
+ostendorf	O11	P6	SYNTAX	ME	Ten cykl okazał się trudny	Krąg ten okazuje się być trudny	'okazuje się być' – anglicism
+ostendorf	O12	P7	MEANING	ME	pozbawiona krytycznego zrozumienia	bez decydującego rozpoznania	'critical' mistranslated in MB
+ostendorf	O13	P8	SYNTAX	ME	z mało zadowalającym skutkiem	z mniej niż zadowalającymi rezultatami	MB calque
+ostendorf	O14	P8	QUOTE	BOTH	„schematycznego powtarzania”, „odcieleśnioną »prawdę«”	„schematyczna repetycja”, „odcieleśnioną »prawdę«”	§ 12.2.4 a: Fotta's own Polish (same volume) has „powracająca formułka”, „oderwanej »prawdy«”. Source misquotes Fotta: 'disembodied' vs Fotta's 'disembedded' – author query
+ostendorf	O15	P10	PUNCT	ME	(cytat domknięty)	…troską badaczy »romskich«”, a tym samym…”	MB quotation closed twice
+ostendorf	O16	P9	PUNCT	ME	Romach	Romaów	MB typo
+ostendorf	O17	P10–11	SOURCE	SV	akapity jak w źródle	ostatni akapit rozdzielony inaczej	paragraph boundary moved in MB (editorial)
+ostendorf	O18	P6	TERM	EQ	rdzenność	tubylczość	indigeneity: both in use
+ostendorf	O19	n3–4	SOURCE	SV	[BRAK]	przypisy 17, 20	English file lacked notes; not a translation divergence
+fotta	F1	all	KANON	ME	Ciganos (pismo proste)	*Ciganos* (kursywa)	Kanon § 3.4: ethnonyms never italic (in force from vol. 19)
+fotta	F2	P1	KANON	MB	„Obraz Romów…” (cudzysłów)	*Wizerunki Romów…* (kursywa)	hypothetical titles: italics per Kanon § 3.4
+fotta	F3	P1	GENDER	MB	Mogę wskazać	Mógłbym wskazać	my gender avoidance changed the modality ('could' → 'can'); MB's masculine presumably rests on knowledge of the author
+fotta	F4	P1	TERM-HOUSE	MB	„Ciganologii”	„cyganologii” („*Ciganologia*”)	consistent with O9 cyganolodzy; Polish + original
+fotta	F5	B1	TERM	EQ	Bohemów	Cyganów	'boêmios' – MB gives sense, mine keeps the source term (original in brackets in both); decide
+fotta	F6	B1	PUNCT	ME	gubernatora kapitanii	Gubernatora Kapitanii	capitals on offices
+fotta	F7	B2	SYNTAX	ME	roznosicielami pcheł	propagatorami pcheł	MB calque
+fotta	F8	P5	PUNCT	ME	Te charakterystyki… pobrzmiewają	Podobne przedstawianie… znajdują echo	MB agreement error
+fotta	F9	P6	SOURCE	EQ	Moura Brazil	Moura Brasil	MB modernised the name; author's form is Brazil – query
+fotta	F10	P6	TERM	MB	„egipskie zapalenie oczu” (*Egyptian Ophthalmia*)	„egipska oftalmia”	Polish medical-historical usage
+fotta	F11	P8	TERM	EQ	Ruś Podkarpacka	Zakarpacie	MB 27.09.2026: Podkarpatská Rus was a short-lived political entity; Zakarpacie / Ukraina Zakarpacka / Ruś Podkarpacka / Ruś Zakarpacka all occur – decide per case by chronology and politics, never hard-code
+fotta	F12	P9	SYNTAX	ME	w jednych ramach	w jednej ramie	idiom
+fotta	F13	P10	TERM	ME	urasowionych i minorytyzowanych	poddanych procesom urasowienia i mniejszościowych	'minoritized' is a process; 'minorytyzowany' needs a termbase decision
+fotta	F14	P10	TERM	EQ	romologia	studia romskie	MB also uses 'romolog' (P1) – termbase decision
+fotta	F15	P10	TERM	ME	całości reżimu rasowego	nadrzędnym systemie rasowym	'racial regime' – MB also 'Systemy' later; inconsistent
+fotta	F16	n4	MEANING	ME	odrębne	dyskretne	false friend in MB
+fotta	F17	n4	MEANING	ME	przyjmując perspektywę większości	zestawiane z poglądami większości	'contrasted using majority views' misread in MB
+fotta	F18	P11	GENDER	BOTH	przywołane studium przypadku czechosłowackiego (bez nazwiska)	artykuł Shmidta	MB 27.09.2026: Victoria Shmidt is a woman – correct form „artykuł Shmidt” (undeclined); MB's „Shmidta” wrong, mine dropped the name
+fotta	F19	P12	MEANING	MB	projektów… które zbliżały społeczności	matryca… łączyła społeczności	agent shift in mine: the matrix, not the projects
+fotta	F20	n6	TERM	ME	Peryferyjne miejsce	Styczne miejsce	MB calque of 'tangential'
+fotta	F21	n6	OMIT-ADD	ME	handlarze koni, kupcy oraz naprawiacze	handlarze końmi oraz naprawiacze	MB omits 'traders'
+fotta	F22	n6	TERM	EQ	(Kamienice i lepianki)	(Dworki i lepianki)	sobrado = multi-storey town house
+fotta	F23	P14	PUNCT	ME	neoeuropejski	neo-europejski	hyphenation
+fotta	F24	P14	MEANING	ME	zrekonstruuję	przedstawię	'reconstruct' weakened
+fotta	F25	—	QUOTE	MB	query: Williams 1997 = 1977?	Newton (red.), reader 1997	my false alarm: 1997 is a reprint
+dom	D1	P1–3	SOURCE	SV	akapity jak w źródle	akapity scalone	MB followed a revised version
+dom	D2	all	TERM-HOUSE	MB	„Garachi”	„Garaczi” (Garacziler, Garaczili, Garaczilar)	vol. 18 precedent; to kartoteka
+dom	D3	P2	KANON	ME	„Cygane” (transkrypcja)	„Цыгане” / „Tsygane”	Kanon v1.5+ § 9.6: body text in Polish transcription
+dom	D4	all	TERM	MB	nazwy wg autorów (do KSNG)	Zaqatala, Balakən, Qax, Güllük, Xudat, Jewłach, Mingeczaur, Szemacha, Kobustan, Borczało, Awangardi, Nawtlugi …	MB did the localisation (mine deferred to 1.3.3); MB inconsistent: Surachany/Suraxanı, Gazach/Qazax
+dom	D5	P9	SOURCE	SV	Nachiczewański Region Autonomiczny + query	Nachiczewańska Republika Autonomiczna	my query confirmed
+dom	D6	P7	SOURCE	SV	Khudatin + query	Xudat	my query confirmed
+dom	D7	P12	SOURCE	SV	Chavchadze + query	Czawczawadze	my query confirmed
+dom	D8	P10	SOURCE	SV	tak aby… pozostał otwarty + query	w związku z czym obraz… pozostaje wciąż niepełny	my query confirmed
+dom	D9	P12	SOURCE	SV	(Szakonyi 2008: 8)	—	citation dropped in the version MB used
+dom	D10	P9	SOURCE	SV	—	(należącym dziś do Turcji)	addition: source version or editor's? query
+dom	D11	P5	SYNTAX	ME	identyfikują się jako Domowie	ich tożsamością jest Dom	MB calque
+dom	D12	P5	MEANING	ME	Domowie-Kurdowie (ros. *Kurdskije Dom*)	Domowie kurdyjscy (Курдские Дом)	self-designation 'Dom-Kurds' conflated with the subdivision label in MB
+dom	D13	P4	PUNCT	ME	(w znaczeniu Persów/Irańczyków)	(w znaczeniu Persowie/Irańczycy)	case
+dom	D14	P7	PUNCT	ME	„macierzyste”	„rdzennie” (for rdzenne)	MB typo
+dom	D15	P7	PUNCT	ME	To peryferyjne regiony	Mowa o obszarach peryferyjnych, graniczące	MB agreement
+dom	D16	P7	MEANING	MB	Domostwo odznacza się…	W oczy rzuca się skromne wyposażenie jednego z mieszkań	source elliptic; MB clearer
+dom	D17	P11	PUNCT	ME	ostrzej i stanowczej	ostrzejsze i stanowcze	MB comparative
+dom	D18	P11	KANON	ME	*cygane*	Tsigane	transcription
+dom	D19	P8	OMIT-ADD	EQ	po powrocie z deportacji	gdy władze pozwoliły im na powrót z deportacji	addition in MB (source version?)
+dom	D20	P12	TERM	EQ	municypalitetach	gminach	Georgian munitsipaliteti
+dom	D21	P13	TERM	EQ	Biełorieczeńsk	Biełorieczensk	PWN transcription to confirm (1.3.3)
