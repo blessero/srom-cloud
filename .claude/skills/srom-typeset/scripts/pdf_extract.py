@@ -111,6 +111,58 @@ def clean_text(text):
     return re.sub(r"[\x00-\x08\x0b-\x1f]", "", text).replace("\t", " "), text[:1] < " "
 
 
+# Private-use code points that some fonts' ToUnicode maps give instead of the character (the text layer then loses
+# them): Adobe's legacy PUA (Adobe Glyph List: zerooldstyle … nineoldstyle, Asmall … Zsmall, Agravesmall …) and the
+# old-style figures of Linotype LT Std fonts (Sabon LT Std, Cambridge UP books: U+F643 = 0 … U+F64C = 9; checked
+# against a CRS reference's volume, year, pages and DOI). Small capitals are read as capitals (what the reader sees).
+PUA = {**{0xF643 + i: str(i) for i in range(10)}, **{0xF730 + i: str(i) for i in range(10)},
+       **{0xF761 + i: chr(0x41 + i) for i in range(26)},
+       **{0xF7E0 + i: chr(0xC0 + i) for i in range(31) if 0xC0 + i != 0xD7}}
+SPACING_ACCENT = {"´": "́", "`": "̀", "ˆ": "̂", "˜": "̃", "¨": "̈", "¸": "̧",
+                  "ˇ": "̌", "˘": "̆", "˙": "̇", "˚": "̊", "˝": "̋", "¯": "̄", "˛": "̨"}
+GLYPHS = Counter()  # repairs made in the text layer, for the report
+PUA_LEFT = []       # (page, code points, span text): private-use glyphs no table explains
+
+
+def repair_glyphs(chars, font, size, pno):
+    """Glyphs the text layer misreads: private-use code points (PUA table), a spacing accent printed over a letter
+    (TeX-style "Savi´c" -> "Savić"), "¼" from a TeX math font ("=" in Cambridge PDFs: "id¼6" -> "id=6")."""
+    out = []
+    for c in chars:
+        o = ord(c["c"])
+        if o in PUA:
+            c = dict(c, c=PUA[o])
+            GLYPHS["private-use " + ("figure" if PUA[o].isdigit() else "small capital") + " glyphs read as "
+                   + ("digits" if PUA[o].isdigit() else "capitals")] += 1
+        elif c["c"] == "¼" and re.search(r"(?i)math|^(\w+\+)?cm(sy|mi|ex)|texcm", font):
+            c = dict(c, c="=")
+            GLYPHS["'¼' from a TeX math font read as '='"] += 1
+        out.append(c)
+    for k, c in enumerate(out):
+        if c["c"] in SPACING_ACCENT:
+            mid = (c["bbox"][0] + c["bbox"][2]) / 2
+            for j in (k + 1, k - 1):
+                if 0 <= j < len(out) and out[j]["c"].isalpha() and out[j]["bbox"][0] <= mid <= out[j]["bbox"][2]:
+                    out[j] = dict(out[j], c=unicodedata.normalize("NFC", out[j]["c"] + SPACING_ACCENT[c["c"]]))
+                    out[k] = None
+                    GLYPHS["spacing accent printed over a letter composed with it (´c -> ć)"] += 1
+                    break
+    out = [c for c in out if c is not None]
+    # a word space set as a gap, with no space glyph (letterspaced small capitals: "IBERIAN ATLANTIC")
+    sp = []
+    for k, c in enumerate(out):
+        if k and c["c"].strip() and out[k - 1]["c"].strip() and c["bbox"][0] - out[k - 1]["bbox"][2] > 0.25 * size:
+            sp.append(dict(c, c=" ", bbox=(out[k - 1]["bbox"][2], c["bbox"][1], c["bbox"][0], c["bbox"][3])))
+            GLYPHS["word space set as a gap (no space glyph) inserted"] += 1
+        sp.append(c)
+    out = sp
+    left =[c["c"] for c in out if 0xE000 <= ord(c["c"]) <= 0xF8FF]
+    if left:
+        full = "".join(c["c"] for c in out)
+        PUA_LEFT.append((pno, " ".join(f"U+{ord(x):04X}" for x in sorted(set(left))), full[:60]))
+    return out
+
+
 def page_lines(page, W):
     raw = []
     d = page.get_text("rawdict", flags=TEXT_FLAGS)
@@ -121,7 +173,7 @@ def page_lines(page, W):
     for b in d["blocks"]:
         for l in b.get("lines", []):
             for sp in l["spans"]:
-                chars = sp.get("chars", [])
+                chars = repair_glyphs(sp.get("chars", []), sp["font"], sp["size"], page.number + 1)
                 bad = [c for c in chars if c["c"] == "\ufffd"]
                 if bad:
                     over = [c for c in bad if (round(c["bbox"][0]), round(c["origin"][1])) in mapped]
@@ -186,7 +238,14 @@ def page_lines(page, W):
         if not any(s["text"].strip() for s in ln):
             continue            # a line of tabs/spaces only (text from Word): no ink, no line
         ln.sort(key=lambda s: s["x0"])
-        mx = (Counter(round(s["size"], 1) for s in ln for c in s["text"] if not c.isspace())
+        # words set as separate text objects with no space glyph between them (loosely justified lines, a number
+        # after a figure font change: "In Spain, this veil", "1501 letters"): the gap is the space
+        for a, b in zip(ln, ln[1:]):
+            if b["x0"] - a["x1"] > 0.15 * max(a["size"], b["size"]) and a["text"][-1:].strip() and b["text"][:1].strip() \
+                    and abs(a["y"] - b["y"]) < 0.5 * max(a["size"], b["size"]):
+                b["text"] = " " + b["text"]
+                GLYPHS["word space set as a gap between text objects (no space glyph) inserted"] += 1
+        mx =(Counter(round(s["size"], 1) for s in ln for c in s["text"] if not c.isspace())
               or Counter(round(s["size"], 1) for s in ln for _ in s["text"])).most_common(1)[0][0]  # ink, not tabs
         base_y = max(s["y"] for s in ln if abs(s["size"] - mx) < 0.5) if any(abs(s["size"] - mx) < 0.5 for s in ln) else ln[0]["y"]
         for s in ln:
@@ -332,6 +391,12 @@ def join_lines(texts, joins):
             keep = hyph in VOCAB if (whole in VOCAB) != (hyph in VOCAB) else frag.lower() in KEEP_HYPHEN_PREFIXES
             why = "found in the text" if (whole in VOCAB) != (hyph in VOCAB) else \
                 "prefix, not found in the text — check" if keep else ""
+            # neither form inside a line, no prefix: a hyphenated compound in the text with the same second element
+            # ("dark-brown" for light-|brown, "Gitano-like" for mulatto-|like) is the document's evidence
+            twin = None if (whole in VOCAB) != (hyph in VOCAB) or keep or len(nxt.group(2)) < 3 else \
+                next((w for w in sorted(VOCAB) if w.endswith("-" + nxt.group(2).lower()) and w != hyph), None)
+            if twin:
+                keep, why = True, f"compound like '{twin}' in the text — check"
             if keep:
                 joins.append(f"{frag}-|{nxt.group(2)} -> {frag}-{nxt.group(2)} (hyphen kept: {why})")
                 out = out + t
@@ -456,9 +521,11 @@ def main():
     N = under.most_common(1)[0][0] if under else small.most_common(1)[0][0] if small else None
 
     # footnote zones
+    open_note = None    # the last note line of the previous page, when it ends mid-sentence (the note runs on)
     for pno, ls in all_lines.items():
         if N is None or not ls:
             continue
+        was_open, open_note = open_note, None
         rules = rules_at[pno]
         i = len(ls)
         while i > 0 and abs(ls[i - 1].size - N) < 0.35:
@@ -473,7 +540,15 @@ def main():
             # (not on an endnote page: set wholly at the note size, notes starting on it; its top line continues a note)
             starts = lambda X: re.match(r"^\s*\d{1,3}(?:[.)]?\s|\s?[A-ZŁŚŻŹĆ„\"(*])", X.text) or note_number(X)
             endnote_page = i == 0 and any(starts(X) for X in suffix)
-            while not endnote_page and top < len(suffix) and not re.match(r"^\s*\d{1,3}(?:[.)]?\s|\s?[A-ZŁŚŻŹĆ„\"(*])", suffix[top].text) \
+            # no rule to mark the zone: unnumbered lines atop it continue the previous page's note when that note
+            # ends mid-sentence, and start at the notes' left edge (a note-size quotation above the notes is indented)
+            # (the notes' left edges: where a note starts, and where its second line runs, for a hanging number)
+            edges = [X.x0 for X in suffix if starts(X)] + [Y.x0 for X, Y in zip(suffix, suffix[1:]) if starts(X) and not starts(Y)]
+            runs_on = was_open is not None and not starts(suffix[0]) and any(abs(suffix[0].x0 - e) < 0.5 * N for e in edges)
+            if runs_on:
+                warns.append(f"page {pno}: note zone opens without a number after a note ending mid-sentence "
+                             f"({was_open.text.strip()[-30:]!r}) -> continues that note: {suffix[0].text.strip()[:40]!r}")
+            while not endnote_page and not runs_on and top < len(suffix) and not re.match(r"^\s*\d{1,3}(?:[.)]?\s|\s?[A-ZŁŚŻŹĆ„\"(*])", suffix[top].text) \
                     and not note_number(suffix[top]):
                 top += 1
             # first page: an unnumbered block in the note zone, well clear of the body above it, is the author's
@@ -491,6 +566,9 @@ def main():
                 for F in zone[j:]:
                     F.zone = "foot"
                 break
+        last = [L for L in zone if L.zone == "note"]
+        if last and not re.search(r"[.!?][”\"’)\]]*\s*$", last[-1].text):
+            open_note = last[-1]
 
     # column sanity (reported once the front matter is known: columns there are read in column order)
     col_pages = []
@@ -644,9 +722,15 @@ def main():
     k = next((j for j, L in enumerate(first) if abs(L.size - B) < 0.35 and not L.head), None)
     if k:
         cand = first[:k]
-        tsize = max(L.size for L in cand)
+        # the title's size, not a chapter number's (a lone numeral set larger above a book chapter's title)
+        tsize = max((L.size for L in cand if any(c.isalpha() for c in L.text)), default=max(L.size for L in cand))
         if tsize > B * 1.1:
-            while cand and cand[-1].head and cand[-1].size < tsize - 0.1:
+            # a heading right above the text stays in it; with a text heading of that style (size, capitals) later
+            # on, only headings of a style the text uses again (the author's name, set large, is front matter)
+            again = lambda H: any(M.page > p0 and M.head and abs(M.size - H.size) < 0.15 and M.caps_head == H.caps_head
+                                  for M in body_lines)
+            styled = any(again(H) for H in cand if H.head and H.size < tsize - 0.1)
+            while cand and cand[-1].head and cand[-1].size < tsize - 0.1 and (again(cand[-1]) or not styled):
                 cand.pop()
             front = cand
     # an "Abstract"/"Keywords" heading near the start: everything up to the first other heading on that page
@@ -949,6 +1033,11 @@ def main():
         if kept:
             issues.append(f"page {pno}: {kept} glyph(s) without a Unicode mapping (U+FFFD) in {ctx!r} — "
                           "read the PDF there and type the text")
+
+    for what, n in sorted(GLYPHS.items()):
+        warns.append(f"{n} {what} — spot-check numbers and names against the PDF")
+    for pno, cps, ctx in PUA_LEFT:
+        issues.append(f"page {pno}: private-use glyph(s) {cps} with no known meaning in {ctx!r} — read the PDF there")
 
     # ---------- integrity
     start = title_n + 1 if title_n == 1 else 1
