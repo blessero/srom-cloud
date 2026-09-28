@@ -706,7 +706,10 @@ def main():
             report["errors"].append(ln[11:].strip())
         elif ln.startswith("SROM-NOPAGE:"):
             f = ln[12:].strip().split("\t")
-            nopage.append((int(f[0]) if f[0].isdigit() else f[0], f[1], f[2], f[3] if len(f) > 3 else ""))
+            n_ = int(f[0]) if f[0].isdigit() else f[0]
+            if title_cites and isinstance(n_, int):   # the Lua filter counted the title note as note 1
+                n_ = n_ - 1 if n_ > 1 else "*"
+            nopage.append((n_, f[1], f[2], f[3] if len(f) > 3 else ""))
         elif ln.strip() and "SROM:" not in ln:
             report["errors"].append("pandoc: " + ln.strip())
     notes, rows, forced, literal_ibid = [], [], [], []

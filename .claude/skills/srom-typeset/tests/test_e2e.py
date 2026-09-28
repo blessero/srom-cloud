@@ -271,6 +271,12 @@ check("citation in the title note: rendered inside it (first citation), 2 number
       and fn_texts[0].strip().startswith("Ficowski, ") and "Ibidem" not in fn_texts[0] and "Zweiter Absatz" in body
       and "multi-paragraph footnote" not in rep, (rep[:900], fn_texts))
 
+code, out, stem, rep = build(md_text="::: przypis-tytulowy\nNach [@ficowski1985, s. 3].\n:::\n\nTekst[^1] dalej[^2].\n\n"
+                                     "[^1]: Pierwszy.\n\n[^2]: Zob. [@ficowski1985].\n")
+q = open(os.path.join(out, stem + "_pytania.md"), encoding="utf-8").read()
+check("citing title note: query rows keep the printed note numbers (whole-work citation in note 2, not 3)",
+      re.search(r"\| 2 \| ficowski1985 \|", q) is not None and "| 3 |" not in q, q)
+
 # refs `note` opening "word:" is swallowed by pandoc's citeproc (read as a CSL field): an error, not silent loss
 nr = os.path.join(tempfile.mkdtemp(), "note_refs.json")
 json.dump([{"id": "nied2003", "type": "book", "author": [{"family": "Niederhäuser", "given": "A."}], "title": "Am Rande",
