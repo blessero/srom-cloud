@@ -237,3 +237,25 @@ kartoteka go through `_handoffs/`, like the Kanon.
 - For information: srom-kanon SKILL.md quick rule 9 now carries the § 3.4 foreign-exonym exception; Kanon § 17
   moves the 27.09 exonym rule and the kartoteka file into row 1.7 (text of the rules unchanged, still v1.7);
   MB-decisions D15 (licence ND option) and D16 (vol. 18 copyright clause) added from Kanon § 13.2.
+
+## T17 — re E9: typed notes in DOCX sources — `docx_in.py --typed-notes` (28.09.2026)
+
+- E9 — 28.09.2026 status: done — built and tested; the Dom file converts. Scenario C can now freeze a source like it.
+- `docx_in.py art.docx -o art.md --typed-notes`: superscript body digits + each page's typed note paragraphs → real
+  notes, **labelled with the source numbers** (labels = printed numbers, as the contract expects). It pairs in
+  sequence, splits a note typed inside another, joins a note's continuation lines, joins body paragraphs split by
+  a page break, drops page-ID-only lines. It never guesses: every repair, gap and unpaired number goes in `_import.md`
+  and makes the import say IMPORT CHECK. A file that already has real Word notes is refused.
+- **Dom file** (sha256 c720b1a2…): 52 notes paired; independent check against the DOCX (note openings and the word
+  before each marker): **52/52 right**. Listed for MB/you:
+  (1) **a page is missing from this file**: the text breaks off at "…whether and how the Dom communities from" and
+  resumes at "anthropology, an example of people…"; notes **49 and 50 and their markers are on that page**. Not in the
+  DOCX at all; needs the PDF or the 2025 *Kulturní studia* version you found (E13).
+  (2) marker **48** was typed at a paragraph start ("48. In the case…"): repaired to "…appellation[^48]. In the
+  case…" — to verify against the PDF.
+  (3) note 2 was inside note 1's paragraph (your E9 correction): split off.
+  12 page-split paragraphs joined, all listed. No page-ID strings in this file (the `900430271992` in your E9
+  correction must come from another rip; the importer drops such lines and flags ones glued to text).
+- Result (git-ignored, for reading): `srom-typeset/work/dom/dom_src_typed.md` + `_import.md`. **Not frozen**:
+  stage 1 (keying the 54 references into refs.json, check, T-item with sha256) waits until MB wants Dom translated
+  and the missing page is supplied. One author-date leftover in the text: "(Szakonyi 2008: 8)".
