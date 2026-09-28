@@ -179,5 +179,13 @@ t("block quotation '(2008, 183)': author named in the lead-in paragraph -> hanco
 t("author's spelling of a transliterated name (srom-as-written 'Byelikov', 'Kirey; Serdyuk') resolves",
   "[@bielikov2003, s. 87; @kirei1984, s. 113–114]" in eo, o + eo)
 
+enote = os.path.join(d, "enote.md")
+open(enote, "w", encoding="utf-8").write("Text.[^1]\n\n[^1]: They kept their affairs (1992, 81); Law and Kovats 2018, 78. See also Law 2012.\n")
+c, o = cm("scan", enote, "--refs", esub2, "--apply", os.path.join(d, "enote_out.md"))
+no = open(os.path.join(d, "enote_out.md"), encoding="utf-8").read() if os.path.exists(os.path.join(d, "enote_out.md")) else ""
+t("in a note: comma locator inside the token ('Law and Kovats 2018, 78' -> [@law2018, s. 78]); 'See also' -> 'Zob. też'",
+  "[@law2018, s. 78]." in no and "[Zob. też @law2012]." in no, o + no)
+t("in a note: '(1992, 81)' with no author named -> left as written, YEAR-ONLY?", "affairs (1992, 81);" in no and "YEAR-ONLY?" in o, o + no)
+
 n, ok = len(res), sum(res)
 print(f"CITEMAP ALL PASS {n}/{n}" if ok == n else f"CITEMAP FAILED {n - ok}/{n}")

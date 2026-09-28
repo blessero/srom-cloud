@@ -38,12 +38,12 @@ NAME = rf"(?:\b(?:de|van|von|der|den|di|da|le|la|du|del|ten|ter)\s)*[{UP}][\w’
 NAMES = rf"{NAME}(?:(?:,\s|\s(?:i|and|&|und|et)\s){NAME})*(?:\s(?:i\sin\.|et\sal\.|i\sinni|u\.\sa\.))?(?:\s\((?:red|eds?|Hrsg|oprac)\.\))?"
 YEAR = r"(?:1[5-9]\d\d|20\d\d)(?:/(?:1[5-9]\d\d|20\d\d))?[a-z]?|b\.\s?d\.|n\.\s?d\.|w\sdruku|in\spress"
 LOC = r"(?:[:,]\s?(?:s\.|str\.|pp?\.|S\.)?\s?[^;()\[\]]+?)?"
-PREFIX = r"(?:(?:zob\.|por\.|np\.|see|cf\.|e\.g\.|vgl\.|zob\.\steż|see\salso|cyt\.\sza|quoted\sin|cited\sin)\s)?"
+PREFIX = r"(?:(?i:zob\.|por\.|np\.|see|cf\.|e\.g\.|vgl\.|zob\.\steż|see\salso|cyt\.\sza|quoted\sin|cited\sin)\s)?"
 ITEM = re.compile(rf"^\s*(?P<pre>{PREFIX})(?P<names>{NAMES}),?\s(?P<year>{YEAR})(?P<loc>{LOC})\s*$")
 _ED = r"\((?:red|eds?|Hrsg|oprac)\.\)"
 PAREN = re.compile(rf"(?<!\])\s?\(((?:[^()\[\]]|{_ED})*?(?:1[5-9]\d\d|20\d\d|b\.\s?d\.|n\.\s?d\.)(?:[^()\[\]]|{_ED})*?)\)")
 NARR = re.compile(rf"(?P<names>{NAMES})\s\((?P<year>{YEAR})(?P<loc>{LOC})\)")
-BARE = re.compile(rf"(?P<pre>{PREFIX})(?P<names>{NAME}(?:\s(?:i|and|&)\s{NAME})?(?:\s(?:i\sin\.|et\sal\.))?),?\s(?P<year>{YEAR})(?P<loc>:\s?[\d–\-, ]+(?:\s(?:i\sn\.|passim))?)?(?=[;.,)]|$)")
+BARE = re.compile(rf"(?P<pre>{PREFIX})(?P<names>{NAME}(?:\s(?:i|and|&)\s{NAME})?(?:\s(?:i\sin\.|et\sal\.))?),?\s(?P<year>{YEAR})(?P<loc>(?::\s?|,\s(?=\d))[\d–\-, ]*\d(?:\s(?:i\sn\.|passim))?)?(?=[;.,)]|$)")
 PREFIX_MAP = {"see": "zob.", "see also": "zob. też", "cf.": "por.", "e.g.": "np.", "vgl.": "por.",
               "quoted in": "cyt. za", "cited in": "cyt. za"}
 NONPAGE = [(r"^(?:tab\.|tabl\.|table)\s?", "tabl. "), (r"^(?:fig\.|rys\.|ryc\.)\s?", "rys. "), (r"^(?:k\.|fol\.|ff?\.\s?(?=\d))\s?", "k. "),
@@ -222,7 +222,7 @@ def locator(loc):
 def cite_body(items, capitalise):
     parts = []
     for n, (pre, key, loc) in enumerate(items):
-        pre = PREFIX_MAP.get(pre.strip(), pre.strip()) if pre else ""
+        pre = PREFIX_MAP.get(pre.strip().lower(), pre.strip()) if pre else ""   # "See also" at a note start
         if n == 0 and capitalise and pre:
             pre = pre[0].upper() + pre[1:]
         parts.append(((pre + " ") if pre else "") + "@" + key + ((", " + loc) if loc else ""))
@@ -329,7 +329,7 @@ def scan(md_text, refs):
                 st, keys = resolve(m.group("names"), m.group("year"), refs)
                 if st == "UNKNOWN":
                     return m.group(0)          # not an author-date cite (e.g. "Kraków 1985" in a full citation)
-                at_start = m.start() == 0
+                at_start = m.start() == 0 or re.search(r"[.!?]\s*$", m.string[:m.start()]) is not None   # sentence start
                 rep = cite_body([(m.group("pre"), keys[0] if len(keys) == 1 else "?", locator(m.group("loc")))], at_start)
                 hits.append(Hit(where, m.group(0), "IN-NOTE" if st == "OK" else st, keys, rep))
                 return rep
