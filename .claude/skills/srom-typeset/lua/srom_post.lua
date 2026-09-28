@@ -8,7 +8,7 @@ Messages on stderr:  SROM-WARN: …  (review)   SROM-ERROR: …  (build fails)
 ]]
 
 local stringify = pandoc.utils.stringify
-local cfg, P, C, R
+local cfg, P, C, R, KEEP_TITLE
 local nerr = 0
 local function warn(m) io.stderr:write("SROM-WARN: " .. m .. "\n") end
 local function err(m) io.stderr:write("SROM-ERROR: " .. m .. "\n"); nerr = nerr + 1 end
@@ -42,6 +42,15 @@ local function load_cfg(meta)
   cfg = pandoc.json.decode(fh:read("a"), false)
   fh:close()
   P, C, R = cfg.paragraph, cfg.character, cfg.roles
+  KEEP_TITLE = meta["srom-keep-title"] and stringify(meta["srom-keep-title"]) == "true"   -- check.py --keyed
+end
+
+-- a title note with citations reaches citeproc as the first footnote (build.py title_note_as_footnote), its
+-- content opening with an empty span of class srom-title; pass F takes it back out
+local function is_title_note(n)
+  local b = n.content[1]
+  local f = b and (b.t == "Para" or b.t == "Plain") and b.content[1]
+  return f and f.t == "Span" and f.classes:includes("srom-title")
 end
 
 ---------------------------------------------------------------- pass B: in-note citations
@@ -367,7 +376,7 @@ local function style_note(note)
       err("unsupported block in footnote: " .. b.t)
     end
   end
-  if #out > 1 then warn("multi-paragraph footnote (" .. #out .. " paragraphs): " .. short(out[1].content)) end
+  if #out > 1 and not is_title_note(note) then warn("multi-paragraph footnote (" .. #out .. " paragraphs): " .. short(out[1].content)) end
   note.content = out
   return note
 end
@@ -594,8 +603,15 @@ local function asterisk_series(doc)
   for _, b in ipairs(doc.blocks) do
     if b.t == "Div" and has_class(b, "przypis-tytulowy") then title:insert(b.content) else body:insert(b) end
   end
+  local moved = false
   body = pandoc.Blocks(body):walk({
     Note = function(n)
+      if is_title_note(n) and not KEEP_TITLE then
+        n.content[1].content:remove(1)          -- the srom-title marker span
+        title:insert(n.content)
+        moved = true
+        return {}
+      end
       if is_nonauthor(n.content) then
         notes:insert(n.content)
         return pandoc.Span({pandoc.Str("*")}, cstyle(C.asterisk_ref))
@@ -615,6 +631,9 @@ local function asterisk_series(doc)
       end
     end
     return out
+  end
+  if moved then     -- the paragraph that only carried the title note's marker
+    body = body:filter(function(b) return not ((b.t == "Para" or b.t == "Plain") and #b.content == 0) end)
   end
   for _, t in ipairs(title) do body:extend(paras(t)) end
   for _, n in ipairs(notes) do body:extend(paras(n)) end

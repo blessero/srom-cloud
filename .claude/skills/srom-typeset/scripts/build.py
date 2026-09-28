@@ -127,6 +127,26 @@ def extra_source(literal):
     return bool(re.search(r"\d", rest))
 
 
+TITLE_DIV = re.compile(r"(?ms)^:::\s*\{?\.?przypis-tytulowy\}?[ \t]*\n(.*?)\n:::[ \t]*$")
+
+
+def title_note_as_footnote(md_text, force=False):
+    """A citation in the title note (::: przypis-tytulowy, Kanon § 7.1) would become a numbered footnote of its own
+    (note-style CSL puts every citation outside a note into one). Such a title note goes through citeproc as the
+    FIRST footnote instead: its citations are rendered inside it (a first citation there, short forms after it), and
+    the Lua filter (pass F) takes it back out into the asterisk series. The marker stands alone in a paragraph at the
+    top, which pass F removes. Returns (text, moved?)."""
+    m = TITLE_DIV.search(md_text)
+    if not m or ("[@" not in m.group(1) and not force):
+        return md_text, False
+    paras = [p.strip() for p in re.split(r"\n[ \t]*\n", m.group(1).strip()) if p.strip()]
+    note = "[^srom-title]: []{.srom-title}" + paras[0] + "".join("\n\n    " + p.replace("\n", "\n    ") for p in paras[1:])
+    rest = md_text[:m.start()] + md_text[m.end():]
+    fm = re.match(r"(?s)---\n.*?\n---[ \t]*\n", rest)        # YAML front matter stays first
+    head, tail = (rest[:fm.end()], rest[fm.end():]) if fm else ("", rest)
+    return head + "\n[^srom-title]\n\n" + tail.lstrip("\n").rstrip() + "\n\n" + note + "\n", True
+
+
 def note_dicts(doc):
     out = []
     walk(doc["blocks"], lambda x: out.append(x) if x.get("t") == "Note" else None)
@@ -454,8 +474,8 @@ def verify_docx(path, cfg, id2name, expected_notes, report, expected_ast=(0, 0))
 
 
 # ------------------------------------------------------------------ ibidem map (§7.3: Ibidem only on the same column)
-SOURCE_TYPO_VERIFY = {"no em dash", "no English quotes “"}
-SOURCE_TYPO_LINT = {"EMDASH", "NOTE-AFTERDOT", "QUOTE-EN-IN-PL", "RANGE-SHORT", "SPACE-BEFOREPUNCT"}
+SOURCE_TYPO_VERIFY = {"no em dash", "no English quotes “", "no ASCII ellipsis"}
+SOURCE_TYPO_LINT = {"EMDASH", "NOTE-AFTERDOT", "QUOTE-EN-IN-PL", "RANGE-SHORT", "SPACE-BEFOREPUNCT", "ELLIPSIS-DOTS"}
 
 
 def noibid_csl(workdir):
@@ -602,6 +622,11 @@ def main():
         yr = ((r.get("issued") or {}).get("date-parts") or [[None]])[0][0]
         if not r.get("publisher") and isinstance(yr, int) and yr <= 1800:
             r["srom-early-print"] = "1"
+    # pandoc's citeproc reads "name: value" lines of `note` as CSL fields: such a note vanishes from print
+    for r in refs_list:
+        if re.match(r"\s*[^\W\d_][\w-]*\s*:\s", r.get("note") or ""):
+            report["errors"].append(f"{r['id']}: note “{r['note'][:50]}” starts with “word:” — pandoc reads it as a CSL "
+                                    "field and prints nothing; reword it (no colon after the first word)")
     refs_path = os.path.join(work, "refs.json")
     json.dump(refs_list, open(refs_path, "w", encoding="utf-8"), ensure_ascii=False)
     refs = {r["id"]: r for r in refs_list}
@@ -659,6 +684,7 @@ def main():
 
     # 2. bibliography sections
     composed = build_bibliography(md_text, refs, printed, refs_path, work, report)
+    composed, title_cites = title_note_as_footnote(composed)
     comp_path = os.path.join(work, stem + ".md")
     open(comp_path, "w", encoding="utf-8").write(composed)
 
@@ -697,14 +723,14 @@ def main():
         # §7.1 non-author notes (– przyp. tłum./red.) leave the numbered sequence (Lua pass F); remember which
         # numbered note follows one: citeproc computed its Ibidem against the non-author note
         pre, after_na, prev_na = [], [], False
-        for p_ in pre_all:
-            if integrity.na_kind(p_):
+        for j_, p_ in enumerate(pre_all):
+            if integrity.na_kind(p_) or (title_cites and j_ == 0):      # the title note is in the asterisk series
                 prev_na = True
                 continue
             pre.append(p_)
             after_na.append(prev_na)
             prev_na = False
-        n_na = len(pre_all) - len(pre)
+        n_na = len(pre_all) - len(pre) - (1 if title_cites else 0)
         if len(pre) != len(na):
             report["errors"].append(f"internal: note sequence mismatch ({len(pre)} before / {len(na)} after citeproc)")
         # §7.3 Ibidem: kept only where it is unambiguous and grammatical; else the short form is printed

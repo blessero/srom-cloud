@@ -54,6 +54,9 @@ tlumaczenie: "Imię Nazwisko"
   asterisk_note at the end of the DOCX (title note first). The typesetter sets them above the numbered notes
   and the asterisks per page (`_gwiazdki.jsx`). No Ibidem in them or in the author's note right after one.
   A citation the translator adds to an author's note is declared (see `handoff.md`).
+- The title note may cite works (`[@key, s. N]`): the build passes it through citeproc as the first note (a first
+  citation there, short forms after it, never Ibidem next to it) and then moves it into the asterisk series; the
+  numbered notes are not shifted. `check.py --keyed` compares it as "title note".
 
 ## Citations inside notes
 
@@ -83,6 +86,14 @@ pisze [@mroz2011]") is fine: if it would come out as *Ibidem*, the build prints 
   `M. W., M. A.`) is keyed to the same work; the check accepts the name without spaces and a literal author's
   first part. List the variant in the report: the printed short form comes from refs.json and is uniform.
 - Lead-ins: see → zob., see also → zob. też, cf. → por., quoted in / cited in → cyt. za (Kanon § 7.2; handoff.md).
+
+**Keying full citations** (German and other continental notes: "Achim Landwehr, Norm … In: Minderheiten …, hg. von
+M. Häberlein/M. Zürn. St. Katharinen 2001, S.41-74, hier S.56, Anm. 52."; later "Landwehr, Norm (wie Anmerkung 1), S.57."):
+- the whole citation → `[@landwehr2001, {s. 56, przyp. 52}]`; the chapter's own range (before "hier") goes to
+  `page` in refs.json, not into the note (Kanon § 7.2) — `check.py --keyed` accepts it there; `(wie Anmerkung n)` goes
+  with the short form. Column `Sp.` → `{szp. N}`, note `Anm.` → `przyp.`; "Zitiert nach" → "Cyt. za".
+- `²1990` (edition) → `edition`; `Bd.` → `volume`; a series in parentheses → `collection-title`/`collection-number`
+  (not printed yet: no Kanon rule). `note` must not open with "word:" (pandoc reads it as a field; the build stops).
 
 Stay **literal** (plain text in the note, kanon §8): archival units (§8.1), fieldwork codes (§8.2),
 single press issues, legal acts cited once, statistics tables without a stable record.

@@ -32,12 +32,13 @@ rep = open(os.path.join(out, "opcit_report.md"), encoding="utf-8").read()
 blocks = r.returncode == 1 and "kanon linter:" in rep
 # build --source (proof of an untranslated source): Polish typography is counted, not an error; the rest still is
 src = os.path.join(out, "en_src.md")
-open(src, "w", encoding="utf-8").write("An essay—in English—about “Roma.”[^1]\n\n[^1]: Kowalski, op. cit., 5.\n")
+open(src, "w", encoding="utf-8").write("An essay—in English—about “Roma.” [...][^1]\n\n[^1]: Kowalski, op. cit., 5.\n")
 r = subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "build.py"), src, "--out", out, "--source"], capture_output=True, text=True)
 rep = open(os.path.join(out, "en_src_report.md"), encoding="utf-8").read()
 errs = rep.split("## Errors")[1].split("##")[0]
 source_ok = ("## Source language" in rep and "no em dash: 2" in rep and "EMDASH" not in errs
-             and "no English quotes" not in errs and "kanon linter: 1 ERROR" in errs)   # op. cit. stays an error
+             and "no English quotes" not in errs and "ASCII ellipsis" not in errs and "ELLIPSIS-DOTS" in rep.split("## Source language")[1].split("##")[0]
+             and "kanon linter: 1 ERROR" in errs)   # op. cit. stays an error
 print("source proof: typography counted, op. cit. still an error:", source_ok)
 blocks = blocks and source_ok
 print("negative control detected:", control, "| build blocked on lint ERROR:", blocks)

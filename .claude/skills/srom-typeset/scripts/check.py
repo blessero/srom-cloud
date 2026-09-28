@@ -459,7 +459,7 @@ def printed_numbers(src, tgt):
 
 
 # ---------------------------------------------------------------- keyed (literal notes -> [@key] citations)
-LOCATOR_NUM = re.compile(r"\b(?:s|k|l|ark|tabl|p|pp|str|S)\.\s?(\d+[a-z]?(?:\s?[–-]\s?\d+[a-z]?)?(?:,\s?\d+[a-z]?(?:[–-]\d+)?)*)")
+LOCATOR_NUM = re.compile(r"\b(?:s|k|l|ark|tabl|p|pp|str|S|Sp|szp|Anm|przyp)\.\s?(\d+[a-z]?(?:\s?[–-]\s?\d+[a-z]?)?(?:,\s?\d+[a-z]?(?:[–-]\d+)?)*)")
 IBID = re.compile(r"(?i)^\W*(ibidem|ibid\.?|tamże|tamze|tenże|taż|idem|eadem)\b")
 
 
@@ -471,7 +471,8 @@ def locator_numbers(text):
     return c
 
 
-SHORT_LOC = r"(?:,\s?(?:1[5-9]\d\d|20\d\d)[a-z]?)?,\s?(\d+[a-z]?(?:\s?[–-]\s?\d+[a-z]?)?(?:,\s?\d+[a-z]?(?:\s?[–-]\s?\d+[a-z]?)?)*)(?![\d.]\d)"
+# (not a number opening a title: "Scheffknecht, 100 Jahre Marktgemeinde" — a word follows it)
+SHORT_LOC = r"(?:,\s?(?:1[5-9]\d\d|20\d\d)[a-z]?)?,\s?(\d+[a-z]?(?:\s?[–-]\s?\d+[a-z]?)?(?:,\s?\d+[a-z]?(?:\s?[–-]\s?\d+[a-z]?)?)*)(?![\d.]\d)(?!\d)(?!\s?[^\W\d_]{3})"
 
 
 def squeeze(s):
@@ -518,7 +519,17 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
     import build
     cfg = os.path.join(build.ROOT, "config", "styles.json")
     meta = ["-M", "lang=pl-PL", "-M", "notes-after-punctuation=false", "-M", "suppress-bibliography=true",
-            "-M", f"srom-config={cfg}"]
+            "-M", f"srom-config={cfg}", "-M", "srom-keep-title=true"]
+    # a title note with citations goes through citeproc as the first footnote (build.py): compared as note 0 here
+    kt = open(keyed, encoding="utf-8").read()
+    title = bool(build.TITLE_DIV.search(kt)) and "[@" in build.TITLE_DIV.search(kt).group(1)
+    if title:
+        tmp = tempfile.mkdtemp()
+        for name, src in (("orig", orig), ("keyed", keyed)):
+            p_ = os.path.join(tmp, name + ".md")
+            open(p_, "w", encoding="utf-8").write(build.title_note_as_footnote(open(src, encoding="utf-8").read(), force=True)[0])
+            orig, keyed = (p_, keyed) if name == "orig" else (orig, p_)
+    lab = (lambda i: "title note" if i == 1 else f"note {i - 1}") if title else (lambda i: f"note {i}")
     ro, _ = build.pandoc_json(orig)
     rk, _ = build.pandoc_json(keyed, ["--citeproc", "--csl", build.CSL, "--bibliography", refs_path,
                                       "--lua-filter", build.LUA, *meta])
@@ -534,21 +545,30 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
         keys = kkeys[i - 1] if i - 1 < len(kkeys) else []
         o_loc = locator_numbers(expand_ranges(o)) | shortform_numbers(o, refs, keys)
         lost = o_loc - locator_numbers(expand_ranges(k))
+        # a first citation giving the chapter's/article's own range before the page ("S.41-74, hier S.56"): the note
+        # prints the page only, the range is the work's `page` field, printed in the bibliography (Kanon § 7.2)
+        for key in keys:
+            rng = numbers(expand_ranges((refs.get(key) or {}).get("page", "")))
+            if rng and not (rng - lost):
+                lost -= rng
         if lost and IBID.match(k) and keys == prev_keys and not (lost - prev_loc):
             lost = Counter()             # same work, same page as the note before: a bare Ibidem is right
         if lost:
-            errs.append(f"note {i}: page/folio numbers lost in keying {dict(lost)}\n        original: {o[:160]}\n        rendered: {k[:160]}")
+            errs.append(f"{lab(i)}: page/folio numbers lost in keying {dict(lost)}\n        original: {o[:160]}\n        rendered: {k[:160]}")
         years = Counter(int(y[0]) for key in keys for f in ("issued", "original-date")
                         for y in ((refs.get(key) or {}).get(f) or {}).get("date-parts", []) if y)
-        other = numbers(expand_ranges(o)) - numbers(expand_ranges(k)) - o_loc - Counter({y: 99 for y in years})
+        # a cross-reference to the note with the first citation ("wie Anmerkung 13", "see note 4") is replaced by the
+        # short form: its number goes with it
+        xref = Counter(int(n) for n in re.findall(r"(?i)\b(?:wie Anm(?:erkung|\.)|see note|cf\. note|zob\. przyp\.)\s?(\d+)", o))
+        other = numbers(expand_ranges(o)) - numbers(expand_ranges(k)) - o_loc - Counter({y: 99 for y in years}) - xref
         if other:
-            warns.append(f"note {i}: other numbers not in rendering {dict(other)}: {o[:100]}")
+            warns.append(f"{lab(i)}: other numbers not in rendering {dict(other)}: {o[:100]}")
         if not keys:
             if norm_ws(o) != norm_ws(k):
-                warns.append(f"note {i}: literal note differs after rendering: {o[:80]} | {k[:80]}")
+                warns.append(f"{lab(i)}: literal note differs after rendering: {o[:80]} | {k[:80]}")
         elif IBID.match(o):
             if keys != prev_keys[-1:] and keys != prev_keys:
-                errs.append(f"note {i}: original is ibid./tamże but keyed {keys} ≠ previous note {prev_keys}")
+                errs.append(f"{lab(i)}: original is ibid./tamże but keyed {keys} ≠ previous note {prev_keys}")
         else:
             fo, so = fold_txt(o), squeeze(o)
             for key in keys:
@@ -560,7 +580,7 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
                                      for n in names if n):
                     ttl = fold_txt((r.get("title-short") or r.get("title") or "")[:18].rstrip("…"))
                     if not (len(ttl) >= 8 and ttl in fo):
-                        errs.append(f"note {i}: @{key} ({', '.join(names)}) — neither author nor title found in the original note: {o[:120]}")
+                        errs.append(f"{lab(i)}: @{key} ({', '.join(names)}) — neither author nor title found in the original note: {o[:120]}")
         prev_keys = keys or prev_keys
         prev_loc = o_loc if keys else prev_loc
 

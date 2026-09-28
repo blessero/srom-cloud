@@ -197,6 +197,40 @@ c, o = runk(SO, w("short_k1.md", SK.replace("s. 214–231", "s. 214–230")))
 t("keyed short form: unlabelled page changed (214–31 keyed as 214–230) -> ERROR", c == 1 and "page/folio numbers lost" in o and "231" in o, o)
 c, o = runk(SO, w("short_k2.md", SK.replace("[@hornback2018, s. 35–69]", "[@hornback2018, s. 35]")))
 t("keyed short form: page dropped from a range (Hornback, 35–69 -> s. 35) -> ERROR", c == 1 and "69" in o, o)
+# German full citations (stage-1 test 3): the chapter's own range before "hier S." is the work's page field (printed in the
+# bibliography, not in the note); a title opening with a number is not a page; a column (Sp.) and a note (Anm.) are locators
+DREFS = w("de_refs.json", json.dumps([
+    {"id": "landwehr2001", "type": "chapter", "author": [{"family": "Landwehr", "given": "Achim"}], "title": "Norm, Normalität, Anomale",
+     "container-title": "Minderheiten", "page": "41–74", "publisher-place": "St. Katharinen", "issued": {"date-parts": [[2001]]}},
+    {"id": "scheffknecht2003", "type": "book", "author": [{"family": "Scheffknecht", "given": "Wolfgang"}],
+     "title": "100 Jahre Marktgemeinde Lustenau", "publisher-place": "Lustenau", "issued": {"date-parts": [[2003]]}},
+    {"id": "jutz1965", "type": "book", "author": [{"family": "Jutz", "given": "Leo"}], "title": "Vorarlbergisches Wörterbuch",
+     "volume": "2", "publisher-place": "Wien", "issued": {"date-parts": [[1965]]}}], ensure_ascii=False))
+DO = w("de_o.md", "A[^1] b[^2] c[^3] d[^4].\n\n[^1]: Achim Landwehr, Norm, Normalität, Anomale. In: Minderheiten. St. Katharinen 2001, "
+       "S.41-74, hier S.56, Anm. 52.\n\n[^2]: Scheffknecht, 100 Jahre Marktgemeinde Lustenau (wie Anmerkung 9), S.49.\n\n"
+       "[^3]: Leo Jutz, Vorarlbergisches Wörterbuch, Bd. 2. Wien 1965, Sp.1717.\n\n[^4]: Landwehr, Norm (wie Anmerkung 1), S.57.\n")
+DK = ("A[^1] b[^2] c[^3] d[^4].\n\n[^1]: [@landwehr2001, {s. 56, przyp. 52}].\n\n[^2]: [@scheffknecht2003, s. 49].\n\n"
+      "[^3]: [@jutz1965, {szp. 1717}].\n\n[^4]: [@landwehr2001, s. 57].\n")
+def rund(o, k):
+    r = subprocess.run([sys.executable, CHECK, "--keyed", o, k, "--refs", DREFS], capture_output=True, text=True)
+    return r.returncode, r.stdout + r.stderr
+c, o = rund(DO, w("de_k.md", DK))
+t("keyed German full citations: chapter range before 'hier S.' left to the bibliography, '100 Jahre' not a page, "
+  "Sp./Anm. kept as szp./przyp. -> CHECK OK", c == 0 and "CHECK OK" in o, o)
+c, o = rund(DO, w("de_k1.md", DK.replace("{s. 56, przyp. 52}", "s. 56")))
+t("keyed German: note locator (Anm. 52) dropped -> ERROR", c == 1 and "52" in o, o)
+c, o = rund(DO, w("de_k2.md", DK.replace("{szp. 1717}", "{szp. 1771}")))
+t("keyed German: column changed (Sp.1717 -> szp. 1771) -> ERROR", c == 1 and "1717" in o, o)
+c, o = rund(DO, w("de_k3.md", DK.replace("[@landwehr2001, {s. 56, przyp. 52}]", "[@landwehr2001, {s. 41, przyp. 52}]")))
+t("keyed German: the page after 'hier' replaced by the range's start -> ERROR (the range exempts only itself)", c == 1 and "56" in o, o)
+TO = w("t_o.md", "::: przypis-tytulowy\nVortrag. Achim Landwehr, Norm. In: Minderheiten. St. Katharinen 2001, S.41-74, hier S.56.\n:::\n\n"
+       "A[^1].\n\n[^1]: Landwehr, Norm (wie Anmerkung 1), S.57.\n")
+TK = "::: przypis-tytulowy\nVortrag. [@landwehr2001, s. 56].\n:::\n\nA[^1].\n\n[^1]: [@landwehr2001, s. 57].\n"
+c, o = rund(TO, w("t_k.md", TK))
+t("keyed: a citation in the title note is compared as the title note (first citation there); numbered notes unshifted",
+  c == 0 and "CHECK OK" in o, o)
+c, o = rund(TO, w("t_k1.md", TK.replace("s. 56", "s. 65")))
+t("keyed: page changed in the title note -> ERROR named 'title note'", c == 1 and "title note: page/folio numbers lost" in o, o)
 c, o = runk(SO, w("short_k3.md", SK.replace("[@mw1662, s. 60]", "[@hornback2018, s. 60]")))
 t("keyed short form: wrong work for 'M.W.' -> ERROR", c == 1 and "@hornback2018" in o, o)
 

@@ -257,6 +257,28 @@ check("E6: source label a2 -> printed note 3 (main-text citation counted; transl
 code, out, stem, rep = build(md_text="::: przypis-tytulowy\nPrzekład z języka angielskiego: Jan Nowak.\n:::\n\nTekst.\n")
 check("title note: asterisk-note style, reminder in the report", code == 0 and "asterisk series" in rep and "title note" in rep, rep[:600])
 
+# a citation in the title note (German source, 28.09.2026): first citation there, the numbered notes unshifted, the
+# later citation a short form (never Ibidem: the title note is in the asterisk series)
+code, out, stem, rep = build(md_text="::: przypis-tytulowy\nNach Landwehr [@ficowski1985, s. 3].\n\nZweiter Absatz.\n:::\n\n"
+                                     "# Titel\n\nTekst[^1] dalej[^2].\n\n[^1]: [@ficowski1985, s. 5].\n\n[^2]: Drugi.\n")
+zx = zipfile.ZipFile(os.path.join(out, stem + ".docx"))
+body, fnx = zx.read("word/document.xml").decode(), zx.read("word/footnotes.xml").decode()
+fn_texts = ["".join(t.text or "" for t in f.iter(W + "t")) for f in etree.fromstring(fnx.encode()).iter(W + "footnote")
+            if f.get(W + "id") not in ("-1", "0")]
+check("citation in the title note: rendered inside it (first citation), 2 numbered notes, the next one a short form, "
+      "no empty paragraph left at the top", code == 0 and len(fn_texts) == 2 and "Cyganie na polskich drogach, Wydawnictwo" in
+      re.sub(r"\s+", " ", "".join(t.text or "" for t in etree.fromstring(body.encode()).iter(W + "t")))
+      and fn_texts[0].strip().startswith("Ficowski, ") and "Ibidem" not in fn_texts[0] and "Zweiter Absatz" in body
+      and "multi-paragraph footnote" not in rep, (rep[:900], fn_texts))
+
+# refs `note` opening "word:" is swallowed by pandoc's citeproc (read as a CSL field): an error, not silent loss
+nr = os.path.join(tempfile.mkdtemp(), "note_refs.json")
+json.dump([{"id": "nied2003", "type": "book", "author": [{"family": "Niederhäuser", "given": "A."}], "title": "Am Rande",
+            "publisher": "X", "publisher-place": "St. Gallen", "issued": {"date-parts": [[2003]]},
+            "note": "przypisy: t. 9, s. 52–53"}], open(nr, "w", encoding="utf-8"), ensure_ascii=False)
+code, out, stem, rep = build(md_text="Tekst[^1].\n\n[^1]: [@nied2003, s. 5].\n", refs=nr)
+check("refs note 'przypisy: …' (read by pandoc as a field, lost) -> build error naming it", code == 1 and "nied2003: note" in rep, rep[:600])
+
 # kanon §8.6: a URL is plain text, never a hyperlink; §7.4: a note may have several paragraphs (flagged)
 code, out, stem, rep = build(md_text="Zob. [serwis](https://przyklad.pl/tekst) i <https://przyklad.pl/b>[^1].\n\n"
                                      "[^1]: Pierwszy akapit.\n\n    Drugi akapit przypisu.\n")
