@@ -28,3 +28,7 @@ State, open decisions and the work queue: `docs/HANDOVER-*.md` — read before s
 - Rules live in srom-kanon only; srom-typeset implements them and cites them, never restates them.
 - InDesign scripts: ES3 (ExtendScript), report-only unless the editor asks otherwise; run on copies.
 - Substantial tasks: use the unlazy discipline (gates with runnable checks in `GATES.md`).
+- Several sessions (one per article) share this working tree. Commit only your own files, by path
+  (`git commit <paths>`; never `git add -A`, `commit -a` or `git stash`); never revert, reformat or commit
+  another session's uncommitted changes. If the suite fails in code you did not touch, check `git status`/`git diff`
+  for another session's work in progress before fixing anything; say so to MB rather than "fixing" it.
