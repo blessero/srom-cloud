@@ -18,8 +18,7 @@ Rules:
 ## Needs MB now
 - **Pahulich:** D17 — nothing in it blocks the translation.
 - **Scheffknecht:** D18 — German stage-1 test.
-- **Ostendorf:** D19 — A1 (rights: CUP, not open access) decides whether the translation starts; the rest blocks
-  typesetting only.
+- **Ostendorf:** D19 — A1 (CC BY-NC, as D17 A1) and A2 (14 imprint gaps by hand); nothing blocks the translation.
 - **Tittel:** D20 — nothing blocks the translation (CC BY 4.0); A1 (acknowledgements as the title note) and A4 (the MEW
   siglum) touch the source the translator works on.
 
@@ -58,6 +57,9 @@ Stage 1 done, source frozen in `srom-typeset/work/scheffknecht/`; **not handed t
   every German/Austrian/Swiss source.
 - A4 series (14 works): no Kanon form, the CSL prints nothing. Recommendation: "(Series, n)" at the end of the description.
 - A5 German "von" (von Hippel): no Kanon rule. Recommendation: library form "Hippel, Wolfgang von", sorted under H.
+  - 28.09.2026 21:28 DECIDED (MB via D19 A4: "whatever the custom is"): Kanon § 9.3/§ 9.5 (commit ea50df6) — "Hippel, Wolfgang von",
+    sorted under H. To apply in `work/scheffknecht/refs.py`: hippel1995 `non-dropping-particle` → `dropping-particle`
+    (not done by the Ostendorf session: another session's files).
 - A6 archive abbreviations (VLA, HoA, HistA, PfA, StaatsA, StadtA) never expanded in the source (Kanon § 8.1); HoA unknown.
 - A7 a stray raised "1" after the text's last word: delete (recommended) or ask the author. A8 early printed lists held in
   archives stay literal (recommended).
@@ -66,7 +68,7 @@ Stage 1 done, source frozen in `srom-typeset/work/scheffknecht/`; **not handed t
   style) and D19 A4 (particles, sorting); one decision for both.
 
 ## Text: Ostendorf — The Romani Atlantic, ch. 3 (CUP 2026)
-Stage 1 done, source with srom-tlumacz (T19), rights pending (D19 A1).
+Stage 1 done, source with srom-tlumacz (T19, T20); open access CC BY-NC 4.0.
 
 ### D19 — Ostendorf, "Familiar Outsiders Abroad" (The Romani Atlantic, CUP 2026), stage 1: open points (28.09.2026 17:35, srom-typeset)
 Source frozen in `srom-typeset/work/ostendorf/` and handed to srom-tlumacz (T19). Detail, evidence and proposals:
@@ -89,6 +91,11 @@ Source frozen in `srom-typeset/work/ostendorf/` and handed to srom-tlumacz (T19)
   "Braumuller University"; "de Litoral"; "Notes and Documents:"): kept as written; "approve B" = all proposals.
 - D1–D5 questions to the author: 1747 vs 1745 and whose journey (Moreno Alonso, text vs note 25); Penn 1686 vs 1683
   (note 35); Fotta's print pages; Urlsperger "erster" vs vol. 3; Tucker's volume.
+- 28.09.2026 21:28 DECIDED (MB): A3 — `tłum. i red.`, edition `red.`, unsigned texts flagged: Kanon § 7.2/§ 9.4 (ea50df6). A4 — custom of
+  the name's language (LC NAF, Chicago): Kanon § 9.3/§ 9.5 (ea50df6). A5 withdrawn (the curator's fields fit a chapter;
+  the original has summary and keywords online). B1–B11, D1–D5 → the translation stage (T20). A1 corrected by srom-typeset:
+  the chapter **is open access, CC BY-NC 4.0** (Cambridge Core) — now the same question as D17 A1. A2: 44 of 58 sourced
+  (LoC, evidence in refs.json); **14 left for MB by hand** — list in `ostendorf_queries.md` A2.
 
 ## Text: Tittel — On_Culture 10 (2020)
 Stage 1 done, source with srom-tlumacz (T20).

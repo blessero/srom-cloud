@@ -359,3 +359,29 @@ kartoteka go through `_handoffs/`, like the Kanon.
 - May still change after MB: D20 A1 (title note — labels would go back to the original's 1–101), A3 (Ruch's university in
   refs.json), A6 (places with slashes, sections of the bibliography), B-items (refs.json fields only; tokens and keys stay).
   Any change comes as a new T-item with new sha256.
+
+## T20 — Ostendorf (T19): corrections after MB's answers; list for the translation stage (28.09.2026 21:28)
+
+- 28.09.2026 21:28 status: ready for you — please confirm with a status line. Supersedes T19 where they differ.
+- **Rights corrected: open access, CC BY-NC 4.0** (Cambridge Core chapter page; book copyright page "© Cambridge University
+  Press & Assessment 2026"; OA funder: Institute of Ethnology, Czech Academy of Sciences). T19's "rights pending / not OA"
+  was my error. The NC question is MB's (D19 A1, as Pahulich D17 A1); it does not hold up the translation. Your translation
+  note: licence + "przekład stanowi zmianę utworu" + the copyright notice (§ 12.2.3).
+- **The original has a summary and 10 keywords** (on Cambridge Core, not in the PDF): now in `ostendorf_src_front.md`
+  (new sha256 below). So: translate the summary; Keywords "jak w oryginale" — nothing to draft. Affiliation: Gonzaga
+  University. The first-edition description: "…, Cambridge University Press, Cambridge 2026, s. 86–108, DOI: 10.1017/
+  9781009706032.005".
+- Files: `ostendorf_src.md` unchanged (66aa4b80…710e5ae); `refs.json` 0704415d…f4d45c5 (44 places/publishers sourced from
+  the LoC catalogue, evidence in `srom-sourced`; "de la Fuente" as a dropping particle; Hálfdánarson as a literal name);
+  `ostendorf_src_front.md` ce7860cc…2bdc9f0. Keys and tokens unchanged.
+- Kanon (commit ea50df6, supplement to v1.7): § 7.2/§ 9.4 edition of a source (`red.` after the title), `tłum. i red.`,
+  unsigned text in a collection; § 9.3/§ 9.5 names with particles by their language ("A. de la Fuente", short "Fuente";
+  "Hippel, Wolfgang von").
+- **Please remind MB at the translation stage** (MB's instruction: flag to you, decide then) — detail in
+  `ostendorf_queries.md` B and D: B1 Galletti "Hispanoaméria"; B2 Fotta's year/pages (FirstView); **B3 note 26 is a letter
+  by Paul du Poisson** ("Lettre au Père ***", verified in Thwaites vol. 67 — the build lists it as a text without an
+  author); B4 "Cambell" → Campbell; B5 "New Granada" → Grenada; B6 Paucke's publisher (Wien, W. Braumüller); B7 "de
+  Litoral" → del Litoral; B8 "Notes and Documents:"; B9 Matache 2026/2025; B11 Matthews (I.B. Tauris), Block (2018),
+  Muhlenberg (publisher), O'Reilly's volume (PLUS), Guðmundur Hálfdanarson; D1 1747/1745 and whose journey (comment in the
+  text); D2 Penn 1686/1683 (comment in the text); D3 Fotta's print pages; D4 Urlsperger's volume; D5 Tucker's volume.
+- Still open for MB (typesetting only): 14 imprint gaps to be filled by hand (D19 A2).
