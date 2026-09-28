@@ -302,5 +302,17 @@ check("hyperlinks become plain text, URL kept as text (kanon §8.6)", code == 0 
 check("multi-paragraph footnote kept (2 paragraphs) and flagged (kanon §7.4)",
       fnx.count("Drugi akapit przypisu") == 1 and "multi-paragraph footnote" in rep, rep[:600])
 
+# the author's remark in brackets after a citation (stage-1 test 5, Tittel: "…, 63 (my translation)."): no layout period
+# before the bracket; an abbreviation that ends the citation keeps its period
+code, out, stem, rep = build(md_text="A[^1] b[^2] c[^3].\n\n[^1]: [@ficowski1985, s. 15] (tłum. własne).\n\n"
+                                     "[^2]: [@hancock2007, s. 3 i n.] (cytat na s. 4).\n\n"
+                                     "[^3]: [@mroz2011, s. 90]. (Zdanie autora w nawiasie.)\n")
+txt = open(os.path.join(out, stem + ".txt"), encoding="utf-8").read() if os.path.exists(os.path.join(out, stem + ".txt")) else rep
+check("a bracketed remark after a citation: 's. 15 (tłum. własne).' — no period before the bracket",
+      "Kraków 1985, s. 15 (tłum. własne)." in txt and "s. 15. (" not in txt, txt[:900])
+check("… but an abbreviation ending the citation keeps its period ('s. 3 i n. (cytat na s. 4).')",
+      "s. 3 i n. (cytat na s. 4)." in txt, txt[:900])
+check("… and a sentence in brackets after the citation's own full stop is untouched", "s. 90. (Zdanie autora w nawiasie.)" in txt, txt[:900])
+
 n, ok = len(results), sum(results)
 print(f"E2E ALL PASS {n}/{n}" if ok == n else f"E2E FAILED {n - ok}/{n}")

@@ -81,6 +81,7 @@ local ABBR = {["w."]=1, ["r."]=1, ["n."]=1, ["s."]=1, ["t."]=1, ["nr."]=1, ["red
 local function fix_note_cites(note)
   local function fix_inlines(inls)
     local out = pandoc.List()
+    local own_dot = nil      -- a Cite whose final period is the author's own ("[@key]." merged): not a layout period
     for idx, el in ipairs(inls) do
       if el.t == "Cite" then
         local c = el.content
@@ -109,7 +110,7 @@ local function fix_note_cites(note)
         if first == "." and ll and ll[li].text:match("%.$") then
           -- "s. 15." + "." -> single period
           local rest = el.text:sub(2)
-          if rest ~= "" then out:insert(pandoc.Str(rest)) end
+          if rest ~= "" then out:insert(pandoc.Str(rest)) else own_dot = cite end
         elseif (first == ";" or first == "," or first == ":") and ll and ll[li].text:match("%.$") then
           -- CSL layout period before the author's own ; , : -> drop it, unless it closes an abbreviation
           local suf = stringify(cite.citations[#cite.citations].suffix)
@@ -122,6 +123,27 @@ local function fix_note_cites(note)
         else
           out:insert(el)
         end
+      elseif el.t == "Space" and #out > 0 and out[#out].t == "Cite" and out[#out] ~= own_dot and inls[idx + 1] and inls[idx + 1].t == "Str"
+             and inls[idx + 1].text:sub(1, 1) == "(" then
+        -- the author's remark after a citation, "s. 63 (my translation).": the CSL layout period does not go before
+        -- the bracket ("s. 63. (my translation)." before), unless it closes an abbreviation, or the bracket holds a
+        -- sentence of its own ("…, s. 90. (Zdanie.)": citeproc has taken the author's full stop into the citation)
+        local inside = ""
+        for j = idx + 1, math.min(#inls, idx + 60) do
+          inside = inside .. stringify(inls[j])
+          if inside:find(")", 1, true) then break end
+        end
+        local sentence = inside:match("[%.!?…]%)") ~= nil
+        local cite = out[#out]
+        local c = cite.content
+        local ll, li = edge_str(c, true)
+        local suf = stringify(cite.citations[#cite.citations].suffix)
+        local tok = ll and (ll[li].text:match("(%S+)$") or "") or ""
+        if ll and ll[li].text:match("%.$") and not suf:match("%.$") and not ABBR[tok] and not sentence then
+          ll[li].text = ll[li].text:sub(1, -2)
+          cite.content = c
+        end
+        out:insert(el)
       else
         out:insert(el)
       end
