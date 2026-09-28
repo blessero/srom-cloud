@@ -31,7 +31,8 @@ What it recovers, and how:
   line-end hyphens   joined ("Ro-/mani" -> "Romani"); the document decides where it can (the joined or the
                      hyphenated word found inside a line elsewhere), else kept after prefixes such as
                      self-/non-/post- and flagged; before a capital (anti-|Roma) kept; a slash at a line end joined
-                     without a space; every join listed for proofreading
+                     without a space; a URL broken inside a token joined when a link target has it whole;
+                     every join listed for proofreading
 Report: <out>_extract.md with note/marker contiguity, joins, dropped lines, warnings.
 Last line: EXTRACT OK / EXTRACT CHECK n issue(s)   (issues = broken note sequence, unmatched
 markers/notes, multi-column pages, non-digit superscripts — fix before translating).
@@ -248,6 +249,11 @@ def join_lines(texts, joins):
                 else:
                     joins.append(f"URL {head[-25:]}|{tail[:25]} -> hyphen kept, no link in the PDF — check the address")
             out = out + t              # a URL broken at the line end: no space inside it (Kanon § 8.6)
+            continue
+        um = re.search(r"(?:https?://|www\.)\S*$", out)
+        if um and t and any(u.startswith(um.group(0) + re.match(r"\S*", t).group(0).rstrip(".,;:)”’")) for u in LINKS):
+            joins.append(f"URL {um.group(0)[-25:]}|{t[:25]} -> joined (link target)")   # broken inside a token, no hyphen
+            out = out + t
             continue
         m = re.search(r"([\w’']+)[-\u00ad](\**)$", out)
         nxt = re.match(r"(\**)([a-ząćęłńóśźżäöüéèáíúčšž][\w’']*)", t)

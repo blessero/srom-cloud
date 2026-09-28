@@ -115,6 +115,10 @@ for a, it, rest in refs:
     else:
         x = put(p4, 42.5, y, a, fs=RS); x = put(p4, x, y, it, "it", RS); put(p4, x, y, rest, fs=RS)
     y += 17.5
+put(p4, 42.5, y, "Matache, Margareta. 2020. “Reparations.” Al Jazeera, 5 October. https://www.ex.org/a/?fbclid=IwAR16IM_B7KnIs", fs=RS)
+put(p4, 53.9, y + 11.8, "NIMuUPdg.", fs=RS)
+p4.insert_link({"kind": pymupdf.LINK_URI, "from": pymupdf.Rect(300, y - 9, 456, y + 14), "uri": "https://www.ex.org/a/?fbclid=IwAR16IM_B7KnIsNIMuUPdg"})
+y += 29.3
 for j in range(8):                              # enough 9-pt text to outweigh the notes
     put(p4, 42.5, y, f"Zed{j}, Adam. 2001. A Title Long Enough to Fill a Line of the Reference List Here. Oxford: OUP.", fs=RS)
     y += 17.5
@@ -153,7 +157,10 @@ t("reference list: drawn rule -> repeated author, one entry per line",
   bib[:3] == ["Achim, Viorel. 2004. The Roma in Romanian History. Budapest: CEU Press.",
               "Hancock, Ian. 1987. The Pariah Syndrome. Ann Arbor: Karoma.",
               "Hancock, Ian. 2008. “The ‘Gypsy’ Stereotype.” In Gypsies in Literature, 181–191. New York: Palgrave."]
-  and len(bib) == 12 and "repeated author" in rep, bib)
+  and len(bib) == 13 and "repeated author" in rep, bib)
+t("URL broken inside a token (no hyphen) joined when the link target has no space there",
+  bib[4:5] == ["Matache, Margareta. 2020. “Reparations.” Al Jazeera, 5 October. https://www.ex.org/a/?fbclid=IwAR16IM_B7KnIsNIMuUPdg."]
+  and "joined (link target)" in rep, bib)
 t("reference list out of the text", "References" not in md and "Achim" not in md, D)
 t("running footer dropped", "Critical Test Studies" not in md, D)
 
