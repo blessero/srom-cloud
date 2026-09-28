@@ -2,14 +2,14 @@
 
 ## 1. What exists
 
-Leaves closed (ALL MET): 1.1 contracts, 1.2 blind baseline, 1.3.1 vol. 18 precedent, 1.3.5 training corpus (race vocabulary), 1.5.2a/b Ndiaye pilot intake and draft. Plan with tree, contract and status log: `tlumacz-PLAN.md`. The folder is a git repository since 28.09.2026 (`.gitignore` lists what is left out, with its sha256 file).
+Leaves closed (ALL MET): 1.1 contracts, 1.2 blind baseline, 1.3.1 vol. 18 precedent, 1.3.5/1.3.5b training corpus (race vocabulary, 9 texts), 1.5.2a/b Ndiaye pilot intake and draft. Plan with tree, contract and status log: `tlumacz-PLAN.md`. The folder is a git repository since 28.09.2026 (`.gitignore` lists what is left out, with its sha256 file).
 
 | File | What it is |
 |---|---|
 | `tlumacz-PLAN.md` | tree (leaves 1.1–1.5), file ownership, per-article outputs, interfaces with srom-typeset / srom-kanon / srom-scholarly-curator, pending handoffs, status log |
 | `tlumacz-tb-schema.md` | termbase fields, controlled vocabularies, decision rule (LOCK, FLOOR, RANK-1…4), evidence standard |
-| `tlumacz-tb.tsv` | termbase: 18 HOUSE rows, C-0001–C-0018 (vol. 18 precedent, 1.3.1, Ndiaye); 17 CANDIDATE rows C-0019–C-0035 (1.3.5, from MB's reading; not binding until MB decides, per text) |
-| `tlumacz-rasa.md` | register: race, racialisation and surroundings — concepts, historical names and etymologies (Maurowie, Murzyn, czerń, Cham), old Polish texts and editions for quotations, doubts (F1–F13), works to source (G1–G18) |
+| `tlumacz-tb.tsv` | termbase: 18 HOUSE rows, C-0001–C-0018 (vol. 18 precedent, 1.3.1, Ndiaye); 12 CANDIDATE rows (C-0019, C-0024–C-0028, C-0031, C-0036–C-0040; 1.3.5/1.3.5b, from MB's reading; not binding until MB decides, per text); rows only under schema § Admission (choice / convention / edition / trap), C-0020–C-0023, C-0029, C-0030, C-0032–C-0035 retired |
+| `tlumacz-rasa.md` | register: race, racialisation and surroundings — how to decide loaded designations per case (three voices: period quotation / author reporting period usage / analytic voice), concepts, clusters B1–B9 (rasa and its period synonyms; Murzyn; Moors/Saracens/Turks; Moskwa/Ruś/Turanie; Aryans; cham/czerń; "savages"; Jews; blood and mixture), Polish editions for quotations, doubts F1–F20. Load it only for texts on race |
 | `training/` | MB's Polish reading corpus: texts git-ignored; `sources.tsv` (keys for `TR <key>: «…»` evidence) and `manifest.sha256` tracked |
 | `tlumacz-decisions.md` | dated log of MB's termbase and house decisions |
 | `tlumacz-front_check.py` | checker of `<id>_front_pl.md`; its docstring is the format (T11) |
@@ -72,7 +72,7 @@ This chat closed at MB's request (context size). Next session: MB brings a secon
 
 1. **Pilot article: Ndiaye, "Black Roma"** — preliminary translation, updated 28.09.2026 for T14/T15 (one title note; Romka/Romki, *gadjo*; „Egipcjanie”; new `refs.json`): `work/ndiaye/ndiaye_robocza_v2.docx` for MB (v1 left untouched in case MB began editing it), `ndiaye_pl.md`, `ndiaye_front_pl.md`, `ndiaye_pytania_tlum.csv` (14), `ndiaye_uwagi.md`. Build: exit 0, no errors (open comments don't stop it: S1–S7 are tracked in `ndiaye_uwagi.md` § 1). Waiting for: **MB** — pages / Boy text S1–S7, judgement calls in `ndiaye_uwagi.md` § 3; srom-typeset: nothing (E16 fixed, T16; `ndiaye_robocza_v2.docx` imports → CHECK OK → build PASS, verified 28.09). After MB returns the Word file: `docx_in.py` → `check.py --pair` → `build.py`.
 2. Termbase: 18 rows, all HOUSE; C-0012–C-0018 added 28.09.2026 from Ndiaye (D11), ESTABLISHED (MB verified 28.09.2026, `tlumacz-decisions.md`).
-3. Training corpus (1.3.5): MB may add further Polish texts to `training/` (a row in `sources.tsv`, sha256 in the manifest); harvest as CANDIDATE rows + `tlumacz-rasa.md`. MB is sourcing works from `tlumacz-rasa.md` § G. CANDIDATE → HOUSE only through an article's queries. Pahulich (T18, racialisation of Roma) and Ostendorf (T19, Iberian: Moors, limpieza de sangre) will use it first.
+3. Training corpus (1.3.5): MB may add further Polish texts to `training/` (a row in `sources.tsv`, sha256 in the manifest); harvest as CANDIDATE rows + `tlumacz-rasa.md`. Sourcing list closed by MB (28.09.2026, "skip the rest"). CANDIDATE → HOUSE only through an article's queries. Pahulich (T18, racialisation of Roma) and Ostendorf (T19, Iberian: Moors, limpieza de sangre) will use it first.
 4. Incoming T17–T19 (typed notes; Pahulich and Ostendorf sources ready) had no status line on 28.09.2026 19:14: reported to MB, answer when MB says which text starts.
 5. Later: 1.3.2 (vol. 19 vocabulary), 1.4.x tooling, 1.5.x evaluation — per PLAN tree.
 

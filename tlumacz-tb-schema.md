@@ -45,6 +45,15 @@ ETHNONYM rows point to the *kartoteka wzorcowa* (kanon § 6.3) in `note` and do 
 
 Standing describes the Polish literature, not the house decision: a HOUSE form can be COINED (u-nieobecnianie) or ESTABLISHED (urasowienie).
 
+### Admission (MB 28.09.2026)
+A concept gets a row only if at least one holds:
+1. **choice** — a competent translator could plausibly choose another Polish form, and consistency across the journal matters;
+2. **convention** — a house or field convention the plain form does not show (capitalisation, italics, retained original, first-use form);
+3. **edition** — a published Polish rendering binds quotations (a theorist's term);
+4. **trap** — a false friend, an anachronism, an obsolete or offensive form.
+
+Terms a competent translator renders right unaided get no row (e.g. *scientific racism*, *racial discourse*, *symbolic violence*). Loaded historical designations (Moor, Saracen, *negro*, Muscovite …) are decided per case from the register `tlumacz-rasa.md`; a row for one exists only as a lookup pointer to it, never as a fixed equivalent. Retired rows keep their ids unused (log in `tlumacz-decisions.md`).
+
 ## Decision rule
 
 1. LOCK — HOUSE rows are binding. The translator applies them and does not re-weigh them, even where the survey later shows a different form dominating. A HOUSE form changes only by an explicit decision of the managing editor, logged in `tlumacz-decisions.md`, effective from the next volume (published volumes are not harmonised retroactively, kanon § 17). The survey still reports such divergences, for information. The lock binds the decided form, not incidental slips in the precedent text: a one-off variant (e.g. a second aspect form used once) is recorded as an OPEN member of `pl_family` and settled once.
