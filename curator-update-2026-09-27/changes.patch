@@ -1,0 +1,137 @@
+diff -ru bk/srom-scholarly-curator/SKILL.md pkg/srom-scholarly-curator/SKILL.md
+--- bk/srom-scholarly-curator/SKILL.md	2026-09-27 03:46:56
++++ pkg/srom-scholarly-curator/SKILL.md	2026-09-27 03:46:48
+@@ -74,7 +74,7 @@
+ 
+ **Core WP fields that carry article data:** `post_title` ← `title_pl`; `post_name` ← `doi_suffix` (slug); `post_content` AND `post_excerpt` ← `abstract_pl` (mirrored so WP native search, which never indexes ACF meta, can find articles by abstract); `menu_order` ← `seq`.
+ 
+-## Master CSV schema (v3, 38 columns)
++## Master CSV schema (v3, 38 columns + optional `translators_struct`)
+ 
+ One row per article. Feeds three consumers from one cell each: InDesign Data Merge (cover pages) · Importer (WP posts) · Crossref generator (deposit XML). Full field reference: `references/master_schema.md`. Validate any master CSV before deposit with `scripts/validate_master.py`.
+ 
+@@ -82,6 +82,8 @@
+ 
+ `authors_struct` is the structured author encoding, `Given|Surname|Affiliation|ORCID ;; Given|Surname|...` — this is what carries multi-author + per-author ORCID cleanly (e.g. Marushiakova + Popov). It is the source for the Crossref XML's per-contributor `<person_name>`/`<ORCID>` and, via the Importer, the mu-plugin's `authors_raw` (one author per line, pipe-delimited). Never flatten multiple authors into one field; ORCID is a per-contributor element, never a list. Constraint: no `|` or `;;` inside affiliation text.
+ 
++`translators_struct` (optional, added 27.09.2026, last column): translators of a translated article (`is_translation` = `TAK`), same encoding as `authors_struct`. Kanon v1.6 § 12.2.3 credits the translator in the article header. Crossref gets them as `<person_name contributor_role="translator">` after the authors. CSVs without the column stay valid. The Importer ignores it (no ACF field yet), and so does Data Merge (no header renamed).
++
+ CSV headers are all-English by decision. InDesign Data Merge binds placeholders to headers, so a header rename forces a one-time re-map of the cover-page template — flag this whenever proposing a schema change.
+ 
+ ## Locked decisions (do not re-litigate; each was settled with rationale)
+@@ -133,11 +135,11 @@
+ 
+ ## Crossref deposit (`scripts/generate_crossref_xml.py`)
+ 
+-CSV → deposit XML, schema 5.4.0, one file per volume. Fill the CONFIG block (depositor name/email, registrant) once. Emits: per-article `<journal_article>` with bilingual `<titles>`/JATS `<abstract>`, per-contributor `<person_name>`+`<ORCID>`, `<pages>`, AccessIndicators license (`free_to_read` + `license_ref`), `isTranslationOf` relation when `original_doi` is present, and `<doi_data>` with the landing `<resource>` + crawler PDF item. Hard-aborts on: placeholder prefix `10.XXXXX`, non-`YYYY-MM-DD` `pub_date_online`, or any `doi_suffix` not matching `[a-z0-9]{8}`. Validate output at test.crossref.org before production.
++CSV → deposit XML, schema 5.4.0, one file per volume. Fill the CONFIG block (depositor name/email, registrant) once. Emits: per-article `<journal_article>` with bilingual `<titles>`/JATS `<abstract>`, per-contributor `<person_name>`+`<ORCID>` (authors, then translators from `translators_struct` with `contributor_role="translator"`, `sequence="additional"`), `<pages>`, AccessIndicators license (`free_to_read` + `license_ref`), `isTranslationOf` relation when `original_doi` is present, and `<doi_data>` with the landing `<resource>` + crawler PDF item. Hard-aborts on: placeholder prefix `10.XXXXX`, non-`YYYY-MM-DD` `pub_date_online`, or any `doi_suffix` not matching `[a-z0-9]{8}`. Validate output at test.crossref.org before production.
+ 
+ ## Pre-deposit invariants (`scripts/validate_master.py`)
+ 
+-Run against any master CSV before minting. Checks: 38-column schema present · DOI prefix filled (not `10.XXXXX`) · every `doi_suffix` is final opaque `[a-z0-9]{8}` and unique · `pub_date_online` is `YYYY-MM-DD` · `license`/`license_url` filled (no `TODO`) · `pages_from ≤ pages_to` · `authors_struct` parses and every ORCID is well-formed · slugs lowercase. Reports blocking errors vs warnings.
++Run against any master CSV before minting. Checks: 38-column schema present · DOI prefix filled (not `10.XXXXX`) · every `doi_suffix` is final opaque `[a-z0-9]{8}` and unique · `pub_date_online` is `YYYY-MM-DD` · `license`/`license_url` filled (no `TODO`) · `pages_from ≤ pages_to` · `authors_struct` parses and every ORCID is well-formed · slugs lowercase · translators: `translators_struct` segments are 4 pipe-fields (error), with a warning when `is_translation=TAK` has no translator or a translator is given without `TAK`. Reports blocking errors vs warnings.
+ 
+ ## Deployment sequence (fresh volume)
+ 
+diff -ru bk/srom-scholarly-curator/references/master_schema.md pkg/srom-scholarly-curator/references/master_schema.md
+--- bk/srom-scholarly-curator/references/master_schema.md	2026-09-27 03:46:56
++++ pkg/srom-scholarly-curator/references/master_schema.md	2026-09-27 03:46:48
+@@ -1,4 +1,4 @@
+-# SROM master CSV — column reference (v3, 38 columns)
++# SROM master CSV — column reference (v3, 38 columns + 1 optional)
+ 
+ One row per article. All-English headers (InDesign Data Merge binds to header names — a rename forces a cover-page re-map). Encoding UTF-8 with BOM (InDesign-friendly). Consumers: InDesign Data Merge · Importer plugin · `generate_crossref_xml.py`.
+ 
+@@ -44,6 +44,7 @@
+ | 36 | `original_title` | X, W | Original title of a translated work. |
+ | 37 | `original_source` | W | Original source citation. |
+ | 38 | `original_doi` | X, W | Original work's DOI → Crossref `isTranslationOf` relation when present. |
++| 39 | `translators_struct` | X | **Optional** (added 27.09.2026). Translator(s) of a translated work, same encoding as `authors_struct`: `Given\|Surname\|Affiliation\|ORCID ;; …`. → Crossref `<person_name contributor_role="translator">`, after the authors. Not imported to WP (the Importer ignores unknown columns) and not bound in Data Merge. `validate_master.py` warns when `is_translation`=`TAK` and it is empty. |
+ 
+ ## Volume (Tom) sheet — if importing volumes separately
+ 
+diff -ru bk/srom-scholarly-curator/scripts/generate_crossref_xml.py pkg/srom-scholarly-curator/scripts/generate_crossref_xml.py
+--- bk/srom-scholarly-curator/scripts/generate_crossref_xml.py	2026-09-27 03:46:56
++++ pkg/srom-scholarly-curator/scripts/generate_crossref_xml.py	2026-09-27 03:46:48
+@@ -33,11 +33,13 @@
+         out.append(dict(given=given, surname=surname, aff=aff, orcid=orcid))
+     return out
+ 
+-def contributor_xml(authors):
++def contributor_xml(authors, translators=()):
++    """Authors first (the first one sequence="first"), then translators (always "additional")."""
+     parts = []
+-    for i, a in enumerate(authors):
+-        role = "first" if i == 0 else "additional"
+-        parts.append(f'      <person_name sequence="{role}" contributor_role="author">')
++    people = [(a, "first" if i == 0 else "additional", "author") for i, a in enumerate(authors)]
++    people += [(t, "additional", "translator") for t in translators]
++    for a, role, contrib in people:
++        parts.append(f'      <person_name sequence="{role}" contributor_role="{contrib}">')
+         parts.append(f'        <given_name>{E(a["given"])}</given_name>')
+         parts.append(f'        <surname>{E(a["surname"])}</surname>')
+         if a["aff"] and not a["aff"].startswith("["):
+@@ -51,6 +53,7 @@
+ def article_xml(r, pub_y, pub_m, pub_d):
+     lang = r.get("language") or LANG_DEFAULT
+     authors = parse_authors(r["authors_struct"])
++    translators = parse_authors(r.get("translators_struct"))  # optional column; empty/absent -> none
+     abstracts = []
+     if r.get("abstract_pl"):
+         abstracts.append(f'    <jats:abstract xml:lang="pl"><jats:p>{E(r["abstract_pl"])}</jats:p></jats:abstract>')
+@@ -82,7 +85,7 @@
+       <title>{E(r["title_pl"])}</title>{orig_title_xml}
+     </titles>
+     <contributors>
+-{contributor_xml(authors)}
++{contributor_xml(authors, translators)}
+     </contributors>
+ {chr(10).join(abstracts)}
+     <publication_date media_type="online">
+diff -ru bk/srom-scholarly-curator/scripts/validate_master.py pkg/srom-scholarly-curator/scripts/validate_master.py
+--- bk/srom-scholarly-curator/scripts/validate_master.py	2026-09-27 03:46:56
++++ pkg/srom-scholarly-curator/scripts/validate_master.py	2026-09-27 03:46:48
+@@ -20,6 +20,10 @@
+     'pages','pages_from','pages_to','pdf_file',
+     'language','license','license_url','is_translation','original_title','original_source','original_doi',
+ ]
++# Optional columns: accepted when present, never required (older CSVs stay valid).
++OPTIONAL = [
++    'translators_struct',   # Given|Surname|Affiliation|ORCID ;; … — translator(s), Kanon v1.6 § 12.2.3
++]
+ SUFFIX_RE = re.compile(r'^[a-z0-9]{8}$')
+ DATE_RE   = re.compile(r'^\d{4}-\d{2}-\d{2}$')
+ ORCID_RE  = re.compile(r'^https://orcid\.org/\d{4}-\d{4}-\d{4}-\d{3}[\dX]$')
+@@ -41,7 +45,7 @@
+     # --- schema ---
+     have = list(rows[0].keys())
+     missing = [c for c in SCHEMA if c not in have]
+-    extra   = [c for c in have if c not in SCHEMA]
++    extra   = [c for c in have if c not in SCHEMA and c not in OPTIONAL]
+     if missing: E(f"schema: missing columns: {missing}")
+     if extra:   W(f"schema: unexpected extra columns (ignored downstream): {extra}")
+ 
+@@ -106,6 +110,23 @@
+             W(f"{rid}: is_translation=TAK but original_title empty (Crossref original_language_title will be omitted)")
+         if r.get('original_doi', '').strip() and not r['original_doi'].startswith('10.'):
+             W(f"{rid}: original_doi doesn't look like a DOI: '{r['original_doi']}'")
++
++        # translators (optional column translators_struct -> Crossref contributor_role="translator")
++        tstruct = r.get('translators_struct') or ''
++        is_tr = r.get('is_translation', '').upper() == 'TAK'
++        if is_tr and not tstruct.strip():
++            W(f"{rid}: is_translation=TAK but translators_struct empty or absent (no translator in the deposit)")
++        if tstruct.strip() and not is_tr:
++            W(f"{rid}: translators_struct filled but is_translation is not TAK")
++        for t in tstruct.split(';;'):
++            t = t.strip()
++            if not t: continue
++            parts = [p.strip() for p in t.split('|')]
++            if len(parts) != 4:
++                E(f"{rid}: translator segment not 4 pipe-fields: '{t}'")
++                continue
++            if parts[3] and not ORCID_RE.match(parts[3]):
++                W(f"{rid}: ORCID malformed for translator {parts[1]}: '{parts[3]}'")
+ 
+     # --- report ---
+     print(f"Checked {len(rows)} rows against {len(SCHEMA)}-column schema.\n")

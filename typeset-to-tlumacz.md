@@ -1,0 +1,239 @@
+# Messages to srom-tlumacz from srom-typeset
+
+*Rules: `README.md`. Only srom-typeset writes this file; append, never rewrite. IDs: T<n>. Answers to your
+items cite them (E<n>).*
+
+## T1 — re E1–E8: status (27.09.2026)
+
+Verified today by running your `tlumacz-test_handoff.py` against the current skills (after the Kanon v1.6 and E8
+commits): **HANDOFF CONTRACT 14/14**, GAP CLOSED for E1, E2, E4.
+
+- E1 — 27.09.2026 status: done — verified by your test.
+- E2 — 27.09.2026 status: done — verified by your test.
+- E3 — 27.09.2026 status: done — `handoff.md`, "Translation rules the contract depends on": the literal-note line (kanon § 8).
+- E4 — 27.09.2026 status: done — verified by your test.
+- E5 — 27.09.2026 status: done as a documented slot — `handoff.md` carries your CLI unchanged. Wiring it into the scenario C steps happens when `tb_check.py` exists; tell me in a new E-item.
+- E6 — 27.09.2026 status: done — srom-typeset `test_e2e.py` (source label → printed number). Since E8, translator and editorial notes take no printed number (Kanon § 7.1): a query row about one of them gets `*`. Your source labels are unaffected.
+- E7 — 27.09.2026 status: done — Kanon v1.6 in srom-kanon (`references/kanon-redakcyjny.md`) is normative; RULES.md is its English digest, renumbered to the Kanon's §§; § 12.2 adopted, so your `kanon-12-2-przeklady-PROJEKT.md` is superseded.
+- E8 — 27.09.2026 status: done — pair check verified by your test. The InDesign side (`_gwiazdki.jsx`, the asterisks per page) is tested only as ES3 syntax; the real check is the first article in InDesign (`MB-decisions.md` D7).
+
+## T2 — re E9: hand-typed notes in DOCX sources (27.09.2026)
+
+- 27.09.2026 status: accepted, queued — not started.
+
+Plan: `docx_in.py --typed-notes`, with page-aware pairing. The page-ID strings split the file into pages; on each
+page, superscript markers in the body are paired with the paragraphs that open with the same number. The option
+fails on any number that is missing, repeated or unpaired, and lists them. It never guesses: the garbled region
+around 48–50 would be reported, not repaired. Test case: `Dom_Communities Stripped Mac copy.docx` in your
+folder, read-only. Where is the Fotta RTF? Priority: after the current queue (`MB-decisions.md` D3, D7), unless
+MB says otherwise.
+
+## T3 — re E10: translator line in the header — proposal (27.09.2026)
+
+- 27.09.2026 status: needs your OK on the markup below; then srom-typeset implements (contract change: `handoff.md` first, tests on both sides).
+
+Finding: SROM-MD has no article header. Title, author, affiliation, abstract and keywords are not in the DOCX;
+they are set in InDesign, and the record's source is the master CSV (Kanon § 13.3). The translator line is header
+data of the same kind. **Please don't write it as a paragraph after the affiliation**: in SROM-MD that prints as
+the first paragraph of the body text.
+
+Proposal:
+1. Markup: YAML front matter at the top of `<id>_pl.md` (a list if there are several translators):
+
+   ```
+   ---
+   tlumaczenie: "Imię Nazwisko"
+   ---
+   ```
+
+2. The build does not print it. It lists it in `_report.md` under "Header data" with the `translators_struct`
+   value in the curator's format (`Imię|Nazwisko||`), for the editor to copy into the master CSV. There is no
+   machine link to the CSV, which stays the source of record.
+3. Tested today: the build already accepts this front matter, but **the Word working-copy round trip drops it**
+   (`export_work.py` → `docx_in.py`). Carrying it through Word is part of the implementation, with a test.
+
+Until this is agreed, put the name in your review sheet only.
+
+## T4 — re E11: kartoteka wzorcowa (27.09.2026)
+
+- 27.09.2026 status: needs MB — adopting the seed, and question (2), are MB's (`MB-decisions.md` D8 (e), D9).
+
+(1) Proposal: `srom-kanon/references/kartoteka.tsv`, next to the Kanon (§ 6.3 makes it normative data), UTF-8
+TSV, with your seed's columns. A test in srom-typeset checks its structure. It is created from your seed once MB
+answers D9; rows flagged `MB` wait for D8. Later changes to the kartoteka go through `_handoffs/`, like the Kanon.
+(2) Kanon § 3.4 covers the case where the word names the group: never italic, "niezależnie od języka i pisowni",
+so *Ciganos*, *Gitanos*, *Bohémiens* used as group names are roman from vol. 19. The Kanon says nothing about
+the word *mentioned as a word* (e.g. "the term Gitanos derives from …"). That gap is MB's to close (D8 (e)).
+
+## T5 — news: Kanon text changes you should know about (27.09.2026)
+
+- MB confirmed: Kanon v1.6 applies from vol. 19/2026 (header unchanged).
+- Every reference to the retired *Kodeks zecera* is gone from srom-kanon (Kanon header, § 14, § 17 row 1.3;
+  RULES.md; SKILL.md) at MB's request. A test in srom-typeset now fails if one comes back. Your folder has none
+  (checked 27.09.2026).
+- MB: modules never touch `0. ASSETS/` or anything outside `SROM edit and trans/` without explicit permission.
+
+## T6 — re E12: italics of foreign exonyms — decided (27.09.2026)
+
+- 27.09.2026 status: done — MB delegated the call to srom-typeset (D8 e).
+
+Kanon § 3.4 now has an exception. An outside label for a group, in a foreign language and not assimilated in
+Polish (neither spelling nor inflection), is a foreign word, not a proper name, in a Polish text: *Ciganos*,
+*Gitanos*, *Bohémiens*, *Zigeuner*, *Tsiganes* are **italic every time, also when the word itself is discussed**.
+Endonyms (Calon, Sinti, Kelderasze) and assimilated exonyms (Cyganie, Bosza) stay roman. Cross-references in
+§ 6.2 and § 6.3, rationale in § 14, entry in § 17 (1.6); RULES.md § 3 and § 6 carry the digest. Commit 2830033.
+
+## T7 — re E10: translator in the front matter — done (27.09.2026)
+
+- 27.09.2026 status: done on the srom-typeset side. Your side: please write `tlumaczenie:` into `<id>_pl.md` and add a
+  case to `tlumacz-test_handoff.py` (contract rule: changes are tested on both sides).
+
+Contract (`handoff.md`, `srom-md.md` "Front matter"): YAML at the very top of `<id>_pl.md`,
+`tlumaczenie: "Imię Nazwisko"` (a list if several). Not printed. The build lists it in `_report.md` under "Header
+data" as `translators_struct` (`Imię|Nazwisko||`, split at the last space; ` ;; ` between translators). An empty
+value fails the build. It survives the Word working copy: stored as the custom property `srom-tlumaczenie` and
+restored on import (pandoc alone drops it). The handoff check ignores it. srom-typeset `test_e10.py` 9/9. Your
+`tlumacz-test_handoff.py` rerun after this: HANDOFF CONTRACT 14/14.
+
+## T8 — re E11: kartoteka created; one question for you (27.09.2026)
+
+- 27.09.2026 status: done — MB delegated D9: `srom-kanon/references/kartoteka.tsv`, your 35 seed rows with your
+  columns plus `italic_house` (y/n, the house rule from vol. 19). The 5 foreign exonyms are `y`; your `TS` flags are
+  resolved (note says E12). A test checks the structure and that § 3.4's examples match the `y` rows.
+
+Question: **Nawar, Gurbati, Halabi** — are these self-designations (endonyms, roman) or outside labels (exonyms,
+italic if not assimilated)? I did not guess: they carry the flag `E12` until you check the Dom source (and your
+`SV` note says they appear only in the Polish). Answer as an E-item; I update the kartoteka. Changes to the
+kartoteka go through `_handoffs/`, like the Kanon.
+
+## T9 — re E13 and T7; state of D1–D3 (27.09.2026)
+
+- E13 — 27.09.2026 status: done. Nawar, Gurbati, Halabi → `italic_house = y` in the kartoteka (your sources in the
+  note). Borderline cases, under § 3.4 as written ("nieprzyswojone ani w pisowni, ani w odmianie": assimilation in
+  either counts): **Mutribowie** (inflected), **Gadżar** and **Garaczi** (Polish spelling) are assimilated → **roman**.
+  The Kurdish-branch names (Mıtrıp, Karaci, Qarach, Suzmani/Sozmani, Domlar) have no vol. 18 Polish form, so no
+  rows yet; when one appears in a translation, the same test applies (Polish form unadapted → italic).
+- T7 — noted: your side tested, HANDOFF CONTRACT 18/18.
+- For your pending list: D1 and D2 are **closed** (yes, as implemented); D3 is deferred by MB until stages 1–2
+  are tested. `MB-decisions.md` was cleaned up at MB's request: open items at the top, closed ones as one line
+  each, full text in `MB-decisions-archive.md`. Next free D-number: D10.
+
+## T10 — news: first real source (Ndiaye, RQ 2022) and what changed for sources (27.09.2026)
+
+- 27.09.2026 status: news, no action needed yet. The stage-1 test on MB's PDF (Ndiaye, "Black Roma", *Renaissance
+  Quarterly* 75, 2022) is done in srom-typeset; the source goes to you after MB answers its queries.
+- What you will see in sources keyed from short-form notes (`srom-typeset/references/srom-md.md`, "Keying
+  short-form notes"): pages as `s.` with ranges in full; non-page locators in braces with Polish labels
+  (`{ks. 11, rozdz. 2}`, provisional `{akt 4, sc. 1, w. 883}` pending MB); lead-ins zob./zob. też/por.; other
+  lead-ins ("Quoted in") left for you.
+- Kanon § 3.2 now says ranges are always written in full (MB, 27.09.2026); `normalize.py` rule RANGE-FULL
+  expands elided ranges in the translation (logged).
+- The editor's source proof is now `build.py --source` (handoff.md): the source's own typography is counted, not
+  reported as errors. No change to what you hand back.
+
+## T11 — contract: front matter to you; cyt. za; whole bibliography (28.09.2026)
+
+- 28.09.2026 status: needs your side — `handoff.md` changed (srom-typeset tests green); please add the front-matter
+  step to your skill and a case to `tlumacz-test_handoff.py`, then answer with a status line.
+- **Out:** `<id>_src_front.md` — the original's title, author/affiliation, abstract, keywords (if any), as in the
+  source. **Back:** `<id>_front_pl.md` — Polish title (title and subtitle kept apart), Polish abstract, Polish
+  keywords (Kanon § 12.2.2; the English ones stay as in the original). Header data for the CSV, not built.
+- Lead-in "quoted in / cited in" → `cyt. za` (Kanon § 7.2), in the source already.
+- Kanon (MB 28.09.2026): the author's whole bibliography is printed, cited or not (§ 9.2); access dates and ISBNs
+  only when the author gives them (§ 8.6, 9.7); non-page locators with Polish labels (§ 7.2: `akt 4, sc. 1, w. 883`,
+  `k. S2r`, `ks. 11, rozdz. 2`); early prints without printer: no marker (§ 0).
+- Fixed: a title inside an italic title was printed italic in every build (the report said roman). Proofs you
+  have seen may show it wrong.
+
+## T12 — source ready: Ndiaye, "Black Roma" (RQ 75, 2022) (28.09.2026)
+
+- 28.09.2026 status: ready for you — please confirm receipt with a status line; queries go in an E-item.
+- Files (read-only for you; `srom-typeset/work/ndiaye/`, git-ignored): `ndiaye_src.md` (text, 133 notes, every
+  reference a token), `refs.json` (84 works, the author's whole list, audited), `ndiaye_src_front.md` (title,
+  author, abstract, licence line — for `ndiaye_front_pl.md`, T11). For reference: `build/ndiaye_src_korekta.docx`
+  (the Polish apparatus as it will print), `ndiaye_queries.md` (what MB decided on this article).
+- Checks at hand-off: `cite_map audit` OK, `check.py --keyed` OK against the PDF text, `check.py` OK,
+  `--pair` of the source with itself OK, Word round trip identical.
+- In the source, as the author has it (Polish form comes with the translation and `normalize.py`): English quotes,
+  closed em dashes, markers after the full stop, ". . ." omissions (normalize makes them `[…]` and logs them),
+  elided ranges in running text (normalize writes them in full).
+- Structure: title note (acknowledgements) `::: przypis-tytulowy`; 5 verse quotations (`>` lines with `\`);
+  3 figure captions `::: podpis` ("Figure n." → Polish caption form, Kanon § 10); headings in capitals (h1).
+- Tokens carry Polish apparatus already: `s.`, `zob.`, `zob. też`, `cyt. za` (note 30), `{ks. 11, rozdz. 2}`
+  (note 23), `{akt 4, sc. 1, w. 883}` (notes 90–91), `{k. S2r}` (notes 82–83), `{w. 93–96}` (note 70).
+- Titles in refs.json stay as published (Kanon); inner titles are marked and print roman.
+
+
+## T13 — re E14: front-matter format; Romni/Gadje and "Egyptians" go to MB (28.09.2026)
+
+- E14 — 28.09.2026 status: (1) done — noted; (2) and (3) needs MB (`MB-decisions.md` D13).
+- T11 — your side confirmed: `tlumacz-front_check.py` → FRONT OK on `ndiaye_front_pl.md`, `tlumacz-test_handoff.py`
+  → 23/23 (run here 28.09.2026).
+- (1) The build does not read `<id>_front_pl.md`; it is header data for the CSV (stage 3 / curator). Your checker's
+  docstring is the format. If the build ever reads it, I say so here first.
+- (2) Not settled here: no evidence for a Polish spelling of *gadjo* in our files. What vol. 18 (binding, § 12.2) does
+  have: **Romka, Romki** and **nie-Rom, nie-Romowie**; no *Romni*, no *gadźo/gadzio/gadżo*. Classification (my
+  reading): Romni/Romnia/gadjo/gadji/gadje are Romani common nouns (§ 5.1: italic at first occurrence), not group
+  names; the kartoteka (group names, § 6.3) covers them only if MB rules they are group designations. Options and my
+  recommendation are in D13. Until MB decides, keep what you have and mark it (`<!-- DO SPRAWDZENIA: D13 -->`).
+- (3) Kartoteka row `Egyptians → Egipcjanie (bałkańscy)` now says in its note: present-day Balkan group only, not the
+  early-modern designation of Roma. The historical Polish form is not added: the kartoteka holds settled forms only
+  (`test_kanon.py`), and there is no evidence yet. In D13.
+
+## T14 — re E15: build crash fixed; one title-note block; lint cleared (28.09.2026)
+
+- E15 — 28.09.2026 status: done — (1) fixed, (2) contract changed (needs your side), (3) fixed.
+- (1) `srom_post.lua` cut the no-page context and `short()` by bytes; both now cut by characters, and `build.py` reads
+  pandoc's output with `errors="replace"`. Test: `test_e2e.py` (a note after 60× "ó"). Your draft builds without
+  crashing, no wrapper needed: **`build_tolerant.py` can go.**
+- (2) **Contract (`handoff.md`)**: one `::: przypis-tytulowy` block per article — the translation note first, the
+  author's note on the title (acknowledgements) as a further paragraph of the same block; one `*` at the title
+  (Kanon § 7.1: the title note takes the first asterisk). Two blocks are now an error in `check.py` (so `--pair`
+  catches it) with that instruction. Pending MB's confirmation (D12). Checked here on a copy of your draft: with the
+  two blocks merged, `ndiaye_pl.md` + both refs files → build exit 0, no errors, asterisk notes 3 = 2 + 1.
+  Please: merge the blocks in `ndiaye_pl.md`, add a case to `tlumacz-test_handoff.py`, and a status line.
+- (3) BIB-COLON: the linter now takes a place as an imprint only when it opens an element (after `, ` `. ` `; ` or
+  `(`) — "*Black Roma: Afro-Romani…*" in your note no longer fires. SPACE-BEFOREPUNCT (4×): the ". . ." in the
+  Ruggle title were omissions in the author's list → `[…]` (Kanon § 3.5, § 4.1; the words unchanged).
+  **`refs.json` changed** — please re-copy: sha256 `6a05800129d01caf631c575c9184f066f9eacc79f0f3be364834fb1956ad988a`
+  (audit OK, `check.py` OK, `--source` build 0 errors). With it your draft's build shows 0 lint errors.
+- For information, from the stage-1 review: `normalize.py` RANGE-FULL skipped a range right before a full stop
+  ("s. 214–31." stayed); fixed. `normalize.py` runs here on the returned translation, so nothing for you to do.
+
+## T15 — MB's decisions on D12–D14 (28.09.2026)
+
+- 28.09.2026 status: decided by MB — please apply to the Ndiaye draft and confirm with a status line.
+- **D12:** one title note (Kanon v1.7 § 7.1): translation note first, the author's note on the title as a further
+  paragraph of the same `::: przypis-tytulowy` block. Contract in `handoff.md` is now final (see T14).
+- **D13:** Romni → **Romka**, Romnia → **Romki**, Rom/Roma → Rom/Romowie (kartoteka rows added);
+  gadjo / gadji / gadje **kept** as Romani words: lower case, italic at first use (§ 5.1), the author's spelling;
+  note 1 keeps her list of Romani words in the original. Early-modern "Egyptians" / *Égyptiens* → „Egipcjanie” in
+  quotation marks (kartoteka note); an Old Polish attestation is still welcome if you find one.
+- **D14:** Kanon is now **v1.7** (the 27–28.09 rulings in their own changelog row, plus the one-title-note sentence).
+
+## T16 — re E16: Word round trip keeps the one title note; cross-module review 28.09.2026 (28.09.2026)
+
+- E16 — 28.09.2026 status: done — fixed in `docx_in.py` (commit ce291a2); your test reports `GAP CLOSED ok E16`,
+  **HANDOFF CONTRACT 30/30** (run here with the venv, read-only).
+- **E16.** Word styles are per paragraph, so every multi-paragraph `:::` block came back as one block per paragraph.
+  The importer now re-joins consecutive paragraphs of one block style: `przypis-tytulowy`, `nota`, `motto`,
+  `motto-zrodlo`, `dialog`, `bez-wciecia`. `podpis`, `tabela-*`, `przyklad` and `mowca` stay one block each (two
+  adjacent captions are two captions). Tests: `test_roundtrip.py` +3, all failing on the old scripts.
+- **Two more round-trip faults found on your draft**, both fixed:
+  (a) `[@molier1922] <!-- DO SPRAWDZENIA: S2 … -->;` came back as `[@molier1922] ;` (Word drops the comment, keeps
+  the space; the linter then fails the build: 2 errors on `ndiaye_robocza_v2.docx`). Export now anchors such a
+  comment after the punctuation; import also closes `[@key] ;` left by older exports, so MB's v2 file is fine.
+  (b) `::: mowca` lost the line break between speaker and affiliation (not in Ndiaye).
+- **Measured on MB's file:** `ndiaye_robocza_v2.docx` → `docx_in.py` → `check.py --pair ndiaye_src.md …
+  --refs refs.json --refs ndiaye_refs_tlum.json` → CHECK OK (1 title-note block; before: CHECK FAIL 1) →
+  `build.py … --pair-src` → PASS, Errors: none. Your own `ndiaye_pl.md` → working copy → import → build: printed text
+  identical to the direct build.
+- **Comments never block** (review row 2): the contract (`handoff.md`) and `build.py` were right; my `SKILL.md`
+  and `srom-md.md` said the opposite and are corrected. S1–S7 stay yours to track in `ndiaye_uwagi.md`: the build
+  lists comments as a warning in `_report.md`; after the Word round trip only `_import.md` lists them.
+- **T11 docs**: `handoff.md` now says the format of `<id>_front_pl.md` is your `tlumacz-front_check.py` docstring;
+  `SKILL.md` scenario C names `<id>_src_front.md` out and `<id>_front_pl.md`, `<id>_refs_tlum.json`, `--pair-src`
+  back. No change in behaviour.
+- For information: srom-kanon SKILL.md quick rule 9 now carries the § 3.4 foreign-exonym exception; Kanon § 17
+  moves the 27.09 exonym rule and the kartoteka file into row 1.7 (text of the rules unchanged, still v1.7);
+  MB-decisions D15 (licence ND option) and D16 (vol. 18 copyright clause) added from Kanon § 13.2.
