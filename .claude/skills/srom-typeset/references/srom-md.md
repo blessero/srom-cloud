@@ -102,6 +102,12 @@ Indian* (Princeton University Press, 2009), 12."; "Tabili, “Race Is a Relation
   `volume` when that volume is the work cited; `103n24` → `{s. 103, przyp. 24}`; an article cited whole with its range →
   `[@key]`, the range to `page`. `check.py --keyed` counts these pages and fails if one is lost; DOIs, URLs and an article's
   own range are expected to leave the note (bibliography only).
+- "…, 65–115, here: 102–103" → `s. 102–103` (the range to `page`); a standard-edition page after the page ("420/AA VII
+  324–325", Kant's Akademie-Ausgabe) stays in the locator, `{s. 420 / AA VII 324–325}`, "(FN)" → `przyp.`; a siglum the
+  author introduces ("hereafter abbreviated as MEW 23"): the later notes ("MEW 23, 746") are keyed to that work and print
+  the short form (`check.py --keyed` reads the siglum as its name); several volumes of one title (statutes): the volume as
+  a locator in the short forms, `{t. 3, s. 89}` (`check.py --keyed` fails a "Vol. IV" keyed to another volume). An author's
+  remark in brackets after a citation stays outside the token: `[@key, s. 63] (my translation).`
 - "Anonymous" → no author (title first, `srom-as-written`); "trans. and ed." by the same people → `editor` + `translator`
   (printed once, `tłum. i red.`); "PhD diss." → `thesis`, university as `publisher`, `note: "praca doktorska"`.
 

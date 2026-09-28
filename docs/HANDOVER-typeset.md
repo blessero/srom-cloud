@@ -23,7 +23,7 @@ Nothing here needs re-deriving; decisions marked ✔ are the editor's and closed
 | InDesign | `indesign/style_spec.json` → `scripts/make_style_setup.py` → `srom_style_setup.jsx` + `references/style-sheet.md` | house style definition and setup script |
 | docs | `references/*.md` | srom-md (format), handoff (contract with srom-tlumacz), indesign, decisions, style-sheet |
 
-Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 18/18` (~465 checks). Unlazy ledger: `/GATES.md`, batches from
+Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 19/19` (~490 checks). Unlazy ledger: `/GATES.md`, batches from
 26.09.2026 on (the older G1–G16 ledger was lost, § 3 item 1; its G12, the InDesign import, is stage 3 / D3).
 
 ## 2. Decisions register (`references/decisions.md`)
@@ -120,6 +120,24 @@ G12) after.
    Note: another session committed my in-progress `pdf_extract.py` as aaecba0 while I worked (content is mine, fine).
    Known, not fixed (minor): the query sheet prints broken asterisks around a roman phrase inside an italic title
    (O'Reilly, *Divide et impera*); the DOCX is right.
+4d. **Stage-1 test 5: Tittel** ("Racial and Social Dimensions of Antiziganism", *On_Culture* 10, 2020, Giessen; endnotes
+   with full Chicago citations incl. place and publisher, no bibliography; `work/tittel/`, git-ignored) — done 28.09.2026,
+   handed over (T20); rights no obstacle (CC BY 4.0). MB's points in `MB-decisions.md` D20 (detail
+   `work/tittel/tittel_queries.md`). Pipeline: `pdf_extract` → `key.py` (prep: joins, a URL, note 1 → title note; keying;
+   labels renumbered 2–101 → 1–100; `key_log.md`) → `check.py --keyed tittel_pre.md tittel_src.md` → `build.py --source` →
+   `export_work.py`; `refs.py` → refs.json (63 works). `wordcheck.py`: every word of the PDF in the extraction. Re-run from
+   `refs.py`/`key.py` after MB's answers; new T-item with sha256.
+   What it broke, fixed with tests (27cc558, 5bd5794, 7f671f5, 25dfb19): underscore-decorated headings ("_Abstract",
+   "_Endnotes", "1_Introduction"), front matter over two pages, justified block quotations read as verse, a URL closed by
+   ">" eating the next space, URL hyphens decided by the same address elsewhere, "anti- “gypsy”" (`test_pdf_onculture.py`);
+   `check.py --keyed`: Ibidem after a quotation, the author's siglum (MEW 23), "*Journal*, 7 (2018)" volume, series numbers;
+   a **mutation test** on this text found four holes, now errors: page after "here:", Kant AA page, wrong volume of one
+   title, a non-bare Ibidem hiding a changed page (older than this text); Lua: no full stop before the author's bracketed
+   remark after a citation (also Ndiaye n. 77). Regression: the four earlier PDFs extract identically (two old diffs are
+   from earlier commits: Ndiaye "African- American" in the frozen source, Pahulich "religio-political"); their keyed checks
+   still pass.
+   Known, not fixed: the query sheet flags a citation after a quoted chapter title as "cytat bez numeru strony" (Amīn, n. 47);
+   repositories behind proof-of-work bot checks (Giessen GEB/JLUpub, DB Thüringen, nbn-resolving) are not read — left to MB.
 5. **Next text for translation** (srom-tlumacz HANDOVER § 7a): MB sends it here first — stage 1 (freeze
    `<id>_src.md` + refs.json + `<id>_src_front.md`, T-item), as with Ndiaye. A DOCX with typed notes needs E9 first.
    ~~**E9 typed notes**~~ — done 28.09.2026 (T17): `docx_in.py --typed-notes`; Dom file 52/52 pairs right
@@ -214,6 +232,6 @@ author's notes.
 
 ## 7. Pending for the editor
 
-Only in `../_handoffs/MB-decisions.md`. srom-typeset's open items there: D17 (Pahulich), D18 (German test), D3 (style set; the template as IDML
+Only in `../_handoffs/MB-decisions.md`. srom-typeset's open items there: D17 (Pahulich), D18 (German test), D19 (Ostendorf), D20 (Tittel), D3 (style set; the template as IDML
 follows it), D15 (licence ND option, kolegium), D16 (vol. 18 copyright clause, before any OA announcement).
 D1, D2, D4, D7, D9, D12–D14 are closed.

@@ -340,3 +340,38 @@ Checks run from the repo root. K = .claude/skills/srom-kanon, T = .claude/skills
   CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; git status --porcelain | wc -l
   EXPECT: /SUITE ALL PASS (\d+)\/\1[\s\S]*\n\s*0\s*$/
   EVIDENCE: SUITE ALL PASS 18/18 | 0
+
+## Stage-1 test 5 — Tittel (On_Culture 10, 2020; endnotes, Chicago full notes with place/publisher) — done 28.09.2026
+
+- [x] T1: extractor handles the On_Culture layout generically, each with a test (test_pdf_onculture.py): underscore-decorated
+  headings, front matter over two pages, justified block quotations not verse, URL closed by ">", URL hyphen decided by the
+  document, hyphen before an opening quotation mark
+  CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-typeset/tests/test_pdf_onculture.py | tail -1
+  EXPECT: /PDF-ONCULTURE ALL PASS (\d+)\/\1/
+  EVIDENCE: PDF-ONCULTURE ALL PASS 11/11 (10 of the 11 fail on the pre-change extractor; the verse control passes on both)
+- [x] T2: no regression on the earlier PDFs (Ndiaye, Pahulich, Ostendorf, Scheffknecht identical to HEAD's extractor)
+  CHECK: see EVIDENCE (scratchpad baselines, HEAD's pdf_extract.py run side by side)
+  EVIDENCE: all four byte-identical to HEAD's output; the two diffs against the stored extractions (Ndiaye
+  "African- American", Pahulich "religio-political") come from earlier commits, listed in tittel_queries C
+- [x] T3: the article extracts clean: 101 notes, 101 markers; every word and number of the PDF in the extraction
+  CHECK: cd work/tittel && ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/pdf_extract.py ../Racial_and_Social_Dimensions_of_Antiziga.pdf -o /tmp/t.md | tail -2
+  EXPECT: /notes 101 · markers 101[\s\S]*EXTRACT OK/
+  EVIDENCE: notes 101 · markers 101 · EXTRACT OK; wordcheck.py: 10 896 tokens, differences = line-end hyphen decisions only
+- [x] T4: refs.json (63 works, from the notes; one gap [BRAK WYDAWCY] listed); keying proven, the keyed check mutation-tested
+  (mutations: cut page after "here:", dropped AA page ×2, statute vol. III for vol. IV, wrong Zeller page, cut MEW range,
+  Zeller Bd. 12 for Bd. 13, changed Ufen page — all errors after 7f671f5; before it, 4 of the first 6 passed)
+  CHECK: cd work/tittel && ~/.venvs/srom/bin/python refs.py >/dev/null && ~/.venvs/srom/bin/python key.py >/dev/null && ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/check.py --keyed tittel_pre.md tittel_src.md --refs refs.json | grep -c "WARN\|ERROR"; ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/check.py --keyed tittel_pre.md tittel_src.md --refs refs.json | tail -1
+  EXPECT: /^0\s+CHECK OK\s*$/
+  EVIDENCE: 0 | CHECK OK
+- [x] T5: source checks, builds as a source proof with 0 issues; Word working copy round trip lossless
+  CHECK: cd work/tittel && V=~/.venvs/srom/bin/python; S=../../.claude/skills/srom-typeset/scripts; $V $S/check.py tittel_src.md --refs refs.json | tail -1; $V $S/build.py tittel_src.md --refs refs.json --source --out build/ 2>/dev/null | tail -1; $V $S/docx_in.py tittel_src_robocza.docx -o /tmp/rt.md | tail -1; diff <(sed 's/ *<!--.*-->//' tittel_src.md) /tmp/rt.md | grep -c "^[<>] ."
+  EXPECT: /CHECK OK\s+PROOF .*\(0 issue[\s\S]*IMPORT OK\s+0\s*$/
+  EVIDENCE: CHECK OK | PROOF … (0 issue(s)) | IMPORT OK | 0
+- [x] T6: hand-off: T20 to srom-tlumacz, D20 for MB, both committed in _handoffs
+  CHECK: grep -c "^## T20" ../_handoffs/typeset-to-tlumacz.md; grep -c "^### D20" ../_handoffs/MB-decisions.md; git -C ../_handoffs status --porcelain | wc -l
+  EXPECT: /^1\s+1\s+0\s*$/
+  EVIDENCE: 1 | 1 | 0
+- [x] T7: suite green, committed, clean tree
+  CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; git status --porcelain | wc -l
+  EXPECT: /SUITE ALL PASS (\d+)\/\1[\s\S]*\n\s*0\s*$/
+  EVIDENCE: SUITE ALL PASS 19/19 | 0
