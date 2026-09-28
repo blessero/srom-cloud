@@ -259,3 +259,39 @@ kartoteka go through `_handoffs/`, like the Kanon.
 - Result (git-ignored, for reading): `srom-typeset/work/dom/dom_src_typed.md` + `_import.md`. **Not frozen**:
   stage 1 (keying the 54 references into refs.json, check, T-item with sha256) waits until MB wants Dom translated
   and the missing page is supplied. One author-date leftover in the text: "(Szakonyi 2008: 8)".
+
+## T18 — source ready: Pahulich, "Racialization of Roma, European Modernity, and the Entanglement of Empires" (CRS 8/1, 2025) (28.09.2026)
+
+- 28.09.2026 status: ready for you — please confirm receipt with a status line; queries go in an E-item. MB's open
+  points on this article (`pahulich_queries.md`) do not block your intake or draft; see "may still change" below.
+- Files (read-only for you; `srom-typeset/work/pahulich/`, git-ignored), sha256:
+  `pahulich_src.md` 11df7758…7145e17 (text, 146 notes, every reference a token), `refs.json` 6eefd2b4…292674c
+  (52 works, the author's whole list, audited), `pahulich_src_front.md` 268810af…f3c08 (title, author, e-mail,
+  affiliation, bio, journal line, abstract, 6 keywords — for `pahulich_front_pl.md`, T11; **no licence line**: the
+  PDF has none). For reference: `build/pahulich_src_korekta.docx` (the Polish apparatus as it will print),
+  `pahulich_queries.md` (MB's open points and what was settled).
+- The original is **author-date**; converted to notes (Kanon § 7.1): 142 converted + the author's 4 (now **2, 37, 67,
+  128**); labels = printed numbers (`cite_map --renumber`, new). The author's acknowledgements (an end section) are now
+  the title note `::: przypis-tytulowy` — your translation note goes first in the same block (D12).
+- Checks at hand-off: `cite_map audit` OK; `check.py` OK; `--pair` of the source with itself OK; Word round trip
+  identical (bar the two comments, which become Word comments); every word compared with the PDF: nothing lost.
+- In the source, as the author has it: English quotes, markers after the full stop, "Ibid." gone (resolved to tokens,
+  the build decides *Ibidem*), `– ` spaced dashes, "[G]ypsies" (the author's bracket, § 4.1), "racial/ human" and
+  "“Zigeuner”/ “Gipsey,”" with the space the PDF has.
+- Notes whose wording is not the author's sentence as printed: **6** "For similar inquiry, [zob. @parvulescu2022]."
+  and **144** "[Zob. też @thomas2018] on Soviet politics …" (prose from a parenthesis, lead-in keyed); **37** keeps the
+  author's "(1992, 81)" with no author name (question to the author, D1 in the queries; comment in the text).
+  "Jenkins and Leroy (2021)" in section 3 is not in the bibliography: left as text, with a comment (D2).
+- refs.json: Cyrillic in **ALA-LC** (Kanon § 9.6; the author uses another romanization, kept in `srom-as-written`),
+  checked against catalogues except Chėrvinski 2008. **Title glosses in [ ]** (`original-title`) are Polish, my
+  translations of the original titles: please review them; changes as query rows (`adresat;rodzaj;przypis;dzieło;
+  szczegóły`), since refs.json is mine. Running-text names from Cyrillic (Dal’, Barannikov, Kistyakovsky, Zelenchuk…)
+  are yours to transcribe (PWN), as usual.
+- For your § 12.2.4 check (information, not verified by me): the Polish sources in section 3 (Przyłuski 1553, Bielski
+  1564, the 1510 and 1578 Diet acts, the chancellor's letter 1553) are quoted via Mróz 2015 (CEU Press); Mróz also has
+  a Polish book on the same material, *Dzieje Cyganów-Romów w Rzeczypospolitej XV–XVIII w.* (2001) — whether it holds
+  these passages I have not checked.
+- May still change after MB (`pahulich_queries.md`): A2 — if MB merges printed notes 1 and 2 (a citation next to the
+  author's note), notes renumber from 2 on (145); B/C — refs.json fields only (tokens and keys stay); A1 — the
+  original is **CC BY-NC 4.0** (Crossref), MB decides on consent/NC before publication (your translation note's
+  licence line). Any change comes as a new T-item with new sha256.
