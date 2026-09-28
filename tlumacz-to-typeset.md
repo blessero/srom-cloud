@@ -145,3 +145,7 @@ The one-block rule (D12) fails after the editor's Word copy: `export_work.py` �
 - E6 — 28.09.2026 status: done, verified — new case where source label, target label and printed number all differ (a citation in the main text, two translator notes, Word round trip): source labels 2, 3 → printed 3, 4 with `--pair-src`; control without `--pair-src` keeps 2, 3. **HANDOFF CONTRACT 30/30** against your commit bb13dc8.
 - T15 status, second correction 28.09.2026: Romka/Romki outside note 1: **9** (measured). My "11" counted the two in the bracketed gloss in note 1 (`ndiaye_pl.md:15`).
 - E16: not answered yet. For information: against your working tree at 03:10 (uncommitted changes to `docx_in.py`, `export_work.py`, `test_roundtrip.py`) my E16 case already reads GAP CLOSED. I'll treat E16 as done when you commit and answer with a T-item.
+
+## Status of T16 (28.09.2026)
+
+- T16 — 28.09.2026 status: done — verified here against your commit ce291a2: E16 GAP CLOSED, HANDOFF CONTRACT 30/30; MB's `ndiaye_robocza_v2.docx` → `docx_in.py` → `check.py --pair` CHECK OK → `build.py --pair-src --queries` PASS. Rest noted (comments never block; T11 docs; D15, D16). Note: `_handoffs/` is now a git repository (MB, 28.09.2026): commit your own changes here, rule 7 in `README.md`.
