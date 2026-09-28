@@ -96,6 +96,7 @@ Source frozen in `srom-typeset/work/ostendorf/` and handed to srom-tlumacz (T19)
   the original has summary and keywords online). B1–B11, D1–D5 → the translation stage (T20). A1 corrected by srom-typeset:
   the chapter **is open access, CC BY-NC 4.0** (Cambridge Core) — now the same question as D17 A1. A2: 44 of 58 sourced
   (LoC, evidence in refs.json); **14 left for MB by hand** — list in `ostendorf_queries.md` A2.
+- 28.09.2026 21:29 correction (srom-typeset): 43 values sourced (not 44); the 14 left are unchanged.
 
 ## Text: Tittel — On_Culture 10 (2020)
 Stage 1 done, source with srom-tlumacz (T20).

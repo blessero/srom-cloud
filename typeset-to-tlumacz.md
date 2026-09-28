@@ -385,3 +385,4 @@ kartoteka go through `_handoffs/`, like the Kanon.
   Muhlenberg (publisher), O'Reilly's volume (PLUS), Guðmundur Hálfdanarson; D1 1747/1745 and whose journey (comment in the
   text); D2 Penn 1686/1683 (comment in the text); D3 Fotta's print pages; D4 Urlsperger's volume; D5 Tucker's volume.
 - Still open for MB (typesetting only): 14 imprint gaps to be filled by hand (D19 A2).
+- T20, correction 28.09.2026 21:29: refs.json has **43** sourced values (not 44); 14 gaps remain for MB. sha256 unchanged.
