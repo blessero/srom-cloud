@@ -297,3 +297,45 @@ Checks run from the repo root. K = .claude/skills/srom-kanon, T = .claude/skills
   CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; git status --porcelain | wc -l
   EXPECT: /SUITE ALL PASS (\d+)\/\1[\s\S]*\n\s*0\s*$/
   EVIDENCE: SUITE ALL PASS 16/16 | 0
+
+## Stage-1 test 4 — Ostendorf (The Romani Atlantic, CUP 2026, ch. 3; Chicago full notes, PUA text layer) — done 28.09.2026
+
+- [x] O1: extractor repairs this text layer generically, each with a test (test_pdf_cup.py): PUA old-style figures and
+  small capitals, TeX accent, "¼" from a math font, word spaces set as gaps, chapter numeral above the title, notes running
+  over a page with no rule, compounds kept on document evidence
+  CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-typeset/tests/test_pdf_cup.py | tail -1
+  EXPECT: /PDF-CUP ALL PASS (\d+)\/\1/
+  EVIDENCE: PDF-CUP ALL PASS 20/20 (the integration cases fail on the pre-change extractor)
+- [x] O2: no regression on the earlier PDFs (Ndiaye, Pahulich, Scheffknecht byte-identical to the baseline, or explained)
+  CHECK: see EVIDENCE (scratchpad baselines)
+  EVIDENCE: Ndiaye, Scheffknecht .md/_bib/_front identical; Pahulich one word: "religiopolitical" -> "religio-political"
+  (compound rule; frozen pahulich_src.md unchanged, listed in ostendorf_queries C and to the Pahulich session); reports
+  gain the gap-space count, running heads now spaced
+- [x] O3: the article extracts clean: 62 notes, 62 markers, every word and number of the PDF in the output; digits
+  confirmed independently (17 DOIs/URLs = the PDF's link targets)
+  CHECK: cd work/ostendorf && ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/pdf_extract.py ../11.3_pp_86_108_Familiar_Outsiders_Abroad.pdf -o /tmp/o.md | tail -2
+  EXPECT: /notes 62 · markers 62[\s\S]*EXTRACT OK/
+  EVIDENCE: notes 62 · markers 62 · EXTRACT OK; wordcheck.py: 9297 tokens, lost 6 / extra 12 = the checker's own joins
+  (heading words without spaces in the text layer; co-developed, light-brown, mulatto-like)
+- [x] O4: refs.json (83 works, from the notes; nothing added, gaps as [BRAK …] and listed); keying proven, now with
+  Chicago pages counted (a lost page is an ERROR: mutation test — old check OK, new check 3 errors)
+  CHECK: cd work/ostendorf && ~/.venvs/srom/bin/python refs.py >/dev/null && ~/.venvs/srom/bin/python key.py >/dev/null && ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/check.py --keyed ostendorf_pre.md ostendorf_src.md --refs refs.json 2>/dev/null | grep -c "WARN\|ERROR"; ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/check.py --keyed ostendorf_pre.md ostendorf_src.md --refs refs.json 2>/dev/null | tail -1
+  EXPECT: /^0\s+CHECK OK\s*$/
+  EVIDENCE: 0 | CHECK OK
+- [x] O5: source checks, builds as a source proof with 0 issues; Word working copy round trip lossless
+  CHECK: cd work/ostendorf && V=~/.venvs/srom/bin/python; S=../../.claude/skills/srom-typeset/scripts; $V $S/check.py ostendorf_src.md --refs refs.json | tail -1; $V $S/build.py ostendorf_src.md --refs refs.json --source --out build/ 2>/dev/null | tail -1; $V $S/docx_in.py ostendorf_src_robocza.docx -o /tmp/rt.md | tail -1; diff <(sed 's/ *<!--.*-->//' ostendorf_src.md) /tmp/rt.md | grep -c "^[<>] ."
+  EXPECT: /CHECK OK\s+PROOF .*\(0 issue[\s\S]*IMPORT OK\s+0\s*$/
+  EVIDENCE: CHECK OK | PROOF … (0 issue(s)) | IMPORT OK | 0
+- [x] O6: CSL no longer drops data: editor of an authored book, "trans. and ed." once, anonymous chapter title-first
+  (provisional, decisions.md 23, D19 A3); query sheet without CSL tags
+  CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-typeset/tests/test_csl.py | tail -3
+  EXPECT: /NOTES ALL PASS (\d+)\/\1\s+BIB ALL PASS (\d+)\/\2/
+  EVIDENCE: NOTES ALL PASS 27/27 | BIB ALL PASS 13/13 (new cases fail on the old CSL)
+- [x] O7: hand-off: T19 to srom-tlumacz (rights pending), D19 for MB, both committed in _handoffs; queries file with
+  verified evidence (Thwaites vol. 67, catalogue records, Crossref)
+  CHECK: grep -c "^## T19" ../_handoffs/typeset-to-tlumacz.md; grep -c "^### D19" ../_handoffs/MB-decisions.md; git -C ../_handoffs status --porcelain | wc -l
+  EXPECT: /^1\s+1\s+0\s*$/
+  EVIDENCE: 1 | 1 | 0
+- [x] O8: suite green, committed, clean tree
+  CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; git status --porcelain | wc -l
+  EXPECT: /SUITE ALL PASS (\d+)\/\1[\s\S]*\n\s*0\s*$/

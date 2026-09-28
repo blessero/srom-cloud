@@ -159,6 +159,12 @@ json.dump([{"id": "bezmiejsca", "type": "book", "author": [{"family": "Nowak", "
 code, out, stem, rep = build(md_text="Tekst[^1].\n\n[^1]: [@bezmiejsca, s. 3].\n", refs=noplace)
 q = open(os.path.join(out, stem + "_pytania.md"), encoding="utf-8").read()
 check("missing place of publication -> [BRAK MIEJSCA] stops the build, author asked", code == 1 and "[BRAK MIEJSCA]" in rep and "bezmiejsca" in q, rep[:700] + q)
+tagged = os.path.join(tempfile.mkdtemp(), "tg.json")
+json.dump([{"id": "tagged", "type": "thesis", "author": [{"family": "Nowak", "given": "Jan"}], "title": "Tożsamość w Anglii, <i>c.</i> 1607–1623",
+            "publisher": "Uniwersytet", "issued": {"date-parts": [[2023]]}}], open(tagged, "w"), ensure_ascii=False)
+code, out, stem, rep = build(md_text="Tekst[^1].\n\n[^1]: [@tagged, s. 3].\n", refs=tagged, extra=("--draft",))
+q = open(os.path.join(out, stem + "_pytania.md"), encoding="utf-8").read()
+check("query sheet: a title's CSL rich-text tags (<i>c.</i>) are not printed in the row", "c. 1607" in q and "<i>" not in q, q)
 code, out, stem, rep = build(md_text="Tekst[^1].\n\n[^1]: [@bezmiejsca, s. 3].\n", refs=noplace, extra=("--draft",))
 check("--draft lets [BRAK …] through as warning", code == 0 and "[BRAK MIEJSCA]" in rep, rep[:700])
 code, out, stem, rep = build(md_text="O dziejach Cyganów pisano wiele[^1].\n\n[^1]: [@ficowski1985]; zob. [@mroz1998].\n")

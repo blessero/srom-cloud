@@ -23,7 +23,7 @@ Nothing here needs re-deriving; decisions marked ✔ are the editor's and closed
 | InDesign | `indesign/style_spec.json` → `scripts/make_style_setup.py` → `srom_style_setup.jsx` + `references/style-sheet.md` | house style definition and setup script |
 | docs | `references/*.md` | srom-md (format), handoff (contract with srom-tlumacz), indesign, decisions, style-sheet |
 
-Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 15/15` (~345 checks). Unlazy ledger: `/GATES.md`, batches from
+Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 18/18` (~465 checks). Unlazy ledger: `/GATES.md`, batches from
 26.09.2026 on (the older G1–G16 ledger was lost, § 3 item 1; its G12, the InDesign import, is stage 3 / D3).
 
 ## 2. Decisions register (`references/decisions.md`)
@@ -106,6 +106,20 @@ G12) after.
    Moldavia…", pp. 54/55 "…Lucassen 1998)." | "Many historians…"): the extractor now lists such breaks; check against
    the journal's HTML before D17 is applied. Kanon gaps raised in D18: publishers missing in German citation practice,
    series, "von".
+4c. **Stage-1 test 4: Ostendorf** ("Familiar Outsiders Abroad", ch. 3 of M. Fotta, A. Ostendorf (eds.), *The Romani
+   Atlantic*, CUP 2026; Cambridge Core PDF, Chicago full notes, no bibliography; `work/ostendorf/`, git-ignored) — done
+   28.09.2026, handed over (T19) with **rights pending** (CUP, not OA): MB's points in `MB-decisions.md` D19 (detail
+   `work/ostendorf/ostendorf_queries.md`). Pipeline: `pdf_extract` → `key.py` (keying + two DO SPRAWDZENIA comments,
+   `key_log.md`) → `check.py --keyed` → `build.py --source` → `export_work.py`; `refs.py` → refs.json (83 works);
+   `wordcheck.py` (words and numbers). Re-run from `refs.py`/`key.py` after MB's answers; new T-item with sha256.
+   What it broke, fixed with tests (aaecba0, ea04d6a, next): the text layer had no digits and no small caps (Sabon LT Std
+   PUA; the first run said EXTRACT OK with 0 notes), "¼" for "=", "Savi´c", word spaces as gaps, a chapter numeral above
+   the title, notes over a page with no rule, compounds at a line end (`test_pdf_cup.py`); `check.py --keyed` did not
+   count Chicago pages (a lost page passed); the CSL dropped the editor of an authored book and printed an anonymous
+   chapter's volume editor as its author (provisional fix, `decisions.md` 23 / D19 A3); query rows showed `<i>` tags.
+   Note: another session committed my in-progress `pdf_extract.py` as aaecba0 while I worked (content is mine, fine).
+   Known, not fixed (minor): the query sheet prints broken asterisks around a roman phrase inside an italic title
+   (O'Reilly, *Divide et impera*); the DOCX is right.
 5. **Next text for translation** (srom-tlumacz HANDOVER § 7a): MB sends it here first — stage 1 (freeze
    `<id>_src.md` + refs.json + `<id>_src_front.md`, T-item), as with Ndiaye. A DOCX with typed notes needs E9 first.
    ~~**E9 typed notes**~~ — done 28.09.2026 (T17): `docx_in.py --typed-notes`; Dom file 52/52 pairs right

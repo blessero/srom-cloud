@@ -511,6 +511,7 @@ def write_queries(outdir, stem, nopage, notes, refs, cited, printed, cite_count,
     <stem>_pytania.md (readable) and <stem>_pytania.csv (Excel, ';', UTF-8 BOM)."""
     rows = []   # (adresat, rodzaj, przypis, dzieło, szczegół)
     def cut(t, n=110):
+        t = re.sub(r"</?(?:i|b|sc|sup|sub|span[^>]*)>", "", t)     # CSL rich-text tags in refs.json titles
         return t if len(t) <= n else t[:n] + "…"
     for no, kind, keys, ctx in nopage:
         note = notes[no - 1] if isinstance(no, int) and 0 < no <= len(notes) else ""
