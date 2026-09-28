@@ -221,3 +221,36 @@ Checks run from the repo root. K = .claude/skills/srom-kanon, T = .claude/skills
   CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; git status --porcelain | wc -l
   EXPECT: /SUITE ALL PASS (\d+)\/\1[\s\S]*\n\s*0\s*$/
   EVIDENCE: SUITE ALL PASS 14/14 | 0
+
+## Stage-1 test 2 — Pahulich (CRS 8/1, 2025, author-date PDF) — done 28.09.2026
+
+- [x] P1: the PDF extracts clean: notes/markers contiguous, front matter out of the text, reference list complete
+  CHECK: cd work && ~/.venvs/srom/bin/python ../.claude/skills/srom-typeset/scripts/pdf_extract.py Pahulich.pdf -o pahulich/pahulich_pdf.md | tail -1; wc -l < pahulich/pahulich_pdf_bib.txt
+  EXPECT: /EXTRACT OK\s+52\s*$/
+  EVIDENCE: EXTRACT OK | 52 (4 notes, 4 markers; every word compared with the PDF text: nothing lost)
+
+- [x] P2: refs.json matches the author's list (52 works); DOIs checked against Crossref (work/pahulich/doi_check.txt)
+  CHECK: cd work/pahulich && ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/cite_map.py audit --refs refs.json --bib pahulich_pdf_bib.txt | tail -1
+  EXPECT: /CITEMAP OK/
+  EVIDENCE: CITEMAP OK
+
+- [x] P3: every author-date reference converted or listed; source passes check and builds as a source proof
+  CHECK: cd work/pahulich && V=~/.venvs/srom/bin/python; S=../../.claude/skills/srom-typeset/scripts; $V prep.py >/dev/null && $V $S/cite_map.py scan pahulich_pre.md --refs refs.json --apply /tmp/p.md --renumber | tail -1; cmp /tmp/p.md pahulich_src.md && echo SAME; $V $S/check.py pahulich_src.md --refs refs.json | tail -1; $V $S/build.py pahulich_src.md --refs refs.json --source --out build/ | tail -1
+  EXPECT: /CITEMAP OK\s+SAME\s+CHECK OK\s+PROOF .*\(0 issue/
+  EVIDENCE: CITEMAP OK | SAME | CHECK OK | PROOF … (0 issue(s)); 25 Ibid and 17 year-only resolutions checked by hand
+
+- [x] P4: Word working copy round trip lossless (comments aside)
+  CHECK: cd work/pahulich && ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/docx_in.py pahulich_src_robocza.docx -o /tmp/rt.md | tail -1; diff <(sed 's/ *<!--.*-->//' pahulich_src.md) /tmp/rt.md | grep -c "^[<>] ."
+  EXPECT: /IMPORT OK\s+0\s*$/
+  EVIDENCE: IMPORT OK | 0
+
+- [x] P5: hand-off: T18 to srom-tlumacz, D17 for MB, both committed in _handoffs
+  CHECK: grep -c "^## T18" ../_handoffs/typeset-to-tlumacz.md; grep -c "^## D17" ../_handoffs/MB-decisions.md; git -C ../_handoffs status --porcelain | wc -l
+  EXPECT: /^1\s+1\s+0\s*$/
+  EVIDENCE: 1 | 1 | 0
+
+- [x] P6: suite green, committed, clean tree
+  CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; git status --porcelain | wc -l
+  EXPECT: /SUITE ALL PASS (\d+)\/\1[\s\S]*\n\s*0\s*$/
+  EVIDENCE: SUITE ALL PASS 15/15 | 0
+

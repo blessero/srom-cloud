@@ -80,6 +80,17 @@ G12) after.
    Known, not fixed (minor): `pdf_extract.link_fix` replaces URL text by a link target differing in ≤ 2 characters
    (listed in the report, can pick a sibling URL); range expansion exists twice (`normalize.py` RANGE-FULL,
    `cite_map.expand_ranges`).
+4a. **Stage-1 test 2: Pahulich** (CRS 8/1, 2025, author-date, `work/pahulich/`, git-ignored) — done 28.09.2026, source
+   handed over (T18), MB's points in `MB-decisions.md` D17 (detail `work/pahulich/pahulich_queries.md`). Pipeline:
+   `pdf_extract` → `prep.py` (hand conversions, logged) → `refs.py` → `cite_map scan --apply pahulich_src.md
+   --renumber` → `check.py` → `build.py --source` → `export_work.py`. Re-run from `prep.py` after any change.
+   What this layout broke, all fixed with tests (a64edb3 … 57c8f08): bracketed superscript markers "[1]"; note size
+   taken from the separator rule (reference list at a larger small size); front matter over two pages with a
+   keywords column; drawn repeated-author rule; hyphen before a capital / slash at a line end; left-indented block
+   quotes; URL broken inside a token; NFD accents from the text layer; in cite_map: year-only "(2018, 78)"
+   (YEAR-ONLY), possessive, "di" particle inside "Jodi", comma before a name (TRIMMED), author's spelling via
+   `srom-as-written` (ALA-LC names), italic "(*Ibid.*, 2)", comma locator and "See also" in notes, `--renumber`.
+   After MB answers D17: B-items into `refs.py`; A2 (merge notes 1/2) in `prep.py`; new T-item with new sha256.
 5. **Next text for translation** (srom-tlumacz HANDOVER § 7a): MB sends it here first — stage 1 (freeze
    `<id>_src.md` + refs.json + `<id>_src_front.md`, T-item), as with Ndiaye. A DOCX with typed notes needs E9 first.
    ~~**E9 typed notes**~~ — done 28.09.2026 (T17): `docx_in.py --typed-notes`; Dom file 52/52 pairs right
