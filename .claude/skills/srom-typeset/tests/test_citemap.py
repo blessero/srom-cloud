@@ -187,5 +187,17 @@ t("in a note: comma locator inside the token ('Law and Kovats 2018, 78' -> [@law
   "[@law2018, s. 78]." in no and "[Zob. też @law2012]." in no, o + no)
 t("in a note: '(1992, 81)' with no author named -> left as written, YEAR-ONLY?", "affairs (1992, 81);" in no and "YEAR-ONLY?" in o, o + no)
 
+ren = os.path.join(d, "ren.md")
+open(ren, "w", encoding="utf-8").write("First (Law 2012).[^1] Then Melamed (2015) and more.[^t1]\n\n[^1]: An author's note (Law and Kovats 2018, 78).\n\n"
+                                       "[^t1]: A translator's note – przyp. tłum.\n\nNext (Robinson 2000).[^2]\n\n[^2]: Second author's note.\n")
+c, o = cm("scan", ren, "--refs", esub2, "--apply", os.path.join(d, "ren_out.md"), "--renumber")
+ro = open(os.path.join(d, "ren_out.md"), encoding="utf-8").read() if os.path.exists(os.path.join(d, "ren_out.md")) else ""
+t("--renumber: labels 1…N in marker order, definitions sorted per paragraph, t-labels untouched, author's notes mapped",
+  ro.startswith("First[^1].[^2] Then Melamed[^3] and more.[^t1]\n\n[^1]: [@law2012].\n\n[^2]: An author's note [@law2018, s. 78].\n\n"
+                "[^3]: [@melamed2015].\n\n[^t1]: A translator's note – przyp. tłum.\n\nNext[^4].[^5]\n\n[^4]: [@robinson2000].\n\n[^5]: Second author's note.")
+  and "1→2" in o and "2→5" in o, o + ro)
+c2 = subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "check.py"), os.path.join(d, "ren_out.md"), "--refs", esub2], capture_output=True, text=True)
+t("--renumber output passes check.py", c2.returncode == 0, c2.stdout + c2.stderr)
+
 n, ok = len(res), sum(res)
 print(f"CITEMAP ALL PASS {n}/{n}" if ok == n else f"CITEMAP FAILED {n - ok}/{n}")

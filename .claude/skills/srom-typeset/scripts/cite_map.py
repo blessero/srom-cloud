@@ -2,7 +2,7 @@
 """
 cite_map.py — author-date (Harvard/APA/Chicago-AD) references -> SROM footnote citations.
 
-    python3 cite_map.py scan  article.md --refs refs.json [--apply out.md] [--report map.md]
+    python3 cite_map.py scan  article.md --refs refs.json [--apply out.md [--renumber]] [--report map.md]
     python3 cite_map.py audit --refs refs.json --bib original_bibliography.txt
 
 scan   finds every author-date reference, resolves it to a refs.json key by surname(s) + year
@@ -438,7 +438,7 @@ def scan(md_text, refs):
     return hits, "\n".join(out)
 
 
-PAGEONLY = re.compile(r"\s?\((?:(?:s\.|str\.|pp?\.)\s?(?P<loc>[\d–\-, ]+(?:\s?ff?\.)?)|(?:ibid\.?|ibidem|tamże|tamze)(?:[,:]\s?(?:s\.|pp?\.)?\s?(?P<loc2>[\d–\-, ]+))?)\)")
+PAGEONLY = re.compile(r"\s?\((?:(?:s\.|str\.|pp?\.)\s?(?P<loc>[\d–\-, ]+(?:\s?ff?\.)?)|\*?(?i:ibid\.?|ibidem|tamże|tamze)\*?\.?\*?(?:[,:]\s?(?:s\.|pp?\.)?\s?(?P<loc2>[\d–\-, ]+))?)\)")   # (*Ibid.*, 2, 21)
 ITEM_HINT = re.compile(rf"[{UP}][\w’'\-]+,?\s(?:\([^()]*\)\s)?(?:1[5-9]\d\d|20\d\d)")
 
 
@@ -565,6 +565,45 @@ def audit(refs_paths, bib_path):
     return problems
 
 
+def renumber(md):
+    """author's notes and converted ones (1, c1, c2, m1 …) -> 1…N in the order of their markers in the text; the
+    definitions after each paragraph in that order. Translator/editorial labels (t…, r…) are left alone.
+    -> (text, {old: new})"""
+    NOTE_DEF = re.compile(r"^\[\^([^\]\s]+)\]:")
+    lines = md.split("\n")
+    order = []
+    for ln in lines:
+        body = ln if not NOTE_DEF.match(ln) else ln[NOTE_DEF.match(ln).end():]
+        for lab in re.findall(r"\[\^([^\]\s]+)\]", body):
+            if not re.match(r"^[tr]\d", lab) and lab not in order:
+                order.append(lab)
+    mp = {old: str(i) for i, old in enumerate(order, 1)}
+    tok = lambda m: f"[^\x00{mp[m.group(1)]}]" if m.group(1) in mp else m.group(0)
+    out = [re.sub(r"\[\^([^\]\s]+)\]", tok, ln).replace("\x00", "") for ln in lines]
+    # definitions after a paragraph: blocks of "[^n]: …" (+ indented continuation lines) separated by blank lines
+    res, i = [], 0
+    while i < len(out):
+        if NOTE_DEF.match(out[i]):
+            blocks = []
+            while i < len(out) and (NOTE_DEF.match(out[i]) or (not out[i].strip() and i + 1 < len(out)
+                                    and (NOTE_DEF.match(out[i + 1]) or out[i + 1].startswith("    ")))
+                                    or out[i].startswith("    ")):
+                if NOTE_DEF.match(out[i]):
+                    blocks.append([out[i]])
+                elif out[i].strip():
+                    blocks[-1].append(out[i])
+                i += 1
+            key = lambda b: int(NOTE_DEF.match(b[0]).group(1)) if NOTE_DEF.match(b[0]).group(1).isdigit() else 10 ** 6
+            for j, b in enumerate(sorted(blocks, key=key)):
+                if j:
+                    res.append("")
+                res.extend(b)
+            continue
+        res.append(out[i])
+        i += 1
+    return "\n".join(res), mp
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["scan", "audit"])
@@ -577,6 +616,8 @@ def main():
                     help="apply even with UNKNOWN parentheses (left unchanged) after confirming they are not citations")
     ap.add_argument("--allow-unparsed", action="store_true",
                     help="apply even with UNPARSED hits (after checking each one in the report)")
+    ap.add_argument("--renumber", action="store_true",
+                    help="with --apply: notes labelled 1…N in the order of their markers (a frozen source's labels = the printed numbers)")
     a = ap.parse_args()
     if a.cmd == "audit":
         probs = audit(a.refs, a.bib)
@@ -598,6 +639,10 @@ def main():
         if blocking:
             print(f"CITEMAP FAIL {blocking} — not applied (resolve AMBIGUOUS/UNKNOWN/UNPARSED/PAGE-ONLY? first)")
             sys.exit(1)
+        if a.renumber:
+            new, mp = renumber(new)
+            print(f"renumbered: {len(mp)} notes, 1–{len(mp)} in marker order"
+                  + (f" (author's notes: {', '.join(f'{k}→{v}' for k, v in mp.items() if k.isdigit())})" if mp else ""))
         open(a.apply, "w", encoding="utf-8").write(new)
         print(f"written {a.apply}")
     print("CITEMAP OK" if not blocking else f"CITEMAP FAIL {blocking}")

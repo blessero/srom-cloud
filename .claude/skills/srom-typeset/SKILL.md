@@ -57,7 +57,8 @@ explicitly released (`--allow-unknown`, `--allow-unparsed`); a page-only "(s. 21
 work cited just before it and is listed.
 
 **C. Translated article** — the translating is srom-tlumacz's, in its own chat; the contract is
-`references/handoff.md`. Here: 1a/1b → 3 → 4a/4b **in the source language** → `check.py` → hand over
+`references/handoff.md`. Here: 1a/1b → 3 → 4a/4b **in the source language** (4a with `--apply <id>_src.md --renumber`:
+note labels = printed numbers) → `check.py` → hand over
 `<id>_src.md` + refs.json + `<id>_src_front.md` (+ working copy and `build.py --source` proof for you). Back:
 `<id>_pl.md`, `<id>_refs_tlum.json` (the translation's added citations), `<id>_front_pl.md` (Polish title, abstract,
 keywords: header data for the CSV, not built) → working copy → your edits in Word → `docx_in.py` →
