@@ -461,6 +461,11 @@ def printed_numbers(src, tgt):
 # ---------------------------------------------------------------- keyed (literal notes -> [@key] citations)
 LOCATOR_NUM = re.compile(r"\b(?:s|k|l|ark|tabl|p|pp|str|S|Sp|szp|Anm|przyp)\.\s?((?:[ivxlc]+,\s?)*\d+[a-z]?(?:\s?[–-]\s?\d+[a-z]?)?(?:,\s?(?:\d+[a-z]?(?:[–-]\d+)?|[ivxlc]+))*)")   # "s. iv, 358"
 IBID = re.compile(r"(?i)^\W*(ibidem|ibid\.?|tamże|tamze|tenże|taż|idem|eadem)\b")
+IBID_BARE = re.compile(r"\bIbidem\b(?!\**\s*,)")   # the rendered note's bare Ibidem (no page after it), wherever it stands
+# a siglum the author introduces for a work ("hereafter abbreviated as MEW 23", "dalej: AVPRI", "im Folgenden: KrV"):
+# later notes naming it name that work (Kanon § 7: an abbreviation introduced in a note)
+SIGLUM_DEF = re.compile(r"(?i)\b(?:hereafter(?: abbreviated as| cited as| referred to as)?|henceforth|dalej(?: jako)?:?"
+                        r"|im Folgenden(?: zitiert als)?:?|zit\. als)\s+([A-ZÀ-Ž][\w.\- ]{0,20}?\w)(?=\s*[),;.])")
 
 
 def locator_numbers(text):
@@ -495,14 +500,16 @@ def name_forms(ref):
     return out
 
 
-def shortform_numbers(text, refs, keys):
+def shortform_numbers(text, refs, keys, sigla=None):
     """pages in short-form notes without a label, as most English and French journals write them:
     "Hornback, 35–69", "Ndiaye, 2022, 214–31", "M. W., M. A., 45" -> the numbers after the author (and year)
     of a work the keyed note cites. Abbreviated ranges count in full (210–13 = 210–213)."""
     t, found = squeeze(expand_ranges(text)), {}
     years = {str(y[0]) for key in keys for f in ("issued", "original-date")
              for y in ((refs.get(key) or {}).get(f) or {}).get("date-parts", []) if y}
-    for n in {squeeze(x) for key in keys for x in name_forms(refs.get(key) or {})}:   # one author, two works: once
+    forms = {squeeze(x) for key in keys for x in name_forms(refs.get(key) or {})}
+    forms |= {squeeze(sg) for sg, ks in (sigla or {}).items() if set(keys) & ks}      # "MEW 23, 746"
+    for n in forms:                      # one author, two works: once
         for m in re.finditer(re.escape(n) + SHORT_LOC.replace("\\s?", ""), t):
             if m.group(1) in years:
                 continue                 # "Ndiaye, 2021." — the year of a work cited whole, not a page
@@ -514,7 +521,8 @@ def shortform_numbers(text, refs, keys):
 # "(2003): 125–130") or a short title ("Cressy, *Gypsies*, 5–10", "Galletti, “Los Gitanos como Otro,” 121–22"); a
 # volume before it ("5:365", "I:183 … and II:452", "1: iv, 358") is not the page; "103n24" = page 103, note 24
 _CL_ONE = r"(?:(?:[IVX]+|\d+):\s?)?(?:\d+|[ivxlc]+)(?:n\d+)?(?:\s?[–-]\s?\d+)?"
-CHICAGO_LOC = re.compile(r"(?:\)\s?[,:]|\*,|,”)\s?(" + _CL_ONE + r"(?:(?:,\s?|,?\s(?:and|&)\s)" + _CL_ONE + r")*)(?![\d/.]\d)(?!\d)")
+CHICAGO_LOC = re.compile(r"(?:\)\s?[,:]|\*,|,”)\s?(" + _CL_ONE + r"(?:(?:,\s?|,?\s(?:and|&)\s)" + _CL_ONE + r")*)(?![\d/.]\d)(?!\d)"
+                         r"(?!\s?\(\d{4}\))")       # "*Journal*, 7 (2018)": a volume before the year, not a page
 
 
 def chicago_numbers(text):
@@ -556,9 +564,13 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
     if len(on) != len(kn):
         errs.append(f"note count differs: original {len(on)} / keyed {len(kn)} — keying must not add or drop notes")
     prev_keys, prev_loc = [], Counter()
+    sigla = {}                           # siglum -> the keys cited in the note that introduced it
     for i, (o, k) in enumerate(zip(on, kn), 1):
         keys = kkeys[i - 1] if i - 1 < len(kkeys) else []
-        o_loc = locator_numbers(expand_ranges(o)) | shortform_numbers(o, refs, keys) \
+        for m in SIGLUM_DEF.finditer(o):
+            if keys:
+                sigla.setdefault(m.group(1).strip(), set()).update(keys)
+        o_loc = locator_numbers(expand_ranges(o)) | shortform_numbers(o, refs, keys, sigla) \
             | (chicago_numbers(expand_ranges(o)) if keys else Counter())
         lost = o_loc - locator_numbers(expand_ranges(k))
         # a first citation giving the chapter's/article's own range before the page ("S.41-74, hier S.56"): the note
@@ -567,9 +579,11 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
             rng = numbers(expand_ranges((refs.get(key) or {}).get("page", "")))
             if rng and not (rng - lost):
                 lost -= rng
-        if lost and IBID.match(k) and (keys == prev_keys or keys[:1] == prev_keys[-1:]) and not (lost - prev_loc):
+        if lost and IBID_BARE.search(k) and (keys == prev_keys or keys[:1] == prev_keys[-1:]) \
+                and not (lost - prev_loc):
             lost = Counter()             # same work, same page as the note before: a bare Ibidem is right (also
-                                         # opening a note that goes on to cite other works)
+                                         # opening a note that goes on to cite other works, or after a quotation:
+                                         # "Original: „…”, Ibidem.")
         if lost:
             errs.append(f"{lab(i)}: page/folio numbers lost in keying {dict(lost)}\n        original: {o[:160]}\n        rendered: {k[:160]}")
         years = Counter(int(y[0]) for key in keys for f in ("issued", "original-date")
@@ -578,8 +592,10 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
         # short form: its number goes with it
         xref = Counter(int(n) for n in re.findall(r"(?i)\b(?:wie Anm(?:erkung|\.)|see note|cf\. note|zob\. przyp\.)\s?(\d+)", o))
         # what the bibliography prints, not the note: DOI, URL, an article's or chapter's own range
-        bib_only = Counter({n: 99 for key in keys for f in ("DOI", "URL", "page")
+        # (and the series number, kept in refs.json: printing series is D18 A4), and the digits of a siglum ("MEW 23")
+        bib_only = Counter({n: 99 for key in keys for f in ("DOI", "URL", "page", "collection-number")
                             for n in numbers(expand_ranges(str((refs.get(key) or {}).get(f, ""))))})
+        bib_only += Counter({n: 99 for sg, ks in sigla.items() if set(keys) & ks and sg in o for n in numbers(sg)})
         other = numbers(expand_ranges(o)) - numbers(expand_ranges(k)) - o_loc - Counter({y: 99 for y in years}) - xref - bib_only
         if other:
             warns.append(f"{lab(i)}: other numbers not in rendering {dict(other)}: {o[:100]}")
@@ -599,7 +615,8 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
                 if names and not any(fold_txt(n) in fo or fold_txt(n)[:max(4, len(n) - 3)] in fo or squeeze(n) in so
                                      for n in names if n):
                     ttl = fold_txt((r.get("title-short") or r.get("title") or "")[:18].rstrip("…"))
-                    if not (len(ttl) >= 8 and ttl in fo):
+                    sig = any(key in ks and re.search(r"(?<!\w)" + re.escape(sg) + r"(?!\w)", o) for sg, ks in sigla.items())
+                    if not (len(ttl) >= 8 and ttl in fo) and not sig:
                         errs.append(f"{lab(i)}: @{key} ({', '.join(names)}) — neither author nor title found in the original note: {o[:120]}")
         prev_keys = keys or prev_keys
         prev_loc = o_loc if keys else prev_loc

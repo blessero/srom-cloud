@@ -280,5 +280,43 @@ t("keyed Chicago: note number of '103n24' dropped -> ERROR", c == 1 and "24" in 
 c, o = runc(CO, w("chi_k4.md", CK.replace("@galletti2021, s. 121–122", "@galletti2021, s. 121")))
 t("keyed Chicago: page after a quoted short title ('…Otro,” 121–22') cut -> ERROR", c == 1 and "122" in o, o)
 
+# On_Culture (stage-1 test 5, Tittel): an Ibidem after a quotation ("Original: „…”, Ibidem.") on the same page as the
+# note before; the author's siglum ("hereafter abbreviated as MEW 23") naming the work in later notes, its page a
+# locator; a journal volume after a comma before the year ("*CTK*, 7 (2018)") is not a page; a series number
+# (collection-number, kept in refs.json) not warned
+TREFS = w("onc_refs.json", json.dumps([
+    {"id": "marx1962", "type": "book", "author": [{"family": "Marx", "given": "Karl"}], "title": "Das Kapital", "publisher": "Dietz",
+     "publisher-place": "Berlin", "collection-title": "Werke", "collection-number": "23", "issued": {"date-parts": [[1962]]}},
+    {"id": "zeller1842", "type": "book", "author": [{"family": "Zeller", "given": "G. H."}], "title": "Sammlung der Gesetze",
+     "publisher": "Fues", "publisher-place": "Tübingen", "collection-title": "Sammlung", "collection-number": "13",
+     "issued": {"date-parts": [[1842]]}},
+    {"id": "zhav2018", "type": "article-journal", "author": [{"family": "Zhavoronkov", "given": "Alexey"}], "title": "The Concept of Race",
+     "container-title": "CTK", "volume": "7", "page": "275–292", "issued": {"date-parts": [[2018]]}}], ensure_ascii=False))
+OO = w("onc_o.md", "A[^1] b[^2] c[^3] d[^4] e[^5] f[^6].\n\n"
+       "[^1]: Karl Marx, *Das Kapital*. Werke 23 (Berlin: Dietz, 1962), 743 (hereafter abbreviated as MEW 23).\n\n"
+       "[^2]: MEW 23, 746.\n\n"
+       "[^3]: G. H. Zeller, *Sammlung der Gesetze*. Sammlung Bd. 13 (Tübingen: Fues, 1842), 822.\n\n"
+       "[^4]: Original: “gänzlicher Ausrottung,” Zeller, *Sammlung Bd. 13*, 823.\n\n"
+       "[^5]: Original: “todt geschossen,” Zeller, *Sammlung Bd. 13*, 823.\n\n"
+       "[^6]: Alexey Zhavoronkov, “The Concept of Race,” in *CTK*, 7 (2018), 275–292.\n")
+OK_ = ("A[^1] b[^2] c[^3] d[^4] e[^5] f[^6].\n\n[^1]: [@marx1962, s. 743] (hereafter abbreviated as MEW 23).\n\n"
+       "[^2]: [@marx1962, s. 746].\n\n[^3]: [@zeller1842, s. 822].\n\n"
+       "[^4]: Original: “gänzlicher Ausrottung,” [@zeller1842, s. 823].\n\n"
+       "[^5]: Original: “todt geschossen,” [@zeller1842, s. 823].\n\n[^6]: [@zhav2018].\n")
+def runo(o, k):
+    r = subprocess.run([sys.executable, CHECK, "--keyed", o, k, "--refs", TREFS], capture_output=True, text=True)
+    return r.returncode, r.stdout + r.stderr
+c, o = runo(OO, w("onc_k.md", OK_))
+t("keyed: Ibidem after a quotation (same page), a siglum introduced by the author (MEW 23), a volume before the year, "
+  "series numbers -> CHECK OK, no warnings", c == 0 and "CHECK OK" in o and "WARN" not in o, o)
+c, o = runo(OO, w("onc_k1.md", OK_.replace("[@marx1962, s. 746]", "[@marx1962, s. 747]")))
+t("keyed: the page after the siglum changed (MEW 23, 746 -> s. 747) -> ERROR", c == 1 and "746" in o, o)
+c, o = runo(OO, w("onc_k2.md", OK_.replace("[^2]: [@marx1962, s. 746]", "[^2]: [@zeller1842, s. 746]")))
+t("keyed: the siglum's note keyed to another work -> ERROR", c == 1 and "@zeller1842" in o, o)
+c, o = runo(OO, w("onc_k3.md", OK_.replace("todt geschossen,” [@zeller1842, s. 823]", "todt geschossen,” [@zeller1842, s. 824]")))
+t("keyed: after a quotation, a different page (not the bare Ibidem) -> ERROR", c == 1 and "823" in o, o)
+c, o = runo(w("onc_o4.md", open(OO, encoding="utf-8").read().replace("823.\n\n[^5]", "822.\n\n[^5]")), w("onc_k4.md", OK_))
+t("keyed: Ibidem after a quotation where the note before cites another page -> ERROR", c == 1 and "823" in o, o)
+
 n, ok = len(results), sum(results)
 print(f"CHECK ALL PASS {n}/{n}" if ok == n else f"CHECK FAILED {n - ok}/{n}")
