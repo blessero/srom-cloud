@@ -20,6 +20,7 @@ What it recovers, and how:
                      a space set in the marker's size before a marker is dropped
   endnotes           no heading needed: pages set wholly at the note size are notes; their top line continues a note
   control chars      U+0007 (InDesign indent-to-here) and other C0 codes removed, tabs -> spaces; soft hyphens removed
+  unmapped glyphs    U+FFFD printed exactly over mapped text (overprint) dropped, listed; any other -> issue
   front matter       page 1 above the first text line (title in larger type, author, abstract) -> <out>_front.md,
                      not the text (SROM-MD has no header; Kanon § 13.3); with an "Abstract"/"Keywords" heading in
                      the first pages, everything up to the next heading (title/bio page, keywords box in a column)
@@ -65,6 +66,7 @@ KEEP_HYPHEN_PREFIXES = {"self", "non", "anti", "post", "pre", "co", "well", "cro
 CAPTION_RX = re.compile(r"^\**(?:(Figure|Fig\.|Plate|Illustration|Rycina|Ryc\.|Ilustracja|Fot\.|Abb\.|Abbildung)|(Table|Tabela|Tab\.|Tabelle))\**\s*\d+[.:]")
 LINKS = set()       # URI targets of the PDF's link annotations: what a click opens, the authority for URL text
 VOCAB = set()       # words (lowercase, hyphenated ones too) that occur inside lines of the document being read
+UNMAPPED = []       # (page, overprinted glyphs dropped, unmapped glyphs kept, span text)
 SLASH = {True: Counter(), False: Counter()}   # italic?/roman -> in-line "word/ word" (spaced) vs "word/word" (closed)
 # a hyphen at a line end before one of these is a suspended hyphen (Diebs- und Räuberbanden, pre- and post-war): kept, with the space
 CONJ_RX = re.compile(r"(?i)(und|oder|bzw\.?|sowie|bis|noch|als|wie|and|or|nor|to|i|lub|albo|oraz|czy|ani|et|ou)\b")
@@ -112,10 +114,21 @@ def clean_text(text):
 def page_lines(page, W):
     raw = []
     d = page.get_text("rawdict", flags=TEXT_FLAGS)
+    # a glyph without a Unicode mapping (U+FFFD) printed exactly over a mapped one is an overprint (a word set twice,
+    # e.g. for a bolder look): dropped. Any other U+FFFD stays in the text and is an issue (UNMAPPED)
+    mapped = {(round(c["bbox"][0]), round(c["origin"][1])) for b in d["blocks"] for l in b.get("lines", [])
+              for sp in l["spans"] for c in sp.get("chars", []) if c["c"] != "\ufffd" and c["c"].strip()}
     for b in d["blocks"]:
         for l in b.get("lines", []):
             for sp in l["spans"]:
                 chars = sp.get("chars", [])
+                bad = [c for c in chars if c["c"] == "\ufffd"]
+                if bad:
+                    over = [c for c in bad if (round(c["bbox"][0]), round(c["origin"][1])) in mapped]
+                    chars = [c for c in chars if c not in over]
+                    full = "".join(c["c"] for c in sp.get("chars", []))
+                    k = full.index("\ufffd")
+                    UNMAPPED.append((page.number + 1, len(over), len(bad) - len(over), full[max(0, k - 30):k + 30]))
                 clean, tab = clean_text("".join(c["c"] for c in chars))
                 if not clean:
                     continue
@@ -928,6 +941,14 @@ def main():
         warns.append(f"images on pages {img_pages}: not extracted (figures are placed by hand); captions -> ::: podpis")
     if n_verse:
         warns.append(f"{n_verse} verse quotation(s): line breaks kept (> …\\) — check where each begins and ends")
+
+    for pno, over, kept, ctx in UNMAPPED:
+        if over:
+            warns.append(f"page {pno}: {over} glyph(s) without a Unicode mapping printed over the same text "
+                         f"(overprint) dropped: {ctx!r}")
+        if kept:
+            issues.append(f"page {pno}: {kept} glyph(s) without a Unicode mapping (U+FFFD) in {ctx!r} — "
+                          "read the PDF there and type the text")
 
     # ---------- integrity
     start = title_n + 1 if title_n == 1 else 1

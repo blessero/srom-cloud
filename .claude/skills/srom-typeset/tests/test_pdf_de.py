@@ -83,6 +83,7 @@ put(p1, 44, 64, "Anna Beispiel", fs=12)
 x = put(p1, 72, 82, "Fahrende im Reichshof", fs=12)
 put(p1, x, 82 - 4.5, "1", fs=7)
 put(p1, 72, 142, "Das Klischee", "bo")
+put(p1, 72, 142, "\x07", "bo")               # an unmapped glyph printed over the "D" (overprint): dropped
 y = 166
 for _ in range(3):
     put(p1, 72, y, words_to(0.95 * MEAS)); y += LEAD
@@ -239,5 +240,16 @@ t("endnotes without a heading parsed; note continued at the top of the next note
   and defs.get("5", "").startswith("VLA, HoA 103,25"), defs)
 t("raised edition number inside a note -> superscript digit, not a marker: 'Neustadt an der Aisch ²1990'",
   defs.get("3", "").endswith("Neustadt an der Aisch ²1990, S.268."), defs.get("3"))
+t("unmapped glyph printed over mapped text (overprint) dropped and listed", "# Das Klischee" in md
+  and "\ufffd" not in md and "(overprint) dropped" in rep, (md[:200], rep[-800:]))
+d2 = pymupdf.open(); q2 = d2.new_page(width=W, height=H)
+q2.insert_font(fontname="rg", fontbuffer=FB["rg"].buffer)
+for i in range(6):
+    q2.insert_text((72, 132 + 12 * i), "Zeile mit Text " + ("\x07 und mehr" if i == 2 else "und mehr"), fontname="rg", fontsize=BS)
+d2.save(os.path.join(tmp, "u.pdf"))
+r2 = subprocess.run([sys.executable, EX, os.path.join(tmp, "u.pdf"), "-o", os.path.join(tmp, "u.md")], capture_output=True, text=True)
+rep2 = open(os.path.join(tmp, "u_extract.md"), encoding="utf-8").read()
+t("an unmapped glyph not over other text: kept in the text, an issue", "EXTRACT CHECK" in r2.stdout
+  and "without a Unicode mapping (U+FFFD)" in rep2 and "\ufffd" in open(os.path.join(tmp, "u.md"), encoding="utf-8").read(), rep2)
 n = len(res); ok = sum(res)
 print(f"PDF-DE ALL PASS {n}/{n}" if ok == n else f"PDF-DE FAILED {n - ok}/{n}")
