@@ -324,3 +324,38 @@ kartoteka go through `_handoffs/`, like the Kanon.
 - May still change after MB: B-items (refs.json fields only; tokens and keys stay — except B3, note 26, where the key
   `poisson1900` stays and gains an author), A2 (places/publishers filled in refs.json), A3 (how an edition's editor
   prints). Any change comes as a new T-item with new sha256.
+
+## T20 — [Tittel] source ready: "Racial and Social Dimensions of Antiziganism" (On_Culture 10, 2020) (28.09.2026 21:09)
+
+- 28.09.2026 21:09 status: ready for you — please confirm receipt with a status line; queries go in an E-item. Rights are no
+  obstacle: the journal is CC BY 4.0, the author keeps copyright (MB to confirm the licence on the repository record,
+  `MB-decisions.md` D20 A2); the translation note follows the Kanon § 12.2.3 formula for CC BY 4.0. Nothing in D20 blocks
+  the translation.
+- Files (read-only for you; `srom-typeset/work/tittel/`, git-ignored), sha256:
+  `tittel_src.md` 0a366130…ac36a43 (text, 5 sections, the title note + 100 notes: 97 keyed, 25 of them partly literal;
+  3 literal), `refs.json` d83fe96e…035c459 (63 works, typed from the notes: no bibliography in the original),
+  `tittel_src_front.md` 81522b81…c42c891 (title, author, affiliation, the journal line with URN — **no DOI** —, the
+  English abstract and 6 keywords: you draft the Polish ones, Kanon § 12.2.2). For reference: `build/tittel_src_korekta.docx`
+  (the Polish apparatus as it will print), `tittel_queries.md` (MB's points, verified slips, questions to the author).
+- **Note numbers: labels 1–100 = the numbers SROM prints; the original's note = label + 1.** The original's note 1 (the
+  author's acknowledgements, called from the first sentence) is the `::: przypis-tytulowy` block at the top (Kanon § 7.1;
+  D20 A1, provisional): your translation note goes first in that block, the acknowledgements after it (D12).
+- Checks at hand-off: `check.py --keyed` OK (mutation-tested), `check.py` OK, `--pair` with itself OK, Word round trip
+  identical (bar one comment), every word and number of the PDF in the extraction.
+- Literal notes: 38, 48, 56 (the author's prose). Partly literal: the German originals quoted in 37 and 81–93, 95 ("Original:
+  „…”" + the keyed citation) and the author's "(my translation)" (14, 37, 81, 95); prose around citations in 8, 17, 21–23,
+  26, 41, 47, 49, 64. Lead-ins are already zob./por./zob. też.
+- One comment in the text (DO SPRAWDZENIA, D20 A4): n. 49 "(hereafter abbreviated as MEW 23)" points to nothing once the
+  MEW notes print the short form; MB's recommendation pending — leave the parenthesis out unless MB decides otherwise.
+- Kanon § 12.2.4 a (Polish editions) is yours: quotations from Kant (block quotes in section 2: *Anthropology*,
+  *Determination of the Concept of a Human Race*, *On the Use of Teleological Principles*; short ones from *Of the
+  Different Races* and *Religion within the Boundaries*), Marx (*Capital* I, *Grundrisse*, *German Ideology*),
+  Horkheimer/Adorno; the English statutes (1494, 1530, 1554, 1562) and the Württemberg edicts (German originals in the
+  notes, the author's English in the text) — § 12.2.4 on translating from the original.
+- Group names: the author writes “gypsy/gypsies” in scare quotes, lower case, throughout (the term under discussion), and
+  Sinti, Roma; *Egyptians* (italic, the English acts) = early-modern „Egipcjanie” (D13, kartoteka); *Zigeuner*, *Zigeiner*
+  in German titles and quotations; "Porrajmos" (text, section 5); "vagabonds", "vagrants". The form of the scare-quoted
+  “gypsy” in Polish (Cygan/cygański in quotation marks? lower case?) is yours to settle before delivery (§ 12.2.6), via E.
+- May still change after MB: D20 A1 (title note — labels would go back to the original's 1–101), A3 (Ruch's university in
+  refs.json), A6 (places with slashes, sections of the bibliography), B-items (refs.json fields only; tokens and keys stay).
+  Any change comes as a new T-item with new sha256.

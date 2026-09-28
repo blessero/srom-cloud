@@ -9,7 +9,7 @@ Rules:
   concern no single text go under `## Journal-wide` or `## Tooling and workflow`. An item about two texts goes in
   each text's section as a one-line pointer to the full item. Remove a text's section when it is empty.
 - New item: `### D<n> — <subject> (dd.mm.yyyy HH:MM, <module>)`, then the question, the options, the module's
-  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D20**.
+  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D21**.
 - A partial answer (item still open) is a new line under the item: `- dd.mm.yyyy HH:MM DECIDED: … (MB)`.
 - Times (from 28.09.2026 16:45) are local time from the machine clock (`date '+%d.%m.%Y %H:%M'`); older entries
   keep their date only.
@@ -20,6 +20,8 @@ Rules:
 - **Scheffknecht:** D18 — German stage-1 test.
 - **Ostendorf:** D19 — A1 (rights: CUP, not open access) decides whether the translation starts; the rest blocks
   typesetting only.
+- **Tittel:** D20 — nothing blocks the translation (CC BY 4.0); A1 (acknowledgements as the title note) and A4 (the MEW
+  siglum) touch the source the translator works on.
 
 ## Text: Pahulich — CRS 8/1 (2025)
 Stage 1 done, source with srom-tlumacz (T18).
@@ -87,6 +89,34 @@ Source frozen in `srom-typeset/work/ostendorf/` and handed to srom-tlumacz (T19)
   "Braumuller University"; "de Litoral"; "Notes and Documents:"): kept as written; "approve B" = all proposals.
 - D1–D5 questions to the author: 1747 vs 1745 and whose journey (Moreno Alonso, text vs note 25); Penn 1686 vs 1683
   (note 35); Fotta's print pages; Urlsperger "erster" vs vol. 3; Tucker's volume.
+
+## Text: Tittel — On_Culture 10 (2020)
+Stage 1 done, source with srom-tlumacz (T20).
+
+### D20 — Tittel, "Racial and Social Dimensions of Antiziganism" (On_Culture 10, 2020), stage 1: open points (28.09.2026 21:09, srom-typeset)
+Source frozen in `srom-typeset/work/tittel/` and handed to srom-tlumacz (T20). Detail, evidence and proposals:
+`srom-typeset/work/tittel/tittel_queries.md` (A–D).
+- A1 the author's note 1 (acknowledgements only, called from the first sentence) set as the **note on the title** (Kanon
+  § 7.1), notes renumbered 1–100 (original 2–101). Recommendation: approve (done provisionally, one line to undo).
+- A2 **rights: CC BY 4.0**, author keeps copyright (the journal's page; the PDF has no licence; the repository record is
+  behind a bot check — please confirm once in a browser: URN urn:nbn:de:hebis:26-opus-160255). No DOI (URN). Recommendation:
+  proceed; courtesy notice to the author. Blocks nothing.
+- A3 one gap: Ruch 1986 (unpublished dissertation, "Freiburg", university not named) → `[BRAK WYDAWCY]`. Catalogue step
+  (D18 A3 / D19 A2) or the author.
+- A4 the author's siglum "MEW 23" ("hereafter abbreviated as"): the notes print the Kanon short form; recommendation: the
+  translation leaves out the parenthesis. Alternative: a siglum rule in the Kanon. The MEW series number is not printed
+  until D18 A4 (series).
+- A5 Kant's Akademie-Ausgabe references ("s. 420 / AA VII 324–325") kept as the author gives them; no Kanon line for
+  standard-edition references. Recommendation: keep; a Kanon line later.
+- A6 journal-wide gaps: (a) several places "Köln/Weimar/Wien" (slashes as written; Polish practice: en dash); (b) "Zob.
+  *Ibidem*" with a capital after a lead-in (also Ndiaye 2×); (c) statutes and law collections put in "Źródła drukowane i
+  prawne" — also Kant, Marx, Grellmann (18th–19th-c. sources)?; (d) series → D18 A4; (e) "van" → D18 A5 / D19 A4.
+- B1–B10 slips in the author's data, most verified (Larrimore's journal is the Supplementary Volume; *Philosophers on Race*
+  is Blackwell, not OUP; *Kant-Studien*; "Berliner" vs *Berlinische Monatsschrift*; Zöller, and the volume dated 2007 not
+  2010; Strauß/Strauss; Mayall's imprint; Decker's co-authors added, verified): kept as written; "approve B" = all proposals.
+  Also: four DOIs the author does not give — add? (C).
+- D1–D3 questions to the author: Ruch's university; the Kant volume's year; "Berliner Monatsschrift".
+- The Geulen lecture (n. 31): its date could not be read by script (bot check) — please look once (Kanon § 8.6).
 
 ## Journal-wide (policy, not tied to one text)
 
