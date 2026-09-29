@@ -9,14 +9,15 @@ Rules:
   concern no single text go under `## Journal-wide` or `## Tooling and workflow`. An item about two texts goes in
   each text's section as a one-line pointer to the full item. Remove a text's section when it is empty.
 - New item: `### D<n> — <subject> (dd.mm.yyyy HH:MM, <module>)`, then the question, the options, the module's
-  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D23**.
+  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D24**.
 - A partial answer (item still open) is a new line under the item: `- dd.mm.yyyy HH:MM DECIDED: … (MB)`.
 - Times (from 28.09.2026 16:45) are local time from the machine clock (`date '+%d.%m.%Y %H:%M'`); older entries
   keep their date only.
 - `MB-decisions-archive.md` keeps the text of items closed before 27.09.2026; it is not appended to.
 
 ## Needs MB now
-- **Pahulich:** D17 — nothing in it blocks the translation.
+- **Pahulich:** D17 — nothing in it blocks the translation. D23 — the translation is drafted; your choices are collected,
+  none blocks your Word edit (S10 Grellmann is the one real decision).
 - **Scheffknecht:** D18 — German stage-1 test.
 - **Ostendorf:** D19 — A1 (CC BY-NC, as D17 A1) and A2 (14 imprint gaps by hand); nothing blocks the translation.
   D22 — the translation is drafted; your choices are collected, none blocks your Word edit.
@@ -43,6 +44,27 @@ Source frozen and handed to srom-tlumacz (T18); none of this blocks the translat
   confirm.
 - 28.09.2026 DECIDED: E1 (web publication date) — Kanon § 8.6: dated web texts print their publication date, taken
   from the page when missing (MB).
+
+### D23 — Pahulich translation: choices collected for MB (29.09.2026 03:54, srom-tlumacz)
+Draft done without MB's feedback, as MB asked (29.09.2026): `srom-tlumacz/work/pahulich/pahulich_robocza.docx` (Word copy),
+`pahulich_pl.md`. Everything is in the notes sheet `srom-tlumacz/work/pahulich/pahulich_uwagi.md`; nothing blocks editing.
+- Assumed, to confirm: translator credit Michał Bartosz (as Ndiaye). Author's pronouns she/her are from her own bio.
+- **S10 Grellmann** (uwagi § 1): the author quotes the 1807 English edition (Raper, revised); the German original (1787) is
+  available, so Kanon § 12.2.4 c says translate from German — but the English differs where her argument rests on it
+  ("white/black" vs German „schwarz, oder doch gelb”; "incendiaries" absent in German; the p. 108 sentence looks like the
+  English editor's). Recommendation: keep the draft (from the 1807 English), add translator's notes at the two
+  divergences, ask the author about p. 108. Alternative: from German with notes. Affects n. 88–96, 106, 132–135.
+- S1–S7 (uwagi § 1): wording and page of Polish editions — Césaire (Czytelnik 1950), Fraser *Dzieje Cyganów* (PIW 2001, 2
+  quotes), Mróz *Dzieje Cyganów-Romów…* (DiG 2001; the CEU book is its translation), Federici *Kaliban i czarownica*
+  (Karakter 2025, 3 quotes). Only MB can look these up. S8 (Dal), S9 (Thomasius): originals not found; flagged.
+- Terms (uwagi § 3), OPEN: antyczarność; uinnienie; Wynter's *Man* „Człowiek” / *the Human* „człowieczeństwo”;
+  „splątanie imperiów” (title); „podmiot przynoszący zysk” (translator's note on *subject*); grodzenia; osiedlanie (not
+  sedentaryzacja); „Związek Sowiecki”; „Lithuania/Litva” → „Wielkie Księstwo Litewskie” (Polish „Litwa” already is *Litva*).
+  Recommendation: as drafted; termbase rows after MB's word.
+- Abstract: 1322 characters; a shortened version (~960) is proposed in uwagi § 2 (Kanon § 12.2.2).
+- Doubts in the source, to the author (uwagi § 4; `pahulich_pytania_tlum.csv`): "Austro-Hungarian" Maria Theresa and
+  Joseph II; Royal Habsburg Hungary "in the fifteenth century"; Ghica "early nineteenth century"; Dal' "1848"; Przyłuski
+  1553 (BN: 1551); Münster 1544. Plus stage 1's D17 D1–D2.
 
 ## Text: Scheffknecht — Neujahrsblätter Lustenau 1 (2010)
 Stage 1 done (German test), not handed to srom-tlumacz.
