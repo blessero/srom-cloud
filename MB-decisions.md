@@ -163,6 +163,7 @@ Draft done without MB's feedback, as MB asked (29.09.2026): `srom-tlumacz/work/o
   else's published English translation — the Kanon has no such formula. Recommendation: accept; a Kanon line via E17.
   Also: search further originals (Anchieta, Pasqualigo, Schmidl, Bolzius, Elvas)? Recommendation: yes for Schmidl and
   Bolzius (German prints are digitised), no for the rest.
+- 29.09.2026 03:55 DECIDED: search Schmidl and Bolzius (MB). Done: both translated from the originals (Bolzius: Urlsperger, 18. Continuation, 1752, pp. 979–980, which also answers stage-1 D4 → E18; Schmidl: the Spanish of the cited 1938 edition, checked against the Munich manuscript).
 - Doubts in the source, to the author (uwagi § 5; `ostendorf_pytania_tlum.csv`): Paucke "Polish Jesuit" (born in Winzig /
   Wińsko, Silesia); Moqoit "in today's Paraguay" (San Javier, Santa Fe, Argentina); Loskiel's German ≠ author's English;
   "typographies", "crows". With stage 1's B1–B11 and D1–D5 (D19, T21), which MB asked to be reminded of now.
