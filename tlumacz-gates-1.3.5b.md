@@ -20,6 +20,7 @@ Declared approach:
 - [x] G1: all training texts registered (key → file) and hashed; hashes match
   CHECK: cd training && shasum -a 256 -c manifest.sha256 | grep -c ': OK$'
   EXPECT: /^10$/m
+  NOTE 29.09.2026: MB removed the Kubica DOCX from `training/` (its pandoc conversion, the text of record, stays) and added Urbanek (leaf 1.3.5c); a re-run still gives 10, over a different set. Gate closed as of 28.09.2026.
 
 - [x] G2: termbase checks green, every training quote found
   CHECK: ~/.venvs/srom/bin/python tlumacz-check_tb.py --schema --shape --vocab --precedent --evidence

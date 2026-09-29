@@ -1,4 +1,4 @@
-# Register: race, racialisation and their surroundings (srom-tlumacz, leaves 1.3.5, 1.3.5b)
+# Register: race, racialisation and their surroundings (srom-tlumacz, leaves 1.3.5, 1.3.5b, 1.3.5c)
 
 Started 28.09.2026 19:14, rebuilt 28.09.2026 20:23 [general]. A reference for translating EN texts on race and the
 racialisation of Roma, and the material around them (Iberian, Atlantic, Russian-imperial, Polish 17th–20th c.).
@@ -24,6 +24,7 @@ evidence.
 | malczynski_mincer | same issue, editorial | „uchodzenie za” (passing) |
 | kubica | chapter (WUJ 2015), race in the history of anthropology | period anthropology terms; Polish editions of classics |
 | rys | online essay (2023), glossary of class racism and related terms | protorasizm vs rasizm klasowy; dehumanisation terms |
+| urbanek | review (2004) of M. Gawin, *Rasa i nowoczesność* (2003), eugenics in Poland 1880–1952 | eugenics vocabulary (B10) |
 
 "WK" marks my working knowledge, **not** from the corpus. It is a starting point to check when a text needs it,
 never a citation.
@@ -191,6 +192,21 @@ treat them in the three voices (§ 0). The decision is always made per passage.
 - **Voices:**
   - These are the actors' categories: in voice 3 keep the author's quotation marks.
   - *miscegenation* (a US period legal term): no row. WK: „związki / małżeństwa międzyrasowe”; in voice 1 „mieszanie ras”; laws → „zakazy małżeństw międzyrasowych”.
+
+### B10 Eugenics and "race hygiene" (1880s–1950s)
+- **Corpus** (a review of M. Gawin, *Rasa i nowoczesność. Historia polskiego ruchu eugenicznego (1880–1952)*, 2003):
+  Polish eugenics defined itself as „ochrony rasy” [urbanek] through broad prevention, and eugenics as the science of
+  „doskonaleniu ludzkiej rasy” [urbanek]. Period slogans include the fight against „truciznami rasy” [urbanek]
+  (cf. German *Rassengifte*: alcohol, venereal disease). Gawin's own terms: „stylu eugenicznego myślenia” [urbanek] and
+  „przyzwolenie na eugeniczną selekcję społeczeństwa” [urbanek]. Other terms: „darwinizmu społecznego” [urbanek];
+  „inżynierii społecznej” [urbanek]; the journal „Zagadnienia Rasy” (1918–1927, a title: italic in running text, not a
+  term); the Nazi „T4” action [urbanek]. See also *Rassenkunde* (§ A) and Krzywicki's „pielęgnowanie eugenistycznych
+  pierwiastków” [kubica].
+- **Voices:** the period term in voices 1 and 2 („rasa” here means a population's hereditary stock, not a colour
+  line). WK: EN *racial hygiene* (German *Rassenhygiene*) → „higiena rasowa” / „higiena rasy”; per passage, italic
+  German where the author keeps it.
+- **Reading:** Gawin's monograph is the Polish standard on the subject (reviewer's assessment, with reservations about
+  its reliance on „Zagadnienia Rasy”).
 
 ## C. US figures and stereotypes
 
