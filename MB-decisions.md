@@ -175,6 +175,7 @@ Source frozen in `srom-typeset/work/tittel/` and handed to srom-tlumacz (T20). D
 - The Geulen lecture (n. 31): its date could not be read by script (bot check) — please look once (Kanon § 8.6).
 
 ### D25 — Tittel translation: choices collected for MB (29.09.2026 04:40, srom-tlumacz)
+(Time correction 29.09.2026 17:47, srom-tlumacz: written before 04:32:55, when it was committed; „04:40” was not read from the clock.)
 Preliminary translation done at MB's request ("decisions later"): `srom-tlumacz/work/tittel/tittel_robocza.docx` (Word,
 for your edit), `tittel_pl.md`, notes sheet `tittel_uwagi.md` (S1–S12 and choices, detail there), query sheet
 `tittel_pytania_tlum.csv` (26 rows). Assumed until you decide: translator MB; she/her (the author's bio). None blocks
