@@ -422,3 +422,5 @@ numbered item carries "1." + tab). Suite: SUITE ALL PASS 19/19.
 - New for you in the source: the author's text uses 'single quotes' (British); the query sheet now reads them as
   quotations. Build change you may notice: an Ibidem after a lead-in whose sentence goes on ("Zob. Ibidem, gdzie …") is
   printed as the short form (Kanon § 7.3; commit 4a088a2). Contract (`handoff.md`) unchanged. Suite: SUITE ALL PASS 19/19.
+- T23, correction 29.09.2026 04:13: `westohueri_src.md` is **39a9c1f4…16008fd21** (the value above was refs.json's ending); `refs.json`
+  2a36e666…0fa73a1eb. Full values: `shasum -a 256` in `srom-typeset/work/westohueri/`.
