@@ -5,15 +5,15 @@ r"""mb_view.py: render SROM working notes (Markdown) for MB, in the look of the 
   mb_view.py --text PAH                  one page per text: its open questions (MB-decisions.md) followed by
                                          both notes sheets (stage 1 srom-typeset, stage 2 srom-tlumacz)
   mb_view.py --all                       MB-decisions.md
-  options: --docx (also a Word file)  --open (open the result)  --out <dir> (default: <root>/_widok)
+  options: --open (open the result)  --out <dir> (default: <root>/_widok)
 
 Output: self-contained HTML (Anthropic Serif/Mono from the installed Claude app, embedded; Georgia if the app is
 missing), light and dark like the app. Files MB must open, written `🔴 \`path\`` in the Markdown, become red links
 (#ea3d39) to the file. Question IDs (PAH-3, GEN-1, ...) become links to their heading. Local files only: the
 embedded fonts are the app's and must not be published.
-Needs pandoc; --docx also python-docx (use ~/.venvs/srom/bin/python).
+Needs pandoc.
 """
-import argparse, base64, colorsys, datetime, glob, html, os, re, shutil, subprocess, sys, tempfile
+import argparse, base64, datetime, glob, html, os, re, shutil, subprocess, sys, tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]          # "SROM edit and trans"
@@ -260,83 +260,12 @@ def to_html(md, title, src_label):
             f"<div class=\"meta\">{html.escape(src_label)} · rendered {now()}</div>{r.stdout}</main></body></html>")
 
 
-# ---------------------------------------------------------------- Word
-def hexcol(h, s, l):
-    r, g, b = colorsys.hls_to_rgb(h / 360, l / 100, s / 100)
-    return "%02X%02X%02X" % (round(r * 255), round(g * 255), round(b * 255))
-
-
-def reference_docx(path):
-    from docx import Document
-    from docx.shared import Pt, RGBColor
-    from docx.oxml.ns import qn
-    subprocess.run(["pandoc", "-o", str(path), "--print-default-data-file", "reference.docx"], check=True)
-    d = Document(str(path))
-    t1, t2 = RGBColor.from_string(hexcol(0, 0, 7.45)), RGBColor.from_string(hexcol(60, 2.75, 21.37))
-
-    def font(st, name, size=None, color=t1, bold=None):
-        st.font.name = name
-        rpr = st.element.get_or_add_rPr()
-        rf = rpr.find(qn("w:rFonts"))
-        for k in ("w:ascii", "w:hAnsi", "w:cs", "w:eastAsia"):
-            rf.set(qn(k), name)
-        for k in ("w:asciiTheme", "w:hAnsiTheme", "w:cstheme", "w:eastAsiaTheme"):
-            rf.attrib.pop(qn(k), None)
-        if size:
-            st.font.size = Pt(size)
-        if color is not None:
-            st.font.color.rgb = color
-        if bold is not None:
-            st.font.bold = bold
-    names = {s.name: s for s in d.styles}
-    for n in ("Normal", "Body Text", "First Paragraph", "Compact", "Footnote Text", "Table", "Definition", "Abstract"):
-        if n in names:
-            font(names[n], "Anthropic Serif", 11 if n != "Footnote Text" else 9)
-    for n, size in (("Title", 20), ("Subtitle", 14), ("Heading 1", 18), ("Heading 2", 15), ("Heading 3", 13),
-                    ("Heading 4", 11.5), ("Heading 5", 11)):
-        if n in names:
-            font(names[n], "Anthropic Serif", size, t1, True)
-            names[n].font.italic = False
-    if "Block Text" in names:
-        font(names["Block Text"], "Anthropic Serif", 11, t2)
-    if "Verbatim Char" in names:
-        font(names["Verbatim Char"], "Anthropic Mono", 9.5, RGBColor.from_string(hexcol(0, 57.78, 35.29)))
-    if "Hyperlink" in names:
-        names["Hyperlink"].font.color.rgb = RGBColor.from_string(RED[1:].upper())
-    d.save(str(path))
-
-
-def page_background(docx_path):
-    """Ivory page like the app (Word: Design > Page Color); Word shows it on screen, prints white."""
-    from docx import Document
-    from docx.oxml import OxmlElement
-    from docx.oxml.ns import qn
-    d = Document(str(docx_path))
-    bg = OxmlElement("w:background")
-    bg.set(qn("w:color"), hexcol(60, 14.29, 97.25))
-    d.element.insert(0, bg)
-    st = d.settings.element
-    if st.find(qn("w:displayBackgroundShape")) is None:
-        st.insert(0, OxmlElement("w:displayBackgroundShape"))
-    d.save(str(docx_path))
-
-
-def to_docx(md, out, outdir):
-    ref = outdir / ".reference.docx"
-    if not ref.exists():
-        reference_docx(ref)
-    subprocess.run(["pandoc", "-f", "commonmark_x-fancy_lists", "-t", "docx", "--reference-doc", str(ref), "-o", str(out)],
-                   input=md, text=True, check=True)
-    page_background(out)
-
-
 # ---------------------------------------------------------------- main
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("files", nargs="*")
     ap.add_argument("--text", action="append", default=[], help="text code from _handoffs/README.md, e.g. PAH")
     ap.add_argument("--all", action="store_true", help="MB-decisions.md")
-    ap.add_argument("--docx", action="store_true")
     ap.add_argument("--open", action="store_true")
     ap.add_argument("--out", default=str(ROOT / "_widok"))
     a = ap.parse_args()
@@ -367,10 +296,6 @@ def main():
         out = outdir / f"{stem}.html"
         out.write_text(to_html(md, title, label), encoding="utf-8")
         print(out)
-        if a.docx:
-            dx = outdir / f"{stem}.docx"
-            to_docx(anchor_ids(md_for("docx"), rx), dx, outdir)
-            print(dx)
     if a.open and jobs:
         subprocess.run(["open", str(outdir / f"{jobs[0][1]}.html")])
 

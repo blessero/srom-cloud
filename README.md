@@ -87,6 +87,5 @@ entries in the handoff files. The author's query sheets stay `*_pytania*`.
 - A file MB has to open (the ledger, a notes sheet, a Word copy to edit, a list to send) is written `` 🔴 `path` `` in
   any Markdown MB reads; the rendered view turns it into a red link (#ea3d39).
 - `~/.venvs/srom/bin/python _handoffs/tools/mb_view.py --all` renders `MB-decisions.md` and one page per text (its
-  questions, then both notes sheets) into `_widok/` at the SROM root; `--text PAH` one text, `<file.md>` any file,
-  `--docx` a Word copy as well. The HTML uses the Claude app's fonts and colours; it is for this Mac only (the fonts are
+  questions, then both notes sheets) into `_widok/` at the SROM root; `--text PAH` one text, `<file.md>` any file. The HTML uses the Claude app's fonts and colours; it is for this Mac only (the fonts are
   embedded: never publish or send the file).
