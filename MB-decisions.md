@@ -9,7 +9,7 @@ Rules:
   concern no single text go under `## Journal-wide` or `## Tooling and workflow`. An item about two texts goes in
   each text's section as a one-line pointer to the full item. Remove a text's section when it is empty.
 - New item: `### D<n> — <subject> (dd.mm.yyyy HH:MM, <module>)`, then the question, the options, the module's
-  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D25**.
+  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D26**.
 - A partial answer (item still open) is a new line under the item: `- dd.mm.yyyy HH:MM DECIDED: … (MB)`.
 - Times (from 28.09.2026 16:45) are local time from the machine clock (`date '+%d.%m.%Y %H:%M'`); older entries
   keep their date only.
@@ -23,7 +23,8 @@ Rules:
   D22 — the translation is drafted; your choices are collected, none blocks your Word edit.
 - **West Ohueri:** D24 — A1: CC BY-NC-ND, permission needed before publication (translation: your call).
 - **Tittel:** D20 — nothing blocks the translation (CC BY 4.0); A1 (acknowledgements as the title note) and A4 (the MEW
-  siglum) touch the source the translator works on.
+  siglum) touch the source the translator works on. D25 — the translation is drafted; your choices are collected, none
+  blocks your Word edit (the form of “gypsy” is the one real decision).
 
 ## Text: Pahulich — CRS 8/1 (2025)
 Stage 1 done, source with srom-tlumacz (T18).
@@ -149,6 +150,26 @@ Source frozen in `srom-typeset/work/tittel/` and handed to srom-tlumacz (T20). D
   Also: four DOIs the author does not give — add? (C).
 - D1–D3 questions to the author: Ruch's university; the Kant volume's year; "Berliner Monatsschrift".
 - The Geulen lecture (n. 31): its date could not be read by script (bot check) — please look once (Kanon § 8.6).
+
+### D25 — Tittel translation: choices collected for MB (29.09.2026 04:40, srom-tlumacz)
+Preliminary translation done at MB's request ("decisions later"): `srom-tlumacz/work/tittel/tittel_robocza.docx` (Word,
+for your edit), `tittel_pl.md`, notes sheet `tittel_uwagi.md` (S1–S12 and choices, detail there), query sheet
+`tittel_pytania_tlum.csv` (26 rows). Assumed until you decide: translator MB; she/her (the author's bio). None blocks
+your Word edit.
+- (a) **The author's “gypsy/gypsies”** (scare quotes, lower case, the category under study): draft „Cygan”, „Cyganie”,
+  „cygański” in quotation marks, capital C (Kanon § 6.1), translator's note at the first use — as in Ostendorf.
+  Alternative: lower case „cyganie” to mark a category, not an ethnonym (departs from the Kanon). Recommendation: as
+  drafted. T20 asked for this to be settled before delivery.
+- (b) **Polish editions to look up (S5–S12)**: Kant — *Antropologia w ujęciu pragmatycznym* (IFiS 2005), UMK *Dzieła
+  zebrane* t. 1, 5, 6; Marx — *Dzieła* t. 3, t. 23, *Zarys krytyki ekonomii politycznej* (1986). The draft has working
+  translations from the German originals; wording and pages come from your copies. Also S1 (licence on the repository
+  page, page range), S2–S4 (Leipzig study wording, Röttgers, Geulen).
+- (c) **"(my translation)" left out** in nn. 37, 81, 95, where the Polish is translated from the German she gives
+  (§ 12.2.8, an omission): accept, or keep „(przekład autorki)”. Recommendation: accept.
+- (d) Terms (`tittel_uwagi.md` § 3): *Indier* → „Indusi”; *vagrancy/vagabondage* → „włóczęgostwo”; Marx's *gang-master*
+  → „przodownik bandy”; „migracja ubóstwa”; Porajmos (the author: "Porrajmos").
+- (e) Four doubts for the author (query sheet): "1870s/-80s" (1770s?), n. 49 MEW p. 743 (the passage is on p. 741), "the
+  Swabian district within Wurttemberg", "until 1962" (1963?).
 
 ### D22 — Ostendorf translation: choices collected for MB (29.09.2026 03:41, srom-tlumacz)
 Draft done without MB's feedback, as MB asked (29.09.2026): `srom-tlumacz/work/ostendorf/ostendorf_robocza.docx` (Word copy),
