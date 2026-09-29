@@ -7,6 +7,7 @@
   --vocab      controlled values in domain / status / pl_standing
   --precedent  every «quote» cited for SRom 18/2025 occurs in the vol. 18 text (whitespace-normalised);
                the cited line is informative only — a moved line is a WARN, a missing quote an error.
+               Rows not yet HOUSE are checked too (`md <art>` quotes; second output line, leaf 1.3.2).
                Two cite forms: `l. N: «…»` (old text extraction) and `md <art>: «…»` (clean text,
                sources/vol18-md/<art>_pl.md, from leaf 1.3.1)
   --evidence   ESTABLISHED rows carry >= 2 sources, or "MB verified dd.mm.yyyy" (MB's own survey);
@@ -135,6 +136,18 @@ def run_checks(a):
             verified += good
         print(f"precedent verified: {verified}/{len(house18)}")
         ok &= bool(house18) and verified == len(house18)
+        # rows not yet HOUSE (CANDIDATE, PROVISIONAL) that cite vol. 18: their quotes must be right before MB promotes them
+        other = [(r["concept_id"], art, q) for r in rows if r["status"] != "HOUSE"
+                 for art, q in re.findall(r"md (\w+): «(.+?)»", r["precedent"])]
+        miss = []
+        for cid, art, q in other:
+            f = os.path.join(os.path.dirname(a.v18_file), "vol18-md", f"{art}_pl.md")
+            if not os.path.exists(f):
+                f = os.path.join(HERE, "sources", "vol18-md", f"{art}_pl.md")
+            if not (os.path.exists(f) and norm(q) in norm(open(f, encoding="utf-8").read())):
+                miss.append(cid); print(f"  {cid}: quote not found in {art}_pl.md: «{q}»")
+        print(f"precedent quotes in rows not yet HOUSE: {len(other) - len(miss)}/{len(other)}")
+        ok &= not miss
 
     if a.evidence:
         est = [r for r in rows if r["pl_standing"] == "ESTABLISHED"]

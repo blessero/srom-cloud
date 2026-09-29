@@ -1,0 +1,26 @@
+id	concept	verdict	ndiaye	ostendorf	pahulich	tittel	westohueri	no listed rendering in
+P01	whiteness	consistent	EN 3 | białość 2	EN 6 | białość 6	EN 2 | białość 2	EN 0 | 	EN 65	
+P02	anti-Blackness	consistent	EN 0 | 	EN 1 | antyczarność 1	EN 7 | antyczarność 7	EN 0 | 	EN 0	
+P03	othering	consistent	EN 1 | uinnienie 1	EN 0 | 	EN 2 | uinnienie 2	EN 0 | 	EN 1	
+P04	anti-Roma	consistent	EN 4 | antyromski 4	EN 0 | 	EN 22 | antyromski 17	EN 0 | 	EN 0	
+P05	antigypsyism	consistent	EN 0 | 	EN 1 | antycyganizm 4	EN 5 | antycyganizm 5	EN 10 | antycyganizm 10	EN 0	
+P06	vagrancy	consistent	EN 11 | włóczęgostwo 9	EN 1 | włóczęgostwo 1	EN 30 | włóczęgostwo 27	EN 49 | włóczęgostwo 47, tułactwo 1	EN 0	
+P07	sedentarization (process)	single	EN 0 | osiadanie/osiedlanie 3	EN 0 | osiadanie/osiedlanie 1	EN 14 | osiadanie/osiedlanie 26	EN 0 | 	EN 0	
+P08	nomadic (adj.)	divergent	EN 1 | koczowniczy 1	EN 0 | wędrowny 3	EN 8 | koczowniczy 3, wędrowny 15	EN 0 | 	EN 0	
+P09	Soviet	single	EN 0 | 	EN 0 | 	EN 10 | sowiecki 8	EN 0 | 	EN 2	
+P10	Indigenous	consistent	EN 2 | rdzenni 2	EN 40 | rdzenni 49, tubylcy 2	EN 2 | rdzenni 2, tubylcy 1	EN 0 | 	EN 0	
+P11	coloniality	consistent	EN 4 | kolonialność 3	EN 0 | 	EN 2 | kolonialność 2	EN 0 | 	EN 1	
+P12	negro (period)	consistent	EN 13 | Murzyn 10	EN 6 | Murzyn 5	EN 4 | Murzyn 4	EN 0 | 	EN 0	
+P13	savage (period)	consistent	EN 1 | dzicy 4	EN 8 | dzicy 4	EN 3 | dzicy 3	EN 0 | dzicy 1	EN 0	
+P14	Egyptians	consistent	EN 18 | Egipcjanie 15	EN 4 | Egipcjanie 5	EN 0 | 	EN 13 | Egipcjanie 13	EN 22	
+P15	enslaved	missing	EN 46 | zniewoleni 44	EN 1 | zniewoleni 1	EN 9 | zniewoleni 9	EN 1 | 	EN 0	tittel
+P16	racial capitalism	consistent	EN 1 | kapitalizm rasowy 1	EN 0 | 	EN 18 | kapitalizm rasowy 19	EN 0 | 	EN 5	
+P17	racial matrix	consistent	EN 3 | matryca rasowa 3	EN 9 | matryca rasowa 8	EN 1 | matryca rasowa 1	EN 0 | 	EN 0	
+P18	passing	single	EN 6 | uchodzenie 9	EN 0 | uchodzenie 3	EN 0 | 	EN 0 | 	EN 0	
+P19	entanglement	divergent	EN 0 | uwikłanie 2	EN 1 | splot 2	EN 8 | splątanie 6, uwikłanie 1	EN 0 | 	EN 0	
+P20	belonging (noun)	single	EN 0 | przynależność 1	EN 1 | przynależność 1	EN 0 | 	EN 0 | 	EN 33	
+P21	Gypsy (author's term)	consistent	EN 25 | Cyganie 38	EN 36 | Cyganie 47	EN 4 | Cyganie 4	EN 89 | Cyganie 93	EN 0	
+P22	white supremacy	consistent	EN 10 | biała supremacja 10	EN 2 | biała supremacja 2	EN 0 | 	EN 0 | 	EN 0	
+P23	Europeanness	consistent	EN 0 | 	EN 2 | europejskość 3	EN 2 | europejskość 2	EN 0 | 	EN 4	
+P24	nomadism	single	EN 0 | 	EN 0 | 	EN 0 | 	EN 1 | nomadyzm 1	EN 0	
+P25	itinerant, peripatetic	divergent	EN 1 | koczowniczy 1	EN 0 | wędrowny 3	EN 4 | wędrowny 15, koczowniczy 3	EN 0 | 	EN 0	

@@ -8,7 +8,7 @@ Leaves closed (ALL MET): 1.1 contracts, 1.2 blind baseline, 1.3.1 vol. 18 preced
 |---|---|
 | `tlumacz-PLAN.md` | tree (leaves 1.1–1.5), file ownership, per-article outputs, interfaces with srom-typeset / srom-kanon / srom-scholarly-curator, pending handoffs, status log |
 | `tlumacz-tb-schema.md` | termbase fields, controlled vocabularies, decision rule (LOCK, FLOOR, RANK-1…4), evidence standard |
-| `tlumacz-tb.tsv` | termbase: 18 HOUSE rows, C-0001–C-0018 (vol. 18 precedent, 1.3.1, Ndiaye); 12 CANDIDATE rows (C-0019, C-0024–C-0028, C-0031, C-0036–C-0040; 1.3.5/1.3.5b, from MB's reading; not binding until MB decides, per text); rows only under schema § Admission (choice / convention / edition / trap), C-0020–C-0023, C-0029, C-0030, C-0032–C-0035 retired |
+| `tlumacz-tb.tsv` | termbase: 18 HOUSE rows, C-0001–C-0018 (vol. 18 precedent, 1.3.1, Ndiaye); 9 PROVISIONAL rows C-0041–C-0049 (1.3.2, vol. 19 drafts, awaiting MB: D26); 12 CANDIDATE rows (C-0019, C-0024–C-0028, C-0031, C-0036–C-0040; 1.3.5/1.3.5b, from MB's reading; not binding until MB decides, per text); rows only under schema § Admission (choice / convention / edition / trap), C-0020–C-0023, C-0029, C-0030, C-0032–C-0035 retired |
 | `tlumacz-rasa.md` | register: race, racialisation and surroundings — how to decide loaded designations per case (three voices: period quotation / author reporting period usage / analytic voice), concepts, clusters B1–B9 (rasa and its period synonyms; Murzyn; Moors/Saracens/Turks; Moskwa/Ruś/Turanie; Aryans; cham/czerń; "savages"; Jews; blood and mixture), Polish editions for quotations, doubts F1–F20. Load it only for texts on race |
 | `training/` | MB's Polish reading corpus: texts git-ignored; `sources.tsv` (keys for `TR <key>: «…»` evidence) and `manifest.sha256` tracked |
 | `tlumacz-decisions.md` | dated log of MB's termbase and house decisions |
@@ -62,7 +62,7 @@ English originals are in `sources/vol18-en/`; MB's Polish DOCX are in `vol18-PL-
 
 ## 6. Pending — MB
 
-Kept in one list for all modules: `../_handoffs/MB-decisions.md` (D5 and D6 (c) concern this module). Not repeated here.
+Kept in one list for all modules: `../_handoffs/MB-decisions.md` (D5 and D26 concern this module as a whole; D22, D23, D25 its drafts). Not repeated here.
 
 ## 7a. Session handover (28.09.2026)
 
@@ -76,7 +76,8 @@ This chat closed at MB's request (context size). Next session: MB brings a secon
 2. Termbase: 18 rows, all HOUSE; C-0012–C-0018 added 28.09.2026 from Ndiaye (D11), ESTABLISHED (MB verified 28.09.2026, `tlumacz-decisions.md`).
 3. Training corpus (1.3.5): MB may add further Polish texts to `training/` (a row in `sources.tsv`, sha256 in the manifest); harvest as CANDIDATE rows + `tlumacz-rasa.md`. Sourcing list closed by MB (28.09.2026, "skip the rest"). CANDIDATE → HOUSE only through an article's queries. Pahulich (T18, racialisation of Roma) and Ostendorf (T19, Iberian: Moors, limpieza de sangre) will use it first.
 4. Incoming T17–T22 answered 29.09.2026 03:42; Pahulich (T18) drafted 29.09.2026 03:54 (leaf 1.5.4): `work/pahulich/pahulich_robocza.docx` for MB, notes sheet `pahulich_uwagi.md` (S1–S10; S10 Grellmann is the one real decision), `pahulich_pytania_tlum.csv` (23), MB items in `MB-decisions.md` D23, E18 to srom-typeset; after MB returns the Word file: `docx_in.py` → `check.py --pair` → `build.py`. Tittel (T20) drafted 29.09.2026 04:42 (leaf 1.5.5): `work/tittel/tittel_robocza.docx` for MB, notes sheet `tittel_uwagi.md` (S1–S12: Polish editions of Kant and Marx to look up, licence, page range), `tittel_pytania_tlum.csv` (26), MB item D25 (the form of “gypsy” is the one real decision), E19 to srom-typeset; after MB returns the Word file: `docx_in.py` → `check.py --pair` → `build.py`, then `tittel_refs_tlum.json` with the Polish editions. West Ohueri (T23) received, not started (rights: D24).
-5. Later: 1.3.2 (vol. 19 vocabulary), 1.4.x tooling, 1.5.x evaluation — per PLAN tree.
+5. 1.3.2 done (29.09.2026): vol. 19 concordance `tlumacz-1.3.2/` — re-run `vol19_terms.py` after each new draft (West Ohueri next; add probes for its terms and vol. 18 as a column, findings L4). D26 waits for MB; on his word, PROVISIONAL C-0041–C-0049 → HOUSE (log in `tlumacz-decisions.md`).
+6. Next module work: a shared draft checker replacing the four per-article copies (findings L1, leaf 1.4.2a); then 1.4.x tooling, 1.5.x evaluation — per PLAN tree.
 
 
 ## 8. Facts worth keeping
