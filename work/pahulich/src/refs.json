@@ -1,0 +1,1376 @@
+[
+ {
+  "id": "achim2004",
+  "type": "book",
+  "author": [
+   {
+    "family": "Achim",
+    "given": "Viorel"
+   }
+  ],
+  "title": "The Roma in Romanian History",
+  "publisher-place": "Budapest",
+  "publisher": "CEU Press",
+  "issued": {
+   "date-parts": [
+    [
+     2004
+    ]
+   ]
+  }
+ },
+ {
+  "id": "acton1974",
+  "type": "book",
+  "author": [
+   {
+    "family": "Acton",
+    "given": "Thomas"
+   }
+  ],
+  "title": "Gypsy Politics and Social Change: The Development of Ethnic Ideology and Pressure Politics among British Gypsies from Victorian Reformism to Romany Nationalism",
+  "publisher-place": "London; Boston",
+  "publisher": "Routledge and Kegan Paul",
+  "issued": {
+   "date-parts": [
+    [
+     1974
+    ]
+   ]
+  },
+  "srom-as-written": {
+   "publisher-place": "London and Boston"
+  }
+ },
+ {
+  "id": "baker2018",
+  "type": "book",
+  "author": [
+   {
+    "family": "Baker",
+    "given": "Catherine"
+   }
+  ],
+  "title": "Race and the Yugoslav Region: Postsocialist, Post-conflict, Postcolonial?",
+  "publisher-place": "Manchester",
+  "publisher": "Manchester University Press",
+  "issued": {
+   "date-parts": [
+    [
+     2018
+    ]
+   ]
+  },
+  "DOI": "10.7765/9781526126610"
+ },
+ {
+  "id": "barannikov1931",
+  "type": "book",
+  "author": [
+   {
+    "family": "Barannikov",
+    "given": "Alekseĭ"
+   }
+  ],
+  "title": "Tsygany SSSR",
+  "publisher-place": "Moskva",
+  "publisher": "Tsentrizdat",
+  "issued": {
+   "date-parts": [
+    [
+     1931
+    ]
+   ]
+  },
+  "original-title": "Cyganie ZSRR",
+  "srom-as-written": {
+   "given": "Alexey",
+   "publisher-place": "Moscow",
+   "original-title": "Gypsies of USSR"
+  }
+ },
+ {
+  "id": "bielikov2003",
+  "type": "thesis",
+  "author": [
+   {
+    "family": "Bielikov",
+    "given": "Oleksandr"
+   }
+  ],
+  "title": "Tsyhansʹke naselennia Ukraïny (16–20 st.)",
+  "original-title": "Ludność cygańska Ukrainy (XVI–XX w.)",
+  "publisher": "Donetsk National University",
+  "issued": {
+   "date-parts": [
+    [
+     2003
+    ]
+   ]
+  },
+  "note": "praca doktorska",
+  "srom-as-written": {
+   "author": "Byelikov",
+   "title": "Tsyhansʹke Naselennya Ukrayiny (16–20 st.)",
+   "original-title": "Gypsy population of Ukraine (16th–20th centuries)",
+   "note": "PhD dissertation"
+  }
+ },
+ {
+  "id": "bielikov2008",
+  "type": "chapter",
+  "author": [
+   {
+    "family": "Bielikov",
+    "given": "Oleksandr"
+   }
+  ],
+  "title": "Derzhavna polityka stosovno tsyhan Ukraïny: istoriia i suchasnistʹ",
+  "container-title": "Naukovi zapysky. Zbirnyk pratsʹ molodykh vchenykh ta aspirantiv",
+  "editor": [
+   {
+    "family": "Sokhanʹ",
+    "given": "P.S."
+   }
+  ],
+  "page": "24–56",
+  "publisher-place": "Kyïv",
+  "publisher": "NAN Ukraïny",
+  "issued": {
+   "date-parts": [
+    [
+     2008
+    ]
+   ]
+  },
+  "volume": "15",
+  "original-title": "Polityka państwa wobec Cyganów Ukrainy: historia i współczesność",
+  "srom-as-written": {
+   "author": "Byelikov",
+   "title": "Derzhavna Polityka stosovno Tsyhan Ukrayiny: Istoriya i Suchasnistʹ",
+   "original-title": "State politics towards Gypsies in Ukraine: History and modern",
+   "container-title": "Naukovi zapysky. Zbirnyk prats’ molodykh vchenykh ta aspirantiv, t. 15",
+   "editor": "Sokhan’",
+   "editors": "P. S. Sokhan’, et al.",
+   "publisher-place": "Kyiv",
+   "publisher": "NAN Ukrayiny"
+  }
+ },
+ {
+  "id": "chervinski2008",
+  "type": "article-journal",
+  "author": [
+   {
+    "family": "Chėrvinski",
+    "given": "Iaŭheniĭ"
+   }
+  ],
+  "title": "Tatary i tsyhany na tėrytoryi Vialikaha Kniastva Litoŭskaha: pravavy i satsyialʹny status",
+  "container-title": "Zhurnal mezhdunarodnogo prava i mezhdunarodnykh otnosheniĭ",
+  "issued": {
+   "date-parts": [
+    [
+     2008
+    ]
+   ]
+  },
+  "issue": "3",
+  "page": "70–72",
+  "original-title": "Tatarzy i Cyganie na terytorium Wielkiego Księstwa Litewskiego",
+  "srom-as-written": {
+   "author": "Červinski",
+   "given": "Jaŭhienij",
+   "title": "Tatary i Cyhany na Terytoryi Vialikaha Kniastva Litoŭskaha: Pravavy i Sacyjaĺny Status",
+   "original-title": "Tatars and Gypsies in the Grand Duchy of Lithuania/Litva",
+   "container-title": "Žurnal mieždunarodnoho prava i mieždunarodnych otnošjenij"
+  }
+ },
+ {
+  "id": "cesaire2000",
+  "type": "book",
+  "author": [
+   {
+    "family": "Césaire",
+    "given": "Aimé"
+   }
+  ],
+  "title": "Discourse on Colonialism",
+  "publisher-place": "New York",
+  "publisher": "Monthly Review Press",
+  "issued": {
+   "date-parts": [
+    [
+     2000
+    ]
+   ]
+  },
+  "editor": [
+   {
+    "family": "Kelley",
+    "given": "Robin D.G."
+   }
+  ],
+  "DOI": "10.4324/9781003101406-19"
+ },
+ {
+  "id": "clark2004",
+  "type": "chapter",
+  "author": [
+   {
+    "family": "Clark",
+    "given": "Colin"
+   }
+  ],
+  "title": "‘Severity Has Often Enraged but Never Subdued a Gipsy’: The History and Making of European Romani Stereotypes",
+  "container-title": "The Role of the Romanies Images and Counter Images of ‘Gypsies’ / Romanies in European cultures",
+  "editor": [
+   {
+    "family": "Saul",
+    "given": "Nicholas"
+   },
+   {
+    "family": "Tebbutt",
+    "given": "Susan"
+   }
+  ],
+  "page": "226–246",
+  "publisher-place": "Liverpool",
+  "publisher": "Liverpool University Press",
+  "issued": {
+   "date-parts": [
+    [
+     2004
+    ]
+   ]
+  },
+  "DOI": "10.5949/liverpool/9780853236795.003.0015"
+ },
+ {
+  "id": "crowe2007",
+  "type": "book",
+  "author": [
+   {
+    "family": "Crowe",
+    "given": "David"
+   }
+  ],
+  "title": "A History of the Gypsies of Eastern Europe and Russia",
+  "publisher-place": "New York",
+  "publisher": "Palgrave Macmillan",
+  "issued": {
+   "date-parts": [
+    [
+     2007
+    ]
+   ]
+  },
+  "DOI": "10.1007/978-1-137-10596-7"
+ },
+ {
+  "id": "dal1883",
+  "type": "book",
+  "author": [
+   {
+    "family": "Dalʹ",
+    "given": "Vladimir"
+   }
+  ],
+  "title": "Sochineniia V.I. Dalia: Povesti i rasskazy",
+  "publisher-place": "S.-Peterburg",
+  "publisher": "Izd. knigoprodavtsa-tip. M.O. Volʹfa",
+  "issued": {
+   "date-parts": [
+    [
+     1883
+    ]
+   ]
+  },
+  "volume": "6",
+  "original-title": "Dzieła W.I. Dala",
+  "srom-as-written": {
+   "author": "Dal’",
+   "title": "Sochineniya V.I. Dalya: Povesti i Rasskazy",
+   "original-title": "Works of V.I. Dal’",
+   "volume": "Tom VI",
+   "publisher": "Izd. knigoprodavtsa-tip. M.O. Vol’fa"
+  }
+ },
+ {
+  "id": "demeter2000",
+  "type": "book",
+  "author": [
+   {
+    "family": "Demeter",
+    "given": "Nadezhda"
+   },
+   {
+    "family": "Bessonov",
+    "given": "Nikolaĭ"
+   },
+   {
+    "family": "Kutenkov",
+    "given": "Vladimir"
+   }
+  ],
+  "title": "Istoriia tsygan: novyĭ vzgliad",
+  "publisher-place": "Voronezh",
+  "publisher": "IPF Voronezh",
+  "issued": {
+   "date-parts": [
+    [
+     2000
+    ]
+   ]
+  },
+  "original-title": "Historia Cyganów: nowe spojrzenie",
+  "srom-as-written": {
+   "given": "Nikolay",
+   "title": "Istoriya Tsygan: Novyy Vzglyad",
+   "original-title": "History of Gypsies"
+  }
+ },
+ {
+  "id": "federici2004",
+  "type": "book",
+  "author": [
+   {
+    "family": "Federici",
+    "given": "Silvia"
+   }
+  ],
+  "title": "Caliban and the Witch",
+  "publisher-place": "Brooklyn, NY",
+  "publisher": "Autonomedia",
+  "issued": {
+   "date-parts": [
+    [
+     2004
+    ]
+   ]
+  }
+ },
+ {
+  "id": "fernandez2021",
+  "type": "chapter",
+  "author": [
+   {
+    "family": "Fernández",
+    "given": "Cayetano"
+   }
+  ],
+  "title": "The Roma Collective Memory and the Epistemological Limits of Western Historiography",
+  "container-title": "The Pluriverse of Human Rights: The Diversity of Struggles for Dignity",
+  "editor": [
+   {
+    "family": "Santos",
+    "given": "Boaventura de Sousa"
+   },
+   {
+    "family": "Martins",
+    "given": "Bruno Sena"
+   }
+  ],
+  "page": "205–217",
+  "publisher-place": "London",
+  "publisher": "Routledge",
+  "issued": {
+   "date-parts": [
+    [
+     2021
+    ]
+   ]
+  },
+  "DOI": "10.4324/9781003177722-13"
+ },
+ {
+  "id": "fraser1992",
+  "type": "book",
+  "author": [
+   {
+    "family": "Fraser",
+    "given": "Angus M."
+   }
+  ],
+  "title": "The Gypsies",
+  "publisher-place": "Oxford",
+  "publisher": "Blackwell",
+  "issued": {
+   "date-parts": [
+    [
+     1992
+    ]
+   ]
+  }
+ },
+ {
+  "id": "gheorghe1991",
+  "type": "article-journal",
+  "author": [
+   {
+    "family": "Gheorghe",
+    "given": "Nicolae"
+   }
+  ],
+  "title": "Roma-Gypsy Ethnicity in Eastern Europe. (Nationalism in Central and Eastern Europe)",
+  "container-title": "Social Research",
+  "issued": {
+   "date-parts": [
+    [
+     1991
+    ]
+   ]
+  },
+  "volume": "58",
+  "issue": "4",
+  "page": "829–844"
+ },
+ {
+  "id": "grellmann1807",
+  "type": "book",
+  "author": [
+   {
+    "family": "Grellmann",
+    "given": "Heinrich Moritz Gottlieb"
+   }
+  ],
+  "title": "Dissertation on the Gipseys: Representing their Manner of Life, Family Economy, Occupations & Trades, Marriages & Education, Sickness, Death and Burial, Religion, Language, Sciences & Arts, &c. &c. &c.: with an Historical Enquiry Concerning their Origin & First Appearance in Europe",
+  "publisher-place": "London",
+  "publisher": "Printed by W. Ballintine",
+  "issued": {
+   "date-parts": [
+    [
+     1807
+    ]
+   ]
+  },
+  "translator": [
+   {
+    "family": "Raper",
+    "given": "Matthew"
+   }
+  ]
+ },
+ {
+  "id": "hancock1987",
+  "type": "book",
+  "author": [
+   {
+    "family": "Hancock",
+    "given": "Ian"
+   }
+  ],
+  "title": "The Pariah Syndrome: An Account of Gypsy Slavery and Persecution",
+  "publisher-place": "Ann Arbor",
+  "publisher": "Karoma",
+  "issued": {
+   "date-parts": [
+    [
+     1987
+    ]
+   ]
+  }
+ },
+ {
+  "id": "hancock2008",
+  "type": "chapter",
+  "author": [
+   {
+    "family": "Hancock",
+    "given": "Ian"
+   }
+  ],
+  "title": "The ‘Gypsy’ Stereotype and the Sexualization of Romani Women",
+  "container-title": "“Gypsies” in European Literature and Culture",
+  "editor": [
+   {
+    "family": "Glajar",
+    "given": "Valentina"
+   },
+   {
+    "family": "Radulescu",
+    "given": "Domnica"
+   }
+  ],
+  "page": "181–191",
+  "publisher-place": "New York",
+  "publisher": "Palgrave Macmillan",
+  "issued": {
+   "date-parts": [
+    [
+     2008
+    ]
+   ]
+  },
+  "DOI": "10.1057/9780230611634_10"
+ },
+ {
+  "id": "holler2015",
+  "type": "chapter",
+  "author": [
+   {
+    "family": "Holler",
+    "given": "Martin"
+   }
+  ],
+  "title": "Historical Predecessors of the Term ‘Anti-Gypsyism",
+  "container-title": "Antiziganism: What’s in a Word?",
+  "editor": [
+   {
+    "family": "End",
+    "given": "Markus"
+   },
+   {
+    "family": "Kiuchukov",
+    "given": "Khristo"
+   },
+   {
+    "family": "Laskar",
+    "given": "Pia"
+   },
+   {
+    "family": "Templer",
+    "given": "Bill"
+   },
+   {
+    "family": "Selling",
+    "given": "Jan"
+   }
+  ],
+  "page": "82–92",
+  "publisher-place": "Newcastle upon Tyne",
+  "publisher": "Cambridge Scholars Publishing",
+  "issued": {
+   "date-parts": [
+    [
+     2015
+    ]
+   ]
+  }
+ },
+ {
+  "id": "horvathova1964",
+  "type": "book",
+  "author": [
+   {
+    "family": "Horváthová",
+    "given": "Emilia"
+   }
+  ],
+  "title": "Cigáni Na Slovensku: Historiko-Etnograficky Náčrt",
+  "publisher-place": "Bratislava",
+  "publisher": "Vytadel’stvo Siovenskej Akademie Vied",
+  "issued": {
+   "date-parts": [
+    [
+     1964
+    ]
+   ]
+  },
+  "original-title": "Cyganie na Słowacji",
+  "srom-as-written": {
+   "original-title": "Gypsies in Slovakia"
+  }
+ },
+ {
+  "id": "kirei1984",
+  "type": "chapter",
+  "author": [
+   {
+    "family": "Kireĭ",
+    "given": "N.I."
+   },
+   {
+    "family": "Serdiuk",
+    "given": "A.O."
+   }
+  ],
+  "title": "Izuchenie tsygan evropeĭskoĭ chasti Rossii i Kavkaza v dorevoliutsionnoĭ otechestvennoĭ ėtnografii",
+  "container-title": "Arkheologo-ėtnograficheskie issledovaniia Severnogo Kavkaza. Sbornik nauchnykh trudov",
+  "editor": [
+   {
+    "family": "Kireĭ",
+    "given": "N.I."
+   }
+  ],
+  "page": "107–131",
+  "publisher-place": "Krasnodar",
+  "publisher": "Kubanskiĭ gosudarstvennyĭ universitet",
+  "issued": {
+   "date-parts": [
+    [
+     1984
+    ]
+   ]
+  },
+  "original-title": "Badania nad Cyganami europejskiej części Rosji i Kaukazu w przedrewolucyjnej etnografii rosyjskiej",
+  "srom-as-written": {
+   "author": "Kirey; Serdyuk",
+   "title": "Izucheniye Tsygan Yevropeyskoy Chasti Rossii i Kavkaza v Dorevolyutsionnoy Otechestvennoy Etnografii",
+   "original-title": "Study of Gypsies of the European part of Russia and the Caucasus in pre-revolutionary domestic ethnography",
+   "container-title": "Arkheologo-etnograficheskiye issledovaniya Severnogo Kavkaza. Sbornik nauchnykh trudov",
+   "editor": "Kirey",
+   "editors": "N. I. Kirey et al.",
+   "publisher": "Kubanskiy gosudarstvenniy universitet"
+  }
+ },
+ {
+  "id": "kistiakovskii1879",
+  "type": "book",
+  "editor": [
+   {
+    "family": "Kistiakovskiĭ",
+    "given": "Aleksandr"
+   }
+  ],
+  "title": "Prava, po kotorym suditsia malorossīĭskīĭ narod",
+  "original-title": "Prawa, według których sądzony jest lud małoruski",
+  "publisher-place": "Kiev",
+  "publisher": "Univ. tip.",
+  "issued": {
+   "date-parts": [
+    [
+     1879
+    ]
+   ]
+  },
+  "srom-as-written": {
+   "editor": "Kistyakovskiy",
+   "title": "Prava, po kotorym Suditsya Malorossiyskiy Narod",
+   "original-title": "Rights by which the Malorossian people are judged"
+  }
+ },
+ {
+  "id": "kocze2020",
+  "type": "chapter",
+  "author": [
+   {
+    "family": "Kóczé",
+    "given": "Angéla"
+   }
+  ],
+  "title": "Gendered and Racialized Social Insecurity of Roma in East Central Europe",
+  "container-title": "The Roma and their Struggle for Identity in Contemporary Europe",
+  "editor": [
+   {
+    "family": "Baar",
+    "given": "Huub",
+    "non-dropping-particle": "van"
+   },
+   {
+    "family": "Kócze",
+    "given": "Angéla"
+   }
+  ],
+  "page": "124–149",
+  "publisher-place": "New York",
+  "publisher": "Berghahn Books",
+  "issued": {
+   "date-parts": [
+    [
+     2020
+    ]
+   ]
+  },
+  "DOI": "10.1515/9781789206432-009"
+ },
+ {
+  "id": "law2012",
+  "type": "book",
+  "author": [
+   {
+    "family": "Law",
+    "given": "Ian"
+   }
+  ],
+  "title": "Red Racisms: Racism in Communist and Post-communist Contexts",
+  "publisher-place": "London",
+  "publisher": "Palgrave Macmillan",
+  "issued": {
+   "date-parts": [
+    [
+     2012
+    ]
+   ]
+  },
+  "DOI": "10.1057/9781137030849"
+ },
+ {
+  "id": "law2018",
+  "type": "book",
+  "author": [
+   {
+    "family": "Law",
+    "given": "Ian"
+   },
+   {
+    "family": "Kovats",
+    "given": "Martin"
+   }
+  ],
+  "title": "Rethinking Roma: Identities, Politicisation and New Agendas",
+  "publisher-place": "London",
+  "publisher": "Palgrave Macmillan",
+  "issued": {
+   "date-parts": [
+    [
+     2018
+    ]
+   ]
+  },
+  "DOI": "10.1057/978-1-137-38582-6"
+ },
+ {
+  "id": "law2019",
+  "type": "chapter",
+  "author": [
+   {
+    "family": "Law",
+    "given": "Ian"
+   },
+   {
+    "family": "Zakharov",
+    "given": "Nikolay"
+   }
+  ],
+  "title": "Race and Racism in Eastern Europe: Becoming White, Becoming Western",
+  "container-title": "Relating Worlds of Racism: Dehumanisation, Belonging, and the Normativity of European Whiteness",
+  "editor": [
+   {
+    "family": "Essed",
+    "given": "Philomena"
+   },
+   {
+    "family": "Farquharson",
+    "given": "Karen"
+   },
+   {
+    "family": "Pillay",
+    "given": "Kathryn"
+   },
+   {
+    "family": "White",
+    "given": "Elisa Joy"
+   }
+  ],
+  "page": "113–139",
+  "publisher-place": "London",
+  "publisher": "Palgrave Macmillan",
+  "issued": {
+   "date-parts": [
+    [
+     2019
+    ]
+   ]
+  },
+  "DOI": "10.1007/978-3-319-78990-3_5"
+ },
+ {
+  "id": "lewy2000",
+  "type": "book",
+  "author": [
+   {
+    "family": "Lewy",
+    "given": "Guenter"
+   }
+  ],
+  "title": "The Nazi Persecution of the Gypsies",
+  "publisher-place": "Oxford",
+  "publisher": "Oxford University Press",
+  "issued": {
+   "date-parts": [
+    [
+     2000
+    ]
+   ]
+  },
+  "DOI": "10.1093/oso/9780195125566.001.0001"
+ },
+ {
+  "id": "lucassen1998",
+  "type": "chapter",
+  "author": [
+   {
+    "family": "Lucassen",
+    "given": "Leo"
+   }
+  ],
+  "title": "Eternal Vagrants? State Formation, Migration and Travelling Groups in Western Europe, 1350–1914",
+  "container-title": "Gypsies and Other Itinerant Groups: A Socio-Historical Approach",
+  "editor": [
+   {
+    "family": "Lucassen",
+    "given": "Leo"
+   },
+   {
+    "family": "Willems",
+    "given": "Wim"
+   },
+   {
+    "family": "Cottaar",
+    "given": "Annemarie"
+   }
+  ],
+  "page": "55–73",
+  "publisher-place": "New York",
+  "publisher": "St. Martin’s Press",
+  "issued": {
+   "date-parts": [
+    [
+     1998
+    ]
+   ]
+  },
+  "DOI": "10.1007/978-1-349-26341-7_4"
+ },
+ {
+  "id": "lucassen2008",
+  "type": "article-journal",
+  "author": [
+   {
+    "family": "Lucassen",
+    "given": "Leo"
+   }
+  ],
+  "title": "Between Hobbes and Locke. Gypsies and the Limits of the Modernization Paradigm",
+  "container-title": "Social History",
+  "issued": {
+   "date-parts": [
+    [
+     2008
+    ]
+   ]
+  },
+  "volume": "33",
+  "issue": "4",
+  "page": "423–441",
+  "DOI": "10.1080/03071020802410411"
+ },
+ {
+  "id": "marsh2008",
+  "type": "thesis",
+  "author": [
+   {
+    "family": "Marsh",
+    "given": "Adrian"
+   }
+  ],
+  "title": "No Promised Land: History, Historiography and the Origins of the Gypsies",
+  "publisher": "University of Greenwich",
+  "issued": {
+   "date-parts": [
+    [
+     2008
+    ]
+   ]
+  },
+  "note": "praca doktorska",
+  "srom-as-written": {
+   "note": "PhD diss."
+  }
+ },
+ {
+  "id": "matache2016",
+  "type": "webpage",
+  "author": [
+   {
+    "family": "Matache",
+    "given": "Margareta"
+   }
+  ],
+  "title": "Word, Image and Thought: Creating the Romani Other",
+  "container-title": "François-Xavier Bagnoud Center for Health and Human Rights at Harvard University",
+  "issued": {
+   "date-parts": [
+    [
+     2016,
+     10,
+     5
+    ]
+   ]
+  },
+  "URL": "https://fxb.harvard.edu/2016/10/05/word-image-and-thought-creating-the-romani-other"
+ },
+ {
+  "id": "matache2020",
+  "type": "article-newspaper",
+  "author": [
+   {
+    "family": "Matache",
+    "given": "Margareta"
+   }
+  ],
+  "title": "It Is Time Reparations Are Paid for Roma Slavery: Romanians Continue to Actively Deny the History of Roma Enslavement in Romanian Lands",
+  "container-title": "Al Jazeera",
+  "issued": {
+   "date-parts": [
+    [
+     2020,
+     10,
+     5
+    ]
+   ]
+  },
+  "URL": "https://www.aljazeera.com/opinions/2020/10/5/it-is-time-reparations-are-paid-for-roma-slavery/?fbclid=IwAR16IM_B7KGwlxHwAF1nIsNIMuUPdgRukdw2jOMhZ-lT6jid71DrOji-bWQ"
+ },
+ {
+  "id": "melamed2015",
+  "type": "article-journal",
+  "author": [
+   {
+    "family": "Melamed",
+    "given": "Jodi"
+   }
+  ],
+  "title": "Racial Capitalism",
+  "container-title": "Critical Ethnic Studies",
+  "issued": {
+   "date-parts": [
+    [
+     2015
+    ]
+   ]
+  },
+  "volume": "1",
+  "issue": "1",
+  "page": "76–85",
+  "DOI": "10.5749/jcritethnstud.1.1.0076"
+ },
+ {
+  "id": "mroz2015",
+  "type": "book",
+  "author": [
+   {
+    "family": "Mróz",
+    "given": "Lech"
+   }
+  ],
+  "title": "Roma-Gypsy Presence in the Polish-Lithuanian Commonwealth (15th–18th Centuries)",
+  "publisher-place": "Budapest",
+  "publisher": "CEU Press",
+  "issued": {
+   "date-parts": [
+    [
+     2015
+    ]
+   ]
+  },
+  "DOI": "10.1515/9789633861097"
+ },
+ {
+  "id": "okeeffe2014",
+  "type": "article-journal",
+  "author": [
+   {
+    "family": "O’Keeffe",
+    "given": "Brigid"
+   }
+  ],
+  "title": "Gypsies as a Litmus Test for Rational, Tolerant Rule: Fin-De-Siecle Russian Ethnographers Confront the Comparative History of Roma in Europe",
+  "container-title": "International Journal of Comparative and Applied Criminal Justice",
+  "issued": {
+   "date-parts": [
+    [
+     2014
+    ]
+   ]
+  },
+  "volume": "38",
+  "issue": "2",
+  "page": "109–131",
+  "DOI": "10.1080/01924036.2013.804638"
+ },
+ {
+  "id": "parvulescu2022",
+  "type": "book",
+  "author": [
+   {
+    "family": "Parvulescu",
+    "given": "Anca"
+   },
+   {
+    "family": "Boatcă",
+    "given": "Manuela"
+   }
+  ],
+  "title": "Creolizing the Modern: Transylvania across Empires",
+  "publisher-place": "Ithaca",
+  "publisher": "Cornell University Press",
+  "issued": {
+   "date-parts": [
+    [
+     2022
+    ]
+   ]
+  }
+ },
+ {
+  "id": "robinson2000",
+  "type": "book",
+  "author": [
+   {
+    "family": "Robinson",
+    "given": "Cedric J."
+   }
+  ],
+  "title": "Black Marxism: The Making of the Black Radical Tradition",
+  "publisher-place": "Chapel Hill",
+  "publisher": "UNC Press",
+  "issued": {
+   "date-parts": [
+    [
+     2000
+    ]
+   ]
+  }
+ },
+ {
+  "id": "said1978",
+  "type": "book",
+  "author": [
+   {
+    "family": "Said",
+    "given": "Edward W."
+   }
+  ],
+  "title": "Orientalism",
+  "publisher-place": "New York",
+  "publisher": "Pantheon Books",
+  "issued": {
+   "date-parts": [
+    [
+     1978
+    ]
+   ]
+  }
+ },
+ {
+  "id": "shahar2007",
+  "type": "chapter",
+  "author": [
+   {
+    "family": "Shahar",
+    "given": "Shulamith"
+   }
+  ],
+  "title": "Religious Minorities, Vagabonds and Gypsies in Early Modern Europe",
+  "container-title": "Roma: A Minority in Europe: Historical, Political and Social Perspectives",
+  "editor": [
+   {
+    "family": "Stauber",
+    "given": "Roni"
+   },
+   {
+    "family": "Vago",
+    "given": "Raphael"
+   }
+  ],
+  "page": "1–18",
+  "publisher-place": "Budapest",
+  "publisher": "CEU Press",
+  "issued": {
+   "date-parts": [
+    [
+     2007
+    ]
+   ]
+  }
+ },
+ {
+  "id": "shaidurov2018",
+  "type": "article-journal",
+  "author": [
+   {
+    "family": "Shaidurov",
+    "given": "Vladimir"
+   }
+  ],
+  "title": "Gypsies in the Russian Empire: Theories and Practices Addressing Their Situation during the Eighteenth and First Half of the Nineteenth Century",
+  "container-title": "Romani Studies",
+  "issued": {
+   "date-parts": [
+    [
+     2018
+    ]
+   ]
+  },
+  "volume": "28",
+  "issue": "2",
+  "page": "195–217",
+  "DOI": "10.3828/rs.2018.8"
+ },
+ {
+  "id": "shmidt2020",
+  "type": "book",
+  "author": [
+   {
+    "family": "Shmidt",
+    "given": "Victoria"
+   },
+   {
+    "family": "Jaworsky",
+    "given": "Bernadette Nadya"
+   }
+  ],
+  "title": "Historicizing Roma in Central Europe: Between Critical Whiteness and Epistemic Injustice",
+  "publisher-place": "London",
+  "publisher": "Routledge",
+  "issued": {
+   "date-parts": [
+    [
+     2020
+    ]
+   ]
+  },
+  "DOI": "10.4324/9781003034094"
+ },
+ {
+  "id": "shohat2012",
+  "type": "book",
+  "author": [
+   {
+    "family": "Shohat",
+    "given": "Ella"
+   },
+   {
+    "family": "Stam",
+    "given": "Robert"
+   }
+  ],
+  "title": "Race in Translation: Culture Wars around the Postcolonial Atlantic",
+  "publisher-place": "New York",
+  "publisher": "NYU Press",
+  "issued": {
+   "date-parts": [
+    [
+     2012
+    ]
+   ]
+  },
+  "DOI": "10.18574/nyu/9780814798379.001.0001"
+ },
+ {
+  "id": "smirnovaseslavinskaya2021",
+  "type": "article-journal",
+  "author": [
+   {
+    "family": "Smirnova-Seslavinskaya",
+    "given": "Marianna"
+   }
+  ],
+  "title": "Service Nomadism of the Roma / Gypsies in the Russian Empire: A Social Norm and the Letter of the Law",
+  "container-title": "Ab Imperio",
+  "issued": {
+   "date-parts": [
+    [
+     2021
+    ]
+   ]
+  },
+  "issue": "1",
+  "page": "51–92",
+  "DOI": "10.1353/imp.2021.0003"
+ },
+ {
+  "id": "taba2021",
+  "type": "chapter",
+  "author": [
+   {
+    "family": "Taba",
+    "given": "Marius"
+   }
+  ],
+  "title": "Antigypsyism in a Time of Neoliberalism: Challenging the Radical Right Through Transformative Change",
+  "container-title": "Romani Communities and Transformative Change: A New Social Europe",
+  "editor": [
+   {
+    "family": "Ryder",
+    "given": "Andrew"
+   },
+   {
+    "family": "Taba",
+    "given": "Marius"
+   },
+   {
+    "family": "Trehan",
+    "given": "Nidhi"
+   }
+  ],
+  "page": "65–92",
+  "publisher-place": "Bristol",
+  "publisher": "Policy Press",
+  "issued": {
+   "date-parts": [
+    [
+     2021
+    ]
+   ]
+  }
+ },
+ {
+  "id": "thomas2018",
+  "type": "book",
+  "author": [
+   {
+    "family": "Thomas",
+    "given": "Alun"
+   }
+  ],
+  "title": "Nomads and Soviet Rule: Central Asia Under Lenin and Stalin",
+  "publisher-place": "New York",
+  "publisher": "I.B. Tauris",
+  "issued": {
+   "date-parts": [
+    [
+     2018
+    ]
+   ]
+  },
+  "DOI": "10.5040/9781350987364"
+ },
+ {
+  "id": "vincze2015",
+  "type": "article-journal",
+  "author": [
+   {
+    "family": "Vincze",
+    "given": "Enikő"
+   }
+  ],
+  "title": "Adverse Incorporation of the Roma and the Formation of Capitalism in Romania",
+  "container-title": "Intersections",
+  "issued": {
+   "date-parts": [
+    [
+     2015
+    ]
+   ]
+  },
+  "volume": "1",
+  "issue": "4",
+  "page": "14–37",
+  "DOI": "10.17356/ieejsp.v1i4.88"
+ },
+ {
+  "id": "willems1997",
+  "type": "book",
+  "author": [
+   {
+    "family": "Willems",
+    "given": "Wim"
+   }
+  ],
+  "title": "In Search of the True Gypsy: From Enlightenment to Final Solution",
+  "publisher-place": "London",
+  "publisher": "F. Cass",
+  "issued": {
+   "date-parts": [
+    [
+     1997
+    ]
+   ]
+  },
+  "translator": [
+   {
+    "family": "Bloch",
+    "given": "Don"
+   }
+  ],
+  "DOI": "10.4324/9781315810225"
+ },
+ {
+  "id": "wippermann1997",
+  "type": "book",
+  "author": [
+   {
+    "family": "Wippermann",
+    "given": "Wolfgang"
+   }
+  ],
+  "title": "Wie Die Zigeuner: Antisemitismus Und Antiziganismus Im Vergleich",
+  "publisher-place": "Berlin",
+  "publisher": "Elefanten Press",
+  "issued": {
+   "date-parts": [
+    [
+     1997
+    ]
+   ]
+  }
+ },
+ {
+  "id": "wynter2003",
+  "type": "article-journal",
+  "author": [
+   {
+    "family": "Wynter",
+    "given": "Sylvia"
+   }
+  ],
+  "title": "Unsettling the Coloniality of Being/Power/Truth/Freedom: Towards the Human, After Man, Its Overrepresentation – An Argument",
+  "container-title": "The New Centennial Review",
+  "issued": {
+   "date-parts": [
+    [
+     2003
+    ]
+   ]
+  },
+  "volume": "3",
+  "issue": "3",
+  "page": "257–337",
+  "DOI": "10.1353/ncr.2004.0015"
+ },
+ {
+  "id": "zelenchuk1979",
+  "type": "book",
+  "author": [
+   {
+    "family": "Zelenchuk",
+    "given": "Valentin"
+   }
+  ],
+  "title": "Naselenie Bessarabii i Podnestrovʹia v XIX v.",
+  "publisher-place": "Kishinev",
+  "publisher": "Shtiintsa",
+  "issued": {
+   "date-parts": [
+    [
+     1979
+    ]
+   ]
+  },
+  "original-title": "Ludność Besarabii i Naddniestrza w XIX w.",
+  "srom-as-written": {
+   "title": "Naseleniye Bessarabii i Podnestrov’ya v XIX v",
+   "original-title": "Population of Bessarabia and Subnistria in the nineteenth century"
+  }
+ },
+ {
+  "id": "zinevych2001",
+  "type": "article-journal",
+  "author": [
+   {
+    "family": "Zinevych",
+    "given": "Nataliia"
+   }
+  ],
+  "title": "Tsyhany v Ukraïni: formuvannia etnosu i suchasnyĭ stan",
+  "container-title": "Ukraïnsʹkyĭ istorychnyĭ zhurnal",
+  "issued": {
+   "date-parts": [
+    [
+     2001
+    ]
+   ]
+  },
+  "issue": "1",
+  "page": "40–52",
+  "original-title": "Cyganie na Ukrainie",
+  "srom-as-written": {
+   "given": "Nataliya",
+   "title": "Tsyhany v Ukrayini: Formuvannya Etnosu i Suchasnyy Stan",
+   "original-title": "Gypsies in Ukraine",
+   "container-title": "Ukrayins’kyy istorychnyy zhurnal"
+  }
+ }
+]
