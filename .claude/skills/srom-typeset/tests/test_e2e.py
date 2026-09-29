@@ -197,6 +197,14 @@ check("nested italics: inner run roman + warning", code == 0 and "nested italics
 code, out, stem, rep = build(md_text="A[^1] b[^2].\n\n[^1]: [@ficowski1985, s. 5].\n\n[^2]: Szerzej o tym pisze [@ficowski1985, s. 7].\n")
 txt = open(os.path.join(out, stem + ".txt"), encoding="utf-8").read()
 check("Ibidem that would stand mid-sentence is printed as the short form", code == 0 and "Szerzej o tym pisze Ficowski, Cyganie na polskich drogach…, s. 7." in txt and "replaced by the short form" in rep, txt + rep[:900])
+code, out, stem, rep = build(md_text="A[^1] b[^2] c[^3] d[^4].\n\n[^1]: [@ficowski1985, s. 5].\n\n[^2]: Uwaga. Zob. [@ficowski1985], "
+                             "gdzie więcej o tym.\n\n[^3]: [@ficowski1985, s. 7] (przekład własny).\n\n[^4]: [@ficowski1985, {akt 4, sc. 1, w. 782–806}].\n")
+txt = open(os.path.join(out, stem + ".txt"), encoding="utf-8").read()
+check("Ibidem after a lead-in with the sentence going on ('Zob. Ibidem, gdzie …', West Ohueri n. 53) -> short form; "
+      "an author's bracketed remark or a drama locator (akt, sc., w.) after it does not continue the sentence -> Ibidem kept",
+      code == 0 and "Zob. Ficowski, Cyganie na polskich drogach…, gdzie" in txt and "Ibidem, s. 7 (przekład własny)" in txt
+      and "Ibidem, akt 4, sc. 1, w. 782–806." in txt,
+      txt + rep[:900])
 code, out, stem, rep = build(md_text="A[^1] b[^2].\n\n[^1]: ANK, 29/456, sygn. 12, k. 41; [@ficowski1985, s. 5].\n\n[^2]: [@ficowski1985, s. 7].\n")
 txt = open(os.path.join(out, stem + ".txt"), encoding="utf-8").read()
 check("after a note citing an archival unit AND a work, the next note gets the short form, not Ibidem", code == 0 and "[2] Ficowski, Cyganie na polskich drogach…, s. 7." in txt, txt)

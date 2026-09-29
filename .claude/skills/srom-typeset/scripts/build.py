@@ -475,6 +475,8 @@ def verify_docx(path, cfg, id2name, expected_notes, report, expected_ast=(0, 0))
     return all(ok for _, ok, _ in res)
 
 
+# locator labels after Ibidem (Kanon § 7.2: s., k. S2r, t., szp., przyp., ks. 11, rozdz. 2, akt 4, sc. 1, w. 883)
+IBID_LOC = r"(?:(?:s|k|t|szp|przyp|ks|rozdz|sc|w)\.|akt\b)"
 # ------------------------------------------------------------------ ibidem map (§7.3: Ibidem only on the same column)
 SOURCE_TYPO_VERIFY = {"no em dash", "no English quotes “", "no ASCII ellipsis"}
 SOURCE_TYPO_LINT = {"EMDASH", "NOTE-AFTERDOT", "QUOTE-EN-IN-PL", "RANGE-SHORT", "SPACE-BEFOREPUNCT", "ELLIPSIS-DOTS"}
@@ -752,6 +754,9 @@ def main():
                 continue
             mid = not re.match(r"^(?:(?:Zob|Por)\. (?:też )?|Np\. )?\*Ibidem\*", x) and \
                 not re.search(r"(?:; |[Zz]ob\. (?:też )?|[Pp]or\. (?:też )?|np\. )\*Ibidem\*", x)
+            # … or the sentence goes on after it ("Zob. Ibidem, for more on …", "Ibidem, s. 5, gdzie …"); an author's
+            # remark in brackets ("Ibidem, s. 63 (my translation).") does not continue the sentence
+            mid = mid or bool(re.search(r"\*Ibidem\*(?:,\s?" + IBID_LOC + r"\s?[\w–-]+)*\s?[,:]\s?(?!" + IBID_LOC + r")[^\W\d_]", x))
             prev_extra = i >= 2 and i - 2 < len(pre) and extra_source(pre[i - 2])
             cur_extra = i - 1 < len(pre) and extra_source(pre[i - 1])
             after = i - 1 < len(after_na) and after_na[i - 1]
