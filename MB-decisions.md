@@ -73,7 +73,7 @@ send) · **Later** (a reminder, nothing to do now).
 | SCH-3 | Archive abbreviations never spelled out (VLA, HoA …) | Ask author | the archive list |
 | SCH-4 | A stray note number; archive-held prints | Approve | nothing |
 | SCH-5 | 7 corrections to the author's data | Approve | nothing |
-| SYS-1 | Translator on the website, curator skill upload | Later | nothing |
+| SYS-1 | Translator on the website, quant skill upload | Later | nothing |
 
 ## Journal-wide (GEN)
 Next free: GEN-13.
@@ -83,13 +83,13 @@ Next free: GEN-13.
 
 The *Informacje dla autorów* printed in vol. 18 (2025) say authors transfer copyright to the Redakcja; the licence
 agreement says the opposite. The printed and website text has to be **replaced**, not supplemented.
-- (a) srom-typeset drafts the Polish text for you to edit — **recommended**
+- (a) srom-produkcja drafts the Polish text for you to edit — **recommended**
 - (b) you or the kolegium write it
 
 Also needed: where it goes (the website page; vol. 19 front matter).
-Detail: Kanon § 13.2 in 🔴 `srom-typeset/.claude/skills/srom-kanon/references/kanon-redakcyjny.md`
+Detail: Kanon § 13.2 in 🔴 `srom-produkcja/.claude/skills/srom-kanon/references/kanon-redakcyjny.md`
 
-*Trail: D16 (28.09.2026, srom-typeset).*
+*Trail: D16 (28.09.2026, srom-produkcja).*
 
 ### GEN-2 · Should authors still be able to choose CC BY-NC-ND?
 **Decide** (kolegium, via you) · blocks nothing in stages 1–2; needed for the licence field of the metadata and Crossref
@@ -118,7 +118,7 @@ Whether SROM's distribution is non-commercial (the printed volume is sold?) is y
 German practice cites place and year only. Scheffknecht: 29 of 35 works have no publisher. Tittel: one (Ruch 1986,
 also TIT-12). Every German, Austrian or Swiss source will raise this again. (Ostendorf's gaps were looked up already;
 14 are left for you: OST-1.)
-- (a) srom-typeset looks each one up (DNB, ÖNB, library catalogues) and lists them for your approval, item by item —
+- (a) srom-produkcja looks each one up (DNB, ÖNB, library catalogues) and lists them for your approval, item by item —
   **recommended**
 - (b) ask the authors
 - (c) a Kanon exception for such sources (not recommended: the bibliography would be inconsistent)
@@ -141,7 +141,7 @@ number of Marx's *Werke* is lost from print).
 **Decide** · blocks nothing
 
 The Kanon has no line. Kept as the authors write them for now (slashes; Scheffknecht once "Wien-München").
-- (a) en dash, the Polish practice — srom-typeset's reading, no formal recommendation yet
+- (a) en dash, the Polish practice — srom-produkcja's reading, no formal recommendation yet
 - (b) keep the author's form
 
 *Trail: D20 A6 (a), D18 B3.*
@@ -149,7 +149,7 @@ The Kanon has no line. Kept as the authors write them for now (slashes; Scheffkn
 ### GEN-7 · After a lead-in: "Zob. *Ibidem*" or "zob. ibidem"?
 **Decide** · blocks nothing
 
-The build prints a capital after "Zob." (Tittel 2×, Ndiaye 2×). No Kanon line; srom-typeset thinks Polish usage is
+The build prints a capital after "Zob." (Tittel 2×, Ndiaye 2×). No Kanon line; srom-produkcja thinks Polish usage is
 lower case but has not checked it.
 
 *Trail: D20 A6 (b).*
@@ -203,7 +203,7 @@ Your "Authors INFO" file is now a table (79 authors). Where your sources disagre
 5. Three notes write "Dr jarosław", "Dr eva", "Dr johannes ries" in lower case: correct them when next printed? —
    **recommended** yes
 
-Detail: 🔴 `srom-typeset/volumes/autorzy.tsv` (column `uwagi`)
+Detail: 🔴 `srom-produkcja/volumes/autorzy.tsv` (column `uwagi`)
 
 *Trail: 30.09.2026 00:50, root session [general].*
 
@@ -270,10 +270,10 @@ Notes 88–96, 106, 132–135. Detail: 🔴 `srom-tlumacz/work/pahulich/pahulich
 
 A converted author-date citation and the author's own note stand together ("Europie¹²."). No Kanon rule.
 - (a) keep two notes (as in the draft now)
-- (b) one note: the citations, then the author's note — **recommended**; srom-typeset then changes the source and the
+- (b) one note: the citations, then the author's note — **recommended**; srom-produkcja then changes the source and the
   notes renumber from 2 on
 
-Detail: 🔴 `srom-typeset/work/pahulich/pahulich_uwagi.md` → PAH-2
+Detail: 🔴 `srom-produkcja/work/pahulich/pahulich_uwagi.md` → PAH-2
 
 *Trail: D17 A2.*
 
@@ -334,7 +334,7 @@ Detail: 🔴 `srom-tlumacz/work/pahulich/pahulich_uwagi.md` → PAH-7
 
 Misspelt titles, a wrong DOI (Césaire 2000), a garbled Slovak imprint, the places of two dissertations, a Facebook
 tracking code in a URL. Each is kept as the author wrote it until you approve; the author's form stays on record.
-Detail: 🔴 `srom-typeset/work/pahulich/pahulich_uwagi.md` → PAH-8 (table, rows B1–B11)
+Detail: 🔴 `srom-produkcja/work/pahulich/pahulich_uwagi.md` → PAH-8 (table, rows B1–B11)
 
 *Trail: D17 B1–B11.*
 
@@ -360,7 +360,7 @@ The list for sending: 🔴 `srom-tlumacz/work/pahulich/pahulich_pytania_tlum.csv
 
 The PDF breaks the word at a line end; the frozen source has "religiopolitical", the improved extractor reads
 "religio-political". Wynter's printed spelling decides.
-Detail: 🔴 `srom-typeset/work/pahulich/pahulich_uwagi.md` → PAH-10
+Detail: 🔴 `srom-produkcja/work/pahulich/pahulich_uwagi.md` → PAH-10
 
 *Trail: queries D3; Ostendorf queries C (side finding).*
 
@@ -374,7 +374,7 @@ Nothing here blocks your Word edit. Also concerns this text: GEN-3 (licence), GE
 43 values were found in the Library of Congress catalogue. For 14 there is no reliable record; the notes sheet lists
 each with the candidates found (hints, not evidence) — e.g. Beretario 1617 appeared twice that year (Cologne and Lyon):
 which does the author mean?
-Detail: 🔴 `srom-typeset/work/ostendorf/ostendorf_uwagi.md` → OST-1
+Detail: 🔴 `srom-produkcja/work/ostendorf/ostendorf_uwagi.md` → OST-1
 
 *Trail: D19 A2.*
 
@@ -393,7 +393,7 @@ Detail: 🔴 `srom-tlumacz/work/ostendorf/ostendorf_uwagi.md` → OST-2 (items S
 Among them: Galletti "Hispanoaméria"; Fotta's year and pages (the online-first ones); the letter in note 26 is **by** du
 Poisson, not to him; "Cambell" → Campbell; "New Granada" → New Grenada; "Braumuller University"; "del Litoral"; the
 Urlsperger title (note 41); Vowell's *Zinganées*; *Bohèmes*.
-Detail: 🔴 `srom-typeset/work/ostendorf/ostendorf_uwagi.md` → OST-3 (list B1–B14)
+Detail: 🔴 `srom-produkcja/work/ostendorf/ostendorf_uwagi.md` → OST-3 (list B1–B14)
 
 *Trail: D19 B1–B14.*
 
@@ -455,7 +455,7 @@ Licence CC BY 4.0: no permission needed. Also concerns this text: GEN-4 to GEN-8
 Next free: TIT-13.
 
 ### TIT-1 · The author's "gypsy/gypsies" (in scare quotes, lower case): „Cyganie” with a capital, or lower case?
-**Decide** · blocks **delivery of the translation** (srom-typeset asked for it to be settled first)
+**Decide** · blocks **delivery of the translation** (srom-produkcja asked for it to be settled first)
 
 - (a) „Cygan”, „Cyganie”, „cygański” in quotation marks with a capital C (Kanon), a translator's note at the first use,
   as in Ostendorf — **recommended** (as drafted)
@@ -470,7 +470,7 @@ Detail: 🔴 `srom-tlumacz/work/tittel/tittel_uwagi.md` → TIT-1
 
 It is called from the first sentence but only thanks the editors and reviewers. Done provisionally; notes are
 numbered 1–100 (original 2–101). If you say no, it goes back to note 1 and everything renumbers.
-Detail: 🔴 `srom-typeset/work/tittel/tittel_uwagi.md` → TIT-2
+Detail: 🔴 `srom-produkcja/work/tittel/tittel_uwagi.md` → TIT-2
 
 *Trail: D20 A1; Kanon § 7.1.*
 
@@ -509,7 +509,7 @@ Detail: 🔴 `srom-tlumacz/work/tittel/tittel_uwagi.md` → TIT-5
 
 The later notes print the standard short form, so the abbreviation would point to nothing. The sentence about the German
 edition stays. Alternative: keep MEW as an abbreviation (needs a Kanon line and a list-of-abbreviations entry).
-Detail: 🔴 `srom-typeset/work/tittel/tittel_uwagi.md` → TIT-6
+Detail: 🔴 `srom-produkcja/work/tittel/tittel_uwagi.md` → TIT-6
 
 *Trail: D20 A4.*
 
@@ -519,7 +519,7 @@ Detail: 🔴 `srom-typeset/work/tittel/tittel_uwagi.md` → TIT-6
 - (a) correct the citation to p. 741 (source and translation both change)
 - (b) leave it and ask the author (the Polish edition's page is printed anyway)
 
-Detail: 🔴 `srom-typeset/work/tittel/tittel_uwagi.md` → TIT-7
+Detail: 🔴 `srom-produkcja/work/tittel/tittel_uwagi.md` → TIT-7
 
 *Trail: D20 B11, D25 (e), E19.*
 
@@ -529,7 +529,7 @@ Detail: 🔴 `srom-typeset/work/tittel/tittel_uwagi.md` → TIT-7
 Among them: *Canadian Journal of Philosophy* Supplementary Volume; *Philosophers on Race* is Blackwell, not OUP;
 *Kant-Studien*; Zöller as co-editor and the volume dated 2007, not 2010; Strauß/Strauss; Mayall's imprint; Decker's
 co-authors.
-Detail: 🔴 `srom-typeset/work/tittel/tittel_uwagi.md` → TIT-8 (list B1–B10)
+Detail: 🔴 `srom-produkcja/work/tittel/tittel_uwagi.md` → TIT-8 (list B1–B10)
 
 *Trail: D20 B1–B10.*
 
@@ -556,7 +556,7 @@ Detail: 🔴 `srom-tlumacz/work/tittel/tittel_uwagi.md` → TIT-10
 
 No Kanon line for standard-edition references yet. Keep this form now; a Kanon line later (the usual Polish form is
 "AA VII, 324–325").
-Detail: 🔴 `srom-typeset/work/tittel/tittel_uwagi.md` → TIT-11
+Detail: 🔴 `srom-produkcja/work/tittel/tittel_uwagi.md` → TIT-11
 
 *Trail: D20 A5.*
 
@@ -626,7 +626,7 @@ No recommendation: your call.
 **Look up** · blocks the front matter
 
 The author's affiliation (the book's "Notes on contributors") and the copyright line (the book's copyright page).
-Detail: 🔴 `srom-typeset/work/westohueri/westohueri_uwagi.md` → WOH-2
+Detail: 🔴 `srom-produkcja/work/westohueri/westohueri_uwagi.md` → WOH-2
 
 *Trail: D24 A2.*
 
@@ -642,14 +642,14 @@ Detail: 🔴 `srom-typeset/work/westohueri/westohueri_uwagi.md` → WOH-2
 **Approve** · blocks nothing
 
 Card 2020 (film) and Hall & Jhally 2002 (recorded lecture) follow the Kanon's film pattern, which prints no producer.
-Detail: 🔴 `srom-typeset/work/westohueri/westohueri_uwagi.md` → WOH-4
+Detail: 🔴 `srom-produkcja/work/westohueri/westohueri_uwagi.md` → WOH-4
 
 *Trail: D24 A6; Kanon § 8.7.*
 
 ### WOH-5 · 14 corrections to the author's data, and 3 chapter page ranges from Crossref
 **Approve** · blocks nothing
 
-Detail: 🔴 `srom-typeset/work/westohueri/westohueri_uwagi.md` → WOH-5 (lists B1–B14, C1)
+Detail: 🔴 `srom-produkcja/work/westohueri/westohueri_uwagi.md` → WOH-5 (lists B1–B14, C1)
 
 *Trail: D24 B1–B14, C1.*
 
@@ -662,7 +662,7 @@ Detail: 🔴 `srom-typeset/work/westohueri/westohueri_uwagi.md` → WOH-5 (lists
 4. Note 14: the chapter's pages and the quotation's page.
 5. Note 24: Linné's 10th edition is dated 1758, not 1759.
 
-Detail: 🔴 `srom-typeset/work/westohueri/westohueri_uwagi.md` → WOH-6
+Detail: 🔴 `srom-produkcja/work/westohueri/westohueri_uwagi.md` → WOH-6
 
 *Trail: D24 D1–D5.*
 
@@ -679,7 +679,7 @@ Source ready (German test); not handed to translation. Also concerns this text: 
 - (b) a German–Polish trial in srom-tlumacz (a scope decision for that module)
 - (c) a human translator, with the files as they are
 
-Detail: 🔴 `srom-typeset/work/scheffknecht/scheffknecht_uwagi.md` → SCH-1
+Detail: 🔴 `srom-produkcja/work/scheffknecht/scheffknecht_uwagi.md` → SCH-1
 
 *Trail: D18 A1.*
 
@@ -698,7 +698,7 @@ and the Staatsarchiv Augsburg.
 
 The Kanon wants the full name at first use. Proposed expansions are in the notes sheet; HoA is unknown (probably the
 Hohenems archive).
-Detail: 🔴 `srom-typeset/work/scheffknecht/scheffknecht_uwagi.md` → SCH-3
+Detail: 🔴 `srom-produkcja/work/scheffknecht/scheffknecht_uwagi.md` → SCH-3
 
 *Trail: D18 A6; Kanon § 8.1.*
 
@@ -713,17 +713,17 @@ Detail: 🔴 `srom-typeset/work/scheffknecht/scheffknecht_uwagi.md` → SCH-3
 ### SCH-5 · 7 corrections to the author's data
 **Approve** · blocks nothing
 
-Detail: 🔴 `srom-typeset/work/scheffknecht/scheffknecht_uwagi.md` → SCH-5 (table B1–B7)
+Detail: 🔴 `srom-produkcja/work/scheffknecht/scheffknecht_uwagi.md` → SCH-5 (table B1–B7)
 
 *Trail: D18 B1–B7.*
 
 ## Tooling and workflow (SYS)
 Next free: SYS-2.
 
-### SYS-1 · Translator on the website; curator skill in desktop Claude
+### SYS-1 · Translator on the website; quant skill (former curator) in desktop Claude
 **Later** · blocks nothing
 
-Your decision of 28.09.2026: the live site is old; when the work here is finished, you update the curator skill in
+Your decision of 28.09.2026: the live site is old; when the work here is finished, you update the quant skill (srom-quant, now in the srom-produkcja repo) in
 desktop Claude and the plugin on the site together (the skill's copy carries plugin v2.3). Until then nothing to do.
 Detail: 🔴 `_handoffs/curator-update-2026-09-27/CHANGES.md`
 

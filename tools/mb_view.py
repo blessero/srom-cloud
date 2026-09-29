@@ -3,7 +3,7 @@ r"""mb_view.py: render SROM working notes (Markdown) for MB, in the look of the 
 
   mb_view.py <file.md> [<file.md> ...]   one page per file
   mb_view.py --text PAH                  one page per text: its open questions (MB-decisions.md) followed by
-                                         both notes sheets (stage 1 srom-typeset, stage 2 srom-tlumacz)
+                                         both notes sheets (stage 1 srom-produkcja, stage 2 srom-tlumacz)
   mb_view.py --all                       MB-decisions.md
   options: --open (open the result)  --out <dir> (default: <root>/_widok)
 
@@ -43,7 +43,7 @@ def code_re():
 # ---------------------------------------------------------------- Markdown preparation
 def resolve(path, base):
     p = path.strip()
-    for cand in (ROOT / p, base / p, ROOT / "srom-typeset" / p, ROOT / "srom-tlumacz" / p, HANDOFFS / p):
+    for cand in (ROOT / p, base / p, ROOT / "srom-produkcja" / p, ROOT / "srom-tlumacz" / p, HANDOFFS / p):
         if cand.exists():
             return cand.resolve()
     return None
@@ -174,8 +174,8 @@ def combined(code, mode="html"):
     parts += ["## Open questions", "", mark_files(sec.group(1).strip(), HANDOFFS, mode, here) if sec
               else "_None in MB-decisions.md._", ""]
     rx, seen = code_re(), set()
-    for stage, mod in (("Stage 1 notes (source, srom-typeset)", "srom-typeset"),
-                       ("Stage 2 notes (translation, srom-tlumacz)", "srom-tlumacz")):
+    for stage, mod in (("RIP notes (source, srom-produkcja)", "srom-produkcja"),
+                       ("TRANS notes (translation, srom-tlumacz)", "srom-tlumacz")):
         f = ROOT / mod / "work" / folder / f"{folder}_uwagi.md"
         if folder != "—" and f.exists():
             body = f.read_text(encoding="utf-8")
