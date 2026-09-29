@@ -1,0 +1,34 @@
+ID	location	cited work	class	action	status
+Q01	text § 1, n. 1	Decker et al. 2018, Leipzig study items (German)	THIRD-LANG	translated from the German item wording (Leipzig University Hospital press release 07.11.2018; Zentralrat); book pp. 102–103 not opened	open (S2)
+Q02	text § 1, n. 7	Hund 2011	EN-NO-PL	translator's translation	done
+Q03	text § 2, n. 14	Röttgers 1997, Kant-Studien (German)	THIRD-LANG	from the author's English, annotated in the note; German original not reached (paywall)	open (S3)
+Q04	n. 26	Eberl 2019	EN-NO-PL	translator's translation	done
+Q05	text § 2, n. 31	Geulen 2020, lecture (German)	THIRD-LANG	from the author's English ("more racist"), annotated in the note	open (S4)
+Q06	block § 2, n. 32	Kant, Anthropologie, AA VII 324–325	PL-EDITION	working translation from the German (AA); Polish edition: Antropologia w ujęciu pragmatycznym, IFiS PAN 2005 — wording + page	open (S5)
+Q07	text § 2, n. 37	Kant, Reflexionen, AA XV 597 (German in the note)	THIRD-LANG	translated from the German original in the note	done
+Q08	text § 2, n. 39	Kant, Von den verschiedenen Racen, AA II 439	PL-EDITION	working translation from the German; Polish edition: „O różnorodnych rasach ludzkich”, Dzieła zebrane t. 1, UMK 2010 — wording + page	open (S6)
+Q09	text § 2, n. 40	Kant, Religion innerhalb…, AA VI 136–137 n.	PL-EDITION	"Hindus", "Pariahs": working forms; Polish edition: Religia w obrębie samego rozumu (Bobko; Dzieła zebrane t. 5, UMK 2011) — wording + page	open (S7)
+Q10	block § 2, n. 42	Kant, Bestimmung des Begriffs einer Menschenrace, AA VIII 105	PL-EDITION	working translation from the German; Polish edition: „Określenie pojęcia rasy ludzkiej”, Dzieła zebrane t. 6, UMK 2012 — wording + page	open (S8)
+Q11	block § 2, n. 43	Kant, Über den Gebrauch teleologischer Principien, AA VIII 172	PL-EDITION	working translation from the German; Polish edition: „O użytku zasad teleologicznych w filozofii”, Dzieła zebrane t. 6 — wording + page	open (S9)
+Q12	text § 2, n. 44	Kant, Über den Gebrauch teleologischer Principien, AA VIII 174	PL-EDITION	as Q11	open (S9)
+Q13	text § 3, n. 49	Marx, Kapital I, MEW 23, 741 (author: 743)	PL-EDITION	working translation from the German; Polish edition: Dzieła t. 23, KiW 1968 — wording + page; page slip → query	open (S10)
+Q14	text § 3, n. 52	Marx/Engels, Deutsche Ideologie, MEW 3, 56	PL-EDITION	working translation (German not reached online); Polish edition: Dzieła t. 3 — wording + page	open (S11)
+Q15	text § 3, n. 54	Marx, Kapital I, MEW 23, 762	PL-EDITION	working translation from the German; Dzieła t. 23 — wording + page	open (S10)
+Q16	text § 3, n. 55	Marx, Grundrisse, MEW 42, 631	PL-EDITION	working translation from the author's English (German not reached); Polish edition: Zarys krytyki ekonomii politycznej, KiW 1986 — wording + page	open (S12)
+Q17	text § 3, n. 56	Act of 1494 (11 Hen. VII c. 2), Statutes at Large	EN-NO-PL	translator's translation (early modern English)	done
+Q18	text § 3, n. 60	Egyptians Act 1530 (22 Hen. VIII c. 10)	EN-NO-PL	translator's translation; *Egyptians* → *Egipcjanami* (kartoteka D13)	done
+Q19	text § 3, n. 63	Act of 1554 (1 & 2 Ph. & M. c. 4)	EN-NO-PL	translator's translation	done
+Q20	n. 64	Act of 1562 (5 Eliz. c. 20)	EN-NO-PL	translator's translation	done
+Q21	block § 3, n. 65	Marx, Kapital I, MEW 23, 762	PL-EDITION	working translation from the German; Dzieła t. 23 — wording + page	open (S10)
+Q22	text § 3, n. 71, 75	Marx, Kapital I, MEW 23, 724 ("charm of the gipsy life")	PL-EDITION	German has „das … blühende Zigeunertum” (no "charm"): the author's wording kept („urok cygańskiego życia”) + translator's note t2; Dzieła t. 23 wording to compare	open (S10)
+Q23	text § 3, n. 74	Marx, Kapital I, MEW 23, 723	PL-EDITION	working translation from the German; Dzieła t. 23	open (S10)
+Q24	text § 3, n. 76	Marx, Kapital I, MEW 23, 724	PL-EDITION	working translation from the German; Dzieła t. 23	open (S10)
+Q25	block § 3, n. 77	Marx, Kapital I, MEW 23, 724–725	PL-EDITION	working translation from the German; Dzieła t. 23	open (S10)
+Q26	text § 4, n. 81	Württemberg regulation 14.06.1650 (Zeller 1842, 81; German in the note)	THIRD-LANG	translated from the German in the note	done
+Q27	text § 4, n. 82	as Q26	THIRD-LANG	translated from the German in the note	done
+Q28	text § 4, n. 83–84	Württemberg regulation 30.08.1667 (Zeller 1842, 489–490)	THIRD-LANG	translated from the German in the notes	done
+Q29	text § 4, n. 85–86	Württemberg general edict 17.02.1706 (Zeller 1842, 822)	THIRD-LANG	translated from the German in the notes	done
+Q30	block § 4, n. 87	as Q29 (Zeller 1842, 823)	THIRD-LANG	translated from the German in the note	done
+Q31	text § 4, n. 88–93	as Q29 (Zeller 1842, 823–824)	THIRD-LANG	translated from the German in the notes	done
+Q32	text § 4, n. 95	Landwehr 2001 (German in the note)	THIRD-LANG	translated from the German in the note	done
+Q33	n. 41	Grellmann via Breger 2003 (‘bad habits’, German)	THIRD-LANG	author's single quotation marks, a phrase not a passage: from the English („złe nawyki”), no annotation	done

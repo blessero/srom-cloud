@@ -1,0 +1,1688 @@
+[
+ {
+  "id": "decker2018",
+  "type": "chapter",
+  "title": "Die Leipziger Autoritarismus-Studie 2018: Methode, Ergebnisse und Langzeitverlauf",
+  "container-title": "Flucht ins Autoritäre: Rechtsextreme Dynamiken in der Mitte der Gesellschaft. Die Leipziger Autoritarismus-Studie 2018",
+  "issued": {
+   "date-parts": [
+    [
+     2018
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Decker",
+    "given": "Oliver"
+   },
+   {
+    "family": "Kiess",
+    "given": "Johannes"
+   },
+   {
+    "family": "Schuler",
+    "given": "Julia"
+   },
+   {
+    "family": "Handke",
+    "given": "Barbara"
+   },
+   {
+    "family": "Brähler",
+    "given": "Elmar"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Decker",
+    "given": "Oliver"
+   },
+   {
+    "family": "Brähler",
+    "given": "Elmar"
+   }
+  ],
+  "publisher": "Psychosozial-Verlag",
+  "publisher-place": "Gießen",
+  "page": "65–115",
+  "title-short": "Die Leipziger Autoritarismus-Studie 2018…",
+  "srom-as-written": {
+   "author": "Decker"
+  }
+ },
+ {
+  "id": "vanbaar2019",
+  "type": "book",
+  "title": "The Securitization of the Roma in Europe",
+  "issued": {
+   "date-parts": [
+    [
+     2019
+    ]
+   ]
+  },
+  "publisher": "Palgrave Macmillan",
+  "publisher-place": "Cham, Switzerland",
+  "editor": [
+   {
+    "family": "Baar",
+    "given": "Huub",
+    "non-dropping-particle": "van"
+   },
+   {
+    "family": "Ivasiuc",
+    "given": "Ana"
+   },
+   {
+    "family": "Kreide",
+    "given": "Regina"
+   }
+  ],
+  "collection-title": "Human Rights Interventions",
+  "srom-as-written": {
+   "title": "The Securitization of the Roma in Europe. Human rights interventions"
+  }
+ },
+ {
+  "id": "end2019",
+  "type": "book",
+  "title": "Antiziganismus und Polizei: Mit Dokumentation der Fachveranstaltung “Die Polizei und Minderheiten – Das Beispiel Antiziganismus” und einem ergänzenden Beitrag zum OEZ-Attentat",
+  "issued": {
+   "date-parts": [
+    [
+     2019
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "End",
+    "given": "Markus"
+   }
+  ],
+  "publisher": "Zentralrat Deutscher Sinti und Roma",
+  "publisher-place": "Heidelberg",
+  "collection-title": "Schriftenreihe",
+  "collection-number": "12",
+  "title-short": "Antiziganismus und Polizei…"
+ },
+ {
+  "id": "lucassen1996",
+  "type": "book",
+  "title": "Zigeuner: Die Geschichte eines polizeilichen Ordnungsbegriffes in Deutschland 1700–1945",
+  "issued": {
+   "date-parts": [
+    [
+     1996
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Lucassen",
+    "given": "Leo"
+   }
+  ],
+  "publisher": "Böhlau",
+  "publisher-place": "Köln/Weimar/Wien",
+  "title-short": "Zigeuner…"
+ },
+ {
+  "id": "willems1997",
+  "type": "book",
+  "title": "In Search of the True Gypsy: From Enlightenment to Final Solution",
+  "issued": {
+   "date-parts": [
+    [
+     1997
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Willems",
+    "given": "Wim"
+   }
+  ],
+  "publisher": "Frank Cass",
+  "publisher-place": "London/Portland, OR",
+  "title-short": "In Search of the True Gypsy"
+ },
+ {
+  "id": "patrut2014",
+  "type": "book",
+  "title": "Phantasma Nation: “Zigeuner” und Juden als Grenzfiguren des “Deutschen” (1770–1920)",
+  "issued": {
+   "date-parts": [
+    [
+     2014
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Patrut",
+    "given": "Iulia-Karin"
+   }
+  ],
+  "publisher": "Königshausen & Neumann",
+  "publisher-place": "Würzburg",
+  "title-short": "Phantasma Nation"
+ },
+ {
+  "id": "meuser2014",
+  "type": "chapter",
+  "title": "Vagabunden und Arbeitsscheue: Der Zigeunerbegriff der Polizei als soziale Kategorie",
+  "container-title": "Faul, fremd und frei",
+  "issued": {
+   "date-parts": [
+    [
+     2014
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Meuser",
+    "given": "Maria"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Hund",
+    "given": "Wulf D."
+   }
+  ],
+  "publisher": "Unrast Verlag",
+  "publisher-place": "Münster",
+  "page": "105–123",
+  "title-short": "Vagabunden und Arbeitsscheue"
+ },
+ {
+  "id": "hund2011",
+  "type": "chapter",
+  "title": "“It Must Come from Europe”: The Racisms of Immanuel Kant",
+  "container-title": "Racisms Made in Germany",
+  "issued": {
+   "date-parts": [
+    [
+     2011
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Hund",
+    "given": "Wulf D."
+   }
+  ],
+  "editor": [
+   {
+    "family": "Hund",
+    "given": "Wulf D."
+   },
+   {
+    "family": "Koller",
+    "given": "Christian"
+   },
+   {
+    "family": "Zimmermann",
+    "given": "Moshe"
+   }
+  ],
+  "publisher": "LIT-Verlag",
+  "publisher-place": "Münster, Berlin",
+  "page": "69–98",
+  "title-short": "“It Must Come from Europe”"
+ },
+ {
+  "id": "bbaw2020",
+  "type": "webpage",
+  "title": "Kant – Ein Rassist? Interdisziplinäre Diskussionsreihe",
+  "URL": "https://www.bbaw.de/mediathek/archiv-2020/kant-ein-rassist-interdisziplinaere-diskussionsreihe",
+  "accessed": {
+   "date-parts": [
+    [
+     2020,
+     11,
+     24
+    ]
+   ]
+  },
+  "srom-undated": true
+ },
+ {
+  "id": "larrimore1999",
+  "type": "article-journal",
+  "title": "Sublime Waste: Kant on the Destiny of the “Races”",
+  "container-title": "Canadian Journal of Philosophy",
+  "issued": {
+   "date-parts": [
+    [
+     1999
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Larrimore",
+    "given": "Mark"
+   }
+  ],
+  "volume": "25",
+  "page": "99–125",
+  "DOI": "10.1080/00455091.1999.10716832",
+  "title-short": "Sublime Waste"
+ },
+ {
+  "id": "hill2000",
+  "type": "chapter",
+  "title": "Kant and Race",
+  "container-title": "Race and Racism",
+  "issued": {
+   "date-parts": [
+    [
+     2000
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Hill",
+    "given": "Thomas E."
+   },
+   {
+    "family": "Boxill",
+    "given": "Bernard"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Boxill",
+    "given": "Bernard"
+   }
+  ],
+  "publisher": "Oxford University Press",
+  "publisher-place": "Oxford",
+  "page": "448–471"
+ },
+ {
+  "id": "bernasconi2001",
+  "type": "chapter",
+  "title": "Who Invented the Concept of Race? Kant’s Role in the Enlightenment Construction of Race",
+  "container-title": "Race",
+  "issued": {
+   "date-parts": [
+    [
+     2001
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Bernasconi",
+    "given": "Robert"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Bernasconi",
+    "given": "Robert"
+   }
+  ],
+  "publisher": "Blackwell Publishers",
+  "publisher-place": "Malden, Mass./Oxford",
+  "page": "11–36",
+  "title-short": "Who Invented the Concept of Race?…"
+ },
+ {
+  "id": "bernasconi2002",
+  "type": "chapter",
+  "title": "Kant as an Unfamiliar Source of Racism",
+  "container-title": "Philosophers on Race: Critical Essays",
+  "issued": {
+   "date-parts": [
+    [
+     2002
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Bernasconi",
+    "given": "Robert"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Lott",
+    "given": "Tommy L."
+   },
+   {
+    "family": "Ward",
+    "given": "Julie K."
+   }
+  ],
+  "publisher": "Oxford University Press",
+  "publisher-place": "Oxford",
+  "page": "145–166",
+  "title-short": "Kant as an Unfamiliar Source"
+ },
+ {
+  "id": "fenves2003",
+  "type": "book",
+  "title": "Late Kant: Towards Another Law of the Earth",
+  "issued": {
+   "date-parts": [
+    [
+     2003
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Fenves",
+    "given": "Peter D."
+   }
+  ],
+  "publisher": "Routledge",
+  "publisher-place": "New York/London",
+  "title-short": "Late Kant…"
+ },
+ {
+  "id": "shell2006",
+  "type": "chapter",
+  "title": "Kant’s Concept of a Human Race",
+  "container-title": "The German Invention of Race",
+  "issued": {
+   "date-parts": [
+    [
+     2006
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Shell",
+    "given": "Susan M."
+   }
+  ],
+  "editor": [
+   {
+    "family": "Eigen",
+    "given": "Sara"
+   },
+   {
+    "family": "Larrimore",
+    "given": "Mark"
+   }
+  ],
+  "publisher": "State Univ. of New York Press",
+  "publisher-place": "Albany, NY",
+  "page": "55–72"
+ },
+ {
+  "id": "kleingeld2007",
+  "type": "article-journal",
+  "title": "Kant’s Second Thoughts on Race",
+  "container-title": "The Philosophical Quarterly",
+  "issued": {
+   "date-parts": [
+    [
+     2007
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Kleingeld",
+    "given": "Pauline"
+   }
+  ],
+  "volume": "57",
+  "issue": "229",
+  "page": "573–592",
+  "title-short": "Kant’s Second Thoughts"
+ },
+ {
+  "id": "zhavoronkov2018",
+  "type": "article-journal",
+  "title": "The Concept of Race in Kant’s Lectures on Anthropology",
+  "container-title": "Con-Textos Kantianos. International Journal of Philosophy",
+  "issued": {
+   "date-parts": [
+    [
+     2018
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Zhavoronkov",
+    "given": "Alexey"
+   },
+   {
+    "family": "Salikov",
+    "given": "Alexey"
+   }
+  ],
+  "volume": "7",
+  "page": "275–292",
+  "DOI": "10.5281/zenodo.1299140",
+  "title-short": "Concept of Race"
+ },
+ {
+  "id": "lagier2004",
+  "type": "book",
+  "title": "Les races humaines selon Kant",
+  "issued": {
+   "date-parts": [
+    [
+     2004
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Lagier",
+    "given": "Raphaël"
+   }
+  ],
+  "publisher": "Presses Univ. de France",
+  "publisher-place": "Paris"
+ },
+ {
+  "id": "eberl2019",
+  "type": "article-journal",
+  "title": "Kant on Race and Barbarism: Towards a More Complex View on Racism and Anti-Colonialism in Kant",
+  "container-title": "Kantian Review",
+  "issued": {
+   "date-parts": [
+    [
+     2019
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Eberl",
+    "given": "Oliver"
+   }
+  ],
+  "volume": "24",
+  "issue": "3",
+  "page": "385–413",
+  "DOI": "10.1017/S1369415419000189",
+  "title-short": "Kant on Race"
+ },
+ {
+  "id": "vangorkom2020",
+  "type": "article-journal",
+  "title": "Immanuel Kant on Race Mixing: The Gypsies, the Black Portuguese, and the Jews on St. Thomas",
+  "container-title": "Journal of the History of Ideas",
+  "issued": {
+   "date-parts": [
+    [
+     2020
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Gorkom",
+    "given": "Joris",
+    "non-dropping-particle": "van"
+   }
+  ],
+  "volume": "81",
+  "issue": "3",
+  "page": "407–427",
+  "DOI": "10.1353/jhi.2020.0025",
+  "title-short": "Immanuel Kant on Race Mixing…"
+ },
+ {
+  "id": "rottgers1997",
+  "type": "article-journal",
+  "title": "Kants Zigeuner",
+  "container-title": "Kant Studien",
+  "issued": {
+   "date-parts": [
+    [
+     1997
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Röttgers",
+    "given": "Kurt"
+   }
+  ],
+  "volume": "88",
+  "page": "60–86"
+ },
+ {
+  "id": "rottgers1993",
+  "type": "book",
+  "title": "Kants Kollege und seine ungeschriebene Schrift über die Zigeuner",
+  "issued": {
+   "date-parts": [
+    [
+     1993
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Röttgers",
+    "given": "Kurt"
+   }
+  ],
+  "publisher": "Manutius",
+  "publisher-place": "Heidelberg",
+  "title-short": "Kants Kollege…"
+ },
+ {
+  "id": "biester1793",
+  "type": "article-journal",
+  "title": "Über die Zigeuner",
+  "container-title": "Berlinische Monatsschrift",
+  "issued": {
+   "date-parts": [
+    [
+     1793
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Biester",
+    "given": "Johann Erich"
+   }
+  ],
+  "volume": "21",
+  "page": "108–165, 360–393"
+ },
+ {
+  "id": "ruch1986",
+  "type": "thesis",
+  "author": [
+   {
+    "family": "Ruch",
+    "given": "Martin"
+   }
+  ],
+  "title": "Zur Wissenschaftsgeschichte der deutschsprachigen “Zigeunerforschung” von den Anfängen bis 1900",
+  "publisher-place": "Freiburg",
+  "issued": {
+   "date-parts": [
+    [
+     1986
+    ]
+   ]
+  },
+  "note": "maszynopis pracy doktorskiej",
+  "title-short": "Wissenschaftsgeschichte “Zigeunerforschung”",
+  "srom-as-written": {
+   "note": "unpublished dissertation"
+  }
+ },
+ {
+  "id": "engbringromang2003",
+  "type": "chapter",
+  "title": "Vorurteile – naturwissenschaftlich begründet: Beiträge aufgeklärter Wissenschaftler zur Begründung des rassistischen Antiziganismus",
+  "container-title": "Aufklärung und Antiziganismus",
+  "issued": {
+   "date-parts": [
+    [
+     2003
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Engbring-Romang",
+    "given": "Udo"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Engbring-Romang",
+    "given": "Udo"
+   },
+   {
+    "family": "Strauß",
+    "given": "Daniel"
+   }
+  ],
+  "publisher": "I-Verb.de",
+  "publisher-place": "Seeheim",
+  "page": "34–49",
+  "title-short": "Vorurteile – naturwissenschaftlich begründet…"
+ },
+ {
+  "id": "solms2008",
+  "type": "book",
+  "title": "Zigeunerbilder: Ein dunkles Kapitel der deutschen Literaturgeschichte. Von der frühen Neuzeit bis zur Romantik",
+  "issued": {
+   "date-parts": [
+    [
+     2008
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Solms",
+    "given": "Wilhelm"
+   }
+  ],
+  "publisher": "Königshausen & Neumann",
+  "publisher-place": "Würzburg",
+  "title-short": "Zigeunerbilder…"
+ },
+ {
+  "id": "rudiger1782",
+  "type": "chapter",
+  "title": "Von der Sprache und Herkunft der Zigeuner aus Indien",
+  "container-title": "Neuester Zuwachs der teutschen, fremden und allgemeinen Sprachkunde in einigen Aufsätzen, Bücheranzeigen und Nachrichten",
+  "issued": {
+   "date-parts": [
+    [
+     1782
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Rüdiger",
+    "given": "Johann Christian Christoph"
+   }
+  ],
+  "publisher": "Kummer",
+  "publisher-place": "Leipzig",
+  "page": "37–84",
+  "URL": "http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb10583110-8",
+  "title-short": "Von der Sprache und Herkunft der Zigeuner…"
+ },
+ {
+  "id": "grellmann1783",
+  "type": "book",
+  "title": "Die Zigeuner: Ein historischer Versuch über die Lebensart und Verfassung, Sitten und Schicksahle dieses Volkes in Europa, nebst ihrem Ursprunge",
+  "issued": {
+   "date-parts": [
+    [
+     1783
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Grellmann",
+    "given": "Heinrich Moritz Gottlieb"
+   }
+  ],
+  "publisher": "Buchhandlung der Gelehrten",
+  "publisher-place": "Dessau/Leipzig",
+  "title-short": "Die Zigeuner…"
+ },
+ {
+  "id": "grellmann1787",
+  "type": "book",
+  "title": "Historischer Versuch über die Zigeuner betreffend die Lebensart und Verfassung, Sitten und Schicksale dieses Volks seit seiner Erscheinung in Europa, und dessen Ursprung",
+  "issued": {
+   "date-parts": [
+    [
+     1787
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Grellmann",
+    "given": "Heinrich Moritz Gottlieb"
+   }
+  ],
+  "publisher": "Dieterich",
+  "publisher-place": "Göttingen",
+  "edition": "2",
+  "URL": "http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb11256263-6",
+  "title-short": "Historischer Versuch über die Zigeuner…"
+ },
+ {
+  "id": "grellmann1787en",
+  "type": "book",
+  "title": "Dissertation on the Gipsies, Being an Historical Enquiry, Concerning the Manner of Life, Oeconomy, Customs and Conditions of These People in Europe, and Their Origin",
+  "issued": {
+   "date-parts": [
+    [
+     1787
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Grellmann",
+    "given": "Heinrich Moritz Gottlieb"
+   }
+  ],
+  "publisher": "G. Bigg",
+  "publisher-place": "London",
+  "title-short": "Dissertation on the Gipsies…"
+ },
+ {
+  "id": "ufen2014",
+  "type": "chapter",
+  "title": "Aus Zigeunern Menschen machen: Heinrich Moritz Gottlieb Grellmann und das Zigeunerbild der Aufklärung",
+  "container-title": "Faul, fremd und frei",
+  "issued": {
+   "date-parts": [
+    [
+     2014
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Ufen",
+    "given": "Katrin"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Hund",
+    "given": "Wulf D."
+   }
+  ],
+  "publisher": "Unrast Verlag",
+  "publisher-place": "Münster",
+  "page": "70–90",
+  "title-short": "Aus Zigeunern Menschen machen"
+ },
+ {
+  "id": "breger2003",
+  "type": "chapter",
+  "title": "Grellmann – der “Zigeunerforscher” der Aufklärung",
+  "container-title": "Aufklärung und Antiziganismus",
+  "issued": {
+   "date-parts": [
+    [
+     2003
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Breger",
+    "given": "Claudia"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Engbring-Romang",
+    "given": "Udo"
+   },
+   {
+    "family": "Strauß",
+    "given": "Daniel"
+   }
+  ],
+  "publisher": "I-Verb.de",
+  "publisher-place": "Seeheim",
+  "page": "50–65",
+  "title-short": "Grellmann – der “Zigeunerforscher”",
+  "srom-as-written": {
+   "editor": "Engbring-Romang; Strauss"
+  }
+ },
+ {
+  "id": "geulen2020",
+  "type": "webpage",
+  "author": [
+   {
+    "family": "Geulen",
+    "given": "Christian"
+   }
+  ],
+  "title": "“Rasse” und “Rassismus”: Lecture in the Lecture Series “Kant – Ein Rassist?”",
+  "issued": {
+   "date-parts": [
+    [
+     2020
+    ]
+   ]
+  },
+  "URL": "https://www.db-thueringen.de/receive/dbt_mods_00046963",
+  "accessed": {
+   "date-parts": [
+    [
+     2020,
+     11,
+     24
+    ]
+   ]
+  },
+  "title-short": "“Rasse” und “Rassismus”…"
+ },
+ {
+  "id": "kant2010a",
+  "type": "chapter",
+  "title": "Anthropology from a Pragmatic Point of View (1798)",
+  "container-title": "Anthropology, History, and Education",
+  "issued": {
+   "date-parts": [
+    [
+     2010
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Kant",
+    "given": "Immanuel"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Louden",
+    "given": "Robert"
+   },
+   {
+    "family": "Zoller",
+    "given": "Gunter"
+   }
+  ],
+  "publisher": "Cambridge University Press",
+  "publisher-place": "Cambridge",
+  "page": "227–429",
+  "title-short": "Anthropology from a Pragmatic Point of View"
+ },
+ {
+  "id": "horkheimer2002",
+  "type": "book",
+  "title": "Dialectic of Enlightenment: Philosophical Fragments",
+  "issued": {
+   "date-parts": [
+    [
+     2002
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Horkheimer",
+    "given": "Max"
+   },
+   {
+    "family": "Adorno",
+    "given": "Theodor W."
+   }
+  ],
+  "publisher": "Stanford University Press",
+  "publisher-place": "Stanford, CA",
+  "editor": [
+   {
+    "family": "Schmid Noerr",
+    "given": "Gunzelin"
+   }
+  ],
+  "translator": [
+   {
+    "family": "Jephcott",
+    "given": "Edmund"
+   }
+  ],
+  "title-short": "Dialectic of Enlightenment…"
+ },
+ {
+  "id": "timbers2016",
+  "type": "book",
+  "title": "“The Damned Fraternitie”: Constructing Gypsy Identity in Early Modern England, 1500–1700",
+  "issued": {
+   "date-parts": [
+    [
+     2016
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Timbers",
+    "given": "Frances"
+   }
+  ],
+  "publisher": "Routledge",
+  "publisher-place": "London/New York",
+  "title-short": "“The Damned Fraternitie”…"
+ },
+ {
+  "id": "kant1923",
+  "type": "chapter",
+  "title": "Reflexionen zur Anthropologie",
+  "container-title": "Gesammelte Schriften",
+  "issued": {
+   "date-parts": [
+    [
+     1923
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Kant",
+    "given": "Immanuel"
+   }
+  ],
+  "editor": [
+   {
+    "literal": "Preussische Akademie der Wissenschaften"
+   }
+  ],
+  "publisher": "De Gruyter",
+  "publisher-place": "Berlin/Leipzig",
+  "page": "55–654",
+  "volume": "15"
+ },
+ {
+  "id": "kant2010b",
+  "type": "chapter",
+  "title": "Of the Different Races of Human Beings (1775)",
+  "container-title": "Anthropology, History, and Education",
+  "issued": {
+   "date-parts": [
+    [
+     2010
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Kant",
+    "given": "Immanuel"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Louden",
+    "given": "Robert"
+   },
+   {
+    "family": "Zoller",
+    "given": "Gunter"
+   }
+  ],
+  "publisher": "Cambridge University Press",
+  "publisher-place": "Cambridge",
+  "page": "82–97",
+  "title-short": "Of the Different Races of Human Beings"
+ },
+ {
+  "id": "kant1996",
+  "type": "chapter",
+  "title": "Religion within the Boundaries of Mere Reason (1793)",
+  "container-title": "Religion and Rational Theology",
+  "issued": {
+   "date-parts": [
+    [
+     1996
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Kant",
+    "given": "Immanuel"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Wood",
+    "given": "Allen W."
+   },
+   {
+    "family": "Di Giovanni",
+    "given": "George"
+   }
+  ],
+  "publisher": "Cambridge University Press",
+  "publisher-place": "Cambridge",
+  "page": "39–216",
+  "title-short": "Religion within the Boundaries of Mere Reason"
+ },
+ {
+  "id": "kant2010c",
+  "type": "chapter",
+  "title": "Determination of the Concept of a Human Race (1785)",
+  "container-title": "Anthropology, History, and Education",
+  "issued": {
+   "date-parts": [
+    [
+     2010
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Kant",
+    "given": "Immanuel"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Louden",
+    "given": "Robert"
+   },
+   {
+    "family": "Zoller",
+    "given": "Gunter"
+   }
+  ],
+  "publisher": "Cambridge University Press",
+  "publisher-place": "Cambridge",
+  "page": "143–159",
+  "title-short": "Determination of the Concept of a Human Race"
+ },
+ {
+  "id": "kant2010d",
+  "type": "chapter",
+  "title": "On the Use of Teleological Principles in Philosophy (1788)",
+  "container-title": "Anthropology, History, and Education",
+  "issued": {
+   "date-parts": [
+    [
+     2010
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Kant",
+    "given": "Immanuel"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Louden",
+    "given": "Robert"
+   },
+   {
+    "family": "Zoller",
+    "given": "Gunter"
+   }
+  ],
+  "publisher": "Cambridge University Press",
+  "publisher-place": "Cambridge",
+  "page": "192–218",
+  "title-short": "Teleological Principles"
+ },
+ {
+  "id": "scholz2009",
+  "type": "chapter",
+  "title": "Antiziganismus und Ausnahmezustand: Der “Zigeuner” in der Arbeitsgesellschaft",
+  "container-title": "Antiziganistische Zustände: Zur Kritik eines allgegenwärtigen Ressentiments",
+  "issued": {
+   "date-parts": [
+    [
+     2009
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Scholz",
+    "given": "Roswitha"
+   }
+  ],
+  "editor": [
+   {
+    "family": "End",
+    "given": "Markus"
+   },
+   {
+    "family": "Herold",
+    "given": "Kathrin"
+   },
+   {
+    "family": "Robel",
+    "given": "Yvonne"
+   }
+  ],
+  "publisher": "Unrast Verlag",
+  "publisher-place": "Münster",
+  "page": "24–40",
+  "title-short": "Antiziganismus und Ausnahmezustand…"
+ },
+ {
+  "id": "amin1974",
+  "type": "book",
+  "title": "Accumulation on a World Scale: A Critique of the Theory of Underdevelopment",
+  "issued": {
+   "date-parts": [
+    [
+     1974
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Amīn",
+    "given": "Samīr"
+   }
+  ],
+  "publisher": "Monthly Review Press",
+  "publisher-place": "New York, NY",
+  "title-short": "Accumulation on a World Scale…"
+ },
+ {
+  "id": "mies1988",
+  "type": "book",
+  "title": "Patriarchat und Kapital: Frauen in der internationalen Arbeitsteilung",
+  "issued": {
+   "date-parts": [
+    [
+     1988
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Mies",
+    "given": "Maria"
+   }
+  ],
+  "publisher": "Rotpunktverlag",
+  "publisher-place": "Zürich",
+  "title-short": "Patriarchat und Kapital…"
+ },
+ {
+  "id": "federici2004",
+  "type": "book",
+  "title": "Caliban and the Witch. Women, the Body and Primitive Accumulation",
+  "issued": {
+   "date-parts": [
+    [
+     2004
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Federici",
+    "given": "Silvia"
+   }
+  ],
+  "publisher": "Autonomedia",
+  "publisher-place": "New York, NY",
+  "title-short": "Caliban and the Witch…"
+ },
+ {
+  "id": "marx1962",
+  "type": "book",
+  "title": "Das Kapital: Kritik der politischen Ökonomie. Erster Band",
+  "issued": {
+   "date-parts": [
+    [
+     1962
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Marx",
+    "given": "Karl"
+   }
+  ],
+  "publisher": "Dietz",
+  "publisher-place": "Berlin",
+  "collection-title": "Karl Marx / Friedrich Engels: Werke",
+  "collection-number": "23",
+  "title-short": "Das Kapital…"
+ },
+ {
+  "id": "marx1958",
+  "type": "book",
+  "title": "Schriften 1845–1846",
+  "issued": {
+   "date-parts": [
+    [
+     1958
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Marx",
+    "given": "Karl"
+   },
+   {
+    "family": "Engels",
+    "given": "Friedrich"
+   }
+  ],
+  "publisher": "Dietz",
+  "publisher-place": "Berlin",
+  "collection-title": "Karl Marx / Friedrich Engels: Werke",
+  "collection-number": "3"
+ },
+ {
+  "id": "marx1983",
+  "type": "book",
+  "title": "Ökonomische Manuskripte 1857/1858",
+  "issued": {
+   "date-parts": [
+    [
+     1983
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Marx",
+    "given": "Karl"
+   }
+  ],
+  "publisher": "Dietz",
+  "publisher-place": "Berlin",
+  "collection-title": "Karl Marx / Friedrich Engels: Werke",
+  "collection-number": "42"
+ },
+ {
+  "id": "tomlins1811",
+  "type": "book",
+  "title": "The Statutes at Large, of England and of Great-Britain: From Magna Carta to the Union of the Kingdoms of Great Britain and Ireland. In Twenty Volumes",
+  "issued": {
+   "date-parts": [
+    [
+     1811
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Tomlins",
+    "given": "Thomas Edlyne"
+   }
+  ],
+  "publisher": "G. Eyre and A. Strahan",
+  "publisher-place": "London",
+  "volume": "2",
+  "volume-title": "From 1 Ric. II A.D. 1377 – To 19 Hen. VII. A.D. 1507",
+  "srom-section": "IV",
+  "title-short": "The Statutes at Large…",
+  "srom-as-written": {
+   "publisher": "Printed by G. Eyre and A. Strahan, printers to the King"
+  }
+ },
+ {
+  "id": "raithby1811a",
+  "type": "book",
+  "title": "The Statutes at Large, of England and of Great-Britain: From Magna Carta to the Union of the Kingdoms of Great Britain and Ireland. In Twenty Volumes",
+  "issued": {
+   "date-parts": [
+    [
+     1811
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Raithby",
+    "given": "John"
+   }
+  ],
+  "publisher": "G. Eyre and A. Strahan",
+  "publisher-place": "London",
+  "volume": "3",
+  "volume-title": "From 1 Hen. VIII. A.D. 1509–10. – To 7 Edw. VI. A.D. 1553",
+  "srom-section": "IV",
+  "title-short": "The Statutes at Large…",
+  "srom-as-written": {
+   "publisher": "Printed by G. Eyre and A. Strahan, printers to the King"
+  }
+ },
+ {
+  "id": "raithby1811b",
+  "type": "book",
+  "title": "The Statutes at Large, of England and of Great-Britain: From Magna Carta to the Union of the Kingdoms of Great Britain and Ireland. In Twenty Volumes",
+  "issued": {
+   "date-parts": [
+    [
+     1811
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Raithby",
+    "given": "John"
+   }
+  ],
+  "publisher": "G. Eyre and A. Strahan",
+  "publisher-place": "London",
+  "volume": "4",
+  "volume-title": "From 1 Mary, A.D. 1553. – To 16 Charles I. A.D. 1640",
+  "srom-section": "IV",
+  "title-short": "The Statutes at Large…",
+  "srom-as-written": {
+   "publisher": "Printed by G. Eyre and A. Strahan, printers to the King"
+  }
+ },
+ {
+  "id": "mayall1995",
+  "type": "book",
+  "title": "English Gypsies and State Policies",
+  "issued": {
+   "date-parts": [
+    [
+     1995
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Mayall",
+    "given": "David"
+   }
+  ],
+  "publisher": "Gypsy Research Centre Univ. of Hertfordshire Press",
+  "publisher-place": "Hertfordshire",
+  "title-short": "English Gypsies"
+ },
+ {
+  "id": "mayall2004",
+  "type": "book",
+  "title": "Gypsy Identities 1500–2000: From Egipcyans and Moon-Men to the Ethnic Romany",
+  "issued": {
+   "date-parts": [
+    [
+     2004
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Mayall",
+    "given": "David"
+   }
+  ],
+  "publisher": "Routledge",
+  "publisher-place": "London/New York",
+  "title-short": "Gypsy Identities"
+ },
+ {
+  "id": "bohlender1999",
+  "type": "chapter",
+  "title": "Der Malthus-Effekt: Vom Ethos der Aufklärung zur Geburt des Liberalismus",
+  "container-title": "Neustart des Weltlaufs? Fiktion und Faszination der Zeitwende",
+  "issued": {
+   "date-parts": [
+    [
+     1999
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Bohlender",
+    "given": "Matthias"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Fischer",
+    "given": "Karsten"
+   }
+  ],
+  "publisher": "Suhrkamp",
+  "publisher-place": "Frankfurt am Main",
+  "page": "36–64",
+  "title-short": "Der Malthus-Effekt…"
+ },
+ {
+  "id": "zeller1841",
+  "type": "book",
+  "title": "Sammlung der württembergischen Regierungs-Gesetze: Erster Theil, enthaltend die Regierungs-Gesetze vom Jahre 1489 bis zum Jahre 1634",
+  "issued": {
+   "date-parts": [
+    [
+     1841
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Zeller",
+    "given": "Gustav Hermann"
+   },
+   {
+    "family": "Reyscher",
+    "given": "August Ludwig"
+   }
+  ],
+  "publisher": "Fues",
+  "publisher-place": "Tübingen",
+  "collection-title": "Vollständige, historisch und kritisch bearbeitete Sammlung der württembergischen Gesetze",
+  "collection-number": "12",
+  "srom-section": "IV",
+  "title-short": "Sammlung der württembergischen Regierungs-Gesetze: Erster Theil…"
+ },
+ {
+  "id": "zeller1842",
+  "type": "book",
+  "title": "Sammlung der württembergischen Regierungs-Gesetze: Zweiter Theil, enthaltend die Regierungs-Gesetze vom Jahre 1638 bis zum Jahre 1726",
+  "issued": {
+   "date-parts": [
+    [
+     1842
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Zeller",
+    "given": "Gustav Hermann"
+   },
+   {
+    "family": "Reyscher",
+    "given": "August Ludwig"
+   }
+  ],
+  "publisher": "Fues",
+  "publisher-place": "Tübingen",
+  "collection-title": "Vollständige, historisch und kritisch bearbeitete Sammlung der württembergischen Gesetze",
+  "collection-number": "13",
+  "srom-section": "IV",
+  "title-short": "Sammlung der württembergischen Regierungs-Gesetze: Zweiter Theil…"
+ },
+ {
+  "id": "landwehr2001",
+  "type": "chapter",
+  "title": "Norm, Normalität, Anomale: Zur Konstitution von Mehrheit und Minderheit in württembergischen Polizeiordnungen der Frühen Neuzeit: Juden, Zigeuner, Bettler, Vaganten",
+  "container-title": "Minderheiten, Obrigkeit und Gesellschaft in der frühen Neuzeit: Integrations- und Abgrenzungsprozesse im süddeutschen Raum",
+  "issued": {
+   "date-parts": [
+    [
+     2001
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Landwehr",
+    "given": "Achim"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Häberlein",
+    "given": "Mark"
+   },
+   {
+    "family": "Zürn",
+    "given": "Martin"
+   }
+  ],
+  "publisher": "Scripta Mercaturae Verlag",
+  "publisher-place": "St. Katharinen",
+  "page": "41–74",
+  "title-short": "Norm, Normalität, Anomale"
+ },
+ {
+  "id": "reiss2011",
+  "type": "chapter",
+  "title": "Zwischen Revolte und Resignation: Das Bild des Arbeitslosen seit dem 19. Jahrhundert",
+  "container-title": "Armut: Perspektiven in Kunst und Gesellschaft",
+  "issued": {
+   "date-parts": [
+    [
+     2011
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Reiss",
+    "given": "Matthias"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Uerlings",
+    "given": "Herbert"
+   },
+   {
+    "family": "Trauth",
+    "given": "Nina"
+   },
+   {
+    "family": "Clemens",
+    "given": "Lukas"
+   }
+  ],
+  "publisher": "Primus Verlag",
+  "publisher-place": "Darmstadt",
+  "page": "326–335",
+  "title-short": "Zwischen Revolte und Resignation…"
+ },
+ {
+  "id": "balibar1991",
+  "type": "chapter",
+  "title": "Is There a “Neo-Racism”?",
+  "container-title": "Race, Nation, Class: Ambiguous Identities",
+  "issued": {
+   "date-parts": [
+    [
+     1991
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Balibar",
+    "given": "Étienne"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Balibar",
+    "given": "Étienne"
+   },
+   {
+    "family": "Wallerstein",
+    "given": "Immanuel"
+   }
+  ],
+  "publisher": "Verso",
+  "publisher-place": "London",
+  "page": "17–28"
+ },
+ {
+  "id": "reuss2015",
+  "type": "book",
+  "title": "Kontinuitäten der Stigmatisierung: Sinti und Roma in der deutschen Nachkriegszeit",
+  "issued": {
+   "date-parts": [
+    [
+     2015
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Reuss",
+    "given": "Anja"
+   }
+  ],
+  "publisher": "Metropol",
+  "publisher-place": "Berlin",
+  "title-short": "Kontinuitäten der Stigmatisierung…"
+ },
+ {
+  "id": "brittnacher2012",
+  "type": "book",
+  "title": "Leben auf der Grenze: Klischee und Faszination des Zigeunerbildes in Literatur und Kunst",
+  "issued": {
+   "date-parts": [
+    [
+     2012
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Brittnacher",
+    "given": "Hans Richard"
+   }
+  ],
+  "publisher": "Wallstein Verlag",
+  "publisher-place": "Göttingen",
+  "title-short": "Leben auf der Grenze…"
+ },
+ {
+  "id": "reuter2014",
+  "type": "book",
+  "title": "Der Bann des Fremden: Die fotografische Konstruktion des Zigeuners",
+  "issued": {
+   "date-parts": [
+    [
+     2014
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Reuter",
+    "given": "Frank"
+   }
+  ],
+  "publisher": "Wallstein Verlag",
+  "publisher-place": "Göttingen",
+  "title-short": "Der Bann des Fremden…"
+ },
+ {
+  "id": "holert2006",
+  "type": "book",
+  "title": "Fliehkraft: Gesellschaft in Bewegung – von Migranten und Touristen",
+  "issued": {
+   "date-parts": [
+    [
+     2006
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Holert",
+    "given": "Tom"
+   },
+   {
+    "family": "Terkessidis",
+    "given": "Mark"
+   }
+  ],
+  "publisher": "Kiepenheuer & Witsch",
+  "publisher-place": "Köln",
+  "title-short": "Fliehkraft…"
+ }
+]
