@@ -20,3 +20,9 @@ One file per direction, named `<sender>-to-<receiver>.md`:
 6. **Each module reads its incoming file at the start of every session** and reports new items before anything else.
 7. **This folder is a git repository** (since 28.09.2026, MB). After writing here, commit only your own change:
    `git -C _handoffs add <files> && git -C _handoffs commit -m "<module>: <IDs>"`. Local only, no remote.
+
+## Checkup
+
+`checkup/SKILL.md` is the source of the root session's `srom-checkup` skill (symlinked from `../.claude/skills/srom-checkup`;
+versioned here because the root folder is not a git repository). Reviews it writes: `review-<dd.mm.yyyy>.md`. How module
+sessions apply them: root `CLAUDE.md` § Checkup.
