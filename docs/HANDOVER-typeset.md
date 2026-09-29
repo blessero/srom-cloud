@@ -57,7 +57,7 @@ G12) after.
 4. **Stage-1 test on MB's PDF** — done 27.09.2026, waiting for MB's answers. Article: Ndiaye, "Black Roma" (RQ 75,
    2022), `work/ndiaye/` (git-ignored). Stage 1 complete: `ndiaye_src.md` (133 notes keyed, `check.py --keyed` OK),
    `refs.json` (84, `cite_map audit` OK), `ndiaye_src_robocza.docx` (round trip identical), `build/…_korekta.docx`
-   (`build.py --source`, 0 issues). `work/ndiaye/ndiaye_queries.md` Q1–Q17: answered by MB 28.09.2026, applied. Keying is scripted in
+   (`build.py --source`, 0 issues). `work/ndiaye/ndiaye_uwagi.md` Q1–Q17: answered by MB 28.09.2026, applied. Keying is scripted in
    `work/ndiaye/key.py` (re-run after any change to the extraction); refs in `refs.py`.
    What the PDF broke, all fixed with tests (commits d62b8b5 … 214da89): obfuscated italic font names, raised
    note-number lines, caps headings below body size, front matter, title note, verse, captions, reference list at
@@ -85,7 +85,7 @@ G12) after.
    (listed in the report, can pick a sibling URL); range expansion exists twice (`normalize.py` RANGE-FULL,
    `cite_map.expand_ranges`).
 4a. **Stage-1 test 2: Pahulich** (CRS 8/1, 2025, author-date, `work/pahulich/`, git-ignored) — done 28.09.2026, source
-   handed over (T18), MB's points in `MB-decisions.md` D17 (detail `work/pahulich/pahulich_queries.md`). Pipeline:
+   handed over (T18), MB's points in `MB-decisions.md` D17 (detail `work/pahulich/pahulich_uwagi.md`). Pipeline:
    `pdf_extract` → `prep.py` (hand conversions, logged) → `refs.py` → `cite_map scan --apply pahulich_src.md
    --renumber` → `check.py` → `build.py --source` → `export_work.py`. Re-run from `prep.py` after any change.
    What this layout broke, all fixed with tests (a64edb3 … 57c8f08): bracketed superscript markers "[1]"; note size
@@ -97,7 +97,7 @@ G12) after.
    After MB answers D17: B-items into `refs.py`; A2 (merge notes 1/2) in `prep.py`; new T-item with new sha256.
 4b. **Stage-1 test 3: Scheffknecht, German** (Neujahrsblätter Lustenau 1/2010, endnotes, full-note citations, no
    bibliography; `work/scheffknecht/`, git-ignored) — done 28.09.2026, **not handed over** (srom-tlumacz is EN→PL): MB's
-   points in `MB-decisions.md` D18 (detail `work/scheffknecht/scheffknecht_queries.md`). Pipeline: `pdf_extract --pages
+   points in `MB-decisions.md` D18 (detail `work/scheffknecht/scheffknecht_uwagi.md`). Pipeline: `pdf_extract --pages
    4-32` → `key.py` (relabel PDF 2–121 → 1–120, keying, `key_log.md`) → `check.py --keyed` → `build.py --source` →
    `export_work.py`; `refs.py` → refs.json (35 works typed from the notes). `wordcheck.py` there: every PDF word in the output.
    29.09.2026 17:59: D18 A5 applied — hippel1995 `dropping-particle` "von" (bibliography "Hippel, Wolfgang von", notes "W. von
@@ -115,7 +115,7 @@ G12) after.
 4c. **Stage-1 test 4: Ostendorf** ("Familiar Outsiders Abroad", ch. 3 of M. Fotta, A. Ostendorf (eds.), *The Romani
    Atlantic*, CUP 2026; Cambridge Core PDF, Chicago full notes, no bibliography; `work/ostendorf/`, git-ignored) — done
    28.09.2026, handed over (T19) with **rights pending** (CUP, not OA): MB's points in `MB-decisions.md` D19 (detail
-   `work/ostendorf/ostendorf_queries.md`). Pipeline: `pdf_extract` → `key.py` (keying + two DO SPRAWDZENIA comments,
+   `work/ostendorf/ostendorf_uwagi.md`). Pipeline: `pdf_extract` → `key.py` (keying + two DO SPRAWDZENIA comments,
    `key_log.md`) → `check.py --keyed` → `build.py --source` → `export_work.py`; `refs.py` → refs.json (83 works);
    `wordcheck.py` (words and numbers). Re-run from `refs.py`/`key.py` after MB's answers; new T-item with sha256.
    What it broke, fixed with tests (aaecba0, ea04d6a, next): the text layer had no digits and no small caps (Sabon LT Std
@@ -135,7 +135,7 @@ G12) after.
 4d. **Stage-1 test 5: Tittel** ("Racial and Social Dimensions of Antiziganism", *On_Culture* 10, 2020, Giessen; endnotes
    with full Chicago citations incl. place and publisher, no bibliography; `work/tittel/`, git-ignored) — done 28.09.2026,
    handed over (T20); rights no obstacle (CC BY 4.0). MB's points in `MB-decisions.md` D20 (detail
-   `work/tittel/tittel_queries.md`). Pipeline: `pdf_extract` → `key.py` (prep: joins, a URL, note 1 → title note; keying;
+   `work/tittel/tittel_uwagi.md`). Pipeline: `pdf_extract` → `key.py` (prep: joins, a URL, note 1 → title note; keying;
    labels renumbered 2–101 → 1–100; `key_log.md`) → `check.py --keyed tittel_pre.md tittel_src.md` → `build.py --source` →
    `export_work.py`; `refs.py` → refs.json (63 works). `wordcheck.py`: every word of the PDF in the extraction. Re-run from
    `refs.py`/`key.py` after MB's answers; new T-item with sha256.
@@ -154,7 +154,7 @@ G12) after.
    ch. 6 of C. Baker et al. (eds), *Off White*, Manchester UP 2024, DOI 10.7765/9781526172211.00013; manchesterhive PDF,
    British Chicago endnotes, no bibliography; `work/westohueri/`, git-ignored) — done 29.09.2026, announced to srom-tlumacz
    (T23). **Rights: CC BY-NC-ND 4.0 — the ND needs written permission before a translation is published** (D24 A1; the first
-   ND text). MB's points in `MB-decisions.md` D24 (detail `work/westohueri/westohueri_queries.md` A–E). Pipeline:
+   ND text). MB's points in `MB-decisions.md` D24 (detail `work/westohueri/westohueri_uwagi.md` A–E). Pipeline:
    `pdf_extract` → `key.py` (prep: fieldwork blocks without italics, § 4.1; three DO SPRAWDZENIA comments; keying,
    `key_log.md`) → `check.py --keyed westohueri_pre.md westohueri_src.md` → `build.py --source` → `export_work.py`;
    `refs.py` → refs.json (51 works; 16 DOIs from Crossref, `doi_check.txt`; the dissertation's place sourced).

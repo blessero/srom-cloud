@@ -492,7 +492,7 @@ Source: MB's manchesterhive PDF (`work/Peripheral whiteness …pdf`), Chicago en
 - [x] V2: Pahulich title glosses (E18 [Pahulich] 1) in refs.json; D18 A5 applied in Scheffknecht
   CHECK: grep -c "etnografii rodzimej\|szkic historyczno-etnograficzny\|kształtowanie się etnosu\|powieści i opowiadania\|status prawny i społeczny" work/pahulich/refs.json; grep -c '"dropping-particle": "von"' work/scheffknecht/refs.json
 - [x] V3: B11 (Tittel), B12–B14 (Ostendorf) in the queries files
-  CHECK: grep -c "^- \*\*B11\*\* (29.09" work/tittel/tittel_queries.md; grep -c "^- \*\*B1[234]\*\*" work/ostendorf/ostendorf_queries.md
+  CHECK: grep -c "^- \*\*B11\*\* (29.09" work/tittel/tittel_uwagi.md; grep -c "^- \*\*B1[234]\*\*" work/ostendorf/ostendorf_uwagi.md
 - [x] V4: hand-back contract: take_back.py + test, handoff.md "Back", scenario C; committed
   CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-typeset/tests/test_takeback.py | tail -1; git log --format=%s | grep -c "^Contract, hand-back"
 - [x] V5: T25 (answers + status lines for E17–E19) and T26 committed in _handoffs
