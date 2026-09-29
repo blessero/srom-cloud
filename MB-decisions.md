@@ -25,6 +25,7 @@ send) · **Later** (a reminder, nothing to do now).
 | GEN-10 | Add DOIs the author did not give? | Decide | nothing |
 | GEN-11 | Kanon line for a quotation translated from someone else's English translation | Approve | nothing |
 | GEN-12 | Authors register: five contradictions in your author data | Look up | nothing yet |
+| GEN-13 | "Noty o autorach": a note for every contributor, or only some? | Decide | the vol. 19 notes page |
 | V19-1 | *nomadic* → „koczowniczy”, *itinerant* → „wędrowny” in all vol. 19 texts? | Decide | nothing |
 | V19-2 | „sowiecki” or „radziecki”? | Decide | nothing |
 | V19-3 | Six shared terms (antyczarność, uinnienie, białość …) into the termbase | Approve | nothing |
@@ -76,7 +77,7 @@ send) · **Later** (a reminder, nothing to do now).
 | SYS-1 | Translator on the website, quant skill upload | Later | nothing |
 
 ## Journal-wide (GEN)
-Next free: GEN-13.
+Next free: GEN-14.
 
 ### GEN-1 · Vol. 18 copyright clause: who writes the replacement text, and where does it go?
 **Decide** · blocks **any open-access announcement** · urgent
@@ -206,6 +207,18 @@ Your "Authors INFO" file is now a table (79 authors). Where your sources disagre
 Detail: 🔴 `srom-produkcja/volumes/autorzy.tsv` (column `uwagi`)
 
 *Trail: 30.09.2026 00:50, root session [general].*
+
+### GEN-13 · "Noty o autorach": a note for every contributor, or only some?
+**Decide** · blocks the vol. 19 notes page (the generator lists every contributor today)
+
+Vol. 18 printed 10 notes for 14 contributors: Kledzik and Paszko (reviews) and Janowiak-Janik (co-author of
+"Wydawnictwa") have none, while her co-author Gancarz and Bartosz (conference report) do.
+- (a) every contributor of the volume, whatever the section — **recommended**: one rule, no case-by-case choice
+- (b) only authors of certain parts (say which)
+
+Detail: 🔴 `_widok/noty_o_autorach_18_test.docx` (vol. 18 regenerated as a test)
+
+*Trail: 30.09.2026, root session [general]; srom-produkcja `volume_lists.py`.*
 
 ## Volume 19, all translated texts (V19)
 Next free: V19-5. Per-text choices stay under each text. Detail for V19-1 to V19-3:
