@@ -40,7 +40,7 @@ Missing year, page or publisher, or an illegible/ambiguous element → **do not 
 6. Cyrillic: body → Polish transcription (PWN; KSNG for places). Apparatus → ALA-LC, no tie-bars. `Biessonow` in text, `Bessonov` in notes.
 7. Notes: `J. Ficowski`. Bibliography: `Ficowski, Jerzy.` (small caps by typesetting; **never capitals in the CSV**), all authors, no colon after place.
 8. Title translation `[in square brackets]` right after the title; physical-form note `(maszynopis…)` at the very end.
-9. Proper names never italic, including Romani group names in any spelling. Exception (§ 3.4): foreign exonyms not assimilated in Polish (*Ciganos*, *Gitanos*, *Bohémiens*, *Zigeuner*) are italic, every time; the kartoteka's `italic_house` column decides.
+9. Proper names never italic, including Romani group names in any spelling — in the text (main text, notes, captions, bibliography), not in display elements (running head, speaker and affiliation in a talk, table of contents), where italic stays a typographic device (§ 3.4, 29.09.2026). Exception (§ 3.4): foreign exonyms not assimilated in Polish (*Ciganos*, *Gitanos*, *Bohémiens*, *Zigeuner*) are italic, every time; the kartoteka's `italic_house` column decides.
 10. Labels always Polish, even for foreign works: `red.`, never `Hrsg.`/`ed.`.
 
 ## Do not do silently

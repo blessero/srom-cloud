@@ -27,8 +27,14 @@ State, open decisions and the work queue: `docs/HANDOVER-*.md` — read before s
 - Contract changes between skills are made in `handoff.md` first, then in both skills, with tests on both sides.
 - Rules live in srom-kanon only; srom-typeset implements them and cites them, never restates them.
 - InDesign scripts: ES3 (ExtendScript), report-only unless the editor asks otherwise; run on copies.
-- Substantial tasks: use the unlazy discipline (gates with runnable checks in `GATES.md`).
+- Substantial tasks: use the unlazy discipline (gates with runnable checks in `GATES.md`). A gate's CHECK tests what
+  the leaf produced here (a file, a test, its own commit found by message), not files meant to change later
+  (`../_handoffs/MB-decisions.md`, handoff files, the suite's n/n): those drift, and the closed gate stops holding.
 - Several sessions (one per article) share this working tree. Commit only your own files, by path
   (`git commit <paths>`; never `git add -A`, `commit -a` or `git stash`); never revert, reformat or commit
   another session's uncommitted changes. If the suite fails in code you did not touch, check `git status`/`git diff`
   for another session's work in progress before fixing anything; say so to MB rather than "fixing" it.
+- IDs in shared files (T<n> in `../_handoffs/typeset-to-tlumacz.md`, D<n> in `MB-decisions.md`): re-read the file's
+  tail for the next free ID immediately before appending, and commit `_handoffs` at once. Cite the other side's
+  items with their [Author] tag ("E18 [Pahulich]"), since parallel sessions have reused IDs. Commit a shared file
+  (GATES.md, MB-decisions.md) by path only when every change in it is yours.

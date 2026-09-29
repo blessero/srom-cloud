@@ -1,4 +1,4 @@
-# srom-typeset — handover (state at 28.09.2026)
+# srom-typeset — handover (state at 29.09.2026 17:59)
 
 For the next session (Claude Code). Start with `../_handoffs/tlumacz-to-typeset.md` (incoming) and
 `../_handoffs/MB-decisions.md` (the one list of MB's decisions — this file keeps none), per `../CLAUDE.md`. Then this,
@@ -17,20 +17,22 @@ Nothing here needs re-deriving; decisions marked ✔ are the editor's and closed
 | clean | `scripts/normalize.py` | Polish typography (quotes, dashes, markers before punctuation…) with change log |
 | refs | `scripts/cite_map.py` | author-date → footnote citations (`scan`), refs.json vs author's list (`audit`) |
 | checks | `scripts/check.py` | integrity; `--keyed` (literal notes → citations); `--pair` (handoff check source ↔ translation) |
+| checks | `scripts/mutate_keyed.py` | mutation test of a keyed text: does `check.py --keyed` catch page/work/key errors (step 4b) |
+| back | `scripts/take_back.py` | takes a delivered translation from srom-tlumacz's `work/<id>/` into `work/<id>/pl/` (sha256, re-import of the Word master, `--pair`) |
 | Word | `scripts/export_work.py` | SROM-MD → editor's Word working copy (tokens editable, lossless round trip) |
 | build | `scripts/build.py` | DOCX + report + query sheet `_pytania` + `_postimport.jsx` + `_ibidem.jsx`; `--proof` reading copy |
 | rules | `csl/srom.csl`, `lua/srom_post.lua`, `config/styles.json` | citation style; DOCX styling; role → style names |
 | InDesign | `indesign/style_spec.json` → `scripts/make_style_setup.py` → `srom_style_setup.jsx` + `references/style-sheet.md` | house style definition and setup script |
 | docs | `references/*.md` | srom-md (format), handoff (contract with srom-tlumacz), indesign, decisions, style-sheet |
 
-Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 19/19` (~490 checks). Unlazy ledger: `/GATES.md`, batches from
+Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 20/20` (~510 checks). Unlazy ledger: `/GATES.md`, batches from
 26.09.2026 on (the older G1–G16 ledger was lost, § 3 item 1; its G12, the InDesign import, is stage 3 / D3).
 
 ## 2. Decisions register (`references/decisions.md`)
 
 ✔ closed by the editor: 1–19 — **since 26.09.2026 in Kanon v1.6** (srom-kanon `references/kanon-redakcyjny.md`,
 § 17 row 1.6); `decisions.md` is now only a rule → code → test map plus toolchain conventions (15, 18, 19).
-21 ✔ 29.09.2026 (house style v3; D3 closed; one point left as D21). 20 and 22 ✔ decided 27.09.2026 (D1, D2: as implemented).
+21 ✔ 29.09.2026 (house style v3; D3 closed; D21, italic speaker/affiliation, closed the same day: Kanon § 3.4 supplement). 20 and 22 ✔ decided 27.09.2026 (D1, D2: as implemented).
 
 ## 3. Queue for Claude (in order)
 
@@ -96,6 +98,8 @@ G12) after.
    points in `MB-decisions.md` D18 (detail `work/scheffknecht/scheffknecht_queries.md`). Pipeline: `pdf_extract --pages
    4-32` → `key.py` (relabel PDF 2–121 → 1–120, keying, `key_log.md`) → `check.py --keyed` → `build.py --source` →
    `export_work.py`; `refs.py` → refs.json (35 works typed from the notes). `wordcheck.py` there: every PDF word in the output.
+   29.09.2026 17:59: D18 A5 applied — hippel1995 `dropping-particle` "von" (bibliography "Hippel, Wolfgang von", notes "W. von
+   Hippel", short "Hippel"; Kanon § 9.3/§ 9.5); refs.json 4637100e…40e5, CHECK OK, proof rebuilt. Not handed over, so no T-item.
    What German/this layout broke, fixed with tests (e1d52df … and the next commits): ragged right + space-marked paragraphs
    (layout measured first), ~1-em quotations, recto/verso margins, InDesign U+0007/tabs, soft and suspended hyphens,
    virgule slashes, marker in the title → title note, endnote pages without heading, raised edition digits in notes,
@@ -120,7 +124,7 @@ G12) after.
    Note: another session committed my in-progress `pdf_extract.py` as aaecba0 while I worked (content is mine, fine).
    Known, not fixed (minor): the query sheet prints broken asterisks around a roman phrase inside an italic title
    (O'Reilly, *Divide et impera*); the DOCX is right.
-   28.09.2026, after MB's answers (T20, D19): the chapter **is OA, CC BY-NC 4.0** (my T19 "not OA" was wrong: the PDF stamp
+   28.09.2026, after MB's answers (T21 — first numbered T20 by a parallel session, D19): the chapter **is OA, CC BY-NC 4.0** (my T19 "not OA" was wrong: the PDF stamp
    and Crossref name only the Cambridge Core terms — always check the publisher's landing page); summary + 10 keywords
    exist online only (in `_src_front.md`). Imprint gaps sourced from the LoC catalogue (`work/ostendorf/source_imprints.py`,
    SRU/MARC, evidence in `imprints.tsv` and refs `srom-sourced`): 43 values, 14 left to MB by hand. Kanon § 7.2/§ 9.4 and
@@ -169,16 +173,26 @@ G12) after.
    Known, not fixed: reprint years ("2000 [1983]") are not printed — no Kanon line (D24 A8); films lose their producer
    (§ 8.7 pattern); a quotation whose marker stands later in the sentence (n. 37) or after a stray space (n. 56) is not
    on the query sheet (listed by hand in queries D3); Brazilian compound surnames cannot sort under the last part (CSL).
-5. **Next text for translation** (srom-tlumacz HANDOVER § 7a): MB sends it here first — stage 1 (freeze
-   `<id>_src.md` + refs.json + `<id>_src_front.md`, T-item), as with Ndiaye. A DOCX with typed notes needs E9 first.
-   ~~**E9 typed notes**~~ — done 28.09.2026 (T17): `docx_in.py --typed-notes`; Dom file 52/52 pairs right
-   (`work/dom/`), one page missing from that DOCX (notes 49–50), marker 48 repaired — both for MB. Dom not frozen
+5. **Next text for translation**: MB sends it here first — stage 1 (freeze `<id>_src.md` + refs.json +
+   `<id>_src_front.md`, mutation test, T-item), as with the five texts so far (Ndiaye, Pahulich, Ostendorf, Tittel, West
+   Ohueri). A DOCX with typed notes: `docx_in.py --typed-notes` (E9, done 28.09.2026, T17). Dom file 52/52 pairs right
+   (`work/dom/`), one page missing from that DOCX (notes 49–50), marker 48 repaired — both for MB; Dom not frozen
    (stage 1 when MB wants it). The Fotta RTF is not a case (no notes at all).
    Known, not fixed: the docx import keeps Word's right-to-left quote marks as spans (`[’]{dir="rtl"}`, Dom notes
    11, 46; any file) — strip them in import or normalize.
+5a. **E17–E19 answered** (29.09.2026 17:59, T25): kartoteka rows (commit 4187da2); Pahulich title glosses applied (refs.json
+   3b060a87…1f3d5366). Waiting for MB, then a T-item with new sha256: **B12** Urlsperger record (Ostendorf; key and token
+   stay), **B13** *Zinganées*, **B14** *Bohèmes* (D19), **B11** Tittel n. 49 MEW 741 (D20; changes the token). The Kanon
+   § 12.2.4 c line („tłum. z przekładu angielskiego”) after D26 (e): wording proposed there; then Kanon + § 17 row.
+5b. **Taking translations back** (contract 29.09.2026 17:59, T26, commit 6e9ea9e; `handoff.md` "Back"): MB edits
+   `<id>_robocza.docx` in srom-tlumacz's `work/<id>/` (the master); srom-tlumacz imports and sends a delivery E-item
+   with sha256; here `take_back.py` → `work/<id>/pl/` → `build.py` from there → status line. First expected: Ndiaye.
+   Waiting for srom-tlumacz to align its PLAN/HANDOVER and test (T26).
 6. ~~Kartoteka E12 flags~~ — done (E13/T9): Nawar, Gurbati, Halabi italic; Mutribowie, Gadżar, Garaczi roman (assimilated).
 7. Stage 3: ~~house style / reduce the style set (§4, D3)~~ — done 29.09.2026 (house style v3, §4). Next: G12, the first
-   real article placed in a v3 template (the JSX runs in InDesign via AppleScript `do script` — proven, see
+   real article placed in a v3 template — **a translated article** (Ndiaye after MB's edit, via 5b; review
+   29.09.2026 row 6), so that `_postimport.jsx`, `_ibidem.jsx` and `_gwiazdki.jsx`, never yet run in InDesign, are proven
+   with a real asterisk series (title note + translator's notes) (the JSX runs in InDesign via AppleScript `do script` — proven, see
    `tools/indesign_check/`).
 8. Later: ICML output as a fallback to Word import (pandoc writes ICML with footnotes; needs a style-renaming
    step); wire `tb_check.py` into scenario C when srom-tlumacz ships it (E5; CLI fixed in `handoff.md`).
@@ -314,5 +328,5 @@ author's notes.
 
 ## 7. Pending for the editor
 
-Only in `../_handoffs/MB-decisions.md`. srom-typeset's open items there: D17 (Pahulich), D18 (German test), D19 (Ostendorf), D20 (Tittel), D24 (West Ohueri), D21 (speaker/affiliation italics vs Kanon § 3.4), D15 (licence ND option, kolegium), D16 (vol. 18 copyright clause, before any OA announcement).
+Only in `../_handoffs/MB-decisions.md`. srom-typeset's open items there: D17 (Pahulich), D18 (German test), D19 (Ostendorf, with B12–B14), D20 (Tittel, with B11), D24 (West Ohueri), D26 (e) (Kanon line § 12.2.4 c, wording proposed), D15 (licence ND option, kolegium), D16 (vol. 18 copyright clause, PILNE before any OA announcement).
 D1, D2, D4, D7, D9, D12–D14 are closed.

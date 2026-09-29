@@ -5,6 +5,13 @@ srom-typeset stops bundling the linter and cites only Kanon sections that exist;
 numbered footnotes and become one asterisk series (placed by hand above the numbered notes, footnote style).
 Checks run from the repo root. K = .claude/skills/srom-kanon, T = .claude/skills/srom-typeset.
 
+**Re-running closed gates (29.09.2026 17:59, review 29.09.2026 row 12).** Some closed CHECKs read files that are meant to
+change: `../_handoffs/MB-decisions.md` (items are removed once MB decides), the handoff files, the suite's
+`n/n` count. They held when the gate closed. They are records, not re-runnable: C1, F6, P5, O7, T6, S6, W6, R1
+(S6 expects `### D21` once and R1 none, so they cannot both hold), W7. From now on a CHECK tests what the leaf
+produced in this repo (a file, a test, its own commit found by message), never `MB-decisions.md`, or counts that
+will move (CLAUDE.md, working rules).
+
 ## Item 2 — overlap
 
 - [x] A1: the Kanon lives in srom-kanon as references/kanon-redakcyjny.md, version 1.6
@@ -477,3 +484,18 @@ Source: MB's manchesterhive PDF (`work/Peripheral whiteness …pdf`), Chicago en
   EXPECT: /(MUTATIONS CAUGHT (\d+)\/\2\s*){4}$/
   EVIDENCE: 40/40 each (Tittel, Ostendorf, Scheffknecht, Ndiaye; Ndiaye 38/40 before the surname-only rule). Pahulich is
   author-date (cite_map), not keyed: not applicable
+
+## Review 29.09.2026 follow-up (E17–E19, hand-back contract, stale text) — done 29.09.2026
+
+- [x] V1: kartoteka rows for E17 / E18 [Pahulich] (Anglo-Romani, Manoush, foreign exonyms), Kanon test green
+  CHECK: grep -c "^Anglo-Romani	" .claude/skills/srom-kanon/references/kartoteka.tsv; grep -c "Manoush" .claude/skills/srom-kanon/references/kartoteka.tsv; grep -c "^Zinganées	" .claude/skills/srom-kanon/references/kartoteka.tsv; ~/.venvs/srom/bin/python .claude/skills/srom-typeset/tests/test_kanon.py | tail -1
+- [x] V2: Pahulich title glosses (E18 [Pahulich] 1) in refs.json; D18 A5 applied in Scheffknecht
+  CHECK: grep -c "etnografii rodzimej\|szkic historyczno-etnograficzny\|kształtowanie się etnosu\|powieści i opowiadania\|status prawny i społeczny" work/pahulich/refs.json; grep -c '"dropping-particle": "von"' work/scheffknecht/refs.json
+- [x] V3: B11 (Tittel), B12–B14 (Ostendorf) in the queries files
+  CHECK: grep -c "^- \*\*B11\*\* (29.09" work/tittel/tittel_queries.md; grep -c "^- \*\*B1[234]\*\*" work/ostendorf/ostendorf_queries.md
+- [x] V4: hand-back contract: take_back.py + test, handoff.md "Back", scenario C; committed
+  CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-typeset/tests/test_takeback.py | tail -1; git log --format=%s | grep -c "^Contract, hand-back"
+- [x] V5: T25 (answers + status lines for E17–E19) and T26 committed in _handoffs
+  CHECK: git -C ../_handoffs log --format=%s | grep -c "^typeset: T25\|^typeset: T26"
+- [x] V6: stale text: quick rule 9, decisions row 21, handover (no D21 open, G12 translated, 5a/5b), gate rule
+  CHECK: grep -c "not in display elements" .claude/skills/srom-kanon/SKILL.md; grep -c "MB-decisions D21\.$\|D21 (speaker" .claude/skills/srom-typeset/references/decisions.md docs/HANDOVER-typeset.md; grep -c "a translated article" docs/HANDOVER-typeset.md; grep -c "not files meant to change later" CLAUDE.md
