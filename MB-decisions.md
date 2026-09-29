@@ -9,7 +9,7 @@ Rules:
   concern no single text go under `## Journal-wide` or `## Tooling and workflow`. An item about two texts goes in
   each text's section as a one-line pointer to the full item. Remove a text's section when it is empty.
 - New item: `### D<n> — <subject> (dd.mm.yyyy HH:MM, <module>)`, then the question, the options, the module's
-  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D22**.
+  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D23**.
 - A partial answer (item still open) is a new line under the item: `- dd.mm.yyyy HH:MM DECIDED: … (MB)`.
 - Times (from 28.09.2026 16:45) are local time from the machine clock (`date '+%d.%m.%Y %H:%M'`); older entries
   keep their date only.
@@ -19,7 +19,7 @@ Rules:
 - **Pahulich:** D17 — nothing in it blocks the translation.
 - **Scheffknecht:** D18 — German stage-1 test.
 - **Ostendorf:** D19 — A1 (CC BY-NC, as D17 A1) and A2 (14 imprint gaps by hand); nothing blocks the translation.
-  D21 — the translation is drafted; your choices are collected, none blocks your Word edit.
+  D22 — the translation is drafted; your choices are collected, none blocks your Word edit.
 - **Tittel:** D20 — nothing blocks the translation (CC BY 4.0); A1 (acknowledgements as the title note) and A4 (the MEW
   siglum) touch the source the translator works on.
 
@@ -127,7 +127,7 @@ Source frozen in `srom-typeset/work/tittel/` and handed to srom-tlumacz (T20). D
 - D1–D3 questions to the author: Ruch's university; the Kant volume's year; "Berliner Monatsschrift".
 - The Geulen lecture (n. 31): its date could not be read by script (bot check) — please look once (Kanon § 8.6).
 
-### D21 — Ostendorf translation: choices collected for MB (29.09.2026 03:41, srom-tlumacz)
+### D22 — Ostendorf translation: choices collected for MB (29.09.2026 03:41, srom-tlumacz)
 Draft done without MB's feedback, as MB asked (29.09.2026): `srom-tlumacz/work/ostendorf/ostendorf_robocza.docx` (Word copy),
 `ostendorf_pl.md`. Everything is in the notes sheet `srom-tlumacz/work/ostendorf/ostendorf_uwagi.md`; nothing blocks editing.
 - Assumed, to confirm: author's pronouns she/her (from MB's vol. 18 translation of Ostendorf); translator credit Michał
