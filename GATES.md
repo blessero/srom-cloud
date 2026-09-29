@@ -426,10 +426,11 @@ Source: MB's manchesterhive PDF (`work/Peripheral whiteness …pdf`), Chicago en
   CHECK: cd work/westohueri && ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/check.py --keyed westohueri_pre.md westohueri_src.md --refs refs.json | tail -1
   EXPECT: CHECK OK
   EVIDENCE: CHECK OK (no warnings)
-- [x] W3: the check catches keying errors (mutation test; before the fixes of 950f46e: 5 of 17 missed)
-  CHECK: cd work/westohueri && ~/.venvs/srom/bin/python mutate.py | tail -1
+- [x] W3: the check catches keying errors (mutation test; before the fixes of 950f46e: 5 of 17 hand-made mutants missed;
+  the generic `mutate_keyed.py` then found the "(eds)" hole, fixed)
+  CHECK: cd work/westohueri && ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/mutate_keyed.py westohueri_pre.md westohueri_src.md --refs refs.json | tail -1
   EXPECT: /MUTATIONS CAUGHT (\d+)\/\1/
-  EVIDENCE: MUTATIONS CAUGHT 17/17
+  EVIDENCE: MUTATIONS CAUGHT 40/40
 - [x] W4: source proof builds with 0 issues; quotations without a page reach the query sheet
   CHECK: cd work/westohueri && ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/build.py westohueri_src.md --refs refs.json --out build/ --source | tail -1; grep -c "cytat bez numeru" build/westohueri_src_pytania.md
   EXPECT: /0 issue\(s\)[\s\S]*\n13\s*$/
@@ -437,8 +438,37 @@ Source: MB's manchesterhive PDF (`work/Peripheral whiteness …pdf`), Chicago en
 - [x] W5: DOIs equal Crossref's volume/issue/pages; Word round trip lossless
   CHECK: cd work/westohueri && grep -c "^[a-z0-9]*: 10\." doi_check.txt; grep -c MISMATCH doi_check.txt; ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/docx_in.py westohueri_src_robocza.docx -o /tmp/claude-501/rt.md | tail -1
   EXPECT: /^16\s+0\s+IMPORT OK\s*$/
-  EVIDENCE: 16 | 0 | IMPORT OK (pandoc AST of the import = the source without its 3 comments, which travel as Word comments)
+  EVIDENCE: 16 | 0 | IMPORT OK (pandoc AST of the import = the source without its comments, which travel as Word comments)
 - [x] W6: suite green, toolchain commits by path; T23 and D24 in _handoffs, committed
   CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; grep -c "^## T23" ../_handoffs/typeset-to-tlumacz.md; grep -c "^### D24" ../_handoffs/MB-decisions.md
   EXPECT: /SUITE ALL PASS (\d+)\/\1\s+1\s+1\s*$/
   EVIDENCE: SUITE ALL PASS 19/19 | 1 | 1 (commits 950f46e, 9163315, 4a088a2; _handoffs 948e66e, 6b27bfe)
+
+## House style v3, round 2 (MB 29.09.2026: § 3.4 ruling, junk, final pass, template) — done 29.09.2026
+
+- [x] R1: Kanon § 3.4: no-italics rule governs the text, not display elements (MB); RULES digest; § 17 row; D21 closed
+  CHECK: grep -c "wydzielonych składu" .claude/skills/srom-kanon/references/kanon-redakcyjny.md; grep -c "not display elements" .claude/skills/srom-kanon/RULES.md; grep -c "D21" ../_handoffs/MB-decisions.md
+  EXPECT: /^2\s+1\s+0\s*$/
+  EVIDENCE: 2 | 1 | 0
+- [x] R2: junk out of the spec (hyphenation zone, auto-leading; sink rule colour None), headings keep with next (§ 3.6);
+  the control run still equals vol. 18 line for line; keep-with-next changes only the stranded speaker (Konferencja p. 6)
+  CHECK: ~/.venvs/srom/bin/python tools/indesign_check/indesign_check.py --no-final | grep "control =\|keep-with-next\|ALL PASS"
+  EXPECT: /603\/603[\s\S]*468\/468[\s\S]*Tobi Górniak[\s\S]*INDESIGN CHECK ALL PASS/
+- [x] R3: srom_final_pass.jsx generated from the spec, ES3, one undo step, all § 3.6 checks; runs on both vol. 18 files;
+  fix mode never leaves more problems, never adds overset or pages
+  CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-typeset/tests/test_jsx.py | tail -1; ~/.venvs/srom/bin/python tools/indesign_check/indesign_check.py | grep "final pass"
+  EXPECT: /STYLES ALL PASS (\d+)\/\1[\s\S]*final pass fix mode/
+- [x] R4: clean template SROM_szablon_v3.idml: built from Ellis, re-opened: 29 + 8 styles, grid, footnotes, nothing overset
+  CHECK: ~/.venvs/srom/bin/python tools/indesign_check/indesign_check.py --no-final --template /tmp/t.idml | grep "template"
+  EXPECT: /PASS template built[\s\S]*PASS template re-opened/
+- [x] W7 (after MB's answers 29.09.2026): Baker's chapter keyed (n. 29), name "Ohueri, Chelsi West", Albanian words italic
+  in the roman blocks; queries and D24 cleaned; T24 with new sha256
+  CHECK: cd work/westohueri && grep -c "@baker2024" westohueri_src.md; grep -c '"family": "Ohueri"' refs.json; grep -c "\*jevgjit\*" westohueri_src.md; grep -c "see also Baker, this volume\|A3 the dissertation" ../../../_handoffs/MB-decisions.md
+  EXPECT: /^1\s+2\s+3\s+0\s*$/
+  EVIDENCE: 1 | 2 | 3 | 0
+- [x] W8: mutation test on every keyed text (MB 29.09.2026: one per text, SKILL.md step 4b); holes found are fixed in
+  check.py with tests ("(eds)" before the title — West Ohueri n. 48; surname-only short forms — Ndiaye nn. 60, 120)
+  CHECK: cd work && for a in tittel ostendorf scheffknecht; do (cd $a && ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/mutate_keyed.py ${a}_pre.md ${a}_src.md --refs refs.json | tail -1); done; cd ndiaye && ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/mutate_keyed.py ndiaye_pdf.md ndiaye_src.md --refs refs.json | tail -1
+  EXPECT: /(MUTATIONS CAUGHT (\d+)\/\2\s*){4}$/
+  EVIDENCE: 40/40 each (Tittel, Ostendorf, Scheffknecht, Ndiaye; Ndiaye 38/40 before the surname-only rule). Pahulich is
+  author-date (cite_map), not keyed: not applicable

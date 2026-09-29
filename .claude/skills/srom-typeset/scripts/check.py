@@ -648,7 +648,7 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
                         errs.append(f"{lab(i)}: @{key} ({', '.join(names)}) — neither author nor title found in the original note: {o[:120]}")
         # the other way round: a work the original note cites by surname and title must be cited in the keyed note (a
         # work dropped from a note citing several, or its key swapped for another's). Citation shape only — the surname,
-        # "," or "(", then the title's opening ("Ruth Frankenberg, *White Women, Race Matters*", "Wekker (*White
+        # (an editor's "(eds)" or "et al." between), "," or "(", then the title's opening ("Ruth Frankenberg, *White Women, Race Matters*", "Wekker (*White
         # Innocence*)") or, after a comma, a word of the title (the author's short form: "Galaty, *Memory*", "West Ohueri,
         # ‘Zor’"); a work named in prose ("Kant’s essay “On the Use of …”") is not a citation. Not when a cited work by the
         # same author opens with the same words or contains that word (volumes, a subtitle naming another edition)
@@ -663,7 +663,8 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
             same = set(re.findall(r"\w{3,}", " ".join(fold_txt(x.get("title") or "") for x in kin)))
             hit = False
             for n in names:
-                for m in re.finditer(r"(?<!\w)" + re.escape(fold_txt(n)[:max(4, len(n) - 3)]) + r"\w*\s?([,(])\s?", fo):
+                for m in re.finditer(r"(?<!\w)" + re.escape(fold_txt(n)[:max(4, len(n) - 3)]) + r"\w*"
+                                     r"(?:\s?et al\.|\s?\((?:eds?|hg|hrsg|red)\.?\))?\s?([,(])\s?", fo):
                     after = fo[m.end():m.end() + 160]
                     if len(ttl) >= 8 and alnum(after).startswith(ttl) and \
                             not any(alnum(title_of(x)).startswith(ttl) for x in kin):
@@ -671,8 +672,17 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
                     w = re.match(r"[‘’“”\"'*\s]*(\w{3,})", after)
                     if m.group(1) == "," and w and w.group(1) in words - TITLE_STOP and w.group(1) not in same:
                         hit = True
+            # a surname alone as a citation (author-only short forms, as Ndiaye: "Taylor, 66–86; Cressy."; "in Hendricks
+            # and Parker; Nocentelli."): at the note's start or after "; ", "see", "in", with pages, before ";" or the end;
+            # not when a cited work shares an author (which of the two is meant cannot be read from the note)
+            fam = [fold_txt(p.get("family") or "") for p in (r.get("author") or r.get("editor") or []) if p.get("family")]
+            if fam and not kin:
+                nm = re.escape(fam[0]) + (r"\s(?:and|&)\s" + re.escape(fam[1]) if len(fam) > 1 else "")
+                if re.search(r"(?:^|;\s|\bsee\s|\bin\s)" + nm + r"(?:,\s?[\divxlc]+(?:\s?[–-]\s?\d+)?)*\s?(?:;|\.?\s*$)",
+                             fo.strip()):
+                    hit = True
             if hit:
-                errs.append(f"{lab(i)}: @{key} ({', '.join(names)}) is cited in the original note (surname and title) "
+                errs.append(f"{lab(i)}: @{key} ({', '.join(names)}) is cited in the original note (by surname and title, or surname alone) "
                             f"but not in the keyed note: {o[:120]}")
         prev_keys = keys or prev_keys
         prev_loc = o_loc if keys else prev_loc

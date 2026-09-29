@@ -152,8 +152,10 @@ G12) after.
    `pdf_extract` → `key.py` (prep: fieldwork blocks without italics, § 4.1; three DO SPRAWDZENIA comments; keying,
    `key_log.md`) → `check.py --keyed westohueri_pre.md westohueri_src.md` → `build.py --source` → `export_work.py`;
    `refs.py` → refs.json (51 works; 16 DOIs from Crossref, `doi_check.txt`; the dissertation's place sourced).
-   `wordcheck.py` (every PDF word), `mutate.py` (17 keying mutations, all caught). Re-run from `refs.py`/`key.py` after
-   MB's answers; new T-item with sha256.
+   `wordcheck.py` (every PDF word; the publisher's HTML full text, found later by MB, agrees word for word and in
+   italics). MB's answers of 29.09.2026 applied (T24): n. 29 cites Baker's chapter; "Ohueri, Chelsi West"; block
+   quotations roman except what the Kanon italicises inside them (Albanian words); Austin, TX approved; MB asks for the
+   ND permission. Open: D24.
    What it broke, fixed with tests (950f46e, 9163315, 4a088a2): a separate small-capitals font's text layer ("bce");
    `check.py --keyed` read "40:3 (2021)", "2nd ed.", "26 May 2020" as lost pages, and — **mutation test** — let a work
    dropped from a multi-work note or a key swapped for another named work pass (now checked both ways, citation shape
@@ -161,6 +163,9 @@ G12) after.
    quotations in 'single quotes' with the marker after the stop (2 → 13 rows); "Zob. *Ibidem*, for more on …" (Ibidem with
    the sentence going on, § 7.3) is now the short form. Regression: the five earlier PDFs extract identically (the two old
    diffs), their keyed checks pass, their Ibidem handling is unchanged.
+   **Mutation test per text** (MB 29.09.2026): `scripts/mutate_keyed.py` (SKILL.md step 4b) — page changed/dropped, a
+   work dropped, a key swapped; on its first run it found "(eds)" between name and title hiding a dropped edited volume
+   (fixed). West Ohueri 40/40; the earlier texts: see T24 / GATES.
    Known, not fixed: reprint years ("2000 [1983]") are not printed — no Kanon line (D24 A8); films lose their producer
    (§ 8.7 pattern); a quotation whose marker stands later in the sentence (n. 37) or after a stray space (n. 56) is not
    on the query sheet (listed by hand in queries D3); Brazilian compound surnames cannot sort under the last part (CSL).

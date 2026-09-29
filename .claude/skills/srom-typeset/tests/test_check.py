@@ -1,6 +1,6 @@
 """G5: check.py catches orphan/undefined/duplicate notes, unresolved keys, broken italics,
 author-date leftovers, and marker/citation drift between source and translation."""
-import os, sys, json, subprocess, tempfile
+import os, re, sys, json, subprocess, tempfile
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REFS = os.path.join(ROOT, "tests", "fixtures", "kanon_refs.json")
 CHECK = os.path.join(ROOT, "scripts", "check.py")
@@ -407,6 +407,58 @@ t("keyed: a key swapped for another author's named in the same note (misspelt 'F
   c == 1 and "@frank1993" in o, o)
 c, o = runm(MK.replace("[^4]: [@galaty2018; @mehilli2017, s. 12]", "[^4]: [@galaty2018; @mehilli2017, s. 13]"))
 t("keyed MUP: a page after the imprint parenthesis still counts (12 -> 13) -> ERROR", c == 1 and "12" in o, o)
+
+# an edited volume cited as "Turda and Weindling (eds), *Blood and Homeland*" beside another book by Turda: dropping it
+# must fail (found by mutate_keyed.py on West Ohueri n. 48); and mutate_keyed.py itself: every mutant caught here
+EREFS = w("eds_refs.json", json.dumps([
+    {"id": "turda2007", "type": "book", "editor": [{"family": "Turda", "given": "Marius"}, {"family": "Weindling", "given": "Paul J."}],
+     "title": "Blood and Homeland", "publisher": "CEU Press", "publisher-place": "Budapest", "issued": {"date-parts": [[2007]]}},
+    {"id": "turda2010", "type": "book", "author": [{"family": "Turda", "given": "Marius"}], "title": "Modernism and Eugenics",
+     "publisher": "Palgrave", "publisher-place": "Basingstoke", "issued": {"date-parts": [[2010]]}},
+    {"id": "bucur2010", "type": "book", "author": [{"family": "Bucur", "given": "Maria"}], "title": "Eugenics in Eastern Europe",
+     "publisher": "OUP", "publisher-place": "Oxford", "issued": {"date-parts": [[2010]]}}], ensure_ascii=False))
+EO = w("eds_o.md", "A[^1] b[^2].\n\n[^1]: Marius Turda and Paul J. Weindling (eds), *Blood and Homeland* (Budapest: CEU Press, "
+       "2007); Marius Turda, *Modernism and Eugenics* (Basingstoke: Palgrave, 2010), 12.\n\n"
+       "[^2]: Maria Bucur, *Eugenics in Eastern Europe* (Oxford: OUP, 2010), 5; Turda, *Modernism*, 14.\n")
+EK = "A[^1] b[^2].\n\n[^1]: [@turda2007; @turda2010, s. 12].\n\n[^2]: [@bucur2010, s. 5; @turda2010, s. 14].\n"
+r = subprocess.run([sys.executable, CHECK, "--keyed", EO, w("eds_k.md", EK.replace("@turda2007; ", "")), "--refs", EREFS],
+                   capture_output=True, text=True)
+t("keyed: an edited volume ('Turda and Weindling (eds), *Title*') dropped beside another book by Turda -> ERROR",
+  r.returncode == 1 and "@turda2007" in r.stdout, r.stdout)
+MUT = os.path.join(os.path.dirname(CHECK), "mutate_keyed.py")
+r = subprocess.run([sys.executable, MUT, EO, w("eds_k0.md", EK), "--refs", EREFS], capture_output=True, text=True)
+m = re.search(r"MUTATIONS CAUGHT (\d+)/(\d+)", r.stdout)
+t("mutate_keyed.py: page+1, nopage, drop and swap mutants of a clean keyed file are all caught (exit 0)",
+  r.returncode == 0 and m and m.group(1) == m.group(2) and int(m.group(2)) >= 8, r.stdout + r.stderr)
+r = subprocess.run([sys.executable, MUT, EO, w("eds_k1.md", EK), "--refs", EREFS, "--max", "3"], capture_output=True, text=True)
+t("mutate_keyed.py --max 3: three mutants", "MUTATIONS CAUGHT 3/3" in r.stdout, r.stdout + r.stderr)
+
+# author-only short forms (Ndiaye: "Taylor, 66–86; Cressy."; "various essays in Hendricks and Parker; Nocentelli."): a work
+# dropped from such a note -> ERROR (found by mutate_keyed.py on Ndiaye nn. 60, 120); a surname in prose is not a citation
+AREFS = w("ao_refs.json", json.dumps([
+    {"id": "taylor2014", "type": "book", "author": [{"family": "Taylor", "given": "Becky"}], "title": "Another Darkness",
+     "publisher": "Reaktion", "publisher-place": "London", "issued": {"date-parts": [[2014]]}},
+    {"id": "cressy2016", "type": "book", "author": [{"family": "Cressy", "given": "David"}], "title": "Trouble with the Gypsies",
+     "publisher": "OUP", "publisher-place": "Oxford", "issued": {"date-parts": [[2016]]}},
+    {"id": "hend1994", "type": "book", "editor": [{"family": "Hendricks", "given": "Margo"}, {"family": "Parker", "given": "Patricia"}],
+     "title": "Women, Race, and Writing", "publisher": "Routledge", "publisher-place": "London", "issued": {"date-parts": [[1994]]}},
+    {"id": "noc2013", "type": "book", "author": [{"family": "Nocentelli", "given": "Carmen"}], "title": "Empires of Love",
+     "publisher": "UPP", "publisher-place": "Philadelphia", "issued": {"date-parts": [[2013]]}}], ensure_ascii=False))
+AO = w("ao_o.md", "A[^1] b[^2] c[^3].\n\n[^1]: Taylor, 66–86; Cressy.\n\n"
+       "[^2]: On gendered rhetoric, see various essays in Hendricks and Parker; Nocentelli.\n\n"
+       "[^3]: As Cressy has shown, this was common; see Taylor, 70.\n")
+AK = ("A[^1] b[^2] c[^3].\n\n[^1]: [@taylor2014, s. 66–86; @cressy2016].\n\n"
+      "[^2]: On gendered rhetoric, zob. various essays in [@hend1994; @noc2013].\n\n"
+      "[^3]: As Cressy has shown, this was common; zob. [@taylor2014, s. 70].\n")
+def runa(k):
+    r = subprocess.run([sys.executable, CHECK, "--keyed", AO, w("ao_k.md", k), "--refs", AREFS], capture_output=True, text=True)
+    return r.returncode, r.stdout + r.stderr
+c, o = runa(AK)
+t("keyed, author-only short forms: all works cited; a surname in prose ('As Cressy has shown') -> CHECK OK", c == 0, o)
+c, o = runa(AK.replace("[@taylor2014, s. 66–86; @cressy2016]", "[@cressy2016]"))
+t("keyed: 'Taylor, 66–86' dropped from 'Taylor, 66–86; Cressy.' -> ERROR", c == 1 and "@taylor2014" in o, o)
+c, o = runa(AK.replace("[@hend1994; @noc2013]", "[@noc2013]"))
+t("keyed: 'Hendricks and Parker' dropped -> ERROR", c == 1 and "@hend1994" in o, o)
 
 n, ok = len(results), sum(results)
 print(f"CHECK ALL PASS {n}/{n}" if ok == n else f"CHECK FAILED {n - ok}/{n}")
