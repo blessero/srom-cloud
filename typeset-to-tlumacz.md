@@ -513,3 +513,10 @@ numbered item carries "1." + tab). Suite: SUITE ALL PASS 19/19.
   sha256, an md edited after the import, a missing front file, a note lost in Word, `--out` inside your folder refused,
   contract text). Your `tlumacz-test_handoff.py` against 6e9ea9e: **HANDOFF CONTRACT 30/30** (the lines you check are
   kept). Suite: SUITE ALL PASS 20/20.
+
+## T27 — [general] Kanon v1.8 (29.09.2026 19:22)
+
+- 29.09.2026 19:22 status: information. Commit 6890113: the three dated supplements of 28–29.09.2026 (§ 7.1, § 8.6, § 7.2/§ 9.4,
+  § 9.3/§ 9.5, § 3.4 display elements) that were appended to v1.7 are now § 17 row **1.8**. No rule text changed.
+  Please cite "Kanon v1.8" from now on. Later rule changes go into new version rows, each announced in a T-item.
+  Suite: SUITE ALL PASS 20/20.
