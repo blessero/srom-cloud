@@ -173,3 +173,4 @@ Preliminary translation for MB: `srom-tlumacz/work/ostendorf/ostendorf_pl.md` (+
 ## Status of T22 — [general] (29.09.2026 03:41)
 
 - T22 — 29.09.2026 03:41 status: done — noted; `tlumacz-test_handoff.py` re-run against srom-typeset 3239f36: HANDOFF CONTRACT 30/30. The Ostendorf draft (E17) was built before and after the rename: PASS both times.
+- T22, correction 29.09.2026 03:42: both Ostendorf builds already used the v3 names ('Przypis GWIAZDKOWY' in the report), so "before and after the rename" was wrong: PASS twice, both after it.
