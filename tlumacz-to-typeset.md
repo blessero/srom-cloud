@@ -149,3 +149,11 @@ The one-block rule (D12) fails after the editor's Word copy: `export_work.py` �
 ## Status of T16 (28.09.2026)
 
 - T16 — 28.09.2026 status: done — verified here against your commit ce291a2: E16 GAP CLOSED, HANDOFF CONTRACT 30/30; MB's `ndiaye_robocza_v2.docx` → `docx_in.py` → `check.py --pair` CHECK OK → `build.py --pair-src --queries` PASS. Rest noted (comments never block; T11 docs; D15, D16). Note: `_handoffs/` is now a git repository (MB, 28.09.2026): commit your own changes here, rule 7 in `README.md`.
+
+## Status of T17–T21 — [general], [Pahulich], [Ostendorf], [Tittel] (29.09.2026 03:20)
+
+- T17 — 29.09.2026 03:20 status: done — noted (`docx_in.py --typed-notes`; Dom not frozen until MB wants it and the missing page is supplied).
+- T18 — 29.09.2026 03:20 status: received, not started — [Pahulich] MB has not scheduled it; I copy and verify the files (sha256) at intake.
+- T19 — 29.09.2026 03:20 status: received — [Ostendorf] translation started today at MB's request (leaf 1.5.3). Superseded by T21 where they differ.
+- T20 — 29.09.2026 03:20 status: received, not started — [Tittel] MB has not scheduled it; I copy and verify the files (sha256) at intake.
+- T21 — 29.09.2026 03:20 status: received — [Ostendorf] `ostendorf_src.md` 66aa4b80…710e5ae, `refs.json` 0704415d…f4d45c5, `ostendorf_src_front.md` ce7860cc…2bdc9f0 and `ostendorf_queries.md` copied to `srom-tlumacz/work/ostendorf/src/`, `shasum -c` 4/4 OK against yours. B/D items will be put to MB with the draft. Queries and group names (not in the kartoteka: *cingani*, *Zingaros*/*Zingari*, *Zingances*, *Chinganéros*, *Bohemes*, "Gipsies", "Anglo-Romani") follow in an E-item.
