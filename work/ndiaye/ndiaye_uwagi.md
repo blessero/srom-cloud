@@ -2,7 +2,7 @@
 
 Pliki: `ndiaye_pl.md` (tekst, 133 przypisy + 2 przypisy tłumacza + 1 przypis tytułowy: nota o przekładzie, potem podziękowania autorki – D12), `ndiaye_front_pl.md` (tytuł, abstrakt, słowa kluczowe), `ndiaye_refs_tlum.json` (2 wydania polskie dodane przez tłumacza), `ndiaye_pytania_tlum.csv` (14 pozycji). Word do pracy: `python3 $S/export_work.py work/ndiaye/ndiaye_pl.md -o ndiaye_robocza.docx`.
 
-## 1. Do uzupełnienia przez MB — strony i brzmienie wydań polskich (znaczniki `DO SPRAWDZENIA` w tekście)
+## NDI-1 · 1. Do uzupełnienia przez MB — strony i brzmienie wydań polskich (znaczniki `DO SPRAWDZENIA` w tekście)
 
 **Ta lista jest jedynym zabezpieczeniem.** Komentarze nie zatrzymują kompilacji (`handoff.md`: komentarze niczego nie blokują; `build.py` usuwa je z ostrzeżeniem i kończy się wynikiem PASS). W kopii roboczej Worda stają się komentarzami Worda, a po imporcie znikają z tekstu i zostają tylko w raporcie importu. Pozycja jest zamknięta dopiero wtedy, gdy MB ją rozstrzygnie: wtedy „otwarte” → „zamknięte dd.mm.rrrr (MB)”. Stan 28.09.2026: 7 otwartych.
 
@@ -22,7 +22,7 @@ Wydanie Boya: cytuję *Dzieła*, t. 6, Warszawa 1922 (podstawa tekstu Wolnych Le
 - *qui a la mine d’un étranger* → u Boya „podejrzana figura” (dopisek w nawiasie w przyp. 68).
 Brzmienie francuskie sprawdzone w wydaniu Louandre 1910 (fr.wikisource).
 
-## 3. Zastosowane rozstrzygnięcia (D11) i moje wybory do potwierdzenia
+## NDI-2 · 3. Zastosowane rozstrzygnięcia (D11) i moje wybory do potwierdzenia
 - Tabela terminów (intake § 3) — wszystko jak w rekomendacji: czarni/biali małą literą, biała supremacja, studia nad czarnością (*Black studies*), matryca rasowa, zniewoleni/zniewolenie, Maurowie (z franc. *Mores*), Murzyn (z ang. *Blackamoor*, *negro*), urasowienie/urasawiać (HOUSE), krytyczne studia romskie, romolog/romologia.
 - **Imiona postaci Moliera wg Boya** (Skapen, Leander, Zerbineta, Geront, Argant, Hiacynta, Sylwester, Karlo, Sganarel), oryginał w nawiasie przy pierwszym wystąpieniu; postaci Vallée, Ravenscrofta, M. W. — w oryginale (Hécate’a, Boristhène’a…).
 - **Tytuły**: tytuły wydań polskich (Moliera, Szekspira, *Cyganiątko*, *Nowele przykładne*, *Formion* — ten ostatni potwierdzony we wstępie Boya). **Niepotwierdzone**: *Cyganiątko* jako tytuł *La gitanilla* w przekładzie z 1976 r.; *Opowieść etiopska* Heliodora (może *Etiopika*); moje przekłady tytułów w nawiasach (*Sielanka komiczna*, *Swat, czyli Rajfur*, obrazy: *Cyganka*, *Wróżka*).
@@ -36,6 +36,6 @@ Brzmienie francuskie sprawdzone w wydaniu Louandre 1910 (fr.wikisource).
 
 ## 4. Otwarte poza przekładem
 - Nazwy grup (D13, zastosowane 28.09.2026): Romni → Romka, Romnia → Romki; *gadjo* / *gadji* / *gadje* małą literą, kursywą przy pierwszym wystąpieniu, w pisowni autorki; wczesnonowożytni „Egipcjanie” w cudzysłowie. Przypis 1 zachowuje listę słów romskich autorki w oryginale.
-- Nota o przekładzie: brak numeru zeszytu RQ 75 → `[BRAK nr]`.
+- [NDI-3] Nota o przekładzie: brak numeru zeszytu RQ 75 → `[BRAK nr]`.
 - Słowa kluczowe angielskie — do zatwierdzenia przez autorkę.
 - Ilustracje (3): pliki i zgody — etap 3 (srom-typeset).

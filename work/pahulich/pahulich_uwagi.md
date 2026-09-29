@@ -9,7 +9,7 @@ Word do pracy: `pahulich_robocza.docx`. Autorka: Lesia Pahulich, formy żeńskie
 Pozycje S poniżej są jedynym trwałym zapisem: zamknięte dopiero, gdy MB je rozstrzygnie („otwarte” → „zamknięte
 dd.mm.rrrr (MB)”). Stan 29.09.2026: 10 otwartych.
 
-## 1. Do uzupełnienia przez MB — wydania polskie i oryginały (znaczniki `DO SPRAWDZENIA: S<n>` w tekście)
+## PAH-3 · 1. Do uzupełnienia przez MB — wydania polskie i oryginały (znaczniki `DO SPRAWDZENIA: S<n>` w tekście)
 
 - S1 [otwarte] – przyp. 5: Césaire, „bumerangowy efekt kolonizacji” – brzmienie i strona: *Rozprawa z kolonializmem*,
   tłum. Z. Jaremko-Pytowska, Czytelnik 1950 (jedyne wydanie polskie w BN). Autorka nie podaje strony oryginału.
@@ -24,13 +24,13 @@ dd.mm.rrrr (MB)”). Stan 29.09.2026: 10 otwartych.
   poddaństwo”, „grodzenia”).
 - S6 [otwarte] – przyp. 113: Federici, „[…] na horyzoncie widzimy narodziny handlu niewolnikami…” – jw. (autorka bez strony).
 - S7 [otwarte] – przyp. 114: Federici (oryg. s. 69–70), dwa cytaty o systemie otwartych pól i chatach zagrodników – jw.
-- S8 [otwarte] – przyp. 86: Dal – tekstu rosyjskiego nie znalazłem (frazy nie występują w «Цыганка», 1830, przeczytanym
+- S8 [otwarte] [PAH-4] – przyp. 86: Dal – tekstu rosyjskiego nie znalazłem (frazy nie występują w «Цыганка», 1830, przeczytanym
   w całości). W tekście przekład z angielskiego autorki, w przypisie adnotacja „Tłum. z przekładu angielskiego autorki”.
   Do autorki: tytuł utworu i rok (1848?).
-- S9 [otwarte] – przyp. 85: Thomasius za Lewym – oryginał łaciński nieodszukany; w przypisie „Tłum. z przekładu
+- S9 [otwarte] [PAH-4] – przyp. 85: Thomasius za Lewym – oryginał łaciński nieodszukany; w przypisie „Tłum. z przekładu
   angielskiego”. Formuła Kanonu (§ 12.2.4 c) mówi o przekładzie *autora*; tu przekład pochodzi od Lewy’ego (i w przyp. 9
   od Shahar) – przyjąłem skróconą formułę bez „autora”. Do potwierdzenia.
-- S10 [otwarte] – **decyzja MB: Grellmann** (przyp. 88–96, 106, 132–135). Autorka cytuje angielskie „nowe wydanie”
+- S10 [otwarte] [PAH-1] – **decyzja MB: Grellmann** (przyp. 88–96, 106, 132–135). Autorka cytuje angielskie „nowe wydanie”
   z 1807 r. (przekład Rapera, przerobiony i skrócony). Oryginał niemiecki (1787) jest dostępny, więc Kanon § 12.2.4 c
   każe przekładać z niego. Ale angielszczyzna, na której autorka buduje wywód, różni się od niemieckiego:
   - „the one is white, the other black” – po niemiecku „schwarz, **oder doch gelb**” (czarny albo przynajmniej żółty);
@@ -44,11 +44,11 @@ dd.mm.rrrr (MB)”). Stan 29.09.2026: 10 otwartych.
 
 ## 2. Inne decyzje dla MB (nic z tego nie blokuje pracy)
 
-- **Tłumacz**: przyjąłem jak przy Ndiaye – MB, przekład wstępny srom-tlumacza (`tlumaczenie: "Michał Bartosz"`). Do potwierdzenia.
-- **Licencja** (D17 A1): pierwodruk CC BY-NC 4.0; nota o przekładzie podaje licencję i formułę o zmianie utworu. Jeśli
+- **Tłumacz** [V19-4]: przyjąłem jak przy Ndiaye – MB, przekład wstępny srom-tlumacza (`tlumaczenie: "Michał Bartosz"`). Do potwierdzenia.
+- **Licencja** [GEN-3] (D17 A1): pierwodruk CC BY-NC 4.0; nota o przekładzie podaje licencję i formułę o zmianie utworu. Jeśli
   będzie zgoda autorki / CRS, dopisać „podstawę zgody” (Kanon § 12.2.3 pkt 2). Pierwodruk nie ma noty o prawach autorskich.
-- **Przypisy 1 i 2 obok siebie** (D17 A2): w szkicu dwa odsyłacze „Europie[^1][^2].” jak w źródle.
-- **Abstrakt**: przekład pełny ma 1322 znaki (> 1000, Kanon § 12.2.2 – skraca redakcja). Propozycja skrótu (ok. 960 zn.):
+- **Przypisy 1 i 2 obok siebie** [PAH-2] (D17 A2): w szkicu dwa odsyłacze „Europie[^1][^2].” jak w źródle.
+- **Abstrakt** [PAH-7]: przekład pełny ma 1322 znaki (> 1000, Kanon § 12.2.2 – skraca redakcja). Propozycja skrótu (ok. 960 zn.):
   > Artykuł bada, jak rasizm antyromski wyrasta ze złożonej gry dziejów imperialnych i myślenia rasowego ukształtowanego
   > przez kolonializm. Na podstawie źródeł historiograficznych dotyczących Romów w całej Europie pokazuje, jak hierarchie
   > wewnątrzeuropejskie przygotowały grunt pod logikę rasową i jak rasa, religia i narodziny kapitalizmu przecinają się
@@ -59,7 +59,7 @@ dd.mm.rrrr (MB)”). Stan 29.09.2026: 10 otwartych.
   > i przestępczości. Logika kapitalistyczna ustanowiła w ten sposób białą europejską normę, względem której
   > konstruowano i pozycjonowano Romów.
 
-## 3. Moje wybory do potwierdzenia (zastosowane w szkicu; tabela w `pahulich_intake.md` § 3)
+## PAH-5 · 3. Moje wybory do potwierdzenia (zastosowane w szkicu; tabela w `pahulich_intake.md` § 3)
 
 - HOUSE bez zmian: urasowienie/urasawiać, antycyganizm (także *antiziganism* Germana), kapitalizm rasowy, matryca rasowa,
   czarność, czarni/biali małą literą, krytyczna teoria rasy, zniewoleni/zniewolenie, czystość krwi (*limpieza de sangre*).
@@ -72,7 +72,7 @@ dd.mm.rrrr (MB)”). Stan 29.09.2026: 10 otwartych.
   osiedlanie”); *enclosures* → „grodzenia”; *second serfdom* → „wtórne poddaństwo”; *Frankfurt/Dutch schools* → „szkoły
   frankfurcka i niderlandzka” (alt. „holenderska”); *korenizatsiia* → *korienizacja* („ukorzenienie”); *race-making* →
   „wytwarzanie rasy”; *internal outsiders* → „wewnętrzni outsiderzy”.
-- **„Lithuania/Litva”**: po polsku zawsze „Wielkie Księstwo Litewskie”, „III Statut litewski”. Rozróżnienie autorki
+- **„Lithuania/Litva”** [PAH-6]: po polsku zawsze „Wielkie Księstwo Litewskie”, „III Statut litewski”. Rozróżnienie autorki
   (ang. Lithuania – dzisiejsze państwo, biał. Litva – historyczne) nie przenosi się do polszczyzny, w której historyczna
   „Litwa” to właśnie *Litva*. Alternatywa: pierwsze wystąpienie „Wielkie Księstwo Litewskie (Litwa/Litva)” albo przypis
   tłumacza. Komentarz w tekście przy pierwszym wystąpieniu.
@@ -86,7 +86,7 @@ dd.mm.rrrr (MB)”). Stan 29.09.2026: 10 otwartych.
   (*Orientalism*); Bielski: *Kronika, to jest historyja świata* (pisownia uwspółcześniona; oryg. 1564: *Kronika tho
   iesth, Historya Swiata*); Przyłuski: tytuł łaciński + glosa autorki po polsku; *Die Zigeuner* [*Dissertation on the
   Gipseys*] – nawias autorki zostawiony z tytułem angielskim (to tytuł wydania, które cytuje).
-- **Związek Sowiecki / sowiecki** (nie „Radziecki”) – zgodnie z dzisiejszą historiografią; do potwierdzenia.
+- **Związek Sowiecki / sowiecki** [V19-2] (nie „Radziecki”) – zgodnie z dzisiejszą historiografią; do potwierdzenia.
 - **„Christendom”** → „świat chrześcijański”; **„Imperial Diet”** → „Sejm Rzeszy”; **„Polish Diet Constitution of 1578”**
   → „konstytucja sejmowa z 1578 roku”; **„Polish Chancellor Ocieski”** → „kanclerz koronny Ocieski” (bez imienia, jak
   u autorki).
@@ -95,7 +95,7 @@ dd.mm.rrrr (MB)”). Stan 29.09.2026: 10 otwartych.
 - **Adnotacje w przypisach** (Kanon § 12.2.7): przyp. 9 i 85 „[Tłum. z przekładu angielskiego – przyp. tłum.]”, przyp. 86
   „[Tłum. z przekładu angielskiego autorki – przyp. tłum.]”.
 
-## 4. Wątpliwości w oryginale (przekład jak w oryginale; pozycje w wykazie pytań, adresat: autorka)
+## PAH-9 · 4. Wątpliwości w oryginale (przekład jak w oryginale; pozycje w wykazie pytań, adresat: autorka)
 
 Austro-Węgry za Marii Teresy i Józefa II (przed przyp. 80); habsburskie Węgry Królewskie w XV wieku (przed przyp. 42);
 Ghica „na początku XIX wieku” (przyp. 40); Dal „w 1848 roku” (przyp. 86); atrybucja zdania z Grellmanna 1807, s. 108

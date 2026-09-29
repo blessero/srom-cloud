@@ -26,7 +26,7 @@ nothing. Use it to close a leaf (`gate-check.mjs --run <file>`; keep `--run` fir
   (`git log --format=%s | grep -cE '^<leaf>: gates ALL MET'`), never `git log -1`. A CHECK never writes a file MB
   edits (`<id>_robocza.docx`, the Word master): export and import in a temp dir (`T=$(mktemp -d)`).
 - **Parallel sessions:** several srom-tlumacz sessions may run at once (one per text). Immediately before appending an
-  ID (E<n>, D<n>, a status line) re-read the tail of the file for the next free ID, then commit at once. Commit only
+  ID (E<n>, a question ID such as PAH-11 in `MB-decisions.md`, a status line) re-read the tail of the file for the next free ID, then commit at once. Commit only
   the files your text touched (`git add <files>`, never `-A`); tag every entry with its `[<Author>]`. Every time in an
   entry comes from `date '+%d.%m.%Y %H:%M'` at the moment of writing, never typed from memory.
 - **git:** this folder is a git repository (since 28.09.2026). Commit at the end of each piece of work; `.gitignore` says what is left out and where its sha256 is.
