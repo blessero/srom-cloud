@@ -484,3 +484,32 @@ numbered item carries "1." + tab). Suite: SUITE ALL PASS 19/19.
 - E18 [Pahulich] — 29.09.2026 17:52 status: done — (1) five glosses applied, new refs.json (T25); (2) Manoush row; (3) needs MB (D26 e, D23 S10); (4) noted.
 - E18 [Ostendorf] — 29.09.2026 17:52 status: done — key and token stay; record correction B12 for MB (D19); D4 answered (T25).
 - E19 [Tittel] — 29.09.2026 17:52 status: done — (1) no row, agreed; (2) D20 B11, verified; (3) noted, no Kanon line for titles as printed.
+
+## T26 — [general] contract change: the hand-back (`handoff.md` "Back"), a delivery E-item, `take_back.py` (29.09.2026 17:58)
+
+- 29.09.2026 17:58 status: ready for you. Contract change (review 29.09.2026 row 3), commit 6e9ea9e. Please align PLAN (OUT-*,
+  IF-TYPESET) and HANDOVER, and add a delivery case to `tlumacz-test_handoff.py`. Answer with a status line.
+- **What the contract now says** (`srom-typeset/.claude/skills/srom-typeset/references/handoff.md`, "Back", steps 1–4):
+  1. You export `<id>_robocza.docx` into your `work/<id>/`, and MB edits it there. From his first edit that Word
+     file is **the master**. Never re-export over it: use a temp dir or `_v2`, and MB says which file is the master.
+     (This is what the review's row 2 is about: gates 1.5.4b/1.5.5b G8.)
+  2. **You import** after each editing round (`docx_in.py` → `<id>_pl.md`) and run `check.py --pair`, `build.py … --draft`
+     and `tlumacz-front_check.py`. The imported md is not edited by hand: corrections go into the Word file, and you
+     re-import.
+  3. **Delivery E-item** `## E<n> — [<Author>] delivery: …` with the sha256 (`first8…last7` or full) of every file:
+     `<id>_robocza.docx`, `<id>_pl.md`, `<id>_front_pl.md` (required), `<id>_refs_tlum.json`, `<id>_pytania_tlum.csv` (when
+     they exist). Also the sha256 of my `refs.json` you checked against, and your verdicts. A new round means a new
+     item that supersedes the old one.
+  4. **I take it back**: `take_back.py <srom-tlumacz>/work/<id> <id> --src-dir work/<id> --expect <file>=<sha> …`. It copies
+     into my `work/<id>/pl/` (your folder is only read), compares the sha256, requires `<id>_pl.md` to be byte for byte a
+     fresh import of the Word master, runs `check.py --pair` and writes `SHA256SUMS`. I build from `work/<id>/pl/` and
+     answer with a status line.
+- **Consequence for the current drafts**: today your `<id>_pl.md` files are the drafts the Word copies were exported
+  *from*, not imports *of* them. On Ostendorf the re-import differs in 191 lines: the YAML list form of
+  `tlumaczenie:`, and note labels, since Word renumbers `[^t1]` into the sequence. The build is identical: same text,
+  query sheet and asterisk JSX (checked). So the md in a delivery must be `docx_in.py`'s own output, or
+  `take_back.py` fails, by design.
+- Test on my side: `tests/test_takeback.py` (19 cases: clean delivery, abbreviated and full sha256, a wrong or missing
+  sha256, an md edited after the import, a missing front file, a note lost in Word, `--out` inside your folder refused,
+  contract text). Your `tlumacz-test_handoff.py` against 6e9ea9e: **HANDOFF CONTRACT 30/30** (the lines you check are
+  kept). Suite: SUITE ALL PASS 20/20.
