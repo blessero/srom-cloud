@@ -205,6 +205,13 @@ t("URL text with a wrong glyph (id¼12) replaced by its link target, listed",
   bib[2:] == ["Galland, Nora. Name-Calling. Shakespeare en devenir 12 (2017): https://www.ex.org/i.php?id=12."]
   and "differs from its link target" in rep, (bib, D))
 t("running head dropped", "TEST JOURNAL" not in md, D)
+# word check (promoted from the per-article wordcheck.py): in the report; a word dropped from the text is caught
+wc = re.search(r"^## Word check: lost (\d+) · extra (\d+)", rep, re.M)
+pg = list(pymupdf.open(pdf))
+lost, _ = P.wordcheck(pg, [md.replace("mill", "", 1), front] + bib)
+lost0, _ = P.wordcheck(pg, [md, front] + bib)
+t("word check in the report; a word removed from the text shows up as lost",
+  wc is not None and lost.get("mill", 0) == lost0.get("mill", 0) + 1, (wc and wc.group(0), lost))
 
 n, ok = len(res), sum(res)
 print(f"PDF-LAYOUT ALL PASS {n}/{n}" if ok == n else f"PDF-LAYOUT FAILED {n - ok}/{n}")

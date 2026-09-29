@@ -484,6 +484,26 @@ def join_lines(texts, joins):
     return out.replace("\u00ad", "")      # soft hyphens left inside lines (discretionary breaks not taken)
 
 
+def wordcheck(pages, outputs):
+    """Word tokens of the PDF pages (plain get_text, private-use glyphs decoded) vs the extraction's outputs.
+    A hyphen between letters is dropped on both sides ("Anglo-\nAtlantic" = "Anglo-Atlantic", "anti-\nsocial" =
+    "antisocial"); note labels count as the PDF's numbers; a download stamp ("Downloaded from … use, available at …",
+    Cambridge Core) is not text. (Promoted from the per-article
+    work/<id>/wordcheck.py of Ostendorf, Scheffknecht, Tittel, West Ohueri, 30.09.2026.)"""
+    def toks(t):
+        t = re.sub(r"(?<=[^\W\d_])[-­‐‑]\s*(?:\n\s*)?(?=[^\W\d_])", "", unicodedata.normalize("NFKC", t))
+        return Counter(w.lower() for w in re.findall(r"[^\W\d_]+|\d+", t.replace("­", "")))
+    src = "\n".join(pg.get_text() for pg in pages).translate(PUA)
+    stamp = r"(?m)^.*(?:Downloaded from|use, available at).*$"      # a publisher's download stamp: not text
+    src = re.sub(stamp, "", src)
+    out = re.sub(stamp, "", "\n".join(outputs))
+    out = re.sub(r"(?m)^p\d+: | \(set apart below the notes\)", "", out)
+    out = re.sub(r"\[\^(\d+)\]:?", r" \1 ", out)
+    out = re.sub(r"<!--.*?-->|:::[ \t]*[\w-]*", " ", out, flags=re.S)
+    w1, w2 = toks(src), toks(out)
+    return w1 - w2, w2 - w1
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("pdf")
@@ -1164,8 +1184,15 @@ def main():
     rep += ["", "## Warnings"] + ([f"- {x}" for x in warns] or ["- none"])
     rep += ["", "## Line-end hyphen joins (proofread)"] + ([f"- {x}" for x in joins] or ["- none"])
     rep += ["", "## Dropped running heads / page numbers"] + ([f"- {x}" for x in dropped] or ["- none"])
+    lost, extra = wordcheck(pages, [md] + bib_entries + front_md + dropped)
+    rep += ["", f"## Word check: lost {sum(lost.values())} · extra {sum(extra.values())} (every word and number of the PDF "
+            "pages, read independently of the line assembly, against text + bibliography + front matter + dropped lines; "
+            "read every lost word against the PDF)",
+            "- lost: " + (", ".join(f"{w}×{n}" if n > 1 else w for w, n in sorted(lost.items())[:80]) or "none"),
+            "- extra: " + (", ".join(f"{w}×{n}" if n > 1 else w for w, n in sorted(extra.items())[:80]) or "none")]
     open(repp, "w", encoding="utf-8").write("\n".join(rep) + "\n")
-    print(f"notes {len(notes)} · markers {len(seen_markers)} · italics {ital} · joins {len(joins)} · report {repp}")
+    print(f"notes {len(notes)} · markers {len(seen_markers)} · italics {ital} · joins {len(joins)} · "
+          f"wordcheck lost {sum(lost.values())} extra {sum(extra.values())} · report {repp}")
     print("EXTRACT OK" if not issues else f"EXTRACT CHECK {len(issues)} issue(s)")
     sys.exit(0 if not issues else 1)
 
