@@ -131,7 +131,8 @@ def clean_text(text):
 # Private-use code points that some fonts' ToUnicode maps give instead of the character (the text layer then loses
 # them): Adobe's legacy PUA (Adobe Glyph List: zerooldstyle … nineoldstyle, Asmall … Zsmall, Agravesmall …) and the
 # old-style figures of Linotype LT Std fonts (Sabon LT Std, Cambridge UP books: U+F643 = 0 … U+F64C = 9; checked
-# against a CRS reference's volume, year, pages and DOI). Small capitals are read as capitals (what the reader sees).
+# against a CRS reference's volume, year, pages and DOI). Small capitals are read as capitals (what the reader sees),
+# also those of a separate small-capitals font (SC_FONT below).
 PUA = {**{0xF643 + i: str(i) for i in range(10)}, **{0xF730 + i: str(i) for i in range(10)},
        **{0xF761 + i: chr(0x41 + i) for i in range(26)},
        **{0xF7E0 + i: chr(0xC0 + i) for i in range(31) if 0xC0 + i != 0xD7}}
@@ -141,13 +142,24 @@ GLYPHS = Counter()  # repairs made in the text layer, for the report
 PUA_LEFT = []       # (page, code points, span text): private-use glyphs no table explains
 
 
+# A small-capitals font (a separate SC face: "Sabon-RomanSC", "MinionPro-RegularSC", "…-SmallCaps") maps its glyphs
+# to lower-case letters: "1000 bce" in the text layer where the page prints BCE (Manchester UP, West Ohueri 2024).
+SC_FONT = re.compile(r"(?:SC|SmCp|SmallCaps)$")
+
+
 def repair_glyphs(chars, font, size, pno):
-    """Glyphs the text layer misreads: private-use code points (PUA table), a spacing accent printed over a letter
-    (TeX-style "Savi´c" -> "Savić"), "¼" from a TeX math font ("=" in Cambridge PDFs: "id¼6" -> "id=6")."""
+    """Glyphs the text layer misreads: private-use code points (PUA table), lower case from a small-capitals font,
+    a spacing accent printed over a letter (TeX-style "Savi´c" -> "Savić"), "¼" from a TeX math font ("=" in Cambridge
+    PDFs: "id¼6" -> "id=6")."""
     out = []
+    parts = font.split("+")                       # "KALMLA+SabonLTStd-Roman+f6": subset prefix, name, suffix
+    sc = bool(SC_FONT.search(parts[1] if len(parts) > 1 and len(parts[0]) == 6 else parts[0]))
     for c in chars:
         o = ord(c["c"])
-        if o in PUA:
+        if sc and c["c"].islower():
+            c = dict(c, c=c["c"].upper())
+            GLYPHS["lower case from a small-capitals font read as capitals"] += 1
+        elif o in PUA:
             c = dict(c, c=PUA[o])
             GLYPHS["private-use " + ("figure" if PUA[o].isdigit() else "small capital") + " glyphs read as "
                    + ("digits" if PUA[o].isdigit() else "capitals")] += 1

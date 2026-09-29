@@ -535,8 +535,14 @@ def shortform_numbers(text, refs, keys, sigla=None):
 # "(2003): 125–130") or a short title ("Cressy, *Gypsies*, 5–10", "Galletti, “Los Gitanos como Otro,” 121–22"); a
 # volume before it ("5:365", "I:183 … and II:452", "1: iv, 358") is not the page; "103n24" = page 103, note 24
 _CL_ONE = r"(?:(?:[IVX]+|\d+):\s?)?(?:\d+|[ivxlc]+)(?:n\d+)?(?:\s?[–-]\s?\d+)?"
+# Not a page either (Manchester UP, Chicago as used in British books): "*Journal*, 40:3 (2021)" (volume:issue before the
+# year), "*Title*, 2nd ed." (an edition), "*Site*, 26 May 2020" (a date)
+_MONTHS = "January|February|March|April|May|June|July|August|September|October|November|December"
 CHICAGO_LOC = re.compile(r"(?:\)\s?[,:]|\*,|,”)\s?(" + _CL_ONE + r"(?:(?:,\s?|,?\s(?:and|&)\s)" + _CL_ONE + r")*)(?![\d/.]\d)(?!\d)"
-                         r"(?!\s?\(\d{4}\))")       # "*Journal*, 7 (2018)": a volume before the year, not a page
+                         r"(?!\s?\(\d{4}\))"        # "*Journal*, 7 (2018)": a volume before the year, not a page
+                         r"(?!:\s?\d+\s?\(\d{4}\))"  # "40:3 (2021)"
+                         r"(?!st\b|nd\b|rd\b|th\b)"    # "2nd ed.", "10th ed."
+                         r"(?!\s(?:" + _MONTHS + r")\b)")  # "26 May 2020"
 
 
 def chicago_numbers(text):
@@ -640,8 +646,48 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
                     sig = any(key in ks and re.search(r"(?<!\w)" + re.escape(sg) + r"(?!\w)", o) for sg, ks in sigla.items())
                     if not (len(ttl) >= 8 and ttl in fo) and not sig:
                         errs.append(f"{lab(i)}: @{key} ({', '.join(names)}) — neither author nor title found in the original note: {o[:120]}")
+        # the other way round: a work the original note cites by surname and title must be cited in the keyed note (a
+        # work dropped from a note citing several, or its key swapped for another's). Citation shape only — the surname,
+        # "," or "(", then the title's opening ("Ruth Frankenberg, *White Women, Race Matters*", "Wekker (*White
+        # Innocence*)") or, after a comma, a word of the title (the author's short form: "Galaty, *Memory*", "West Ohueri,
+        # ‘Zor’"); a work named in prose ("Kant’s essay “On the Use of …”") is not a citation. Not when a cited work by the
+        # same author opens with the same words or contains that word (volumes, a subtitle naming another edition)
+        fo = fold_txt(o)
+        for key, r in refs.items():
+            if key in keys:
+                continue
+            names = [n for n in name_forms(r) if n]
+            kin = [refs.get(k) or {} for k in keys if set(name_forms(refs.get(k) or {})) & set(names)]
+            ttl = alnum(title_of(r))[:14]
+            words = set(re.findall(r"\w{3,}", fold_txt(r.get("title") or "")))
+            same = set(re.findall(r"\w{3,}", " ".join(fold_txt(x.get("title") or "") for x in kin)))
+            hit = False
+            for n in names:
+                for m in re.finditer(r"(?<!\w)" + re.escape(fold_txt(n)[:max(4, len(n) - 3)]) + r"\w*\s?([,(])\s?", fo):
+                    after = fo[m.end():m.end() + 160]
+                    if len(ttl) >= 8 and alnum(after).startswith(ttl) and \
+                            not any(alnum(title_of(x)).startswith(ttl) for x in kin):
+                        hit = True
+                    w = re.match(r"[‘’“”\"'*\s]*(\w{3,})", after)
+                    if m.group(1) == "," and w and w.group(1) in words - TITLE_STOP and w.group(1) not in same:
+                        hit = True
+            if hit:
+                errs.append(f"{lab(i)}: @{key} ({', '.join(names)}) is cited in the original note (surname and title) "
+                            f"but not in the keyed note: {o[:120]}")
         prev_keys = keys or prev_keys
         prev_loc = o_loc if keys else prev_loc
+
+
+TITLE_STOP = {"the", "and", "for", "from", "with", "des", "der", "die", "das", "und", "les", "une", "del", "los", "las"}
+
+
+def title_of(ref):
+    return (ref.get("title-short") or ref.get("title") or "").rstrip("…")
+
+
+def alnum(s):
+    """folded letters and digits only: title comparison across quotation-mark and punctuation styles"""
+    return re.sub(r"[\W_]", "", fold_txt(s))
 
 
 def fold_txt(s):

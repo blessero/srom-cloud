@@ -347,5 +347,66 @@ t("keyed: the Akademie-Ausgabe page dropped -> ERROR", c == 1 and "324" in o, o)
 c, o = runh(HK.replace("[@raithby4, s. 233]", "[@raithby3, s. 233]"))
 t("keyed: 'Vol. IV' keyed to vol. 3 of the same work -> ERROR", c == 1 and "volume [4]" in o, o)
 
+# Manchester UP (stage-1 test 6, West Ohueri): "40:3 (2021)" is volume:issue, "2nd ed." an edition, "26 May 2020" a date —
+# none is a page. Works: every work the original cites by surname and title must be cited in the keyed note (dropped from
+# a note citing several, swapped for another author's, or cited by the author's short form "Galaty, *Memory*"); a work
+# only named in prose ("Kant’s essay “On the Use …”") is not a citation; a title inside another edition's subtitle is not
+MREFS = w("mup_refs.json", json.dumps([
+    {"id": "wo2021", "type": "article-journal", "author": [{"family": "West Ohueri", "given": "Chelsi"}],
+     "title": "On Living and Moving with Zor", "container-title": "MA", "volume": "40", "issue": "3", "page": "241–253",
+     "issued": {"date-parts": [[2021]]}},
+    {"id": "wo2016", "type": "thesis", "author": [{"family": "West Ohueri", "given": "Chelsi"}], "title": "Mapping Race and Belonging",
+     "publisher": "UT Austin", "issued": {"date-parts": [[2016]]}},
+    {"id": "cornell2007", "type": "book", "author": [{"family": "Cornell", "given": "Stephen"}], "title": "Ethnicity and Race",
+     "edition": "2", "publisher": "PFP", "publisher-place": "Thousand Oaks", "issued": {"date-parts": [[2007]]}},
+    {"id": "galaty2018", "type": "book", "author": [{"family": "Galaty", "given": "Michael"}], "title": "Memory and Nation Building",
+     "publisher": "RL", "publisher-place": "Lanham", "issued": {"date-parts": [[2018]]}},
+    {"id": "mehilli2017", "type": "book", "author": [{"family": "Mëhilli", "given": "Elidor"}], "title": "From Stalin to Mao",
+     "publisher": "CUP", "publisher-place": "Ithaca", "issued": {"date-parts": [[2017]]}},
+    {"id": "frank1993", "type": "book", "author": [{"family": "Frankenberg", "given": "Ruth"}], "title": "White Women, Race Matters",
+     "publisher": "UMP", "publisher-place": "Minneapolis", "issued": {"date-parts": [[1993]]}},
+    {"id": "wekker2016", "type": "book", "author": [{"family": "Wekker", "given": "Gloria"}], "title": "White Innocence",
+     "publisher": "Duke", "publisher-place": "Durham", "issued": {"date-parts": [[2016]]}},
+    {"id": "kant1788", "type": "chapter", "author": [{"family": "Kant", "given": "Immanuel"}],
+     "title": "On the Use of Teleological Principles in Philosophy", "container-title": "AHE", "publisher": "CUP",
+     "publisher-place": "Cambridge", "issued": {"date-parts": [[2010]]}},
+    {"id": "gr1783", "type": "book", "author": [{"family": "Grellmann", "given": "H. M. G."}],
+     "title": "Die Zigeuner: Ein historischer Versuch über die Lebensart", "publisher": "BdG", "publisher-place": "Dessau",
+     "issued": {"date-parts": [[1783]]}},
+    {"id": "gr1787", "type": "book", "author": [{"family": "Grellmann", "given": "H. M. G."}],
+     "title": "Historischer Versuch über die Zigeuner", "publisher": "Dieterich", "publisher-place": "Göttingen",
+     "issued": {"date-parts": [[1787]]}},
+    {"id": "erebara2020", "type": "webpage", "author": [{"family": "Erebara", "given": "Gjergj"}], "title": "Organizatat",
+     "container-title": "Reporter.al", "URL": "https://www.reporter.al/x/", "issued": {"date-parts": [[2020, 5, 26]]}}],
+    ensure_ascii=False))
+MO = w("mup_o.md", "A[^1] b[^2] c[^3] d[^4] e[^5] f[^6] g[^7].\n\n"
+       "[^1]: Chelsi West Ohueri, ‘On Living and Moving with Zor’, *MA*, 40:3 (2021), 241–53.\n\n"
+       "[^2]: Stephen Cornell, *Ethnicity and Race*, 2nd ed. (Thousand Oaks: PFP, 2007).\n\n"
+       "[^3]: Gjergj Erebara, ‘Organizatat’, *Reporter.al*, 26 May 2020, www.reporter.al/x/.\n\n"
+       "[^4]: Galaty, *Memory*; Elidor Mëhilli, *From Stalin to Mao* (Ithaca: CUP, 2017), 12.\n\n"
+       "[^5]: See West Ohueri, ‘Mapping Race’; West Ohueri, ‘Zor’.\n\n"
+       "[^6]: Here I return to both Wekker (*White Innocence*) and Frankenburg (*White Women, Race Matters*). Kant’s essay "
+       "“On the Use of Teleological Principles in Philosophy” is often cited.\n\n"
+       "[^7]: See H. M. G. Grellmann, *Die Zigeuner*: *Ein historischer Versuch über die Lebensart* (Dessau: BdG, 1783).\n")
+MK = ("A[^1] b[^2] c[^3] d[^4] e[^5] f[^6] g[^7].\n\n[^1]: [@wo2021].\n\n[^2]: [@cornell2007].\n\n[^3]: [@erebara2020].\n\n"
+      "[^4]: [@galaty2018; @mehilli2017, s. 12].\n\n[^5]: Zob. [@wo2016; @wo2021].\n\n"
+      "[^6]: Here I return to both Wekker ([@wekker2016]) and Frankenburg ([@frank1993]). Kant’s essay "
+      "“On the Use of Teleological Principles in Philosophy” is often cited.\n\n[^7]: Zob. [@gr1783].\n")
+def runm(k):
+    r = subprocess.run([sys.executable, CHECK, "--keyed", MO, w("mup_k.md", k), "--refs", MREFS], capture_output=True, text=True)
+    return r.returncode, r.stdout + r.stderr
+c, o = runm(MK)
+t("keyed MUP: volume:issue '40:3 (2021)', '2nd ed.', '26 May 2020' are not pages; a work named in prose, a title inside "
+  "another edition's subtitle -> CHECK OK", c == 0 and "CHECK OK" in o and "ERROR" not in o, o)
+c, o = runm(MK.replace("[@galaty2018; @mehilli2017, s. 12]", "[@mehilli2017, s. 12]"))
+t("keyed: a work cited by the author's short form ('Galaty, *Memory*') dropped -> ERROR", c == 1 and "@galaty2018" in o, o)
+c, o = runm(MK.replace("Zob. [@wo2016; @wo2021]", "Zob. [@wo2016]"))
+t("keyed: the author's second work ('West Ohueri, ‘Zor’') dropped -> ERROR", c == 1 and "@wo2021" in o, o)
+c, o = runm(MK.replace("Frankenburg ([@frank1993])", "Frankenburg ([@wekker2016])"))
+t("keyed: a key swapped for another author's named in the same note (misspelt 'Frankenburg') -> ERROR",
+  c == 1 and "@frank1993" in o, o)
+c, o = runm(MK.replace("[^4]: [@galaty2018; @mehilli2017, s. 12]", "[^4]: [@galaty2018; @mehilli2017, s. 13]"))
+t("keyed MUP: a page after the imprint parenthesis still counts (12 -> 13) -> ERROR", c == 1 and "12" in o, o)
+
 n, ok = len(results), sum(results)
 print(f"CHECK ALL PASS {n}/{n}" if ok == n else f"CHECK FAILED {n - ok}/{n}")

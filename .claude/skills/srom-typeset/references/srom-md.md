@@ -108,6 +108,11 @@ Indian* (Princeton University Press, 2009), 12."; "Tabili, “Race Is a Relation
   the short form (`check.py --keyed` reads the siglum as its name); several volumes of one title (statutes): the volume as
   a locator in the short forms, `{t. 3, s. 89}` (`check.py --keyed` fails a "Vol. IV" keyed to another volume). An author's
   remark in brackets after a citation stays outside the token: `[@key, s. 63] (my translation).`
+- British Chicago (Manchester UP: "*Medical Anthropology*, 40:3 (2021), 241–53", "2nd ed.", "*Reporter.al*, 26 May 2020"):
+  `40:3` before the year is volume:issue, not volume:page; editions and dates are not pages (`check.py --keyed` knows
+  all three). Both ways: every work the original cites by surname and title — full, or the author's own short form
+  ("Galaty, *Memory*", "West Ohueri, ‘Zor’") — must be cited in the keyed note (a work dropped from a note citing
+  several, or a key swapped for another's, fails); a work only named in prose is not a citation.
 - "Anonymous" → no author (title first, `srom-as-written`); "trans. and ed." by the same people → `editor` + `translator`
   (printed once, `tłum. i red.`); "PhD diss." → `thesis`, university as `publisher`, `note: "praca doktorska"`.
 
