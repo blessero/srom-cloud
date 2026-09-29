@@ -1,32 +1,32 @@
 {
-  "_comment": "Style names MUST equal the InDesign template names exactly (case, diacritics, spaces). PLACEHOLDERS until confirmed against the template IDML.",
+  "_comment": "Style names MUST equal the InDesign template names exactly (case, diacritics, spaces). Defined in indesign/style_spec.json (house style v3); several roles may share one style.",
   "paragraph": {
-    "h1": "Śródtytuł 1",
-    "h2": "Śródtytuł 2",
+    "h1": "Śródtytuł",
+    "h2": "Śródtytuł MAŁE",
     "body": "Tekst",
-    "body_first": "Tekst bez wcięcia",
-    "quote": "Cytat blokowy",
+    "body_first": "Tekst BEZ WCIĘCIA",
+    "quote": "Cytat",
     "list": "Wyliczenie",
     "footnote": "Przypis",
-    "bib_title": "Bibliografia – tytuł",
-    "bib_section": "Bibliografia – dział",
+    "bib_title": "Śródtytuł",
+    "bib_section": "Śródtytuł MAŁE",
     "bib_entry": "Bibliografia",
     "caption": "Podpis",
-    "table_title": "Tabela – tytuł",
-    "author_note": "Nota o autorze",
-    "quote_verse": "Cytat – wiersz",
-    "table_cell": "Tabela – treść",
-    "example_form": "Przykład – forma",
-    "example_gloss": "Przykład – glosa",
-    "example_trans": "Przykład – przekład",
-    "table_source": "Tabela – źródło",
-    "asterisk_note": "Przypis gwiazdkowy",
-    "list_numbered": "Wyliczenie numerowane",
+    "table_title": "Tabela TYTUŁ",
+    "author_note": "Tekst BEZ WCIĘCIA",
+    "quote_verse": "Cytat WIERSZ",
+    "table_cell": "Tabela TREŚĆ",
+    "example_form": "Przykład FORMA",
+    "example_gloss": "Przykład GLOSA",
+    "example_trans": "Przykład PRZEKŁAD",
+    "table_source": "Podpis",
+    "asterisk_note": "Przypis GWIAZDKOWY",
+    "list_numbered": "Wyliczenie",
     "motto": "Motto",
-    "motto_source": "Motto – źródło",
-    "dialog": "Dialog",
+    "motto_source": "Motto ŹRÓDŁO",
+    "dialog": "Cytat",
     "speaker": "Mówca",
-    "speaker_affiliation": "Mówca – afiliacja"
+    "speaker_affiliation": "Afiliacja"
   },
   "roles": {
     "_comment": "fenced-div class -> paragraph key above; lets front matter or special blocks carry a style",
@@ -42,31 +42,27 @@
   "character": {
     "italic": "Kursywa",
     "smallcaps": "Kapitaliki",
-    "speaker": "Mówca – etykieta",
+    "speaker": "Pogrubienie",
     "roman": "Proste",
-    "asterisk_ref": "Odsyłacz gwiazdkowy"
+    "asterisk_ref": "Gwiazdka"
   },
   "template_extra": {
     "_comment": "template styles the DOCX never uses (placed or applied by hand / by GREP)",
     "paragraph": [
-      "Podstawa",
-      "Tytuł artykułu",
+      "Tytuł",
       "Autor",
-      "Afiliacja",
-      "Abstrakt – nagłówek",
-      "Abstrakt",
-      "Słowa kluczowe",
-      "Tekst – inicjał",
+      "Tekst INICJAŁ",
+      "Podpis LINIA",
       "Pagina",
       "Folio",
       "Spis treści",
-      "Spis treści – autor",
-      "Spis treści – języki"
+      "Spis AUTOR",
+      "Spis JĘZYKI"
     ],
     "character": [
       "Bez podziału",
-      "Kapitaliki – glosa",
-      "Indeks gorny"
+      "Kapitaliki GLOSA",
+      "Indeks górny"
     ]
   },
   "bibliography": {

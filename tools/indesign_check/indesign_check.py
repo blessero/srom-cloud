@@ -1,0 +1,120 @@
+#!/usr/bin/env python3
+"""
+indesign_check.py — live check of srom_style_setup.jsx in InDesign (the editor's Mac; InDesign must be running).
+Not part of run_all.py: it drives InDesign through AppleScript, in hidden windows, on copies in a temp folder —
+the documents open in InDesign are never touched.
+
+    ~/.venvs/srom/bin/python tools/indesign_check/indesign_check.py [--specimen out.pdf] [--keep DIR]
+
+For each vol. 18 template in dump/ (03_Ellis, 09_Konferencja):
+  before   the IDML as it is → PDF
+  control  the setup script with the two deliberate changes undone (vol. 18 GREP rule only, the document's own
+           Cytat blokowy values) → PDF; must equal `before` line for line (text, position, size, font): proves that
+           the new styles, the purge and the mapping move nothing
+  real     the shipped setup script → PDF; same page count; lines re-broken are reported (Kanon § 3.3 no-break rules,
+           the unified Cytat)
+and once on a blank document. Every run must end RESULT: OK. Last line: INDESIGN CHECK ALL PASS n/n.
+"""
+import argparse, copy, difflib, json, os, shutil, subprocess, sys, tempfile
+import pymupdf
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+REPO = os.path.dirname(os.path.dirname(HERE))
+SKILL = os.path.join(REPO, ".claude", "skills", "srom-typeset")
+DUMP = os.path.join(REPO, "dump")
+# the vol. 18 values of Cytat blokowy (read in InDesign, 29.09.2026) — the control run puts them back
+OLD_CYTAT = {
+    "03_Ellis": {"pointSize": 9, "leading": 12, "tracking": -10, "composer": "Adobe Paragraph Composer", "hyphenateAfterFirst": 2,
+                 "hyphenateBeforeLast": 2, "hyphenateLadderLimit": 3, "hyphenateWordsLongerThan": 5, "hyphenationZone": 36,
+                 "hyphenateLastWord": False, "minimumWordSpacing": 80, "maximumWordSpacing": 133, "desiredLetterSpacing": 0,
+                 "minimumLetterSpacing": 0, "maximumLetterSpacing": 0, "minimumGlyphScaling": 100, "maximumGlyphScaling": 100},
+    "09_Konferencja": {"pointSize": 9.5, "leading": 12},
+}
+
+
+def idrun(jsx, *args):
+    al = ", ".join(json.dumps(a) for a in args)
+    r = subprocess.run(["osascript", "-e", "with timeout of 900 seconds",
+                        "-e", f'tell application id "com.adobe.InDesign" to do script (POSIX file {json.dumps(jsx)}) language javascript with arguments {{{al}}}',
+                        "-e", "end timeout"], capture_output=True, text=True)
+    return (r.stdout + r.stderr).strip()
+
+
+def lines(pdf):
+    out = []
+    for pn, page in enumerate(pymupdf.open(pdf)):
+        for b in page.get_text("dict")["blocks"]:
+            for l in b.get("lines", []):
+                tx = "".join(s["text"] for s in l["spans"]).strip()
+                if tx:
+                    out.append((pn + 1, round(l["bbox"][0], 1), round(l["bbox"][3], 1), round(l["spans"][0]["size"], 1), l["spans"][0]["font"], tx))
+    return out
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--specimen", help="also build a style specimen PDF here")
+    ap.add_argument("--keep", help="work in this folder and keep it (default: a temp folder, deleted)")
+    a = ap.parse_args()
+    w = a.keep or tempfile.mkdtemp(prefix="srom_idcheck_")
+    os.makedirs(w, exist_ok=True)
+    for f in ("runner.jsx", "dumplib.jsxinc", "specimen.jsx"):
+        shutil.copy(os.path.join(HERE, f), w)
+    spec = json.load(open(os.path.join(SKILL, "indesign", "style_spec.json"), encoding="utf-8"))
+    tpl = open(os.path.join(SKILL, "indesign", "srom_style_setup.jsx.tpl"), encoding="utf-8").read()
+    setup = os.path.join(w, "setup.jsx")
+    shutil.copy(os.path.join(SKILL, "indesign", "srom_style_setup.jsx"), setup)
+    runner = os.path.join(w, "runner.jsx")
+    res = []
+
+    def t(name, ok, detail=""):
+        res.append(ok)
+        print(("PASS " if ok else "FAIL ") + name + ("" if ok else "\n   " + str(detail)[:1500]))
+
+    for stem in ("03_Ellis", "09_Konferencja"):
+        idml = os.path.join(w, stem + ".idml")
+        shutil.copy(os.path.join(DUMP, stem + ".idml"), idml)
+        sp = copy.deepcopy(spec)
+        for p in sp["paragraph"]:
+            if p["name"] == "Tekst":
+                p["grep"] = p["grep"][:1]
+            if p["name"] == "Cytat":
+                p["props"].update(OLD_CYTAT[stem])
+        control = os.path.join(w, f"control_{stem}.jsx")
+        open(control, "w", encoding="utf-8").write(tpl.replace("/*SPEC*/", json.dumps(sp, ensure_ascii=True)))
+        P = {k: os.path.join(w, f"{stem}_{k}") for k in ("before", "control", "real")}
+        idrun(runner, "open", idml, "", P["before"] + ".txt", P["before"] + ".json", P["before"] + ".pdf")
+        rc = idrun(runner, "open", idml, control, P["control"] + ".txt", P["control"] + ".json", P["control"] + ".pdf")
+        rr = idrun(runner, "open", idml, setup, P["real"] + ".txt", P["real"] + ".json", P["real"] + ".pdf")
+        t(f"{stem}: control run RESULT: OK", rc == "RESULT: OK", rc)
+        t(f"{stem}: real run RESULT: OK", rr == "RESULT: OK", open(P["real"] + ".txt", encoding="utf-8").read().replace("\r", "\n")[-1500:] if os.path.exists(P["real"] + ".txt") else rr)
+        b, c, r = lines(P["before"] + ".pdf"), lines(P["control"] + ".pdf"), lines(P["real"] + ".pdf")
+        same = sum(1 for x, y in zip(b, c) if x == y)
+        t(f"{stem}: control = vol. 18 line for line ({same}/{len(b)} lines: text, position, size, font)", same == len(b) == len(c),
+          [(x, y) for x, y in zip(b, c) if x != y][:5])
+        pb, pr = pymupdf.open(P["before"] + ".pdf").page_count, pymupdf.open(P["real"] + ".pdf").page_count
+        t(f"{stem}: real run keeps the page count ({pb} → {pr})", pb == pr)
+        sm = difflib.SequenceMatcher(None, [x[5] for x in b], [x[5] for x in r], autojunk=False)
+        moved = sum(i2 - i1 for op, i1, i2, _, _ in sm.get_opcodes() if op in ("replace", "delete"))
+        print(f"     info: {moved}/{len(b)} lines re-broken in the real run (no-break rules of Kanon § 3.3, unified Cytat)")
+    rb = idrun(runner, "new", "x", setup, os.path.join(w, "blank.txt"), os.path.join(w, "blank.json"), "")
+    t("blank document: RESULT: OK", rb == "RESULT: OK", rb)
+    try:
+        order = json.loads(open(os.path.join(w, "blank.json"), encoding="utf-8").read(), strict=False)["DOC|order"]
+        want = [p["name"] for p in spec["paragraph"] if p["group"] == ""]
+        got = [x[2:] for x in order if x.startswith("P:") and not x.startswith("P:[")]
+        t("panel order at the root = spec order", got == want, (got, want))
+    except (OSError, ValueError, KeyError) as e:
+        t("panel order readable", False, e)
+    if a.specimen:
+        rs = idrun(os.path.join(w, "specimen.jsx"), setup, os.path.abspath(a.specimen))
+        t(f"specimen written ({a.specimen})", rs.startswith("RESULT: OK") and "overset false" in rs, rs)
+    if not a.keep:
+        shutil.rmtree(w, ignore_errors=True)
+    n, ok = len(res), sum(res)
+    print(f"INDESIGN CHECK ALL PASS {n}/{n}" if ok == n else f"INDESIGN CHECK FAILED {n - ok}/{n}")
+    sys.exit(0 if ok == n else 1)
+
+
+if __name__ == "__main__":
+    main()

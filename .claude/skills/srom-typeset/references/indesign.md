@@ -4,29 +4,56 @@ The DOCX from `build.py` carries **no local formatting at all**: every paragraph
 style, every italic/small-caps run a named character style, footnote numbers have no Word style, no
 language is set. InDesign therefore takes everything from the template — provided the names match.
 
-## Template requirements
+## Template: house style v3 (29.09.2026)
 
-The house style is defined in `indesign/style_spec.json` and listed in `references/style-sheet.md`;
-`indesign/srom_style_setup.jsx` builds it in a copy of the template (renames the old styles, so existing
-text keeps its formatting). What must hold afterwards:
+The styles are defined in `indesign/style_spec.json`, readable in `references/style-sheet.md`. They are
+vol. 18's own values (read from `dump/03_Ellis.idml` and `dump/09_Konferencja.idml` in InDesign), under new
+names and in a designer's order:
 
-1. Paragraph styles named exactly as the values in `config/styles.json` → `paragraph` — including the
-   ones the DOCX uses only occasionally: verse quotation, numbered list (hanging indent, tab stop — the
-   number is typed), table title/cell/source, the asterisk-note style (title, translator and editorial notes) and its
-   marker character style, the three interlinear-example lines
-   (with tab stops; form line italic in the style; gloss categories via a GREP style → small-caps
-   character style)
-   (case, Polish letters, spaces, en dash). If a template name differs, change the config, not the
-   template; `config/styles.json` → `template_extra` lists template styles the DOCX never uses
-   (title block, running heads, footnote-number styles) so the post-import check does not flag them.
-2. Character styles for `italic` and `smallcaps`. Small caps = **OpenType small caps** of the text font
-   (kanon §9.3), Case: Small Caps (surnames are stored in normal case: `Mróz` → M + small caps).
-3. Footnote Options (Type ▸ Document Footnote Options): numbering and the reference/number character
-   styles are set here — the DOCX deliberately brings none. Paragraph style of the note = the
-   `footnote` name in the config. Restart numbering: per story/document as per volume practice.
-4. GREP styles for non-breaking spaces (kanon §3.3) in body, quote, list, footnote and bibliography
-   styles: after `s.` `t.` `z.` `nr` `r.` `w.` `sygn.` `k.`, after initials, before `%`, after one-letter
-   words `i a o u w z` (and capitals). The pipeline never types nbsp.
+- **Root, most used first (15):** Tekst · Tekst BEZ WCIĘCIA · Przypis · Śródtytuł · Śródtytuł MAŁE · Cytat ·
+  Bibliografia · Podpis · Podpis LINIA · Wyliczenie · Tytuł · Autor · Afiliacja · Mówca · Tekst INICJAŁ.
+- **Folder "Rzadkie" (9):** Motto · Motto ŹRÓDŁO · Cytat WIERSZ · Przypis GWIAZDKOWY · Tabela TYTUŁ · Tabela TREŚĆ ·
+  Przykład FORMA / GLOSA / PRZEKŁAD. Most are applied by the build, rarely by hand.
+- **Folder "Numer" (5):** Pagina · Folio · Spis treści · Spis AUTOR · Spis JĘZYKI.
+- **Character styles (8):** Kursywa · Kapitaliki · Indeks górny · Bez podziału · Proste · Pogrubienie · Gwiazdka ·
+  Kapitaliki GLOSA.
+- **Naming:** the family name first, then a short capitalised qualifier, so the styles read in a narrow panel.
+- **Shared styles:** several pipeline roles use one style. Dialogue → Cytat; numbered list → Wyliczenie; bibliography
+  title and divisions → Śródtytuł / Śródtytuł MAŁE; table source → Podpis; author note → Tekst BEZ WCIĘCIA;
+  speaker's affiliation → Afiliacja.
+
+**Set-up: `indesign/srom_style_setup.jsx`.** Run it on a blank document, or on a copy of an old one to keep its
+margins and masters. It:
+
+1. sets the document values: baseline grid every 13.2945 pt from 62.362 pt, relative to the top of the page;
+   Footnote Options (style Przypis, superscript reference, "." + en space after the number, 0.5 pt × 40 mm rule,
+   numbering restarts per section, long notes may split); superscript 58 %/33 %; small caps 70 %;
+2. **purges** every paragraph and character style. Text in an old style takes its new one (Podrozdzial →
+   Śródtytuł, Bez wciecia → Tekst BEZ WCIĘCIA …, the table in `style-sheet.md`); unknown styles → Tekst;
+3. builds the house set in panel order, with GREP styles (non-breaking spaces, Kanon § 3.3), the nested style
+   of Przypis (note number superscript through the 1-line drop cap, as vol. 18), tab stops and next styles;
+4. reads every value back and reports (`<document>_style_setup.txt`): `RESULT: OK` or the lines marked `!`.
+
+The text frame, masters and running-head frames are not the script's business. With a blank document, take the
+page (165 × 235 mm) and frames from an old issue, then run the script.
+
+**Verified in InDesign 2026:** `tools/indesign_check/indesign_check.py` (needs InDesign running; hidden windows,
+copies only). It runs the script on both vol. 18 files. With the two deliberate changes undone (the Kanon's
+no-break rules, the unified Cytat), the PDF equals vol. 18 **line for line** (603/603 and 468/468 lines: text,
+position, size, font). With them, the page count stays the same and about 6 % (Ellis) / 3 % (Konferencja) of body
+lines re-break where the new no-break rules glue words; Ellis's quotes re-break under Tekst's justification.
+`--specimen file.pdf` sets every style on two pages.
+
+What must hold for the import:
+
+1. Paragraph and character style names exactly as the values in `config/styles.json` (case, Polish letters,
+   spaces). `template_extra` lists styles the DOCX never uses (title block, running heads, drop cap, captions with
+   a rule, footnote number), so the post-import check does not flag them.
+2. Small caps = **OpenType small caps** of Cambria, Case: Small Caps (surnames are stored in normal case:
+   `Mróz` → M + small caps; Kanon § 9.3).
+3. The DOCX brings no footnote formatting. Numbering and the note style come from Footnote Options (set by the
+   script).
+4. The pipeline never types a non-breaking space; the GREP styles of Tekst (inherited by every style) apply them.
 5. Language Polish in all text styles (the DOCX sets none, so hyphenation follows the style).
 
 ## Word import preset "SROM – pandoc" (create once)
@@ -69,9 +96,9 @@ listed in the build report — check them by eye. Re-run after any reflow.
 
 Kanon §7.1: the title note, translator's (`– przyp. tłum.`) and editorial (`– przyp. red.`) notes are one
 series `*`, `**`, `***` …, restarting on every page, set **above the numbered notes**, in the style
-*Przypis gwiazdkowy* (= *Przypis*). They cannot be InDesign footnotes (one footnote sequence per story), so the
+*Przypis GWIAZDKOWY* (= *Przypis*). They cannot be InDesign footnotes (one footnote sequence per story), so the
 build delivers them as paragraphs at the end of the story (title note first, each opening `* `) and a `*` in
-*Odsyłacz gwiazdkowy* at each marker. By hand: move each note to the foot of its page above the numbered
+*Gwiazdka* at each marker. By hand: move each note to the foot of its page above the numbered
 notes (e.g. a separate text frame; shorten the main frame so the numbered notes sit below it). The script
 lists every marker with its page and the asterisks it gets (`p. 12  **  Uwaga…`), the title note first on
 the article's first page — set marker and note to that count. Report `<document>_gwiazdki.txt`. Re-run after
@@ -86,9 +113,9 @@ The toolchain is tested up to the DOCX; InDesign behaviour must be confirmed onc
    likewise; no stray space after the number.
 3. Italic and small-caps runs carry the character styles (Find/Change ▸ Find Format ▸ character style
    → count ≈ the counts in the build report's DOCX verification line).
-4. Bibliography: `Bibliografia – dział` headings, surnames in small caps, `de` and institutions not.
+4. Bibliography: `Śródtytuł MAŁE` division headings, surnames in small caps, `de` and institutions not.
 5. nbsp GREP styles visibly working (`s. 15`, `J. Ficowski`, `w Krakowie`).
-6. With non-author notes: markers in *Odsyłacz gwiazdkowy*, notes in *Przypis gwiazdkowy*; after placing them
+6. With non-author notes: markers in *Gwiazdka*, notes in *Przypis GWIAZDKOWY*; after placing them
    above the numbered notes, `_gwiazdki.jsx` gives the asterisk count per page.
 
 Record the result (screenshot or the two script reports) — that closes G12.

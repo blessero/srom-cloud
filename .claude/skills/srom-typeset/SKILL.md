@@ -101,8 +101,8 @@ gives the `translators_struct` value for the master CSV). Never MarkItDown: it l
 
 - Never invent bibliographic data. A missing field stays missing and produces `[BRAK …]`.
 - Never hand-edit the DOCX. Fix the SROM-MD or refs.json and rebuild.
-- Style names in `config/styles.json` must equal the template's names exactly; until confirmed from
-  the template IDML they are placeholders (see `references/indesign.md`).
+- Style names in `config/styles.json` must equal the template's names exactly; they are defined in
+  `indesign/style_spec.json` (house style v3) and set up in InDesign by `srom_style_setup.jsx`.
 - *Ibidem* legality depends on layout (same column): always run `_ibidem.jsx` on final pages.
 
 ## Tests
@@ -113,12 +113,15 @@ ES3 with acorn if installed (sandbox: `npm i acorn` in `/home/claude/es3`; Mac: 
 
 ## House style in InDesign
 
-`indesign/style_spec.json` is the one definition of the SROM paragraph and character styles (names,
-hierarchy, values, GREP rules, which old template styles they replace). `python3 scripts/make_style_setup.py`
-renders from it `indesign/srom_style_setup.jsx` (run once on a copy of the template: creates/renames/merges
-styles, sets values, adds the non-breaking-space GREP styles, retires Word leftovers) and
-`references/style-sheet.md` (the readable style sheet), and checks that `config/styles.json` names only
-styles the spec defines.
+`indesign/style_spec.json` (v3, 29.09.2026) is the one definition of the SROM styles: 29 paragraph styles
+(15 at the root, most used first; folders "Rzadkie" and "Numer") and 8 character styles, with vol. 18's own
+values (read from the templates in `dump/`), the document settings (baseline grid 13.2945 pt, Footnote Options)
+and the map old style → new style. `python3 scripts/make_style_setup.py` renders `indesign/srom_style_setup.jsx`
+(run on a blank document or a copy of an old one: purges every style, builds the house set, maps text in old
+styles to the new ones, reads every value back) and `references/style-sheet.md`, and checks the config against
+the spec. `tests/test_jsx.py` checks the spec against the vol. 18 IDMLs; `tools/indesign_check/indesign_check.py`
+runs the script in InDesign itself and proves line for line that body and notes do not move. Several pipeline
+roles share one style (config maps roles → names). v2 (the renaming script): `indesign/legacy/v2/`.
 
 ## References
 

@@ -1,0 +1,87 @@
+{
+  "_about": "SROM house style — single source for srom_style_setup.jsx, config/styles.json and references/style-sheet.md. Units: pt. Page 165×235 mm, text measure 126 mm (357 pt), body 10.5/13 on a 13 pt baseline grid.",
+  "character": [
+    {"name": "Kursywa", "props": {"fontStyle": "Italic"}},
+    {"name": "Proste", "props": {"fontStyle": "Regular"}, "note": "roman inside an italic paragraph (titles in a motto)"},
+    {"name": "Kapitaliki", "props": {"capitalization": "SMALL_CAPS"}, "note": "surnames in the bibliography (typed in normal case)"},
+    {"name": "Kapitaliki – glosa", "props": {"capitalization": "CAP_TO_SMALL_CAP"}, "note": "gloss categories 1SG.NOM (typed in capitals); applied by GREP"},
+    {"name": "Mówca – etykieta", "props": {"fontStyle": "Bold"}, "note": "speaker label in a dialogue; applied by the build (Word forbids one name for a paragraph and a character style)"},
+    {"name": "Bez podziału", "props": {"noBreak": true}, "old": ["NO BREAK"], "note": "non-breaking spaces (kanon §3.3); applied by GREP"},
+    {"name": "Odsyłacz gwiazdkowy", "props": {"position": "SUPERSCRIPT"}, "note": "asterisk marker of a non-author note in the text (kanon § 7.1); the build types one * — set the count per page"}
+  ],
+  "base": {"name": "Podstawa", "props": {"appliedFont": "Cambria", "fontStyle": "Regular", "pointSize": 10.5, "leading": 13,
+           "appliedLanguage": "Polish", "justification": "LEFT_JUSTIFIED", "hyphenation": true, "hyphenateAfterFirst": 3,
+           "hyphenateBeforeLast": 3, "hyphenateWordsLongerThan": 6, "hyphenateLadderLimit": 2, "hyphenateCapitalizedWords": false,
+           "firstLineIndent": 0, "leftIndent": 0, "rightIndent": 0, "spaceBefore": 0, "spaceAfter": 0, "gridAlignment": "ALIGN_TO_BASELINE"},
+           "grep": [
+             {"expr": "(?<=\\b\\w)\\h", "style": "Bez podziału", "note": "after one-letter words (w, z, i, a, o, u)"},
+             {"expr": "(?<=\\b(?:s|t|z|nr|r|w|k|sygn|ks|św|dr|prof|im|ul|pl|al|tzw|tj|np|zob|por|ok|ss)\\.)\\h", "style": "Bez podziału", "note": "after s. t. z. nr r. w. sygn. k. and common abbreviations"},
+             {"expr": "(?<=\\b\\u\\.)\\h(?=\\u)", "style": "Bez podziału", "note": "between initials and surname (J. Ficowski)"},
+             {"expr": "\\h(?=%)", "style": "Bez podziału", "note": "before %"},
+             {"expr": "(?<=\\d)\\h(?=\\d{3}\\b)", "style": "Bez podziału", "note": "thousands (13 000)"},
+             {"expr": "\\h(?=–)", "style": "Bez podziału", "note": "a spaced dash never starts a line"}
+           ]},
+  "groups": [
+    {"name": "1 Czołówka", "styles": [
+      {"name": "Tytuł artykułu", "basedOn": "Podstawa", "old": ["Rozdzial"], "props": {"fontStyle": "Bold", "pointSize": 18, "leading": 22, "justification": "LEFT_ALIGN", "hyphenation": false, "tracking": -10, "gridAlignment": "NONE", "spaceAfter": 13}},
+      {"name": "Autor", "basedOn": "Podstawa", "old": ["Autor"], "props": {"fontStyle": "Bold", "pointSize": 13, "leading": 16, "justification": "LEFT_ALIGN", "hyphenation": false, "gridAlignment": "NONE"}},
+      {"name": "Afiliacja", "basedOn": "Podstawa", "props": {"justification": "LEFT_ALIGN", "hyphenation": false, "gridAlignment": "NONE", "spaceAfter": 13}, "note": "roman: kanon — no italics for proper names"},
+      {"name": "Abstrakt – nagłówek", "basedOn": "Podstawa", "old": ["Abstrakt tytul"], "props": {"pointSize": 10, "capitalization": "ALL_CAPS", "tracking": 50, "justification": "LEFT_ALIGN", "hyphenation": false, "gridAlignment": "NONE", "spaceBefore": 13}},
+      {"name": "Abstrakt", "basedOn": "Podstawa", "old": ["Abstrakt", "Abstrakt ang"], "props": {"pointSize": 10, "leading": 12.5, "gridAlignment": "NONE"}},
+      {"name": "Słowa kluczowe", "basedOn": "Abstrakt", "props": {"spaceBefore": 6.5}}
+    ]},
+    {"name": "2 Tekst", "styles": [
+      {"name": "Tekst", "basedOn": "Podstawa", "old": ["Tekst"], "props": {"firstLineIndent": 11.34}},
+      {"name": "Tekst bez wcięcia", "basedOn": "Tekst", "old": ["Bez wciecia"], "props": {"firstLineIndent": 0}},
+      {"name": "Tekst – inicjał", "basedOn": "Tekst bez wcięcia", "old": ["Inicjal"], "props": {"dropCapCharacters": 1, "dropCapLines": 2}},
+      {"name": "Śródtytuł 1", "basedOn": "Podstawa", "old": ["Podrozdzial"], "props": {"fontStyle": "Bold", "capitalization": "ALL_CAPS", "justification": "LEFT_ALIGN", "hyphenation": false, "spaceBefore": 13, "keepWithNext": 2}},
+      {"name": "Śródtytuł 2", "basedOn": "Podstawa", "old": ["Podrozdział SECONDARY"], "props": {"fontStyle": "Bold", "justification": "LEFT_ALIGN", "hyphenation": false, "spaceBefore": 13, "keepWithNext": 2}},
+      {"name": "Wyliczenie", "basedOn": "Tekst bez wcięcia", "old": ["Punktury"], "props": {"leftIndent": 11.34, "firstLineIndent": -11.34, "bulletChar": 8211}, "note": "en-dash bullet from the style; items typed without a dash"},
+      {"name": "Wyliczenie numerowane", "basedOn": "Tekst bez wcięcia", "props": {"leftIndent": 11.34, "firstLineIndent": -11.34}, "note": "number typed as 1. + tab"}
+    ]},
+    {"name": "3 Cytaty", "styles": [
+      {"name": "Cytat blokowy", "basedOn": "Podstawa", "old": ["Cytat blokowy", "Cytat_blokowy"], "props": {"pointSize": 9.5, "leading": 12, "leftIndent": 28.35, "spaceBefore": 6.5, "spaceAfter": 6.5, "sameParaStyleSpacing": 0, "gridAlignment": "NONE"}},
+      {"name": "Cytat – wiersz", "basedOn": "Cytat blokowy", "props": {"justification": "LEFT_ALIGN", "hyphenation": false}, "note": "verse: line breaks kept"},
+      {"name": "Motto", "basedOn": "Cytat blokowy", "props": {"fontStyle": "Italic", "leftIndent": 85.04, "justification": "LEFT_ALIGN", "hyphenation": false, "spaceBefore": 0, "spaceAfter": 13}, "note": "opening quotation; titles inside it set roman"},
+      {"name": "Motto – źródło", "basedOn": "Motto", "props": {"fontStyle": "Regular", "pointSize": 9, "justification": "RIGHT_ALIGN", "spaceAfter": 13}},
+      {"name": "Dialog", "basedOn": "Cytat blokowy", "props": {"justification": "LEFT_JUSTIFIED"}, "note": "one turn per paragraph, speaker label 'Name:' in character style Mówca; turns without space between them"}
+    ]},
+    {"name": "4 Rozmowa", "styles": [
+      {"name": "Mówca", "basedOn": "Podstawa", "old": ["Panelant"], "props": {"fontStyle": "Bold", "justification": "LEFT_ALIGN", "hyphenation": false, "spaceBefore": 13, "keepWithNext": 2}, "note": "speaker's own line in a transcript; roman bold, not italic (kanon: proper names)"},
+      {"name": "Mówca – afiliacja", "basedOn": "Podstawa", "old": ["Uni"], "props": {"pointSize": 9, "justification": "LEFT_ALIGN", "hyphenation": false, "keepWithNext": 1}}
+    ]},
+    {"name": "5 Aparat", "styles": [
+      {"name": "Podpis", "basedOn": "Podstawa", "old": ["Podpisy", "Podpisy BLACK"], "props": {"pointSize": 9, "leading": 10.8, "justification": "CENTER_JUSTIFIED", "hyphenation": false, "gridAlignment": "NONE"}},
+      {"name": "Tabela – tytuł", "basedOn": "Podpis", "old": ["Tytuł tabeli"], "props": {"fontStyle": "Bold", "justification": "CENTER_ALIGN", "spaceAfter": 2.83}},
+      {"name": "Tabela – treść", "basedOn": "Podpis", "props": {"justification": "LEFT_ALIGN"}},
+      {"name": "Tabela – źródło", "basedOn": "Podpis", "props": {"pointSize": 8.5, "justification": "LEFT_ALIGN", "spaceBefore": 2.83}},
+      {"name": "Przykład – forma", "basedOn": "Cytat blokowy", "props": {"fontStyle": "Italic", "justification": "LEFT_ALIGN", "hyphenation": false, "spaceAfter": 0}},
+      {"name": "Przykład – glosa", "basedOn": "Przykład – forma", "props": {"fontStyle": "Regular", "spaceBefore": 0}, "grep": [{"expr": "\\b\\u{2,}\\b", "style": "Kapitaliki – glosa", "note": "category labels SG, NOM, DEF…"}]},
+      {"name": "Przykład – przekład", "basedOn": "Przykład – glosa", "props": {"spaceAfter": 6.5}}
+    ]},
+    {"name": "6 Bibliografia", "styles": [
+      {"name": "Bibliografia – tytuł", "basedOn": "Śródtytuł 1", "props": {}},
+      {"name": "Bibliografia – dział", "basedOn": "Śródtytuł 2", "props": {}},
+      {"name": "Bibliografia", "basedOn": "Podstawa", "old": ["Literatura"], "props": {"pointSize": 10, "leftIndent": 11.34, "firstLineIndent": -11.34}},
+      {"name": "Nota o autorze", "basedOn": "Podstawa", "props": {"pointSize": 9, "leading": 11, "gridAlignment": "NONE", "spaceBefore": 13}}
+    ]},
+    {"name": "7 Przypisy", "styles": [
+      {"name": "Przypis", "keep_as_is": true, "old": ["Przypis"], "props": {}, "note": "footnotes: definition left as it is (handled separately)"},
+      {"name": "Przypis gwiazdkowy", "basedOn": "Przypis", "old": ["Przypis do tytułu"], "props": {}, "note": "non-author notes — title note, przyp. tłum., przyp. red. — one asterisk series *, **, … per page, set by hand ABOVE the numbered notes (kanon § 7.1); same values as Przypis"}
+    ]},
+    {"name": "8 Strona", "styles": [
+      {"name": "Pagina", "basedOn": "Podstawa", "props": {"pointSize": 8, "justification": "LEFT_ALIGN", "hyphenation": false, "gridAlignment": "NONE"}, "note": "running head (now [Basic Paragraph] + overrides on the masters)"},
+      {"name": "Folio", "basedOn": "Pagina", "old": ["Folio"], "props": {"justification": "RIGHT_ALIGN"}}
+    ]},
+    {"name": "9 Spis treści", "styles": [
+      {"name": "Spis treści", "basedOn": "Podstawa", "old": ["Spis_tresci"], "props": {"leftIndent": 19.84, "justification": "RIGHT_ALIGN", "gridAlignment": "NONE"}},
+      {"name": "Spis treści – autor", "basedOn": "Spis treści", "old": ["tresci_autor"], "props": {"fontStyle": "Italic", "leftIndent": 0, "justification": "LEFT_ALIGN", "spaceBefore": 7.09, "spaceAfter": 1.42}},
+      {"name": "Spis treści – języki", "basedOn": "Spis treści", "old": ["spis tresci - jezyki"], "props": {"pointSize": 9, "leading": 10, "justification": "LEFT_ALIGN", "spaceBefore": 2.83}}
+    ]}
+  ],
+  "leftovers": {"replace_with": "Tekst", "names": ["Normalny", "Normal", "Tekst przypisu dolnego, Znak", "Tekst przypisu dolnego", "footnote text", "Normalny (Web)",
+      "Tekst przypisu końcowego", "Bez odstępów", "sdendnote", "Footnote text", "Footnote", "Normal_wrd_1", "Footnote text_wrd_1", "Endnote text",
+      "Średnie cieniowanie 1 — akcent 1", "Standard", "Text body", "Heading 1", "Normal (Web)", "Body Text", "Footnote Text"]},
+  "char_keep": ["Indeks gorny", "Footnote reference"],
+  "char_leftovers": {"Panelant": "Mówca – etykieta", "Style list zaimportowanych z dokumentu Worda lub pliku RTF:Styl listy importowanych słów1": null}
+}

@@ -175,6 +175,7 @@ def make_reference_docx(cfg, path):
         if key == "footnote" or name in names:
             continue
         st = d.styles.add_style(name, WD_STYLE_TYPE.PARAGRAPH)
+        names.add(name)                                   # several roles may share one style
         st.base_style = d.styles["Normal"]
         if key in ("h1", "h2", "bib_title", "bib_section"):
             st.font.bold = True
@@ -184,6 +185,7 @@ def make_reference_docx(cfg, path):
         if name in names:
             continue
         st = d.styles.add_style(name, WD_STYLE_TYPE.CHARACTER)
+        names.add(name)
         if key == "italic":
             st.font.italic = True
         if key == "smallcaps":

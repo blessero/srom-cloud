@@ -503,9 +503,13 @@ process = function(blocks, ctx)
         else err("unsupported block inside block quote: " .. q.t) end
       end
     elseif t == "BulletList" then
+      -- the dash is typed ("–" + tab), as the number of a numbered list: one template style for both kinds
       for _, item in ipairs(b.content) do
-        for _, ib in ipairs(item) do
-          if ib.t == "Para" or ib.t == "Plain" then out:insert(styled_para(strip_list_dash(ib.content), P.list))
+        for j, ib in ipairs(item) do
+          if ib.t == "Para" or ib.t == "Plain" then
+            local inls = strip_list_dash(ib.content)
+            if j == 1 then inls:insert(1, pandoc.Str("–\t")) end
+            out:insert(styled_para(inls, P.list))
           else err("nested structure in list item (" .. ib.t .. ")") end
         end
       end

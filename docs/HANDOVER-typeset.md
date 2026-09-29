@@ -30,7 +30,7 @@ Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 19/19` (~490 checks). Unla
 
 ✔ closed by the editor: 1–19 — **since 26.09.2026 in Kanon v1.6** (srom-kanon `references/kanon-redakcyjny.md`,
 § 17 row 1.6); `decisions.md` is now only a rule → code → test map plus toolchain conventions (15, 18, 19).
-○ open: 21 → `MB-decisions.md` D3. 20 and 22 ✔ decided 27.09.2026 (D1, D2: as implemented).
+21 ✔ 29.09.2026 (house style v3; D3 closed; one point left as D21). 20 and 22 ✔ decided 27.09.2026 (D1, D2: as implemented).
 
 ## 3. Queue for Claude (in order)
 
@@ -46,7 +46,7 @@ Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 19/19` (~490 checks). Unla
    srom-typeset: bundled linter removed, `scripts/kanon_path.py` finds srom-kanon, `tests/test_kanon.py` checks
    versions and that every § cited exists. srom-typeset's § references were Kanon numbers all along — no renumbering.
 3. ~~**E8**~~ — done 26.09.2026 (§6 below: editor ruled *above* the numbered notes, set by hand; style = footnotes).
-**Order of work (MB 27.09.2026; D3 still open, D7 resolved):** stage 1 (source PDF/Word → SROM-MD → Word working
+**Order of work (MB 27.09.2026; D3 closed 29.09.2026, D7 resolved):** stage 1 (source PDF/Word → SROM-MD → Word working
 copy) and stage 2 (translation, srom-tlumacz) are finished and tested first; stage 3 (build for InDesign, styles,
 G12) after.
 
@@ -152,9 +152,9 @@ G12) after.
    Known, not fixed: the docx import keeps Word's right-to-left quote marks as spans (`[’]{dir="rtl"}`, Dom notes
    11, 46; any file) — strip them in import or normalize.
 6. ~~Kartoteka E12 flags~~ — done (E13/T9): Nawar, Gurbati, Halabi italic; Mutribowie, Gadżar, Garaczi roman (assimilated).
-7. Stage 3, later: house style / reduce the style set (§4, D3) → template as IDML → `config/styles.json` and
-   `template_extra` from it → G12 first article in InDesign (the JSX can possibly be run directly against InDesign
-   via AppleScript `do script` — untested).
+7. Stage 3: ~~house style / reduce the style set (§4, D3)~~ — done 29.09.2026 (house style v3, §4). Next: G12, the first
+   real article placed in a v3 template (the JSX runs in InDesign via AppleScript `do script` — proven, see
+   `tools/indesign_check/`).
 8. Later: ICML output as a fallback to Word import (pandoc writes ICML with footnotes; needs a style-renaming
    step); wire `tb_check.py` into scenario C when srom-tlumacz ships it (E5; CLI fixed in `handoff.md`).
 
@@ -162,7 +162,38 @@ Done 27.09.2026: E10 translator front matter (T7, `test_e10.py`); E11/D9 kartote
 kartoteka.tsv`, T8); E12 foreign exonyms italic (Kanon § 3.4, T6); Kodeks zecera references removed; decisions
 15, 18, 19 stay in srom-typeset as toolchain conventions (MB delegated the call).
 
-## 4. House style — everything needed for the style discussion
+## 4. House style — v3 done 29.09.2026 (below it, the v2 notes of 25–27.09, kept as history)
+
+**MB's brief (29.09.2026):** a designer's style set (about 20, most used on top, the rest folded away); vol. 18's
+main styles untouchable (19th issue: consistency); body 10.5/13 on the baseline grid and notes 9/10.8 are the two
+references; Cambria everywhere; tracking and H&J of the main styles not touched; the 13.2945 pt grid stays (odd, but
+18 volumes use it); quote 9 pt, indents 1 cm unless there is a reason; renaming welcome ("Śródtytuł", "Śródtytuł
+MAŁE"…); set up for a blank document (purge, then build). Answers: Cytat on Tekst's H&J with tracking 0; two
+captions, with and without the 0.4 pt rule, no white variant; long notes may split (as Ellis); Śródtytuł = the old
+Podrozdzial exactly.
+
+**What was built:** `indesign/style_spec.json` v3 → `srom_style_setup.jsx` + `references/style-sheet.md`. 29
+paragraph styles (15 at the root) and 8 character styles, down from 39 + 7. The values were read from the two vol. 18
+IDMLs in InDesign itself (every property, not the XML), each new style defined as the differences from its parent.
+Several pipeline roles now share one style (config). Build change: bulleted lists get a typed "–" + tab.
+v2 kept in `indesign/legacy/v2/`.
+
+**Found on the way:** the grid is 13.2945 pt from 62.362 pt (not 13); the note number is superscript through a 1-line
+drop cap + nested style (kept); Autor's 0 pt rule above with "keep in frame" is the first-page sink (kept — dropping
+it moved page 1 up by 35 pt); Ellis's Cytat blokowy had no parent (default H&J, tracking −10), Konferencja's was
+9.5 pt; vol. 18 abstracts were set in the body styles (Ellis), the Abstrakt styles were unused leftovers (dropped);
+running heads were [Basic Paragraph] + overrides (now Pagina/Folio, aligned away from the spine).
+
+**Proof:** `tests/test_jsx.py` (17 checks, incl. 232 values of the kept styles against `dump/*.idml`) in the suite;
+`tools/indesign_check/indesign_check.py` in InDesign: the control run equals vol. 18 line for line (Ellis 603/603,
+Konferencja 468/468); the real run keeps page counts; line breaks change only through the Kanon § 3.3 no-break rules
+(new: vol. 18 had only the one-letter-word rule) and the unified Cytat. Also: `run_all.py` now fails a test that
+crashes after an early verdict (test_jsx.py had been reported ok while crashing).
+
+**Open for MB:** D21 (Kanon § 3.4 vs the italic speaker name and affiliation). By eye, before the first issue: the
+specimen (`indesign_check.py --specimen`).
+
+### v2 notes (history)
 
 **What the two templates contained** (03_Ellis.idml, 09_Konferencja.idml, 25.09.2026):
 - Page 165×235 mm; margins top 23.5, bottom 16, inside 22, outside 17 mm; measure 126 mm (357 pt); body Cambria
@@ -238,6 +269,5 @@ author's notes.
 
 ## 7. Pending for the editor
 
-Only in `../_handoffs/MB-decisions.md`. srom-typeset's open items there: D17 (Pahulich), D18 (German test), D19 (Ostendorf), D20 (Tittel), D3 (style set; the template as IDML
-follows it), D15 (licence ND option, kolegium), D16 (vol. 18 copyright clause, before any OA announcement).
+Only in `../_handoffs/MB-decisions.md`. srom-typeset's open items there: D17 (Pahulich), D18 (German test), D19 (Ostendorf), D20 (Tittel), D21 (speaker/affiliation italics vs Kanon § 3.4), D15 (licence ND option, kolegium), D16 (vol. 18 copyright clause, before any OA announcement).
 D1, D2, D4, D7, D9, D12–D14 are closed.

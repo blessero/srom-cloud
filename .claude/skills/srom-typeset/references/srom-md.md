@@ -14,15 +14,15 @@ style sets them (kanon §3.3), and `normalize.py` turns stray nbsp into plain sp
 | level-2 heading | `## 1.2. Ujęcia normatywne` | h2 — level 3 fails the build |
 | paragraph | one line per paragraph | body_first after a heading or at start, else body (after a block quote: body, kanon §2) |
 | block quote | `> …` | quote |
-| list | `- człon;` (the dash is not printed — the style supplies it) | list |
+| list | `- człon;` | list; the build types the dash ("–" + tab), as the number of a numbered list — one style for both |
 | numbered list | `1. człon;` | list_numbered; the number is typed ("1." + tab), the style sets the indents |
 | italics | `*…*`; a title inside an italic title: `*Tytuł _wewnętrzny_ tomu*` → inner run roman + warning | character style italic |
 | small caps | `[Ficowski]{.smallcaps}` | character style smallcaps |
 | bold, underline | not used (kanon §3.4) — removed with a warning | — |
 | special paragraph | `::: podpis` … `:::` (also `tabela-tytul`, `tabela-zrodlo`, `nota`, `bez-wciecia`, `przypis-tytulowy`) | caption / table_title / table_source / author_note / body_first / asterisk_note (the title note: first note of the asterisk series, see Notes) |
-| motto (opening quotation) | `::: motto` … `:::`; optional source line in `::: motto-zrodlo` | Motto (italic; titles inside turn roman) / Motto – źródło; the next paragraph starts unindented |
-| dialogue inside an article (interview, hearing) | `::: dialog` with one turn per paragraph: `Przewodniczący Coe: Na jakim statku…`; a turn without "Name:" continues the previous speaker; stage directions typed in capitals: `[POPRZEDNIA DECYZJA PODTRZYMANA]` | Dialog; "Name:" gets the character style Mówca – etykieta automatically |
-| transcript (conference, discussion) | `::: mowca` with the name on line 1 and the affiliation on line 2 (no blank line between), then the speech as ordinary paragraphs | Mówca / Mówca – afiliacja; the speech starts unindented |
+| motto (opening quotation) | `::: motto` … `:::`; optional source line in `::: motto-zrodlo` | Motto (italic; titles inside turn roman) / Motto ŹRÓDŁO; the next paragraph starts unindented |
+| dialogue inside an article (interview, hearing) | `::: dialog` with one turn per paragraph: `Przewodniczący Coe: Na jakim statku…`; a turn without "Name:" continues the previous speaker; stage directions typed in capitals: `[POPRZEDNIA DECYZJA PODTRZYMANA]` | Cytat (dialog); "Name:" gets the character style Pogrubienie automatically |
+| transcript (conference, discussion) | `::: mowca` with the name on line 1 and the affiliation on line 2 (no blank line between), then the speech as ordinary paragraphs | Mówca / Afiliacja; the speech starts unindented |
 | verse quotation | `> wers pierwszy\` newline `> wers drugi` (backslash = forced line break), or a line block (lines starting with a vertical bar) | quote_verse, line breaks kept; elsewhere a forced break becomes a space (warned) |
 | table | pipe table; title as `Table: Tab. 1. …` under it or a `::: tabela-tytul` div above; source in `::: tabela-zrodlo` below (kanon §10) | table_title, table_cell, table_source — rules and widths from the template's table style |
 | interlinear example (§5.3) | `::: przyklad` with a fenced block: line 1 form, line 2 gloss, line 3 translation, columns aligned with 2+ spaces | example_form / example_gloss / example_trans, columns as real tabs |

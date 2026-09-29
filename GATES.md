@@ -380,3 +380,34 @@ Checks run from the repo root. K = .claude/skills/srom-kanon, T = .claude/skills
   CHECK: cd work/ostendorf && grep -c "BRAK MIEJSCA\]\|BRAK WYDAWCY\]" build/ostendorf_src_pytania.md; ~/.venvs/srom/bin/python -c "import json;print(sum(1 for r in json.load(open('refs.json')) if r.get('srom-sourced')))"
   EXPECT: /^14\s+43\s*$/
   EVIDENCE: 14 | 43 (43 works, one value each; the 14 in ostendorf_queries A2)
+
+## House style v3 — InDesign styles (MB's style discussion) — done 29.09.2026
+
+Brief: vol. 18's main styles untouchable (body 10.5/13 on the 13.2945 grid, notes 9/10.8, Cambria, tracking/H&J);
+≈20 styles a designer can work with, most used at the root; script for a blank document (purge + build); v2 kept.
+
+- [x] S1: v2 kept, runnable on its own
+  CHECK: ls .claude/skills/srom-typeset/indesign/legacy/v2/; grep -c '"groups"' .claude/skills/srom-typeset/indesign/legacy/v2/srom_style_setup.jsx
+  EXPECT: /README\.md[\s\S]*srom_style_setup\.jsx[\s\S]*style_spec\.json[\s\S]*\n1\s*$/
+  EVIDENCE: README.md make_style_setup.py srom_style_setup.jsx srom_style_setup.jsx.tpl style-sheet.md style_spec.json | 1
+- [x] S2: spec consistent, script and style sheet current, sacred values, every vol. 18 style mapped, kept styles = dump/*.idml
+  CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-typeset/tests/test_jsx.py | tail -2
+  EXPECT: /kept styles resolve to the vol\. 18 values[\s\S]*STYLES ALL PASS (\d+)\/\1/
+  EVIDENCE: PASS kept styles resolve to the vol. 18 values (dump/*.idml; 232 values compared) | STYLES ALL PASS 17/17
+  (mutation: Bibliografia 10 → 10.2 pt fails it)
+- [x] S3: in InDesign: the script ends RESULT: OK on both vol. 18 files and a blank document; with the two deliberate
+  changes undone the PDF equals vol. 18 line for line; page counts kept; panel order = spec
+  CHECK: ~/.venvs/srom/bin/python tools/indesign_check/indesign_check.py | tail -1   (InDesign running)
+  EXPECT: /INDESIGN CHECK ALL PASS (\d+)\/\1/
+  EVIDENCE: INDESIGN CHECK ALL PASS 11/11 (Ellis 603/603, Konferencja 468/468 lines; 14 → 14 and 12 → 12 pages)
+- [x] S4: build emits only v3 names; lists get a typed dash; dialogue in Cytat with Pogrubienie labels
+  CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-typeset/tests/test_e2e.py | tail -1
+  EXPECT: /E2E ALL PASS (\d+)\/\1/
+  EVIDENCE: E2E ALL PASS 75/75
+- [x] S5: a test that crashes after an early verdict fails the suite
+  CHECK: grep -c "a crash after an early verdict must not pass" .claude/skills/srom-typeset/tests/run_all.py
+  EXPECT: 1
+  EVIDENCE: 1
+- [x] S6: suite green, committed; D3 closed and D21 filed in _handoffs, committed
+  CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; grep -c "^### D3 " ../_handoffs/MB-decisions.md; grep -c "^### D21" ../_handoffs/MB-decisions.md
+  EXPECT: /SUITE ALL PASS (\d+)\/\1\s+0\s+1\s*$/

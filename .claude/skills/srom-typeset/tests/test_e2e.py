@@ -44,19 +44,21 @@ fn = etree.fromstring(z.read("word/footnotes.xml"))
 def ptext(p): return "".join(t.text or "" for t in p.iter(W + "t"))
 seq = [(id2name.get(p.find(W + "pPr/" + W + "pStyle").get(W + "val")), ptext(p)) for p in doc.iter(W + "p") if p.find(W + "pPr/" + W + "pStyle") is not None]
 names = [s for s, _ in seq]
-check("para after H1 = no-indent body", seq[1][0] == "Tekst bez wcięcia", seq[:3])
+check("para after H1 = no-indent body", seq[1][0] == "Tekst BEZ WCIĘCIA", seq[:3])
 check("second para = indented body", seq[2][0] == "Tekst", seq[2])
-i_q = names.index("Cytat blokowy")
+i_q = names.index("Cytat")
 check("para after block quote = indented body (kanon §2)", names[i_q + 1] == "Tekst", names[i_q:i_q + 2])
-check("list items styled, dash not typed", [t for s, t in seq if s == "Wyliczenie"] == ["pierwszy człon;", "drugi człon;", "ostatni człon."])
-bib = [(s, t) for s, t in seq if s.startswith("Bibliografia")]
-check("bibliography: only the sections used, without numerals (kanon), in kanon order", [t for s, t in bib if s == "Bibliografia – dział"] ==
+lst = [p for p in doc.iter(W + "p") if p.find(W + "pPr/" + W + "pStyle") is not None and id2name.get(p.find(W + "pPr/" + W + "pStyle").get(W + "val")) == "Wyliczenie"]
+check("list items styled, dash typed + real tab (one style with numbered lists, v3)", [ptext(p) for p in lst] == ["–pierwszy człon;", "–drugi człon;", "–ostatni człon."]
+      and all(len(list(p.iter(W + "tab"))) == 1 for p in lst), [ptext(p) for p in lst])
+bib = seq[max(i for i, (s, t) in enumerate(seq) if s == "Śródtytuł" and t.lower() == "bibliografia"):]
+check("bibliography: only the sections used, without numerals (kanon), in kanon order", [t for s, t in bib if s == "Śródtytuł MAŁE"] ==
       ["Źródła archiwalne", "Źródła terenowe", "Literatura przedmiotu"], bib)
 lit = [t for s, t in bib if s == "Bibliografia"][2:]
 check("Literatura przedmiotu sorted Polish order", [t.split(",")[0] for t in lit] == ["Ficowski", "Hancock", "Kołaczek", "Mróz"], lit)
 sc = [ptext(r) for r in doc.iter(W + "r") if r.find(W + "rPr/" + W + "rStyle") is not None and id2name.get(r.find(W + "rPr/" + W + "rStyle").get(W + "val"), r.find(W + "rPr/" + W + "rStyle").get(W + "val")) == "Kapitaliki"]
 check("surnames (only) in small-caps char style", sc == ["Ficowski", "Hancock", "Kołaczek", "Mróz"], sc)
-check("author note via role div", seq[-1][0] == "Nota o autorze")
+check("author note via role div (Tekst BEZ WCIĘCIA, v3)", seq[-1][0] == "Tekst BEZ WCIĘCIA")
 notes = [f for f in fn.iter(W + "footnote") if f.get(W + "type") is None]
 nt = [ptext(f) for f in notes]
 check("10 real footnotes", len(notes) == 10, len(notes))
@@ -218,10 +220,10 @@ zz = zipfile.ZipFile(os.path.join(out, stem + ".docx"))
 dx = etree.fromstring(zz.read("word/document.xml"))
 sid = {s_.get(W + "styleId"): s_.find(W + "name").get(W + "val") for s_ in etree.fromstring(zz.read("word/styles.xml")).iter(W + "style") if s_.find(W + "name") is not None}
 used = Counter(sid.get(p.find(W + "pPr/" + W + "pStyle").get(W + "val")) for p in dx.iter(W + "p") if p.find(W + "pPr/" + W + "pStyle") is not None)
-check("table/verse/example build PASS with template styles only", code == 0 and all(k in used for k in ("Cytat – wiersz", "Tabela – tytuł", "Tabela – treść", "Tabela – źródło", "Przykład – forma", "Przykład – glosa", "Przykład – przekład")), (code, dict(used), rep[:800]))
-verse_p = [p for p in dx.iter(W + "p") if p.find(W + "pPr/" + W + "pStyle") is not None and sid.get(p.find(W + "pPr/" + W + "pStyle").get(W + "val")) == "Cytat – wiersz"]
+check("table/verse/example build PASS with template styles only", code == 0 and all(k in used for k in ("Cytat WIERSZ", "Tabela TYTUŁ", "Tabela TREŚĆ", "Podpis", "Przykład FORMA", "Przykład GLOSA", "Przykład PRZEKŁAD")), (code, dict(used), rep[:800]))
+verse_p = [p for p in dx.iter(W + "p") if p.find(W + "pPr/" + W + "pStyle") is not None and sid.get(p.find(W + "pPr/" + W + "pStyle").get(W + "val")) == "Cytat WIERSZ"]
 check("verse keeps its forced line breaks (w:br)", verse_p and len(list(verse_p[0].iter(W + "br"))) == 2, [etree.tostring(p)[:300] for p in verse_p])
-form_p = [p for p in dx.iter(W + "p") if p.find(W + "pPr/" + W + "pStyle") is not None and sid.get(p.find(W + "pPr/" + W + "pStyle").get(W + "val")) == "Przykład – forma"]
+form_p = [p for p in dx.iter(W + "p") if p.find(W + "pPr/" + W + "pStyle") is not None and sid.get(p.find(W + "pPr/" + W + "pStyle").get(W + "val")) == "Przykład FORMA"]
 check("interlinear columns become real tabs (w:tab), no tab characters in text", form_p and len(list(form_p[0].iter(W + "tab"))) == 4 and not any("\t" in (t.text or "") for t in dx.iter(W + "t")), [etree.tostring(p)[:400] for p in form_p])
 fails("code block outside ::: przyklad stops the build", "Tekst.\n\n```\nkod\n```\n", "::: przyklad")
 fails("@key without brackets (author-in-text) stops the build", "Jak pisze @ficowski1985 [s. 5], tak.\n", "author-in-text")
@@ -243,12 +245,12 @@ for p in dx2.iter(W + "p"):
         runs.append((sid2.get(rs.get(W + "val")) if rs is not None else None, "".join(t.text or "" for t in r.iter(W + "t"))))
     seq2.append((sid2.get(ps.get(W + "val")) if ps is not None else None, runs))
 names2 = [x[0] for x in seq2]
-check("motto: own style, title inside it roman (Proste), next paragraph unindented", code == 0 and names2[0] == "Motto" and any(r == ("Proste", "O fotografii") for r in seq2[0][1]) and names2[1] == "Tekst bez wcięcia", (names2, seq2[0]))
-dlg = [x for x in seq2 if x[0] == "Dialog"]
-check("dialogue: 4 turns, speaker labels in Mówca – etykieta, continuation turn plain", len(dlg) == 4 and [r[0][0] for r in (x[1] for x in dlg)] == ["Mówca – etykieta"] * 3 + [None] and dlg[0][1][0][1] == "Przewodniczący Coe:", dlg)
-check("paragraph after a dialogue is indented (as after a block quote)", names2[names2.index("Dialog") + 4] == "Tekst", names2)
+check("motto: own style, title inside it roman (Proste), next paragraph unindented", code == 0 and names2[0] == "Motto" and any(r == ("Proste", "O fotografii") for r in seq2[0][1]) and names2[1] == "Tekst BEZ WCIĘCIA", (names2, seq2[0]))
+dlg = [x for x in seq2 if x[0] == "Cytat"]
+check("dialogue: 4 turns in Cytat, speaker labels in Pogrubienie, continuation turn plain", len(dlg) == 4 and [r[0][0] for r in (x[1] for x in dlg)] == ["Pogrubienie"] * 3 + [None] and dlg[0][1][0][1] == "Przewodniczący Coe:", dlg)
+check("paragraph after a dialogue is indented (as after a block quote)", names2[names2.index("Cytat") + 4] == "Tekst", names2)
 i_m = names2.index("Mówca")
-check("transcript: speaker line + affiliation line, speech starts unindented", names2[i_m:i_m + 3] == ["Mówca", "Mówca – afiliacja", "Tekst bez wcięcia"], names2[i_m:i_m + 3])
+check("transcript: speaker line + affiliation line, speech starts unindented", names2[i_m:i_m + 3] == ["Mówca", "Afiliacja", "Tekst BEZ WCIĘCIA"], names2[i_m:i_m + 3])
 
 # ---- proof of an English source (before translation): always a reading copy, never a PASS/FAIL gate
 code, out, stem, rep = build(md_text="The first records date from the “fifteenth century”.[^1]\n\n[^1]: [@ficowski1985, s. 15].\n", extra=("--proof",))
