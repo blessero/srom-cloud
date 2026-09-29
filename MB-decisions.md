@@ -1,276 +1,712 @@
-# Decisions for MB — all SROM modules
+# What needs MB — all SROM modules
 
-Only what is still pending and only MB can decide. Any module appends. Whichever session receives MB's
-decision on an item, or is asked to resolve it itself, **removes the item** once it is actually resolved; the
-decision is recorded where it takes effect (Kanon, handover, handoff item, commit). No history here.
+Every open question for MB, one ID each. Answer in any chat with the ID and your choice ("PAH-1 a", "OST-3 approve",
+or in your own words). The detail sits in the notes sheet named under each question, under a heading with the same ID.
+The *Trail* lines are for the modules (older codes, handoff items, Kanon sections); you can skip them.
+Rules for sessions writing here: `_handoffs/README.md` § Questions for MB. Rewritten in this form 29.09.2026 23:04 [general].
 
-Rules:
-- **Grouped by text.** Each article has its own `## Text: <Author> — <short title> (<source>)` section; items that
-  concern no single text go under `## Journal-wide` or `## Tooling and workflow`. An item about two texts goes in
-  each text's section as a one-line pointer to the full item. Remove a text's section when it is empty.
-- New item: `### D<n> — <subject> (dd.mm.yyyy HH:MM, <module>)`, then the question, the options, the module's
-  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D27**.
-- A partial answer (item still open) is a new line under the item: `- dd.mm.yyyy HH:MM DECIDED: … (MB)`.
-- Times (from 28.09.2026 16:45) are local time from the machine clock (`date '+%d.%m.%Y %H:%M'`); older entries
-  keep their date only.
-- `MB-decisions-archive.md` keeps the text of items closed before 27.09.2026; it is not appended to.
+Kinds: **Decide** (a choice between options) · **Approve** (a list of proposals: one yes covers all, or name the
+exceptions) · **Look up** (only you can check it: your books, a browser past a bot check) · **Ask author** (a list to
+send) · **Later** (a reminder, nothing to do now).
 
-## Needs MB now
-- **Pahulich:** D17 — nothing in it blocks the translation. D23 — the translation is drafted; your choices are collected,
-  none blocks your Word edit (S10 Grellmann is the one real decision).
-- **Scheffknecht:** D18 — German stage-1 test.
-- **Ostendorf:** D19 — A1 (CC BY-NC, as D17 A1) and A2 (14 imprint gaps by hand); nothing blocks the translation.
-  D22 — the translation is drafted; your choices are collected, none blocks your Word edit.
-- **West Ohueri:** D24 — A1: permission (ND) being asked by MB; whether translation starts before it is your call.
-- **Tittel:** D20 — nothing blocks the translation (CC BY 4.0); A1 (acknowledgements as the title note) and A4 (the MEW
-  siglum) touch the source the translator works on. D25 — the translation is drafted; your choices are collected, none
-  blocks your Word edit (the form of “gypsy” is the one real decision).
-- **Vol. 19, all texts:** D26 — cross-text terminology (nomadic/itinerant, sowiecki/radziecki, shared forms); nothing blocks.
-- **Journal-wide:** D16 — **PILNE before any open-access announcement**: replacement wording for the vol. 18 copyright
-  clause. D15 — licence: withdraw the CC BY-NC-ND option (kolegium, via MB); blocks nothing in stages 1–2.
+## At a glance
 
-## Text: Pahulich — CRS 8/1 (2025)
-Stage 1 done, source with srom-tlumacz (T18).
-- Pointer: D26 (vol. 19 cross-text terminology, section "Volume 19") concerns this text too.
+| ID | Question | Kind | Blocks |
+|---|---|---|---|
+| GEN-1 | Vol. 18 copyright clause: who writes the replacement, where does it go? | Decide | **the open-access announcement** |
+| GEN-2 | Drop the CC BY-NC-ND option for authors? | Decide (kolegium) | nothing yet |
+| GEN-3 | Non-commercial licences (Pahulich, Ostendorf): ask for written consent? | Decide | publication |
+| GEN-4 | Missing publishers in German-style citations: catalogue look-up step? | Decide | typesetting |
+| GEN-5 | Book series: print them? | Decide | nothing |
+| GEN-6 | Several places of publication: slash or en dash? | Decide | nothing |
+| GEN-7 | "Zob. Ibidem" or "zob. ibidem"? | Decide | nothing |
+| GEN-8 | 18th–19th-century authors (Kant, Marx, Grellmann): which bibliography section? | Decide | nothing |
+| GEN-9 | Print the first-edition year of a reprint, "2000 [1983]"? | Approve | nothing |
+| GEN-10 | Add DOIs the author did not give? | Decide | nothing |
+| GEN-11 | Kanon line for a quotation translated from someone else's English translation | Approve | nothing |
+| V19-1 | *nomadic* → „koczowniczy”, *itinerant* → „wędrowny” in all vol. 19 texts? | Decide | nothing |
+| V19-2 | „sowiecki” or „radziecki”? | Decide | nothing |
+| V19-3 | Six shared terms (antyczarność, uinnienie, białość …) into the termbase | Approve | nothing |
+| V19-4 | Translator credit (you) and the authors' pronouns, as assumed | Approve | nothing |
+| PAH-1 | Grellmann: translate from the 1807 English or the 1787 German? | Decide | nothing |
+| PAH-2 | Two note markers side by side in the first sentence: merge? | Decide | nothing |
+| PAH-3 | Seven quotations to find in Polish editions | Look up | the final text |
+| PAH-4 | Dal and Thomasius: originals not found, translated from English | Approve | nothing |
+| PAH-5 | Term choices in the Pahulich draft | Approve | nothing |
+| PAH-6 | "Lithuania / Litva" → „Wielkie Księstwo Litewskie” | Decide | nothing |
+| PAH-7 | Shortened abstract | Approve | nothing |
+| PAH-8 | 11 corrections to the author's bibliography | Approve | nothing |
+| PAH-9 | Questions for the author (9) | Ask author | nothing |
+| PAH-10 | Wynter: "religio-political" or "religiopolitical"? | Look up | nothing |
+| OST-1 | 14 places/publishers the catalogues could not settle | Look up | typesetting |
+| OST-2 | Two quotations to find in Polish editions | Look up | the final text |
+| OST-3 | 14 corrections to the author's data | Approve | nothing |
+| OST-4 | Questions for the author (7) | Ask author | nothing |
+| OST-5 | Title and key terms of the Ostendorf draft | Approve | nothing |
+| OST-6 | Group names: „angielscy Romowie”, *Bohémienne(s)* | Approve | nothing |
+| OST-7 | The author's "[*sic*]" after "civilised" | Decide | nothing |
+| OST-8 | Abstract too long (1236 characters): who shortens it? | Decide | nothing |
+| TIT-1 | The author's "gypsy/gypsies": „Cyganie” with a capital or lower case? | Decide | **delivery of the translation** |
+| TIT-2 | Acknowledgements moved to the note on the title | Approve | nothing |
+| TIT-3 | 12 quotations to check in Polish editions (Kant, Marx) and sources | Look up | the final text |
+| TIT-4 | Two browser checks: licence page, date of Geulen's lecture | Look up | nothing |
+| TIT-5 | "(my translation)" left out in three notes | Approve | nothing |
+| TIT-6 | Drop the author's abbreviation "MEW 23" | Approve | nothing |
+| TIT-7 | Note 49: Marx page 743 or 741? | Decide | nothing |
+| TIT-8 | 10 corrections to the author's data | Approve | nothing |
+| TIT-9 | Term choices in the Tittel draft | Approve | nothing |
+| TIT-10 | Shortened abstract | Approve | nothing |
+| TIT-11 | Kant's Academy-edition page numbers as the author gives them | Approve | nothing |
+| TIT-12 | Questions for the author (6) | Ask author | nothing |
+| NDI-1 | Seven page numbers and wordings in Polish editions (Molière/Boy, Hong) | Look up | the final text |
+| NDI-2 | Choices in the Ndiaye draft | Approve | nothing |
+| NDI-3 | Issue number of *Renaissance Quarterly* 75 for the translation note | Look up | nothing |
+| WOH-1 | Start translating before permission arrives? | Decide | the translation |
+| WOH-2 | Copy the affiliation and copyright line from the publisher's site | Look up | the front matter |
+| WOH-3 | Costa Vargas sorted under C: fix by hand at typesetting? | Decide | nothing |
+| WOH-4 | Two films: producer not printed | Approve | nothing |
+| WOH-5 | 14 corrections to the author's data, 3 page ranges added | Approve | nothing |
+| WOH-6 | Questions for the author (5) | Ask author | nothing |
+| SCH-1 | German text: who translates it? | Decide | stage 2 |
+| SCH-2 | Rights: ask the author and the Lustenau archive? | Decide | publication |
+| SCH-3 | Archive abbreviations never spelled out (VLA, HoA …) | Ask author | the archive list |
+| SCH-4 | A stray note number; archive-held prints | Approve | nothing |
+| SCH-5 | 7 corrections to the author's data | Approve | nothing |
+| SYS-1 | Translator on the website, curator skill upload | Later | nothing |
 
-### D17 — Pahulich (CRS 8/1, 2025), stage 1: open points (28.09.2026, srom-typeset)
-Source frozen and handed to srom-tlumacz (T18); none of this blocks the translation. Detail and proposals:
-`srom-typeset/work/pahulich/pahulich_queries.md` (items A–E).
-- A1 **licence of the original: CC BY-NC 4.0** (Crossref; the PDF has no statement). Is SROM's distribution
-  non-commercial, and do we ask the author/CRS for consent? Recommendation: ask for written consent. Blocks
-  publication (the translation note's licence line), not the translation.
-- A2 a converted citation and the author's note 1 stand side by side (printed 1 and 2): keep two notes, or merge.
-  Recommendation: merge (then notes renumber, new T-item).
-- B1–B11 errors in the author's bibliography (titles, a wrong DOI for Césaire 2000, garbled Slovak imprint, missing
-  places of two dissertations, a Facebook tracking parameter in a URL): kept as written; "approve B" = all proposals.
-- D1–D2 questions to the author: an author-less "(1992, 81)" in the original's note 2 — by the rule of 28.09 (Kanon
-  § 7.1) the work cited before it is Červinski 2008 (year differs), so it goes to Fraser 1992, the only 1992 work,
-  flagged; "Jenkins and Leroy (2021)" missing from the bibliography — Crossref: D. Jenkins, J. Leroy (eds.),
-  *Histories of Racial Capitalism*, Columbia UP 2021, DOI 10.7312/jenk19074 (or its Introduction), for the author to
-  confirm.
-- 28.09.2026 DECIDED: E1 (web publication date) — Kanon § 8.6: dated web texts print their publication date, taken
-  from the page when missing (MB).
+## Journal-wide (GEN)
+Next free: GEN-12.
 
-### D23 — Pahulich translation: choices collected for MB (29.09.2026 03:54, srom-tlumacz)
-Draft done without MB's feedback, as MB asked (29.09.2026): `srom-tlumacz/work/pahulich/pahulich_robocza.docx` (Word copy),
-`pahulich_pl.md`. Everything is in the notes sheet `srom-tlumacz/work/pahulich/pahulich_uwagi.md`; nothing blocks editing.
-- Assumed, to confirm: translator credit Michał Bartosz (as Ndiaye). Author's pronouns she/her are from her own bio.
-- **S10 Grellmann** (uwagi § 1): the author quotes the 1807 English edition (Raper, revised); the German original (1787) is
-  available, so Kanon § 12.2.4 c says translate from German — but the English differs where her argument rests on it
-  ("white/black" vs German „schwarz, oder doch gelb”; "incendiaries" absent in German; the p. 108 sentence looks like the
-  English editor's). Recommendation: keep the draft (from the 1807 English), add translator's notes at the two
-  divergences, ask the author about p. 108. Alternative: from German with notes. Affects n. 88–96, 106, 132–135.
-- S1–S7 (uwagi § 1): wording and page of Polish editions — Césaire (Czytelnik 1950), Fraser *Dzieje Cyganów* (PIW 2001, 2
-  quotes), Mróz *Dzieje Cyganów-Romów…* (DiG 2001; the CEU book is its translation), Federici *Kaliban i czarownica*
-  (Karakter 2025, 3 quotes). Only MB can look these up. S8 (Dal), S9 (Thomasius): originals not found; flagged.
-- Terms (uwagi § 3), OPEN: antyczarność; uinnienie; Wynter's *Man* „Człowiek” / *the Human* „człowieczeństwo”;
-  „splątanie imperiów” (title); „podmiot przynoszący zysk” (translator's note on *subject*); grodzenia; osiedlanie (not
-  sedentaryzacja); „Związek Sowiecki”; „Lithuania/Litva” → „Wielkie Księstwo Litewskie” (Polish „Litwa” already is *Litva*).
-  Recommendation: as drafted; termbase rows after MB's word.
-- Abstract: 1322 characters; a shortened version (~960) is proposed in uwagi § 2 (Kanon § 12.2.2).
-- Doubts in the source, to the author (uwagi § 4; `pahulich_pytania_tlum.csv`): "Austro-Hungarian" Maria Theresa and
-  Joseph II; Royal Habsburg Hungary "in the fifteenth century"; Ghica "early nineteenth century"; Dal' "1848"; Przyłuski
-  1553 (BN: 1551); Münster 1544. Plus stage 1's D17 D1–D2.
+### GEN-1 · Vol. 18 copyright clause: who writes the replacement text, and where does it go?
+**Decide** · blocks **any open-access announcement** · urgent
 
-## Text: Scheffknecht — Neujahrsblätter Lustenau 1 (2010)
-Stage 1 done (German test), not handed to srom-tlumacz.
+The *Informacje dla autorów* printed in vol. 18 (2025) say authors transfer copyright to the Redakcja; the licence
+agreement says the opposite. The printed and website text has to be **replaced**, not supplemented.
+- (a) srom-typeset drafts the Polish text for you to edit — **recommended**
+- (b) you or the kolegium write it
 
-### D18 — German stage-1 test (Scheffknecht, Neujahrsblätter Lustenau 1, 2010): open points (28.09.2026, srom-typeset)
-Stage 1 done, source frozen in `srom-typeset/work/scheffknecht/`; **not handed to srom-tlumacz**. Detail and proposals:
-`srom-typeset/work/scheffknecht/scheffknecht_queries.md` (A–E).
-- A1 stage 2: srom-tlumacz is EN→PL. Keep as a test (recommended), a DE→PL trial in srom-tlumacz, or a human translator.
-- A2 rights: no licence; the imprint allows quotation with attribution only. Recommendation: written consent of the author
-  and the Historisches Archiv Lustenau before publication; image permissions (VLA, Staatsarchiv Augsburg) at stage 3.
-- A3 **29 of 35 works have no publisher** (German practice) → `[BRAK WYDAWCY]`, which Kanon § 0 keeps out of typesetting.
-  Recommendation: the publisher-sourcing step you planned (catalogue lookup, each item for your approval). Will recur with
-  every German/Austrian/Swiss source.
-- A4 series (14 works): no Kanon form, the CSL prints nothing. Recommendation: "(Series, n)" at the end of the description.
-- A6 archive abbreviations (VLA, HoA, HistA, PfA, StaatsA, StadtA) never expanded in the source (Kanon § 8.1); HoA unknown.
-- A7 a stray raised "1" after the text's last word: delete (recommended) or ask the author. A8 early printed lists held in
-  archives stay literal (recommended).
-- B1–B7 slips in the author's data kept as written ("approve B" = all proposals).
-- 28.09.2026 17:35 pointer (srom-typeset): A3 and A5 recur for Ostendorf — D19 A2 (places/publishers, CUP Chicago
-  style) and D19 A4 (particles, sorting); one decision for both.
+Also needed: where it goes (the website page; vol. 19 front matter).
+Detail: Kanon § 13.2 in 🔴 `srom-typeset/.claude/skills/srom-kanon/references/kanon-redakcyjny.md`
 
-## Text: Ostendorf — The Romani Atlantic, ch. 3 (CUP 2026)
-Stage 1 done, source with srom-tlumacz (T19, T21); open access CC BY-NC 4.0.
-- Pointer: D26 (vol. 19 cross-text terminology, section "Volume 19") concerns this text too.
+*Trail: D16 (28.09.2026, srom-typeset).*
 
-### D19 — Ostendorf, "Familiar Outsiders Abroad" (The Romani Atlantic, CUP 2026), stage 1: open points (28.09.2026 17:35, srom-typeset)
-Source frozen in `srom-typeset/work/ostendorf/` and handed to srom-tlumacz (T19). Detail, evidence and proposals:
-`srom-typeset/work/ostendorf/ostendorf_queries.md` (A–D).
-- A1 **rights: © Cambridge University Press, not open access** (Cambridge Core terms; no licence). Permission of CUP and
-  the author needed (Kanon § 12.2.3 (2): basis of consent in the translation note). Recommendation: ask now; you decide
-  whether srom-tlumacz starts before permission. Blocks publication (and the translation, if you say so).
-- A2 **place missing in 44 works, publisher in 14** (58 of 83; CUP's Chicago notes: publisher without place, old works
-  place without publisher) → `[BRAK …]`. Same as D18 A3. Recommendation: the sourcing step (catalogue lookup, item by item
-  for your approval) for both texts.
-- A3 two printing conventions with no Kanon line, implemented provisionally because the CSL dropped data (`decisions.md`
-  23): an edition of a source prints its editor after the title (`red.`; "trans. and ed." → `tłum. i red.`); a chapter
-  without an author (a letter in an edited volume) opens with its title, the volume's editor after the volume title.
-  Recommendation: approve, then a line each in Kanon § 7.2 (alternative for editions: `oprac.`).
-- A4 particles and sorting ("de la Fuente" under D; "A Gentleman of Elvas" and titles "A …" under A): decide with D18 A5.
-- A5 the original is a book chapter (Kanon § 12.2 and the master CSV assume a journal article): curator check before the
-  record; no abstract/keywords in the original → translator drafts both, author approves the English (§ 12.2.2).
-- B1–B10 slips in the author's data, several verified (Galletti "Hispanoaméria"; Fotta's year/pages are FirstView;
-  note 26 is a letter **by** du Poisson, checked in Thwaites vol. 67; "Cambell" → Campbell; "New Granada" → Grenada;
-  "Braumuller University"; "de Litoral"; "Notes and Documents:"): kept as written; "approve B" = all proposals.
-- D1–D5 questions to the author: 1747 vs 1745 and whose journey (Moreno Alonso, text vs note 25); Penn 1686 vs 1683
-  (note 35); Fotta's print pages; Urlsperger "erster" vs vol. 3; Tucker's volume.
-- 28.09.2026 21:28 DECIDED (MB): A3 — `tłum. i red.`, edition `red.`, unsigned texts flagged: Kanon § 7.2/§ 9.4 (ea50df6). A4 — custom of
-  the name's language (LC NAF, Chicago): Kanon § 9.3/§ 9.5 (ea50df6). A5 withdrawn (the curator's fields fit a chapter;
-  the original has summary and keywords online). B1–B11, D1–D5 → the translation stage (T21). A1 corrected by srom-typeset:
-  the chapter **is open access, CC BY-NC 4.0** (Cambridge Core) — now the same question as D17 A1. A2: 44 of 58 sourced
-  (LoC, evidence in refs.json); **14 left for MB by hand** — list in `ostendorf_queries.md` A2.
-- 28.09.2026 21:29 correction (srom-typeset): 43 values sourced (not 44); the 14 left are unchanged.
-- 29.09.2026 17:50 (srom-typeset, T25): three more slips for the B list, verified: **B12** Urlsperger (n. 41): the author's title is
-  volume 1's, her "3:979" is right (vol. 3, 18th Continuation, 1752; answers D4); record to describe the whole work, **key
-  and token unchanged**. **B13** Vowell (before n. 60): the print has *Zinganées* and "those of", the author *Zingances*.
-  **B14** *Bohemes* → *Bohèmes* (1803 print). "Approve B" covers them; none touches the Word copy.
+### GEN-2 · Should authors still be able to choose CC BY-NC-ND?
+**Decide** (kolegium, via you) · blocks nothing in stages 1–2; needed for the licence field of the metadata and Crossref
 
-### D22 — Ostendorf translation: choices collected for MB (29.09.2026 03:41, srom-tlumacz)
-Draft done without MB's feedback, as MB asked (29.09.2026): `srom-tlumacz/work/ostendorf/ostendorf_robocza.docx` (Word copy),
-`ostendorf_pl.md`. Everything is in the notes sheet `srom-tlumacz/work/ostendorf/ostendorf_uwagi.md`; nothing blocks editing.
-- Assumed, to confirm: author's pronouns she/her (from MB's vol. 18 translation of Ostendorf); translator credit Michał
-  Bartosz (as Ndiaye).
-- S1, S2 (uwagi § 1): wording and page of the Polish editions — Scott, *Guy Mannering czyli Astrolog* (NK 1975), Pratt,
-  *Imperialne spojrzenie* (WUJ 2011). Only MB can look these up.
-- Terms (uwagi § 3): title „Swojscy obcy za oceanem”; „cygańska zasłona”; skrypty rasowe; obcy miejscowi; antyczarność;
-  wolni kolorowi; *voyageurs*; „Wielka Obława”. Recommendation: as drafted; termbase rows after MB's word.
-- Group names (uwagi § 4, E17): Anglo-Romani → „angielscy Romowie”; *Bohémienne(s)* for women.
-- Quotation annotations (uwagi § 2): „tłum. z przekładu angielskiego” (no „autorki”) where the author quotes someone
-  else's published English translation — the Kanon has no such formula. Recommendation: accept; a Kanon line via E17.
-  Also: search further originals (Anchieta, Pasqualigo, Schmidl, Bolzius, Elvas)? Recommendation: yes for Schmidl and
-  Bolzius (German prints are digitised), no for the rest.
-- 29.09.2026 03:55 DECIDED: search Schmidl and Bolzius (MB). Done: both translated from the originals (Bolzius: Urlsperger, 18. Continuation, 1752, pp. 979–980, which also answers stage-1 D4 → E18; Schmidl: the Spanish of the cited 1938 edition, checked against the Munich manuscript).
-- Doubts in the source, to the author (uwagi § 5; `ostendorf_pytania_tlum.csv`): Paucke "Polish Jesuit" (born in Winzig /
-  Wińsko, Silesia); Moqoit "in today's Paraguay" (San Javier, Santa Fe, Argentina); Loskiel's German ≠ author's English;
-  "typographies", "crows". With stage 1's B1–B11 and D1–D5 (D19, T21), which MB asked to be reminded of now.
+Today authors choose CC BY, BY-NC or BY-NC-ND (default BY-NC). ND rules out the DOAJ Seal.
+- (a) keep the choice
+- (b) withdraw ND, keep BY and BY-NC — **recommended at least this**
+- (c) one licence for the whole journal (the dominant practice)
 
-## Text: Tittel — On_Culture 10 (2020)
-Stage 1 done, source with srom-tlumacz (T20).
-- Pointer: D26 (vol. 19 cross-text terminology, section "Volume 19") concerns this text too.
+*Trail: D15; Kanon § 13.2 ("DO ROZSTRZYGNIĘCIA – kolegium redakcyjne").*
 
-### D20 — Tittel, "Racial and Social Dimensions of Antiziganism" (On_Culture 10, 2020), stage 1: open points (28.09.2026 21:09, srom-typeset)
-Source frozen in `srom-typeset/work/tittel/` and handed to srom-tlumacz (T20). Detail, evidence and proposals:
-`srom-typeset/work/tittel/tittel_queries.md` (A–D).
-- A1 the author's note 1 (acknowledgements only, called from the first sentence) set as the **note on the title** (Kanon
-  § 7.1), notes renumbered 1–100 (original 2–101). Recommendation: approve (done provisionally, one line to undo).
-- A2 **rights: CC BY 4.0**, author keeps copyright (the journal's page; the PDF has no licence; the repository record is
-  behind a bot check — please confirm once in a browser: URN urn:nbn:de:hebis:26-opus-160255). No DOI (URN). Recommendation:
-  proceed; courtesy notice to the author. Blocks nothing.
-- A3 one gap: Ruch 1986 (unpublished dissertation, "Freiburg", university not named) → `[BRAK WYDAWCY]`. Catalogue step
-  (D18 A3 / D19 A2) or the author.
-- A4 the author's siglum "MEW 23" ("hereafter abbreviated as"): the notes print the Kanon short form; recommendation: the
-  translation leaves out the parenthesis. Alternative: a siglum rule in the Kanon. The MEW series number is not printed
-  until D18 A4 (series).
-- A5 Kant's Akademie-Ausgabe references ("s. 420 / AA VII 324–325") kept as the author gives them; no Kanon line for
-  standard-edition references. Recommendation: keep; a Kanon line later.
-- A6 journal-wide gaps: (a) several places "Köln/Weimar/Wien" (slashes as written; Polish practice: en dash); (b) "Zob.
-  *Ibidem*" with a capital after a lead-in (also Ndiaye 2×); (c) statutes and law collections put in "Źródła drukowane i
-  prawne" — also Kant, Marx, Grellmann (18th–19th-c. sources)?; (d) series → D18 A4; (e) "van" → D18 A5 / D19 A4.
-- B1–B10 slips in the author's data, most verified (Larrimore's journal is the Supplementary Volume; *Philosophers on Race*
-  is Blackwell, not OUP; *Kant-Studien*; "Berliner" vs *Berlinische Monatsschrift*; Zöller, and the volume dated 2007 not
-  2010; Strauß/Strauss; Mayall's imprint; Decker's co-authors added, verified): kept as written; "approve B" = all proposals.
-  Also: four DOIs the author does not give — add? (C).
-- D1–D3 questions to the author: Ruch's university; the Kant volume's year; "Berliner Monatsschrift".
-- The Geulen lecture (n. 31): its date could not be read by script (bot check) — please look once (Kanon § 8.6).
-- 29.09.2026 17:50 (srom-typeset, T25): **B11** n. 49 MEW 23 "743" → **741** (verified; srom-tlumacz E19 [Tittel]; same as D25 e).
-  If approved, the token changes in the source and the translation (new T-item); the Polish edition's page is printed anyway.
+### GEN-3 · Pahulich and Ostendorf are licensed CC BY-NC (non-commercial): do we ask for written consent?
+**Decide** · blocks publication of both, not the translations
 
-### D25 — Tittel translation: choices collected for MB (29.09.2026 04:40, srom-tlumacz)
-(Time correction 29.09.2026 17:47, srom-tlumacz: written before 04:32:55, when it was committed; „04:40” was not read from the clock.)
-Preliminary translation done at MB's request ("decisions later"): `srom-tlumacz/work/tittel/tittel_robocza.docx` (Word,
-for your edit), `tittel_pl.md`, notes sheet `tittel_uwagi.md` (S1–S12 and choices, detail there), query sheet
-`tittel_pytania_tlum.csv` (26 rows). Assumed until you decide: translator MB; she/her (the author's bio). None blocks
-your Word edit.
-- (a) **The author's “gypsy/gypsies”** (scare quotes, lower case, the category under study): draft „Cygan”, „Cyganie”,
-  „cygański” in quotation marks, capital C (Kanon § 6.1), translator's note at the first use — as in Ostendorf.
-  Alternative: lower case „cyganie” to mark a category, not an ethnonym (departs from the Kanon). Recommendation: as
-  drafted. T20 asked for this to be settled before delivery.
-- (b) **Polish editions to look up (S5–S12)**: Kant — *Antropologia w ujęciu pragmatycznym* (IFiS 2005), UMK *Dzieła
-  zebrane* t. 1, 5, 6; Marx — *Dzieła* t. 3, t. 23, *Zarys krytyki ekonomii politycznej* (1986). The draft has working
-  translations from the German originals; wording and pages come from your copies. Also S1 (licence on the repository
-  page, page range), S2–S4 (Leipzig study wording, Röttgers, Geulen).
-- (c) **"(my translation)" left out** in nn. 37, 81, 95, where the Polish is translated from the German she gives
-  (§ 12.2.8, an omission): accept, or keep „(przekład autorki)”. Recommendation: accept.
-- (d) Terms (`tittel_uwagi.md` § 3): *Indier* → „Indusi”; *vagrancy/vagabondage* → „włóczęgostwo”; Marx's *gang-master*
-  → „przodownik bandy”; „migracja ubóstwa”; Porajmos (the author: "Porrajmos").
-- (e) Four doubts for the author (query sheet): "1870s/-80s" (1770s?), n. 49 MEW p. 743 (the passage is on p. 741), "the
-  Swabian district within Wurttemberg", "until 1962" (1963?).
+A translation of a BY-NC text is allowed only for non-commercial use, and the translation note must name the licence.
+Whether SROM's distribution is non-commercial (the printed volume is sold?) is your call.
+- (a) ask the author and the publisher (Pahulich: CRS; Ostendorf: Cambridge UP) for written consent — **recommended**:
+  it settles the non-commercial question and gives the note its "basis of consent"
+- (b) rely on the licence alone
 
-## Text: West Ohueri — Off White, ch. 6 (MUP 2024)
-Stage 1 done, source frozen in `srom-typeset/work/westohueri/` and announced to srom-tlumacz (T23); **not to be translated
-for publication without permission** (A1).
-- Pointer: D26 (vol. 19 cross-text terminology, section "Volume 19") concerns this text too.
+*Trail: D17 A1, D19 A1 (corrected 28.09: Ostendorf is open access, CC BY-NC 4.0); Kanon § 12.2.3 pt 2.*
 
-### D24 — [West Ohueri] "Peripheral whiteness and racial belonging and non-belonging" (Off White, MUP 2024, ch. 6), stage 1: open points (29.09.2026 04:13, srom-typeset)
-Detail, evidence and proposals: `srom-typeset/work/westohueri/westohueri_queries.md` (A–E).
-- A1 **rights: CC BY-NC-ND 4.0** — permission to translate needed; MB is asking the author/MUP (29.09.2026). Open: whether
-  srom-tlumacz starts before permission. Blocks publication.
-- A2 affiliation and copyright line: behind a bot check (manchesterhive) — please copy once in a browser.
-- A5 Costa Vargas sorts under C (CSL cannot sort under Vargas, § 9.5): by hand at stage 3, or accept.
-- A6 two films/recorded lectures typed per § 8.7 (producer not printed). A8 **journal-wide**: reprint years ("2000 [1983]") are not printed — a line in § 7.2? A9 16 DOIs
-  added from Crossref (§ 9.7), 13 more proposed (C2) — same question as D20 C.
-- B1–B14 slips kept as written ("approve B" = all proposals); C1 three chapter ranges from Crossref; D1–D5 questions to
-  the author (an unsourced quotation; the forthcoming book — published 2025 as *Encountering Race in Albania*?; 15
-  quotations without a page).
-- 29.09.2026 DECIDED (MB): A3 Austin, TX; A4 n. 29 cites Baker's chapter; A5 name "Ohueri, Chelsi West"; A7 block
-  quotations roman except what the Kanon italicises inside them. Applied (T24, `westohueri_queries.md`), removed above.
+### GEN-4 · German-style citations give no publisher: do we look them up in library catalogues?
+**Decide** · blocks typesetting of the texts concerned (a missing publisher keeps a text out of typesetting)
 
-## Journal-wide (policy, not tied to one text)
+German practice cites place and year only. Scheffknecht: 29 of 35 works have no publisher. Tittel: one (Ruch 1986,
+also TIT-12). Every German, Austrian or Swiss source will raise this again. (Ostendorf's gaps were looked up already;
+14 are left for you: OST-1.)
+- (a) srom-typeset looks each one up (DNB, ÖNB, library catalogues) and lists them for your approval, item by item —
+  **recommended**
+- (b) ask the authors
+- (c) a Kanon exception for such sources (not recommended: the bibliography would be inconsistent)
 
-### D15 — Licence: withdraw the CC BY-NC-ND option? (28.09.2026, srom-typeset)
-Kanon § 13.2 marks it "DO ROZSTRZYGNIĘCIA – kolegium redakcyjne". Today the author chooses CC BY / BY-NC / BY-NC-ND
-(default BY-NC). Options: (a) keep the choice; (b) withdraw ND, keep BY / BY-NC; (c) one licence for the whole journal.
-srom-typeset's recommendation: (b) at least — ND rules out the DOAJ Seal (§ 13.2); (c) is the dominant practice.
-Blocks nothing in stages 1–2; matters for the licence field of the master CSV and the Crossref deposit.
-Kolegium's decision, via MB. Detail: `srom-typeset/.claude/skills/srom-kanon/references/kanon-redakcyjny.md` § 13.2.
+*Trail: D18 A3, D19 A2, D20 A3.*
 
-### D16 — PILNE before any open-access announcement: vol. 18 copyright-transfer clause (28.09.2026, srom-typeset)
-Kanon § 13.2: the printed *Informacje dla autorów* in vol. 18/2025 say authors transfer copyright to the Redakcja;
-the licence agreement says the opposite. The text in print and on the website must be **replaced**, not supplemented.
-Needed from MB: the replacement wording (or who writes it) and where it goes (website page; vol. 19 front matter).
-srom-typeset can draft the Polish text on request. Blocks: the OA announcement. Detail: Kanon § 13.2.
+### GEN-5 · Book series ("Enzyklopädie deutscher Geschichte, 34"): print them?
+**Decide** · blocks nothing
 
-## Volume 19: terminology across the translated texts
+The Kanon gives series no place, so they are stored but never printed (Scheffknecht: 14 works; Tittel: the volume
+number of Marx's *Werke* is lost from print).
+- (a) in parentheses at the end of the description, in notes and bibliography: `…, München 1995 (Enzyklopädie deutscher
+  Geschichte, 34)` — **recommended** (usual Polish form)
+- (b) bibliography only
+- (c) never
 
-### D26 — [general] Vol. 19: cross-text terminology (29.09.2026 14:13, srom-tlumacz)
-The vol. 19 translations (Ndiaye, Ostendorf, Pahulich, Tittel drafted; West Ohueri not started) were measured against
-each other and against vol. 18 (leaf 1.3.2: `srom-tlumacz/tlumacz-1.3.2/findings.md`, table `vol19-concordance.tsv`).
-The drafts agree on almost everything; below are only the points one decision for the whole volume settles. Per-text
-choices stay in D22, D23, D25. Nothing here blocks your Word edits.
-- (a) **nomadic → „koczowniczy”** (*nomadic lifestyle* → „koczowniczy tryb życia”, *nomadism* → „koczownictwo”) and
-  **itinerant / peripatetic → „wędrowny”**: vol. 18 precedent (Marushiakova/Popov, Fotta), which 1.3.1 missed. Ndiaye
-  follows it; Pahulich has „wędrowny tryb życia” (3×, „koczowanie” elsewhere); Tittel „nomadyzm” (1×).
-  Recommendation: confirm the precedent (rows C-0046, C-0047 → HOUSE); the two drafts change when you edit them.
-- (b) **Tittel, "lifelong enslavement"** (1547 statute) → draft „dożywotnie niewolnictwo”; HOUSE C-0018 gives
-  „zniewolenie” for *enslavement*. Recommendation: „dożywotnia niewola” (a punishment, not the institution).
-- (c) **Soviet: „sowiecki” or „radziecki”?** Pahulich „Związek Sowiecki”, „sowiecki” (8×); the vol. 18 translation
-  (Marushiakova/Popov) „radziecki” (4×); West Ohueri will need it. No HOUSE row, so no lock. Recommendation: „sowiecki”
-  from vol. 19 (current Polish historiography), noted in the decision log.
-- (d) **Sign-off of the shared forms** (PROVISIONAL rows, one decision for the volume): antyczarność (*anti-Blackness*;
-  Ostendorf, Pahulich), uinnienie / uinniać (*othering*; Ndiaye, Pahulich), białość (*whiteness*; three drafts, West
-  Ohueri 64×), antyromski (*anti-Roma*, kept apart from antycyganizm), osiedlanie (*sedentarization*; „przymusowe
-  osiedlenie” only for the 1964 action), przynależność (*belonging*). Recommendation: approve → HOUSE.
-- (e) One Kanon gap raised twice: the annotation for a quotation translated from someone else's published English
-  translation („tłum. z przekładu angielskiego”): Ostendorf (D22, E17) and Pahulich (D23 S9). One decision covers both.
-  - 29.09.2026 17:50 proposal (srom-typeset, T25), Kanon § 12.2.4 c, second sentence: "w przeciwnym razie z przekładu angielskiego, z
-    adnotacją w przypisie: `tłum. z przekładu angielskiego autora` / `autorki` (przekład autora) albo `tłum. z przekładu
-    angielskiego` (przekład opublikowany, przywołany przez autora – przypis odsyła do tego przekładu)". The feminine is
-    grammar, not a new rule. Grellmann (D23 S10: an old English translation that differs where the argument rests on it) is a
-    separate case and stays with D23. Approve → Kanon line + § 17 row, srom-typeset.
-- For information, West Ohueri (before its intake): its *Egyptians* (22×) are the present-day Balkan group, not the
-  early-modern designation the other drafts put in quotation marks (D13); *racial belonging* (16×) needs a form.
+*Trail: D18 A4, D20 A4 and A6 (d).*
 
-## Tooling and workflow (scheduled, waiting for a later moment)
+### GEN-6 · Several places of publication: "Köln/Weimar/Wien" or "Köln–Weimar–Wien"?
+**Decide** · blocks nothing
 
-### D5 — Translator credit: what is still open (27.09.2026, srom-tlumacz)
-Curator skill updated (C1 items 1–3, 5). Waiting, by MB's decision, until the rest is finalised: showing the
-translator on the WordPress page (C1 item 4) and the desktop upload of the new curator .skill.
-Question before that upload: **is mu-plugin v2.3 the current one?** The .skill MB attached on 27.09 carried v2.0; the
-update was built on the copy installed for Claude Code (v2.3, checked again 28.09.2026: `srom-scholarly.php` Version 2.3),
-so uploading it brings v2.3 and locked decision #4 to desktop Claude. This is the skill's copy, not what runs on the site.
-Detail: `curator-update-2026-09-27/CHANGES.md` ("Which version this is built on").
-- 28.09.2026 DECIDED: the live site is old (untouched since about June 2026). No upload now: when the work here is
-  finished, MB updates the curator skill in desktop Claude and the plugin on the site together. (MB)
+The Kanon has no line. Kept as the authors write them for now (slashes; Scheffknecht once "Wien-München").
+- (a) en dash, the Polish practice — srom-typeset's reading, no formal recommendation yet
+- (b) keep the author's form
+
+*Trail: D20 A6 (a), D18 B3.*
+
+### GEN-7 · After a lead-in: "Zob. *Ibidem*" or "zob. ibidem"?
+**Decide** · blocks nothing
+
+The build prints a capital after "Zob." (Tittel 2×, Ndiaye 2×). No Kanon line; srom-typeset thinks Polish usage is
+lower case but has not checked it.
+
+*Trail: D20 A6 (b).*
+
+### GEN-8 · Kant, Marx, Grellmann (18th–19th-century printed works): "Źródła drukowane i prawne" or "Literatura przedmiotu"?
+**Decide** · blocks nothing
+
+Laws and law collections already go to "Źródła drukowane i prawne". The old printed authors are in "Literatura
+przedmiotu" (the default). No recommendation yet.
+
+*Trail: D20 A6 (c).*
+
+### GEN-9 · Print the first-edition year of a reprint: "2000 [1983]"?
+**Approve** · blocks nothing
+
+Stored but not printed today (West Ohueri: Robinson 2000 [1983], Linné 1964 [1759]). Proposal for the Kanon: "Przedruk:
+rok wydania, po nim rok pierwodruku w nawiasie kwadratowym". Then one change in the citation style and a test.
+
+*Trail: D24 A8; Kanon § 7.2.*
+
+### GEN-10 · Add DOIs the author did not give?
+**Decide** · blocks nothing
+
+The Kanon requires a DOI wherever one exists; nothing enters the reference data without your approval. West Ohueri:
+16 already added from Crossref, 13 more proposed. Tittel: 4 proposed.
+- (a) add them all — **recommended** (the Kanon asks for them)
+- (b) only what the authors give
+
+*Trail: D20 C, D24 A9 and C2; Kanon § 9.7.*
+
+### GEN-11 · Annotation for a quotation translated from someone else's published English translation
+**Approve** · blocks nothing
+
+When the author quotes a foreign text in her own English translation, the note says „tłum. z przekładu angielskiego
+autorki”. When she quotes someone else's published English translation, the Kanon has no formula. Proposal (one
+sentence in the Kanon): „tłum. z przekładu angielskiego” (the note already points to that translation). Used in
+Ostendorf and Pahulich (PAH-4). Grellmann (PAH-1) is a separate case.
+
+*Trail: D26 (e), D22, E17, T25; Kanon § 12.2.4 c.*
+
+## Volume 19, all translated texts (V19)
+Next free: V19-5. Per-text choices stay under each text. Detail for V19-1 to V19-3:
+🔴 `srom-tlumacz/tlumacz-1.3.2/findings.md` (table `vol19-concordance.tsv`).
+
+### V19-1 · *nomadic* → „koczowniczy”, *itinerant / peripatetic* → „wędrowny”, as in vol. 18?
+**Decide** · blocks nothing
+
+Vol. 18 did it this way (Marushiakova/Popov, Fotta). Ndiaye follows it; Pahulich has „wędrowny tryb życia” (3×),
+Tittel „nomadyzm” (1×).
+- (a) confirm the vol. 18 practice; the two drafts change when you edit them — **recommended**
+- (b) leave each draft as it is
+
+*Trail: D26 (a); termbase rows C-0046, C-0047.*
+
+### V19-2 · „sowiecki” or „radziecki”?
+**Decide** · blocks nothing (West Ohueri will need it)
+
+Pahulich's draft has „Związek Sowiecki”, „sowiecki” (8×); the vol. 18 translation (Marushiakova/Popov) „radziecki” (4×).
+- (a) „sowiecki” from vol. 19 on (current Polish historiography) — **recommended**
+- (b) „radziecki”, as in vol. 18
+
+*Trail: D26 (c).*
+
+### V19-3 · Six terms shared by several drafts: make them house terms?
+**Approve** · blocks nothing
+
+antyczarność (*anti-Blackness*), uinnienie / uinniać (*othering*), białość (*whiteness*), antyromski (*anti-Roma*, kept
+apart from antycyganizm), osiedlanie (*sedentarization*; „przymusowe osiedlenie” only for the 1964 action),
+przynależność (*belonging*).
+
+*Trail: D26 (d); PROVISIONAL rows C-0041–C-0049.*
+
+### V19-4 · Translator credit and the authors' pronouns, as assumed in the drafts
+**Approve** · blocks nothing
+
+The drafts credit you as translator (as Ndiaye): Ostendorf, Pahulich, Tittel. They use feminine forms for Ostendorf
+(from your vol. 18 translation of her), Pahulich and Tittel (their own bios).
+
+*Trail: D22, D23, D25.*
+
+## Pahulich — "Racialization of Roma, European Modernity, and the Entanglement of Empires" (CRS 8/1, 2025) (PAH)
+Source ready, translation drafted; Word copy for you: 🔴 `srom-tlumacz/work/pahulich/pahulich_robocza.docx`.
+Nothing here blocks your Word edit. Also concerns this text: GEN-3 (licence), GEN-11, V19-1 to V19-4. Next free: PAH-11.
+
+### PAH-1 · Grellmann: translate his quotations from the 1807 English the author quotes, or from the 1787 German?
+**Decide** · blocks nothing (the draft uses a)
+
+The house rule: translate from the original when it exists. But the 1807 English (Raper's revised translation) differs
+from the German exactly where the author's argument rests on it: "the one is white, the other black" (German: "black, or
+at least yellow"); "incendiaries" (not in the German); a sentence on p. 108 that looks like the English editor's own.
+- (a) keep the 1807 English (as drafted), add translator's notes at the two differences, ask the author about p. 108 —
+  **recommended**
+- (b) translate from the German, with notes where her argument depends on the English
+
+Notes 88–96, 106, 132–135. Detail: 🔴 `srom-tlumacz/work/pahulich/pahulich_uwagi.md` → PAH-1
+
+*Trail: D23 S10; Kanon § 12.2.4 c.*
+
+### PAH-2 · The first sentence ends with two note markers side by side: keep two notes or merge them?
+**Decide** · blocks nothing
+
+A converted author-date citation and the author's own note stand together ("Europie¹²."). No Kanon rule.
+- (a) keep two notes (as in the draft now)
+- (b) one note: the citations, then the author's note — **recommended**; srom-typeset then changes the source and the
+  notes renumber from 2 on
+
+Detail: 🔴 `srom-typeset/work/pahulich/pahulich_uwagi.md` → PAH-2
+
+*Trail: D17 A2.*
+
+### PAH-3 · Seven quotations to find in Polish editions: exact wording and page
+**Look up** · blocks the final text (the draft has working translations, marked DO SPRAWDZENIA)
+
+Césaire, *Rozprawa z kolonializmem* (Czytelnik 1950); Fraser, *Dzieje Cyganów* (PIW 2001; 2 quotations); Mróz, *Dzieje
+Cyganów-Romów w Rzeczypospolitej XV–XVIII w.* (DiG 2001: the CEU book is its shortened translation); Federici, *Kaliban
+i czarownica* (Karakter 2025; 3 quotations, and how the translator renders *enclosures*, *second serfdom*).
+Detail: 🔴 `srom-tlumacz/work/pahulich/pahulich_uwagi.md` → PAH-3 (items S1–S7)
+
+*Trail: D23 S1–S7.*
+
+### PAH-4 · Dal and Thomasius: the originals were not found, so they are translated from English. OK?
+**Approve** · blocks nothing
+
+Dal (note 86): the Russian text was not found; translated from the author's English with „tłum. z przekładu angielskiego
+autorki”; the author is asked for the title and year. Thomasius (note 85, quoted via Lewy) and note 9 (via Shahar):
+translated from the published English with „tłum. z przekładu angielskiego” (see GEN-11).
+Detail: 🔴 `srom-tlumacz/work/pahulich/pahulich_uwagi.md` → PAH-4 (items S8, S9)
+
+*Trail: D23 S8–S9.*
+
+### PAH-5 · Term choices in the Pahulich draft
+**Approve** · blocks nothing
+
+Wynter's *Man* → „Człowiek”, *the Human* → „człowieczeństwo”; *entanglement* → „splątanie” (also in the title:
+„Urasowienie Romów, europejska nowoczesność i splątanie imperiów”); *profitable subject* → „podmiot przynoszący zysk”
+(with a translator's note); *enclosures* → „grodzenia”; *second serfdom* → „wtórne poddaństwo”; *mobile poor* →
+„mobilna biedota”; *sedentarization* → „osiedlanie”. Shared terms: V19-3. Full list in the notes sheet.
+Detail: 🔴 `srom-tlumacz/work/pahulich/pahulich_uwagi.md` → PAH-5
+
+*Trail: D23 terms; uwagi § 3.*
+
+### PAH-6 · "Lithuania / Litva": always „Wielkie Księstwo Litewskie”?
+**Decide** · blocks nothing
+
+The author separates English "Lithuania" (today's state) from Belarusian "Litva" (the historical one). In Polish the
+historical „Litwa” already is *Litva*, so the distinction does not carry over.
+- (a) „Wielkie Księstwo Litewskie” throughout (as drafted) — **recommended**
+- (b) first mention „Wielkie Księstwo Litewskie (Litwa/Litva)”
+- (c) a translator's note
+
+Detail: 🔴 `srom-tlumacz/work/pahulich/pahulich_uwagi.md` → PAH-6
+
+*Trail: D23 terms.*
+
+### PAH-7 · Shortened abstract (1322 → about 960 characters)
+**Approve** · blocks nothing
+
+The Kanon allows 1000 characters for the Polish abstract; the editors shorten it. A proposal is in the notes sheet.
+Detail: 🔴 `srom-tlumacz/work/pahulich/pahulich_uwagi.md` → PAH-7
+
+*Trail: D23; Kanon § 12.2.2.*
+
+### PAH-8 · 11 corrections to the author's bibliography
+**Approve** · blocks nothing
+
+Misspelt titles, a wrong DOI (Césaire 2000), a garbled Slovak imprint, the places of two dissertations, a Facebook
+tracking code in a URL. Each is kept as the author wrote it until you approve; the author's form stays on record.
+Detail: 🔴 `srom-typeset/work/pahulich/pahulich_uwagi.md` → PAH-8 (table, rows B1–B11)
+
+*Trail: D17 B1–B11.*
+
+### PAH-9 · Questions for the author (9)
+**Ask author** · blocks nothing
+
+1. Note 37: "(1992, 81)" has no author — Fraser 1992?
+2. "Jenkins and Leroy (2021)" is not in her bibliography — *Histories of Racial Capitalism* (Columbia UP 2021)?
+3. "Austro-Hungarian" under Maria Theresa and Joseph II.
+4. Royal Habsburg Hungary "in the fifteenth century".
+5. Ghica "early nineteenth century".
+6. Dal "1848": title and year of the work.
+7. Grellmann 1807, p. 108: whose sentence is it?
+8. Przyłuski 1553 (the National Library has 1551).
+9. Münster 1544.
+
+The list for sending: 🔴 `srom-tlumacz/work/pahulich/pahulich_pytania_tlum.csv`
+
+*Trail: D17 D1–D2, D23 doubts; uwagi § 4.*
+
+### PAH-10 · Wynter 2003, p. 309: "religio-political" or "religiopolitical"?
+**Look up** · blocks nothing (low priority)
+
+The PDF breaks the word at a line end; the frozen source has "religiopolitical", the improved extractor reads
+"religio-political". Wynter's printed spelling decides.
+Detail: 🔴 `srom-typeset/work/pahulich/pahulich_uwagi.md` → PAH-10
+
+*Trail: queries D3; Ostendorf queries C (side finding).*
+
+## Ostendorf — "Familiar Outsiders Abroad" (The Romani Atlantic, ch. 3, CUP 2026) (OST)
+Source ready, translation drafted; Word copy for you: 🔴 `srom-tlumacz/work/ostendorf/ostendorf_robocza.docx`.
+Nothing here blocks your Word edit. Also concerns this text: GEN-3 (licence), GEN-11, V19-3, V19-4. Next free: OST-9.
+
+### OST-1 · 14 places and publishers the library catalogues could not settle
+**Look up** · blocks typesetting
+
+43 values were found in the Library of Congress catalogue. For 14 there is no reliable record; the notes sheet lists
+each with the candidates found (hints, not evidence) — e.g. Beretario 1617 appeared twice that year (Cologne and Lyon):
+which does the author mean?
+Detail: 🔴 `srom-typeset/work/ostendorf/ostendorf_uwagi.md` → OST-1
+
+*Trail: D19 A2.*
+
+### OST-2 · Two quotations to find in Polish editions: exact wording and page
+**Look up** · blocks the final text
+
+Scott, *Guy Mannering czyli Astrolog* (Nasza Księgarnia 1975, tr. Przedpełska-Trzeciakowska), original vol. 1 p. 103;
+Pratt, *Imperialne spojrzenie* (WUJ 2011), the sentence from the Introduction (original p. 5).
+Detail: 🔴 `srom-tlumacz/work/ostendorf/ostendorf_uwagi.md` → OST-2 (items S1, S2)
+
+*Trail: D22 S1–S2.*
+
+### OST-3 · 14 corrections to the author's data
+**Approve** · blocks nothing (none changes your Word copy)
+
+Among them: Galletti "Hispanoaméria"; Fotta's year and pages (the online-first ones); the letter in note 26 is **by** du
+Poisson, not to him; "Cambell" → Campbell; "New Granada" → New Grenada; "Braumuller University"; "del Litoral"; the
+Urlsperger title (note 41); Vowell's *Zinganées*; *Bohèmes*.
+Detail: 🔴 `srom-typeset/work/ostendorf/ostendorf_uwagi.md` → OST-3 (list B1–B14)
+
+*Trail: D19 B1–B14.*
+
+### OST-4 · Questions for the author (7)
+**Ask author** · blocks nothing
+
+1. Moreno Alonso: 1747 (text) or 1745 (note 25), and whose journey was it?
+2. Penn: 1686 (text) or 1683 (note 35)?
+3. Fotta: the cited pages 8–10 in the printed pagination (315–341)?
+4. Tucker's *Blackstone's Commentaries* (5 volumes): which volume?
+5. Paucke "Polish Jesuit": born in Winzig/Wińsko, Silesia, wrote in German.
+6. Moqoit "in today's Paraguay": San Javier lay north of Santa Fe, today Argentina.
+7. "typographies" → typologies? And Loskiel's German differs from her English.
+
+The list for sending: 🔴 `srom-tlumacz/work/ostendorf/ostendorf_pytania_tlum.csv`
+
+*Trail: D19 D1–D5 (D4 answered by the originals), D22 doubts.*
+
+### OST-5 · Title and key terms of the Ostendorf draft
+**Approve** · blocks nothing
+
+Title „Swojscy obcy za oceanem”; „cygańska zasłona” (*Gypsy veil*); skrypty rasowe; obcy miejscowi; wolni kolorowi;
+*voyageurs*; „Wielka Obława” (*Great Round-Up*). Alternatives are in the notes sheet's table.
+Detail: 🔴 `srom-tlumacz/work/ostendorf/ostendorf_uwagi.md` → OST-5
+
+*Trail: D22 terms; uwagi § 3.*
+
+### OST-6 · Group names: Anglo-Romani → „angielscy Romowie”; *Bohémienne(s)* for women
+**Approve** · blocks nothing
+
+The author writes "Bohémien" for women too; the draft uses the feminine *Bohémienne(s)* (4×).
+Detail: 🔴 `srom-tlumacz/work/ostendorf/ostendorf_uwagi.md` → OST-6
+
+*Trail: D22, E17; uwagi § 4.*
+
+### OST-7 · The author's "[*sic*]" after "civilised" (British spelling): drop it in Polish?
+**Decide** · blocks nothing
+
+It marks an English spelling and means nothing in Polish. It disappears anyway if the Polish Scott edition is quoted
+(OST-2).
+- (a) drop it
+- (b) keep it
+
+Detail: 🔴 `srom-tlumacz/work/ostendorf/ostendorf_uwagi.md` → OST-7
+
+*Trail: uwagi § 5.*
+
+### OST-8 · The Polish abstract is 1236 characters (the Kanon allows 1000): who shortens it?
+**Decide** · blocks nothing
+
+- (a) srom-tlumacz proposes a cut, as for Pahulich and Tittel — **recommended**
+- (b) you shorten it in Word
+
+*Trail: uwagi § 6; Kanon § 12.2.2.*
+
+## Tittel — "Racial and Social Dimensions of Antiziganism" (On_Culture 10, 2020) (TIT)
+Source ready, translation drafted; Word copy for you: 🔴 `srom-tlumacz/work/tittel/tittel_robocza.docx`.
+Licence CC BY 4.0: no permission needed. Also concerns this text: GEN-4 to GEN-8, GEN-10, V19-1, V19-3, V19-4.
+Next free: TIT-13.
+
+### TIT-1 · The author's "gypsy/gypsies" (in scare quotes, lower case): „Cyganie” with a capital, or lower case?
+**Decide** · blocks **delivery of the translation** (srom-typeset asked for it to be settled first)
+
+- (a) „Cygan”, „Cyganie”, „cygański” in quotation marks with a capital C (Kanon), a translator's note at the first use,
+  as in Ostendorf — **recommended** (as drafted)
+- (b) lower case „cyganie”, to mark a category rather than an ethnonym (departs from the Kanon)
+
+Detail: 🔴 `srom-tlumacz/work/tittel/tittel_uwagi.md` → TIT-1
+
+*Trail: D25 (a), T20; Kanon § 6.1.*
+
+### TIT-2 · The author's note 1 (acknowledgements only) becomes the note on the title
+**Approve** · blocks nothing
+
+It is called from the first sentence but only thanks the editors and reviewers. Done provisionally; notes are
+numbered 1–100 (original 2–101). If you say no, it goes back to note 1 and everything renumbers.
+Detail: 🔴 `srom-typeset/work/tittel/tittel_uwagi.md` → TIT-2
+
+*Trail: D20 A1; Kanon § 7.1.*
+
+### TIT-3 · 12 quotations to check in Polish editions and sources
+**Look up** · blocks the final text (the draft has working translations from the German)
+
+Kant: *Antropologia w ujęciu pragmatycznym* (IFiS 2005); *Dzieła zebrane* (UMK), vol. 1, 5 and 6. Marx: *Dzieła*,
+vol. 3 and 23 (*Kapitał*); *Zarys krytyki ekonomii politycznej* (1986). Also the Leipzig study's questionnaire wording,
+Röttgers (paywalled German original).
+Detail: 🔴 `srom-tlumacz/work/tittel/tittel_uwagi.md` → TIT-3 (items S2, S3, S5–S12)
+
+*Trail: D25 (b).*
+
+### TIT-4 · Two browser checks the scripts could not do (bot check)
+**Look up** · blocks nothing
+
+1. The article's repository page (URN urn:nbn:de:hebis:26-opus-160255): does it say CC BY 4.0? And should the
+   translation note give a page range („s. 1–23”) or none?
+2. The date of Geulen's lecture (note 31), or mark it undated.
+
+Detail: 🔴 `srom-tlumacz/work/tittel/tittel_uwagi.md` → TIT-4 (items S1, S4)
+
+*Trail: D20 A2 and the Geulen lecture; S1, S4; Kanon § 8.6.*
+
+### TIT-5 · "(my translation)" left out in notes 37, 81, 95
+**Approve** · blocks nothing
+
+There the Polish is translated from the German the author gives, so her remark about her English translation does not
+apply. Alternative: keep it as „(przekład autorki)”.
+Detail: 🔴 `srom-tlumacz/work/tittel/tittel_uwagi.md` → TIT-5
+
+*Trail: D25 (c); Kanon § 12.2.8.*
+
+### TIT-6 · Drop the author's "(hereafter abbreviated as MEW 23)"
+**Approve** · blocks nothing (done in the draft)
+
+The later notes print the standard short form, so the abbreviation would point to nothing. The sentence about the German
+edition stays. Alternative: keep MEW as an abbreviation (needs a Kanon line and a list-of-abbreviations entry).
+Detail: 🔴 `srom-typeset/work/tittel/tittel_uwagi.md` → TIT-6
+
+*Trail: D20 A4.*
+
+### TIT-7 · Note 49: the author cites Marx, *Kapital*, p. 743; the passage is on p. 741
+**Decide** · blocks nothing
+
+- (a) correct the citation to p. 741 (source and translation both change)
+- (b) leave it and ask the author (the Polish edition's page is printed anyway)
+
+Detail: 🔴 `srom-typeset/work/tittel/tittel_uwagi.md` → TIT-7
+
+*Trail: D20 B11, D25 (e), E19.*
+
+### TIT-8 · 10 corrections to the author's data
+**Approve** · blocks nothing
+
+Among them: *Canadian Journal of Philosophy* Supplementary Volume; *Philosophers on Race* is Blackwell, not OUP;
+*Kant-Studien*; Zöller as co-editor and the volume dated 2007, not 2010; Strauß/Strauss; Mayall's imprint; Decker's
+co-authors.
+Detail: 🔴 `srom-typeset/work/tittel/tittel_uwagi.md` → TIT-8 (list B1–B10)
+
+*Trail: D20 B1–B10.*
+
+### TIT-9 · Title and term choices in the Tittel draft
+**Approve** · blocks nothing
+
+Title „Rasowe i społeczne wymiary antycyganizmu. Obraz „Cyganów” w teorii politycznej”; Kant's *Indier* → „Indusi”;
+*vagrancy* → „włóczęgostwo”; Marx's *gang-master* → „przodownik bandy”; „migracja ubóstwa”; *Porrajmos* → „Porajmos”;
+"lifelong enslavement" (1547 statute) → „dożywotnia niewola” (srom-tlumacz now recommends this over the draft's
+„dożywotnie niewolnictwo”).
+Detail: 🔴 `srom-tlumacz/work/tittel/tittel_uwagi.md` → TIT-9
+
+*Trail: D25 (d), D26 (b).*
+
+### TIT-10 · Shortened abstract (1309 → 882 characters)
+**Approve** · blocks nothing
+
+Detail: 🔴 `srom-tlumacz/work/tittel/tittel_uwagi.md` → TIT-10
+
+*Trail: uwagi § 2; Kanon § 12.2.2.*
+
+### TIT-11 · Kant's Academy-edition references kept as the author gives them ("s. 420 / AA VII 324–325")
+**Approve** · blocks nothing
+
+No Kanon line for standard-edition references yet. Keep this form now; a Kanon line later (the usual Polish form is
+"AA VII, 324–325").
+Detail: 🔴 `srom-typeset/work/tittel/tittel_uwagi.md` → TIT-11
+
+*Trail: D20 A5.*
+
+### TIT-12 · Questions for the author (6)
+**Ask author** · blocks nothing
+
+1. Ruch 1986: which university was the dissertation submitted to?
+2. Kant, *Anthropology, History, and Education*: 2007 or a 2010 reprint?
+3. "Berliner Monatsschrift" in the text = the *Berlinische Monatsschrift* of note 18?
+4. "linguistic studies in the 1870s/-80s": 1770s/-80s?
+5. "the Swabian district within Württemberg": the district was not inside Württemberg.
+6. "defended by German courts until 1962": 1963 (the Federal Court ruling of 18.12.1963)?
+
+The list for sending: 🔴 `srom-tlumacz/work/tittel/tittel_pytania_tlum.csv`
+
+*Trail: D20 D1–D3, D25 (e); uwagi § 4.*
+
+## Ndiaye — "Black Roma" (RQ 75, 2022) (NDI)
+Translation drafted (not in this list before 29.09.2026 23:04); Word copy for you:
+🔴 `srom-tlumacz/work/ndiaye/ndiaye_robocza_v2.docx`. Next free: NDI-4.
+
+### NDI-1 · Seven page numbers and wordings in Polish editions
+**Look up** · blocks the final text
+
+Molière in Boy's translation (*Chory z urojenia*: Boy's text is not in Wolne Lektury, so a working translation stands;
+*Szelmostwa Skapena*, five quotations: pages); Hong, *Pomniejsze uczucia* (Tajfuny 2024): wording and page. Boy is cited
+from *Dzieła*, t. 6 (1922); if you take pages from PIW 1988, the reference changes.
+Detail: 🔴 `srom-tlumacz/work/ndiaye/ndiaye_uwagi.md` → NDI-1 (items S1–S7)
+
+*Trail: ndiaye_uwagi § 1.*
+
+### NDI-2 · Choices in the Ndiaye draft
+**Approve** · blocks nothing
+
+Molière's characters under Boy's names; unconfirmed Polish titles (*Cyganiątko*, *Opowieść etiopska*); heading 4
+„FIKCJE UCHODZENIA ZA BIAŁYCH…” (or „FIKCJE *PASSINGU*…”); poem titles in quotation marks, as the author has them;
+*race play* → „dramat rasowy”; the grammatical gender of 25 cited authors, inferred from names and public information,
+not confirmed.
+Detail: 🔴 `srom-tlumacz/work/ndiaye/ndiaye_uwagi.md` → NDI-2
+
+*Trail: ndiaye_uwagi § 3.*
+
+### NDI-3 · The issue number of *Renaissance Quarterly* 75 for the translation note
+**Look up** · blocks nothing
+
+The translation note prints `[BRAK nr]` where the issue number goes. (The author also has to approve the English
+keywords: add it to the questions when she is written to.)
+Detail: 🔴 `srom-tlumacz/work/ndiaye/ndiaye_uwagi.md` → NDI-3
+
+*Trail: ndiaye_uwagi § 4.*
+
+## West Ohueri — "Peripheral whiteness and racial belonging and non-belonging" (Off White, ch. 6, MUP 2024) (WOH)
+Source ready; **not to be translated for publication without permission** (CC BY-NC-ND; you are asking the author and
+MUP). Also concerns this text: GEN-9, GEN-10, V19-2, V19-3. Next free: WOH-7.
+
+### WOH-1 · Start translating before the permission arrives?
+**Decide** · blocks the translation
+
+- (a) start now; publish only with permission
+- (b) wait for the permission
+
+No recommendation: your call.
+
+*Trail: D24 A1.*
+
+### WOH-2 · Copy two things from manchesterhive in a browser (the site blocks scripts)
+**Look up** · blocks the front matter
+
+The author's affiliation (the book's "Notes on contributors") and the copyright line (the book's copyright page).
+Detail: 🔴 `srom-typeset/work/westohueri/westohueri_uwagi.md` → WOH-2
+
+*Trail: D24 A2.*
+
+### WOH-3 · Costa Vargas is sorted under C (the tools cannot sort him under Vargas)
+**Decide** · blocks nothing
+
+- (a) fix by hand at typesetting
+- (b) accept C
+
+*Trail: D24 A5; Kanon § 9.5.*
+
+### WOH-4 · Two films / recorded lectures: producer and distributor not printed
+**Approve** · blocks nothing
+
+Card 2020 (film) and Hall & Jhally 2002 (recorded lecture) follow the Kanon's film pattern, which prints no producer.
+Detail: 🔴 `srom-typeset/work/westohueri/westohueri_uwagi.md` → WOH-4
+
+*Trail: D24 A6; Kanon § 8.7.*
+
+### WOH-5 · 14 corrections to the author's data, and 3 chapter page ranges from Crossref
+**Approve** · blocks nothing
+
+Detail: 🔴 `srom-typeset/work/westohueri/westohueri_uwagi.md` → WOH-5 (lists B1–B14, C1)
+
+*Trail: D24 B1–B14, C1.*
+
+### WOH-6 · Questions for the author (5)
+**Ask author** · blocks nothing
+
+1. The "Tosk" quotation before note 53 has no source: Blumi (note 52)? Which page?
+2. "My forthcoming work, *Albania in Red, Black, and White*": is it *Encountering Race in Albania* (Cornell UP 2025)?
+3. Pages for 15 quotations cited without one.
+4. Note 14: the chapter's pages and the quotation's page.
+5. Note 24: Linné's 10th edition is dated 1758, not 1759.
+
+Detail: 🔴 `srom-typeset/work/westohueri/westohueri_uwagi.md` → WOH-6
+
+*Trail: D24 D1–D5.*
+
+For later (no question yet): its *Egyptians* (22×) are the present-day Balkan group, not the early-modern name the other
+drafts put in quotation marks; *racial belonging* (16×) will need a Polish form.
+
+## Scheffknecht — "Zigeuner im Reichshof Lustenau" (Neujahrsblätter Lustenau 1, 2010) (SCH)
+Source ready (German test); not handed to translation. Also concerns this text: GEN-4, GEN-5, GEN-6. Next free: SCH-6.
+
+### SCH-1 · The text is German and srom-tlumacz works from English: who translates it?
+**Decide** · blocks stage 2
+
+- (a) keep it as a test of stage 1 only, for now — **recommended**
+- (b) a German–Polish trial in srom-tlumacz (a scope decision for that module)
+- (c) a human translator, with the files as they are
+
+Detail: 🔴 `srom-typeset/work/scheffknecht/scheffknecht_uwagi.md` → SCH-1
+
+*Trail: D18 A1.*
+
+### SCH-2 · Rights: ask the author and the Historisches Archiv Lustenau for written consent?
+**Decide** · blocks publication
+
+No licence; the volume allows quotation with attribution only. The two figures belong to the Vorarlberger Landesarchiv
+and the Staatsarchiv Augsburg.
+- (a) written consent of the author and the Archiv before publication; image permissions at typesetting —
+  **recommended**
+
+*Trail: D18 A2.*
+
+### SCH-3 · Archive abbreviations never spelled out in the article (VLA, HoA, HistA, PfA, StaatsA, StadtA)
+**Ask author** · blocks the list of archival sources
+
+The Kanon wants the full name at first use. Proposed expansions are in the notes sheet; HoA is unknown (probably the
+Hohenems archive).
+Detail: 🔴 `srom-typeset/work/scheffknecht/scheffknecht_uwagi.md` → SCH-3
+
+*Trail: D18 A6; Kanon § 8.1.*
+
+### SCH-4 · Two small recommendations
+**Approve** · blocks nothing
+
+1. A stray raised "1" after the last word (a leftover of the note moved to the title): delete it.
+2. Early printed lists held in archives stay cited as archive holdings, as the author cites them.
+
+*Trail: D18 A7, A8.*
+
+### SCH-5 · 7 corrections to the author's data
+**Approve** · blocks nothing
+
+Detail: 🔴 `srom-typeset/work/scheffknecht/scheffknecht_uwagi.md` → SCH-5 (table B1–B7)
+
+*Trail: D18 B1–B7.*
+
+## Tooling and workflow (SYS)
+Next free: SYS-2.
+
+### SYS-1 · Translator on the website; curator skill in desktop Claude
+**Later** · blocks nothing
+
+Your decision of 28.09.2026: the live site is old; when the work here is finished, you update the curator skill in
+desktop Claude and the plugin on the site together (the skill's copy carries plugin v2.3). Until then nothing to do.
+Detail: 🔴 `_handoffs/curator-update-2026-09-27/CHANGES.md`
+
+*Trail: D5.*
