@@ -411,3 +411,4 @@ Brief: vol. 18's main styles untouchable (body 10.5/13 on the 13.2945 grid, note
 - [x] S6: suite green, committed; D3 closed and D21 filed in _handoffs, committed
   CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; grep -c "^### D3 " ../_handoffs/MB-decisions.md; grep -c "^### D21" ../_handoffs/MB-decisions.md
   EXPECT: /SUITE ALL PASS (\d+)\/\1\s+0\s+1\s*$/
+  EVIDENCE: SUITE ALL PASS 19/19 | 0 | 1 (commits 81babb2; _handoffs 4e5d41f)
