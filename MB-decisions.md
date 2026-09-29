@@ -9,7 +9,7 @@ Rules:
   concern no single text go under `## Journal-wide` or `## Tooling and workflow`. An item about two texts goes in
   each text's section as a one-line pointer to the full item. Remove a text's section when it is empty.
 - New item: `### D<n> — <subject> (dd.mm.yyyy HH:MM, <module>)`, then the question, the options, the module's
-  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D26**.
+  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D27**.
 - A partial answer (item still open) is a new line under the item: `- dd.mm.yyyy HH:MM DECIDED: … (MB)`.
 - Times (from 28.09.2026 16:45) are local time from the machine clock (`date '+%d.%m.%Y %H:%M'`); older entries
   keep their date only.
@@ -25,9 +25,11 @@ Rules:
 - **Tittel:** D20 — nothing blocks the translation (CC BY 4.0); A1 (acknowledgements as the title note) and A4 (the MEW
   siglum) touch the source the translator works on. D25 — the translation is drafted; your choices are collected, none
   blocks your Word edit (the form of “gypsy” is the one real decision).
+- **Vol. 19, all texts:** D26 — cross-text terminology (nomadic/itinerant, sowiecki/radziecki, shared forms); nothing blocks.
 
 ## Text: Pahulich — CRS 8/1 (2025)
 Stage 1 done, source with srom-tlumacz (T18).
+- Pointer: D26 (vol. 19 cross-text terminology, section "Volume 19") concerns this text too.
 
 ### D17 — Pahulich (CRS 8/1, 2025), stage 1: open points (28.09.2026, srom-typeset)
 Source frozen and handed to srom-tlumacz (T18); none of this blocks the translation. Detail and proposals:
@@ -94,6 +96,7 @@ Stage 1 done, source frozen in `srom-typeset/work/scheffknecht/`; **not handed t
 
 ## Text: Ostendorf — The Romani Atlantic, ch. 3 (CUP 2026)
 Stage 1 done, source with srom-tlumacz (T19, T20); open access CC BY-NC 4.0.
+- Pointer: D26 (vol. 19 cross-text terminology, section "Volume 19") concerns this text too.
 
 ### D19 — Ostendorf, "Familiar Outsiders Abroad" (The Romani Atlantic, CUP 2026), stage 1: open points (28.09.2026 17:35, srom-typeset)
 Source frozen in `srom-typeset/work/ostendorf/` and handed to srom-tlumacz (T19). Detail, evidence and proposals:
@@ -123,8 +126,28 @@ Source frozen in `srom-typeset/work/ostendorf/` and handed to srom-tlumacz (T19)
   (LoC, evidence in refs.json); **14 left for MB by hand** — list in `ostendorf_queries.md` A2.
 - 28.09.2026 21:29 correction (srom-typeset): 43 values sourced (not 44); the 14 left are unchanged.
 
+### D22 — Ostendorf translation: choices collected for MB (29.09.2026 03:41, srom-tlumacz)
+Draft done without MB's feedback, as MB asked (29.09.2026): `srom-tlumacz/work/ostendorf/ostendorf_robocza.docx` (Word copy),
+`ostendorf_pl.md`. Everything is in the notes sheet `srom-tlumacz/work/ostendorf/ostendorf_uwagi.md`; nothing blocks editing.
+- Assumed, to confirm: author's pronouns she/her (from MB's vol. 18 translation of Ostendorf); translator credit Michał
+  Bartosz (as Ndiaye).
+- S1, S2 (uwagi § 1): wording and page of the Polish editions — Scott, *Guy Mannering czyli Astrolog* (NK 1975), Pratt,
+  *Imperialne spojrzenie* (WUJ 2011). Only MB can look these up.
+- Terms (uwagi § 3): title „Swojscy obcy za oceanem”; „cygańska zasłona”; skrypty rasowe; obcy miejscowi; antyczarność;
+  wolni kolorowi; *voyageurs*; „Wielka Obława”. Recommendation: as drafted; termbase rows after MB's word.
+- Group names (uwagi § 4, E17): Anglo-Romani → „angielscy Romowie”; *Bohémienne(s)* for women.
+- Quotation annotations (uwagi § 2): „tłum. z przekładu angielskiego” (no „autorki”) where the author quotes someone
+  else's published English translation — the Kanon has no such formula. Recommendation: accept; a Kanon line via E17.
+  Also: search further originals (Anchieta, Pasqualigo, Schmidl, Bolzius, Elvas)? Recommendation: yes for Schmidl and
+  Bolzius (German prints are digitised), no for the rest.
+- 29.09.2026 03:55 DECIDED: search Schmidl and Bolzius (MB). Done: both translated from the originals (Bolzius: Urlsperger, 18. Continuation, 1752, pp. 979–980, which also answers stage-1 D4 → E18; Schmidl: the Spanish of the cited 1938 edition, checked against the Munich manuscript).
+- Doubts in the source, to the author (uwagi § 5; `ostendorf_pytania_tlum.csv`): Paucke "Polish Jesuit" (born in Winzig /
+  Wińsko, Silesia); Moqoit "in today's Paraguay" (San Javier, Santa Fe, Argentina); Loskiel's German ≠ author's English;
+  "typographies", "crows". With stage 1's B1–B11 and D1–D5 (D19, T21), which MB asked to be reminded of now.
+
 ## Text: Tittel — On_Culture 10 (2020)
 Stage 1 done, source with srom-tlumacz (T20).
+- Pointer: D26 (vol. 19 cross-text terminology, section "Volume 19") concerns this text too.
 
 ### D20 — Tittel, "Racial and Social Dimensions of Antiziganism" (On_Culture 10, 2020), stage 1: open points (28.09.2026 21:09, srom-typeset)
 Source frozen in `srom-typeset/work/tittel/` and handed to srom-tlumacz (T20). Detail, evidence and proposals:
@@ -171,28 +194,10 @@ your Word edit.
 - (e) Four doubts for the author (query sheet): "1870s/-80s" (1770s?), n. 49 MEW p. 743 (the passage is on p. 741), "the
   Swabian district within Wurttemberg", "until 1962" (1963?).
 
-### D22 — Ostendorf translation: choices collected for MB (29.09.2026 03:41, srom-tlumacz)
-Draft done without MB's feedback, as MB asked (29.09.2026): `srom-tlumacz/work/ostendorf/ostendorf_robocza.docx` (Word copy),
-`ostendorf_pl.md`. Everything is in the notes sheet `srom-tlumacz/work/ostendorf/ostendorf_uwagi.md`; nothing blocks editing.
-- Assumed, to confirm: author's pronouns she/her (from MB's vol. 18 translation of Ostendorf); translator credit Michał
-  Bartosz (as Ndiaye).
-- S1, S2 (uwagi § 1): wording and page of the Polish editions — Scott, *Guy Mannering czyli Astrolog* (NK 1975), Pratt,
-  *Imperialne spojrzenie* (WUJ 2011). Only MB can look these up.
-- Terms (uwagi § 3): title „Swojscy obcy za oceanem”; „cygańska zasłona”; skrypty rasowe; obcy miejscowi; antyczarność;
-  wolni kolorowi; *voyageurs*; „Wielka Obława”. Recommendation: as drafted; termbase rows after MB's word.
-- Group names (uwagi § 4, E17): Anglo-Romani → „angielscy Romowie”; *Bohémienne(s)* for women.
-- Quotation annotations (uwagi § 2): „tłum. z przekładu angielskiego” (no „autorki”) where the author quotes someone
-  else's published English translation — the Kanon has no such formula. Recommendation: accept; a Kanon line via E17.
-  Also: search further originals (Anchieta, Pasqualigo, Schmidl, Bolzius, Elvas)? Recommendation: yes for Schmidl and
-  Bolzius (German prints are digitised), no for the rest.
-- 29.09.2026 03:55 DECIDED: search Schmidl and Bolzius (MB). Done: both translated from the originals (Bolzius: Urlsperger, 18. Continuation, 1752, pp. 979–980, which also answers stage-1 D4 → E18; Schmidl: the Spanish of the cited 1938 edition, checked against the Munich manuscript).
-- Doubts in the source, to the author (uwagi § 5; `ostendorf_pytania_tlum.csv`): Paucke "Polish Jesuit" (born in Winzig /
-  Wińsko, Silesia); Moqoit "in today's Paraguay" (San Javier, Santa Fe, Argentina); Loskiel's German ≠ author's English;
-  "typographies", "crows". With stage 1's B1–B11 and D1–D5 (D19, T21), which MB asked to be reminded of now.
-
 ## Text: West Ohueri — Off White, ch. 6 (MUP 2024)
 Stage 1 done, source frozen in `srom-typeset/work/westohueri/` and announced to srom-tlumacz (T23); **not to be translated
 for publication without permission** (A1).
+- Pointer: D26 (vol. 19 cross-text terminology, section "Volume 19") concerns this text too.
 
 ### D24 — [West Ohueri] "Peripheral whiteness and racial belonging and non-belonging" (Off White, MUP 2024, ch. 6), stage 1: open points (29.09.2026 04:13, srom-typeset)
 Detail, evidence and proposals: `srom-typeset/work/westohueri/westohueri_queries.md` (A–E).
@@ -223,10 +228,30 @@ the licence agreement says the opposite. The text in print and on the website mu
 Needed from MB: the replacement wording (or who writes it) and where it goes (website page; vol. 19 front matter).
 srom-typeset can draft the Polish text on request. Blocks: the OA announcement. Detail: Kanon § 13.2.
 
-## Volume 19 planning
+## Volume 19: terminology across the translated texts
 
-### D6 (c) — Vol. 19 translation shortlist (27.09.2026, srom-tlumacz)
-Deferred by MB (26.09.2026). (a) and (b) are closed.
+### D26 — [general] Vol. 19: cross-text terminology (29.09.2026 14:13, srom-tlumacz)
+The vol. 19 translations (Ndiaye, Ostendorf, Pahulich, Tittel drafted; West Ohueri not started) were measured against
+each other and against vol. 18 (leaf 1.3.2: `srom-tlumacz/tlumacz-1.3.2/findings.md`, table `vol19-concordance.tsv`).
+The drafts agree on almost everything; below are only the points one decision for the whole volume settles. Per-text
+choices stay in D22, D23, D25. Nothing here blocks your Word edits.
+- (a) **nomadic → „koczowniczy”** (*nomadic lifestyle* → „koczowniczy tryb życia”, *nomadism* → „koczownictwo”) and
+  **itinerant / peripatetic → „wędrowny”**: vol. 18 precedent (Marushiakova/Popov, Fotta), which 1.3.1 missed. Ndiaye
+  follows it; Pahulich has „wędrowny tryb życia” (3×, „koczowanie” elsewhere); Tittel „nomadyzm” (1×).
+  Recommendation: confirm the precedent (rows C-0046, C-0047 → HOUSE); the two drafts change when you edit them.
+- (b) **Tittel, "lifelong enslavement"** (1547 statute) → draft „dożywotnie niewolnictwo”; HOUSE C-0018 gives
+  „zniewolenie” for *enslavement*. Recommendation: „dożywotnia niewola” (a punishment, not the institution).
+- (c) **Soviet: „sowiecki” or „radziecki”?** Pahulich „Związek Sowiecki”, „sowiecki” (8×); the vol. 18 translation
+  (Marushiakova/Popov) „radziecki” (4×); West Ohueri will need it. No HOUSE row, so no lock. Recommendation: „sowiecki”
+  from vol. 19 (current Polish historiography), noted in the decision log.
+- (d) **Sign-off of the shared forms** (PROVISIONAL rows, one decision for the volume): antyczarność (*anti-Blackness*;
+  Ostendorf, Pahulich), uinnienie / uinniać (*othering*; Ndiaye, Pahulich), białość (*whiteness*; three drafts, West
+  Ohueri 64×), antyromski (*anti-Roma*, kept apart from antycyganizm), osiedlanie (*sedentarization*; „przymusowe
+  osiedlenie” only for the 1964 action), przynależność (*belonging*). Recommendation: approve → HOUSE.
+- (e) One Kanon gap raised twice: the annotation for a quotation translated from someone else's published English
+  translation („tłum. z przekładu angielskiego”): Ostendorf (D22, E17) and Pahulich (D23 S9). One decision covers both.
+- For information, West Ohueri (before its intake): its *Egyptians* (22×) are the present-day Balkan group, not the
+  early-modern designation the other drafts put in quotation marks (D13); *racial belonging* (16×) needs a form.
 
 ## Tooling and workflow (scheduled, waiting for a later moment)
 
