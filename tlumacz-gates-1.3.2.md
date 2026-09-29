@@ -17,34 +17,34 @@ Declared approach:
   the per-text items (D22, D23, D25).
 - Lessons for the module (tooling, procedure) recorded in `findings.md`, acted on in their own leaves.
 
-- [ ] G1: D6 (c) closed: removed from MB-decisions, the shortlist recorded in `tlumacz-decisions.md`
+- [x] G1: D6 (c) closed: removed from MB-decisions, the shortlist recorded in `tlumacz-decisions.md`
   CHECK: printf '%s %s\n' "$(grep -c '^### D6' ../_handoffs/MB-decisions.md)" "$(grep -c 'D6 (c)' tlumacz-decisions.md)"
   EXPECT: /^0 [1-9]$/m
 
-- [ ] G2: concordance runs over 5 sources and 4 drafts and writes the table
+- [x] G2: concordance runs over 5 sources and 4 drafts and writes the table
   CHECK: cd tlumacz-1.3.2 && python3 vol19_terms.py | tail -1 && test -s vol19-concordance.tsv && echo table-ok
   EXPECT: /^concordance: 25 probes, .*\n^table-ok$/m
 
-- [ ] G3: negative control: a planted divergence and a planted missing rendering are both caught
+- [x] G3: negative control: a planted divergence and a planted missing rendering are both caught
   CHECK: cd tlumacz-1.3.2 && python3 vol19_terms.py --selftest | tail -1
   EXPECT: /^selftest: planted divergence caught, planted missing rendering caught$/m
 
-- [ ] G4: every probe flagged divergent or missing has a reviewed line in findings.md (by id)
+- [x] G4: every probe flagged divergent or missing has a reviewed line in findings.md (by id)
   CHECK: cd tlumacz-1.3.2 && python3 -c "import csv,re;f=open('findings.md').read();r=[x['id'] for x in csv.DictReader(open('vol19-concordance.tsv'),delimiter='\t') if x['verdict'] in('divergent','missing')];m=[i for i in r if not re.search(r'^\| '+i+r' ',f,re.M)];print('flagged reviewed: %d/%d'%(len(r)-len(m),len(r)),*m)"
   EXPECT: /^flagged reviewed: (\d+)\/\1\s*$/m
 
-- [ ] G5: termbase checks green with the new PROVISIONAL rows; each new row states its admission reason
+- [x] G5: termbase checks green with the new PROVISIONAL rows; each new row states its admission reason
   CHECK: ~/.venvs/srom/bin/python tlumacz-check_tb.py --schema --shape --vocab --precedent --evidence | tail -3 && python3 -c "import csv;r=[x for x in csv.DictReader(open('tlumacz-tb.tsv'),delimiter='\t') if x['status']=='PROVISIONAL'];b=[x['concept_id'] for x in r if not x['note'].startswith('Admission:')];print('provisional rows: %d, without admission reason: %d'%(len(r),len(b)),*b)"
   EXPECT: /^candidate rows: \d+, each with a verified training quote\nprovisional rows: [1-9]\d*, without admission reason: 0\s*$/m
 
-- [ ] G6: selftest of the termbase checker still 9/9
+- [x] G6: selftest of the termbase checker still 9/9
   CHECK: ~/.venvs/srom/bin/python tlumacz-check_tb.py --selftest
   EXPECT: /^selftest: 9\/9 negative controls caught$/m
 
-- [ ] G7: one cross-text item for MB committed in `_handoffs` (per-text points stay in D22/D23/D25)
+- [x] G7: one cross-text item for MB committed in `_handoffs` (per-text points stay in D22/D23/D25)
   CHECK: git -C ../_handoffs log --format=%s | grep -c '1.3.2'
   EXPECT: /^[1-9]$/m
 
-- [ ] G8: leaf recorded (PLAN tree + status log, HANDOVER) and committed
+- [x] G8: leaf recorded (PLAN tree + status log, HANDOVER) and committed
   CHECK: git log -1 --format=%s
   EXPECT: /1\.3\.2/
