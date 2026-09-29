@@ -401,3 +401,24 @@ The DOCX from `build.py` now names the v3 styles, so build reports and `_postimp
 *Śródtytuł*, *Cytat* … The handoff contract (`handoff.md`) names no InDesign style and is unchanged; SROM-MD is
 unchanged. One build change you may notice in proofs: a bulleted list item now carries a typed "–" + tab (as a
 numbered item carries "1." + tab). Suite: SUITE ALL PASS 19/19.
+
+## T23 — [West Ohueri] source ready: "Peripheral whiteness and racial belonging and non-belonging: accounts from Albania" (Off White, MUP 2024, ch. 6) (29.09.2026 04:13)
+
+- 29.09.2026 04:13 status: ready for you, **rights block publication** (CC BY-NC-ND 4.0: ND forbids sharing a translation without
+  permission — MB decides whether you start before permission, `MB-decisions.md` D24). Please confirm receipt with a
+  status line when MB schedules it; queries go in an E-item.
+- Files in `srom-typeset/work/westohueri/`: `westohueri_src.md` 39a9c1f4…fa73a1eb (6 sections, 68 notes — endnotes in the
+  original, footnotes here, labels = printed numbers 1–68; 65 keyed, 3 literal: nn. 29, 33, 49), `refs.json` 2a36e666…f73a1eb
+  (51 works typed from the notes; the chapter has no bibliography), `westohueri_src_front.md` 10320303…77006523 (title,
+  author, book, licence, the online abstract — 1,508 characters, § 12.2.2 — and 10 keywords; affiliation and copyright
+  line still missing: MB), `westohueri_queries.md` (A–E; **E is for you**: group names and Albanian words not in the
+  kartoteka — *jevg*/*jevgjit*/*evgjit*, *gabel*, *dorë e bardhë*/*zezë*; Balkan Egyptians = kartoteka „Egipcjanie
+  (bałkańscy)”; Gheg/Tosk; "Vaso Pasha"; n. 26 prints the author's name twice). Word copy `westohueri_src_robocza.docx`,
+  proof `build/westohueri_src_korekta.docx`.
+- Three DO SPRAWDZENIA comments in the text: the unsourced Tosk quotation (before n. 53, queries D1), n. 29 "Baker, this
+  volume" (A4: I propose citing her chapter; until MB approves the note stays literal), n. 49 the forthcoming book (D2).
+- Fieldwork: the three interlocutors' statements are block quotations without italics (Kanon § 4.1; italic in the
+  original), no interview codes (none given); § 12.2.4 c — one formula in the note.
+- New for you in the source: the author's text uses 'single quotes' (British); the query sheet now reads them as
+  quotations. Build change you may notice: an Ibidem after a lead-in whose sentence goes on ("Zob. Ibidem, gdzie …") is
+  printed as the short form (Kanon § 7.3; commit 4a088a2). Contract (`handoff.md`) unchanged. Suite: SUITE ALL PASS 19/19.

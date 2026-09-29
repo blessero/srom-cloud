@@ -9,7 +9,7 @@ Rules:
   concern no single text go under `## Journal-wide` or `## Tooling and workflow`. An item about two texts goes in
   each text's section as a one-line pointer to the full item. Remove a text's section when it is empty.
 - New item: `### D<n> — <subject> (dd.mm.yyyy HH:MM, <module>)`, then the question, the options, the module's
-  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D24**.
+  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D25**.
 - A partial answer (item still open) is a new line under the item: `- dd.mm.yyyy HH:MM DECIDED: … (MB)`.
 - Times (from 28.09.2026 16:45) are local time from the machine clock (`date '+%d.%m.%Y %H:%M'`); older entries
   keep their date only.
@@ -21,6 +21,7 @@ Rules:
 - **Scheffknecht:** D18 — German stage-1 test.
 - **Ostendorf:** D19 — A1 (CC BY-NC, as D17 A1) and A2 (14 imprint gaps by hand); nothing blocks the translation.
   D22 — the translation is drafted; your choices are collected, none blocks your Word edit.
+- **West Ohueri:** D24 — A1: CC BY-NC-ND, permission needed before publication (translation: your call).
 - **Tittel:** D20 — nothing blocks the translation (CC BY 4.0); A1 (acknowledgements as the title note) and A4 (the MEW
   siglum) touch the source the translator works on.
 
@@ -167,6 +168,27 @@ Draft done without MB's feedback, as MB asked (29.09.2026): `srom-tlumacz/work/o
 - Doubts in the source, to the author (uwagi § 5; `ostendorf_pytania_tlum.csv`): Paucke "Polish Jesuit" (born in Winzig /
   Wińsko, Silesia); Moqoit "in today's Paraguay" (San Javier, Santa Fe, Argentina); Loskiel's German ≠ author's English;
   "typographies", "crows". With stage 1's B1–B11 and D1–D5 (D19, T21), which MB asked to be reminded of now.
+
+## Text: West Ohueri — Off White, ch. 6 (MUP 2024)
+Stage 1 done, source frozen in `srom-typeset/work/westohueri/` and announced to srom-tlumacz (T23); **not to be translated
+for publication without permission** (A1).
+
+### D24 — [West Ohueri] "Peripheral whiteness and racial belonging and non-belonging" (Off White, MUP 2024, ch. 6), stage 1: open points (29.09.2026 04:13, srom-typeset)
+Detail, evidence and proposals: `srom-typeset/work/westohueri/westohueri_queries.md` (A–E).
+- A1 **rights: CC BY-NC-ND 4.0** (Crossref, page stamp). ND: a translation is adapted material and may not be shared
+  without permission — unlike D17/D19/D20. Recommendation: ask the author and MUP for written permission now; you decide
+  whether srom-tlumacz starts before it. Blocks publication.
+- A2 affiliation and copyright line: behind a bot check (manchesterhive) — please copy once in a browser.
+- A3 the dissertation's place sourced ("Austin, TX", repository record): approve.
+- A4 n. 29 "see also Baker, this volume": cite C. Baker's chapter in the same book (pp. 328–347, DOI …00023)? Recommendation: yes.
+- A5 names: "West Ohueri" (compound; Crossref splits it "Ohueri, Chelsi West") — which form for the CSV/Crossref record?
+  Recommendation: West Ohueri. Costa Vargas sorts under C (CSL cannot sort under Vargas, § 9.5).
+- A6 two films/recorded lectures typed per § 8.7 (producer not printed). A7 fieldwork statements: italics removed (§ 4.1),
+  no codes invented. A8 **journal-wide**: reprint years ("2000 [1983]") are not printed — a line in § 7.2? A9 16 DOIs
+  added from Crossref (§ 9.7), 13 more proposed (C2) — same question as D20 C.
+- B1–B14 slips kept as written ("approve B" = all proposals); C1 three chapter ranges from Crossref; D1–D5 questions to
+  the author (an unsourced quotation; the forthcoming book — published 2025 as *Encountering Race in Albania*?; 15
+  quotations without a page).
 
 ## Journal-wide (policy, not tied to one text)
 
