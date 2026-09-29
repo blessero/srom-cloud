@@ -424,3 +424,18 @@ numbered item carries "1." + tab). Suite: SUITE ALL PASS 19/19.
   printed as the short form (Kanon § 7.3; commit 4a088a2). Contract (`handoff.md`) unchanged. Suite: SUITE ALL PASS 19/19.
 - T23, correction 29.09.2026 04:13: `westohueri_src.md` is **39a9c1f4…16008fd21** (the value above was refs.json's ending); `refs.json`
   2a36e666…0fa73a1eb. Full values: `shasum -a 256` in `srom-typeset/work/westohueri/`.
+
+## T24 — [West Ohueri] source re-frozen after MB's answers; mutation test per text (29.09.2026 04:42)
+
+- 29.09.2026 04:42 status: ready for you (supersedes T23 where they differ); rights unchanged — MB is asking for permission (ND), MB
+  says when you start. Please confirm with a status line when you take it.
+- Files in `srom-typeset/work/westohueri/`: `westohueri_src.md` 80964b34…598bd7be, `refs.json` 224e6627…2f332e0d951,
+  `westohueri_src_front.md` be23da23…ec79bb3e9 (full values: `shasum -a 256` there).
+- MB's decisions (D24): n. 29 "see also Baker, this volume" is keyed to Baker's chapter in the same book (`@baker2024`;
+  note: "On mythologies of warfare against the Ottomans, zob. też [@baker2024]."); the author's name is **"Ohueri, Chelsi
+  West"** (notes print "C.W. Ohueri", short form "Ohueri"); block quotations are roman except what the Kanon italicises
+  inside them — in the three fieldwork statements the Albanian words are now italic (*Jevgjit*, *jevgjit* ×2,
+  ‘*je bere si jevg*’). The main text keeps the author's roman ‘jevg’ in quotation marks: § 3.4 at your stage.
+- The publisher's HTML full text (found by MB) agrees with the source word for word and in italics.
+- Procedure (MB): every keyed source now gets a mutation test (`scripts/mutate_keyed.py`, SKILL.md step 4b); all five
+  keyed sources 40/40 after two more `check.py --keyed` fixes (commit 42a2397). `handoff.md` unchanged.

@@ -21,7 +21,7 @@ Rules:
 - **Scheffknecht:** D18 — German stage-1 test.
 - **Ostendorf:** D19 — A1 (CC BY-NC, as D17 A1) and A2 (14 imprint gaps by hand); nothing blocks the translation.
   D22 — the translation is drafted; your choices are collected, none blocks your Word edit.
-- **West Ohueri:** D24 — A1: CC BY-NC-ND, permission needed before publication (translation: your call).
+- **West Ohueri:** D24 — A1: permission (ND) being asked by MB; whether translation starts before it is your call.
 - **Tittel:** D20 — nothing blocks the translation (CC BY 4.0); A1 (acknowledgements as the title note) and A4 (the MEW
   siglum) touch the source the translator works on. D25 — the translation is drafted; your choices are collected, none
   blocks your Word edit (the form of “gypsy” is the one real decision).
@@ -196,30 +196,19 @@ for publication without permission** (A1).
 
 ### D24 — [West Ohueri] "Peripheral whiteness and racial belonging and non-belonging" (Off White, MUP 2024, ch. 6), stage 1: open points (29.09.2026 04:13, srom-typeset)
 Detail, evidence and proposals: `srom-typeset/work/westohueri/westohueri_queries.md` (A–E).
-- A1 **rights: CC BY-NC-ND 4.0** (Crossref, page stamp). ND: a translation is adapted material and may not be shared
-  without permission — unlike D17/D19/D20. Recommendation: ask the author and MUP for written permission now; you decide
-  whether srom-tlumacz starts before it. Blocks publication.
+- A1 **rights: CC BY-NC-ND 4.0** — permission to translate needed; MB is asking the author/MUP (29.09.2026). Open: whether
+  srom-tlumacz starts before permission. Blocks publication.
 - A2 affiliation and copyright line: behind a bot check (manchesterhive) — please copy once in a browser.
-- A3 the dissertation's place sourced ("Austin, TX", repository record): approve.
-- A4 n. 29 "see also Baker, this volume": cite C. Baker's chapter in the same book (pp. 328–347, DOI …00023)? Recommendation: yes.
-- A5 names: "West Ohueri" (compound; Crossref splits it "Ohueri, Chelsi West") — which form for the CSV/Crossref record?
-  Recommendation: West Ohueri. Costa Vargas sorts under C (CSL cannot sort under Vargas, § 9.5).
-- A6 two films/recorded lectures typed per § 8.7 (producer not printed). A7 fieldwork statements: italics removed (§ 4.1),
-  no codes invented. A8 **journal-wide**: reprint years ("2000 [1983]") are not printed — a line in § 7.2? A9 16 DOIs
+- A5 Costa Vargas sorts under C (CSL cannot sort under Vargas, § 9.5): by hand at stage 3, or accept.
+- A6 two films/recorded lectures typed per § 8.7 (producer not printed). A8 **journal-wide**: reprint years ("2000 [1983]") are not printed — a line in § 7.2? A9 16 DOIs
   added from Crossref (§ 9.7), 13 more proposed (C2) — same question as D20 C.
 - B1–B14 slips kept as written ("approve B" = all proposals); C1 three chapter ranges from Crossref; D1–D5 questions to
   the author (an unsourced quotation; the forthcoming book — published 2025 as *Encountering Race in Albania*?; 15
   quotations without a page).
+- 29.09.2026 DECIDED (MB): A3 Austin, TX; A4 n. 29 cites Baker's chapter; A5 name "Ohueri, Chelsi West"; A7 block
+  quotations roman except what the Kanon italicises inside them. Applied (T24, `westohueri_queries.md`), removed above.
 
 ## Journal-wide (policy, not tied to one text)
-
-### D21 — [general] InDesign house style v3: speaker's name and affiliation in italics vs Kanon § 3.4 (29.09.2026 03:39, srom-typeset)
-Vol. 18 sets the speaker line "> Name" bold italic (Panelant) and affiliations in italics (Uni; in Ellis the author's
-affiliation too). Kanon § 3.4: proper names – names, institutions – are never italic. House style v3 keeps the vol. 18
-look (styles *Mówca*, *Afiliacja*) for continuity. Options: (a) keep italics – the Kanon rule is read as a rule for
-running text, not for display lines (then one sentence in § 3.4 says so); (b) roman – Mówca bold roman, Afiliacja
-roman (one value each in `style_spec.json`). srom-typeset's recommendation: (a), the usual journal convention and
-18 volumes' practice. Blocks nothing until the first issue is typeset. Detail: `srom-typeset/docs/HANDOVER-typeset.md` § 4.
 
 ### D15 — Licence: withdraw the CC BY-NC-ND option? (28.09.2026, srom-typeset)
 Kanon § 13.2 marks it "DO ROZSTRZYGNIĘCIA – kolegium redakcyjne". Today the author chooses CC BY / BY-NC / BY-NC-ND
