@@ -70,10 +70,12 @@ This chat closed at MB's request (context size). Next session: MB brings a secon
 
 ## 7. Next — Claude, in order
 
+0. **Ostendorf, "Familiar Outsiders Abroad"** (29.09.2026 03:42) — preliminary translation done without MB's feedback, as he asked: `work/ostendorf/ostendorf_robocza.docx` for MB, `ostendorf_pl.md`, `ostendorf_front_pl.md`, `ostendorf_refs_tlum.json`, `ostendorf_pytania_tlum.csv` (17), `ostendorf_quotes.tsv` (46), `ostendorf_uwagi.md` (MB's choices: S1–S2 pages, terms, group names, doubts; `MB-decisions.md` D22). Assumed: she/her (vol. 18), translator MB. Waiting for: MB (D22), srom-typeset (E17). After MB returns the Word file: `docx_in.py` → `check.py --pair` → `build.py`. Possible extra: originals of Schmidl and Bolzius (German prints digitised).
+
 1. **Pilot article: Ndiaye, "Black Roma"** — preliminary translation, updated 28.09.2026 for T14/T15 (one title note; Romka/Romki, *gadjo*; „Egipcjanie”; new `refs.json`): `work/ndiaye/ndiaye_robocza_v2.docx` for MB (v1 left untouched in case MB began editing it), `ndiaye_pl.md`, `ndiaye_front_pl.md`, `ndiaye_pytania_tlum.csv` (14), `ndiaye_uwagi.md`. Build: exit 0, no errors (open comments don't stop it: S1–S7 are tracked in `ndiaye_uwagi.md` § 1). Waiting for: **MB** — pages / Boy text S1–S7, judgement calls in `ndiaye_uwagi.md` § 3; srom-typeset: nothing (E16 fixed, T16; `ndiaye_robocza_v2.docx` imports → CHECK OK → build PASS, verified 28.09). After MB returns the Word file: `docx_in.py` → `check.py --pair` → `build.py`.
 2. Termbase: 18 rows, all HOUSE; C-0012–C-0018 added 28.09.2026 from Ndiaye (D11), ESTABLISHED (MB verified 28.09.2026, `tlumacz-decisions.md`).
 3. Training corpus (1.3.5): MB may add further Polish texts to `training/` (a row in `sources.tsv`, sha256 in the manifest); harvest as CANDIDATE rows + `tlumacz-rasa.md`. Sourcing list closed by MB (28.09.2026, "skip the rest"). CANDIDATE → HOUSE only through an article's queries. Pahulich (T18, racialisation of Roma) and Ostendorf (T19, Iberian: Moors, limpieza de sangre) will use it first.
-4. Incoming T17–T19 (typed notes; Pahulich and Ostendorf sources ready) had no status line on 28.09.2026 19:14: reported to MB, answer when MB says which text starts.
+4. Incoming T17–T22 answered 29.09.2026 03:42; Pahulich (T18) and Tittel (T20) received, not started — they wait for MB to schedule them.
 5. Later: 1.3.2 (vol. 19 vocabulary), 1.4.x tooling, 1.5.x evaluation — per PLAN tree.
 
 

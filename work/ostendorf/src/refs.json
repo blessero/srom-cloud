@@ -1,0 +1,2069 @@
+[
+ {
+  "id": "matache2026",
+  "type": "book",
+  "title": "The Permanence of Anti-Roma Racism: (Un)uttered Sentences",
+  "issued": {
+   "date-parts": [
+    [
+     2026
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Matache",
+    "given": "Margareta"
+   }
+  ],
+  "publisher": "Routledge",
+  "title-short": "The Permanence of Anti-Roma Racism…",
+  "srom-as-written": {
+   "title": "The Permanence of Anti-Roma Racism:(Un)uttered Sentences"
+  }
+ },
+ {
+  "id": "pahulich2025",
+  "type": "article-journal",
+  "title": "Racialization of Roma, European Modernity, and the Entanglement of Empires",
+  "container-title": "Critical Romani Studies",
+  "issued": {
+   "date-parts": [
+    [
+     2025
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Pahulich",
+    "given": "Lesia"
+   }
+  ],
+  "volume": "8",
+  "issue": "1",
+  "page": "40–61",
+  "DOI": "10.29098/crs.v8i1.208",
+  "title-short": "Racialization of Roma…"
+ },
+ {
+  "id": "savic2022",
+  "type": "speech",
+  "author": [
+   {
+    "family": "Savić",
+    "given": "Jelena"
+   }
+  ],
+  "title": "Gadjo Supremacy and Gadjo Privileges",
+  "publisher": "Critical Approaches to Romani Studies Conference, Södertörn University",
+  "issued": {
+   "date-parts": [
+    [
+     2022
+    ]
+   ]
+  },
+  "note": "referat konferencyjny",
+  "srom-as-written": {
+   "note": "Conference Paper presented at"
+  }
+ },
+ {
+  "id": "mirgatas2023",
+  "type": "article-newspaper",
+  "author": [
+   {
+    "family": "Mirga-Tas",
+    "given": "Małgorzata"
+   },
+   {
+    "family": "Matache",
+    "given": "Margareta"
+   }
+  ],
+  "title": "Gadjoness: An Uncounted Shade of Whiteness",
+  "container-title": "The Funambulist",
+  "issued": {
+   "date-parts": [
+    [
+     2023,
+     6,
+     22
+    ]
+   ]
+  },
+  "title-short": "Gadjoness…"
+ },
+ {
+  "id": "ndiaye2022",
+  "type": "article-journal",
+  "title": "Black Roma: Afro-Romani Connections in Early Modern Drama (and Beyond)",
+  "container-title": "Renaissance Quarterly",
+  "issued": {
+   "date-parts": [
+    [
+     2022
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Ndiaye",
+    "given": "Noémie"
+   }
+  ],
+  "volume": "75",
+  "issue": "4",
+  "page": "1266–1302",
+  "DOI": "10.1017/rqx.2022.332",
+  "title-short": "Black Roma…"
+ },
+ {
+  "id": "bogdal2023",
+  "type": "book",
+  "title": "Europe and the Roma: A History of Fascination and Fear",
+  "issued": {
+   "date-parts": [
+    [
+     2023
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Bogdal",
+    "given": "Klaus-Michael"
+   }
+  ],
+  "publisher": "Penguin",
+  "translator": [
+   {
+    "family": "Chase",
+    "given": "Jefferson"
+   }
+  ],
+  "title-short": "Europe and the Roma…"
+ },
+ {
+  "id": "ndiaye2022b",
+  "type": "book",
+  "title": "Scripts of Blackness: Early Modern Performance Culture and the Making of Race",
+  "issued": {
+   "date-parts": [
+    [
+     2022
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Ndiaye",
+    "given": "Noémie"
+   }
+  ],
+  "publisher": "University of Pennsylvania Press",
+  "title-short": "Scripts of Blackness…",
+  "publisher-place": "Philadelphia",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2022000555"
+  }
+ },
+ {
+  "id": "molina2010",
+  "type": "article-journal",
+  "title": "The Power of Racial Scripts: What the History of Mexican Immigration to the United States Teaches Us about Relational Notions of Race",
+  "container-title": "Latino Studies",
+  "issued": {
+   "date-parts": [
+    [
+     2010
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Molina",
+    "given": "Natalia"
+   }
+  ],
+  "volume": "8",
+  "issue": "2",
+  "page": "156–175",
+  "DOI": "10.1057/lst.2010.20",
+  "title-short": "The Power of Racial Scripts…"
+ },
+ {
+  "id": "molina2019",
+  "type": "book",
+  "title": "Relational Formations of Race: Theory, Method, and Practice",
+  "issued": {
+   "date-parts": [
+    [
+     2019
+    ]
+   ]
+  },
+  "publisher": "University of California Press",
+  "editor": [
+   {
+    "family": "Molina",
+    "given": "Natalia"
+   },
+   {
+    "family": "HoSang",
+    "given": "Daniel Martinez"
+   },
+   {
+    "family": "Gutiérrez",
+    "given": "Ramón A."
+   }
+  ],
+  "title-short": "Relational Formations of Race…",
+  "publisher-place": "Oakland",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2018051806"
+  }
+ },
+ {
+  "id": "tabili2003",
+  "type": "article-journal",
+  "title": "Race Is a Relationship, and Not a Thing",
+  "container-title": "Journal of Social History",
+  "issued": {
+   "date-parts": [
+    [
+     2003
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Tabili",
+    "given": "Laura"
+   }
+  ],
+  "volume": "37",
+  "issue": "1",
+  "page": "125–130",
+  "DOI": "10.1353/jsh.2003.0162"
+ },
+ {
+  "id": "galletti2021",
+  "type": "article-journal",
+  "title": "Los Gitanos como Otro y como Horizonte de Otredad en la Hispanoaméria Colonial (S. XV a XIX)",
+  "container-title": "International Journal of Roma Studies",
+  "issued": {
+   "date-parts": [
+    [
+     2021
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Galletti",
+    "given": "Patricia"
+   }
+  ],
+  "volume": "3",
+  "issue": "2",
+  "DOI": "10.17583/ijrs.8527",
+  "title-short": "Los Gitanos como Otro…"
+ },
+ {
+  "id": "herzog2018",
+  "type": "article-journal",
+  "title": "Indigenous Reducciones and Spanish Resettlement: Placing Colonial and European History in Dialogue",
+  "container-title": "Ler História",
+  "issued": {
+   "date-parts": [
+    [
+     2018
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Herzog",
+    "given": "Tamar"
+   }
+  ],
+  "volume": "72",
+  "page": "9–30",
+  "DOI": "10.4000/lerhistoria.3146",
+  "title-short": "Indigenous Reducciones…"
+ },
+ {
+  "id": "herzog2012",
+  "type": "chapter",
+  "title": "Beyond Race: Exclusion in Early Modern Spain and Spanish America",
+  "container-title": "Race and Blood in the Iberian World",
+  "issued": {
+   "date-parts": [
+    [
+     2012
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Herzog",
+    "given": "Tamar"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Hering Torres",
+    "given": "Max S."
+   },
+   {
+    "family": "Martínez",
+    "given": "María Elena"
+   },
+   {
+    "family": "Nirenberg",
+    "given": "David"
+   }
+  ],
+  "publisher": "LIT Verlag",
+  "page": "151–167",
+  "title-short": "Beyond Race…",
+  "publisher-place": "Zürich",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2015300781 (Zürich ; Berlin : Lit)"
+  }
+ },
+ {
+  "id": "cressy2018",
+  "type": "book",
+  "title": "Gypsies: An English History",
+  "issued": {
+   "date-parts": [
+    [
+     2018
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Cressy",
+    "given": "David"
+   }
+  ],
+  "publisher": "Oxford University Press",
+  "title-short": "Gypsies…",
+  "publisher-place": "Oxford",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2017952087"
+  }
+ },
+ {
+  "id": "wakeleysmith2023",
+  "type": "article-journal",
+  "title": "“The One Primitive People Who Contact with Civilization has Failed to Exterminate”: New York and “Gypsy” Madness in the 1920s",
+  "container-title": "Journal of American Ethnic History",
+  "issued": {
+   "date-parts": [
+    [
+     2023
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Wakeley-Smith",
+    "given": "Dalen"
+   }
+  ],
+  "volume": "43",
+  "issue": "1",
+  "page": "67–87",
+  "DOI": "10.5406/19364695.43.1.03",
+  "title-short": "“The One Primitive People…”"
+ },
+ {
+  "id": "matthews2018",
+  "type": "book",
+  "title": "The Gypsy Woman: Representations in Literature and Visual Culture",
+  "issued": {
+   "date-parts": [
+    [
+     2018
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Matthews",
+    "given": "Jodie"
+   }
+  ],
+  "publisher": "Bloomsbury",
+  "title-short": "The Gypsy Woman…",
+  "publisher-place": "London",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2019275276 (London ; New York : I.B. Tauris — a Bloomsbury imprint)"
+  }
+ },
+ {
+  "id": "houghtonwalker2014",
+  "type": "book",
+  "title": "Representations of the Gypsy in the Romantic Period",
+  "issued": {
+   "date-parts": [
+    [
+     2014
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Houghton-Walker",
+    "given": "Sarah"
+   }
+  ],
+  "publisher": "Oxford University Press",
+  "title-short": "Representations of the Gypsy…",
+  "publisher-place": "Oxford",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2014939130"
+  }
+ },
+ {
+  "id": "nord2006",
+  "type": "book",
+  "title": "Gypsies and the British Imagination, 1807–1930",
+  "issued": {
+   "date-parts": [
+    [
+     2006
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Nord",
+    "given": "Deborah Epstein"
+   }
+  ],
+  "publisher": "Columbia University Press",
+  "title-short": "Gypsies and the British Imagination…",
+  "publisher-place": "New York",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2005034050"
+  }
+ },
+ {
+  "id": "charnondeutsch2004",
+  "type": "book",
+  "title": "The Spanish Gypsy: The History of a European Obsession",
+  "issued": {
+   "date-parts": [
+    [
+     2004
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Charnon-Deutsch",
+    "given": "Lou"
+   }
+  ],
+  "publisher": "Pennsylvania State University Press",
+  "title-short": "The Spanish Gypsy…",
+  "publisher-place": "University Park",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2003010254"
+  }
+ },
+ {
+  "id": "flint2009",
+  "type": "book",
+  "title": "The Transatlantic Indian: 1776–1930",
+  "issued": {
+   "date-parts": [
+    [
+     2009
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Flint",
+    "given": "Kate"
+   }
+  ],
+  "publisher": "Princeton University Press",
+  "title-short": "The Transatlantic Indian…",
+  "publisher-place": "Princeton",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2008030164"
+  }
+ },
+ {
+  "id": "smith2000",
+  "type": "book",
+  "title": "Reimagining Indians: Native Americans through Anglo Eyes, 1880–1940",
+  "issued": {
+   "date-parts": [
+    [
+     2000
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Smith",
+    "given": "Sherry L."
+   }
+  ],
+  "publisher": "Oxford University Press",
+  "title-short": "Reimagining Indians…",
+  "publisher-place": "Oxford",
+  "srom-sourced": {
+   "publisher-place": "LCCN 99059096"
+  }
+ },
+ {
+  "id": "deloria1998",
+  "type": "book",
+  "title": "Playing Indian",
+  "issued": {
+   "date-parts": [
+    [
+     1998
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Deloria",
+    "given": "Philip J."
+   }
+  ],
+  "publisher": "Yale University Press",
+  "publisher-place": "New Haven",
+  "srom-sourced": {
+   "publisher-place": "LCCN 97030936"
+  }
+ },
+ {
+  "id": "delafuente2020",
+  "type": "book",
+  "title": "Becoming Free, Becoming Black: Race, Freedom, and Law in Cuba, Virginia, and Louisiana",
+  "issued": {
+   "date-parts": [
+    [
+     2020
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Fuente",
+    "given": "Alejandro",
+    "dropping-particle": "de la"
+   },
+   {
+    "family": "Gross",
+    "given": "Ariela J."
+   }
+  ],
+  "publisher": "Cambridge University Press",
+  "title-short": "Becoming Free, Becoming Black…",
+  "publisher-place": "Cambridge",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2019018404"
+  }
+ },
+ {
+  "id": "hogarth2017",
+  "type": "book",
+  "title": "Medicalizing Blackness: Making Racial Difference in the Atlantic World, 1780–1840",
+  "issued": {
+   "date-parts": [
+    [
+     2017
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Hogarth",
+    "given": "Rana A."
+   }
+  ],
+  "publisher": "University of North Carolina Press",
+  "title-short": "Medicalizing Blackness…",
+  "publisher-place": "Chapel Hill",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2017011938"
+  }
+ },
+ {
+  "id": "kendi2016",
+  "type": "book",
+  "title": "Stamped from the Beginning: The Definitive History of Racist Ideas in America",
+  "issued": {
+   "date-parts": [
+    [
+     2016
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Kendi",
+    "given": "Ibram X."
+   }
+  ],
+  "publisher": "Nation",
+  "title-short": "Stamped from the Beginning…",
+  "publisher-place": "New York",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2015033671"
+  }
+ },
+ {
+  "id": "trumpener1992",
+  "type": "article-journal",
+  "title": "The Time of the Gypsies: A “People without History” in the Narratives of the West",
+  "container-title": "Critical Inquiry",
+  "issued": {
+   "date-parts": [
+    [
+     1992
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Trumpener",
+    "given": "Katie"
+   }
+  ],
+  "volume": "18",
+  "issue": "4",
+  "page": "843–884",
+  "DOI": "10.1086/448659",
+  "title-short": "The Time of the Gypsies…"
+ },
+ {
+  "id": "weinstein1960",
+  "type": "book",
+  "title": "Ambassador from Venice: Pietro Pasqualigo in Lisbon, 1501",
+  "issued": {
+   "date-parts": [
+    [
+     1960
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Weinstein",
+    "given": "Donald"
+   }
+  ],
+  "publisher": "University of Minnesota Press",
+  "title-short": "Ambassador from Venice…",
+  "publisher-place": "Minneapolis",
+  "srom-sourced": {
+   "publisher-place": "LCCN 60014289"
+  }
+ },
+ {
+  "id": "memoircabot1831",
+  "type": "book",
+  "title": "A Memoir of Sebastian Cabot; with a Review of the History of Maritime Discovery",
+  "issued": {
+   "date-parts": [
+    [
+     1831
+    ]
+   ]
+  },
+  "publisher-place": "Philadelphia",
+  "title-short": "A Memoir of Sebastian Cabot…",
+  "publisher": "Carey and Lea",
+  "srom-sourced": {
+   "publisher": "LCCN 06036141 (Philadelphia : Carey and Lea)"
+  }
+ },
+ {
+  "id": "columbus1893",
+  "type": "book",
+  "title": "The Journal of Christopher Columbus",
+  "issued": {
+   "date-parts": [
+    [
+     1893
+    ]
+   ]
+  },
+  "publisher-place": "London",
+  "translator": [
+   {
+    "family": "Markham",
+    "given": "Clements R."
+   }
+  ],
+  "publisher": "Hakluyt Society",
+  "srom-sourced": {
+   "publisher": "LCCN 02007950 (London : Printed for the Hakluyt Society)"
+  }
+ },
+ {
+  "id": "soulis1961",
+  "type": "article-journal",
+  "title": "The Gypsies in the Byzantine Empire and the Balkans in the Late Middle Ages",
+  "container-title": "Dumbarton Oaks Papers",
+  "issued": {
+   "date-parts": [
+    [
+     1961
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Soulis",
+    "given": "George C."
+   }
+  ],
+  "volume": "15",
+  "title-short": "The Gypsies in the Byzantine Empire…"
+ },
+ {
+  "id": "mangas2024",
+  "type": "thesis",
+  "author": [
+   {
+    "family": "Mangas",
+    "given": "Francisco"
+   }
+  ],
+  "title": "A Outra Minoria: Uma história dos Ciganos portugueses durante a Época Moderna",
+  "publisher": "University of Porto",
+  "issued": {
+   "date-parts": [
+    [
+     2024
+    ]
+   ]
+  },
+  "note": "praca doktorska",
+  "title-short": "A Outra Minoria…",
+  "srom-as-written": {
+   "note": "PhD diss."
+  }
+ },
+ {
+  "id": "beretario1617",
+  "type": "book",
+  "title": "Iosephi Anchietae Societatis Iesv Sacerdotis in Brasilia Defvncti Vita",
+  "issued": {
+   "date-parts": [
+    [
+     1617
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Beretario",
+    "given": "Sebastiano"
+   }
+  ],
+  "title-short": "Iosephi Anchietae…"
+ },
+ {
+  "id": "elvas1932",
+  "type": "book",
+  "title": "The True Relation of the Hardships Suffered by Governor Hernando de Soto",
+  "issued": {
+   "date-parts": [
+    [
+     1932
+    ]
+   ]
+  },
+  "author": [
+   {
+    "literal": "A Gentleman of Elvas"
+   }
+  ],
+  "publisher": "Florida State Historical Society",
+  "translator": [
+   {
+    "family": "Robertson",
+    "given": "James"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Robertson",
+    "given": "James"
+   }
+  ],
+  "title-short": "The True Relation…",
+  "publisher-place": "DeLand",
+  "srom-sourced": {
+   "publisher-place": "LCCN 33005239"
+  }
+ },
+ {
+  "id": "martinezserna2009",
+  "type": "chapter",
+  "title": "Procurators and the Making of the Jesuits’ Atlantic Network",
+  "container-title": "Soundings in Atlantic History: Latent Structures and Intellectual Currents, 1530–1830",
+  "issued": {
+   "date-parts": [
+    [
+     2009
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Martínez-Serna",
+    "given": "Gabriel"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Bailyn",
+    "given": "Bernard"
+   },
+   {
+    "family": "Denault",
+    "given": "Patricia L."
+   }
+  ],
+  "publisher": "Harvard University Press",
+  "title-short": "Procurators and the Making of the Jesuits’ Atlantic Network",
+  "publisher-place": "Cambridge, Mass.",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2008053246 (the volume)"
+  }
+ },
+ {
+  "id": "schmidl1938",
+  "type": "book",
+  "title": "Derrotero y viaje a España y las Indias, 1534–1554",
+  "issued": {
+   "date-parts": [
+    [
+     1938
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Schmidl",
+    "given": "Ulrico"
+   }
+  ],
+  "publisher": "Universidad Nacional de Litoral",
+  "translator": [
+   {
+    "family": "Wernicke",
+    "given": "Edmundo"
+   }
+  ],
+  "title-short": "Derrotero y viaje a España y las Indias…",
+  "publisher-place": "Santa Fe",
+  "srom-sourced": {
+   "publisher-place": "LCCN 40034323 (the record reads “Sante Fe”; publisher there: Instituto Social, Universidad Nacional del Litoral)"
+  }
+ },
+ {
+  "id": "actas1915",
+  "type": "book",
+  "title": "Actas da Camara da Villa de S. Paulo, 1640–1652",
+  "issued": {
+   "date-parts": [
+    [
+     1915
+    ]
+   ]
+  },
+  "publisher": "Archivo Municipal",
+  "volume": "5",
+  "title-short": "Actas da Camara da Villa de S. Paulo…"
+ },
+ {
+  "id": "monteiro2018",
+  "type": "book",
+  "title": "Blacks of the Land: Indian Slavery, Settler Society, and the Portuguese Colonial Enterprise in South America",
+  "issued": {
+   "date-parts": [
+    [
+     2018
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Monteiro",
+    "given": "John M."
+   }
+  ],
+  "publisher": "Cambridge University Press",
+  "translator": [
+   {
+    "family": "Woodard",
+    "given": "James"
+   },
+   {
+    "family": "Weinstein",
+    "given": "Barbara"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Woodard",
+    "given": "James"
+   },
+   {
+    "family": "Weinstein",
+    "given": "Barbara"
+   }
+  ],
+  "title-short": "Blacks of the Land…"
+ },
+ {
+  "id": "fotta2019",
+  "type": "article-journal",
+  "title": "The Figure of the Gypsy (<i>Cigano</i>) as a Signpost for Crises of the Social Hierarchy (Bahia, 1590s–1900s)",
+  "container-title": "International Review of Social History",
+  "issued": {
+   "date-parts": [
+    [
+     2019
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Fotta",
+    "given": "Martin"
+   }
+  ],
+  "volume": "65",
+  "issue": "2",
+  "DOI": "10.1017/S0020859019000713",
+  "title-short": "The Figure of the Gypsy…"
+ },
+ {
+  "id": "herzog2003",
+  "type": "book",
+  "title": "Defining Nations: Immigrants and Citizens in Early Modern Spain and Spanish America",
+  "issued": {
+   "date-parts": [
+    [
+     2003
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Herzog",
+    "given": "Tamar"
+   }
+  ],
+  "publisher": "Yale University Press",
+  "title-short": "Defining Nations…",
+  "publisher-place": "New Haven",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2002011548"
+  }
+ },
+ {
+  "id": "gomezalfaro1999",
+  "type": "book",
+  "title": "Deportaciones de Gitanos",
+  "issued": {
+   "date-parts": [
+    [
+     1999
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Gómez Alfaro",
+    "given": "Antonio"
+   },
+   {
+    "family": "Lopes da Costa",
+    "given": "Elisa Maria"
+   },
+   {
+    "family": "Floate",
+    "given": "Sharon Sillers"
+   }
+  ],
+  "publisher": "Centre de recherches tsiganes"
+ },
+ {
+  "id": "gomezalfaro1993",
+  "type": "book",
+  "title": "The Great Gypsy Round-Up: Spain, the General Imprisonment of Gypsies in 1749",
+  "issued": {
+   "date-parts": [
+    [
+     1993
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Gómez Alfaro",
+    "given": "Antonio"
+   }
+  ],
+  "publisher": "University of Hertfordshire Press",
+  "title-short": "The Great Gypsy Round-Up…"
+ },
+ {
+  "id": "oreilly2003",
+  "type": "chapter",
+  "title": "<i>Divide et impera</i>: Race, Ethnicity, and Administration in Early 18th-Century Habsburg Hungary",
+  "container-title": "Racial Discrimination and Ethnicity in European History",
+  "issued": {
+   "date-parts": [
+    [
+     2003
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "O’Reilly",
+    "given": "William"
+   }
+  ],
+  "editor": [
+   {
+    "literal": "Gudmundur Hálfdánarson"
+   },
+   {
+    "family": "Isaacs",
+    "given": "Anne Katherine"
+   }
+  ],
+  "publisher": "Edizioni Plus",
+  "page": "77–100",
+  "title-short": "<i>Divide et impera</i>…",
+  "publisher-place": "Pisa",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2004430927 (the volume; Pisa : PLUS, Università di Pisa)"
+  }
+ },
+ {
+  "id": "pym2007",
+  "type": "book",
+  "title": "The Gypsies of Early Modern Spain",
+  "issued": {
+   "date-parts": [
+    [
+     2007
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Pym",
+    "given": "Richard"
+   }
+  ],
+  "publisher": "Palgrave Macmillan",
+  "publisher-place": "Basingstoke",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2006051019"
+  }
+ },
+ {
+  "id": "paucke1959",
+  "type": "book",
+  "title": "Zwettler Codex 420",
+  "issued": {
+   "date-parts": [
+    [
+     1959
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Paucke",
+    "given": "Florian"
+   }
+  ],
+  "publisher": "Wilhelm Braumuller University",
+  "editor": [
+   {
+    "family": "Becker-Donner",
+    "given": "Etta"
+   }
+  ],
+  "publisher-place": "Wien",
+  "srom-sourced": {
+   "publisher-place": "LCCN 66083415 (Wien, W. Braumüller)"
+  }
+ },
+ {
+  "id": "radding1997",
+  "type": "book",
+  "title": "Wandering Peoples: Colonialism, Ethnic Spaces, and Ecological Frontiers in Northwestern Mexico, 1700–1850",
+  "issued": {
+   "date-parts": [
+    [
+     1997
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Radding",
+    "given": "Cynthia"
+   }
+  ],
+  "publisher": "Duke University Press",
+  "title-short": "Wandering Peoples…",
+  "publisher-place": "Durham",
+  "srom-sourced": {
+   "publisher-place": "LCCN 96035147"
+  }
+ },
+ {
+  "id": "morenoalonso1983",
+  "type": "article-journal",
+  "title": "De Cadiz a Veracruz en 1745",
+  "container-title": "Historiografía y bibliografía Americanistas",
+  "issued": {
+   "date-parts": [
+    [
+     1983
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Moreno Alonso",
+    "given": "Manuel"
+   }
+  ],
+  "volume": "27"
+ },
+ {
+  "id": "scarano1996",
+  "type": "article-journal",
+  "title": "The Jíbaro Masquerade and the Subaltern Politics of Creole Identity Formation in Puerto Rico, 1745–1823",
+  "container-title": "American Historical Review",
+  "issued": {
+   "date-parts": [
+    [
+     1996
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Scarano",
+    "given": "Francisco A."
+   }
+  ],
+  "volume": "101",
+  "issue": "5",
+  "DOI": "10.2307/2170177",
+  "title-short": "The Jíbaro Masquerade…"
+ },
+ {
+  "id": "poisson1900",
+  "type": "chapter",
+  "title": "Lettre au P.re Paul du Poisson; aux Akensas, October 3, 1727",
+  "container-title": "The Jesuit Relations and Allied Documents",
+  "issued": {
+   "date-parts": [
+    [
+     1900
+    ]
+   ]
+  },
+  "editor": [
+   {
+    "family": "Thwaites",
+    "given": "Reuben Gold"
+   }
+  ],
+  "publisher-place": "Cleveland",
+  "volume": "67",
+  "title-short": "Lettre au P.re Paul du Poisson…",
+  "publisher": "The Burrows Brothers Company",
+  "srom-sourced": {
+   "publisher": "vol. 67 title page (archive.org jesuitrelationsa67jesuuoft): Cleveland: The Burrows Brothers Company"
+  }
+ },
+ {
+  "id": "berquinduvallon1803",
+  "type": "book",
+  "title": "Vue de la colonie Espagnole du Mississipi, ou des provinces de Louisiane et Floride Occidentale, en l’année 1802",
+  "issued": {
+   "date-parts": [
+    [
+     1803
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Berquin-Duvallon",
+    "given": "Pierre-Louis"
+   }
+  ],
+  "publisher-place": "Paris",
+  "title-short": "Vue de la colonie Espagnole du Mississipi…",
+  "srom-as-written": {
+   "title": "Vue de la colonie Espagnole du Mississipi, ou des provinces de Louisiane et Floride Occidentale,en l’année 1802"
+  },
+  "publisher": "Imprimerie expéditive",
+  "srom-sourced": {
+   "publisher": "LCCN 01008750 (Paris : De l'Imprimerie expéditive)"
+  }
+ },
+ {
+  "id": "ostendorf2021",
+  "type": "article-journal",
+  "title": "Louisiana Bohémiens: Community, Race, and Empire",
+  "container-title": "Early American Studies: An Interdisciplinary Journal",
+  "issued": {
+   "date-parts": [
+    [
+     2021
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Ostendorf",
+    "given": "Ann"
+   }
+  ],
+  "volume": "19",
+  "issue": "4",
+  "DOI": "10.1353/eam.2021.0021",
+  "title-short": "Louisiana Bohémiens…"
+ },
+ {
+  "id": "ostendorf2019",
+  "type": "article-journal",
+  "title": "Racializing American “Egyptians”: Shifting Legal Discourse, 1690s–1860s",
+  "container-title": "Critical Romani Studies",
+  "issued": {
+   "date-parts": [
+    [
+     2019
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Ostendorf",
+    "given": "Ann"
+   }
+  ],
+  "volume": "2",
+  "issue": "2",
+  "page": "42–59",
+  "DOI": "10.29098/crs.v2i2.50",
+  "title-short": "Racializing American “Egyptians”…"
+ },
+ {
+  "id": "stoler2002",
+  "type": "book",
+  "title": "Carnal Knowledge: Race and the Intimate in Colonial Rule",
+  "issued": {
+   "date-parts": [
+    [
+     2002
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Stoler",
+    "given": "Ann Laura"
+   }
+  ],
+  "publisher": "University of California Press",
+  "title-short": "Carnal Knowledge…",
+  "publisher-place": "Berkeley",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2002005540"
+  }
+ },
+ {
+  "id": "milfort1802",
+  "type": "book",
+  "title": "Mémoire; ou Coup-d’Oeil Rapide Sur mes Différens Voyages et mon séjour dans la nation Crëck",
+  "issued": {
+   "date-parts": [
+    [
+     1802
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Milfort",
+    "given": "Louis LeClerc"
+   }
+  ],
+  "publisher-place": "Paris",
+  "title-short": "Mémoire…",
+  "publisher": "Imprimerie de Giguet et Michaud",
+  "srom-sourced": {
+   "publisher": "LCCN 06020497"
+  }
+ },
+ {
+  "id": "ostendorf2020",
+  "type": "article-journal",
+  "title": "“To Get Himself Out of Slavery”: Escape, Justice, and Honor in the Life of a Colonial French Louisiana Bohemian (Gypsy)",
+  "container-title": "Frühneuzeit-Info",
+  "issued": {
+   "date-parts": [
+    [
+     2020
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Ostendorf",
+    "given": "Ann"
+   }
+  ],
+  "volume": "31",
+  "page": "140–156",
+  "title-short": "“To Get Himself Out of Slavery”…"
+ },
+ {
+  "id": "relation1622",
+  "type": "book",
+  "title": "A Relation or Journall of the beginning and proceedings of the English",
+  "issued": {
+   "date-parts": [
+    [
+     1622
+    ]
+   ]
+  },
+  "publisher": "John Bellamie",
+  "title-short": "A Relation or Journall…"
+ },
+ {
+  "id": "mourt1865",
+  "type": "book",
+  "title": "Mourt’s Relation, or Journal of the Plantation at Plymouth, 1622",
+  "issued": {
+   "date-parts": [
+    [
+     1865
+    ]
+   ]
+  },
+  "publisher-place": "Boston",
+  "editor": [
+   {
+    "family": "Dexter",
+    "given": "Henry"
+   }
+  ],
+  "title-short": "Mourt’s Relation…",
+  "publisher": "J.K. Wiggin",
+  "srom-sourced": {
+   "publisher": "LCCN 03008746 (Boston, J. K. Wiggin)"
+  }
+ },
+ {
+  "id": "penn1912",
+  "type": "chapter",
+  "title": "A Letter from William Penn, Proprietary and Governor of Pennsylvania in America, to the Committee of the Free Society of Traders, 1683",
+  "container-title": "Narratives of Early Pennsylvania, West New Jersey, and Delaware, 1630–1707",
+  "issued": {
+   "date-parts": [
+    [
+     1912
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Penn",
+    "given": "William"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Myers",
+    "given": "Albert Cook"
+   }
+  ],
+  "publisher-place": "New York",
+  "title-short": "A Letter from William Penn…",
+  "publisher": "C. Scribner’s Sons",
+  "srom-sourced": {
+   "publisher": "LCCN 12004611 (the volume; New York, C. Scribner's Sons)"
+  }
+ },
+ {
+  "id": "cunniffe2023",
+  "type": "thesis",
+  "author": [
+   {
+    "family": "Cunniffe",
+    "given": "Dan"
+   }
+  ],
+  "title": "Pretending and Performing Gypsy Identity in Early Modern England, <i>c.</i> 1607–1623",
+  "publisher": "King’s College London",
+  "issued": {
+   "date-parts": [
+    [
+     2023
+    ]
+   ]
+  },
+  "note": "praca doktorska",
+  "title-short": "Pretending and Performing Gypsy Identity…",
+  "srom-as-written": {
+   "note": "PhD diss."
+  }
+ },
+ {
+  "id": "stone1882",
+  "type": "article-journal",
+  "title": "A Vindication of William Penn",
+  "container-title": "The Pennsylvania Magazine of History and Biography",
+  "issued": {
+   "date-parts": [
+    [
+     1882
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Stone",
+    "given": "Frederick"
+   }
+  ],
+  "volume": "6",
+  "issue": "2"
+ },
+ {
+  "id": "loskiel1789",
+  "type": "book",
+  "title": "Geschichte der Mission der Evangelischen Brüder unter den Indianern in Nordamerika",
+  "issued": {
+   "date-parts": [
+    [
+     1789
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Loskiel",
+    "given": "Georg Heinrich"
+   }
+  ],
+  "title-short": "Geschichte der Mission…",
+  "publisher-place": "Barby",
+  "srom-sourced": {
+   "publisher-place": "LCCN 19002213"
+  }
+ },
+ {
+  "id": "loskiel1794",
+  "type": "book",
+  "title": "History of the Mission of the United Brethren among the Indians in North America",
+  "issued": {
+   "date-parts": [
+    [
+     1794
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Loskiel",
+    "given": "George Henry"
+   }
+  ],
+  "publisher-place": "London",
+  "translator": [
+   {
+    "family": "La Trobe",
+    "given": "Christian"
+   }
+  ],
+  "title-short": "History of the Mission…"
+ },
+ {
+  "id": "jamaicalady1720",
+  "type": "book",
+  "title": "The Jamaica Lady",
+  "issued": {
+   "date-parts": [
+    [
+     1720
+    ]
+   ]
+  },
+  "publisher-place": "London",
+  "srom-as-written": {
+   "author": "Anonymous"
+  }
+ },
+ {
+  "id": "loewald1957",
+  "type": "article-journal",
+  "title": "Johann Martin Bolzius Answers a Questionnaire on Carolina and Georgia, Part I",
+  "container-title": "The William and Mary Quarterly",
+  "issued": {
+   "date-parts": [
+    [
+     1957
+    ]
+   ]
+  },
+  "volume": "14",
+  "issue": "2",
+  "DOI": "10.2307/1922111",
+  "editor": [
+   {
+    "family": "Loewald",
+    "given": "Klaus G."
+   },
+   {
+    "family": "Starika",
+    "given": "Beverly"
+   },
+   {
+    "family": "Taylor",
+    "given": "Paul S."
+   }
+  ],
+  "translator": [
+   {
+    "family": "Loewald",
+    "given": "Klaus G."
+   },
+   {
+    "family": "Starika",
+    "given": "Beverly"
+   },
+   {
+    "family": "Taylor",
+    "given": "Paul S."
+   }
+  ],
+  "title-short": "Johann Martin Bolzius Answers a Questionnaire…, Part I"
+ },
+ {
+  "id": "loewald1958",
+  "type": "article-journal",
+  "title": "Johann Martin Bolzius Answers a Questionnaire on Carolina and Georgia, Part II",
+  "container-title": "The William and Mary Quarterly",
+  "issued": {
+   "date-parts": [
+    [
+     1958
+    ]
+   ]
+  },
+  "volume": "15",
+  "issue": "2",
+  "DOI": "10.2307/1919443",
+  "editor": [
+   {
+    "family": "Loewald",
+    "given": "Klaus G."
+   },
+   {
+    "family": "Starika",
+    "given": "Beverly"
+   },
+   {
+    "family": "Taylor",
+    "given": "Paul S."
+   }
+  ],
+  "translator": [
+   {
+    "family": "Loewald",
+    "given": "Klaus G."
+   },
+   {
+    "family": "Starika",
+    "given": "Beverly"
+   },
+   {
+    "family": "Taylor",
+    "given": "Paul S."
+   }
+  ],
+  "title-short": "Johann Martin Bolzius Answers a Questionnaire…, Part II"
+ },
+ {
+  "id": "urlsperger1751",
+  "type": "book",
+  "title": "Der ausführlichen nachrichten von der königlich-gross-britannischen colonie saltzburgischer emigranten in America erster",
+  "issued": {
+   "date-parts": [
+    [
+     1751
+    ]
+   ]
+  },
+  "publisher-place": "Halle",
+  "editor": [
+   {
+    "family": "Urlsperger",
+    "given": "Samuel"
+   }
+  ],
+  "note": "University of Pennsylvania Library Special Collections",
+  "title-short": "Der ausführlichen nachrichten…"
+ },
+ {
+  "id": "muhlenberg1945",
+  "type": "book",
+  "title": "The Journals of Henry Melchior Muhlenberg",
+  "issued": {
+   "date-parts": [
+    [
+     1945
+    ]
+   ]
+  },
+  "publisher": "Muhlenberg Press",
+  "translator": [
+   {
+    "family": "Tappert",
+    "given": "Theodore G."
+   },
+   {
+    "family": "Doberstein",
+    "given": "John W."
+   }
+  ],
+  "title-short": "The Journals of Henry Melchior Muhlenberg",
+  "publisher-place": "Philadelphia",
+  "srom-sourced": {
+   "publisher-place": "LCCN 42018316 (Philadelphia, Evangelical Lutheran Ministerium…, 1942–58)"
+  }
+ },
+ {
+  "id": "ostendorf2018",
+  "type": "article-journal",
+  "title": "Contextualizing American Gypsies: Experiencing Criminality in the Colonial Chesapeake",
+  "container-title": "Maryland Historical Magazine",
+  "issued": {
+   "date-parts": [
+    [
+     2018
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Ostendorf",
+    "given": "Ann"
+   }
+  ],
+  "volume": "113",
+  "page": "192–222",
+  "title-short": "Contextualizing American Gypsies…"
+ },
+ {
+  "id": "block2021",
+  "type": "book",
+  "title": "Colonial Complexions: Race and Bodies in Eighteenth Century America",
+  "issued": {
+   "date-parts": [
+    [
+     2021
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Block",
+    "given": "Sharon"
+   }
+  ],
+  "publisher": "University of Pennsylvania Press",
+  "title-short": "Colonial Complexions…",
+  "publisher-place": "Philadelphia",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2017046033 (the 2018 edition)"
+  }
+ },
+ {
+  "id": "webb1736",
+  "type": "book",
+  "title": "Office and Authority of a Justice of Peace",
+  "issued": {
+   "date-parts": [
+    [
+     1736
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Webb",
+    "given": "George"
+   }
+  ],
+  "publisher-place": "Williamsburg",
+  "title-short": "Office and Authority of a Justice of Peace"
+ },
+ {
+  "id": "tucker1803",
+  "type": "book",
+  "title": "Blackstone’s Commentaries: With Notes of Reference to the Constitution and Laws of the Federal Government of the United States and the Commonwealth of Virginia",
+  "issued": {
+   "date-parts": [
+    [
+     1803
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Tucker",
+    "given": "St. George"
+   }
+  ],
+  "publisher-place": "Philadelphia",
+  "title-short": "Blackstone’s Commentaries…",
+  "publisher": "William Young Birch and Abraham Small",
+  "srom-sourced": {
+   "publisher": "LCCN 12013568 (Philadelphia : Published by William Young Birch, and Abraham Small …)"
+  }
+ },
+ {
+  "id": "todd2009",
+  "type": "article-journal",
+  "title": "Establishing Routes for Fiction in the United States: Walter Scott’s Novels and the Early Nineteenth-Century American Publishing Industry",
+  "container-title": "Book History",
+  "issued": {
+   "date-parts": [
+    [
+     2009
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Todd",
+    "given": "Emily B."
+   }
+  ],
+  "volume": "12",
+  "DOI": "10.1353/bh.0.0016",
+  "title-short": "Establishing Routes for Fiction…"
+ },
+ {
+  "id": "cayton2013",
+  "type": "article-journal",
+  "title": "The Authority of the Imagination in an Age of Wonder",
+  "container-title": "Journal of the Early Republic",
+  "issued": {
+   "date-parts": [
+    [
+     2013
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Cayton",
+    "given": "Andrew"
+   }
+  ],
+  "volume": "33",
+  "issue": "1",
+  "DOI": "10.1353/jer.2013.0009",
+  "title-short": "The Authority of the Imagination…"
+ },
+ {
+  "id": "scott1815",
+  "type": "book",
+  "title": "Guy Mannering; Or, the Astrologer",
+  "issued": {
+   "date-parts": [
+    [
+     1815
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Scott",
+    "given": "Walter"
+   }
+  ],
+  "publisher-place": "Edinburgh",
+  "title-short": "Guy Mannering…"
+ },
+ {
+  "id": "hofland1830",
+  "type": "book",
+  "title": "The Stolen Boy, an Indian Tale",
+  "issued": {
+   "date-parts": [
+    [
+     1830
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Hofland",
+    "given": "Barbara"
+   }
+  ],
+  "publisher-place": "New York",
+  "title-short": "The Stolen Boy…"
+ },
+ {
+  "id": "trumpener1997",
+  "type": "book",
+  "title": "Bardic Nationalism: The Romantic Novel and the British Empire",
+  "issued": {
+   "date-parts": [
+    [
+     1997
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Trumpener",
+    "given": "Katie"
+   }
+  ],
+  "publisher": "Princeton University Press",
+  "title-short": "Bardic Nationalism…",
+  "publisher-place": "Princeton",
+  "srom-sourced": {
+   "publisher-place": "LCCN 96039166"
+  }
+ },
+ {
+  "id": "clinton1849",
+  "type": "book",
+  "title": "The Life and Writings of De Witt Clinton",
+  "issued": {
+   "date-parts": [
+    [
+     1849
+    ]
+   ]
+  },
+  "publisher-place": "New York",
+  "editor": [
+   {
+    "family": "Cambell",
+    "given": "William"
+   }
+  ],
+  "title-short": "The Life and Writings of De Witt Clinton",
+  "publisher": "Baker and Scribner",
+  "srom-sourced": {
+   "publisher": "LCCN 07019566"
+  }
+ },
+ {
+  "id": "pratt1992",
+  "type": "book",
+  "title": "Imperial Eyes: Travel Writing and Transculturation",
+  "issued": {
+   "date-parts": [
+    [
+     1992
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Pratt",
+    "given": "Mary Louise"
+   }
+  ],
+  "publisher": "Routledge",
+  "title-short": "Imperial Eyes…",
+  "publisher-place": "London",
+  "srom-sourced": {
+   "publisher-place": "LCCN 91021435"
+  }
+ },
+ {
+  "id": "morgan2004",
+  "type": "book",
+  "title": "Laboring Women: Reproduction and Gender in New World Slavery",
+  "issued": {
+   "date-parts": [
+    [
+     2004
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Morgan",
+    "given": "Jennifer L."
+   }
+  ],
+  "publisher": "University of Pennsylvania Press",
+  "title-short": "Laboring Women…",
+  "publisher-place": "Philadelphia",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2003066597"
+  }
+ },
+ {
+  "id": "wollon1952",
+  "type": "article-journal",
+  "title": "Notes and Documents: Sir Augustus J. Foster and “the Wild Natives of the Woods”, 1805–1807",
+  "container-title": "The William and Mary Quarterly",
+  "issued": {
+   "date-parts": [
+    [
+     1952
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Wollon",
+    "given": "Dorothy"
+   },
+   {
+    "family": "Kinard",
+    "given": "Margaret"
+   }
+  ],
+  "volume": "9",
+  "issue": "2",
+  "DOI": "10.2307/1925349",
+  "title-short": "Sir Augustus J. Foster…",
+  "srom-as-written": {
+   "title": "Notes and Documents: Sir Augustus J. Foster and ‘the Wild Natives of the Woods,’ 1805–1807"
+  }
+ },
+ {
+  "id": "lambert1813",
+  "type": "book",
+  "title": "Travels through Canada, and the United States of North America, in the Years 1806, 1807, & 1808",
+  "issued": {
+   "date-parts": [
+    [
+     1813
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Lambert",
+    "given": "John"
+   }
+  ],
+  "publisher-place": "London",
+  "title-short": "Travels through Canada…",
+  "publisher": "C. Cradock and W. Joy",
+  "srom-sourced": {
+   "publisher": "LCCN 02000843 (London, Printed for C. Cradock and W. Joy; Edinburgh, Doig and Stirling [etc.])"
+  }
+ },
+ {
+  "id": "vowell1831",
+  "type": "book",
+  "title": "Campaigns and Cruises in Venezuela and New Granada",
+  "issued": {
+   "date-parts": [
+    [
+     1831
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Vowell",
+    "given": "Richard Longeville"
+   }
+  ],
+  "publisher-place": "London",
+  "title-short": "Campaigns and Cruises…",
+  "publisher": "Longman and Co.",
+  "srom-sourced": {
+   "publisher": "LCCN 01021439"
+  }
+ },
+ {
+  "id": "vigne1833",
+  "type": "book",
+  "title": "Six Months in America",
+  "issued": {
+   "date-parts": [
+    [
+     1833
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Vigne",
+    "given": "Godfrey"
+   }
+  ],
+  "publisher-place": "Philadelphia",
+  "publisher": "Thomas T. Ash",
+  "srom-sourced": {
+   "publisher": "LCCN 01028360 (Philadelphia, Published by Thomas T. Ash)"
+  }
+ },
+ {
+  "id": "robinson2021",
+  "type": "book",
+  "title": "Vagrancy in the Victorian Age: Representing the Wandering Poor in Nineteenth-Century Literature and Culture",
+  "issued": {
+   "date-parts": [
+    [
+     2021
+    ]
+   ]
+  },
+  "author": [
+   {
+    "family": "Robinson",
+    "given": "Alistair"
+   }
+  ],
+  "publisher": "Cambridge University Press",
+  "title-short": "Vagrancy in the Victorian Age…",
+  "publisher-place": "Cambridge",
+  "srom-sourced": {
+   "publisher-place": "LCCN 2021028584"
+  }
+ }
+]
