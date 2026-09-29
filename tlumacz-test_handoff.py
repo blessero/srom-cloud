@@ -197,6 +197,36 @@ expect("E6: --pair-src maps source labels 2, 3 to printed 3, 4; a row without a 
 m0 = rows6([])
 expect("E6 control: without --pair-src the cells keep the source labels 2, 3", m0.get("q-two") == "2" and m0.get("q-three") == "3")
 
+# T26 (29.09.2026): the hand-back ("Back" in handoff.md). The Word file in our work/<id>/ is the master; we import it
+# with docx_in.py (the md is never edited by hand) and name the files with sha256 in a delivery E-item; srom-typeset
+# takes them with take_back.py, which re-imports the master and requires the md to equal that import byte for byte.
+import hashlib, shutil
+expect("T26: handoff.md 'Back' — Word master in srom-tlumacz's work/<id>/, delivery E-item, take_back.py",
+       "## Back:" in HO and "that Word file is the\n   master" in HO and "delivery: …" in HO and "take_back.py" in HO)
+TB = os.path.join(S, "take_back.py")
+DL = os.path.join(D, "tl", "work", "x"); SD = os.path.join(D, "ts", "work", "x")
+os.makedirs(DL); os.makedirs(SD)
+shutil.copy(SRC, os.path.join(SD, "x_src.md")); shutil.copy(REFS_SRC, os.path.join(SD, "refs.json"))
+subprocess.run([sys.executable, os.path.join(S, "export_work.py"), plain, "-o", os.path.join(DL, "x_robocza.docx")], capture_output=True)
+subprocess.run([sys.executable, os.path.join(S, "docx_in.py"), os.path.join(DL, "x_robocza.docx"), "-o", os.path.join(DL, "x_pl.md")], capture_output=True)
+shutil.copy(REFS_TLUM, os.path.join(DL, "x_refs_tlum.json"))
+open(os.path.join(DL, "x_front_pl.md"), "w", encoding="utf-8").write(FPL)
+def sha(n, short=False):
+    h = hashlib.sha256(open(os.path.join(DL, n), "rb").read()).hexdigest()
+    return f"{h[:8]}…{h[-7:]}" if short else h
+def take(names, short=False):
+    exp = [a for n in names for a in ("--expect", f"{n}={sha(n, short)}")]
+    r = subprocess.run([sys.executable, TB, DL, "x", "--src-dir", SD, "--out", tempfile.mkdtemp(dir=D)] + exp,
+                       capture_output=True, text=True)
+    return r.returncode, (r.stdout + r.stderr).strip().splitlines()[-1:] or [""]
+FILES = ["x_robocza.docx", "x_pl.md", "x_front_pl.md", "x_refs_tlum.json"]
+rc, last = take(FILES, short=True)
+expect("T26: delivery (Word master + its import + front + refs_tlum, sha256 as first8…last7) → TAKE-BACK OK",
+       rc == 0 and last[0].startswith("TAKE-BACK OK x"))
+open(os.path.join(DL, "x_pl.md"), "a", encoding="utf-8").write("\nDopisane ręcznie.\n")
+rc, last = take(FILES)
+expect("T26 control: md edited by hand after the import fails the take-back", rc != 0 and "FAILED" in last[0])
+
 # KNOWN GAPS (requests E1, E2, E4): these should flip when srom-typeset changes
 rc, out = pair(w("ex_s.md", "A.\n\n::: przyklad\n```\nme dikhav o kher\nI see.1SG DEF house\n'I see the house'\n```\n:::\n\nB.\n"),
                w("ex_t.md", "A.\n\n::: przyklad\n```\nme dikhaw o kher\nja widzieć.1SG DEF dom\n‘widzę dom’\n```\n:::\n\nB.\n"))

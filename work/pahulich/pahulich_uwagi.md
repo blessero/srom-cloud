@@ -105,7 +105,7 @@ Jenkins i Leroy 2021 (komentarze srom-typeset zachowane).
 ## 5. Poza przekładem
 
 - Przekłady tytułów w nawiasach kwadratowych w `refs.json` (srom-typeset prosił o przegląd): 5 propozycji w wykazie
-  pytań (brakujące podtytuły: Chėrvinski, Horváthová, Zinevych, Dal; „otechestvennoĭ” u Kireĭ/Serdiuk). Reszta bez uwag.
+  pytań (brakujące podtytuły: Chėrvinski, Horváthová, Zinevych, Dal; „otechestvennoĭ” u Kireĭ/Serdiuk). Reszta bez uwag. — Wprowadzone przez srom-typeset (T25, 29.09.2026 18:42); wiersze usunięte z wykazu pytań.
 - Słowa kluczowe: autorskie (6), polskie w przekładzie; angielskie „jak w oryginale”.
 - Wydania polskie (S1–S7) trafią do `pahulich_refs_tlum.json` dopiero ze stronami (wtedy odesłanie autorki po średniku,
   Kanon § 12.2.4 a).
