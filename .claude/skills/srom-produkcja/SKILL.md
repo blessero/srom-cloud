@@ -37,6 +37,7 @@ the DOCX reader; the tests are what proves the toolchain still does what this fi
 | 5 Word | `python3 $S/export_work.py art.md -o art_robocza.docx` → you edit in Word → `docx_in.py art_robocza.docx -o art.md` (lossless) | `IMPORT OK` | the Word file is the master once exported; proof: `build.py --proof` |
 | 6 build | `python3 $S/build.py art.md --refs refs.json --out build/` | `PASS` / `FAIL` + `_report.md` | warnings; **`_pytania.md/.csv`** = the query sheet for author and editor |
 | 7 InDesign | start from `SROM_szablon_v3.idml`; place DOCX with preset "SROM – pandoc", run `_postimport.jsx`, after layout `_ibidem.jsx` (and `_gwiazdki.jsx` if written), last `srom_final_pass.jsx` | `RESULT: OK` | per `references/indesign.md` |
+| 8 volume lists | `python3 $S/volume_lists.py noty volumes/<vol>/srom_master_v3.csv --authors volumes/autorzy.tsv -o noty.docx` ("Noty o autorach"; placed like an article) | `NOTY OK/CHECK n` + report |
 
 Re-run step 2 after 4a/5 (normalize is idempotent). `check.py art.md --refs refs.json` can be run
 at any time; `build.py` runs it itself.
