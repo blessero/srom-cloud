@@ -52,29 +52,64 @@ run through `normalize.py`: Polish typography is applied to the translation, aft
 - Queries: rows in the `_pytania` columns `adresat;rodzaj;przypis;dzieło;szczegóły`, saved as a CSV; the
   `przypis` cell holds the note label from `<id>_src.md` — the build turns it into the printed number.
 
-## Back: what srom-typeset accepts
+## Back: what srom-typeset accepts, and how (29.09.2026, review row 3)
 
-`<id>_front_pl.md` from srom-tlumacz (Kanon § 12.2.2): the Polish title (title and subtitle kept apart), the
-Polish abstract, the Polish keywords; the English ones stay as in the original. Header data for the master CSV,
-not built into the DOCX. Its format (sections, order, headings) is the docstring of srom-tlumacz's
-`tlumacz-front_check.py`, which checks it (`FRONT OK`).
+Who does what (practice since the first drafts, now the contract):
 
-`<id>_pl.md` from srom-tlumacz is turned into the editor's working copy; **the editor's Word file is the
-master** from then on:
+1. **Working copy.** srom-tlumacz exports `<id>_pl.md` to `<id>_robocza.docx` in its own `work/<id>/`
+   (`export_work.py`). The editor edits that file there. From the editor's first edit, **that Word file is the
+   master**; the SROM-MD is only its import. Never re-export over it: a new export goes to a temp folder or a new
+   name (`<id>_robocza_v2.docx`), and the editor says which file is the master.
+2. **Import and checks: srom-tlumacz**, in its `work/<id>/`, after each editing round the editor hands back:
+   `docx_in.py <id>_robocza.docx -o <id>_pl.md` (recognised as a working copy, lossless), then `check.py --pair`,
+   `build.py … --draft` and `tlumacz-front_check.py` as below. The imported `<id>_pl.md` is not edited by hand: a
+   correction goes into the Word master and the import is repeated.
+3. **Delivery item.** srom-tlumacz writes an E-item `## E<n> — [<Author>] delivery: …` (mirror of the T-items
+   out), with the sha256 (`first8…last7`, or full) of every file delivered:
+
+   | file | required | what |
+   |---|---|---|
+   | `<id>_robocza.docx` | yes | the editor's Word file, the master |
+   | `<id>_pl.md` | yes | its import by `docx_in.py`, byte for byte |
+   | `<id>_front_pl.md` | yes | Polish title, abstract, keywords (below) |
+   | `<id>_refs_tlum.json` | if the translation adds citations | declared additions (`srom-added`) |
+   | `<id>_pytania_tlum.csv` | if there are query rows | the translator's query sheet |
+
+   It also names the srom-typeset `refs.json` sha256 it was checked against (the one in the last T-item), and the
+   verdicts (`CHECK OK`, build `PASS`, `FRONT OK`). A later editing round means a new delivery item that
+   supersedes the earlier one. The copies at srom-typeset are never edited.
+4. **Take-back: srom-typeset** copies the delivery into its own `work/<id>/pl/` and checks it:
+   `take_back.py <srom-tlumacz>/work/<id> <id> --src-dir work/<id> --expect <file>=<sha256> …` (one `--expect`
+   per file of the item). It compares the sha256, requires `<id>_pl.md` to equal a fresh import of the Word master,
+   runs `check.py --pair` against the frozen `<id>_src.md` and `refs.json`, and writes `SHA256SUMS`. If `refs.json`
+   changed after the item's value (a later T-item), the pair check and build use the current one, and the T-item
+   answer says so. srom-typeset **builds from `work/<id>/pl/`** into `work/<id>/build/`, and answers with a
+   status line (and a T-item if something is wrong).
+
+`<id>_front_pl.md` (Kanon § 12.2.2): the Polish title (title and subtitle kept apart), the Polish abstract, the
+Polish keywords; the English ones stay as in the original. Header data for the master CSV, not built into the
+DOCX. Its format (sections, order, headings) is the docstring of srom-tlumacz's `tlumacz-front_check.py`, which
+checks it (`FRONT OK`).
+
+The commands (`$S` = srom-typeset's `scripts/`):
 
 ```
-python3 $S/export_work.py <id>_pl.md -o <id>_robocza.docx        # editor works in Word
-python3 $S/docx_in.py <id>_robocza.docx -o <id>_pl.md            # recognised as a working copy, lossless
+python3 $S/export_work.py <id>_pl.md -o <id>_robocza.docx        # srom-tlumacz, once; the editor works in Word
+python3 $S/docx_in.py <id>_robocza.docx -o <id>_pl.md            # srom-tlumacz, after each round; lossless
 python3 $S/check.py --pair <id>_src.md <id>_pl.md --refs refs.json --refs <id>_refs_tlum.json   # handoff check
 # terminology slot (advisory, never blocks; when srom-tlumacz provides it):
 #   python3 <srom-tlumacz>/scripts/tb_check.py <id>_src.md <id>_pl.md --tb tlumacz-tb.tsv --csv <id>_pytania_tb.csv
-python3 $S/build.py <id>_pl.md --refs refs.json --refs <id>_refs_tlum.json --pair-src <id>_src.md \
-        --queries <id>_pytania_tlum.csv [--queries <id>_pytania_tb.csv] --out build/
+python3 $S/take_back.py <srom-tlumacz>/work/<id> <id> --src-dir work/<id> --expect <id>_pl.md=… …   # srom-typeset
+python3 $S/build.py work/<id>/pl/<id>_pl.md --refs work/<id>/refs.json --refs work/<id>/pl/<id>_refs_tlum.json \
+        --pair-src work/<id>/<id>_src.md --queries work/<id>/pl/<id>_pytania_tlum.csv [--queries <id>_pytania_tb.csv] \
+        --out work/<id>/build/
 ```
 
 In Word: tokens can be corrected in place (keep the brackets and `@key`); paragraphs styled "SROM …" keep
 their style — consecutive paragraphs in one block style (title note, motto, nota, dialog) come back as one block
 (E16); comments are yours to handle (dropped and listed on import); tracked changes are accepted on import.
+Note labels in the imported file are Word's numbering (translator's notes too, `[^t1]` comes back as a number);
+the formula `– przyp. tłum.` still marks them, and `--pair-src` keeps the printed numbers and the query rows right.
 
 `check.py --pair` (handoff check): same paragraphs and headings, same note markers per paragraph, same
 citation keys in each note in the same order — translator/editorial notes and the title note left out, declared

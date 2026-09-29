@@ -59,11 +59,14 @@ work cited just before it and is listed.
 **C. Translated article** — the translating is srom-tlumacz's, in its own chat; the contract is
 `references/handoff.md`. Here: 1a/1b → 3 → 4a/4b **in the source language** (4a with `--apply <id>_src.md --renumber`:
 note labels = printed numbers) → `check.py` → hand over
-`<id>_src.md` + refs.json + `<id>_src_front.md` (+ working copy and `build.py --source` proof for you). Back:
-`<id>_pl.md`, `<id>_refs_tlum.json` (the translation's added citations), `<id>_front_pl.md` (Polish title, abstract,
-keywords: header data for the CSV, not built) → working copy → your edits in Word → `docx_in.py` →
-`check.py --pair <id>_src.md <id>_pl.md --refs refs.json --refs <id>_refs_tlum.json` → 2 → 6 with both `--refs`,
-`--pair-src <id>_src.md` and `--queries` (merges the translator's query rows) → 7. The translator's name is front matter `tlumaczenie:` (not printed; the build report
+`<id>_src.md` + refs.json + `<id>_src_front.md` (+ working copy and `build.py --source` proof for you) with a
+T-item. Back (`handoff.md`, "Back"): srom-tlumacz makes `<id>_robocza.docx` in its `work/<id>/`, you edit it there
+(that Word file is the master), srom-tlumacz imports it (`docx_in.py`), checks it and sends a delivery E-item with
+the sha256 of `<id>_robocza.docx`, `<id>_pl.md`, `<id>_front_pl.md` (Polish title, abstract, keywords: header data
+for the CSV, not built), `<id>_refs_tlum.json`, `<id>_pytania_tlum.csv` → here `take_back.py <srom-tlumacz>/work/<id>
+<id> --src-dir work/<id> --expect …` (copies into `work/<id>/pl/`, compares sha256, re-imports the Word master,
+`check.py --pair`) → 2 → 6 from `work/<id>/pl/` with both `--refs`, `--pair-src <id>_src.md` and `--queries`
+(merges the translator's query rows) → 7. The translator's name is front matter `tlumaczenie:` (not printed; the build report
 gives the `translators_struct` value for the master CSV). Never MarkItDown: it loses italics and note markers.
 
 ## What the build guarantees (tests: `tests/`)
