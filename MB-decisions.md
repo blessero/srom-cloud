@@ -24,6 +24,7 @@ send) · **Later** (a reminder, nothing to do now).
 | GEN-9 | Print the first-edition year of a reprint, "2000 [1983]"? | Approve | nothing |
 | GEN-10 | Add DOIs the author did not give? | Decide | nothing |
 | GEN-11 | Kanon line for a quotation translated from someone else's English translation | Approve | nothing |
+| GEN-12 | Authors register: five contradictions in your author data | Look up | nothing yet |
 | V19-1 | *nomadic* → „koczowniczy”, *itinerant* → „wędrowny” in all vol. 19 texts? | Decide | nothing |
 | V19-2 | „sowiecki” or „radziecki”? | Decide | nothing |
 | V19-3 | Six shared terms (antyczarność, uinnienie, białość …) into the termbase | Approve | nothing |
@@ -75,7 +76,7 @@ send) · **Later** (a reminder, nothing to do now).
 | SYS-1 | Translator on the website, curator skill upload | Later | nothing |
 
 ## Journal-wide (GEN)
-Next free: GEN-12.
+Next free: GEN-13.
 
 ### GEN-1 · Vol. 18 copyright clause: who writes the replacement text, and where does it go?
 **Decide** · blocks **any open-access announcement** · urgent
@@ -188,6 +189,23 @@ sentence in the Kanon): „tłum. z przekładu angielskiego” (the note already
 Ostendorf and Pahulich (PAH-4). Grellmann (PAH-1) is a separate case.
 
 *Trail: D26 (e), D22, E17, T25; Kanon § 12.2.4 c.*
+
+### GEN-12 · Authors register: five contradictions in your author data
+**Look up** · blocks nothing yet (the "Noty o autorach" of an author concerned, when printed)
+
+Your "Authors INFO" file is now a table (79 authors). Where your sources disagree, it keeps what they say and flags it:
+1. Martin Fotta: affiliation "Slovak Academy of Sciences" in the file, "Instytut Etnologii Czeskiej Akademii Nauk" in
+   vol. 18. Which is current?
+2. Elena Marushiakova: "Bułgarska Akademia Nauk / Humboldt" in the file, Bratislava (Institute of Ethnology and Social
+   Anthropology) in your ORCID list. Which is current?
+3. "Chiriac Bogdan": is the surname Chiriac (the file's order) or is he Bogdan Chiriac? It decides where he sorts.
+4. Popov: "Vesselin" (file, vol. 18) or "Veselin" (ORCID list)?
+5. Three notes write "Dr jarosław", "Dr eva", "Dr johannes ries" in lower case: correct them when next printed? —
+   **recommended** yes
+
+Detail: 🔴 `srom-typeset/volumes/autorzy.tsv` (column `uwagi`)
+
+*Trail: 30.09.2026 00:50, root session [general].*
 
 ## Volume 19, all translated texts (V19)
 Next free: V19-5. Per-text choices stay under each text. Detail for V19-1 to V19-3:
