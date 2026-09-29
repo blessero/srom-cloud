@@ -30,5 +30,6 @@ one comment in pl.md and one open line in the notes sheet").
   EXPECT: /tlumacz-PLAN.md:[1-9]\nHANDOVER.md:[1-9]/m
 
 - [x] G5: committed
-  CHECK: git log -1 --format=%s
-  EXPECT: /1\.4\.2a/
+  CHECK: git log --format=%s | grep -cE '^1\.4\.2a: gates ALL MET'
+  EXPECT: /^[1-9][0-9]*$/m
+  NOTE 29.09.2026 17:44: CHECK rewritten after the cross-module review of 29.09.2026 (finding 13): `git log -1` tested the newest commit, which drifts with every later commit; it now looks for this leaf's own commit by its message. Gate closed as of its original date.

@@ -18,8 +18,9 @@ MB: open choices are recorded as assumptions in the intake and the notes sheet. 
   EXPECT: /^quotes: (\d+) in text, \1 in sheet, 0 bad class$/m
 
 - [x] G4: receipt of T17–T21 answered with status lines
-  CHECK: grep -c -E '^- T(17|18|19|20|21) — 29\.09\.2026 [0-9:]+ status:' ../_handoffs/tlumacz-to-typeset.md
+  CHECK: grep -oE '^- T(17|18|19|20|21) — 29\.09\.2026 [0-9:]+ status:' ../_handoffs/tlumacz-to-typeset.md | cut -c3-5 | sort -u | wc -l | tr -d ' '
   EXPECT: /^5$/m
+  NOTE 29.09.2026 17:44: CHECK rewritten after the cross-module review of 29.09.2026 (finding 13): it counted status lines, and later sessions added more for the same items (5 → 7); it now counts distinct items answered. Gate closed as of its original date.
 
 - [x] G5: every Polish-edition and original-text claim in the intake is backed by a catalogue or text check (manual)
   EVIDENCE: BN data.bn.org.pl API 29.09.2026: Scott „Guy Mannering czyli Astrolog” b0000002107111 (NK 1962), b0000001621265 (NK 1975, wyd. 2), przeł. A. Przedpełska-Trzeciakowska; Pratt „Imperialne spojrzenie” b0000002639481 (WUJ 2011, ISBN 9788323330370); Casanova „Światowa republika literatury” (WUJ 2017); no records for Paucke, Bogdal, Ndiaye, Kendi (author queries). Originals read in archive.org OCR / OA PDF, excerpts with line numbers in `work/ostendorf/research/originals.md`: Poisson Thwaites 67 p. 314 (l. 12209–12214), Berquin-Duvallon p. 32 (l. 1673–1675), Milfort p. 57 (l. 1636–1646), Loskiel 1789 BSB copy (l. 8711–8715, page not identified), Galletti IJRS 3/2 pp. 119, 122 (PDF). Paucke's birthplace and San Javier: es.wikipedia + RAH Historia Hispánica 35593.

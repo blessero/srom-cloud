@@ -13,5 +13,6 @@ per schema § Admission: no row passes (period eugenics vocabulary is decided pe
   EXPECT: /^B10 forms found: ([1-9]\d*)\/\1$/m
 
 - [x] G3: termbase checks still green; committed
-  CHECK: ~/.venvs/srom/bin/python tlumacz-check_tb.py --evidence | tail -1 && git log -1 --format=%s
-  EXPECT: /candidate rows: \d+, each with a verified training quote\n.*1\.3\.5c/m
+  CHECK: ~/.venvs/srom/bin/python tlumacz-check_tb.py --evidence | tail -1 && git log --format=%s | grep -cE '^1\.3\.5c: gates ALL MET'
+  EXPECT: /candidate rows: \d+, each with a verified training quote\n[1-9][0-9]*$/m
+  NOTE 29.09.2026 17:44: CHECK rewritten after the cross-module review of 29.09.2026 (finding 13): `git log -1` tested the newest commit; it now looks for this leaf's own commit by its message. Gate closed as of its original date.

@@ -47,5 +47,6 @@ Declared approach:
   EXPECT: /^[1-9]$/m
 
 - [x] G8: leaf recorded (PLAN, HANDOVER) and committed
-  CHECK: git log -1 --format=%s
-  EXPECT: /1\.3\.5b/
+  CHECK: git log --format=%s | grep -cE '^1\.3\.5b: gates ALL MET'
+  EXPECT: /^[1-9][0-9]*$/m
+  NOTE 29.09.2026 17:44: CHECK rewritten after the cross-module review of 29.09.2026 (finding 13): `git log -1` tested the newest commit, which drifts with every later commit; it now looks for this leaf's own commit by its message. Gate closed as of its original date.

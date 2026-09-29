@@ -14,8 +14,9 @@ Declared approach (MB delegated the choice, "your call"):
 - Errors found in the two articles are flagged in the register (§ F), not silently corrected or adopted.
 
 - [x] G1: both training texts registered: key, file, bibliographic line; sha256 recorded and matching
-  CHECK: cd training && shasum -a 256 -c manifest.sha256 | grep -c ': OK$'
+  CHECK: cd training && shasum -a 256 -c manifest.sha256 | grep -cE '^(POMIĘDZY PROTORASIZMEM SZLACHECKIM A RASIZMEM NAUKOWYM\.txt|Urasowienie narodu i przenarodowienie rasy\.md): OK$'
   EXPECT: /^2$/m
+  NOTE 29.09.2026 17:44: CHECK rewritten after the cross-module review of 29.09.2026 (finding 13): it counted every file in the manifest (2 → 10 as later batches were added); it now checks this leaf's two texts (Taradejna, Nowak) by name. Gate closed as of its original date.
 
 - [x] G2: schema defines CANDIDATE and the TR evidence form; all termbase checks green
   CHECK: ~/.venvs/srom/bin/python tlumacz-check_tb.py --schema --shape --vocab --precedent --evidence
@@ -43,5 +44,6 @@ Declared approach (MB delegated the choice, "your call"):
   EXPECT: /^([1-9]\d)$/m
 
 - [x] G8: leaf recorded (PLAN tree + status log, HANDOVER) and committed
-  CHECK: git log -1 --format=%s
-  EXPECT: /1\.3\.5/
+  CHECK: git log --format=%s | grep -cE '^1\.3\.5: gates ALL MET'
+  EXPECT: /^[1-9][0-9]*$/m
+  NOTE 29.09.2026 17:44: CHECK rewritten after the cross-module review of 29.09.2026 (finding 13): `git log -1` tested the newest commit, which drifts with every later commit; it now looks for this leaf's own commit by its message. Gate closed as of its original date.
