@@ -26,6 +26,9 @@ State, open decisions and the work queue: `docs/HANDOVER-*.md` — read before s
   saying done; add a test for every new behaviour; commit after a green suite.
 - Contract changes between skills are made in `handoff.md` first, then in both skills, with tests on both sides.
 - Rules live in srom-kanon only; srom-typeset implements them and cites them, never restates them.
+- Kanon versions: a rule change gets its § 17 entry in a **new** version row (header, RULES.md, srom-kanon SKILL.md;
+  `test_kanon.py` checks they agree) once the current version has been announced to srom-tlumacz; never append
+  supplements to an announced version (v1.7 carried three, review 29.09.2026). Announce each new version in a T-item.
 - InDesign scripts: ES3 (ExtendScript), report-only unless the editor asks otherwise; run on copies.
 - Substantial tasks: use the unlazy discipline (gates with runnable checks in `GATES.md`). A gate's CHECK tests what
   the leaf produced here (a file, a test, its own commit found by message), not files meant to change later

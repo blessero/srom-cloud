@@ -32,7 +32,9 @@ Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 20/20` (~510 checks). Unla
 
 ✔ closed by the editor: 1–19 — **since 26.09.2026 in Kanon v1.6** (srom-kanon `references/kanon-redakcyjny.md`,
 § 17 row 1.6); `decisions.md` is now only a rule → code → test map plus toolchain conventions (15, 18, 19).
-21 ✔ 29.09.2026 (house style v3; D3 closed; D21, italic speaker/affiliation, closed the same day: Kanon § 3.4 supplement). 20 and 22 ✔ decided 27.09.2026 (D1, D2: as implemented).
+21 ✔ 29.09.2026 (house style v3; D3 closed; D21, italic speaker/affiliation, closed the same day: Kanon § 3.4). 20 and 22 ✔ decided 27.09.2026 (D1, D2: as implemented).
+**Kanon v1.8** (29.09.2026, review 29.09.2026 row 11): the three rulings of 28–29.09 that had been added to v1.7 as
+dated supplements are now § 17 row 1.8; no rule text changed. T27 told srom-tlumacz.
 
 ## 3. Queue for Claude (in order)
 

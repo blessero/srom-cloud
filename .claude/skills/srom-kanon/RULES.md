@@ -1,4 +1,4 @@
-# SROM RULES — English digest of the Kanon (v1.7)
+# SROM RULES — English digest of the Kanon (v1.8)
 
 Normative text: `references/kanon-redakcyjny.md` — *Kanon edytorski Studia Romologica* (Polish, internal), in this skill. This file is its compact English digest; **section numbers are the Kanon's**. If the two differ, the Kanon governs and this file is corrected. New rules go into the Kanon first (with a § 17 entry), then here.
 
