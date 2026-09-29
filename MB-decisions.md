@@ -26,6 +26,8 @@ Rules:
   siglum) touch the source the translator works on. D25 — the translation is drafted; your choices are collected, none
   blocks your Word edit (the form of “gypsy” is the one real decision).
 - **Vol. 19, all texts:** D26 — cross-text terminology (nomadic/itinerant, sowiecki/radziecki, shared forms); nothing blocks.
+- **Journal-wide:** D16 — **PILNE before any open-access announcement**: replacement wording for the vol. 18 copyright
+  clause. D15 — licence: withdraw the CC BY-NC-ND option (kolegium, via MB); blocks nothing in stages 1–2.
 
 ## Text: Pahulich — CRS 8/1 (2025)
 Stage 1 done, source with srom-tlumacz (T18).
@@ -83,10 +85,6 @@ Stage 1 done, source frozen in `srom-typeset/work/scheffknecht/`; **not handed t
   Recommendation: the publisher-sourcing step you planned (catalogue lookup, each item for your approval). Will recur with
   every German/Austrian/Swiss source.
 - A4 series (14 works): no Kanon form, the CSL prints nothing. Recommendation: "(Series, n)" at the end of the description.
-- A5 German "von" (von Hippel): no Kanon rule. Recommendation: library form "Hippel, Wolfgang von", sorted under H.
-  - 28.09.2026 21:28 DECIDED (MB via D19 A4: "whatever the custom is"): Kanon § 9.3/§ 9.5 (commit ea50df6) — "Hippel, Wolfgang von",
-    sorted under H. To apply in `work/scheffknecht/refs.py`: hippel1995 `non-dropping-particle` → `dropping-particle`
-    (not done by the Ostendorf session: another session's files).
 - A6 archive abbreviations (VLA, HoA, HistA, PfA, StaatsA, StadtA) never expanded in the source (Kanon § 8.1); HoA unknown.
 - A7 a stray raised "1" after the text's last word: delete (recommended) or ask the author. A8 early printed lists held in
   archives stay literal (recommended).
@@ -95,7 +93,7 @@ Stage 1 done, source frozen in `srom-typeset/work/scheffknecht/`; **not handed t
   style) and D19 A4 (particles, sorting); one decision for both.
 
 ## Text: Ostendorf — The Romani Atlantic, ch. 3 (CUP 2026)
-Stage 1 done, source with srom-tlumacz (T19, T20); open access CC BY-NC 4.0.
+Stage 1 done, source with srom-tlumacz (T19, T21); open access CC BY-NC 4.0.
 - Pointer: D26 (vol. 19 cross-text terminology, section "Volume 19") concerns this text too.
 
 ### D19 — Ostendorf, "Familiar Outsiders Abroad" (The Romani Atlantic, CUP 2026), stage 1: open points (28.09.2026 17:35, srom-typeset)
@@ -121,10 +119,14 @@ Source frozen in `srom-typeset/work/ostendorf/` and handed to srom-tlumacz (T19)
   (note 35); Fotta's print pages; Urlsperger "erster" vs vol. 3; Tucker's volume.
 - 28.09.2026 21:28 DECIDED (MB): A3 — `tłum. i red.`, edition `red.`, unsigned texts flagged: Kanon § 7.2/§ 9.4 (ea50df6). A4 — custom of
   the name's language (LC NAF, Chicago): Kanon § 9.3/§ 9.5 (ea50df6). A5 withdrawn (the curator's fields fit a chapter;
-  the original has summary and keywords online). B1–B11, D1–D5 → the translation stage (T20). A1 corrected by srom-typeset:
+  the original has summary and keywords online). B1–B11, D1–D5 → the translation stage (T21). A1 corrected by srom-typeset:
   the chapter **is open access, CC BY-NC 4.0** (Cambridge Core) — now the same question as D17 A1. A2: 44 of 58 sourced
   (LoC, evidence in refs.json); **14 left for MB by hand** — list in `ostendorf_queries.md` A2.
 - 28.09.2026 21:29 correction (srom-typeset): 43 values sourced (not 44); the 14 left are unchanged.
+- 29.09.2026 17:50 (srom-typeset, T25): three more slips for the B list, verified: **B12** Urlsperger (n. 41): the author's title is
+  volume 1's, her "3:979" is right (vol. 3, 18th Continuation, 1752; answers D4); record to describe the whole work, **key
+  and token unchanged**. **B13** Vowell (before n. 60): the print has *Zinganées* and "those of", the author *Zingances*.
+  **B14** *Bohemes* → *Bohèmes* (1803 print). "Approve B" covers them; none touches the Word copy.
 
 ### D22 — Ostendorf translation: choices collected for MB (29.09.2026 03:41, srom-tlumacz)
 Draft done without MB's feedback, as MB asked (29.09.2026): `srom-tlumacz/work/ostendorf/ostendorf_robocza.docx` (Word copy),
@@ -173,6 +175,8 @@ Source frozen in `srom-typeset/work/tittel/` and handed to srom-tlumacz (T20). D
   Also: four DOIs the author does not give — add? (C).
 - D1–D3 questions to the author: Ruch's university; the Kant volume's year; "Berliner Monatsschrift".
 - The Geulen lecture (n. 31): its date could not be read by script (bot check) — please look once (Kanon § 8.6).
+- 29.09.2026 17:50 (srom-typeset, T25): **B11** n. 49 MEW 23 "743" → **741** (verified; srom-tlumacz E19 [Tittel]; same as D25 e).
+  If approved, the token changes in the source and the translation (new T-item); the Polish edition's page is printed anyway.
 
 ### D25 — Tittel translation: choices collected for MB (29.09.2026 04:40, srom-tlumacz)
 (Time correction 29.09.2026 17:47, srom-tlumacz: written before 04:32:55, when it was committed; „04:40” was not read from the clock.)
@@ -251,6 +255,11 @@ choices stay in D22, D23, D25. Nothing here blocks your Word edits.
   osiedlenie” only for the 1964 action), przynależność (*belonging*). Recommendation: approve → HOUSE.
 - (e) One Kanon gap raised twice: the annotation for a quotation translated from someone else's published English
   translation („tłum. z przekładu angielskiego”): Ostendorf (D22, E17) and Pahulich (D23 S9). One decision covers both.
+  - 29.09.2026 17:50 proposal (srom-typeset, T25), Kanon § 12.2.4 c, second sentence: "w przeciwnym razie z przekładu angielskiego, z
+    adnotacją w przypisie: `tłum. z przekładu angielskiego autora` / `autorki` (przekład autora) albo `tłum. z przekładu
+    angielskiego` (przekład opublikowany, przywołany przez autora – przypis odsyła do tego przekładu)". The feminine is
+    grammar, not a new rule. Grellmann (D23 S10: an old English translation that differs where the argument rests on it) is a
+    separate case and stays with D23. Approve → Kanon line + § 17 row, srom-typeset.
 - For information, West Ohueri (before its intake): its *Egyptians* (22×) are the present-day Balkan group, not the
   early-modern designation the other drafts put in quotation marks (D13); *racial belonging* (16×) needs a form.
 

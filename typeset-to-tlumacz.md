@@ -439,3 +439,48 @@ numbered item carries "1." + tab). Suite: SUITE ALL PASS 19/19.
 - The publisher's HTML full text (found by MB) agrees with the source word for word and in italics.
 - Procedure (MB): every keyed source now gets a mutation test (`scripts/mutate_keyed.py`, SKILL.md step 4b); all five
   keyed sources 40/40 after two more `check.py --keyed` fixes (commit 42a2397). `handoff.md` unchanged.
+
+## T25 — re E17 [Ostendorf], E18 [Pahulich], E18 [Ostendorf], E19 [Tittel]: kartoteka, title glosses, Urlsperger, MEW page (29.09.2026 17:52)
+
+- 29.09.2026 17:52 status: ready for you. Only **Pahulich's refs.json** changes (new sha256 below); no source, key or token changes
+  anywhere, so none of the four Word copies is affected.
+- **Kartoteka** (srom-kanon `references/kartoteka.tsv`, commit 4187da2, 42 rows), for E17 (1) and E18 [Pahulich] (2):
+  *Anglo-Romani* → „angielscy Romowie” (roman; the people, not the language Angloromani), as your draft has it;
+  *Bohémienne*, *Bohémiennes* = variants of the *Bohémiens* row (italic, French form and gender). Where the author writes
+  "Bohémien" of a woman (Gaspart), changing it is MB's call (D22), not the kartoteka's. *Manoush* = variant of Manush →
+  Manusze. New italic rows (foreign exonyms, § 3.4): *cingani*, *Zingari* (variant *Zingaros*, each passage keeps its
+  form), *Zinganées*, *Bohèmes*. Also variants *Gipsies* (Gypsies), *Gitano* (Gitanos), *Zigeiner* (Zigeuner, Tittel).
+  No row: *Chinganéros* (Vowell's Creole minstrels, not a Romani group; a foreign word in a quotation, italic, § 5.1);
+  *Bohemian* inside the quoted marriage record; *Indio*, *de nación …* (Spanish words, italic). Tittel "gypsy": no row
+  needed, agreed (D25 a).
+- **Two slips found while checking E17** (`ostendorf_queries.md` B13, B14; MB decides with the B list, D19):
+  **B13** before n. 60, Vowell 1831, Notes p. 324 (note 14), page image read: "resemble **those of** the *Zinganées*, or
+  Eastern gypsies". The author has "the *Zingances*". *Chinganéros* is as printed. Your translation follows the original
+  (§ 12.2.4), so *Zinganées*, flagged, unless MB says otherwise. **B14** *Bohemes* → *Bohèmes* (your reading of the 1803
+  print; I did not re-check it).
+- **E18 [Pahulich] (1), title glosses: all five applied** as you proposed (chervinski2008, horvathova1964, zinevych2001,
+  dal1883 with subtitles; kirei1984 „…etnografii rodzimej”). `work/pahulich/refs.json` **3b060a87…1f3d5366** (was
+  6eefd2b4…292674c). `pahulich_src.md` unchanged (11df7758…7145e17). Checked: `check.py` CHECK OK; proof rebuilt;
+  your `pahulich_pl.md` with the new refs.json: `check.py --pair` CHECK OK, `build.py --pair-src --queries --draft` PASS,
+  glosses in the output. Please re-copy the file and mark those five query rows done.
+- **E18 [Ostendorf], Urlsperger (n. 41): the key `urlsperger1751` and the token `{t. 3, s. 979}` stay.** Nothing changes in
+  `ostendorf_pl.md`. Verified (JCB Library record on archive.org, `derachtzehenteco00urls`): the work has three volumes with
+  continuous pagination. Vol. 3 (collective title page 1752) holds Continuations 13–18, and the 18th runs pp. 777–1004. So
+  the author's "3:979" is right, and her title ("… erster", 1751) is volume 1's. The record fix (whole work, Halle
+  1741–1752) is **B12** for MB. refs.json fields only, no new sha256 until MB approves (then a T-item). Stage-1 D4 is
+  answered. "Kühe" and Schmidl n. 14 stay with your query sheet / D22.
+- **E19 [Tittel] (2), n. 49 MEW 743 → 741: verified** (mlwerke.de MEW 23 with page marks, Wayback capture; the live site is
+  offline): the passage ends before ⟨742⟩. Now **D20 B11** (`tittel_queries.md`). The token stays `s. 743` until MB
+  decides. If approved, a T-item follows for the source, and you change the token in `tittel_pl.md`.
+- **E17 (2) / E18 [Pahulich] (3), Kanon § 12.2.4 c**: needs MB (D26 e). I put the proposed wording under D26 (e):
+  „tłum. z przekładu angielskiego autora/autorki” (the author's own translation) vs „tłum. z przekładu angielskiego”
+  (a published translation the author cites; the note points to it). Grellmann stays with D23 S10. Keep your drafts as
+  they are.
+- Suite: SUITE ALL PASS 19/19.
+
+## Status of E17, E18 [Pahulich], E18 [Ostendorf], E19 [Tittel] (29.09.2026 17:52)
+
+- E17 [Ostendorf] — 29.09.2026 17:52 status: done — (1) kartoteka rows (T25); (2) needs MB — the Kanon line waits for D26 (e), wording proposed; (3) noted.
+- E18 [Pahulich] — 29.09.2026 17:52 status: done — (1) five glosses applied, new refs.json (T25); (2) Manoush row; (3) needs MB (D26 e, D23 S10); (4) noted.
+- E18 [Ostendorf] — 29.09.2026 17:52 status: done — key and token stay; record correction B12 for MB (D19); D4 answered (T25).
+- E19 [Tittel] — 29.09.2026 17:52 status: done — (1) no row, agreed; (2) D20 B11, verified; (3) noted, no Kanon line for titles as printed.
