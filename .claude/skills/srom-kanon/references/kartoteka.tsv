@@ -1,18 +1,18 @@
 source_form	en_variants	pl_standard_vol18	pl_attested	articles	italic_vol18	flag	note	italic_house
 Roma	Roma	Romowie	Romowie | Romów	takacs ostendorf fotta dom	n		§ 6.1: Rom, Romowie, Romka; adj. romski	n
 Rom	Rom	Rom	Rom	dom	n		branch name in „Dom-Lom-Rom”; indeclinable in vol. 18	n
-Gypsies	Gypsies | Gypsy	Cyganie	Cyganie | Cyganów	takacs ostendorf fotta dom	n		§ 6.1 functions (source category, self-identification, quotations); § 12.2.6: Gypsy never → Romowie	n
+Gypsies	Gypsies | Gypsy | Gipsies	Cyganie	Cyganie | Cyganów	takacs ostendorf fotta dom	n		§ 6.1 functions (source category, self-identification, quotations); § 12.2.6: Gypsy never → Romowie; Gipsies: 18th–19th-c. spelling (Ostendorf, T19/E17)	n
 Romanies	Romanies	Romowie	Romowie | Romów	fotta	n		the author distinguishes Romanies (umbrella) from Roma; vol. 18 renders both as Romowie – two source terms, one Polish form. Accepted (MB 27.09.2026, D8 f): a translator's note only where the author's distinction carries the argument	n
 Romani Americans	Romani Americans	Romowie amerykańscy	amerykańskich Romów | Romów amerykańskich	ostendorf takacs	n		word order varies in vol. 18	n
 Ciganos	Ciganos | Cigano	Ciganos	Ciganos	fotta ostendorf	y		Portuguese source term kept; vol. 18 italicises it, Kanon § 3.4 (from vol. 19): ethnonyms never in italics. MB 27.09.2026: § 3.4 clearly covers endonyms; these are exonyms not used in Polish (foreign words, unlike Cygan), so italics may be right – decision passed to srom-typeset (E12); E12 (27.09.2026): foreign exonym, italic from vol. 19 (Kanon § 3.4)	y
 Calon	Calon	Calon	Calon | Calonów	fotta dom	n		Brazilian/Iberian Calon; „Romowie z grupy Calon”	n
-Gitanos	Gitanos | Gitana/os	Gitanos	Gitanos | Gitana	ostendorf dom	y		historical source term kept (Ostendorf translator's note); italics vs Kanon § 3.4. MB 27.09.2026: § 3.4 clearly covers endonyms; these are exonyms not used in Polish (foreign words, unlike Cygan), so italics may be right – decision passed to srom-typeset (E12); E12 (27.09.2026): foreign exonym, italic from vol. 19 (Kanon § 3.4)	y
-Bohémiens	Bohémiens | Bohémien	Bohémiens	Bohémiens	ostendorf	y		historical French source term kept; italics vs Kanon § 3.4. MB 27.09.2026: § 3.4 clearly covers endonyms; these are exonyms not used in Polish (foreign words, unlike Cygan), so italics may be right – decision passed to srom-typeset (E12); E12 (27.09.2026): foreign exonym, italic from vol. 19 (Kanon § 3.4)	y
+Gitanos	Gitanos | Gitana/os | Gitano	Gitanos	Gitanos | Gitana	ostendorf dom	y		historical source term kept (Ostendorf translator's note); italics vs Kanon § 3.4. MB 27.09.2026: § 3.4 clearly covers endonyms; these are exonyms not used in Polish (foreign words, unlike Cygan), so italics may be right – decision passed to srom-typeset (E12); E12 (27.09.2026): foreign exonym, italic from vol. 19 (Kanon § 3.4); Gitano (adj.): Ostendorf, E17	y
+Bohémiens	Bohémiens | Bohémien | Bohémienne | Bohémiennes	Bohémiens	Bohémiens	ostendorf	y		historical French source term kept; italics vs Kanon § 3.4. MB 27.09.2026: § 3.4 clearly covers endonyms; these are exonyms not used in Polish (foreign words, unlike Cygan), so italics may be right – decision passed to srom-typeset (E12); E12 (27.09.2026): foreign exonym, italic from vol. 19 (Kanon § 3.4); E17 [Ostendorf] (29.09.2026): feminine Bohémienne(s) is a variant of this row, kept in the French form and gender; where the author writes Bohémien of a woman (Gaspart), the change is MB's (D22)	y
 Tsiganes	Tsiganes	Tsiganes	Tsiganes	ostendorf dom	n		only in titles and quoted designations; E12 (27.09.2026): foreign exonym, italic from vol. 19 (Kanon § 3.4)	y
-Zigeuner	Zigeuner	Zigeuner	Zigeuner	dom	n		only in titles and quoted designations; E12 (27.09.2026): foreign exonym, italic from vol. 19 (Kanon § 3.4)	y
+Zigeuner	Zigeuner | Zigeiner	Zigeuner	Zigeuner	dom tittel	n		only in titles and quoted designations; E12 (27.09.2026): foreign exonym, italic from vol. 19 (Kanon § 3.4); Zigeiner: old spelling in Württemberg edict titles (Tittel)	y
 Travellers	Travellers | Travelers | Traveller	Travellersi	Travellersi | Travellersów	dom	n		„Travellersi” is the primary form, used nearly always; „Wędrowcy” is a synonym (MB 27.09.2026). Vol. 18 uses „Wędrowcy” for the wider category („populacje Wędrowców, w tym etnicznych Travellersów”)	n
 Sinti	Sinti	Sinti	Sinti	dom	n			n
-Manush	Manush	Manusze	Manusze	dom	n			n
+Manush	Manush | Manoush	Manusze	Manusze	dom pahulich	n		E18 [Pahulich] (29.09.2026): Manoush (French spelling) is a variant	n
 Calé	Cale | Calé	Calé	Calé	dom	n		Iberian Calé (cf. Calon)	n
 Kale	Kale	Kale	Kale	dom	n		Finnish/Welsh Kale	n
 Kaale	Kaale	Kaale	Kaale	dom	n			n
@@ -36,3 +36,8 @@ Gurbati	Gurbati	Gurbati	Gurbati	dom	n	SV	only in the Polish: not in the English 
 Halabi	Halabi	Halabi	Halabi	dom	n	SV	only in the Polish: not in the English file we hold (the Polish follows a revised version); E13 (27.09.2026): exonym (Marushiakova/Popov 2025; Herin, Northern Domari), not assimilated → italic from vol. 19 (Kanon § 3.4)	y
 Romni	Romni	Romka	Romka | Romką	ndiaye	n		sg. f. (Romani word used by the author, after Brooks); MB 28.09.2026 D13: Polish form, as Roma → Romowie	n
 Romnia	Romnia	Romki	Romki	ndiaye	n		pl. f.; MB 28.09.2026 D13	n
+Anglo-Romani	Anglo-Romani	angielscy Romowie	angielscy Romowie | angielska Romka | rodzina angielskich Romów	ostendorf	n		E17 [Ostendorf] (29.09.2026): the adjective for Romani people in England (the Romanichals of the Anglo section), as in the draft; not the language name (Angloromani)	n
+cingani	cingani	cingani	cingani	ostendorf	n		Italian (Pasqualigo 1501, in the author's English quotation); E17 [Ostendorf] (29.09.2026): foreign exonym, italic (Kanon § 3.4, as E12), lower case as quoted	y
+Zingari	Zingari | Zingaros	Zingari	Zingari | Zingaros	ostendorf	n		Anchieta via the English translation the author quotes (Zingaros) and her own paraphrase (Zingari); E17 [Ostendorf] (29.09.2026): foreign exonym, italic (Kanon § 3.4, as E12), in the form each passage has	y
+Zinganées	Zinganées | Zingances	Zinganées	Zinganées	ostendorf	n		Vowell 1831, p. 324 (note 14): Zinganées; the author quotes it as Zingances (misreading, ostendorf_queries B13, MB decides); E17 [Ostendorf] (29.09.2026): foreign exonym, italic (Kanon § 3.4, as E12)	y
+Bohèmes	Bohèmes | Bohemes	Bohèmes	Bohèmes	ostendorf	n		Berquin-Duvallon 1803 (Bohèmes in the print per srom-tlumacz E17, not re-checked here; the author writes Bohemes: ostendorf_queries B14, MB decides); E17 [Ostendorf] (29.09.2026): foreign exonym, italic (Kanon § 3.4, as E12)	y
