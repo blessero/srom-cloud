@@ -153,6 +153,16 @@ fails("literal + CSL entries in one section stop the build",
 code, out, stem, rep = build(md_text="Jak pisał, „cytat bez strony”[^1].\n\n[^1]: [@ficowski1985].\n")
 q = open(os.path.join(out, stem + "_pytania.md"), encoding="utf-8").read()
 check("quotation cited without page: builds, placeholder not printed, author asked for the page", code == 0 and "cytat bez numeru strony" in q and "| 1 | ficowski1985" in q and "[BRAK" not in open(os.path.join(out, stem + ".txt"), encoding="utf-8").read(), q + rep[:500])
+# a British source (Manchester UP): ‘single quotes’ and the marker after the stop; an apostrophe is not a quotation
+code, out, stem, rep = build(md_text="Todorova notes that it began ‘to acquire different overtones’.[^1] Such is Albania’s "
+                             "past.[^2] The Balkans are ‘Europe’s abnormals’, a phrase of Bjelić’s.[^3] We know “this”.[^4]\n\n"
+                             "[^1]: [@ficowski1985].\n\n[^2]: [@mroz1998].\n\n[^3]: [@ficowski1985].\n\n[^4]: [@mroz1998].\n",
+                             extra=("--source",))
+q = open(os.path.join(out, stem + "_pytania.md"), encoding="utf-8").read()
+rows = {r.split("|")[3].strip(): r for r in q.splitlines() if r.startswith("| ")}
+check("English source: ‘quotation’.[^1] and “quotation”.[^4] -> page asked; an apostrophe (Albania’s) and a possessive "
+      "after a closed quotation (Bjelić’s) -> whole work", "cytat bez numeru" in rows.get("1", "") and "cytat bez numeru"
+      in rows.get("4", "") and "całości" in rows.get("2", "") and "całości" in rows.get("3", ""), q)
 code, out, stem, rep = build(md_text="> Cytat blokowy[^1].\n\n[^1]: [@mroz1998].\n")
 q = open(os.path.join(out, stem + "_pytania.md"), encoding="utf-8").read()
 check("block quote cited without page: builds, listed as quotation query", code == 0 and "cytat bez numeru strony" in q, q + rep[:500])

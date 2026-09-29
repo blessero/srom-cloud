@@ -162,8 +162,8 @@ end
 -- CSL prints "[BRAK STRONY]" for a citation without a locator. It is never printed and never blocks:
 -- a page-less citation may legitimately refer to the whole work. Every one is reported on stderr as
 --   SROM-NOPAGE: <note no> TAB <quote|work> TAB <keys> TAB <text before the marker>
--- "quote" = the first citation of a note attached to a quotation (marker right after ” or «, or a
--- note inside a block quote) that is not introduced by zob./por./np./też — ask the author for a page.
+-- "quote" = the first citation of a note attached to a quotation (marker right after ” or « or a closing ‘…’, also
+-- after the stop that follows it in English sources, or a note inside a block quote) that is not introduced by zob./por./np./też — ask the author for a page.
 -- build.py turns these lines into the author query sheet (<article>_pytania.md/.csv).
 local SEE = {["zob."]=1, ["por."]=1, ["np."]=1, ["też"]=1, ["też:"]=1}
 local function is_see(text)
@@ -263,10 +263,25 @@ local function whole_work(blocks, quoted, context, outer)
   }).content
 end
 
-local function quote_end(el)
+-- The element before the marker closes a quotation: ” or « (Polish and French), also before the stop of an English
+-- source (”. — the marker after the stop); a single ’ (British sources: ‘…’.) only when an opening ‘ stands earlier in
+-- the paragraph and no other closing ’ between them (’ before a letter is an apostrophe: Albania’s)
+local function quote_end(el, seen)
   if not el then return false end
   if el.t == "Quoted" then return true end
-  return el.t == "Str" and (el.text:match("”$") or el.text:match("«$")) ~= nil
+  if el.t ~= "Str" then return false end
+  local t = el.text:gsub("[%.,;:]$", "")
+  if t:match("”$") or t:match("«$") then return true end
+  if not t:match("’$") then return false end
+  local s, last, p = (seen or el.text), nil, 1
+  while true do
+    local a = s:find("‘", p, true)
+    if not a then break end
+    last, p = a, a + 1
+  end
+  if not last then return false end
+  local rest = s:sub(last + #"‘"):gsub("’[%.,;:]?$", ""):gsub("’%a", "")
+  return not rest:find("’", 1, true)
 end
 
 local scan_blocks
@@ -275,10 +290,10 @@ local function scan_inlines(inls, in_quote)
   for i, el in ipairs(inls) do
     if el.t == "Note" then
       local ctx = tail(seen, 90)
-      el.content = whole_work(el.content, in_quote or quote_end(inls[i - 1]), ctx)
+      el.content = whole_work(el.content, in_quote or quote_end(inls[i - 1], seen), ctx)
     elseif el.t == "Cite" then
       check_modes({el})
-      local q = in_quote or quote_end(inls[i - 1])
+      local q = in_quote or quote_end(inls[i - 1], seen)
       local c = el.content
       for j, sub in ipairs(c) do
         if sub.t == "Note" then sub.content = whole_work(sub.content, q, tail(seen, 90), el) end
