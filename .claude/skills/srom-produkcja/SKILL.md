@@ -1,9 +1,9 @@
 ---
-name: srom-typeset
-description: Tested toolchain that turns an article for Studia Romologica (SROM) — a Polish Word file with footnotes, an author-date/Harvard manuscript, or a foreign-language PDF/DOCX — into a kanon-compliant Polish DOCX that imports into the SROM InDesign template with named paragraph/character styles and real footnotes (first citation / short form / Ibidem generated from CSL-JSON). For translated articles it prepares the frozen source and takes the translation back; the translating itself is srom-tlumacz's (separate chat). Use whenever an SROM article is imported from DOCX/PDF, converted from author-date to footnotes, keyed into refs.json, exported as a Word working copy or proof, checked for note/marker integrity or translation handoff, built, or placed in InDesign; also for "SROM-MD", "refs.json", "build.py", "Ibidem check", "import do InDesign", "skład SROM". Complements srom-kanon (rules), srom-tlumacz (translation) and srom-scholarly-curator (metadata).
+name: srom-produkcja
+description: Tested toolchain that turns an article for Studia Romologica (SROM) — a Polish Word file with footnotes, an author-date/Harvard manuscript, or a foreign-language PDF/DOCX — into a kanon-compliant Polish DOCX that imports into the SROM InDesign template with named paragraph/character styles and real footnotes (first citation / short form / Ibidem generated from CSL-JSON). For translated articles it prepares the frozen source and takes the translation back; the translating itself is srom-tlumacz's (separate chat). Use whenever an SROM article is imported from DOCX/PDF, converted from author-date to footnotes, keyed into refs.json, exported as a Word working copy or proof, checked for note/marker integrity or translation handoff, built, or placed in InDesign; also for "SROM-MD", "refs.json", "build.py", "Ibidem check", "import do InDesign", "skład SROM". Complements srom-kanon (rules), srom-tlumacz (translation) and srom-quant (metadata).
 ---
 
-# srom-typeset — from manuscript to InDesign
+# srom-produkcja — from manuscript to InDesign
 
 Priority order: **correct apparatus > nothing silently changed > speed.** Every step is a script with a
 verdict line; nothing goes to InDesign unless `build.py` prints `PASS`. The house rules live in the

@@ -1,4 +1,4 @@
-# Rules → implementation (srom-typeset)
+# Rules → implementation (srom-produkcja)
 
 The rules are in the **srom-kanon** skill: `references/kanon-redakcyjny.md` (normative, Polish) and `RULES.md` (English
 digest), same § numbers. This file does not restate them. It maps each rule the toolchain enforces to the code and the

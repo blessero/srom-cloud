@@ -1,4 +1,4 @@
-"""srom-typeset ↔ srom-kanon: the kanon skill is required and found; its two texts (Polish Kanon = normative,
+"""srom-produkcja ↔ srom-kanon: the kanon skill is required and found; its two texts (Polish Kanon = normative,
 RULES.md = English digest) carry one version and one section numbering; every § this skill cites exists in
 the Kanon; without srom-kanon the build fails and says why."""
 import os, re, sys, glob, subprocess, tempfile
@@ -45,7 +45,7 @@ for f in glob.glob(os.path.join(ROOT, "**", "*"), recursive=True):
             bad.append(f"{rel}:{txt[:m.start()].count(chr(10)) + 1} §{m.group(1)}")
     if re.search(r"draft § ?12|§ ?9 I", txt) and rel != os.path.join("tests", "test_kanon.py"):
         drafts.append(rel)
-t("every § cited by srom-typeset exists in the Kanon", not bad, bad)
+t("every § cited by srom-produkcja exists in the Kanon", not bad, bad)
 t("no stale wording (draft § 12…, roman-numbered bibliography sections)", not drafts, drafts)
 
 # a Kanon version other than the current one, in either skill, any case ("Kanon v1.6", "Wersja 1.5", "version 1.4");
@@ -64,7 +64,7 @@ for base in (ROOT, K):
         for m in re.finditer(r"(?i)\b(?:v|wersj[aięy]|version)\s?(1\.\d+)\b", txt):
             if m.group(1) != kv:
                 old.append(f"{os.path.relpath(f, os.path.dirname(base))}:{txt[:m.start()].count(chr(10)) + 1} {m.group(0)}")
-t(f"no Kanon version other than v{kv} in srom-typeset or srom-kanon", not old, old)
+t(f"no Kanon version other than v{kv} in srom-produkcja or srom-kanon", not old, old)
 
 out = tempfile.mkdtemp()
 env = dict(os.environ, SROM_KANON=os.path.join(out, "nowhere"))
@@ -104,7 +104,7 @@ zk = [os.path.relpath(f, os.path.dirname(ROOT)) for d_ in (ROOT, K) for f in glo
       if os.path.isfile(f) and not f.endswith((".pyc", ".docx")) and f != os.path.abspath(__file__)
       and re.search(r"(?i)kodeks\w*\s+zecer", open(f, encoding="utf-8", errors="ignore").read())]
 t("no reference to the retired Kodeks zecera in either skill (MB 27.09.2026)", not zk, zk)
-t("srom-typeset bundles no linter of its own", not os.path.exists(os.path.join(ROOT, "scripts", "lint_srom.py")))
+t("srom-produkcja bundles no linter of its own", not os.path.exists(os.path.join(ROOT, "scripts", "lint_srom.py")))
 
 n, ok = len(res), sum(res)
 print(f"KANON ALL PASS {n}/{n}" if ok == n else f"KANON FAILED {n - ok}/{n}")

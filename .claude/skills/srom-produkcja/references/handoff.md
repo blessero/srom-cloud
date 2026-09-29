@@ -1,9 +1,9 @@
 # Handoff to translation (srom-tlumacz) and back
 
-Translation is not done here. srom-typeset prepares the source and takes the translation back; srom-tlumacz
+Translation is not done here. srom-produkcja prepares the source and takes the translation back; srom-tlumacz
 (its own chat and skill) translates. This file is the contract between the two.
 
-## Out: what srom-typeset hands over (per article `<id>`)
+## Out: what srom-produkcja hands over (per article `<id>`)
 
 | file | for | what it is |
 |---|---|---|
@@ -52,7 +52,7 @@ run through `normalize.py`: Polish typography is applied to the translation, aft
 - Queries: rows in the `_pytania` columns `adresat;rodzaj;przypis;dzieło;szczegóły`, saved as a CSV; the
   `przypis` cell holds the note label from `<id>_src.md` — the build turns it into the printed number.
 
-## Back: what srom-typeset accepts, and how (29.09.2026, review row 3)
+## Back: what srom-produkcja accepts, and how (29.09.2026, review row 3)
 
 Who does what (practice since the first drafts, now the contract):
 
@@ -75,15 +75,15 @@ Who does what (practice since the first drafts, now the contract):
    | `<id>_refs_tlum.json` | if the translation adds citations | declared additions (`srom-added`) |
    | `<id>_pytania_tlum.csv` | if there are query rows | the translator's query sheet |
 
-   It also names the srom-typeset `refs.json` sha256 it was checked against (the one in the last T-item), and the
+   It also names the srom-produkcja `refs.json` sha256 it was checked against (the one in the last T-item), and the
    verdicts (`CHECK OK`, build `PASS`, `FRONT OK`). A later editing round means a new delivery item that
-   supersedes the earlier one. The copies at srom-typeset are never edited.
-4. **Take-back: srom-typeset** copies the delivery into its own `work/<id>/pl/` and checks it:
+   supersedes the earlier one. The copies at srom-produkcja are never edited.
+4. **Take-back: srom-produkcja** copies the delivery into its own `work/<id>/pl/` and checks it:
    `take_back.py <srom-tlumacz>/work/<id> <id> --src-dir work/<id> --expect <file>=<sha256> …` (one `--expect`
    per file of the item). It compares the sha256, requires `<id>_pl.md` to equal a fresh import of the Word master,
    runs `check.py --pair` against the frozen `<id>_src.md` and `refs.json`, and writes `SHA256SUMS`. If `refs.json`
    changed after the item's value (a later T-item), the pair check and build use the current one, and the T-item
-   answer says so. srom-typeset **builds from `work/<id>/pl/`** into `work/<id>/build/`, and answers with a
+   answer says so. srom-produkcja **builds from `work/<id>/pl/`** into `work/<id>/build/`, and answers with a
    status line (and a T-item if something is wrong).
 
 `<id>_front_pl.md` (Kanon § 12.2.2): the Polish title (title and subtitle kept apart), the Polish abstract, the
@@ -91,7 +91,7 @@ Polish keywords; the English ones stay as in the original. Header data for the m
 DOCX. Its format (sections, order, headings) is the docstring of srom-tlumacz's `tlumacz-front_check.py`, which
 checks it (`FRONT OK`).
 
-The commands (`$S` = srom-typeset's `scripts/`):
+The commands (`$S` = srom-produkcja's `scripts/`):
 
 ```
 python3 $S/export_work.py <id>_pl.md -o <id>_robocza.docx        # srom-tlumacz, once; the editor works in Word
@@ -99,7 +99,7 @@ python3 $S/docx_in.py <id>_robocza.docx -o <id>_pl.md            # srom-tlumacz,
 python3 $S/check.py --pair <id>_src.md <id>_pl.md --refs refs.json --refs <id>_refs_tlum.json   # handoff check
 # terminology slot (advisory, never blocks; when srom-tlumacz provides it):
 #   python3 <srom-tlumacz>/scripts/tb_check.py <id>_src.md <id>_pl.md --tb tlumacz-tb.tsv --csv <id>_pytania_tb.csv
-python3 $S/take_back.py <srom-tlumacz>/work/<id> <id> --src-dir work/<id> --expect <id>_pl.md=… …   # srom-typeset
+python3 $S/take_back.py <srom-tlumacz>/work/<id> <id> --src-dir work/<id> --expect <id>_pl.md=… …   # srom-produkcja
 python3 $S/build.py work/<id>/pl/<id>_pl.md --refs work/<id>/refs.json --refs work/<id>/pl/<id>_refs_tlum.json \
         --pair-src work/<id>/<id>_src.md --queries work/<id>/pl/<id>_pytania_tlum.csv [--queries <id>_pytania_tb.csv] \
         --out work/<id>/build/

@@ -1,13 +1,13 @@
-# srom-typeset — handover (state at 29.09.2026 17:59)
+# srom-produkcja — handover (state at 29.09.2026 17:59)
 
-For the next session (Claude Code). Start with `../_handoffs/tlumacz-to-typeset.md` (incoming) and
+For the next session (Claude Code). Start with `../_handoffs/tlumacz-to-produkcja.md` (incoming) and
 `../_handoffs/MB-decisions.md` (the one list of MB's decisions — this file keeps none), per `../CLAUDE.md`. Then this,
-`CLAUDE.md`, and `.claude/skills/srom-typeset/SKILL.md`. Outgoing messages: `../_handoffs/typeset-to-tlumacz.md` (T-items).
+`CLAUDE.md`, and `.claude/skills/srom-produkcja/SKILL.md`. Outgoing messages: `../_handoffs/produkcja-to-tlumacz.md` (T-items).
 Nothing here needs re-deriving; decisions marked ✔ are the editor's and closed.
 
 ## 1. What exists
 
-`srom-typeset` is a tested toolchain for *Studia Romologica*: author's Word/PDF → SROM-MD (Pandoc Markdown)
+`srom-produkcja` is a tested toolchain for *Studia Romologica*: author's Word/PDF → SROM-MD (Pandoc Markdown)
 → CSL citations (first citation / short form / *Ibidem*) → DOCX with named styles only → InDesign Word import.
 
 | part | file | job |
@@ -44,13 +44,13 @@ dated supplements are now § 17 row 1.8; no rule text changed. T27 told srom-tlu
    Mac with pandoc 3.8.3 after one fix (the 3.8 DOCX reader put "Table Caption" inside the table caption →
    `docx_in.py` dropped every table caption in the working-copy round trip; fixed, test added). `GATES.md`
    was not in the uploaded archive — the G1–G16 ledger is lost; new gates start in `/GATES.md`.
-2. ~~**srom-kanon / srom-typeset overlap**~~ — done 26.09.2026. The Polish Kanon (it existed outside the skills:
+2. ~~**srom-kanon / srom-produkcja overlap**~~ — done 26.09.2026. The Polish Kanon (it existed outside the skills:
    `0. ASSETS/LLM/Kanon zecera/` 22.09 and `Downloads/srom-kanon 26 Sept/` 26.09 — the newer used) is now
    `srom-kanon/references/kanon-redakcyjny.md`, **normative, v1.6**: decisions 1–9, 11–14, 16, 17 written into their
    sections, draft § 12.2 (srom-tlumacz, settled 25.09) incorporated, E8 in § 7.1. `RULES.md` = English digest,
    renumbered to the Kanon's §§ (it had its own numbering: Cyrillic §10 → § 9.6, captions §11 → § 10 …).
-   srom-typeset: bundled linter removed, `scripts/kanon_path.py` finds srom-kanon, `tests/test_kanon.py` checks
-   versions and that every § cited exists. srom-typeset's § references were Kanon numbers all along — no renumbering.
+   srom-produkcja: bundled linter removed, `scripts/kanon_path.py` finds srom-kanon, `tests/test_kanon.py` checks
+   versions and that every § cited exists. srom-produkcja's § references were Kanon numbers all along — no renumbering.
 3. ~~**E8**~~ — done 26.09.2026 (§6 below: editor ruled *above* the numbered notes, set by hand; style = footnotes).
 **Order of work (MB 27.09.2026; D3 closed 29.09.2026, D7 resolved):** stage 1 (source PDF/Word → SROM-MD → Word working
 copy) and stage 2 (translation, srom-tlumacz) are finished and tested first; stage 3 (build for InDesign, styles,
@@ -82,7 +82,7 @@ G12) after.
    `ndiaye_robocza_v2.docx` imports to pair CHECK OK and builds with 0 errors. Docs aligned with the contract
    (comments never block), scenario C / T11, stale versions (now caught by `test_kanon.py`), D15/D16 from Kanon
    § 13.2. Gates: `GATES.md` batch 28.09.2026. Not mine, left open: `_handoffs/README.md:18` contract path (whichever
-   session MB asks); stale `srom-kanon.skill` / `srom-typeset.skill` at the repo root (26.09, git-ignored).
+   session MB asks); stale `srom-kanon.skill` / `srom-produkcja.skill` at the repo root (26.09, git-ignored).
    Known, not fixed (minor): `pdf_extract.link_fix` replaces URL text by a link target differing in ≤ 2 characters
    (listed in the report, can pick a sibling URL); range expansion exists twice (`normalize.py` RANGE-FULL,
    `cite_map.expand_ranges`).
@@ -203,7 +203,7 @@ G12) after.
 
 Done 27.09.2026: E10 translator front matter (T7, `test_e10.py`); E11/D9 kartoteka (`srom-kanon/references/
 kartoteka.tsv`, T8); E12 foreign exonyms italic (Kanon § 3.4, T6); Kodeks zecera references removed; decisions
-15, 18, 19 stay in srom-typeset as toolchain conventions (MB delegated the call).
+15, 18, 19 stay in srom-produkcja as toolchain conventions (MB delegated the call).
 
 ## 4. House style — v3 done 29.09.2026 (below it, the v2 notes of 25–27.09, kept as history)
 
@@ -293,16 +293,16 @@ Also possible: the script creates only styles in use + core; groups without numb
 retires Word leftovers into "Tekst", leaves footnote styles ("Przypis", "Indeks gorny", "Footnote reference")
 untouched, writes `<doc>_style_setup.txt`. Tested as ES3 only; the editor ran it successfully on a copy.
 
-## 5. srom-kanon vs srom-typeset — recommendation
+## 5. srom-kanon vs srom-produkcja — recommendation
 
 Keep two skills, remove the duplication.
 - **Different jobs, different users.** srom-kanon = the rules (the *what*): copyediting, author guidelines,
-  metadata, and srom-tlumacz loads its sections at translation time. srom-typeset = the machinery (the *how*).
+  metadata, and srom-tlumacz loads its sections at translation time. srom-produkcja = the machinery (the *how*).
   Merging would load the whole toolchain into translation and copyediting sessions and blur which text is normative.
-- **Duplication to remove**: (a) srom-typeset bundles `lint_srom.py` (identical today, will drift) → require the
-  kanon's; (b) closed decisions live in `decisions.md` → move them into kanon RULES, keep in srom-typeset only a
+- **Duplication to remove**: (a) srom-produkcja bundles `lint_srom.py` (identical today, will drift) → require the
+  kanon's; (b) closed decisions live in `decisions.md` → move them into kanon RULES, keep in srom-produkcja only a
   table "rule → implementing file/test"; (c) kanon SKILL.md tells users to lint DOCX by hand → point production
-  work to srom-typeset's build (which runs the linter).
+  work to srom-produkcja's build (which runs the linter).
 - **Keep on purpose**: `tests/test_csl.py` mirrors kanon §7/§9 example strings — it is the drift detector between
   rules and CSL.
 - ~~Kanon housekeeping~~ — done 26.09.2026 (§ 3 item 2): the Polish Kanon is normative inside srom-kanon
@@ -332,5 +332,5 @@ author's notes.
 
 ## 7. Pending for the editor
 
-Only in `../_handoffs/MB-decisions.md`. srom-typeset's open items there: D17 (Pahulich), D18 (German test), D19 (Ostendorf, with B12–B14), D20 (Tittel, with B11), D24 (West Ohueri), D26 (e) (Kanon line § 12.2.4 c, wording proposed), D15 (licence ND option, kolegium), D16 (vol. 18 copyright clause, PILNE before any OA announcement).
+Only in `../_handoffs/MB-decisions.md`. srom-produkcja's open items there: D17 (Pahulich), D18 (German test), D19 (Ostendorf, with B12–B14), D20 (Tittel, with B11), D24 (West Ohueri), D26 (e) (Kanon line § 12.2.4 c, wording proposed), D15 (licence ND option, kolegium), D16 (vol. 18 copyright clause, PILNE before any OA announcement).
 D1, D2, D4, D7, D9, D12–D14 are closed.

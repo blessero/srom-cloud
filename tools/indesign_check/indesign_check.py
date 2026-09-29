@@ -25,7 +25,7 @@ import pymupdf
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
-SKILL = os.path.join(REPO, ".claude", "skills", "srom-typeset")
+SKILL = os.path.join(REPO, ".claude", "skills", "srom-produkcja")
 DUMP = os.path.join(REPO, "dump")
 # the vol. 18 values of Cytat blokowy (read in InDesign, 29.09.2026) — the control run puts them back
 OLD_CYTAT = {

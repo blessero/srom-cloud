@@ -14,7 +14,7 @@ Polish-language journal. Footnotes + full end bibliography; **never author-date.
 
 ## Workflow
 
-Production articles (import → DOCX for InDesign) go through the **srom-typeset** skill: its build runs this linter on the rendered text and fails on any ERROR. For a spot check of a text outside that pipeline:
+Production articles (import → DOCX for InDesign) go through the **srom-produkcja** skill: its build runs this linter on the rendered text and fails on any ERROR. For a spot check of a text outside that pipeline:
 
 1. **Run the linter** on the plain text (extract DOCX with `pandoc -t plain` first):
    ```

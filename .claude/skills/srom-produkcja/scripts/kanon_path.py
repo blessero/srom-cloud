@@ -1,4 +1,4 @@
-"""Where is the srom-kanon skill (the house rules and their linter)? srom-typeset requires it.
+"""Where is the srom-kanon skill (the house rules and their linter)? srom-produkcja requires it.
 
 Order: $SROM_KANON (if set, the only candidate) · next to this skill (repo, ~/.claude/skills, /mnt/skills/user)
 · ~/.claude/skills/srom-kanon · /mnt/skills/user|plugins/srom-kanon. A candidate counts only if it has the linter.
@@ -6,8 +6,8 @@ Order: $SROM_KANON (if set, the only candidate) · next to this skill (repo, ~/.
 import os, re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MISSING = ("srom-kanon skill not found — srom-typeset needs its linter (scripts/lint_srom.py) and rules. "
-           "Install srom-kanon next to srom-typeset (or in ~/.claude/skills), or set SROM_KANON=<its folder>.")
+MISSING = ("srom-kanon skill not found — srom-produkcja needs its linter (scripts/lint_srom.py) and rules. "
+           "Install srom-kanon next to srom-produkcja (or in ~/.claude/skills), or set SROM_KANON=<its folder>.")
 
 
 def find_kanon():

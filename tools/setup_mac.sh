@@ -19,4 +19,4 @@ for s in .claude/skills/*/; do
   elif [ -e "$dst" ]; then echo "SKIP $dst exists and is not a symlink — move it away first"
   else ln -s "$REPO/.claude/skills/$s" "$dst"; fi
 done
-"$HOME/.venvs/srom/bin/python" .claude/skills/srom-typeset/tests/run_all.py | tail -1
+"$HOME/.venvs/srom/bin/python" .claude/skills/srom-produkcja/tests/run_all.py | tail -1

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""take_back.py — take a delivered translation into srom-typeset (handoff.md, "Back"; scenario C).
+"""take_back.py — take a delivered translation into srom-produkcja (handoff.md, "Back"; scenario C).
 
     python3 take_back.py <delivery_dir> <id> --src-dir work/<id> [--out work/<id>/pl]
                          [--expect <file>=<sha256 | first8…last7>] …
@@ -45,7 +45,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("delivery_dir")
     ap.add_argument("id")
-    ap.add_argument("--src-dir", required=True, help="srom-typeset's work/<id> (holds <id>_src.md and refs.json)")
+    ap.add_argument("--src-dir", required=True, help="srom-produkcja's work/<id> (holds <id>_src.md and refs.json)")
     ap.add_argument("--out", help="where the copies go (default: <src-dir>/pl)")
     ap.add_argument("--expect", action="append", default=[], metavar="FILE=SHA256")
     a = ap.parse_args()

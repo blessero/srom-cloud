@@ -15,7 +15,7 @@ def ab(h):
     return f"{h[:8]}…{h[-7:]}"
 
 d = tempfile.mkdtemp()
-typ = os.path.join(d, "typeset", "work", "art")                 # srom-typeset's article folder
+typ = os.path.join(d, "typeset", "work", "art")                 # srom-produkcja's article folder
 os.makedirs(typ)
 shutil.copy(os.path.join(FX, "sample_article.md"), os.path.join(typ, "art_src.md"))
 shutil.copy(os.path.join(FX, "kanon_refs.json"), os.path.join(typ, "refs.json"))
@@ -110,7 +110,7 @@ t("handoff.md 'Back': the editor's Word file in srom-tlumacz's work/<id>/ is the
   "master" in back and "work/<id>/" in back and "<id>_robocza.docx" in back, back[:600])
 t("handoff.md 'Back': srom-tlumacz imports; a delivery E-item lists the files with sha256",
   "delivery item" in back and "sha256" in back and all(f"`<id>_{x}`" in back for x in ("pl.md", "front_pl.md", "refs_tlum.json", "pytania_tlum.csv", "robocza.docx")), back[:1500])
-t("handoff.md 'Back': srom-typeset takes it with take_back.py into work/<id>/pl/ and builds from there",
+t("handoff.md 'Back': srom-produkcja takes it with take_back.py into work/<id>/pl/ and builds from there",
   "take_back.py" in back and "work/<id>/pl/" in back and "build.py" in back, back[:1500])
 t("handoff.md 'Back': never re-export over the master", re.search(r"(?i)never .{0,60}(re-?export|overwrite)", back), back[:1500])
 SK = open(os.path.join(ROOT, "SKILL.md"), encoding="utf-8").read()
