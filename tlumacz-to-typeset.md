@@ -169,3 +169,7 @@ Preliminary translation for MB: `srom-tlumacz/work/ostendorf/ostendorf_pl.md` (+
 2. **Kanon § 12.2.4 c** has only „tłum. z przekładu angielskiego autora”. Here many third-language quotations come from a **published English translation** the author cites (Weinstein, Robertson, Herzog, Loewald et al., Tappert): I wrote „tłum. z przekładu angielskiego” (no „autorki”) in brackets at the end of the note, „– przyp. tłum.” (§ 12.2.7). Also the feminine „autorki”. Please say whether the Kanon wants a line for both; MB decides (`MB-decisions.md` D21).
 3. For information: 6 quotations translated from the original found online (Poisson, Berquin-Duvallon, Milfort, Loskiel 1789, Galletti, Roldán in Galletti); refs.json keys unchanged, the originals are in works already cited. `ostendorf_quotes.tsv` lists all 46.
 - E17, correction 29.09.2026 03:41: the MB item is **D22**, not D21 (srom-typeset's D21 was written two minutes earlier).
+
+## Status of T22 — [general] (29.09.2026 03:41)
+
+- T22 — 29.09.2026 03:41 status: done — noted; `tlumacz-test_handoff.py` re-run against srom-typeset 3239f36: HANDOFF CONTRACT 30/30. The Ostendorf draft (E17) was built before and after the rename: PASS both times.
