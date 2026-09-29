@@ -6,7 +6,7 @@ Deliverable: a preliminary translation for MB to edit (MB 29.09.2026: go ahead, 
 Open choices are applied as the intake proposes (`pahulich_intake.md` § 3) and listed for MB; nothing waits for MB.
 
 - [x] G1: handoff check passes (structure, notes, citation keys)
-  CHECK: ~/.venvs/srom/bin/python ~/.claude/skills/srom-typeset/scripts/check.py --pair work/pahulich/src/pahulich_src.md work/pahulich/pahulich_pl.md --refs work/pahulich/src/refs.json
+  CHECK: ~/.venvs/srom/bin/python ~/.claude/skills/srom-produkcja/scripts/check.py --pair work/pahulich/src/pahulich_src.md work/pahulich/pahulich_pl.md --refs work/pahulich/src/refs.json
   EXPECT: /CHECK OK/
 
 - [x] G2: Polish header data well formed
@@ -14,7 +14,7 @@ Open choices are applied as the intake proposes (`pahulich_intake.md` § 3) and 
   EXPECT: /^FRONT OK$/m
 
 - [x] G3: the draft builds, and the translator is reported for the CSV
-  CHECK: rm -rf work/pahulich/build; ~/.venvs/srom/bin/python ~/.claude/skills/srom-typeset/scripts/build.py work/pahulich/pahulich_pl.md --refs work/pahulich/src/refs.json --pair-src work/pahulich/src/pahulich_src.md --queries work/pahulich/pahulich_pytania_tlum.csv --out work/pahulich/build --draft >/dev/null 2>&1 && grep -h -c 'Michał|Bartosz||' work/pahulich/build/*_report.md
+  CHECK: rm -rf work/pahulich/build; ~/.venvs/srom/bin/python ~/.claude/skills/srom-produkcja/scripts/build.py work/pahulich/pahulich_pl.md --refs work/pahulich/src/refs.json --pair-src work/pahulich/src/pahulich_src.md --queries work/pahulich/pahulich_pytania_tlum.csv --out work/pahulich/build --draft >/dev/null 2>&1 && grep -h -c 'Michał|Bartosz||' work/pahulich/build/*_report.md
   EXPECT: /^1$/m
 
 - [x] G4: no untranslated English prose left in the body (notes, italics, comments and citation tokens removed; count of "the"/"and"/"of"…)
@@ -32,6 +32,6 @@ Open choices are applied as the intake proposes (`pahulich_intake.md` § 3) and 
   EVIDENCE: counts in the draft, comments removed (29.09.2026): urasow-/urasaw- 28, rasializ- 0; antycyganizm 5 (incl. German's *antiziganism*), antyromsk- 17 (all 'anti-Roma'); kapitalizm rasowy 19; matryca rasowa 1; antyczarn- 7; Murzyn 4, all in quotation marks (Robinson, Wynter 2×, Browne); capitalised Czarn-/Biał- mid-sentence 0; sedentaryz- 0, sowiec- 10, radziec- 0; Litva 0 (Wielkie Księstwo Litewskie 3, choice listed); *Zigeuner* 2, all italic; „[C]yganie” 2 (Willems quotations) + t-note *t2*; Romki 1; kartoteka forms Sinti, Kale, Manusze, Rudari, Travellersi (n. 2, 67). Open: *Manoush* not a listed variant (E-item), term choices OPEN in `pahulich_uwagi.md` § 3.
 
 - [x] G8: Word working copy round trip: export → import → pair check OK
-  CHECK: cd work/pahulich && S=~/.claude/skills/srom-typeset/scripts && T=$(mktemp -d) && ~/.venvs/srom/bin/python $S/export_work.py pahulich_pl.md -o $T/pahulich_rt.docx >/dev/null 2>&1 && ~/.venvs/srom/bin/python $S/docx_in.py $T/pahulich_rt.docx -o $T/pahulich_rt.md >/dev/null 2>&1 && ~/.venvs/srom/bin/python $S/check.py --pair src/pahulich_src.md $T/pahulich_rt.md --refs src/refs.json 2>&1 | tail -1
+  CHECK: cd work/pahulich && S=~/.claude/skills/srom-produkcja/scripts && T=$(mktemp -d) && ~/.venvs/srom/bin/python $S/export_work.py pahulich_pl.md -o $T/pahulich_rt.docx >/dev/null 2>&1 && ~/.venvs/srom/bin/python $S/docx_in.py $T/pahulich_rt.docx -o $T/pahulich_rt.md >/dev/null 2>&1 && ~/.venvs/srom/bin/python $S/check.py --pair src/pahulich_src.md $T/pahulich_rt.md --refs src/refs.json 2>&1 | tail -1
   NOTE 29.09.2026 17:43: CHECK rewritten after the cross-module review of 29.09.2026 (finding 2): it exported in place over `pahulich_robocza.docx`, the file MB edits (the master once he has), so a re-run would have replaced his edits with the draft. It now exports and imports in a temp dir, as 1.5.3b does; `pahulich_robocza.docx` is never written. Same test, same result; gate closed as of 29.09.2026.
   EXPECT: /CHECK OK/

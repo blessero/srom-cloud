@@ -5,8 +5,8 @@ third-language quotes, terminology, group names, doubts in the source). MB asked
 feedback and collect his decisions for later, so no gate waits for MB: open choices are recorded as assumptions in the
 intake and the notes sheet. The draft is leaf 1.5.5b.
 
-- [x] G1: the four source files in `work/tittel/src/` are identical to srom-typeset's (T20 hashes)
-  CHECK: cd "../srom-typeset/work/tittel" && shasum -a 256 -c "../../../srom-tlumacz/work/tittel/src/manifest.sha256" | grep -c ': OK$'
+- [x] G1: the four source files in `work/tittel/src/` are identical to srom-produkcja's (T20 hashes)
+  CHECK: cd "../srom-produkcja/work/tittel" && shasum -a 256 -c "../../../srom-tlumacz/work/tittel/src/manifest.sha256" | grep -c ': OK$'
   EXPECT: /^4$/m
 
 - [x] G2: intake file covers procedure features, Polish editions and originals, terminology, doubts in the source, plan

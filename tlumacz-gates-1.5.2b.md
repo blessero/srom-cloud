@@ -3,7 +3,7 @@
 Deliverable: a preliminary translation for MB to edit (D11, 28.09.2026): `work/ndiaye/ndiaye_pl.md`, `ndiaye_front_pl.md`, `ndiaye_refs_tlum.json`, `ndiaye_pytania_tlum.csv`, review sheet `ndiaye_uwagi.md` (open points, pages to look up, term decisions applied).
 
 - [x] G1: handoff check passes (structure, notes, citation keys, declared additions)
-  CHECK: python3 ~/.claude/skills/srom-typeset/scripts/check.py --pair work/ndiaye/src/ndiaye_src.md work/ndiaye/ndiaye_pl.md --refs work/ndiaye/src/refs.json --refs work/ndiaye/ndiaye_refs_tlum.json
+  CHECK: python3 ~/.claude/skills/srom-produkcja/scripts/check.py --pair work/ndiaye/src/ndiaye_src.md work/ndiaye/ndiaye_pl.md --refs work/ndiaye/src/refs.json --refs work/ndiaye/ndiaye_refs_tlum.json
   EXPECT: /CHECK OK/
   EVIDENCE: WARN  block 65 (p): numbers differ — only in source {2010: 1}, only in target {10: 1}: Jedną z największych pułapek pisania o „Cyganach” … | CHECK OK
 
@@ -13,7 +13,7 @@ Deliverable: a preliminary translation for MB to edit (D11, 28.09.2026): `work/n
   EVIDENCE: FRONT OK
 
 - [x] G3: the draft builds, and the translator is reported for the CSV (E15 fixed upstream, T14: plain `build.py`, exit 0)
-  CHECK: rm -rf work/ndiaye/build; python3 ~/.claude/skills/srom-typeset/scripts/build.py work/ndiaye/ndiaye_pl.md --refs work/ndiaye/src/refs.json --refs work/ndiaye/ndiaye_refs_tlum.json --pair-src work/ndiaye/src/ndiaye_src.md --queries work/ndiaye/ndiaye_pytania_tlum.csv --out work/ndiaye/build --draft >/dev/null 2>&1 && grep -h -c 'Michał|Bartosz||' work/ndiaye/build/*_report.md
+  CHECK: rm -rf work/ndiaye/build; python3 ~/.claude/skills/srom-produkcja/scripts/build.py work/ndiaye/ndiaye_pl.md --refs work/ndiaye/src/refs.json --refs work/ndiaye/ndiaye_refs_tlum.json --pair-src work/ndiaye/src/ndiaye_src.md --queries work/ndiaye/ndiaye_pytania_tlum.csv --out work/ndiaye/build --draft >/dev/null 2>&1 && grep -h -c 'Michał|Bartosz||' work/ndiaye/build/*_report.md
   EXPECT: /^1$/m
   EVIDENCE: 1
 

@@ -6,7 +6,7 @@ Deliverable: a preliminary translation for MB to edit (MB 29.09.2026: go ahead, 
 Open choices are applied as the intake proposes (`tittel_intake.md` § 3) and listed for MB; nothing waits for MB.
 
 - [x] G1: handoff check passes (structure, notes, citation keys)
-  CHECK: ~/.venvs/srom/bin/python ~/.claude/skills/srom-typeset/scripts/check.py --pair work/tittel/src/tittel_src.md work/tittel/tittel_pl.md --refs work/tittel/src/refs.json
+  CHECK: ~/.venvs/srom/bin/python ~/.claude/skills/srom-produkcja/scripts/check.py --pair work/tittel/src/tittel_src.md work/tittel/tittel_pl.md --refs work/tittel/src/refs.json
   EXPECT: /CHECK OK/
 
 - [x] G2: Polish header data well formed
@@ -14,7 +14,7 @@ Open choices are applied as the intake proposes (`tittel_intake.md` § 3) and li
   EXPECT: /^FRONT OK$/m
 
 - [x] G3: the draft builds, and the translator is reported for the CSV
-  CHECK: rm -rf work/tittel/build; ~/.venvs/srom/bin/python ~/.claude/skills/srom-typeset/scripts/build.py work/tittel/tittel_pl.md --refs work/tittel/src/refs.json --pair-src work/tittel/src/tittel_src.md --queries work/tittel/tittel_pytania_tlum.csv --out work/tittel/build --draft >/dev/null 2>&1 && grep -h -c 'Michał|Bartosz||' work/tittel/build/*_report.md
+  CHECK: rm -rf work/tittel/build; ~/.venvs/srom/bin/python ~/.claude/skills/srom-produkcja/scripts/build.py work/tittel/tittel_pl.md --refs work/tittel/src/refs.json --pair-src work/tittel/src/tittel_src.md --queries work/tittel/tittel_pytania_tlum.csv --out work/tittel/build --draft >/dev/null 2>&1 && grep -h -c 'Michał|Bartosz||' work/tittel/build/*_report.md
   EXPECT: /^1$/m
 
 - [x] G4: no untranslated English prose left in the body (notes, italics, comments and citation tokens removed; count of "the"/"and"/"of"…)
@@ -34,6 +34,6 @@ Open choices are applied as the intake proposes (`tittel_intake.md` § 3) and li
   NOTE 29.09.2026 17:47: time correction — the stamp „04:36” was not read from the clock: this file was committed at 04:33:09 (f3d7bec), so the work was done before then. Evidence unchanged.
 
 - [x] G8: Word working copy round trip: export → import → pair check OK
-  CHECK: cd work/tittel && S=~/.claude/skills/srom-typeset/scripts && T=$(mktemp -d) && ~/.venvs/srom/bin/python $S/export_work.py tittel_pl.md -o $T/tittel_rt.docx >/dev/null 2>&1 && ~/.venvs/srom/bin/python $S/docx_in.py $T/tittel_rt.docx -o $T/tittel_rt.md >/dev/null 2>&1 && ~/.venvs/srom/bin/python $S/check.py --pair src/tittel_src.md $T/tittel_rt.md --refs src/refs.json 2>&1 | tail -1
+  CHECK: cd work/tittel && S=~/.claude/skills/srom-produkcja/scripts && T=$(mktemp -d) && ~/.venvs/srom/bin/python $S/export_work.py tittel_pl.md -o $T/tittel_rt.docx >/dev/null 2>&1 && ~/.venvs/srom/bin/python $S/docx_in.py $T/tittel_rt.docx -o $T/tittel_rt.md >/dev/null 2>&1 && ~/.venvs/srom/bin/python $S/check.py --pair src/tittel_src.md $T/tittel_rt.md --refs src/refs.json 2>&1 | tail -1
   NOTE 29.09.2026 17:43: CHECK rewritten after the cross-module review of 29.09.2026 (finding 2): it exported in place over `tittel_robocza.docx`, the file MB edits (the master once he has), so a re-run would have replaced his edits with the draft. It now exports and imports in a temp dir, as 1.5.3b does; `tittel_robocza.docx` is never written. Same test, same result; gate closed as of 29.09.2026.
   EXPECT: /CHECK OK/

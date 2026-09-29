@@ -55,10 +55,10 @@ wydania polskiego, po średniku odesłanie autorki (Kanon § 12.2.4 a).
 - **„(my translation)” pominięte** [TIT-5] w przyp. 37, 81, 95 (tam przekładam z podanego przez autorkę niemieckiego, więc uwaga
   o jej angielskim przekładzie nie dotyczy polskiego tekstu); w przyp. 14 zastąpione adnotacją „tłum. z przekładu
   angielskiego autorki”. To pominięcie w rozumieniu § 12.2.8 – do akceptacji albo przywracam „(przekład autorki)”.
-- **Skrót MEW (D20 A4)** [TIT-6]: „(hereafter abbreviated as MEW 23)” pominięte, jak rekomenduje srom-typeset; ich komentarz
+- **Skrót MEW (D20 A4)** [TIT-6]: „(hereafter abbreviated as MEW 23)” pominięte, jak rekomenduje srom-produkcja; ich komentarz
   został w tekście. W przyp. 49 dodałem nawias tłumacza: cytaty z Marksa według wydań polskich.
 - **Przypis tytułowy (D20 A1)** [TIT-2]: nota o przekładzie, potem podziękowania autorki – jeden blok (D12). Jeśli A1 zostanie
-  cofnięte, podziękowania wracają jako przypis 1, numeracja przesuwa się o jeden (plik źródłowy zmieni srom-typeset).
+  cofnięte, podziękowania wracają jako przypis 1, numeracja przesuwa się o jeden (plik źródłowy zmieni srom-produkcja).
 - **Abstrakt** [TIT-10]: przekład pełny ma 1309 znaków (> 1000, Kanon § 12.2.2 – skraca redakcja). Propozycja skrótu (882 zn.):
   > Relacja między rasowymi a społecznymi konotacjami terminu „Cygan” jest przedmiotem debaty w badaniach nad
   > antycyganizmem. Według historyków do lat 20. XX wieku obraz „Cyganów” w pracy policji odnosił się głównie do statusu

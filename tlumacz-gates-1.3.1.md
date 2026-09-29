@@ -35,10 +35,10 @@ Harvest rule (declared): group names = capitalised tokens in the English texts t
   EVIDENCE: 1
   NOTE 28.09.2026: a re-run now gives 0: D8 was answered and removed from MB-decisions.md, as its rules require. Gate closed as of 27.09.2026.
 
-- [x] G7: kartoteka seed passed to srom-typeset (Kanon/kartoteka are edited only there)
-  CHECK: grep -c '^## E11 ' ../_handoffs/tlumacz-to-typeset.md
+- [x] G7: kartoteka seed passed to srom-produkcja (Kanon/kartoteka are edited only there)
+  CHECK: grep -c '^## E11 ' ../_handoffs/tlumacz-to-produkcja.md
   EXPECT: /^1$/m
   EVIDENCE: 1
 
 - [x] G8: MB's sign-off on the candidates; approved rows merged into `tlumacz-tb.tsv`, checks green
-  EVIDENCE: MB 27.09.2026 D8 "all good calls" (recorded in `../_handoffs/MB-decisions.md` D8). Merged: check_tb `shape: 11 rows, 0 problem(s)`, `precedent verified: 11/11`, selftest 7/7; all 11 rows HOUSE. (e) italics passed to srom-typeset (E12), not a termbase row.
+  EVIDENCE: MB 27.09.2026 D8 "all good calls" (recorded in `../_handoffs/MB-decisions.md` D8). Merged: check_tb `shape: 11 rows, 0 problem(s)`, `precedent verified: 11/11`, selftest 7/7; all 11 rows HOUSE. (e) italics passed to srom-produkcja (E12), not a termbase row.

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""tlumacz-test_handoff.py — contract test of the srom-typeset handoff (references/handoff.md) as srom-tlumacz uses it.
+"""tlumacz-test_handoff.py — contract test of the srom-produkcja handoff (references/handoff.md) as srom-tlumacz uses it.
 
-Run after any srom-typeset update. Builds fixtures in a temp dir and checks the verdicts of
+Run after any srom-produkcja update. Builds fixtures in a temp dir and checks the verdicts of
 check.py --pair, export_work.py/docx_in.py round trip, build.py --queries header handling and
-cite_map.py audit. KNOWN GAP lines document behaviour that srom-typeset is asked to change
-(../_handoffs/tlumacz-to-typeset.md); they do not count as failures until the change lands, then flip.
+cite_map.py audit. KNOWN GAP lines document behaviour that srom-produkcja is asked to change
+(../_handoffs/tlumacz-to-produkcja.md); they do not count as failures until the change lands, then flip.
 
 Last line: HANDOFF CONTRACT n/n  (exit 0 only if every contract case holds)
 """
@@ -12,12 +12,12 @@ import glob, os, subprocess, sys, tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from tlumacz_paths import skill_dir
-_T = os.environ.get("SROM_TYPESET") or skill_dir("srom-typeset")
+_T = os.environ.get("SROM_TYPESET") or skill_dir("srom-produkcja")
 S = os.path.join(_T, "scripts") if _T and os.path.exists(os.path.join(_T, "scripts", "check.py")) else None
 if not S:
-    print("srom-typeset not found (set SROM_TYPESET)"); sys.exit(2)
+    print("srom-produkcja not found (set SROM_TYPESET)"); sys.exit(2)
 try:
-    import docx  # noqa: F401  srom-typeset's scripts run under this interpreter (sys.executable)
+    import docx  # noqa: F401  srom-produkcja's scripts run under this interpreter (sys.executable)
 except ImportError:
     print(f"python-docx missing for {sys.executable}: run with ~/.venvs/srom/bin/python"); sys.exit(2)
 D = tempfile.mkdtemp()
@@ -146,7 +146,7 @@ rc, out = pair(SRC, tn_back, [REFS_SRC, REFS_TLUM]) if os.path.exists(tn_back) e
 expect("E16: Word round trip keeps the two-paragraph title note as one block", rc == 0 and "CHECK OK" in out, gap=True)
 
 # T11 (28.09.2026): header data both ways — <id>_src_front.md out, <id>_front_pl.md back (Kanon § 12.2.2).
-# The contract names both files; srom-typeset has no checker for the Polish one, so ours is tested here.
+# The contract names both files; srom-produkcja has no checker for the Polish one, so ours is tested here.
 HO = open(os.path.join(_T, "references", "handoff.md"), encoding="utf-8").read()
 expect("T11: handoff.md names <id>_src_front.md and <id>_front_pl.md", "`<id>_src_front.md`" in HO and "`<id>_front_pl.md`" in HO)
 FSRC = w("x_src_front.md", "Black Roma: Afro-Romani Connections\n\nA. AUTHOR, *University*\n\n*This essay shows.*\n")
@@ -198,7 +198,7 @@ m0 = rows6([])
 expect("E6 control: without --pair-src the cells keep the source labels 2, 3", m0.get("q-two") == "2" and m0.get("q-three") == "3")
 
 # T26 (29.09.2026): the hand-back ("Back" in handoff.md). The Word file in our work/<id>/ is the master; we import it
-# with docx_in.py (the md is never edited by hand) and name the files with sha256 in a delivery E-item; srom-typeset
+# with docx_in.py (the md is never edited by hand) and name the files with sha256 in a delivery E-item; srom-produkcja
 # takes them with take_back.py, which re-imports the master and requires the md to equal that import byte for byte.
 import hashlib, shutil
 expect("T26: handoff.md 'Back' — Word master in srom-tlumacz's work/<id>/, delivery E-item, take_back.py",
@@ -227,7 +227,7 @@ open(os.path.join(DL, "x_pl.md"), "a", encoding="utf-8").write("\nDopisane ręcz
 rc, last = take(FILES)
 expect("T26 control: md edited by hand after the import fails the take-back", rc != 0 and "FAILED" in last[0])
 
-# KNOWN GAPS (requests E1, E2, E4): these should flip when srom-typeset changes
+# KNOWN GAPS (requests E1, E2, E4): these should flip when srom-produkcja changes
 rc, out = pair(w("ex_s.md", "A.\n\n::: przyklad\n```\nme dikhav o kher\nI see.1SG DEF house\n'I see the house'\n```\n:::\n\nB.\n"),
                w("ex_t.md", "A.\n\n::: przyklad\n```\nme dikhaw o kher\nja widzieć.1SG DEF dom\n‘widzę dom’\n```\n:::\n\nB.\n"))
 expect("E1: altered Romani form line in ::: przyklad is caught", rc == 1, gap=True)

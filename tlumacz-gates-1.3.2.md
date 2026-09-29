@@ -3,7 +3,7 @@
 Opened 29.09.2026 14:10 [general], after a read-only survey (intake and notes sheets, sources, drafts). No translation in
 this leaf (MB, 29.09.2026: "you won't be translating anything here"): the drafts are read, never edited.
 
-Shortlist (MB 29.09.2026, closes `MB-decisions.md` D6 (c)): the vol. 19 translations are the texts srom-typeset handed
+Shortlist (MB 29.09.2026, closes `MB-decisions.md` D6 (c)): the vol. 19 translations are the texts srom-produkcja handed
 over: Ndiaye (T12), Ostendorf (T19/T21), Pahulich (T18), Tittel (T20) — drafted in parallel sessions — and West Ohueri
 (T23/T24, source frozen, not started, rights pending).
 

@@ -80,7 +80,7 @@ dd.mm.rrrr (MB)”). Stan 29.09.2026: 10 otwartych.
   lub cytat (Robinson „Blackamoors”, Wynter „Negro”, Browne „artificial Negroes”); „tubylcy” w cytacie z Wynter;
   „złodziejska rasa” (S3) – u Frasera polskiego może być inaczej.
 - **Nazwy grup**: Romowie; Romki (*Romani women*); Sinti, Kale, Manusze, Rudari, Travellersi (kartoteka; *Manoush* nie
-  ma w kartotece jako wariantu Manush – pismo do srom-typeset); „[C]yganie” w cytatach z Willemsa, z przypisem tłumacza
+  ma w kartotece jako wariantu Manush – pismo do srom-produkcja); „[C]yganie” w cytatach z Willemsa, z przypisem tłumacza
   *t2* odsyłającym do przypisów autorki 2 i 67 (Kanon § 6.1); *Zigeuner*, *Gipsey* kursywą (§ 3.4).
 - **Nazwy i tytuły**: Władimir Dal, Barannikow, Aleksandr German (transkrypcja polska w tekście); *Orientalizm*
   (*Orientalism*); Bielski: *Kronika, to jest historyja świata* (pisownia uwspółcześniona; oryg. 1564: *Kronika tho
@@ -100,12 +100,12 @@ dd.mm.rrrr (MB)”). Stan 29.09.2026: 10 otwartych.
 Austro-Węgry za Marii Teresy i Józefa II (przed przyp. 80); habsburskie Węgry Królewskie w XV wieku (przed przyp. 42);
 Ghica „na początku XIX wieku” (przyp. 40); Dal „w 1848 roku” (przyp. 86); atrybucja zdania z Grellmanna 1807, s. 108
 (przyp. 132); Przyłuski 1553/1551 (przyp. 125); Münster 1544 (przyp. 126); oraz z D17: „(1992, 81)” (przyp. 37),
-Jenkins i Leroy 2021 (komentarze srom-typeset zachowane).
+Jenkins i Leroy 2021 (komentarze srom-produkcja zachowane).
 
 ## 5. Poza przekładem
 
-- Przekłady tytułów w nawiasach kwadratowych w `refs.json` (srom-typeset prosił o przegląd): 5 propozycji w wykazie
-  pytań (brakujące podtytuły: Chėrvinski, Horváthová, Zinevych, Dal; „otechestvennoĭ” u Kireĭ/Serdiuk). Reszta bez uwag. — Wprowadzone przez srom-typeset (T25, 29.09.2026 18:42); wiersze usunięte z wykazu pytań.
+- Przekłady tytułów w nawiasach kwadratowych w `refs.json` (srom-produkcja prosił o przegląd): 5 propozycji w wykazie
+  pytań (brakujące podtytuły: Chėrvinski, Horváthová, Zinevych, Dal; „otechestvennoĭ” u Kireĭ/Serdiuk). Reszta bez uwag. — Wprowadzone przez srom-produkcja (T25, 29.09.2026 18:42); wiersze usunięte z wykazu pytań.
 - Słowa kluczowe: autorskie (6), polskie w przekładzie; angielskie „jak w oryginale”.
 - Wydania polskie (S1–S7) trafią do `pahulich_refs_tlum.json` dopiero ze stronami (wtedy odesłanie autorki po średniku,
   Kanon § 12.2.4 a).

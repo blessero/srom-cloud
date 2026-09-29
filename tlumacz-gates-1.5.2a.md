@@ -2,8 +2,8 @@
 
 Scope: receive the source, answer T11 (front matter both ways), survey what the article needs (quotation rules, Polish editions, terminology, group names), and put the blocking questions to MB. The draft is leaf 1.5.2b.
 
-- [x] G1: the four source files in `work/ndiaye/src/` are identical to srom-typeset's
-  CHECK: cd "../srom-typeset/work/ndiaye" && shasum -a 256 -c "../../../srom-tlumacz/work/ndiaye/src/manifest.sha256" | grep -c ': OK$'
+- [x] G1: the four source files in `work/ndiaye/src/` are identical to srom-produkcja's
+  CHECK: cd "../srom-produkcja/work/ndiaye" && shasum -a 256 -c "../../../srom-tlumacz/work/ndiaye/src/manifest.sha256" | grep -c ': OK$'
   EXPECT: /^4$/m
   EVIDENCE: 4
 
@@ -28,8 +28,8 @@ Scope: receive the source, answer T11 (front matter both ways), survey what the 
   EVIDENCE: 1
   NOTE 28.09.2026: a re-run now gives 0: D11 was answered and removed from MB-decisions.md, as its rules require. Gate closed as of 28.09.2026.
 
-- [x] G6: receipt and front-matter format sent to srom-typeset
-  CHECK: grep -c -E '^## E14 |^- T12 — 28.09.2026 status: received' ../_handoffs/tlumacz-to-typeset.md
+- [x] G6: receipt and front-matter format sent to srom-produkcja
+  CHECK: grep -c -E '^## E14 |^- T12 — 28.09.2026 status: received' ../_handoffs/tlumacz-to-produkcja.md
   EXPECT: /^2$/m
   EVIDENCE: 2
 

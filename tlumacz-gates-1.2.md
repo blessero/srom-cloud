@@ -2,7 +2,7 @@
 
 Scope: translate four vol. 18 English passages (one per article, per MB 26.09.2026) **without seeing the published Polish**. Record the drafts' sha256 here before any Polish file is opened. Then compare with MB's Polish and inventory error classes. Part A (G1–G8) needs no input from MB. Part B (G9–G11) waits for MB's Polish vol. 18 files.
 
-Files: `tlumacz-baseline-1.2/` — `<art>_src.md` (English passage, cleaned from the srom-typeset extraction), `<art>_blind.md` (Polish blind draft), `<art>_pytania_tlum.csv` (queries), `manifest.sha256`.
+Files: `tlumacz-baseline-1.2/` — `<art>_src.md` (English passage, cleaned from the srom-produkcja extraction), `<art>_blind.md` (Polish blind draft), `<art>_pytania_tlum.csv` (queries), `manifest.sha256`.
 
 Passage rule (fixed before reading the passages closely): whole sections, 1,300–2,000 words of body text (notes not counted), no abstract, bibliography or acknowledgements; chosen for density of argument and terminology. Chosen: Takács "Roma at America's gates" + "Assembling the clues"; Ostendorf "The nature of history" + "The missing historicization of Romani American history"; Fotta "Studying the racialization of Romanies relationally"; Marushiakova/Popov "Territorial Distributions and Identities" (to a paragraph end within the range).
 
@@ -36,7 +36,7 @@ Blind rule: before G4 is met, do not open the vol. 18 Polish text (`sources/Stud
   EXPECT: /^house: all \d+ occurrences rendered/m
   EVIDENCE: house: all 9 occurrences rendered
 
-- [x] G6: one query sheet per article, with the srom-typeset header `adresat;rodzaj;przypis;dzieło;szczegóły`, and at least one row each
+- [x] G6: one query sheet per article, with the srom-produkcja header `adresat;rodzaj;przypis;dzieło;szczegóły`, and at least one row each
   CHECK: python3 tlumacz-baseline-1.2/measure.py queries
   EXPECT: /^queries: 4\/4 valid/m
   EVIDENCE: dom: 8 rows ok | queries: 4/4 valid
@@ -45,12 +45,12 @@ Blind rule: before G4 is met, do not open the vol. 18 Polish text (`sources/Stud
   EVIDENCE: 31 rows in total (takacs 9, ostendorf 7, fotta 7, dom 8; `measure.py queries`). Source errors: takacs row 1 (missing word, P1), row 2 (six obvious typos, fixed and listed per § 12.2.8), row 3 (nuclear families of 20+); ostendorf row 6; fotta row 2 (Williams 1997?); dom rows 3–5 (Autonomous Region, Khudatin/Chavchadze, "so that … remains open"). Quotations: takacs row 4 (Hancock), ostendorf rows 2 (Fotta, same volume) and 4 (Roach et al.), fotta row 1 (Portuguese sources via the author's English).
 
 - [x] G8: blind rule kept up to G4 (manual; what was and was not opened)
-  EVIDENCE: Not opened in this session (26–27.09.2026): `sources/Studia_Romologica_nr_18_2025.txt`, any Polish vol. 18 DOCX (none is in the folder), `tlumacz-tb.tsv` beyond the checker's count output. The only contact with the vol. 18 Polish text was `tlumacz-check_tb.py --precedent`, which prints "precedent verified: 4/4" and no text. Opened: the four English originals in `sources/vol18-en/`, their srom-typeset extractions (scratchpad), Kanon v1.6, srom-typeset/curator skill files. HOUSE forms were used from memory of the four known rows. Limit: this is self-reported. The hash in G4 is what proves the drafts were not changed after the Polish is opened.
+  EVIDENCE: Not opened in this session (26–27.09.2026): `sources/Studia_Romologica_nr_18_2025.txt`, any Polish vol. 18 DOCX (none is in the folder), `tlumacz-tb.tsv` beyond the checker's count output. The only contact with the vol. 18 Polish text was `tlumacz-check_tb.py --precedent`, which prints "precedent verified: 4/4" and no text. Opened: the four English originals in `sources/vol18-en/`, their srom-produkcja extractions (scratchpad), Kanon v1.6, srom-produkcja/curator skill files. HOUSE forms were used from memory of the four known rows. Limit: this is self-reported. The hash in G4 is what proves the drafts were not changed after the Polish is opened.
 
 ## Part B — waits for MB's Polish vol. 18 files
 
 - [x] G9: MB's Polish text of the four passages located and saved beside the drafts (`<art>_mb.md`), located only after G4
-  EVIDENCE: 27.09.2026, after `shasum -c manifest.sha256` → 8 OK (manifest 956ef922…). Source: `vol18-PL-HOLD/*.docx` → srom-typeset docx_in.py → `extract_mb.py` (only RTL artefacts cleaned). Spans: takacs lines 33–69, ostendorf 41–91, fotta 48–117, dom 100–123 of the extractions.
+  EVIDENCE: 27.09.2026, after `shasum -c manifest.sha256` → 8 OK (manifest 956ef922…). Source: `vol18-PL-HOLD/*.docx` → srom-produkcja docx_in.py → `extract_mb.py` (only RTL artefacts cleaned). Spans: takacs lines 33–69, ostendorf 41–91, fotta 48–117, dom 100–123 of the extractions.
 
 - [x] G10: divergence table per passage: each divergence classed (terminology, syntax/calque, register, meaning error, omission/addition, apparatus, punctuation/typography, preference) with a verdict on whose version is better and why
   CHECK: python3 tlumacz-baseline-1.2/measure.py inventory

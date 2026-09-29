@@ -62,10 +62,10 @@ Scope: fix every interface later leaves depend on — plan, termbase schema and 
   EXPECT: selftest: 7/7 negative controls caught
   EVIDENCE: selftest: 7/7 negative controls caught
 
-- [x] G13: manual — contract reviewed against srom-typeset (scenario C); no duplicated responsibility left, every required change there stated as a numbered requirement
-  EVIDENCE: source = srom-typeset build chat (translation protocol, check.py --pair spec, blocking comments, _pytania sheet). Removed duplicates: preserve_check (= check.py --pair), own DOCX conversion (= build.py), separate query list (= _pytania), hand-kept glossary (= tb_lookup view). Conflicts stated as IF-TYPESET R1 (translator notes vs marker count), R2 (added Polish-edition keys vs key invariance), R3 (own-translation marking vs § 12.2.4 d), R4 (title asterisk note). 25.09.2026: installed srom-typeset implements R1, R2, R4 (verified by G14); R3 moot (translation.md replaced by handoff.md, no such rule).
+- [x] G13: manual — contract reviewed against srom-produkcja (scenario C); no duplicated responsibility left, every required change there stated as a numbered requirement
+  EVIDENCE: source = srom-produkcja build chat (translation protocol, check.py --pair spec, blocking comments, _pytania sheet). Removed duplicates: preserve_check (= check.py --pair), own DOCX conversion (= build.py), separate query list (= _pytania), hand-kept glossary (= tb_lookup view). Conflicts stated as IF-TYPESET R1 (translator notes vs marker count), R2 (added Polish-edition keys vs key invariance), R3 (own-translation marking vs § 12.2.4 d), R4 (title asterisk note). 25.09.2026: installed srom-produkcja implements R1, R2, R4 (verified by G14); R3 moot (translation.md replaced by handoff.md, no such rule).
 
-- [x] G14: srom-typeset handoff behaviour relied on by the contract holds on the installed skill
+- [x] G14: srom-produkcja handoff behaviour relied on by the contract holds on the installed skill
   CHECK: python3 tlumacz-test_handoff.py
   EXPECT: /^HANDOFF CONTRACT (\d+)\/\1$/m
   EVIDENCE: KNOWN GAP FAIL  E4: numbers from added citation keys not reported | HANDOFF CONTRACT 9/9

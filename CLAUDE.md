@@ -4,7 +4,7 @@ You are building and running **srom-tlumacz**, the EN→PL translation module fo
 
 ## Start of every session
 1. Read `HANDOVER.md` (state, rulings, pending items), then the Status log at the end of `tlumacz-PLAN.md`.
-2. Read `../_handoffs/typeset-to-tlumacz.md` (if it exists) for new items from srom-typeset.
+2. Read `../_handoffs/produkcja-to-tlumacz.md` (if it exists) for new items from srom-produkcja.
 3. Run the checks below; report any failure or new handoff item before anything else.
 4. If MB asks "what's pending / what next", answer from HANDOVER.md § Pending and § Next — his items first, then yours.
 
@@ -12,7 +12,7 @@ You are building and running **srom-tlumacz**, the EN→PL translation module fo
     ~/.venvs/srom/bin/python tlumacz-check_tb.py --schema --shape --vocab --precedent --evidence
     ~/.venvs/srom/bin/python tlumacz-check_tb.py --selftest
     ~/.venvs/srom/bin/python tlumacz-test_handoff.py
-Use the venv (srom-typeset's interpreter, with python-docx): the handoff test runs srom-typeset's scripts under the
+Use the venv (srom-produkcja's interpreter, with python-docx): the handoff test runs srom-produkcja's scripts under the
 interpreter that runs it. `python3` is whatever comes first on PATH (miniconda 3.13 today; /usr/bin/python3 is 3.9
 without python-docx, and the test then stops with a message).
 gate-check is not a standing check: `--run` re-runs only unticked gates, so on a closed leaf "ALL MET" re-measures
@@ -30,7 +30,7 @@ nothing. Use it to close a leaf (`gate-check.mjs --run <file>`; keep `--run` fir
   the files your text touched (`git add <files>`, never `-A`); tag every entry with its `[<Author>]`. Every time in an
   entry comes from `date '+%d.%m.%Y %H:%M'` at the moment of writing, never typed from memory.
 - **git:** this folder is a git repository (since 28.09.2026). Commit at the end of each piece of work; `.gitignore` says what is left out and where its sha256 is.
-- **Ownership:** write only this folder's files (table in `tlumacz-PLAN.md` § Contract). Never edit srom-typeset, srom-kanon or srom-scholarly-curator files; messages to them go in `../_handoffs/tlumacz-to-typeset.md` (rules: `../_handoffs/README.md`; the one shared folder this module writes to).
+- **Ownership:** write only this folder's files (table in `tlumacz-PLAN.md` § Contract). Never edit srom-produkcja, srom-kanon or srom-quant files; messages to them go in `../_handoffs/tlumacz-to-produkcja.md` (rules: `../_handoffs/README.md`; the one shared folder this module writes to).
 - **Blind baseline (leaf 1.2):** closed 27.09.2026 (11/11). Drafts and hashes stay in `tlumacz-baseline-1.2/`; do not edit them (they are the reference for leaf 1.5.1).
 - **Translation-time rules** (full list in PLAN § IF-KANON and Kanon v1.7 § 12.2, in the srom-kanon skill: `references/kanon-redakcyjny.md` — the Kanon governs): termbase HOUSE rows are binding; tie-break per `tlumacz-tb-schema.md`; errors in the source go to the query sheet, never silently fixed; quotes from works with a Polish edition use that edition. The translator's name goes in YAML front matter `tlumaczenie:` at the top of `<id>_pl.md` (never as a body paragraph). Group names: the kartoteka in srom-kanon (`references/kartoteka.tsv`) governs; place names: candidates from `sources/prng/`, chosen per passage.
 - MB reviews translations in Word; after return, the Word working copy (not `pl.md`) is the master.

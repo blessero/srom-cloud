@@ -38,4 +38,4 @@ Brzmienie francuskie sprawdzone w wydaniu Louandre 1910 (fr.wikisource).
 - Nazwy grup (D13, zastosowane 28.09.2026): Romni → Romka, Romnia → Romki; *gadjo* / *gadji* / *gadje* małą literą, kursywą przy pierwszym wystąpieniu, w pisowni autorki; wczesnonowożytni „Egipcjanie” w cudzysłowie. Przypis 1 zachowuje listę słów romskich autorki w oryginale.
 - [NDI-3] Nota o przekładzie: brak numeru zeszytu RQ 75 → `[BRAK nr]`.
 - Słowa kluczowe angielskie — do zatwierdzenia przez autorkę.
-- Ilustracje (3): pliki i zgody — etap 3 (srom-typeset).
+- Ilustracje (3): pliki i zgody — etap 3 (srom-produkcja).

@@ -5,8 +5,8 @@ editions, originals of third-language quotes, terminology, group names, doubts i
 T-items. MB asked (29.09.2026) to go ahead without his feedback and collect his decisions for later, so no gate waits for
 MB: open choices are recorded as assumptions in the intake and the notes sheet. The draft is leaf 1.5.3b.
 
-- [x] G1: the four source files in `work/ostendorf/src/` are identical to srom-typeset's (T21 hashes)
-  CHECK: cd "../srom-typeset/work/ostendorf" && shasum -a 256 -c "../../../srom-tlumacz/work/ostendorf/src/manifest.sha256" | grep -c ': OK$'
+- [x] G1: the four source files in `work/ostendorf/src/` are identical to srom-produkcja's (T21 hashes)
+  CHECK: cd "../srom-produkcja/work/ostendorf" && shasum -a 256 -c "../../../srom-tlumacz/work/ostendorf/src/manifest.sha256" | grep -c ': OK$'
   EXPECT: /^4$/m
 
 - [x] G2: intake file covers procedure features, Polish editions and originals, terminology, doubts in the source, plan
@@ -18,7 +18,7 @@ MB: open choices are recorded as assumptions in the intake and the notes sheet. 
   EXPECT: /^quotes: (\d+) in text, \1 in sheet, 0 bad class$/m
 
 - [x] G4: receipt of T17–T21 answered with status lines
-  CHECK: grep -oE '^- T(17|18|19|20|21) — 29\.09\.2026 [0-9:]+ status:' ../_handoffs/tlumacz-to-typeset.md | cut -c3-5 | sort -u | wc -l | tr -d ' '
+  CHECK: grep -oE '^- T(17|18|19|20|21) — 29\.09\.2026 [0-9:]+ status:' ../_handoffs/tlumacz-to-produkcja.md | cut -c3-5 | sort -u | wc -l | tr -d ' '
   EXPECT: /^5$/m
   NOTE 29.09.2026 17:44: CHECK rewritten after the cross-module review of 29.09.2026 (finding 13): it counted status lines, and later sessions added more for the same items (5 → 7); it now counts distinct items answered. Gate closed as of its original date.
 
