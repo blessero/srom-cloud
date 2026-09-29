@@ -144,6 +144,26 @@ G12) after.
    still pass.
    Known, not fixed: the query sheet flags a citation after a quoted chapter title as "cytat bez numeru strony" (Amīn, n. 47);
    repositories behind proof-of-work bot checks (Giessen GEB/JLUpub, DB Thüringen, nbn-resolving) are not read — left to MB.
+4e. **Stage-1 test 6: West Ohueri** ("Peripheral whiteness and racial belonging and non-belonging: accounts from Albania",
+   ch. 6 of C. Baker et al. (eds), *Off White*, Manchester UP 2024, DOI 10.7765/9781526172211.00013; manchesterhive PDF,
+   British Chicago endnotes, no bibliography; `work/westohueri/`, git-ignored) — done 29.09.2026, announced to srom-tlumacz
+   (T23). **Rights: CC BY-NC-ND 4.0 — the ND needs written permission before a translation is published** (D24 A1; the first
+   ND text). MB's points in `MB-decisions.md` D24 (detail `work/westohueri/westohueri_queries.md` A–E). Pipeline:
+   `pdf_extract` → `key.py` (prep: fieldwork blocks without italics, § 4.1; three DO SPRAWDZENIA comments; keying,
+   `key_log.md`) → `check.py --keyed westohueri_pre.md westohueri_src.md` → `build.py --source` → `export_work.py`;
+   `refs.py` → refs.json (51 works; 16 DOIs from Crossref, `doi_check.txt`; the dissertation's place sourced).
+   `wordcheck.py` (every PDF word), `mutate.py` (17 keying mutations, all caught). Re-run from `refs.py`/`key.py` after
+   MB's answers; new T-item with sha256.
+   What it broke, fixed with tests (950f46e, 9163315, 4a088a2): a separate small-capitals font's text layer ("bce");
+   `check.py --keyed` read "40:3 (2021)", "2nd ed.", "26 May 2020" as lost pages, and — **mutation test** — let a work
+   dropped from a multi-work note or a key swapped for another named work pass (now checked both ways, citation shape
+   only, also the author's short forms; the claim "no work lost" in SKILL.md was not true before); the query sheet missed
+   quotations in 'single quotes' with the marker after the stop (2 → 13 rows); "Zob. *Ibidem*, for more on …" (Ibidem with
+   the sentence going on, § 7.3) is now the short form. Regression: the five earlier PDFs extract identically (the two old
+   diffs), their keyed checks pass, their Ibidem handling is unchanged.
+   Known, not fixed: reprint years ("2000 [1983]") are not printed — no Kanon line (D24 A8); films lose their producer
+   (§ 8.7 pattern); a quotation whose marker stands later in the sentence (n. 37) or after a stray space (n. 56) is not
+   on the query sheet (listed by hand in queries D3); Brazilian compound surnames cannot sort under the last part (CSL).
 5. **Next text for translation** (srom-tlumacz HANDOVER § 7a): MB sends it here first — stage 1 (freeze
    `<id>_src.md` + refs.json + `<id>_src_front.md`, T-item), as with Ndiaye. A DOCX with typed notes needs E9 first.
    ~~**E9 typed notes**~~ — done 28.09.2026 (T17): `docx_in.py --typed-notes`; Dom file 52/52 pairs right
@@ -269,5 +289,5 @@ author's notes.
 
 ## 7. Pending for the editor
 
-Only in `../_handoffs/MB-decisions.md`. srom-typeset's open items there: D17 (Pahulich), D18 (German test), D19 (Ostendorf), D20 (Tittel), D21 (speaker/affiliation italics vs Kanon § 3.4), D15 (licence ND option, kolegium), D16 (vol. 18 copyright clause, before any OA announcement).
+Only in `../_handoffs/MB-decisions.md`. srom-typeset's open items there: D17 (Pahulich), D18 (German test), D19 (Ostendorf), D20 (Tittel), D24 (West Ohueri), D21 (speaker/affiliation italics vs Kanon § 3.4), D15 (licence ND option, kolegium), D16 (vol. 18 copyright clause, before any OA announcement).
 D1, D2, D4, D7, D9, D12–D14 are closed.

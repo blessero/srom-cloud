@@ -412,3 +412,33 @@ Brief: vol. 18's main styles untouchable (body 10.5/13 on the 13.2945 grid, note
   CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; grep -c "^### D3 " ../_handoffs/MB-decisions.md; grep -c "^### D21" ../_handoffs/MB-decisions.md
   EXPECT: /SUITE ALL PASS (\d+)\/\1\s+0\s+1\s*$/
   EVIDENCE: SUITE ALL PASS 19/19 | 0 | 1 (commits 81babb2; _handoffs 4e5d41f)
+
+## Stage-1 test 6: West Ohueri (Off White, MUP 2024, ch. 6) — done 29.09.2026
+
+Source: MB's manchesterhive PDF (`work/Peripheral whiteness …pdf`), Chicago endnotes (British: 'single quotes', "40:3
+(2021)"), no bibliography, CC BY-NC-ND 4.0. Work folder `work/westohueri/` (git-ignored); MB's points `MB-decisions.md` D24.
+
+- [x] W1: every word and number of the PDF is in the extraction (small-caps font read as capitals: "1000 BCE")
+  CHECK: cd work/westohueri && ~/.venvs/srom/bin/python wordcheck.py westohueri.pdf westohueri_pdf.md westohueri_pdf_front.md westohueri_pdf_extract.md | tail -1; grep -c "1000 BCE" westohueri_pdf.md
+  EXPECT: /TOKENS \d+ in PDF · lost 2 · extra 2\s+1\s*$/
+  EVIDENCE: TOKENS 8431 in PDF · lost 2 · extra 2 | 1 (lost: the "Notes" heading; a URL hyphen the checker joins itself)
+- [x] W2: keying complete: no page, note or work lost
+  CHECK: cd work/westohueri && ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/check.py --keyed westohueri_pre.md westohueri_src.md --refs refs.json | tail -1
+  EXPECT: CHECK OK
+  EVIDENCE: CHECK OK (no warnings)
+- [x] W3: the check catches keying errors (mutation test; before the fixes of 950f46e: 5 of 17 missed)
+  CHECK: cd work/westohueri && ~/.venvs/srom/bin/python mutate.py | tail -1
+  EXPECT: /MUTATIONS CAUGHT (\d+)\/\1/
+  EVIDENCE: MUTATIONS CAUGHT 17/17
+- [x] W4: source proof builds with 0 issues; quotations without a page reach the query sheet
+  CHECK: cd work/westohueri && ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/build.py westohueri_src.md --refs refs.json --out build/ --source | tail -1; grep -c "cytat bez numeru" build/westohueri_src_pytania.md
+  EXPECT: /0 issue\(s\)[\s\S]*\n13\s*$/
+  EVIDENCE: PROOF — … (0 issue(s) …) | 13
+- [x] W5: DOIs equal Crossref's volume/issue/pages; Word round trip lossless
+  CHECK: cd work/westohueri && grep -c "^[a-z0-9]*: 10\." doi_check.txt; grep -c MISMATCH doi_check.txt; ~/.venvs/srom/bin/python ../../.claude/skills/srom-typeset/scripts/docx_in.py westohueri_src_robocza.docx -o /tmp/claude-501/rt.md | tail -1
+  EXPECT: /^16\s+0\s+IMPORT OK\s*$/
+  EVIDENCE: 16 | 0 | IMPORT OK (pandoc AST of the import = the source without its 3 comments, which travel as Word comments)
+- [x] W6: suite green, toolchain commits by path; T23 and D24 in _handoffs, committed
+  CHECK: python3 .claude/skills/srom-typeset/tests/run_all.py | tail -1; grep -c "^## T23" ../_handoffs/typeset-to-tlumacz.md; grep -c "^### D24" ../_handoffs/MB-decisions.md
+  EXPECT: /SUITE ALL PASS (\d+)\/\1\s+1\s+1\s*$/
+  EVIDENCE: SUITE ALL PASS 19/19 | 1 | 1 (commits 950f46e, 9163315, 4a088a2; _handoffs 948e66e, 6b27bfe)
