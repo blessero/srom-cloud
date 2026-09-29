@@ -58,6 +58,18 @@ def eff(n):
     for n in reversed(chain):
         out.update(P[n]["props"])
     return out
+fpj = open(os.path.join(ROOT, "indesign", "srom_final_pass.jsx"), encoding="utf-8").read()
+t("final pass: shipped script is current (regenerated == shipped)", open(os.path.join(sd, "srom_final_pass.jsx"), encoding="utf-8").read() == fpj)
+r = subprocess.run(["node", os.path.join(ROOT, "tests", "es3check.mjs"), os.path.join(sd, "srom_final_pass.jsx")], capture_output=True, text=True)
+t("final pass: valid ES3", "JSX-DONE" in r.stdout, r.stdout)
+t("final pass: one undo step, batch mode never on the active document",
+  "UndoModes.ENTIRE_SCRIPT" in fpj and "batch ? SROM_TARGET_DOC : app.activeDocument" in fpj)
+fp = spec["final_pass"]
+t("final pass: Kanon § 3.6 checks present (szewc, bękart, wdowa, heading, one-letter word, URL, overset)",
+  all(k in fpj for k in ('"SZEWC"', '"BĘKART"', '"WDOWA"', '"ŚRÓDTYTUŁ"', '"SIEROTKA"', '"URL"', "OVERSET")))
+t("final pass: tracking remedies stay within ±10 (vol. 18 practice)", max(abs(x) for x in fp["tracking_steps"]) <= fp["max_tracking"] <= 10, fp)
+t("final pass: every heading style keeps with next (Kanon § 3.6), except the title block", all(eff(n).get("keepWithNext", 0) >= 1 for n in fp["headings"] if n not in ("Tytuł", "Autor")),
+  {n: eff(n).get("keepWithNext") for n in fp["headings"]})
 tk, pz, cy = eff("Tekst"), eff("Przypis"), eff("Cytat")
 t("Tekst = Cambria 10.5/13, grid, tracking 0, H&J 85/100/115 · −3/−1/+1 · 98/100/102", (tk["appliedFont"], tk["pointSize"], tk["leading"], tk["gridAlignment"], tk["tracking"],
   tk["minimumWordSpacing"], tk["maximumWordSpacing"], tk["minimumLetterSpacing"], tk["desiredLetterSpacing"], tk["maximumLetterSpacing"], tk["minimumGlyphScaling"], tk["maximumGlyphScaling"])

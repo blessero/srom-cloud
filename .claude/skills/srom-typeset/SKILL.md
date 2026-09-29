@@ -36,7 +36,7 @@ the DOCX reader; the tests are what proves the toolchain still does what this fi
 | 4b footnoted | Claude keys literal notes → `[@key, s. N]` (archival, fieldwork, laws stay literal) | `check.py --keyed art.md art_keyed.md --refs refs.json` → `CHECK OK`, then `mutate_keyed.py art.md art_keyed.md --refs refs.json` → `MUTATIONS CAUGHT n/n` | a MISSED mutant is a hole in the check for this text's citation style: fix `check.py` (with a test) before handing over, or name the undecidable case in the queries |
 | 5 Word | `python3 $S/export_work.py art.md -o art_robocza.docx` → you edit in Word → `docx_in.py art_robocza.docx -o art.md` (lossless) | `IMPORT OK` | the Word file is the master once exported; proof: `build.py --proof` |
 | 6 build | `python3 $S/build.py art.md --refs refs.json --out build/` | `PASS` / `FAIL` + `_report.md` | warnings; **`_pytania.md/.csv`** = the query sheet for author and editor |
-| 7 InDesign | place DOCX with preset "SROM – pandoc", run `_postimport.jsx`, after layout `_ibidem.jsx` (and `_gwiazdki.jsx` if written) | `RESULT: OK` | per `references/indesign.md` |
+| 7 InDesign | start from `SROM_szablon_v3.idml`; place DOCX with preset "SROM – pandoc", run `_postimport.jsx`, after layout `_ibidem.jsx` (and `_gwiazdki.jsx` if written), last `srom_final_pass.jsx` | `RESULT: OK` | per `references/indesign.md` |
 
 Re-run step 2 after 4a/5 (normalize is idempotent). `check.py art.md --refs refs.json` can be run
 at any time; `build.py` runs it itself.
@@ -122,6 +122,8 @@ styles to the new ones, reads every value back) and `references/style-sheet.md`,
 the spec. `tests/test_jsx.py` checks the spec against the vol. 18 IDMLs; `tools/indesign_check/indesign_check.py`
 runs the script in InDesign itself and proves line for line that body and notes do not move. Several pipeline
 roles share one style (config maps roles → names). v2 (the renaming script): `indesign/legacy/v2/`.
+After layout: `indesign/srom_final_pass.jsx` (Kanon § 3.6: szewc, bękart, wdowa, headings, URL … — report, or fix by
+paragraph tracking ±5/±10, one undo step). Clean template: `indesign/SROM_szablon_v3.idml` (open, save as .indt).
 
 ## References
 

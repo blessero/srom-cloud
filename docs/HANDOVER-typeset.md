@@ -207,7 +207,7 @@ v2 kept in `indesign/legacy/v2/`.
 drop cap + nested style (kept); Autor's 0 pt rule above with "keep in frame" is the first-page sink (kept — dropping
 it moved page 1 up by 35 pt); Ellis's Cytat blokowy had no parent (default H&J, tracking −10), Konferencja's was
 9.5 pt; vol. 18 abstracts were set in the body styles (Ellis), the Abstrakt styles were unused leftovers (dropped);
-running heads were [Basic Paragraph] + overrides (now Pagina/Folio, aligned away from the spine).
+running heads were [Basic Paragraph] + overrides (now Pagina, towards the spine, and Folio, on the outer edge, as in vol. 18).
 
 **Proof:** `tests/test_jsx.py` (17 checks, incl. 232 values of the kept styles against `dump/*.idml`) in the suite;
 `tools/indesign_check/indesign_check.py` in InDesign: the control run equals vol. 18 line for line (Ellis 603/603,
@@ -215,8 +215,28 @@ Konferencja 468/468); the real run keeps page counts; line breaks change only th
 (new: vol. 18 had only the one-letter-word rule) and the unified Cytat. Also: `run_all.py` now fails a test that
 crashes after an early verdict (test_jsx.py had been reported ok while crashing).
 
-**Open for MB:** D21 (Kanon § 3.4 vs the italic speaker name and affiliation). By eye, before the first issue: the
-specimen (`indesign_check.py --specimen`).
+**Second round (MB 29.09.2026, later the same day):**
+- **Kanon § 3.4.** MB ruled: the no-italics rule for proper names governs the text (body, notes, captions,
+  bibliography), not display elements (running heads, speaker and affiliation, contents). Written into the Kanon and
+  RULES; D21 closed.
+- **Junk sweep of the spec, each item proven not to move vol. 18.**
+  - Tekst's hyphenation zone 21.25 (a Word leftover) and auto-leading 120 (the default) are no longer written.
+  - Autor's sink rule got colour None. InDesign's PDF export draws nothing for it either way; now it cannot print
+    whatever its weight.
+- **Keep with next on Śródtytuł, Mówca, Afiliacja and Tabela TYTUŁ** (Kanon § 3.6: a heading never closes a column).
+  It changes exactly one place in the two files: Konferencja p. 6, where the speaker "> Tobi Górniak" stood alone at
+  the foot of the page. Page counts are unchanged.
+- **`indesign/srom_final_pass.jsx`** (generated with the setup script; limits in the spec's `final_pass`): the
+  Kanon § 3.6 checks after layout, plus a fix mode (paragraph tracking ±5/±10, as vol. 18 did by hand; one undo step).
+  - Found in the vol. 18 files after the v3 setup: Ellis p. 8 szewc; p. 1, 10 and 11 split notes with one line;
+    a URL break on p. 8; an Arial font. Konferencja p. 3 bękart; an empty last line on p. 12 (a space before the
+    return); a Times New Roman font.
+  - Both vol. 18 IDMLs already have **overset text** in the main story (Ellis 46,485 characters, Konferencja 32,142).
+  - The first version scanned into the overset text on every trial and kept InDesign busy for about 25 minutes. The
+    scan now stops at overset text, with a 5-minute budget.
+- **`indesign/SROM_szablon_v3.idml`**: the clean template (`indesign_check.py --template`; `make_template.jsx`).
+
+**By eye, before the first issue:** the specimen (`indesign_check.py --specimen`) and the template.
 
 ### v2 notes (history)
 

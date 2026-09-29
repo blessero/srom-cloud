@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-make_style_setup.py — renders indesign/srom_style_setup.jsx and references/style-sheet.md from indesign/style_spec.json
+make_style_setup.py — renders indesign/srom_style_setup.jsx, indesign/srom_final_pass.jsx and references/style-sheet.md from indesign/style_spec.json
 and checks that config/styles.json names only styles the spec defines.   python3 make_style_setup.py [--out-dir DIR]
 """
 import argparse, json, os, sys
@@ -20,7 +20,7 @@ PL = {"appliedFont": "krój", "fontStyle": "odmiana", "pointSize": "stopień", "
       "composer": "składacz", "ruleBelow": "linia pod", "ruleBelowLineWeight": "grubość linii", "ruleBelowOffset": "odsunięcie linii",
       "noBreak": "bez podziału", "desiredLetterSpacing": "odstęp liter (pożądany)"}
 VALS = {"LEFT_JUSTIFIED": "justowanie", "LEFT_ALIGN": "do lewej", "RIGHT_ALIGN": "do prawej", "CENTER_ALIGN": "do środka",
-        "CENTER_JUSTIFIED": "justowanie, ostatni wiersz do środka", "AWAY_FROM_BINDING_SIDE": "od grzbietu", "ALIGN_BASELINE": "tak",
+        "CENTER_JUSTIFIED": "justowanie, ostatni wiersz do środka", "AWAY_FROM_BINDING_SIDE": "od grzbietu", "TO_BINDING_SIDE": "do grzbietu", "ALIGN_BASELINE": "tak",
         "NONE": "nie", "ALL_CAPS": "tak", "NORMAL": "nie", "SMALL_CAPS": "kapitaliki", "CAP_TO_SMALL_CAP": "wersaliki → kapitaliki",
         "SUPERSCRIPT": "indeks górny"}
 TEKST_DETAIL = {"kerningMethod", "autoLeading", "hyphenateAfterFirst", "hyphenateBeforeLast", "hyphenateCapitalizedWords",
@@ -127,6 +127,9 @@ def validate(sp):
             if r["style"] not in cn:
                 errs.append(f"{p['name']}: GREP/nested character style {r['style']} undefined")
         seen.add(p["name"])
+    fpn = spec.get("final_pass", {})
+    for key in ("headings", "short_last_line", "lists", "skip_styles"):
+        errs += [f"final_pass.{key}: {n} undefined" for n in fpn.get(key, []) if n not in pn]
     olds = [o for p in sp["paragraph"] for o in p.get("old", [])]
     dup = {o for o in olds if olds.count(o) > 1}
     if dup:
@@ -136,6 +139,9 @@ def validate(sp):
 
 if __name__ == "__main__":
     open(out, "w", encoding="utf-8").write(tpl.replace("/*SPEC*/", json.dumps(spec, ensure_ascii=True)))
+    fp = open(os.path.join(ROOT, "indesign", "srom_final_pass.jsx.tpl"), encoding="utf-8").read()
+    open(os.path.join(os.path.dirname(out), "srom_final_pass.jsx"), "w", encoding="utf-8").write(
+        fp.replace("/*CONF*/", json.dumps(spec["final_pass"], ensure_ascii=True)))
     cfg = json.load(open(os.path.join(ROOT, "config", "styles.json"), encoding="utf-8"))
     pn, cn = set(para_names(spec)), {c["name"] for c in spec["character"]}
     bad = [v for k, v in cfg["paragraph"].items() if not k.startswith("_") and v not in pn]

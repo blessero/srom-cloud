@@ -56,6 +56,46 @@ What must hold for the import:
 4. The pipeline never types a non-breaking space; the GREP styles of Tekst (inherited by every style) apply them.
 5. Language Polish in all text styles (the DOCX sets none, so hyphenation follows the style).
 
+## The clean template: `indesign/SROM_szablon_v3.idml`
+
+Built by `tools/indesign_check/indesign_check.py --template …` (`make_template.jsx`) from vol. 18's Ellis file:
+- **Kept:** its page (165 × 235 mm), margins, masters and threaded text frame.
+- **Rebuilt:** every style (house style v3), with placeholder text in each title-block style and one footnote.
+- **Running heads:** in *Pagina* ("Imię Nazwisko – Tytuł skrócony", "Studia Romologica 19/2026"); page numbers in *Folio*.
+- **Page numbering:** starts at 1.
+- **Cleaned out:** unused swatches, imported Word numbering lists, links, hyperlinks, bookmarks, conditions, XML tags,
+  empty layers, and 0 pt strokes that carry a colour.
+
+To use it: open the IDML, save it as .indt, and start each article from it. Then place the DOCX into the first
+frame (Place, with "Replace Selected Item").
+
+## After final layout: `indesign/srom_final_pass.jsx` (Kanon § 3.6)
+
+Run it once the pages are final (after `_ibidem.jsx` and `_gwiazdki.jsx`) and again after any reflow. It checks
+the story with the text cursor, or every story. Footnotes are checked too: a split note is a paragraph.
+
+| Report | What it means | Fix mode |
+|---|---|---|
+| SZEWC | first line of a paragraph alone at the foot of a column | tracking |
+| BĘKART | last line alone at the top of a column (Kanon: min. 2 lines on each side of a break) | tracking |
+| WDOWA | last line shorter than 5 characters, or only the end of a hyphenated word | tracking |
+| PUSTY WIERSZ | spaces or a line break before the paragraph end make an empty line | removed |
+| ŚRÓDTYTUŁ | a heading closes a column (the styles keep with next; this finds overrides) | by hand |
+| SIEROTKA | a one-letter word at a line end | by hand |
+| PÓŁPAUZA | a dash starting a line (outside lists) | by hand |
+| URL | a URL broken other than after "/" or before "." | by hand |
+| DZIELENIE | a name, abbreviation or number split at a line end | by hand |
+| OVERSET | text does not fit | by hand |
+| fonts | fonts other than Cambria, or missing fonts | by hand |
+| info | a hyphen at a page turn (last line of a right-hand page) | by hand |
+
+**Fix mode.** It does what vol. 18 did by hand: paragraph tracking −5/−10/+5/+10 (never beyond ±10). The
+tracking goes on the paragraph or on one of the three before it in the same column. A change is kept only if the
+problem goes away, no new one appears in that column or the next, and no new overset text appears. All changes
+are **one undo step**. Report: `<document>_final_pass.txt` (every fix with its page and paragraph; every
+remaining problem marked `!`). The limits (characters, tracking steps, time budget 5 min) are in
+`style_spec.json` → `final_pass`.
+
 ## Word import preset "SROM – pandoc" (create once)
 
 File ▸ Place ▸ select DOCX ▸ ✓ Show Import Options:

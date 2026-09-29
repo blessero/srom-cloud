@@ -449,18 +449,23 @@ Source: MB's manchesterhive PDF (`work/Peripheral whiteness …pdf`), Chicago en
 - [x] R1: Kanon § 3.4: no-italics rule governs the text, not display elements (MB); RULES digest; § 17 row; D21 closed
   CHECK: grep -c "wydzielonych składu" .claude/skills/srom-kanon/references/kanon-redakcyjny.md; grep -c "not display elements" .claude/skills/srom-kanon/RULES.md; grep -c "D21" ../_handoffs/MB-decisions.md
   EXPECT: /^2\s+1\s+0\s*$/
-  EVIDENCE: 2 | 1 | 0
+  EVIDENCE: 2 | 1 | 0 (gates R1–R4 entered GATES.md in another session's commit 42a2397; evidence added here)
 - [x] R2: junk out of the spec (hyphenation zone, auto-leading; sink rule colour None), headings keep with next (§ 3.6);
   the control run still equals vol. 18 line for line; keep-with-next changes only the stranded speaker (Konferencja p. 6)
   CHECK: ~/.venvs/srom/bin/python tools/indesign_check/indesign_check.py --no-final | grep "control =\|keep-with-next\|ALL PASS"
   EXPECT: /603\/603[\s\S]*468\/468[\s\S]*Tobi Górniak[\s\S]*INDESIGN CHECK ALL PASS/
+  EVIDENCE: control 603/603 and 468/468; keep-with-next moves text only from Konferencja p. 6 ('> Tobi Górniak'); page counts kept
 - [x] R3: srom_final_pass.jsx generated from the spec, ES3, one undo step, all § 3.6 checks; runs on both vol. 18 files;
   fix mode never leaves more problems, never adds overset or pages
   CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-typeset/tests/test_jsx.py | tail -1; ~/.venvs/srom/bin/python tools/indesign_check/indesign_check.py | grep "final pass"
   EXPECT: /STYLES ALL PASS (\d+)\/\1[\s\S]*final pass fix mode/
+  EVIDENCE: STYLES ALL PASS 23/23 | Ellis 8 problems → 5 (p. 8 szewc fixed by −10 on the paragraph above; pp. 10–11 note split
+  gone with it), Konferencja 4 → 3 (empty last line p. 12); no new overset, page counts kept; INDESIGN CHECK ALL PASS 25/25
 - [x] R4: clean template SROM_szablon_v3.idml: built from Ellis, re-opened: 29 + 8 styles, grid, footnotes, nothing overset
   CHECK: ~/.venvs/srom/bin/python tools/indesign_check/indesign_check.py --no-final --template /tmp/t.idml | grep "template"
   EXPECT: /PASS template built[\s\S]*PASS template re-opened/
+  EVIDENCE: PASS template built (RESULT: OK) | PASS template re-opened: 29 + 8 styles, grid, footnotes in Przypis; preview checked
+  by eye (title block, running heads towards the spine, numbers outside, as vol. 18)
 - [x] W7 (after MB's answers 29.09.2026): Baker's chapter keyed (n. 29), name "Ohueri, Chelsi West", Albanian words italic
   in the roman blocks; queries and D24 cleaned; T24 with new sha256
   CHECK: cd work/westohueri && grep -c "@baker2024" westohueri_src.md; grep -c '"family": "Ohueri"' refs.json; grep -c "\*jevgjit\*" westohueri_src.md; grep -c "see also Baker, this volume\|A3 the dissertation" ../../../_handoffs/MB-decisions.md

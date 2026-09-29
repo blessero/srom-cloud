@@ -62,6 +62,7 @@ function check(obj, props, what) {
       if (k === "appliedFont") { got = typeof obj.appliedFont === "string" ? obj.appliedFont.split("\t")[0] : obj.appliedFont.fontFamily; }
       else if (k === "appliedLanguage") { got = obj.appliedLanguage.name; }
       else if (k === "footnoteTextStyle" || k === "footnoteMarkerStyle") { got = obj[k].name; want = props[k] === null ? DOC.characterStyles[0].name : props[k]; }
+      else if (/(Color|Type)$/.test(k)) { got = got.name; }   // swatch, stroke style: compared by name
       if (!same(got, want)) { bad++; log("   ! " + what + ": " + k + " is " + got + ", should be " + props[k]); }
     } catch (e) { bad++; log("   ! " + what + ": cannot read " + k + " (" + e + ")"); }
   }

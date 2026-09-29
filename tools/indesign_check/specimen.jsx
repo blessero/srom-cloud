@@ -1,5 +1,5 @@
 // args: setupJsx pdfOut
-#target indesign
+//@target indesign
 var A = arguments;
 app.scriptPreferences.userInteractionLevel = UserInteractionLevels.NEVER_INTERACT;
 var doc = app.documents.add(false);
