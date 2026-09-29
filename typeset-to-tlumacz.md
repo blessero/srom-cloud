@@ -392,3 +392,12 @@ kartoteka go through `_handoffs/`, like the Kanon.
 - 28.09.2026 22:57 status: information — two srom-typeset sessions both used T20. **T20 = [Tittel]** (21:09); the Ostendorf corrections
   (OA licence CC BY-NC 4.0, summary and keywords in `ostendorf_src_front.md`, refs.json 0704415d…f4d45c5, the B/D list to
   remind MB of at the translation stage) are **T21**. Please cite them as T21 in your status lines.
+
+## T22 — [general] InDesign styles renamed (house style v3); nothing to do on your side (29.09.2026 03:39)
+
+MB's style discussion (29.09.2026): the InDesign style set is rebuilt from vol. 18's own values (commit 81babb2).
+The DOCX from `build.py` now names the v3 styles, so build reports and `_postimport.jsx` show new names:
+*Przypis GWIAZDKOWY* (was *Przypis gwiazdkowy*), *Gwiazdka* (was *Odsyłacz gwiazdkowy*), *Tekst BEZ WCIĘCIA*,
+*Śródtytuł*, *Cytat* … The handoff contract (`handoff.md`) names no InDesign style and is unchanged; SROM-MD is
+unchanged. One build change you may notice in proofs: a bulleted list item now carries a typed "–" + tab (as a
+numbered item carries "1." + tab). Suite: SUITE ALL PASS 19/19.

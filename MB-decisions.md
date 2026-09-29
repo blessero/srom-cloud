@@ -9,7 +9,7 @@ Rules:
   concern no single text go under `## Journal-wide` or `## Tooling and workflow`. An item about two texts goes in
   each text's section as a one-line pointer to the full item. Remove a text's section when it is empty.
 - New item: `### D<n> — <subject> (dd.mm.yyyy HH:MM, <module>)`, then the question, the options, the module's
-  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D21**.
+  recommendation, what it blocks, and where the detail is (file + item ID). Next free number: **D22**.
 - A partial answer (item still open) is a new line under the item: `- dd.mm.yyyy HH:MM DECIDED: … (MB)`.
 - Times (from 28.09.2026 16:45) are local time from the machine clock (`date '+%d.%m.%Y %H:%M'`); older entries
   keep their date only.
@@ -128,6 +128,14 @@ Source frozen in `srom-typeset/work/tittel/` and handed to srom-tlumacz (T20). D
 
 ## Journal-wide (policy, not tied to one text)
 
+### D21 — [general] InDesign house style v3: speaker's name and affiliation in italics vs Kanon § 3.4 (29.09.2026 03:39, srom-typeset)
+Vol. 18 sets the speaker line "> Name" bold italic (Panelant) and affiliations in italics (Uni; in Ellis the author's
+affiliation too). Kanon § 3.4: proper names – names, institutions – are never italic. House style v3 keeps the vol. 18
+look (styles *Mówca*, *Afiliacja*) for continuity. Options: (a) keep italics – the Kanon rule is read as a rule for
+running text, not for display lines (then one sentence in § 3.4 says so); (b) roman – Mówca bold roman, Afiliacja
+roman (one value each in `style_spec.json`). srom-typeset's recommendation: (a), the usual journal convention and
+18 volumes' practice. Blocks nothing until the first issue is typeset. Detail: `srom-typeset/docs/HANDOVER-typeset.md` § 4.
+
 ### D15 — Licence: withdraw the CC BY-NC-ND option? (28.09.2026, srom-typeset)
 Kanon § 13.2 marks it "DO ROZSTRZYGNIĘCIA – kolegium redakcyjne". Today the author chooses CC BY / BY-NC / BY-NC-ND
 (default BY-NC). Options: (a) keep the choice; (b) withdraw ND, keep BY / BY-NC; (c) one licence for the whole journal.
@@ -147,10 +155,6 @@ srom-typeset can draft the Polish text on request. Blocks: the OA announcement. 
 Deferred by MB (26.09.2026). (a) and (b) are closed.
 
 ## Tooling and workflow (scheduled, waiting for a later moment)
-
-### D3 — House style v2 / reducing the InDesign style set (27.09.2026, srom-typeset)
-Stage 3 (typesetting). Deferred by MB until stages 1–2 are finished and tested; then a style discussion with MB and
-the cleaned template as IDML. Detail: `srom-typeset/docs/HANDOVER-typeset.md` § 4.
 
 ### D5 — Translator credit: what is still open (27.09.2026, srom-tlumacz)
 Curator skill updated (C1 items 1–3, 5). Waiting, by MB's decision, until the rest is finalised: showing the
