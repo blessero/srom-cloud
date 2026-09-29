@@ -35,6 +35,8 @@ Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 20/20` (~510 checks). Unla
 21 ✔ 29.09.2026 (house style v3; D3 closed; D21, italic speaker/affiliation, closed the same day: Kanon § 3.4). 20 and 22 ✔ decided 27.09.2026 (D1, D2: as implemented).
 **Kanon v1.8** (29.09.2026, review 29.09.2026 row 11): the three rulings of 28–29.09 that had been added to v1.7 as
 dated supplements are now § 17 row 1.8; no rule text changed. T27 told srom-tlumacz.
+**Kanon v1.9** (30.09.2026, MB): § 12.3 Pisownia — the Rada Języka Polskiego spelling of 01.01.2026; linter WARN
+`ORTH-OWSKI`, `ORTH-NIE-IMIESLOW` (test_lint). Announced to srom-tlumacz in a T-item (its four drafts carry 16 warnings).
 
 ## 3. Queue for Claude (in order)
 

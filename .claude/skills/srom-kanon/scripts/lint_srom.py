@@ -133,6 +133,21 @@ RULES = [
     ("NOTE-BEFOREQUOTE", "WARN", r"[" + SUPERSCRIPTS + r"]\s*[\u201d\u201c]",
      "Note marker goes after the closing quotation mark.", None, 0),
 
+    # --- spelling from 01.01.2026 (§12.3) ----------------------------------
+    # -owski adjective from a personal name, capitalised inside a sentence (surnames are filtered in find_issues)
+    ("ORTH-OWSKI", "WARN",
+     r"(?<=[a-ząćęłńóśźż,;:)»”–] )([A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]+?)(?:owsk(?:i|a|ie|iej|iego|im|imi|ich|ą|iemu)|owscy)\b",
+     "Since 2026 -owski adjectives from personal names are lowercase (przekład molierowski, ujęcie kantowskie). "
+     "Ignore if it is a surname or part of a proper name.", ["pl"], 0),
+    # nie + adjectival participle, written apart; not after a preposition (przez nie = 'by them')
+    ("ORTH-NIE-IMIESLOW", "WARN",
+     r"(?<!\bprzez )(?<!\bna )(?<!\bo )(?<!\bw )(?<!\bwe )(?<!\bza )(?<!\bpo )(?<!\bpod )(?<!\bnad )(?<!\bprzed )"
+     r"(?<!\bponad )(?<!\bpoza )(?<!\bmiędzy )(?<!\bpomiędzy )(?<!\bprzeciw )\b[Nn]ie ([a-ząćęłńóśźż]{2,}"
+     r"(?:ący|ąca|ące|ącego|ącej|ącemu|ącym|ącymi|ących|ącą|any|ana|ane|ani|anego|anej|anemu|anym|anymi|anych|aną"
+     r"|ony|ona|one|eni|onego|onej|onemu|onym|onymi|onych|oną|ęty|ęta|ęte|ęci|ętego|ętej|ętym|ętymi|ętych|ętą))\b",
+     "Since 2026 nie is always joined to an adjectival participle (nieznane, niebędący). "
+     "Ignore in a quotation, or if the word is not a participle.", ["pl"], 0),
+
     # --- spacing ----------------------------------------------------------
     ("SPACE-DOUBLE", "WARN", r"(?<=\S) {2,}(?=\S)",
      "Multiple spaces — single space.", None, 0),
@@ -152,8 +167,20 @@ def mask_urls(line):
     return re.sub(r"https?://[^\s\]]+", lambda m: "U" * len(m.group(0)), line)
 
 
+NIE_NOT_PARTICIPLE = {"zostaną", "pozostaną", "staną", "dostaną", "przestaną", "pamięta", "zapamięta", "ramiona", "strona"}
+
+
+def surname_stems(text):
+    """Stems of -owski words used as surnames anywhere in the text: 'Ficowski, Jerzy', 'J. Ficowski', 'Jerzy Ficowski'."""
+    up, lo = "A-ZĄĆĘŁŃÓŚŹŻ", "a-ząćęłńóśźż"
+    stems = {m.group(1) for m in re.finditer(rf"([{up}][{lo}]+?)owsk[ia]\b(?=,\s[{up}])", text)}
+    stems |= {m.group(1) for m in re.finditer(rf"(?:\b[{up}]\.\s|\b[{up}][{lo}]+\s)([{up}][{lo}]+?)owsk", text)}
+    return stems
+
+
 def find_issues(text, lang):
     issues = []
+    stems = surname_stems(text)
     for lineno, raw in enumerate(text.splitlines(), start=1):
         masked = mask_urls(raw)
         for rid, sev, rx, msg, langs in COMPILED:
@@ -161,6 +188,8 @@ def find_issues(text, lang):
                 continue
             line = raw if rid in NEEDS_RAW else masked
             for m in rx.finditer(line):
+                if (rid == "ORTH-OWSKI" and m.group(1) in stems) or (rid == "ORTH-NIE-IMIESLOW" and m.group(1) in NIE_NOT_PARTICIPLE):
+                    continue
                 issues.append({
                     "line": lineno, "col": m.start() + 1, "rule": rid,
                     "severity": sev, "message": msg,

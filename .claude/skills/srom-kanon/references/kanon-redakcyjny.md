@@ -1,6 +1,6 @@
 # STUDIA ROMOLOGICA – KANON EDYTORSKI (DOKUMENT WEWNĘTRZNY)
 
-**Wersja 1.8 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
+**Wersja 1.9 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
 
 > Wersja dla autorów (*Wskazówki dla autorów*) jest skrótem tego dokumentu i nie zawiera § 13–17. W razie rozbieżności rozstrzyga niniejszy tekst.
 
@@ -516,6 +516,18 @@ Bibliografia (§ 9) obejmuje wydanie polskie, z którego pochodzą cytaty w sytu
 - Brak odpowiedzi autora – przekład zgodny z oryginałem; o przypisie tłumacza sygnalizującym problem decyduje redaktor prowadzący.
 - Skróty i pominięcia (np. ilustracji z przyczyn licencyjnych) – wyłącznie za zgodą autora i z informacją w nocie.
 
+### 12.3. Pisownia
+
+Obowiązują zasady pisowni zmienione przez Radę Języka Polskiego z mocą od 1 stycznia 2026 roku – we wszystkich tekstach tomu, także w przekładach i w metadanych. Pełny wykaz zmian: komunikat Rady (rjp.pan.pl; sjp.pwn.pl, „Zasady pisowni”). W tekstach czasopisma najczęściej dotyczą:
+
+- przymiotników od nazw osobowych na `-owski` – zawsze małą literą, bez względu na to, czy mają znaczenie dzierżawcze, czy jakościowe: `przekład molierowski`, `ujęcie kantowskie`, `opisy marksowskie`; przymiotniki na `-owy`, `-in` (`-yn`) od imion – wielką lub małą literą (`Zosina` / `zosina`);
+- `nie` z imiesłowami odmiennymi – zawsze łącznie, bez względu na znaczenie: `nieznane`, `niebędący`, `nieuwzględniany`; z imiesłowami nieodmiennymi (`-ąc`, `-łszy`, `-wszy`) – nadal rozdzielnie: `nie wiedząc`;
+- `nie` z przymiotnikami i przysłówkami w stopniu wyższym i najwyższym – łącznie: `niemilszy`, `nienajlepszy`;
+- nazw mieszkańców miast, dzielnic, osiedli i wsi – wielką literą: `Tarnowianin`, `Warszawiacy`, `Rzymianie`;
+- cząstek `-bym`, `-byś`, `-by`, `-byśmy`, `-byście` po spójnikach – rozdzielnie: `czy by nie pojechać`.
+
+Cytaty i tytuły dzieł zachowują pisownię źródła (§ 4.1, § 4.3); zasady nie działają wstecz na tekst przytaczany. Formy wzorcowe z tomu 18/2025 (baza terminologiczna, kartoteka, § 6.3, § 12.2.5) przyjmują nową pisownię bez zmiany brzmienia – nie jest to zmiana terminologii. Linter sygnalizuje (WARN) przymiotniki na `-owski` pisane wielką literą w środku zdania i `nie` pisane rozdzielnie z imiesłowem; każde wskazanie ocenia redaktor.
+
 ---
 
 ## 13. Metadane, licencja, deponowanie
@@ -630,5 +642,6 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.6 | Kanon włączony do narzędzi redakcji (skill srom-kanon) jako tekst normatywny. Słowa kluczowe 5–10; wyliczenia numerowane; bibliografia bez numeracji części, jedna część bez śródtytułu; zniesiony limit ⅓ kolumny dla przypisu rzeczowego; wymogi techniczne ilustracji przeniesione do *Wskazówek dla autorów*. § 0: znaczniki `[BRAK …]`, `b.m.`/`b.r.` tylko przy braku w źródle. § 3.3: spacji nierozdzielających nie przechowuje się w pliku. § 3.4: kursywa odwrócona. § 4.1: cytat wierszowany. § 7.1: odsyłacz także przed przecinkiem, średnikiem, dwukropkiem; przypisy nieautorskie – odrębny ciąg gwiazdkowy nad przypisami numerowanymi; konwersja z systemu autor–data. § 7.2: odwołanie do dzieła jako całości bez strony. § 7.3: długość tytułu skróconego; formy skrócone prac wieloautorskich; ograniczenia `Ibidem`. § 7.4: przypis wieloakapitowy. § 8.6: URL jako tekst. § 9.3: autor instytucjonalny bez kapitalików. § 9.7: zapis ISBN. § 12.2 Artykuły tłumaczone: metadane oryginału (wyjątki od § 1 pkt 8 i 9); § 12.1 nie dla przekładów; nota o przekładzie i wskazanie tłumacza; cytaty w pięciu sytuacjach; terminologia z bazy redakcji, rozstrzygnięcia tomu 18/2025 wiążące; nazwy grup w przekładzie (odstępstwo od § 6.3); przypisy tłumacza; ingerencje; bibliografia przy cytatach z wydań polskich. § 4.2: formuła `[tłum. własne]` nie w przekładach. § 11: `przyp. tłum.`, `przyp. red.` |
 | 1.7 | Rozstrzygnięcia z 27–28.09.2026: § 0: stare druki bez drukarza w adresie – bez znacznika. § 3.2: zakresy liczbowe w pełnym zapisie. § 3.4: egzonimy obce kursywą (wyjątek od zasady nazw własnych), z uzasadnieniem w § 14. § 6.3: kartoteka wzorcowa w pliku `kartoteka.tsv`, egzonimy obce w niej oznaczone. § 7.1: jeden przypis do tytułu – w przekładzie nota o przekładzie, po niej przypis autora do tytułu jako dalszy akapit. § 7.2: lokalizacje inne niż strona; `cyt. za`. § 8.6: data dostępu tylko od autora. § 9.1, § 9.7: ISBN tylko od autora; artykuł bez DOI – URL w bibliografii. § 9.2: cała bibliografia autora. |
 | 1.8 | Rozstrzygnięcia z 28–29.09.2026, dotąd dopisywane do wersji 1.7 jako uzupełnienia: 28.09.2026 (MB): § 7.1: rok ze stroną bez nazwiska – dzieło przywołane bezpośrednio przedtem; praca spoza bibliografii autora – wykaz pytań z propozycją opisu. § 8.6: tekst datowany w sieci – data publikacji, ustalana ze strony, gdy jej brak. 28.09.2026 (MB, tekst Ostendorf): § 7.2, § 9.4: edycja źródła – wydawca naukowy po tytule (`red.`), tłumacz i redaktor w jednej osobie – `tłum. i red.`; tekst bez autora w tomie zbiorowym – autor ustalany przez redakcję, inaczej opis od tytułu i pytanie. § 9.3, § 9.5: nazwiska z przedrostkiem i złożone – forma hasła wg zwyczaju języka osoby (LC NAF). 29.09.2026 (MB): § 3.4: zakaz kursywy nazw własnych dotyczy tekstu, nie elementów wydzielonych składu (pagina, mówca i afiliacja, spis treści). |
+| 1.9 | Rozstrzygnięcie z 30.09.2026 (MB): § 12.3 Pisownia – zasady Rady Języka Polskiego obowiązujące od 01.01.2026 (przymiotniki od nazw osobowych na `-owski` małą literą; `nie` z imiesłowami odmiennymi łącznie; nazwy mieszkańców wielką literą; `-by` po spójnikach rozdzielnie); cytaty i tytuły w pisowni źródła; formy wzorcowe z tomu 18/2025 w nowej pisowni bez zmiany brzmienia. |
 
 Zmiany wchodzą w życie od kolejnego tomu. Tomy opublikowane nie podlegają retroaktywnemu ujednoliceniu.

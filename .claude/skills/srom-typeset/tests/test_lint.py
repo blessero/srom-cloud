@@ -41,6 +41,16 @@ source_ok = ("## Source language" in rep and "no em dash: 2" in rep and "EMDASH"
              and "kanon linter: 1 ERROR" in errs)   # op. cit. stays an error
 print("source proof: typography counted, op. cit. still an error:", source_ok)
 blocks = blocks and source_ok
+# Kanon § 12.3 (spelling from 01.01.2026): WARN, never ERROR; surnames, pronoun nie and verb forms stay silent
+open(bad, "w", encoding="utf-8").write(
+    "Tu jest Molierowski przekład i ujęcie Kantowskie, dane nie znane, osoby nie będące Romami.\n"
+    "J. Ficowski pisze, że według Ficowskiego nie zostaną przez nie kształtowani. Kowalski, Jan.\n"
+    "Zdanie. Kantowskie pytanie zaczyna zdanie.\n")
+lo2 = subprocess.run([sys.executable, LINT, bad], capture_output=True, text=True)
+orth = (lo2.stdout.count("[ORTH-OWSKI]") == 2 and lo2.stdout.count("[ORTH-NIE-IMIESLOW]") == 2
+        and lo2.returncode == 0)
+print("§ 12.3 spelling warnings (2 + 2, surnames/pronoun/verb/sentence start silent, no ERROR):", orth)
+control = control and orth
 print("negative control detected:", control, "| build blocked on lint ERROR:", blocks)
 if "--- ERROR ---" in lo:
     print(lo)
