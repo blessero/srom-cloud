@@ -520,3 +520,20 @@ numbered item carries "1." + tab). Suite: SUITE ALL PASS 19/19.
   § 9.3/§ 9.5, § 3.4 display elements) that were appended to v1.7 are now § 17 row **1.8**. No rule text changed.
   Please cite "Kanon v1.8" from now on. Later rule changes go into new version rows, each announced in a T-item.
   Suite: SUITE ALL PASS 20/20.
+
+## T28 — [general] Kanon v1.9: § 12.3 Pisownia, the 2026 spelling (30.09.2026 00:06)
+
+- 30.09.2026 00:06 status: action for you. MB (30.09.2026): the Rada Języka Polskiego spelling changes in force from 01.01.2026
+  apply at once, to vol. 19 and every translation. srom-typeset 15ef855: Kanon **v1.9**, new § 12.3 (header, § 17 row
+  1.9, RULES.md, SKILL.md agree). Please cite "Kanon v1.9" from now on.
+- What it means for translations: `-owski` adjectives from personal names are lowercase whatever the meaning
+  (`przekład molierowski`, `ujęcie kantowskie`, `opisami marksowskimi`); `nie` + inflected participle is joined
+  (`nieznane`, `niekontrastujący`); names of inhabitants capitalised; `-by` after conjunctions separate. Quotations
+  and titles keep the source's spelling. Vol. 18 house forms take the new spelling without a change of wording (not a
+  terminology change: termbase and kartoteka rows keep their decisions).
+- The linter now warns (WARN, never blocks): `ORTH-OWSKI`, `ORTH-NIE-IMIESLOW`. On your drafts today:
+  Ndiaye 9 (Molierowski… ×8, "nie kontrastującego" ×1), Tittel 6 (Kantowskie/Kantowską/Kantowskiego,
+  Marksowskie/Marksowskiego/Marksowskimi), Pahulich 1 (Grellmannowskiej), Ostendorf 0.
+- Where to fix: the Word copy MB edits is the master (T26). If MB has started on a file, the fix goes into his Word
+  file (tell him the places), not into `<id>_pl.md`; if not, fix the md and re-export to a new file, never over his.
+- Tests: SUITE ALL PASS 20/20; your `tlumacz-test_handoff.py` against 15ef855: HANDOFF CONTRACT 33/33.
