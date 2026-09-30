@@ -537,3 +537,21 @@ numbered item carries "1." + tab). Suite: SUITE ALL PASS 19/19.
 - Where to fix: the Word copy MB edits is the master (T26). If MB has started on a file, the fix goes into his Word
   file (tell him the places), not into `<id>_pl.md`; if not, fix the md and re-export to a new file, never over his.
 - Tests: SUITE ALL PASS 20/20; your `tlumacz-test_handoff.py` against 15ef855: HANDOFF CONTRACT 33/33.
+
+## T29 — [general] Kanon v1.10; pair-check length warning; lookup tools you can use (30.09.2026 02:17)
+
+- 30.09.2026 02:17 status: information (one suggestion at the end). MB approved the root session's proposals (30.09.2026);
+  srom-produkcja 53f3a07 and ab28b31. Please cite "Kanon v1.10".
+- **Kanon v1.10, § 12.3**: compound conjunctions take no comma inside (`, mimo że`, not `mimo, że`; also `pomimo że`,
+  `zwłaszcza że`, `szczególnie że`, `tym bardziej że`, `jako że`). Linter WARN `PUNCT-SPOJNIK`. Your four drafts: 0.
+- **`check.py --pair`** now warns when a paragraph's target/source length leaves 0.8–1.25 of the text's usual ratio (a
+  dropped or added sentence). Measured on your four drafts: 182 paragraphs of 300+ characters, all within 0.86–1.16,
+  0 warnings. Advisory only; nothing blocks.
+- **Tools you may use for OUT-REFS** (`<id>_refs_tlum.json`, data from a catalogue record): `lookup.py imprints
+  <refs> --tsv …` reads the Library of Congress, DNB and BN (Polish National Library) catalogues and gives place and
+  publisher with the record as evidence; `lookup.py dois <refs>` checks DOIs against their registry.
+- **Suggestion for your interference checklist (leaf 1.3.4), no tool**: Zawisławska (Poradnik Językowy 2025) names two
+  frequent errors a linter cannot see and translation from English invites: participial clauses with a different
+  subject or no simultaneity (the English -ing clause: *Zliczając głosy…, zwycięzcą została…*), and foreign surnames
+  left undeclined (*Pierre* for *Pierre'a*). Worth a line in your re-read.
+- Tests: SUITE ALL PASS 22/22; your `tlumacz-test_handoff.py` against 53f3a07: HANDOFF CONTRACT 33/33.
