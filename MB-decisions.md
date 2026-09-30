@@ -75,6 +75,9 @@ send) · **Later** (a reminder, nothing to do now).
 | SCH-4 | A stray note number; archive-held prints | Approve | nothing |
 | SCH-5 | 7 corrections to the author's data | Approve | nothing |
 | SYS-1 | Translator on the website, quant skill upload | Later | nothing |
+| SYS-2 | Create the journal's Wikidata record (10 minutes, your account) | Look up | nothing |
+| SYS-3 | Check 13 institution IDs (ROR) for the Crossref deposit | Approve | nothing |
+| SYS-4 | After the first Crossref deposit: two checks | Later | nothing |
 
 ## Journal-wide (GEN)
 Next free: GEN-14.
@@ -123,6 +126,8 @@ also TIT-12). Every German, Austrian or Swiss source will raise this again. (Ost
   **recommended**
 - (b) ask the authors
 - (c) a Kanon exception for such sources (not recommended: the bibliography would be inconsistent)
+
+New (30.09.2026 02:18): the look-up is now a tested tool (Library of Congress, German and Polish national libraries). On Scheffknecht it found 17 of the 29 missing publishers, each with its catalogue record as evidence. Option (a) would cost you one approval per text.
 
 *Trail: D18 A3, D19 A2, D20 A3.*
 
@@ -178,6 +183,8 @@ The Kanon requires a DOI wherever one exists; nothing enters the reference data 
 16 already added from Crossref, 13 more proposed. Tittel: 4 proposed.
 - (a) add them all — **recommended** (the Kanon asks for them)
 - (b) only what the authors give
+
+New (30.09.2026 02:18): the check is now a tested tool. It also found 6 DOIs in Ostendorf, and one year to check there (her 2019 article is dated 2020 by the journal's registry); West Ohueri's list has one misspelt author (Yural-Davis).
 
 *Trail: D20 C, D24 A9 and C2; Kanon § 9.7.*
 
@@ -731,7 +738,7 @@ Detail: 🔴 `srom-produkcja/work/scheffknecht/scheffknecht_uwagi.md` → SCH-5 
 *Trail: D18 B1–B7.*
 
 ## Tooling and workflow (SYS)
-Next free: SYS-2.
+Next free: SYS-5.
 
 ### SYS-1 · Translator on the website; quant skill (former curator) in desktop Claude
 **Later** · blocks nothing
@@ -741,3 +748,55 @@ desktop Claude and the plugin on the site together (the skill's copy carries plu
 Detail: 🔴 `_handoffs/curator-update-2026-09-27/CHANGES.md`
 
 *Trail: D5.*
+
+### SYS-2 · Create the journal's record on Wikidata
+**Look up** (only you can do it: your own Wikidata account) · blocks nothing
+
+Wikidata is the open database behind Wikipedia; many discovery tools read it. Studia Romologica has no record there
+yet (checked 30.09.2026). Log in at quickstatements.toolforge.org, choose "New batch", paste the lines below, run.
+Then tell any session the new record's number (Q…): it goes into the tools, for the article records after the
+first Crossref deposit (SYS-4).
+
+```
+CREATE
+LAST	Lpl	"Studia Romologica"
+LAST	Len	"Studia Romologica"
+LAST	Dpl	"polski rocznik naukowy poświęcony romologii"
+LAST	Den	"Polish academic annual of Romani studies"
+LAST	P31	Q5633421
+LAST	P1476	pl:"Studia Romologica"
+LAST	P236	"1689-4758"
+LAST	P407	Q809
+LAST	P495	Q36
+LAST	P921	Q2037434
+LAST	P571	+2008-00-00T00:00:00Z/9
+LAST	P856	"https://studiaromologica.pl"
+```
+
+(Scientific journal; title; ISSN; Polish; Poland; subject Romani studies; founded 2008; website. The publisher has no
+Wikidata record and is left out.)
+
+*Trail: root session 30.09.2026; srom-quant `scripts/wikidata_qs.py journal`.*
+
+### SYS-3 · Check the institution IDs for the Crossref deposit
+**Approve** · blocks nothing (an institution without an ID is deposited by name)
+
+The deposit can name each author's institution with its international ID (ROR), so indexes don't confuse
+institutions. For vol. 18: 13 of 15 institutions have an ID, 8 matched by ROR itself, 5 found by their English name
+(Bulgarian Academy of Sciences, Czech Academy's Institute of Ethnology, Washington University in St. Louis, University
+of Wrocław for „Instytut Kulturoznawstwa Uniwersytetu Wrocławskiego”, IFLA). IPN's research office and the Tarnów
+museum are not in ROR. One yes covers the list, or name the rows to drop.
+Detail: 🔴 `srom-produkcja/volumes/ror.tsv`
+
+*Trail: srom-quant `generate_crossref_xml.py --ror`.*
+
+### SYS-4 · After the first Crossref deposit: two checks
+**Later** · blocks nothing
+
+1. OpenAlex (the open index most research tools use) takes the journal from Crossref by itself. Two to four weeks
+   after the deposit, ask any session to check it: the journal, its articles, their references and abstracts. If
+   something is missing, OpenAlex's support form fixes it; a session can draft the message.
+2. Wikidata: once SYS-2 is done, a session prints the article records from the master CSV; you paste them into
+   QuickStatements as in SYS-2.
+
+*Trail: srom-quant SKILL.md, deployment steps 9–10.*
