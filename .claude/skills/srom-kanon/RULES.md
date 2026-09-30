@@ -1,4 +1,4 @@
-# SROM RULES — English digest of the Kanon (v1.9)
+# SROM RULES — English digest of the Kanon (v1.10)
 
 Normative text: `references/kanon-redakcyjny.md` — *Kanon edytorski Studia Romologica* (Polish, internal), in this skill. This file is its compact English digest; **section numbers are the Kanon's**. If the two differ, the Kanon governs and this file is corrected. New rules go into the Kanon first (with a § 17 entry), then here.
 
@@ -199,7 +199,7 @@ Same system; changes: quotes `“ ”`/`‘ ’`; `ed.`, `trans.`, `in:`, `p.`/`
 - **Interventions (12.2.8):** no silent corrections; agreed ones unmarked but mentioned in the note; obvious typos fixed after checking and listed; cuts only with the author's consent and a mention in the note.
 
 ### 12.3. Spelling
-The Rada Języka Polskiego spelling changes in force from 01.01.2026 apply to every text of the volume, translations and metadata included. Most frequent here: `-owski` adjectives from personal names lowercase whatever the meaning (`przekład molierowski`, `ujęcie kantowskie`); `nie` joined to inflected participles (`nieznane`, `niebędący`; but `nie wiedząc`); `nie` joined to comparatives/superlatives (`nienajlepszy`); names of inhabitants capitalised (`Tarnowianin`); `-by` after conjunctions separate (`czy by`). Quotations and titles keep the source's spelling. Vol. 18 house forms take the new spelling without a change of wording (not a terminology change). Linter: WARN `ORTH-OWSKI`, `ORTH-NIE-IMIESLOW`; judge each.
+The Rada Języka Polskiego spelling changes in force from 01.01.2026 apply to every text of the volume, translations and metadata included. Most frequent here: `-owski` adjectives from personal names lowercase whatever the meaning (`przekład molierowski`, `ujęcie kantowskie`); `nie` joined to inflected participles (`nieznane`, `niebędący`; but `nie wiedząc`); `nie` joined to comparatives/superlatives (`nienajlepszy`); names of inhabitants capitalised (`Tarnowianin`); `-by` after conjunctions separate (`czy by`). Compound conjunctions (`mimo że`, `zwłaszcza że`, `tym bardziej że`, `jako że`) take no comma inside: `, mimo że`. Quotations and titles keep the source's spelling. Vol. 18 house forms take the new spelling without a change of wording (not a terminology change). Linter: WARN `ORTH-OWSKI`, `ORTH-NIE-IMIESLOW`, `PUNCT-SPOJNIK`; judge each.
 
 ## 13. Metadata and deposit
 

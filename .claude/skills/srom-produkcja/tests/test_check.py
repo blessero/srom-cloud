@@ -460,5 +460,21 @@ t("keyed: 'Taylor, 66–86' dropped from 'Taylor, 66–86; Cressy.' -> ERROR", c
 c, o = runa(AK.replace("[@hend1994; @noc2013]", "[@noc2013]"))
 t("keyed: 'Hendricks and Parker' dropped -> ERROR", c == 1 and "@hend1994" in o, o)
 
+# --pair: a sentence dropped from one paragraph -> length warning on that block only (never an error)
+EN = ["Paragraph %d opens with a sentence about the camp near the river and the people who lived there for years. "
+      "The second sentence describes the road, the market and the long winter of that particular year in detail. "
+      "The third sentence names the families, their trades, their horses and the officials who counted them all. "
+      "The last sentence closes the paragraph with a remark about the archive where the records are kept today." % i for i in range(1, 7)]
+PL = ["Akapit %d zaczyna się zdaniem o obozowisku nad rzeką i o ludziach, którzy mieszkali tam przez wiele lat. "
+      "Drugie zdanie opisuje drogę, targ i długą zimę tamtego roku, ze wszystkimi jej szczegółami i trudnościami. "
+      "Trzecie zdanie wymienia rodziny, ich zajęcia, konie i urzędników, którzy wszystkich skrupulatnie liczyli. "
+      "Ostatnie zdanie zamyka akapit uwagą o archiwum, w którym przechowuje się dziś te wszystkie akta." % i for i in range(1, 7)]
+es = w("len_en.md", "\n\n".join(EN) + "\n")
+cut = PL[:]; cut[3] = cut[3].split(". Drugie")[0] + ". Ostatnie zdanie zamyka akapit uwagą o archiwum."
+c, o = run("--pair", es, w("len_pl.md", "\n\n".join(cut) + "\n"))
+c0, o0 = run("--pair", es, w("len_pl0.md", "\n\n".join(PL) + "\n"))
+t("--pair: a paragraph missing sentences -> WARN on that block (not an error); the full translation: no warning",
+  c == 0 and "block 4: length" in o and "missing" in o and "length" not in o0, o + o0)
+
 n, ok = len(results), sum(results)
 print(f"CHECK ALL PASS {n}/{n}" if ok == n else f"CHECK FAILED {n - ok}/{n}")

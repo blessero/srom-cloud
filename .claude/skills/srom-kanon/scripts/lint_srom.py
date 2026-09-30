@@ -148,6 +148,11 @@ RULES = [
      "Since 2026 nie is always joined to an adjectival participle (nieznane, niebędący). "
      "Ignore in a quotation, or if the word is not a participle.", ["pl"], 0),
 
+    # comma inside a compound conjunction (Zawisławska 2025: the most frequent punctuation error of edited Polish text;
+    # measured on 19 texts, 30.09.2026: real errors only). Not "chyba, że", "dlatego, że", "tyle, że": legitimate uses exist
+    ("PUNCT-SPOJNIK", "WARN", r"\b(?:[Mm]imo|[Pp]omimo|[Zz]właszcza|[Ss]zczególnie|[Tt]ym bardziej|[Jj]ako),\s+że\b",
+     "Compound conjunction: no comma inside — ', mimo że', not 'mimo, że' (§12.3).", ["pl"], 0),
+
     # --- spacing ----------------------------------------------------------
     ("SPACE-DOUBLE", "WARN", r"(?<=\S) {2,}(?=\S)",
      "Multiple spaces — single space.", None, 0),

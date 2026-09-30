@@ -49,7 +49,10 @@ open(bad, "w", encoding="utf-8").write(
 lo2 = subprocess.run([sys.executable, LINT, bad], capture_output=True, text=True)
 orth = (lo2.stdout.count("[ORTH-OWSKI]") == 2 and lo2.stdout.count("[ORTH-NIE-IMIESLOW]") == 2
         and lo2.returncode == 0)
-print("§ 12.3 spelling warnings (2 + 2, surnames/pronoun/verb/sentence start silent, no ERROR):", orth)
+open(bad, "w", encoding="utf-8").write("Pisał, mimo, że nie mógł; zwłaszcza że wiedział. Myślę chyba, że tak.\n")
+lo3 = subprocess.run([sys.executable, LINT, bad], capture_output=True, text=True)
+orth = orth and lo3.stdout.count("[PUNCT-SPOJNIK]") == 1 and lo3.returncode == 0
+print("§ 12.3 spelling warnings (2 + 2, surnames/pronoun/verb/sentence start silent; mimo, że flagged, chyba, że not; no ERROR):", orth)
 control = control and orth
 print("negative control detected:", control, "| build blocked on lint ERROR:", blocks)
 if "--- ERROR ---" in lo:

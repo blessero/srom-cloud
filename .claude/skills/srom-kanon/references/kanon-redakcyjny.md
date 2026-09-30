@@ -1,6 +1,6 @@
 # STUDIA ROMOLOGICA – KANON EDYTORSKI (DOKUMENT WEWNĘTRZNY)
 
-**Wersja 1.9 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
+**Wersja 1.10 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
 
 > Wersja dla autorów (*Wskazówki dla autorów*) jest skrótem tego dokumentu i nie zawiera § 13–17. W razie rozbieżności rozstrzyga niniejszy tekst.
 
@@ -526,7 +526,9 @@ Obowiązują zasady pisowni zmienione przez Radę Języka Polskiego z mocą od 1
 - nazw mieszkańców miast, dzielnic, osiedli i wsi – wielką literą: `Tarnowianin`, `Warszawiacy`, `Rzymianie`;
 - cząstek `-bym`, `-byś`, `-by`, `-byśmy`, `-byście` po spójnikach – rozdzielnie: `czy by nie pojechać`.
 
-Cytaty i tytuły dzieł zachowują pisownię źródła (§ 4.1, § 4.3); zasady nie działają wstecz na tekst przytaczany. Formy wzorcowe z tomu 18/2025 (baza terminologiczna, kartoteka, § 6.3, § 12.2.5) przyjmują nową pisownię bez zmiany brzmienia – nie jest to zmiana terminologii. Linter sygnalizuje (WARN) przymiotniki na `-owski` pisane wielką literą w środku zdania i `nie` pisane rozdzielnie z imiesłowem; każde wskazanie ocenia redaktor.
+Spójniki złożone (`mimo że`, `pomimo że`, `zwłaszcza że`, `szczególnie że`, `tym bardziej że`, `jako że`) są jednym spójnikiem: przecinek stawia się przed całością, nigdy w jej środku – `, mimo że`, nie `mimo, że`.
+
+Cytaty i tytuły dzieł zachowują pisownię źródła (§ 4.1, § 4.3); zasady nie działają wstecz na tekst przytaczany. Formy wzorcowe z tomu 18/2025 (baza terminologiczna, kartoteka, § 6.3, § 12.2.5) przyjmują nową pisownię bez zmiany brzmienia – nie jest to zmiana terminologii. Linter sygnalizuje (WARN) przymiotniki na `-owski` pisane wielką literą w środku zdania, `nie` pisane rozdzielnie z imiesłowem i przecinek w środku spójnika złożonego; każde wskazanie ocenia redaktor.
 
 ---
 
@@ -643,5 +645,6 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.7 | Rozstrzygnięcia z 27–28.09.2026: § 0: stare druki bez drukarza w adresie – bez znacznika. § 3.2: zakresy liczbowe w pełnym zapisie. § 3.4: egzonimy obce kursywą (wyjątek od zasady nazw własnych), z uzasadnieniem w § 14. § 6.3: kartoteka wzorcowa w pliku `kartoteka.tsv`, egzonimy obce w niej oznaczone. § 7.1: jeden przypis do tytułu – w przekładzie nota o przekładzie, po niej przypis autora do tytułu jako dalszy akapit. § 7.2: lokalizacje inne niż strona; `cyt. za`. § 8.6: data dostępu tylko od autora. § 9.1, § 9.7: ISBN tylko od autora; artykuł bez DOI – URL w bibliografii. § 9.2: cała bibliografia autora. |
 | 1.8 | Rozstrzygnięcia z 28–29.09.2026, dotąd dopisywane do wersji 1.7 jako uzupełnienia: 28.09.2026 (MB): § 7.1: rok ze stroną bez nazwiska – dzieło przywołane bezpośrednio przedtem; praca spoza bibliografii autora – wykaz pytań z propozycją opisu. § 8.6: tekst datowany w sieci – data publikacji, ustalana ze strony, gdy jej brak. 28.09.2026 (MB, tekst Ostendorf): § 7.2, § 9.4: edycja źródła – wydawca naukowy po tytule (`red.`), tłumacz i redaktor w jednej osobie – `tłum. i red.`; tekst bez autora w tomie zbiorowym – autor ustalany przez redakcję, inaczej opis od tytułu i pytanie. § 9.3, § 9.5: nazwiska z przedrostkiem i złożone – forma hasła wg zwyczaju języka osoby (LC NAF). 29.09.2026 (MB): § 3.4: zakaz kursywy nazw własnych dotyczy tekstu, nie elementów wydzielonych składu (pagina, mówca i afiliacja, spis treści). |
 | 1.9 | Rozstrzygnięcie z 30.09.2026 (MB): § 12.3 Pisownia – zasady Rady Języka Polskiego obowiązujące od 01.01.2026 (przymiotniki od nazw osobowych na `-owski` małą literą; `nie` z imiesłowami odmiennymi łącznie; nazwy mieszkańców wielką literą; `-by` po spójnikach rozdzielnie); cytaty i tytuły w pisowni źródła; formy wzorcowe z tomu 18/2025 w nowej pisowni bez zmiany brzmienia. |
+| 1.10 | Rozstrzygnięcie z 30.09.2026 (MB): § 12.3: spójniki złożone (`mimo że`, `zwłaszcza że` …) bez przecinka w środku; linter sygnalizuje. |
 
 Zmiany wchodzą w życie od kolejnego tomu. Tomy opublikowane nie podlegają retroaktywnemu ujednoliceniu.

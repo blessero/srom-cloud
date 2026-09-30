@@ -36,7 +36,7 @@ old numbers are given in brackets for the record.
 | § 12.2 | translation handoff (`handoff.md`), translator notes, added citations | check.py, cite_map.py | test_check, test_e2e |
 | § 12.2.3 | translator = header data: front matter `tlumaczenie`, reported for the CSV, kept through Word (E10) | check.py, build.py, export_work.py, docx_in.py | test_e10 |
 | § 3.4, § 6.3 | kartoteka: foreign exonyms italic (`italic_house`); structure | srom-kanon `references/kartoteka.tsv` | test_kanon |
-| § 12.3 | spelling of 2026: -owski adjectives from personal names lowercase, nie + participle joined — WARN only (surnames, pronoun *nie*, quotations left to the editor) | srom-kanon linter (`ORTH-OWSKI`, `ORTH-NIE-IMIESLOW`) | test_lint |
+| § 12.3 | spelling of 2026: -owski adjectives from personal names lowercase, nie + participle joined — WARN only (surnames, pronoun *nie*, quotations left to the editor) | srom-kanon linter (`ORTH-OWSKI`, `ORTH-NIE-IMIESLOW`, `PUNCT-SPOJNIK` — compound conjunctions, v1.10) | test_lint |
 | all | the srom-kanon linter runs on the rendered text; ERROR fails the build | build.py, kanon_path.py | test_lint, test_kanon |
 
 ## Toolchain conventions (not house rules)

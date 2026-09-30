@@ -43,6 +43,10 @@ check (in `_extract.md`); `lookup.py dois` (Kanon § 9.7: registry check of give
 `<stem>_citations.json` → `volumes/<vol>/citations/<article_id>.json` at INJECT → srom-quant `<citation_list>`;
 `volumes/ror.tsv` (13 of vol. 18's 15 institutions) → ROR in Crossref affiliations; `srom-quant/scripts/wikidata_qs.py`.
 The old per-article copies (`work/<id>/wordcheck.py`, `source_imprints.py`, `doi_check.txt`) stay: closed gates re-run them.
+**Kanon v1.10** (30.09.2026, MB): § 12.3 compound conjunctions without a comma inside; linter WARN `PUNCT-SPOJNIK` (the one
+rule from Zawisławska's error corpus that measured clean on 19 texts; title case, *poprzez*, *posiadać* dropped as noise).
+`check.py --pair`: WARN when a paragraph's length leaves 0.8–1.25 of the text's usual target/source ratio (a dropped or
+added sentence; 0 warnings on the four vol. 19 drafts). Both announced to srom-tlumacz in a T-item.
 
 ## 3. Queue for Claude (in order)
 

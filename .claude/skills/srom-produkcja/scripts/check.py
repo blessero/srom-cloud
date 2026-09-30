@@ -420,6 +420,16 @@ def check_pair(src, tgt, errs, warns, refs=None):
             nx, ny = numbers(ser_num(strip_notes(x))), numbers(ser_num(strip_notes(y)))
             if nx != ny:
                 warns.append(f"block {i} ({k1}): numbers differ — only in source {dict(nx - ny)}, only in target {dict(ny - nx)}: {ser(y)[:50]}…")
+        # a dropped or added sentence: a paragraph whose target/source length ratio leaves 0.8–1.25 of the text's median
+        # (four vol. 19 drafts, 182 paragraphs of 300+ characters: all within 0.86–1.16; 30.09.2026)
+        rs = [(i, len(ser(strip_notes(y))) / len(ser(strip_notes(x))), ser(y))
+              for i, ((k1, x), (_, y)) in enumerate(zip(A, B), 1) if k1 == "p" and len(ser(strip_notes(x))) >= 300]
+        if len(rs) >= 5:
+            med = sorted(r for _, r, _ in rs)[len(rs) // 2]
+            for i, r, txt in rs:
+                if not 0.8 <= r / med <= 1.25:
+                    warns.append(f"block {i}: length {r / med:.2f} of the usual target/source ratio — a sentence "
+                                 f"{'missing' if r / med < 1 else 'added'}? {txt[:60]}…")
     else:
         errs.append(f"leaf block count differs ({len(A)} / {len(B)}) — per-paragraph marker check skipped; realign paragraphs 1:1")
 
