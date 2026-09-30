@@ -77,5 +77,57 @@ t("build: query row for a web text with year only; none for one marked srom-unda
   [l for l in pyt.splitlines() if "bez pełnej daty" in l and "web2016" in l]
   and not [l for l in pyt.splitlines() if "bez pełnej daty" in l and "webnd" in l], pyt)
 
+# dois (Kanon § 9.7): registry check of given DOIs; a Crossref DOI proposed only when year, first author, title agree
+drefs = [{"id": "yd2006", "type": "article-journal", "author": [{"family": "Yural-Davis", "given": "Nira"}], "title": "Belonging",
+          "container-title": "Patterns", "volume": "40", "page": "197-214", "issued": {"date-parts": [[2006]]}, "DOI": "10.1/yd"},
+         {"id": "gb2006", "type": "article-journal", "author": [{"family": "Goldberg", "given": "David Theo"}], "title": "Racial Europeanization",
+          "volume": "29", "page": "331-364", "issued": {"date-parts": [[2006]]}, "DOI": "10.1/gb"},
+         {"id": "tu2010", "type": "book", "author": [{"family": "Turda", "given": "Marius"}], "title": "Modernism and Eugenics",
+          "issued": {"date-parts": [[2010]]}},
+         {"id": "xx2010", "type": "book", "author": [{"family": "Turda", "given": "Marius"}], "title": "Another Title Entirely",
+          "issued": {"date-parts": [[2010]]}}]
+canned = {"works/10.1/yd": json.dumps({"message": {"title": ["Belonging"], "author": [{"family": "Yuval-Davis"}], "volume": "40",
+                                                     "page": "197-214", "issued": {"date-parts": [[2006]]}}}),
+          "works/10.1/gb": json.dumps({"message": {"title": ["Racial Europeanization"], "author": [{"family": "Theo Goldberg", "given": "David"}],
+                                                     "volume": "29", "page": "331-364", "issued": {"date-parts": [[2006, 2]]}}}),
+          "query.bibliographic": json.dumps({"message": {"items": [
+              {"DOI": "10.1057/9780230281332", "title": ["Modernism and Eugenics"], "author": [{"family": "Turda"}],
+               "issued": {"date-parts": [[2010]]}}]}})}
+cf = os.path.join(d, "canned.json"); json.dump(canned, open(cf, "w", encoding="utf-8"))
+drf = os.path.join(d, "drefs.json"); json.dump(drefs, open(drf, "w", encoding="utf-8"))
+q4 = os.path.join(d, "q4.csv")
+c, o = run("dois", drf, "--canned", cf, "--csv", q4)
+t("dois: misspelt author caught (Yural-Davis); a registry family 'Theo Goldberg' is not a difference",
+  "yd2006\tDIFFERS" in o and "Yuval-Davis" in o and "gb2006\tOK" in o, o)
+t("dois: DOI proposed only for the work whose title agrees", "tu2010\tPROPOSED\t10.1057/9780230281332" in o and "xx2010\tNONE" in o, o)
+rows4 = open(q4, encoding="utf-8-sig").read() if os.path.exists(q4) else ""
+t("dois: query rows to the editor, refs.json untouched", "redakcja" in rows4 and "10.1057/9780230281332" in rows4
+  and "DOI" not in [k for r in json.load(open(drf, encoding="utf-8")) for k in r if r["id"] == "tu2010"], rows4)
+
+# imprints (GEN-4): LoC, DNB, BN MARC records; title words + year must agree; conflicting records are not resolved
+def marc(title, place, pub, date, rid):
+    return (f'<record xmlns="http://www.loc.gov/MARC21/slim"><controlfield tag="001">{rid}</controlfield>'
+            f'<controlfield tag="008">000000s{date}</controlfield><datafield tag="245" ind1="1" ind2="0"><subfield code="a">{title}</subfield></datafield>'
+            f'<datafield tag="264" ind1=" " ind2="1"><subfield code="a">{place}</subfield><subfield code="b">{pub}</subfield>'
+            f'<subfield code="c">{date}</subfield></datafield></record>')
+coll = lambda *r: "<collection>" + "".join(r) + "</collection>"
+irefs = [{"id": "bogdal2011", "type": "book", "author": [{"family": "Bogdal"}], "title": "Europa erfindet die Zigeuner", "issued": {"date-parts": [[2011]]}},
+         {"id": "fic1986", "type": "book", "author": [{"family": "Ficowski"}], "title": "Cyganie na polskich drogach", "publisher": "Wydawnictwo Literackie",
+          "issued": {"date-parts": [[1986]]}},
+         {"id": "amb2000", "type": "book", "author": [{"family": "Amb"}], "title": "Ambiguous Book", "issued": {"date-parts": [[2000]]}},
+         {"id": "art", "type": "article-journal", "author": [{"family": "X"}], "title": "Journal article", "issued": {"date-parts": [[2000]]}}]
+icanned = {"lx2.loc.gov": coll(marc("Ambiguous book", "London :", "Routledge,", "2000", "L1")),
+           "dnb.de": coll(marc("Europa erfindet die Zigeuner :", "Berlin", "Suhrkamp", "2011", "D1"),
+                          marc("Ambiguous book", "[Oxford]", "Blackwell", "2000", "D2")),
+           "bn.org.pl": coll(marc("Cyganie na polskich drogach /", "Kraków ;", "Wydaw. Literackie,", "1986", "B1"))}
+icf = os.path.join(d, "icanned.json"); json.dump(icanned, open(icf, "w", encoding="utf-8"))
+irf = os.path.join(d, "irefs.json"); json.dump(irefs, open(irf, "w", encoding="utf-8"))
+c, o = run("imprints", irf, "--canned", icf)
+t("imprints: German book from DNB (place and publisher), Polish place from BN, publisher already known not asked",
+  "bogdal2011\tpublisher-place\tBerlin" in o and "bogdal2011\tpublisher\tSuhrkamp" in o and "fic1986\tpublisher-place\tKraków" in o
+  and "fic1986\tpublisher\t" not in o, o)
+t("imprints: two catalogues disagree -> CONFLICT, not a value; journal articles skipped",
+  "amb2000\tpublisher-place\tCONFLICT: London / Oxford" in o and "art\t" not in o, o)
+
 n, ok = len(res), sum(res)
 print(f"LOOKUP ALL PASS {n}/{n}" if ok == n else f"LOOKUP FAILED {n - ok}/{n}")

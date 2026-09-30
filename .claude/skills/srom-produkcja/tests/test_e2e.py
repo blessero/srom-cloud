@@ -341,5 +341,14 @@ check("… but an abbreviation ending the citation keeps its period ('s. 3 i n. 
       "s. 3 i n. (cytat na s. 4)." in txt, txt[:900])
 check("… and a sentence in brackets after the citation's own full stop is untouched", "s. 90. (Zdanie autora w nawiasie.)" in txt, txt[:900])
 
+# the printed bibliography for the Crossref deposit (srom-quant <citation_list>)
+code, out, stem, rep = build(md_path=os.path.join(FX, "sample_article.md"))
+cit = json.load(open(os.path.join(out, stem + "_citations.json"), encoding="utf-8")) if os.path.exists(os.path.join(out, stem + "_citations.json")) else []
+fic = [c for c in cit if c["key"] == "ficowski1985"]
+check("_citations.json: every printed entry as plain text, CSL entries with their key (and DOI), literal entries keyless",
+      len(cit) >= 3 and fic and fic[0]["text"].startswith("Ficowski, Jerzy. Cyganie na polskich drogach")
+      and not any("smallcaps" in c["text"] or "](" in c["text"] or "*" in c["text"] for c in cit)
+      and any(c["key"] is None for c in cit), [c for c in cit if "smallcaps" in c["text"] or "](" in c["text"] or "*" in c["text"]] or cit[:3])
+
 n, ok = len(results), sum(results)
 print(f"E2E ALL PASS {n}/{n}" if ok == n else f"E2E FAILED {n - ok}/{n}")

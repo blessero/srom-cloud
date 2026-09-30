@@ -37,6 +37,12 @@ Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 20/20` (~510 checks). Unla
 dated supplements are now § 17 row 1.8; no rule text changed. T27 told srom-tlumacz.
 **Kanon v1.9** (30.09.2026, MB): § 12.3 Pisownia — the Rada Języka Polskiego spelling of 01.01.2026; linter WARN
 `ORTH-OWSKI`, `ORTH-NIE-IMIESLOW` (test_lint). Announced to srom-tlumacz in a T-item (its four drafts carry 16 warnings).
+**Tools promoted from per-article scripts** (30.09.2026, MB approved the root-session proposals 1–6): `pdf_extract.py` word
+check (in `_extract.md`); `lookup.py dois` (Kanon § 9.7: registry check of given DOIs + Crossref proposals) and
+`lookup.py imprints` (LoC + DNB + BN; Scheffknecht: 17 of 29 missing publishers found, GEN-4); `build.py` writes
+`<stem>_citations.json` → `volumes/<vol>/citations/<article_id>.json` at INJECT → srom-quant `<citation_list>`;
+`volumes/ror.tsv` (13 of vol. 18's 15 institutions) → ROR in Crossref affiliations; `srom-quant/scripts/wikidata_qs.py`.
+The old per-article copies (`work/<id>/wordcheck.py`, `source_imprints.py`, `doi_check.txt`) stay: closed gates re-run them.
 
 ## 3. Queue for Claude (in order)
 

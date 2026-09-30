@@ -139,7 +139,7 @@ A grid ordered by a `meta_key` INNER-JOINs postmeta, so a volume missing that me
 
 ## Crossref deposit (`scripts/generate_crossref_xml.py`)
 
-CSV → deposit XML, schema 5.4.0, one file per volume. Fill the CONFIG block (depositor name/email, registrant) once. Emits: per-article `<journal_article>` with bilingual `<titles>`/JATS `<abstract>`, per-contributor `<person_name>`+`<ORCID>` (authors, then translators from `translators_struct` with `contributor_role="translator"`, `sequence="additional"`), `<pages>`, AccessIndicators license (`free_to_read` + `license_ref`), `isTranslationOf` relation when `original_doi` is present, and `<doi_data>` with the landing `<resource>` + crawler PDF item. Hard-aborts on: placeholder prefix `10.XXXXX`, non-`YYYY-MM-DD` `pub_date_online`, or any `doi_suffix` not matching `[a-z0-9]{8}`. Validate output at test.crossref.org before production.
+CSV → deposit XML, schema 5.4.0, one file per volume. Fill the CONFIG block (depositor name/email, registrant) once. Emits: per-article `<journal_article>` with bilingual `<titles>`/JATS `<abstract>`, per-contributor `<person_name>`+`<ORCID>` (authors, then translators from `translators_struct` with `contributor_role="translator"`, `sequence="additional"`), `<pages>`, AccessIndicators license (`free_to_read` + `license_ref`), `isTranslationOf` relation when `original_doi` is present, and `<doi_data>` with the landing `<resource>` + crawler PDF item. References: `<citation_list>` from `volumes/<vol>/citations/<article_id>.json` (srom-produkcja build's `_citations.json`, Kanon § 13.1; DOI + unstructured text per entry; articles without one are named on screen). Affiliations: one `<institution>` per institution ("A; B", "A / B"), ROR ID from `volumes/ror.tsv` (`--ror <csv>` adds new institutions with ROR's confident match; check the file before a deposit). XSD-valid (5.4.0, 30.09.2026). Hard-aborts on: placeholder prefix `10.XXXXX`, non-`YYYY-MM-DD` `pub_date_online`, or any `doi_suffix` not matching `[a-z0-9]{8}`. Validate output at test.crossref.org before production.
 
 ## Pre-deposit invariants (`scripts/validate_master.py`)
 
@@ -155,6 +155,8 @@ Run against any master CSV before minting. Checks: 38-column schema present · D
 6. Build/verify templates in Theme Builder (single `srom_article`/`srom_volume`) with a real imported post as preview. Verify one article: view-source shows `citation_*` tags; DOI renders as full `https://doi.org/…`; `curl -I` the PDF → 200, no 301.
 7. Publish articles.
 8. `generate_crossref_xml.py` → test.crossref.org → production. Await deposit report; click 2–3 DOIs to confirm resolution.
+9. OpenAlex (the open index most discovery tools read) picks the journal up from Crossref by itself. 2–4 weeks after the first deposit: `https://api.openalex.org/sources?filter=issn:1689-4758` must return the journal, and a DOI must show its references and abstract; if the journal record is wrong or missing, OpenAlex's support form fixes it.
+10. Wikidata: the journal item once (`scripts/wikidata_qs.py journal` → QuickStatements, MB's account); after each deposit `wikidata_qs.py articles <csv> --journal Q… --check` for the article items.
 
 Order dependency: suffixes freeze at import (step 5); everything before is reversible, nothing after deposit is.
 

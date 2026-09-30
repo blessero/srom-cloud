@@ -240,7 +240,8 @@ function Emph(e) return pandoc.Emph(inner(e.content)) end
 """
 
 
-def csl_entries(keys, refs_path, workdir):
+def csl_entries(keys, refs_path, workdir, order=None):
+    """the bibliography entries as citeproc prints them (collated); `order` receives each entry's key"""
     if not keys:
         return []
     mini = os.path.join(workdir, "bib_mini.md")
@@ -259,6 +260,8 @@ def csl_entries(keys, refs_path, workdir):
     for ln in out.split("\n"):
         if ln.startswith("::: {#ref-"):
             cur = []
+            if order is not None:
+                order.append(re.match(r"::: \{#ref-([^ }]+)", ln).group(1))
         elif ln.startswith(":::"):
             if cur is not None:
                 entries.append(" ".join(cur))
@@ -286,6 +289,15 @@ def unsmallcap_literals(entries, keys, refs):
     return out
 
 
+def plain_entry(e):
+    """a printed bibliography entry as plain text (Crossref <unstructured_citation>)"""
+    e = re.sub(r"\[([^\]]*)\]\{[^}]*\}", r"\1", e)          # [Nazwisko]{.smallcaps}
+    e = re.sub(r"(?<![\w\\])[*_]+|[*_]+(?![\w])", "", e)          # emphasis marks
+    e = re.sub(r"<(https?://[^>\s]+)>", r"\1", e)                   # autolinks
+    e = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", e)                     # [10.1234/x](https://doi.org/…)
+    return re.sub(r"\\(.)", r"\1", e).strip()
+
+
 def build_bibliography(md_text, refs, cited, refs_path, workdir, report):
     m = BIB_BLOCK.search(md_text)
     literal = parse_literal_bib(m.group(1), report) if m else OrderedDict()
@@ -301,9 +313,12 @@ def build_bibliography(md_text, refs, cited, refs_path, workdir, report):
             # kanon: only the sections an article uses are printed, without numerals (config can restore them)
             label = f"{ROMAN[i]}. {SECTIONS[r]}" if BIB_NUMBERS[0] else SECTIONS[r]
             lines += [f"## {label}", ""]
-        ents = literal.get(r) or unsmallcap_literals(csl_entries(gen.get(r, []), refs_path, workdir), gen.get(r, []), refs)
-        for e in ents:
+        order = []
+        ents = literal.get(r) or unsmallcap_literals(csl_entries(gen.get(r, []), refs_path, workdir, order), gen.get(r, []), refs)
+        for i_, e in enumerate(ents):
             lines += [e, ""]
+            key = order[i_] if not literal.get(r) and i_ < len(order) else None
+            report.setdefault("citations", []).append({"key": key, "doi": (refs.get(key) or {}).get("DOI", ""), "text": plain_entry(e)})
     lines.append(":::")
     block = "\n".join(lines)
     report["bib_sections"] = {r: len(literal.get(r) or gen.get(r) or []) for r in present}
@@ -867,6 +882,10 @@ def main():
     rep += [f"- {i}: {x}  ⇒  {y}" for i, x, y in rows] or ["- none"]
     rep += ["", "## Lint (srom-kanon lint_srom.py on rendered text)", "```", lint_out.strip()[:6000], "```"]
     open(os.path.join(a.out, stem + "_report.md"), "w", encoding="utf-8").write("\n".join(rep) + "\n")
+    # the printed bibliography for the Crossref deposit (<citation_list>, srom-quant): copy to
+    # volumes/<vol>/citations/<article_id>.json at INJECT
+    json.dump(report.get("citations", []), open(os.path.join(a.out, stem + "_citations.json"), "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1)
     shutil.rmtree(work)
     if a.proof:
         print(f"PROOF — {docx_path} ({len(report['errors'])} issue(s) listed in {stem}_report.md)")

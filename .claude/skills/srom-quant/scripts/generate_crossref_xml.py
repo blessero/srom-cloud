@@ -5,12 +5,21 @@ CSV (srom_master_v3.csv) -> Crossref deposit XML (schema 5.4.0), one file per vo
 
 Usage:
     python3 generate_crossref_xml.py srom_master_v3.csv [output.xml]
+    python3 generate_crossref_xml.py --ror srom_master_v3.csv      # fill volumes/ror.tsv from ROR (see below)
+
+References (<citation_list>, Kanon § 13.1): volumes/<vol>/citations/<article_id>.json — the build's
+<stem>_citations.json (srom-produkcja build.py), copied there at INJECT. An article without one is deposited
+without references (listed on screen); references can be added later by a redeposit.
+Affiliations: each institution of an affiliation ("A; B", "A / B") is its own <institution>; its ROR ID comes from
+volumes/ror.tsv (institution as written in authors_struct, TAB, https://ror.org/…, ROR name, source). --ror adds
+the institutions not yet in the file, with ROR's own confident match ("chosen") or empty: check the file before
+a deposit.
 
 Before first use, fill in the CONFIG block (prefix, depositor, e-mail).
 Upload the result at https://doi.crossref.org (admin tool) or test first at
 https://test.crossref.org with the same credentials.
 """
-import csv, sys, html, datetime, pathlib
+import csv, sys, html, datetime, pathlib, json, re, urllib.parse, urllib.request
 
 # ---------------- CONFIG ----------------
 DEPOSITOR_NAME  = "Studia Romologica / Komitet Opieki nad Zabytkami Kultury Zydowskiej w Tarnowie"
@@ -33,6 +42,61 @@ def parse_authors(s):
         out.append(dict(given=given, surname=surname, aff=aff, orcid=orcid))
     return out
 
+ROR = {}   # institution as written -> ROR ID (volumes/ror.tsv)
+
+
+def institutions(aff):
+    """'Wydział Historii, Gonzaga University; Instytut …' -> one entry per institution"""
+    return [x.strip() for x in re.split(r";\s+|\s+/\s+", aff or "") if x.strip()]
+
+
+def load_ror(csv_path):
+    f = pathlib.Path(csv_path).resolve().parent.parent / "ror.tsv"
+    if f.exists():
+        for ln in f.read_text(encoding="utf-8").splitlines()[1:]:
+            c = ln.split("\t")
+            if len(c) > 1 and c[1].startswith("https://ror.org/"):
+                ROR[c[0].strip()] = c[1].strip()
+    return f
+
+
+def citations_xml(csv_path, article_id):
+    f = pathlib.Path(csv_path).resolve().parent / "citations" / f"{article_id}.json"
+    if not f.exists():
+        return "", False
+    out = ["    <citation_list>"]
+    for i, c in enumerate(json.loads(f.read_text(encoding="utf-8")), 1):
+        doi = f"<doi>{E(c['doi'])}</doi>" if c.get("doi") else ""
+        out.append(f'      <citation key="ref{i}">{doi}<unstructured_citation>{E(c["text"])}</unstructured_citation></citation>')
+    return "\n".join(out + ["    </citation_list>"]) + "\n", True
+
+
+def ror_fill(csv_path):
+    """add every institution of authors_struct/translators_struct not yet in ror.tsv, with ROR's chosen match"""
+    f = load_ror(csv_path)
+    known = set()
+    if f.exists():
+        known = {ln.split("\t")[0].strip() for ln in f.read_text(encoding="utf-8").splitlines()[1:]}
+    rows = list(csv.DictReader(open(csv_path, encoding="utf-8-sig")))
+    todo = sorted({i for r in rows for col in ("authors_struct", "translators_struct") for a in parse_authors(r.get(col))
+                   for i in institutions(a["aff"]) if not i.startswith("[") and i not in known})
+    new = []
+    for inst in todo:
+        u = "https://api.ror.org/v2/organizations?" + urllib.parse.urlencode({"affiliation": inst})
+        with urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": "SROM (mailto:" + DEPOSITOR_EMAIL + ")"}), timeout=40) as resp:
+            items = json.load(resp).get("items", [])
+        ch = next((i for i in items if i.get("chosen")), None)
+        name = next((n["value"] for n in ch["organization"]["names"] if "ror_display" in n["types"]), "") if ch else ""
+        new.append(f"{inst}\t{ch['organization']['id'] if ch else ''}\t{name}\t"
+                   f"{'ROR affiliation match (chosen) ' if ch else 'no confident ROR match '}{datetime.date.today():%d.%m.%Y}")
+        print(new[-1])
+    with open(f, "a", encoding="utf-8") as fh:
+        if not known:
+            fh.write("institution\tror\tror_name\tsource\n")
+        fh.write("".join(x + "\n" for x in new))
+    print(f"ROR: {len(new)} added to {f} ({sum(1 for x in new if 'ror.org' in x)} with an ID) — check them before a deposit")
+
+
 def contributor_xml(authors, translators=()):
     """Authors first (the first one sequence="first"), then translators (always "additional")."""
     parts = []
@@ -43,14 +107,16 @@ def contributor_xml(authors, translators=()):
         parts.append(f'        <given_name>{E(a["given"])}</given_name>')
         parts.append(f'        <surname>{E(a["surname"])}</surname>')
         if a["aff"] and not a["aff"].startswith("["):
-            parts.append('        <affiliations><institution><institution_name>'
-                         f'{E(a["aff"])}</institution_name></institution></affiliations>')
+            inst = "".join(f'<institution><institution_name>{E(i)}</institution_name>'
+                           + (f'<institution_id type="ror">{E(ROR[i])}</institution_id>' if i in ROR else "") + '</institution>'
+                           for i in institutions(a["aff"]))
+            parts.append(f'        <affiliations>{inst}</affiliations>')
         if a["orcid"].startswith("https://orcid.org/"):
             parts.append(f'        <ORCID authenticated="false">{E(a["orcid"])}</ORCID>')
         parts.append('      </person_name>')
     return "\n".join(parts)
 
-def article_xml(r, pub_y, pub_m, pub_d):
+def article_xml(r, pub_y, pub_m, pub_d, cites=""):
     lang = r.get("language") or LANG_DEFAULT
     authors = parse_authors(r["authors_struct"])
     translators = parse_authors(r.get("translators_struct"))  # optional column; empty/absent -> none
@@ -102,10 +168,13 @@ def article_xml(r, pub_y, pub_m, pub_d):
         <item crawler="iParadigms"><resource>{E(r["pdf_url"])}</resource></item>
       </collection>
     </doi_data>
-  </journal_article>"""
+{cites}  </journal_article>"""
 
 def main():
+    if sys.argv[1:2] == ["--ror"]:
+        return ror_fill(sys.argv[2])
     src = sys.argv[1] if len(sys.argv) > 1 else "srom_master_v3.csv"
+    load_ror(src)
     rows = list(csv.DictReader(open(src, encoding="utf-8-sig")))
     if not rows:
         sys.exit("Empty CSV.")
@@ -124,7 +193,13 @@ def main():
 
     now = datetime.datetime.now()
     batch_id = f"srom-{r0['volume']}-{now:%Y%m%d%H%M%S}"
-    articles = "\n".join(article_xml(r, pub_y, pub_m, pub_d) for r in rows)
+    parts, norefs = [], []
+    for r in rows:
+        cites, has = citations_xml(src, r["article_id"])
+        if not has:
+            norefs.append(r["article_id"])
+        parts.append(article_xml(r, pub_y, pub_m, pub_d, cites))
+    articles = "\n".join(parts)
 
     xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <doi_batch xmlns="http://www.crossref.org/schema/5.4.0"
@@ -159,6 +234,8 @@ def main():
 </doi_batch>"""
     out = sys.argv[2] if len(sys.argv) > 2 else f"crossref_deposit_srom_{r0['volume']}_{r0['year']}.xml"
     pathlib.Path(out).write_text(xml, encoding="utf-8")
+    if norefs:
+        print(f"note: no references file (citations/<article_id>.json) for {len(norefs)}: {', '.join(norefs)}")
     print(f"OK: {out} ({len(rows)} articles). Validate at https://www.crossref.org/02publishers/parser.html or deposit to test.crossref.org first.")
 
 if __name__ == "__main__":
