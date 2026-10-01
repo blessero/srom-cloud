@@ -891,6 +891,13 @@ def main():
         print(f"PROOF — {docx_path} ({len(report['errors'])} issue(s) listed in {stem}_report.md)")
         sys.exit(0 if os.path.exists(docx_path) else 1)
     print(("PASS" if success else "FAIL") + f" — {os.path.join(a.out, stem + '_report.md')}")
+    # real builds (under <repo>/work/) link their InDesign scripts into the Scripts Panel (tools/install_scripts.sh)
+    repo = os.path.abspath(os.path.join(ROOT, "..", "..", ".."))
+    inst = os.path.join(repo, "tools", "install_scripts.sh")
+    if success and os.path.exists(inst) and os.path.abspath(a.out).startswith(os.path.join(repo, "work") + os.sep):
+        r = subprocess.run(["sh", inst, a.out], capture_output=True, text=True)
+        print("InDesign scripts: " + (r.stdout.strip().splitlines() or ["?"])[-1] if r.returncode == 0
+              else "InDesign scripts NOT linked: " + (r.stdout + r.stderr).strip()[-200:])
     sys.exit(0 if success else 1)
 
 
