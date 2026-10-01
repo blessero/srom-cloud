@@ -63,7 +63,7 @@ for (k = 0; k < P.length; k++) {
   }
   if (P[k][3]) { fn = p.insertionPoints[-2].footnotes.add(); fn.insertionPoints[-1].contents = P[k][3]; }
 }
-doc.exportFile(ExportFormat.PDF_TYPE, new File(A[1]), false);
+app.pdfExportPreferences.pageRange = PageRange.ALL_PAGES; doc.exportFile(ExportFormat.PDF_TYPE, new File(A[1]), false);
 var ov = frames[frames.length - 1].overflows;
 doc.close(SaveOptions.NO);
 app.scriptPreferences.userInteractionLevel = UserInteractionLevels.INTERACT_WITH_ALL;

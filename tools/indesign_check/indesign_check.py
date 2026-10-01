@@ -24,6 +24,7 @@ import argparse, copy, difflib, json, os, shutil, subprocess, sys, tempfile
 import pymupdf
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+FULL_PAGES = {"03_Ellis": 14, "09_Konferencja": 12}   # pages of the vol. 18 files in dump/
 REPO = os.path.dirname(os.path.dirname(HERE))
 SKILL = os.path.join(REPO, ".claude", "skills", "srom-produkcja")
 DUMP = os.path.join(REPO, "dump")
@@ -105,6 +106,8 @@ def main():
         t(f"{stem}: keeps run RESULT: OK", rk == "RESULT: OK", rk)
         t(f"{stem}: real run RESULT: OK", rr == "RESULT: OK", open(P["real"] + ".txt", encoding="utf-8").read().replace("\r", "\n")[-1500:] if os.path.exists(P["real"] + ".txt") else rr)
         b, c, r = lines(P["before"] + ".pdf"), lines(P["control"] + ".pdf"), lines(P["real"] + ".pdf")
+        np_ = pymupdf.open(P["before"] + ".pdf").page_count
+        t(f"{stem}: whole document exported ({np_} pages; InDesign reuses the last export's page range otherwise)", np_ == FULL_PAGES[stem], np_)
         same = sum(1 for x, y in zip(b, c) if x == y)
         t(f"{stem}: control = vol. 18 line for line ({same}/{len(b)} lines: text, position, size, font)", same == len(b) == len(c),
           [(x, y) for x, y in zip(b, c) if x != y][:5])

@@ -100,7 +100,7 @@ var left = [];
 if (main.overflows) { left.push("article frame overset"); }
 if (doc.links.length) { left.push(doc.links.length + " links"); }
 doc.exportFile(ExportFormat.INDESIGN_MARKUP, new File(A[2]));
-if (A[3]) { doc.exportFile(ExportFormat.PDF_TYPE, new File(A[3]), false); }
+if (A[3]) { app.pdfExportPreferences.pageRange = PageRange.ALL_PAGES; doc.exportFile(ExportFormat.PDF_TYPE, new File(A[3]), false); }
 log("   written " + File(A[2]).name);
 log(left.length ? "RESULT: check — " + left.join(", ") : "RESULT: OK");
 doc.close(SaveOptions.NO);
