@@ -1,4 +1,4 @@
-# srom-tlumacz — handover (updated 29.09.2026 17:46, Claude Code; originally from the claude.ai "SROM_Naczelny" project)
+# srom-tlumacz — handover (updated 01.10.2026 17:20, Claude Code; originally from the claude.ai "SROM_Naczelny" project)
 
 ## 1. What exists
 
@@ -43,8 +43,8 @@ srom-tlumacz does not duplicate srom-produkcja (structure, markers, keys, number
 
 ## 4. State of the srom-produkcja interface (29.09.2026 17:46)
 
-- `tlumacz-test_handoff.py` **30/30** (re-run 29.09.2026 17:46 against srom-produkcja 0c75f49) (T11 front-matter and D12 one-title-note cases added 28.09; E3, E5 as contract text and E6 source label → printed number after the Word round trip, with a control, added 28.09 after the cross-module review); E16 closed 28.09 (T16, srom-produkcja ce291a2: GAP CLOSED). Run it with `~/.venvs/srom/bin/python` (CLAUDE.md § Checks). E1, E2, E4 closed; `"srom-added"` in `<id>_refs_tlum.json` verified, also after the Word round trip; E8 verified at the pair check; **E10/T7**: translator in YAML front matter `tlumaczenie:` (4 cases: ignored by the pair check, reported as `translators_struct`, empty = build error, survives Word).
-- **Kanon v1.7 is normative** (v1.7: 28.09.2026, D14; one title note, § 7.1; since then three dated supplements under the same number, § 17 row 1.7 — cite the § and the date) (`srom-kanon/references/kanon-redakcyjny.md`); § 3.4 amended 27.09 (T6): foreign unassimilated exonyms (*Ciganos*, *Gitanos*, *Bohémiens*, *Zigeuner*, *Tsiganes*, Nawar …) italic; endonyms and assimilated exonyms roman.
+- `tlumacz-test_handoff.py` **33/33** (re-run 01.10.2026 17:20 against srom-produkcja d3c3924) (T11 front-matter and D12 one-title-note cases added 28.09; E3, E5 as contract text and E6 source label → printed number after the Word round trip, with a control, added 28.09 after the cross-module review); E16 closed 28.09 (T16, srom-produkcja ce291a2: GAP CLOSED). Run it with `~/.venvs/srom/bin/python` (CLAUDE.md § Checks). E1, E2, E4 closed; `"srom-added"` in `<id>_refs_tlum.json` verified, also after the Word round trip; E8 verified at the pair check; **E10/T7**: translator in YAML front matter `tlumaczenie:` (4 cases: ignored by the pair check, reported as `translators_struct`, empty = build error, survives Word).
+- **Kanon v1.10 is normative** (v1.7: 28.09.2026, one title note, § 7.1; the supplements became v1.8, § 12.3 spelling v1.9, v1.10 compound conjunctions — T27–T29; cite "Kanon v1.10") (`srom-kanon/references/kanon-redakcyjny.md`); § 3.4 amended 27.09 (T6): foreign unassimilated exonyms (*Ciganos*, *Gitanos*, *Bohémiens*, *Zigeuner*, *Tsiganes*, Nawar …) italic; endonyms and assimilated exonyms roman.
 - **Kartoteka** now lives in srom-kanon (`references/kartoteka.tsv`, from our seed, T8); changes go through `_handoffs/`. `tlumacz-1.3.1/kartoteka-seed.tsv` is history, not the master.
 - **Open comments never block** (`handoff.md`; `build.py` strips them and still passes). After the Word round trip they leave the text and appear only in the import report, so every open `DO SPRAWDZENIA` / `PRZYWRÓCIĆ ORYGINAŁ` is also a line in the article's `<id>_uwagi.md` until MB closes it.
 - E9/T2 (hand-typed notes, `docx_in.py --typed-notes`) done (T17, 28.09). Awaiting srom-produkcja's status line: E17 [Ostendorf], E18 [Pahulich], E18 [Ostendorf], E19 [Tittel] (kartoteka rows, refs.json corrections, the § 12.2.4 c line). All four answered in T25 (29.09.2026 18:42): kartoteka rows added; Pahulich `refs.json` re-copied (3b060a87…1f3d5366; the five gloss rows left the query sheet); Urlsperger key and token stay (record fix B12, MB); MEW 741 is D20 B11 (token stays until MB); the § 12.2.4 c line waits for D26 (e). Ostendorf B13 (*Zingances* → *Zinganées*, Vowell's print) is MB's (D19); the draft keeps the author's form until he decides. **Hand-back (T26, `handoff.md` "Back")**: the Word file in `work/<id>/` is the master from MB's first edit — never export over it (a new export goes to a temp dir or `_v2`); after each editing round: `docx_in.py <id>_robocza.docx -o <id>_pl.md` (the md is never edited by hand afterwards; corrections go into Word), `check.py --pair`, `build.py … --draft`, `tlumacz-front_check.py`, then a delivery E-item with sha256 (PLAN OUT-DELIVERY); srom-produkcja takes it with `take_back.py`. Tested here: HANDOFF CONTRACT 33/33. E13 (Dom exonyms) sent; borderline assimilation cases (Mutribów, Gadżar, Garaczi) are theirs.
@@ -62,7 +62,7 @@ English originals are in `sources/vol18-en/`; MB's Polish DOCX are in `vol18-PL-
 
 ## 6. Pending — MB
 
-Kept in one list for all modules: `../_handoffs/MB-decisions.md` (D5 and D26 concern this module as a whole; D22, D23, D25 its drafts). Not repeated here.
+Kept in one list for all modules: `../_handoffs/MB-decisions.md` (SYS-1 and V19-1–4 concern this module as a whole; OST-, PAH-, TIT-, NDI- its drafts). Not repeated here.
 
 ## 7a. Session handover (28.09.2026)
 

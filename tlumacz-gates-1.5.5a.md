@@ -6,6 +6,7 @@ feedback and collect his decisions for later, so no gate waits for MB: open choi
 intake and the notes sheet. The draft is leaf 1.5.5b.
 
 - [x] G1: the four source files in `work/tittel/src/` are identical to srom-produkcja's (T20 hashes)
+  NOTE 01.10.2026 17:21 [general]: srom-produkcja renamed `<id>_queries.md` to `<id>_uwagi.md` (29.09.2026 23:13); the manifest here still lists the old name, so the count is now 3, not 4. The copy in `src/` keeps the old name. No CHECK change (review 01.10.2026 item 6).
   CHECK: cd "../srom-produkcja/work/tittel" && shasum -a 256 -c "../../../srom-tlumacz/work/tittel/src/manifest.sha256" | grep -c ': OK$'
   EXPECT: /^4$/m
 

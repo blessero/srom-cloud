@@ -58,6 +58,7 @@ Scope: fix every interface later leaves depend on — plan, termbase schema and 
   EVIDENCE: shape: 4 rows, 0 problem(s)
 
 - [x] G12: the checker itself is proven to fail on corrupted data (negative controls)
+  NOTE 01.10.2026 17:21 [general]: the selftest has grown to 9/9 (was 7/7); the EXPECT/EVIDENCE below are the old figure. No CHECK change (review 01.10.2026 item 6).
   CHECK: python3 tlumacz-check_tb.py --selftest
   EXPECT: selftest: 7/7 negative controls caught
   EVIDENCE: selftest: 7/7 negative controls caught

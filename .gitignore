@@ -21,3 +21,4 @@ training/*
 # [Pahulich] downloaded texts (Internet Archive OCR, ru.wikisource); ids in research/grellmann_de.md, sha256 in research/manifest.sha256
 work/pahulich/research/*.txt
 work/pahulich/research/*.wiki
+.claude/settings.local.json

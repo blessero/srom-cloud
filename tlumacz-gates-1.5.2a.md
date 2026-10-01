@@ -3,6 +3,7 @@
 Scope: receive the source, answer T11 (front matter both ways), survey what the article needs (quotation rules, Polish editions, terminology, group names), and put the blocking questions to MB. The draft is leaf 1.5.2b.
 
 - [x] G1: the four source files in `work/ndiaye/src/` are identical to srom-produkcja's
+  NOTE 01.10.2026 17:21 [general]: srom-produkcja renamed `<id>_queries.md` to `<id>_uwagi.md` (29.09.2026 23:13); the manifest here still lists the old name, so the count is now 3, not 4. The copy in `src/` keeps the old name. No CHECK change (review 01.10.2026 item 6).
   CHECK: cd "../srom-produkcja/work/ndiaye" && shasum -a 256 -c "../../../srom-tlumacz/work/ndiaye/src/manifest.sha256" | grep -c ': OK$'
   EXPECT: /^4$/m
   EVIDENCE: 4
