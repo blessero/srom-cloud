@@ -112,8 +112,9 @@ more clicks per article).
 
 ## After placing: `<article>_postimport.jsx`
 
-Copy the JSX files from the build folder to the Scripts Panel folder (Window ▸ Utilities ▸
-Scripts ▸ User ▸ Reveal in Finder/Explorer) and double-click. Report-only; changes nothing. If the
+Link the scripts into the Scripts Panel with `sh tools/install_scripts.sh <build dir>` (symlinks; each text gets its
+own panel folder `srom_<stem>`, so several texts never mix; works with InDesign closed, the scripts appear at the next
+launch; also links the two general scripts). Then double-click a script in the panel. Report-only; changes nothing. If the
 document holds more than one article, put the text cursor in the article first — both scripts then
 check only that story. If this InDesign version does not expose paragraph overrides to scripts, the
 report says so instead of claiming zero.
