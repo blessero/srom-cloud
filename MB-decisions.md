@@ -48,6 +48,7 @@ send) · **Later** (a reminder, nothing to do now).
 | OST-6 | Group names: „angielscy Romowie”, *Bohémienne(s)* | Approve | nothing |
 | OST-7 | The author's "[*sic*]" after "civilised" | Decide | nothing |
 | OST-8 | Abstract too long (1236 characters): who shortens it? | Decide | nothing |
+| OST-9 | Three edited texts: who is printed as their author? | Decide | nothing |
 | TIT-1 | The author's "gypsy/gypsies": „Cyganie” with a capital or lower case? | Decide | **delivery of the translation** |
 | TIT-2 | Acknowledgements moved to the note on the title | Approve | nothing |
 | TIT-3 | 12 quotations to check in Polish editions (Kant, Marx) and sources | Look up | the final text |
@@ -386,7 +387,7 @@ Detail: 🔴 `srom-produkcja/work/pahulich/pahulich_uwagi.md` → PAH-10
 
 ## Ostendorf — "Familiar Outsiders Abroad" (The Romani Atlantic, ch. 3, CUP 2026) (OST)
 Source ready, translation drafted; Word copy for you: 🔴 `srom-tlumacz/work/ostendorf/ostendorf_robocza.docx`.
-Nothing here blocks your Word edit. Also concerns this text: GEN-3 (licence), GEN-11, V19-3, V19-4. Next free: OST-9.
+Nothing here blocks your Word edit. Also concerns this text: GEN-3 (licence), GEN-11, V19-3, V19-4. Next free: OST-10.
 
 ### OST-1 · 14 places and publishers the library catalogues could not settle
 **Look up** · blocks typesetting
@@ -468,6 +469,26 @@ Detail: 🔴 `srom-tlumacz/work/ostendorf/ostendorf_uwagi.md` → OST-7
 - (b) you shorten it in Word
 
 *Trail: uwagi § 6; Kanon § 12.2.2.*
+
+### OST-9 · Three edited texts: who is printed as their author? [Ostendorf] (02.10.2026 01:48)
+**Decide** · blocks nothing
+
+Your test layout printed the editors in the author's place in notes 34, 41 and 51. That is fixed: these notes now open
+with the title and name the editor after it, as the author herself writes them. Still open: whether a real author
+should stand first.
+- n. 41, the two "Bolzius Answers" articles (William and Mary Quarterly): JSTOR names Johann Martin Bolzius as author
+  and the three editors as translators. (a) „J.M. Bolzius, *Johann Martin Bolzius Answers…*, tłum. i red. K.G. Loewald,
+  B. Starika, P.S. Taylor, …” — **recommended** (Bolzius wrote the text); (b) keep the title first, as now.
+- n. 51, *The Life and Writings of De Witt Clinton*: the book is by William W. Campbell (he wrote the Life and edited
+  the writings; the author gives "ed. William Cambell"). (a) Campbell as author: „W.W. Campbell, *The Life…*” —
+  **recommended**, together with the spelling fix already in OST-3 (B4); (b) keep the title first, "red. W. Campbell".
+- n. 34, *Mourt's Relation*: published anonymously; usually attributed to Edward Winslow and William Bradford.
+  (a) keep the title first, "red. H. Dexter" — **recommended** (an attribution, not a name on the title page);
+  (b) print the two attributed authors.
+
+Detail: 🔴 `srom-produkcja/work/ostendorf/ostendorf_uwagi.md` → OST-9
+
+*Trail: Kanon v1.11 § 7.2 (title-first rows); refs.json loewald1957/1958, clinton1849 (type classic), mourt1865 (type classic).*
 
 ## Tittel — "Racial and Social Dimensions of Antiziganism" (On_Culture 10, 2020) (TIT)
 Source ready, translation drafted; Word copy for you: 🔴 `srom-tlumacz/work/tittel/tittel_robocza.docx`.
