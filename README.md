@@ -11,6 +11,9 @@ One file per direction, named `<sender>-to-<receiver>.md`:
 - `tlumacz-to-quant.md` — srom-tlumacz writes; MB passes it on to srom-quant
 - `MB-decisions.md` — every open question for MB (any module writes; format below)
 - `tools/mb_view.py` — renders the ledger and notes sheets for MB (below)
+- `tools/hooks/` — Claude Code hooks, wired in each module's `.claude/settings.json` (and the root's): `guard_module.py`
+  refuses edits in the other module's folder; `render_mb_view.py` re-runs `mb_view.py --all` after an edit to a
+  `.md` here or to a notes sheet (MB, 01.10.2026)
 
 ## Rules
 
