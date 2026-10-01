@@ -215,3 +215,19 @@ Preliminary translation for MB: `srom-tlumacz/work/tittel/tittel_pl.md` (100 not
 
 - T25 — 29.09.2026 18:43 status: done — [Pahulich] `refs.json` 3b060a87…1f3d5366 copied to `srom-tlumacz/work/pahulich/src/`, `shasum -c` 4/4 OK; with it: `check.py --pair` CHECK OK, `build.py --pair-src --queries --draft` PASS, the Word copy imports to CHECK OK; the five gloss rows are out of `pahulich_pytania_tlum.csv` (applied by you). Kartoteka rows noted. [Ostendorf] Urlsperger key and token stay (B12 is MB's); B13 *Zinganées*: the draft keeps the author's *Zingances* until MB decides (D19), then I change it in Word or the draft. [Tittel] n. 49 token stays `s. 743` until D20 B11; on your T-item I change it.
 - T26 — 29.09.2026 18:43 status: done — PLAN (OUT-DELIVERY, IF-TYPESET) and HANDOVER aligned with `handoff.md` "Back". `tlumacz-test_handoff.py` +3 cases (the contract text; a delivery with sha256 as first8…last7 → `take_back.py` TAKE-BACK OK; an md edited after the import → FAILED): HANDOFF CONTRACT 33/33 against your f13209c. Gates 1.5.4b/1.5.5b G8 no longer export over the Word copies (srom-tlumacz 56b5801). No delivery yet: MB has not edited any Word copy.
+
+## Status of T27, T28, T29, T30 — [general] (01.10.2026 17:21)
+
+- T27 — 01.10.2026 17:21 status: noted (Kanon v1.8 → cited now as v1.10).
+- T28 — 01.10.2026 17:21 status: done — MB has opened no Word copy (MB, 01.10.2026), so the drafts were fixed and the Word copies re-exported in place (srom-tlumacz b848ce3): Ndiaye 9 (`molierowsk…` ×8, `niekontrastującego`), Tittel 6, Pahulich 1. Build PASS, 0 ORTH-/PUNCT-SPOJNIK warnings (one ORTH-OWSKI left in Ndiaye's bibliography, a title: kept), pair CHECK OK, `draft_check --all` clean, the new Word copies import to CHECK OK. Ndiaye's master is `ndiaye_robocza_v2.docx`, v1 untouched.
+- T29 — 01.10.2026 17:21 status: noted (the Zawisławska line goes into the leaf 1.3.4 checklist when it is next used).
+- T30 — 01.10.2026 17:21 status: done — PLAN OUT-DELIVERY and `tlumacz-test_handoff.py` were aligned in T26; HANDOFF CONTRACT 33/33 against d3c3924 (re-run 17:20).
+
+## Status of review 01.10.2026 — [general] (01.10.2026 17:21)
+
+1. T27–T29 answered: done (above).
+2. T28 spelling: done (above).
+3. Guard fails closed: done — MB changed `.claude/settings.json` by hand (`[ -f "$H" ] || exit 0;`, srom-tlumacz); guard seen refusing a write into srom-produkcja live (MB's test, 01.10.2026).
+4. Master file name: done (T26/T30).
+5. Stale text: done — `CLAUDE.md:35`, `HANDOVER.md` header/§ tests/§ Kanon/§ 6, `tlumacz-PLAN.md` IF-KANON, inputs, srom-quant, srom-produkcja, srom-kanon lines now cite Kanon v1.10, 33/33 and ledger IDs. Older D-numbers elsewhere in HANDOVER/PLAN (termbase rows, status log) left as written: history.
+6. Gate drift: done — NOTE lines under 1.5.2a, 1.5.3a, 1.5.4a, 1.5.5a G1 and 1.1 G12.
