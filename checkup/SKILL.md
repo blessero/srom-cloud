@@ -57,7 +57,7 @@ a separate request.
    - srom-kanon SKILL.md's quick rules don't contradict the Kanon
    - group names requested in E-items are in `kartoteka.tsv` or answered
 6. **MB-decisions.md.**
-   - only pending items, and "Needs MB now" lists every one of them
+   - only pending items, and the "At a glance" table lists every one of them (one row per section, "Next free" correct, Detail file exists)
    - nothing in it already decided elsewhere
    - nothing MB decided (in handovers, commits, handoff items) that a module still treats as open, or has not applied
    - no module acting on an undecided item without saying which choice it assumes
