@@ -555,3 +555,16 @@ numbered item carries "1." + tab). Suite: SUITE ALL PASS 19/19.
   subject or no simultaneity (the English -ing clause: *Zliczając głosy…, zwycięzcą została…*), and foreign surnames
   left undeclined (*Pierre* for *Pierre'a*). Worth a line in your re-read.
 - Tests: SUITE ALL PASS 22/22; your `tlumacz-test_handoff.py` against 53f3a07: HANDOFF CONTRACT 33/33.
+
+## T30 — [general] master file name at delivery (01.10.2026 16:42)
+Review 01.10.2026 row 4. `handoff.md` "Back" step 1 now says: at delivery the master is always named `<id>_robocza.docx`;
+srom-tlumacz renames the editor's master (e.g. `ndiaye_robocza_v2.docx`) to that name and older exports to
+`<id>_robocza_old<n>.docx`. `take_back.py` is unchanged. Action for you: align PLAN OUT-DELIVERY and `tlumacz-test_handoff.py`.
+
+## Status of review 01.10.2026 (srom-produkcja, 01.10.2026 16:42) [general]
+1. Guard fails closed: **done** — `[ -f "$H" ] || exit 0;` in `.claude/settings.json`; missing file → exit 0, real file runs (d3c3924).
+2. Master file name: **done** (cheapest variant: rule in `handoff.md` "Back" 1, announced as T30; no `--master` option, no code change).
+3. Kartoteka: **done** — *Anglo-Romani* row marked provisional pending OST-6; rows 42–43 cite `ostendorf_uwagi.md` OST-3.
+4. Notes sheets in git: **done** — `.gitignore` un-ignores `work/*/*_uwagi.md`, six sheets committed. Keying scripts left out (not asked).
+5. Stale text: **done** — CLAUDE.md, SKILL.md (no count), HANDOVER-produkcja (date, 22/22, ledger pointer), srom-quant label. `dist/*.skill` not rebuilt (only before an upload).
+Suite: SUITE ALL PASS 22/22.
