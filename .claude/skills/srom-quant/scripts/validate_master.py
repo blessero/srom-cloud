@@ -22,7 +22,7 @@ SCHEMA = [
 ]
 # Optional columns: accepted when present, never required (older CSVs stay valid).
 OPTIONAL = [
-    'translators_struct',   # Given|Surname|Affiliation|ORCID ;; … — translator(s), Kanon v1.6 § 12.2.3
+    'translators_struct',   # Given|Surname|Affiliation|ORCID ;; … — translator(s), Kanon § 12.2.3
 ]
 SUFFIX_RE = re.compile(r'^[a-z0-9]{8}$')
 DATE_RE   = re.compile(r'^\d{4}-\d{2}-\d{2}$')

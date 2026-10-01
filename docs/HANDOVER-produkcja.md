@@ -1,4 +1,4 @@
-# srom-produkcja — handover (state at 29.09.2026 17:59)
+# srom-produkcja — handover (state at 01.10.2026)
 
 For the next session (Claude Code). Start with `../_handoffs/tlumacz-to-produkcja.md` (incoming) and
 `../_handoffs/MB-decisions.md` (the one list of MB's decisions — this file keeps none), per `../CLAUDE.md`. Then this,
@@ -25,7 +25,7 @@ Nothing here needs re-deriving; decisions marked ✔ are the editor's and closed
 | InDesign | `indesign/style_spec.json` → `scripts/make_style_setup.py` → `srom_style_setup.jsx` + `references/style-sheet.md` | house style definition and setup script |
 | docs | `references/*.md` | srom-md (format), handoff (contract with srom-tlumacz), indesign, decisions, style-sheet |
 
-Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 20/20` (~510 checks). Unlazy ledger: `/GATES.md`, batches from
+Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 22/22` (~510 checks). Unlazy ledger: `/GATES.md`, batches from
 26.09.2026 on (the older G1–G16 ledger was lost, § 3 item 1; its G12, the InDesign import, is stage 3 / D3).
 
 ## 2. Decisions register (`references/decisions.md`)
@@ -342,5 +342,4 @@ author's notes.
 
 ## 7. Pending for the editor
 
-Only in `../_handoffs/MB-decisions.md`. srom-produkcja's open items there: D17 (Pahulich), D18 (German test), D19 (Ostendorf, with B12–B14), D20 (Tittel, with B11), D24 (West Ohueri), D26 (e) (Kanon line § 12.2.4 c, wording proposed), D15 (licence ND option, kolegium), D16 (vol. 18 copyright clause, PILNE before any OA announcement).
-D1, D2, D4, D7, D9, D12–D14 are closed.
+Only in `../_handoffs/MB-decisions.md`. srom-produkcja's open items there: see the "At a glance" table (PAH, SCH, OST, TIT, WOH, GEN-2, GEN-11 and others).

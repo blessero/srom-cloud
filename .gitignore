@@ -5,5 +5,8 @@ __pycache__/
 *.skill
 node_modules/
 dist/
-work/
+work/*
+!work/*/
+work/*/*
+!work/*/*_uwagi.md
 dump/

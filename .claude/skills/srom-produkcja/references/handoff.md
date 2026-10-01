@@ -59,7 +59,9 @@ Who does what (practice since the first drafts, now the contract):
 1. **Working copy.** srom-tlumacz exports `<id>_pl.md` to `<id>_robocza.docx` in its own `work/<id>/`
    (`export_work.py`). The editor edits that file there. From the editor's first edit, **that Word file is the
    master**; the SROM-MD is only its import. Never re-export over it: a new export goes to a temp folder or a new
-   name (`<id>_robocza_v2.docx`), and the editor says which file is the master.
+   name (`<id>_robocza_v2.docx`), and the editor says which file is the master. **At delivery the master is always named `<id>_robocza.docx`**
+   (review 01.10.2026 row 4): srom-tlumacz renames the editor's master to that name and older exports to
+   `<id>_robocza_old<n>.docx`; `take_back.py` takes only that name.
 2. **Import and checks: srom-tlumacz**, in its `work/<id>/`, after each editing round the editor hands back:
    `docx_in.py <id>_robocza.docx -o <id>_pl.md` (recognised as a working copy, lossless), then `check.py --pair`,
    `build.py … --draft` and `tlumacz-front_check.py` as below. The imported `<id>_pl.md` is not edited by hand: a

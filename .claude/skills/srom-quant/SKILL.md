@@ -86,7 +86,7 @@ Column groups: identity (`article_id`, `doi_suffix`, `doi`, `landing_url`, `pdf_
 
 `authors_struct` is the structured author encoding, `Given|Surname|Affiliation|ORCID ;; Given|Surname|...` — this is what carries multi-author + per-author ORCID cleanly (e.g. Marushiakova + Popov). It is the source for the Crossref XML's per-contributor `<person_name>`/`<ORCID>` and, via the Importer, the mu-plugin's `authors_raw` (one author per line, pipe-delimited). Never flatten multiple authors into one field; ORCID is a per-contributor element, never a list. Constraint: no `|` or `;;` inside affiliation text.
 
-`translators_struct` (optional, added 27.09.2026, last column): translators of a translated article (`is_translation` = `TAK`), same encoding as `authors_struct`. Kanon v1.6 § 12.2.3 credits the translator in the article header. Crossref gets them as `<person_name contributor_role="translator">` after the authors. CSVs without the column stay valid. The Importer ignores it (no ACF field yet), and so does Data Merge (no header renamed).
+`translators_struct` (optional, added 27.09.2026, last column): translators of a translated article (`is_translation` = `TAK`), same encoding as `authors_struct`. Kanon § 12.2.3 credits the translator in the article header. Crossref gets them as `<person_name contributor_role="translator">` after the authors. CSVs without the column stay valid. The Importer ignores it (no ACF field yet), and so does Data Merge (no header renamed).
 
 CSV headers are all-English by decision. InDesign Data Merge binds placeholders to headers, so a header rename forces a one-time re-map of the cover-page template — flag this whenever proposing a schema change.
 
