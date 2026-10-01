@@ -476,14 +476,17 @@ Detail: 🔴 `srom-tlumacz/work/ostendorf/ostendorf_uwagi.md` → OST-7
 Your test layout printed the editors in the author's place in notes 34, 41 and 51. That is fixed: these notes now open
 with the title and name the editor after it, as the author herself writes them. Still open: whether a real author
 should stand first.
-- n. 41, the two "Bolzius Answers" articles (William and Mary Quarterly): JSTOR names Johann Martin Bolzius as author
-  and the three editors as translators. (a) „J.M. Bolzius, *Johann Martin Bolzius Answers…*, tłum. i red. K.G. Loewald,
-  B. Starika, P.S. Taylor, …” — **recommended** (Bolzius wrote the text); (b) keep the title first, as now.
-- n. 51, *The Life and Writings of De Witt Clinton*: the book is by William W. Campbell (he wrote the Life and edited
-  the writings; the author gives "ed. William Cambell"). (a) Campbell as author: „W.W. Campbell, *The Life…*” —
-  **recommended**, together with the spelling fix already in OST-3 (B4); (b) keep the title first, "red. W. Campbell".
+- n. 41, the two "Bolzius Answers" articles (William and Mary Quarterly): the author calls the three "trans. and eds.";
+  Crossref lists them as the *authors* of Part I and adds Bolzius as a fourth author of Part II (the publisher's own
+  records disagree). (a) keep the title first, „tłum. i red. K.G. Loewald, B. Starika, P.S. Taylor” — **recommended**
+  (as the author describes them; one form for both parts); (b) Bolzius as author, the three after the title;
+  (c) the three as authors, as in Crossref's Part I.
+- n. 51, *The Life and Writings of De Witt Clinton* (1849): William W. Campbell wrote the Life and edited Clinton's
+  writings; library records put Clinton first and Campbell second (archive.org copies of the 1849 edition).
+  (a) keep the title first, „red. W.W. Campbell” — **recommended** (a mixed book; the spelling fix is OST-3, B4);
+  (b) „D.W. Clinton, *The Life…*, red. W.W. Campbell”, as the library records.
 - n. 34, *Mourt's Relation*: published anonymously; usually attributed to Edward Winslow and William Bradford.
-  (a) keep the title first, "red. H. Dexter" — **recommended** (an attribution, not a name on the title page);
+  (a) keep the title first, „red. H. Dexter” — **recommended** (an attribution, not a name on the title page);
   (b) print the two attributed authors.
 
 Detail: 🔴 `srom-produkcja/work/ostendorf/ostendorf_uwagi.md` → OST-9
