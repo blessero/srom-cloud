@@ -227,6 +227,16 @@ open(os.path.join(DL, "x_pl.md"), "a", encoding="utf-8").write("\nDopisane ręcz
 rc, last = take(FILES)
 expect("T26 control: md edited by hand after the import fails the take-back", rc != 0 and "FAILED" in last[0])
 
+# T30 (01.10.2026): the editor's master may be a _v2 file; at delivery we rename it to <id>_robocza.docx (older exports
+# to <id>_robocza_old<n>.docx), import it, and the take-back works as for any master.
+shutil.copy(os.path.join(DL, "x_robocza.docx"), os.path.join(DL, "x_robocza_v2.docx"))
+shutil.move(os.path.join(DL, "x_robocza.docx"), os.path.join(DL, "x_robocza_old1.docx"))
+shutil.move(os.path.join(DL, "x_robocza_v2.docx"), os.path.join(DL, "x_robocza.docx"))
+subprocess.run([sys.executable, os.path.join(S, "docx_in.py"), os.path.join(DL, "x_robocza.docx"), "-o", os.path.join(DL, "x_pl.md")], capture_output=True)
+rc, last = take(FILES, short=True)
+expect("T30: a _v2 master renamed to x_robocza.docx (old export → x_robocza_old1.docx) → TAKE-BACK OK",
+       rc == 0 and last[0].startswith("TAKE-BACK OK x"))
+
 # KNOWN GAPS (requests E1, E2, E4): these should flip when srom-produkcja changes
 rc, out = pair(w("ex_s.md", "A.\n\n::: przyklad\n```\nme dikhav o kher\nI see.1SG DEF house\n'I see the house'\n```\n:::\n\nB.\n"),
                w("ex_t.md", "A.\n\n::: przyklad\n```\nme dikhaw o kher\nja widzieć.1SG DEF dom\n‘widzę dom’\n```\n:::\n\nB.\n"))

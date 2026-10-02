@@ -32,7 +32,7 @@ Z tej perspektywy rasa nie wywodzi się z klasy ani z dyskursu, lecz współkons
 
 [^6]: Podobne dociekania [zob. @parvulescu2022].
 
-# 1. Niełatwe historiografie i splątane imperia
+# Niełatwe historiografie i splątane imperia
 
 Historyk Angus Fraser[^7] odnotowuje, że negatywny stosunek do Romów w Europie Zachodniej zaczął narastać w połowie XV wieku i rozprzestrzenił się na Europę Wschodnią. Ian Law i Martin Kovats stwierdzają, że już w 1422 roku opisywano Romów jako „czarnych” i „brudnych”[^8]. Inni badacze również odnotowują, że XV-wieczne teksty przedstawiały Romów jako cudzoziemców, włóczęgów, „brzydkich ludzi o skórze spalonej przez słońce na czarno”[^9] i „szpetnych z wyglądu, czarnych jak Tatarzy”[^10]. <!-- DO SPRAWDZENIA: S2 – Fraser, „ugly in appearance and black as Tartars” (oryg. s. 67): brzmienie i strona wydania polskiego (A. Fraser, Dzieje Cyganów, tłum. E. Klekot, PIW 2001); tu przekład roboczy z angielskiego --> Opisy te podkreślały ciemną skórę Romów i przedstawiały ich jako dziwacznych, barbarzyńskich i pogańskich[^11]. Ich odmienny wygląd czynił z nich wiecznych cudzoziemców, nie-Europejczyków, cel praw wymierzonych we włóczęgostwo oraz oskarżeń o szpiegostwo i niewierność wobec świata chrześcijańskiego[^12]. Jak dowodził Edward Said[^13] w *Orientalizmie* (*Orientalism*), europejskie mocarstwa kolonialne tworzyły wyobrażone geografie, które przedstawiały „innego” jako moralnie i kulturowo niższego, aby uzasadnić kontrolę i wykluczenie. Podobnie Romów przedstawiano jako wewnętrznych outsiderów – wykorzenionych, obcych i moralnie podejrzanych – w obrębie własnych granic Europy, sięgając po logiki orientalistyczne, by uzasadnić przemoc prawną i wykluczenie rasowe.
 
@@ -40,7 +40,7 @@ Historyk Angus Fraser[^7] odnotowuje, że negatywny stosunek do Romów w Europie
 
 [^8]: [@law2018, s. 78].
 
-[^9]: [Cyt. za @shahar2007, s. 5]. [Tłum. z przekładu angielskiego – przyp. tłum.]
+[^9]: [Cyt. za @shahar2007, s. 5].
 
 [^10]: [Cyt. za @fraser1992, s. 67].
 
@@ -186,7 +186,7 @@ Rozwój i rozprzestrzenianie się logik rasowych ponad granicami utrwalały wię
 
 [^66]: [@crowe2007].
 
-# 2. Logiki antyczarności
+# Logiki antyczarności
 
 W 1783 roku Heinrich Moritz Gottlieb Grellmann opublikował *Die Zigeuner* [*Dissertation on the Gipseys*], książkę o Romach w Europie[^67]. Położyła ona podwaliny pod długotrwałe urasowienie i homogenizację Romów, przyczyniając się do tego, że wytwarzanie rasy stało się częścią kulturowego zdrowego rozsądku. Grellmann, jeden z pierwszych uczonych oświecenia, którzy badali języki romskie, uznał, że Romowie pochodzą z Indii, co miało rzekomo tłumaczyć ich „przywary”. Opowiadał się za oświeceniowymi interwencjami, które miały „zreformować” Romów i włączyć ich do „cywilizowanego” społeczeństwa. Szeroko rozpowszechniane i tłumaczone dzieło Grellmanna stało się autorytatywnym tekstem o Romach, wysoko cenionym przez etnografów, historyków, językoznawców i filozofów[^68]. Grellmann wywarł głęboki wpływ, ustanawiając fundamentalny zestaw wyobrażeń o Romach, który nieprzerwanie utrzymywał się w publikacjach kolejnych stuleci, aż po dzień dzisiejszy[^69].
 
@@ -248,9 +248,9 @@ W miarę rozwoju europejskiego kolonializmu zaabsorbowanie czarnością Afrykan�
 
 [^84]: [@shahar2007, s. 7].
 
-[^85]: [Cyt. za @lewy2000, s. 2; zob. też @fernandez2021]. [Tłum. z przekładu angielskiego – przyp. tłum.]
+[^85]: [Cyt. za @lewy2000, s. 2; zob. też @fernandez2021].
 
-[^86]: [@dal1883, s. 140–142]. [Tłum. z przekładu angielskiego autorki – przyp. tłum.]
+[^86]: [@dal1883, s. 140–142].
 
 Podobnie Grellmann[^87] ujmował różnicę między Europejczykami a Romami następująco: „jeden jest biały, drugi czarny; – ten się odziewa, drugi chodzi na pół nagi; – ten [pierwszy] wzdryga się na myśl o jedzeniu padliny, drugi raczy się nią jak przysmakiem”[^88]. <!-- DO SPRAWDZENIA: S10 – wszystkie cytaty z Grellmanna (przyp. 88–96, 106, 132–135) przełożone z angielskiego wydania 1807, które cytuje autorka; oryginał niemiecki (1787) różni się w miejscach istotnych dla wywodu – decyzja MB (pahulich_uwagi.md § 1, research/grellmann_de.md) --> Zauważał dalej, że Romowie „słynęli […] jako rabusie, złodzieje i podpalacze”[^89]. W całej książce uwagi o czarności i ciemnej skórze Romów nieustannie powracają, utrwalając ich jako podludzi i rasowego innego. Grellmann utożsamia „czarność” Romów z „prymitywnymi” i „dzikimi” cechami[^90]. Nawiedzające obrazy czarności, wpisane w myśl humanistyczną od renesansu, znajdują więc wyraźny wyraz w grellmannowskiej konceptualizacji trwałego, archetypowego wizerunku Roma. Wizerunek ten służył w Europie za rasowego innego i doprowadził do skonstruowania i ponownego ustanowienia białego zachodnioeuropejskiego Człowieka jako człowieczeństwa jako takiego, a w szczególności jako Europejczyka. Te skonstruowane znaczenia dodatkowo demonizują czarność w ogóle.
 
@@ -286,7 +286,7 @@ Choć niniejszy artykuł koncentruje się przede wszystkim na splątaniu rasizmu
 
 [^97]: [@wippermann1997].
 
-# 3. Kapitalizm rasowy, grodzenie ziemi i kryminalizacja włóczęgostwa
+# Kapitalizm rasowy, grodzenie ziemi i kryminalizacja włóczęgostwa
 
 Rozwój kapitalizmu rasowego, obok ustanowienia normatywnego człowieczeństwa/Człowieka, wytworzył podmiot przynoszący zysk[^t1], posłuszny prawu i kapitałowi. Ian Law i Nikolay Zakharov stwierdzają, że „wieloaspektowy dyskurs rasowy o Romach konstruował kluczowe powiązania ideologiczne między elementami centralnymi”, w tym przedstawienie Romów jako „pasożytniczej grupy żerującej na »prawdziwych« robotnikach”[^98]. Wizerunek ten ukazuje splecenie rasizmu z kapitalizmem i uzasadnia działania wymierzone w Romów – od profilowania etnicznego i hipernadzoru po wyburzanie ich domów, wywłaszczanie, eksmisje oraz segregację szkolną i mieszkaniową. Nic dziwnego, że kwestię asymilacji Romów często wiąże się z ich integracją z gospodarką kapitalistyczną, co historycznie obejmowało przymusowe osiedlanie, choć wiele społeczności romskich prowadziło już osiadły tryb życia.
 

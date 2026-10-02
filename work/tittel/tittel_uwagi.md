@@ -101,3 +101,7 @@ wydania polskiego, po średniku odesłanie autorki (Kanon § 12.2.4 a).
 4. „defended by German courts until 1962” (po przyp. 98) – zwykle datuje się zmianę na orzeczenie BGH z 18.12.1963
    (nie sprawdzone w dwóch źródłach). Do autorki.
 5. „Berliner Monatsschrift” w tekście (przyp. 18 ma poprawne „Berlinische”) – D20 B5, decyzja MB.
+
+
+## Kanon v1.13 / v1.11 — [Tittel] (03.10.2026 00:11)
+- Nagłówki bez numerów (§ 2, T31). Adnotacje „tłum. z przekładu angielskiego…” usunięte z przypisów (§ 12.2.4 c, T33); zdania powyżej o adnotacjach są nieaktualne. Kopia Word wyeksportowana od nowa (nikt jej nie otwierał).

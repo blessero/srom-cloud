@@ -109,3 +109,7 @@ Jenkins i Leroy 2021 (komentarze srom-produkcja zachowane).
 - Słowa kluczowe: autorskie (6), polskie w przekładzie; angielskie „jak w oryginale”.
 - Wydania polskie (S1–S7) trafią do `pahulich_refs_tlum.json` dopiero ze stronami (wtedy odesłanie autorki po średniku,
   Kanon § 12.2.4 a).
+
+
+## Kanon v1.13 / v1.11 — [Pahulich] (03.10.2026 00:11)
+- Nagłówki bez numerów (§ 2, T31). Adnotacje „tłum. z przekładu angielskiego…” usunięte z przypisów (§ 12.2.4 c, T33); zdania powyżej o adnotacjach są nieaktualne. Kopia Word wyeksportowana od nowa (nikt jej nie otwierał).

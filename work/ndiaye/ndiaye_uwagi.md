@@ -39,3 +39,7 @@ Brzmienie francuskie sprawdzone w wydaniu Louandre 1910 (fr.wikisource).
 - [NDI-3] Nota o przekładzie: brak numeru zeszytu RQ 75 → `[BRAK nr]`.
 - Słowa kluczowe angielskie — do zatwierdzenia przez autorkę.
 - Ilustracje (3): pliki i zgody — etap 3 (srom-produkcja).
+
+
+## Kanon v1.13 / v1.11 — [Ndiaye] (03.10.2026 00:11)
+- Nagłówki bez numerów (§ 2, T31). Adnotacje „tłum. z przekładu angielskiego…” usunięte z przypisów (§ 12.2.4 c, T33); zdania powyżej o adnotacjach są nieaktualne. Kopia Word wyeksportowana od nowa (nikt jej nie otwierał). Przekłady z francuskiego i łaciny z oryginałów (przyp. w tekście) bez zmian.

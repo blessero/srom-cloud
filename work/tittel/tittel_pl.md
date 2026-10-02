@@ -8,7 +8,7 @@ Pierwodruk: L.S. Tittel, *Racial and Social Dimensions of Antiziganism: The Repr
 Chciałabym podziękować redaktorom tego numeru, Jörnowi Ahrensowi i Axelowi Fliethmannowi, po pierwsze za zorganizowanie owocnych warsztatów pisarsko-badawczych w Monash University Prato Center latem 2019 roku, po drugie za możliwość opublikowania tego artykułu, po trzecie zaś za pomocne uwagi. Dziękuję także Reginie Kreide, Huubowi van Baarowi, Christophowi Panzerowi i anonimowym recenzentom za konstruktywne i cenne uwagi, a zespołowi redakcyjnemu „On_Culture” za wsparcie i redakcję językową.
 :::
 
-# 1. Wstęp
+# Wstęp
 
 Od stuleci Sinti, Romowie i inni, których określano mianem „Cyganów”[^t1], byli w społeczeństwach europejskich dyskryminowani, stygmatyzowani i wykluczani za sprawą działań państwa. Nie powinno więc chyba dziwić, że antycyganizm jest dziś głęboko zakorzeniony w społeczeństwie, co w ostatnich latach wykazały badania nad uprzedzeniami. W 2018 roku 56 % respondentów „Lipskiego badania autorytaryzmu” (*Leipziger Autoritarismus-Studie*) w Niemczech zgodziło się ze stwierdzeniem: „Przeszkadzałoby mi, gdyby Sinti i Romowie przebywali w mojej okolicy”, a ponad 60 % uważa, że „Sinti i Romowie mają skłonność do przestępczości”[^1]. <!-- DO SPRAWDZENIA: S2 – brzmienie pozycji kwestionariusza według komunikatu autorów badania (Uniklinikum Leipzig, 07.11.2018: „Ich hätte Probleme damit, wenn sich Sinti und Roma in meiner Gegend aufhalten”; „Sinti und Roma neigen zur Kriminalität”); sprawdzić z książką, s. 102–103 --> Te uprzedzenia i resentymenty ludności znajdują odpowiednik w działaniach publicznych. Do dziś wielu Sinti i Romów – którzy albo sami identyfikują się z największą i najbardziej upośledzoną ekonomicznie mniejszością etniczną w Europie, albo są postrzegani jako jej część – jest kryminalizowanych i przedstawianych jako zagrożenie dla bezpieczeństwa publicznego, a zarazem są oni bardziej narażeni na to, że sami padną ofiarą przemocy[^2]. Wizerunek Sinti i Romów związał się z przestępczością w znacznie większym stopniu niż wizerunek jakiejkolwiek innej mniejszości, a praca policji w dużej mierze opierała się i nadal opiera na tym założeniu[^3].
 
@@ -34,9 +34,9 @@ W badaniach nad antycyganizmem od dość dawna toczy się dyskusja o relacji mi�
 
 Artykuł otwierają dwie części poświęcone pojęciu „Cygana” w teorii politycznej. Pierwsza przygląda się bliżej wypowiedziom Kanta o „Cyganach” w kontekście jego teorii podmiotowości i rasy. Druga omawia ujęcie włóczęgostwa u Marksa jako kwestii społecznej, która pojawiła się wraz z początkami manufaktury. Figurą ciemnoskórego i prymitywnego „Cygana”, wywodzącego się z Indii, Kant kreśli urasowiony obraz, popularny w jego czasach w całym zachodnim świecie akademickim. Perspektywa Kanta pozwala dziś zrozumieć, jak kwestie w gruncie rzeczy polityczne mogą zostać przesłonięte rzekomo niezmiennymi uwarunkowaniami kulturowymi czy biologicznymi. Marks natomiast podaje zupełnie inne – ani rasowe, ani kulturowe – wyjaśnienia polityki wykluczenia wobec „włóczęgów”, które można przenieść na kontekst antycyganizmu. O ile Kant powiela europejski, orientalistyczny obraz „Cygana”, o tyle Marks dostarcza narzędzi pozwalających ten obraz przemyśleć na nowo, gdyż objaśnia jego funkcję społeczno-ekonomiczną.
 
-Na tych teoretycznych podstawach część trzecia omawia wczesnonowożytną historię i ustawodawstwo niemieckie dotyczące pojęcia „Cygana” przez pryzmat zarówno ujęcia kantowskiego, jak i marksowskiego. Część ostatnia przynosi wstępne wskazówki dotyczące splatania się argumentacji społecznych i rasowych w antycygańskich debatach powojennych i podsuwa pomysły na współczesne podejście do analizy antycyganizmu.
+Na tych teoretycznych podstawach kolejna część omawia wczesnonowożytną historię i ustawodawstwo niemieckie dotyczące pojęcia „Cygana” przez pryzmat zarówno ujęcia kantowskiego, jak i marksowskiego. Część ostatnia przynosi wstępne wskazówki dotyczące splatania się argumentacji społecznych i rasowych w antycygańskich debatach powojennych i podsuwa pomysły na współczesne podejście do analizy antycyganizmu.
 
-# 2. Kant: „Cyganie” jako nierozumna rasa
+# Kant: „Cyganie” jako nierozumna rasa
 
 W ostatnim czasie pisma Kanta często krytykuje się jako rasistowskie albo co najmniej szerzące urasowione wyobrażenia[^8]. Przedmiotem sporu jest pytanie, czy jego teorię rasy należy uznać za integralną część jego dzieła filozoficznego, czy też jedynie za gorzką uwagę na marginesie. Część badaczy krytykuje jego pisma w całości[^9], inni próbują rozwiązać problem, twierdząc, że problematyczne były jedynie jego wczesne teksty, napisane przed połową lat 90. XVIII wieku[^10]. Jeszcze inni uważają, że jego pisma antropologiczne nie mają wpływu na pisma moralne czy prawne[^11]. Wszystkie te studia koncentrują się na rasizmie kolonialnym i niewiele uwagi poświęcają wypowiedziom Kanta o „Cyganach” jako szczególnej grupie[^12].
 
@@ -54,7 +54,7 @@ Tylko nieliczni badacze – wśród nich Kurt Röttgers, Wulf D. Hund, a ostatni
 
 [^13]: Studium Jorisa van Gorkoma ukazało się tuż po ukończeniu niniejszego artykułu. Van Gorkom szczegółowo omawia rozważania Kanta o mieszaniu ras w jego drugiej rozprawie o rasie z 1785 r., wykorzystując zawarte w niej wypowiedzi o „Cyganach” na poparcie tezy, że Kant potępiał mieszanie ras – wbrew obronie Kanta w tej kwestii podjętej przez Kleingeld. Zob. [@vangorkom2020].
 
-[^14]: [@rottgers1997, s. 63] [tłum. z przekładu angielskiego autorki – przyp. tłum.] <!-- DO SPRAWDZENIA: S3 – Röttgers, „Kant-Studien” 1997, s. 63: oryginał niemiecki niedostępny (płatny dostęp); przekład z angielskiego autorki („very striking repression of knowledge”); po odnalezieniu – przekład z niemieckiego i usunięcie adnotacji -->
+[^14]: [@rottgers1997, s. 63] <!-- DO SPRAWDZENIA: S3 – Röttgers, „Kant-Studien” 1997, s. 63: oryginał niemiecki niedostępny (płatny dostęp); przekład z angielskiego autorki („very striking repression of knowledge”); po odnalezieniu – przekład z niemieckiego i usunięcie adnotacji -->
 
 [^15]: [@rottgers1997, s. 73–75].
 
@@ -92,7 +92,7 @@ Drugi badacz, Hund, znacznie bardziej niż Röttgers zainteresowany rasizmem w p
 
 [^30]: Wśród nich znajdziemy filozofów Woltera i Hume’a. Zob. [@larrimore1999, s. 101].
 
-[^31]: [@geulen2020] [tłum. z przekładu angielskiego autorki – przyp. tłum.] <!-- DO SPRAWDZENIA: S4 – Geulen, wykład (nagranie): „more racist” – przekład z angielskiego autorki; oryginalne sformułowanie niemieckie (zapewne „rassistischer”) i data wykładu do odczytania w przeglądarce (D20: kontrola botów) -->
+[^31]: [@geulen2020] <!-- DO SPRAWDZENIA: S4 – Geulen, wykład (nagranie): „more racist” – przekład z angielskiego autorki; oryginalne sformułowanie niemieckie (zapewne „rassistischer”) i data wykładu do odczytania w przeglądarce (D20: kontrola botów) -->
 
 Jako jeden z najbardziej wpływowych filozofów oświecenia Kant na nowo przemyślał możliwości i granice ludzkiego umysłu. Uwagi Kanta o „Cyganach” należą do opisanej wyżej teorii rasy i wiążą się z jego myślami o człowieczeństwie i cywilizacji w ogóle. W opublikowanej wersji swoich wykładów antropologicznych z 1798 roku Kant formułuje następującą ogólną analizę przeznaczenia człowieka:
 
@@ -146,7 +146,7 @@ O ile śniadą cerę Hiszpana Kant uznaje za zwykłą odmianę, o tyle w przypad
 
 Jako przedstawiciel XVIII wieku Kant opierał się na badaniach nad językiem i pochodzeniem grupy nazywanej „Cyganami”, które spopularyzował Grellmann. W tekście Kanta znajdujemy wyobrażenie „Cyganów” jako jednorodnego i prymitywnego ludu o własnym języku i kulturze, powiązanych z cechami biologicznymi i widocznymi. Kant posługuje się tymi „ustaleniami”, by wyjaśnić, że „Cyganie” żyją inaczej i nie przejęli europejskiego sposobu życia, ponieważ jego zdaniem nie są zdolni do cywilizacji.
 
-# 3. Marks: wytwarzanie włóczęgów
+# Marks: wytwarzanie włóczęgów
 
 Marks nie zajmuje się w swoim dziele wprost statusem „Cyganów”, mimo to warto przyjrzeć się jego tekstom, ponieważ podejmuje on problematykę włóczęgostwa (*vagrancy*, *vagabondage*) – zjawiska często kojarzonego z „Cyganami” – jako problemu społecznego. Nie ujmuje włóczęgostwa w związku z rasą, lecz jako zjawisko spowodowane przez rządzących i utrwalone w strukturach społeczno-ekonomicznych, które prowadziły do pauperyzmu i ubóstwa. Choć niektórzy badacze zwracali uwagę na podobieństwa między ogólnym obrazem „Cyganów” a marksowskimi opisami lumpenproletariatu w *Osiemnastym brumaire’a*[^46], dla analizy włóczęgostwa bardziej przydatne jest zagłębienie się w jego główne dzieło, *Kapitał*.
 
@@ -244,7 +244,7 @@ Marks wyjaśnia, że aby zaradzić tej sytuacji, ludzie łączyli się w „gang
 
 Marks zwraca uwagę, że bandy powstały jako odpowiedź na trudną sytuację mieszkaniową i niskie płace robotników rolnych. Ogólnie rzecz biorąc, widzi we włóczęgostwie problem spowodowany przez klasę panującą, a następnie ujmowany przez tych samych ludzi dwuznacznie, skoro próbowali go jednocześnie zwalczać i podtrzymywać. Marks rozważa społeczno-ekonomiczne przyczyny włóczęgostwa, zamiast uznawać je za cechę charakteru określonej grupy – choć do zilustrowania tych procesów posługuje się stereotypowymi przykładami.
 
-# 4. „Cyganie” w niemieckim ustawodawstwie policyjnym do XVIII wieku
+# „Cyganie” w niemieckim ustawodawstwie policyjnym do XVIII wieku
 
 Marks gruntownie przestudiował sytuację w Anglii w zakresie rządzenia włóczęgami i nędzarzami, a swojej argumentacji używał, niekiedy polemicznie, do zwalczania poglądów innych badaczy ekonomii. Aby pokazać, że myśli Marksa dają się zastosować zarówno do kontekstu angielskiego, jak i niemieckiego, prześledzę niektóre praktyczne środki prześladowania „Cyganów” i „włóczęgów” w ówczesnych Niemczech. Pierwsza znana pisemna wzmianka o „Cyganach” na ziemiach niemieckich pochodzi z 1407 roku i znajduje się w księdze rachunkowej w Hildesheimie. W XV wieku niektórzy władcy wystawiali listy żelazne, by wspomóc grupy „Cyganów”, podczas gdy inni władcy ogłaszali już ich wyjęcie spod prawa. W XV i XVI wieku postępowanie wobec „Cyganów”, wymienianych najczęściej łącznie z tułaczami, żebrakami czy włóczęgami, zyskiwało coraz większe znaczenie w kształtującym się systemie przepisów policyjnych[^78]. O ile na przykład ordynacje krajowe Wirtembergii z 1536 i 1621 roku zawierały już krótkie rozdziały o „Cyganach”, stanowiące, że należy odmawiać im wjazdu na granicach[^79], o tyle przepisy wydawane po 1650 roku stawały się dłuższe, bardziej szczegółowe i coraz bardziej agresywne[^80]. Prześladowania rozpoczęły się więc w Niemczech być może nieco później niż w Anglii, gdzie szczegółowe przepisy dotyczące „Egipcjan” uchwalano już w XVI wieku.
 
@@ -294,7 +294,7 @@ Edykt wielokrotnie podkreślał, że stawiających opór należy „zastrzelić�
 
 [^95]: Oryginał: „mit Sicherheit davon ausgehen kann, daß eine solche Vertreibungs- und Vernichtungspolitik nicht in allen Einzelheiten in die Praxis umgesetzt wurde”, [@landwehr2001, s. 59].
 
-# 5. „Cygan” jako kategoria rasowa i społeczna
+# „Cygan” jako kategoria rasowa i społeczna
 
 Lektura wczesnych tekstów prawnych dotyczących „Cyganów” w Niemczech przez pryzmat Kanta i Marksa prowadzi do dwóch różnych interpretacji. Argumentacja Marksa pozwala nam zrozumieć strukturę społeczną Europy Zachodniej, do której w XV wieku przywędrowali (między innymi) Sinti. Marks podkreśla struktury społeczno-ekonomiczne i struktury władzy, które doprowadziły do powstania włóczęgostwa i społecznej figury włóczęgi. Do dziś elementy dawnej narracji o włóczęgostwie jako problemie jednostek zachowały swą siłę i pobrzmiewają w twierdzeniach, że status społeczny bezrobotnych czy bezdomnych jest przez nich samych zawiniony i wynika z indywidualnego lenistwa. Marks przyjmuje inne podejście, pokazując społeczne korzenie problemu, a także interes klasy panującej w podtrzymywaniu, a nawet wzmacnianiu takich warunków w miarę dalszego rozwoju kapitalizmu. Na gruncie argumentacji Marksa można rozumieć związek między ustawodawstwem policyjnym a systemem gospodarczym jako w pierwszym rzędzie społeczno-ekonomiczny, ponieważ włóczęgostwo trzeba było kryminalizować, by narzucić kapitalizm. Nie dziwi więc, że pierwsze publiczne biura pośrednictwa pracy zakładano na posterunkach policji. W Anglii proces ten rozpoczął się w latach 80. XIX wieku, a miasta niemieckie poszły w jej ślady w następnych dziesięcioleciach[^96].
 
