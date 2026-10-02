@@ -33,6 +33,7 @@ Load the artefact, don't re-derive it. When a task touches a surface you don't h
 | Master CSV + schema | this skill: `references/master_schema.md`, `scripts/validate_master.py` | — |
 | mu-plugin | this skill: `assets/srom-scholarly.php` | — |
 | Crossref generator | this skill: `scripts/generate_crossref_xml.py` | — |
+| Suffix minting | this skill: `scripts/mint_suffixes.py` | — |
 | PDF metadata (title, author, DOI, licence, PRISM) | this skill: `scripts/pdf_metadata.py <master> <article_id> --out <dir>` → `<article_id>_metadane.jsx`, run in InDesign before the PDF export | — |
 | **Importer plugin** (CPTs/taxonomies/ACF/CSV import) | bundled source at **`wp-acf-plugin-builder/assets/srom-importer/`** — read `class-srom-imp-setup.php` (model) + `class-srom-imp-runner.php` (upsert/coercion) to confirm any field name before you rely on it | **wp-acf-plugin-builder** |
 | Elementor templates | Theme Builder exports (in the working folder's `elementor-updated/`) | **wp-elementor-builder** |
@@ -149,7 +150,7 @@ Run against any master CSV before minting. Checks: 38-column schema present · D
 ## Deployment sequence (fresh volume)
 
 1. Crossref membership → prefix + credentials (smallest tier ≈ $275/yr + $1/current DOI). Parallelizable with everything below.
-2. Generate opaque suffixes; fill `doi_suffix`/`doi`/`landing_url`. Fill `pub_date_online`, licenses, any `original_doi`. Run `validate_master.py` until clean.
+2. Generate opaque suffixes: `scripts/mint_suffixes.py <csv> --prefix 10.NNNNN` (`--dry-run` first; replaces `todoNNNN` placeholders, unique across all volumes, fills `doi`/`landing_url`, never touches a final suffix). Fill `pub_date_online`, licenses, any `original_doi`. Run `validate_master.py` until clean.
 3. mu-plugin in `mu-plugins/`; set `SROM_DOI_PREFIX`. Settings → Permalinks → Save.
 4. Rename PDFs per `pdf_file`; upload to `/uploads/archive/{vol}-{year}/`. Never move/rename again.
 5. Importer: dry-run the CSV, confirm taxonomy mappings resolve, then import (drafts).
