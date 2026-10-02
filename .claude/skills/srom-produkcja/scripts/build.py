@@ -337,7 +337,7 @@ NAME_ROLES = ("author", "editor", "translator", "container-author", "director")
 def refs_data_warnings(refs_list):
     """a keying fault that prints wrong without failing (MB 02.10.2026, Ostendorf): a person's name keyed as a CSL
     `literal` prints in full in the notes (§ 7.2 wants the initial). Heuristic: a literal shaped like "Forename Surname".
-    (Italics inside an italic title print roman, foreign word or title alike: § 3.4, v1.14; nothing to report.)"""
+    (Italics inside an italic title print roman, foreign word or title alike: § 3.4; nothing to report.)"""
     out = []
     lit = [f"{r['id']} ({role}) “{n['literal']}”" for r in refs_list for role in NAME_ROLES
            for n in r.get(role) or [] if PERSON_LIKE.match(n.get("literal", ""))]

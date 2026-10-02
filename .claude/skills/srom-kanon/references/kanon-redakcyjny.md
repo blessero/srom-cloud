@@ -1,6 +1,6 @@
 # STUDIA ROMOLOGICA – KANON EDYTORSKI (DOKUMENT WEWNĘTRZNY)
 
-**Wersja 1.14 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
+**Wersja 1.15 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
 
 > Wersja dla autorów (*Wskazówki dla autorów*) jest skrótem tego dokumentu i nie zawiera § 13–17. W razie rozbieżności rozstrzyga niniejszy tekst.
 
@@ -71,7 +71,7 @@ Po: `s.`, `t.`, `z.`, `nr`, `r.`, `w.`, `sygn.`, `k.`, inicjałach imion; przed 
 - Półgrube, rozstrzelenie, podkreślenie, wersaliki w tekście ciągłym: nie stosuje się.
 - Wyróżnienie autora w cytacie: `[podkr. – J.K.]`.
 - W tekście składanym kursywą (tytuł dzieła) pismem prostym zapisuje się tytuł w tytule, wyraz lub zwrot obcy, formułę łacińską i egzonim obcy (kursywa odwrócona; za: SJP PWN, Poradnia, *Wyróżnienie tytułu w tytule*): *Recepcja* Cyganów na polskich drogach *w krytyce*; *Divide et impera: Race, Ethnicity, and Administration…* w zapisie kodowanym `<i>Divide et impera</i>: Race…` (kursywa wewnętrzna wchodzi do pliku, skład odwraca ją sam). Dotyczy to także obcego wyrazu w tytule przytoczonym w przypisie i bibliografii.
-- **Nazwy serii wydawniczych i nazwy konferencji** – z dużych liter, pismem prostym, w cudzysłowie (`w serii „Prace Etnologiczne”`, na konferencji „Romowie w Europie”).
+- **Nazwy serii wydawniczych i nazwy konferencji** – pismem prostym, w cudzysłowie, wielką literą każdy wyraz (wzór: tytuły serii wydawniczych, np. „Leksykon Polskiej Muzyki Rozrywkowej”, „Telewizyjny Kurier Warszawski”): `w serii „Prace Etnologiczne”`, na konferencji „Romowie w Europie”.
 - **Nazwy zespołów muzycznych** – pismem prostym, od wielkiej litery: `Bajm`, `Dżem`, `Kombi`. W nazwach wielowyrazowych wielką literą zapisuje się wszystkie wyrazy samodzielne znaczeniowo: `Banda i Wanda`, `Big Cyc`, `Chłopcy z Placu Broni`, `Jazz Band Ball Orchestra`, `Niebiesko-Czarni`, `Pod Budą`, `Uliczna Orkiestra z Chmielnej`. Tytuły ich utworów i płyt – kursywą (wyżej).
 
 ### 3.5. Daty i liczby
@@ -663,5 +663,6 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.12 | Rozstrzygnięcie z 02.10.2026 (MB, drugi próbny skład tekstu Ostendorf): § 7.2, § 7.3, § 9.4, § 9.5, § 11: redaktor zawsze po tytule, nigdy na miejscu autora – także praca zbiorowa cytowana jako całość (`*Tytuł tomu*, red. A. Kowalski`); forma skrócona i szeregowanie w bibliografii – wg tytułu. Uchyla zasadę z wersji 1.1 („redaktor tomu przed tytułem”). |
 | 1.13 | Rozstrzygnięcia z 02.10.2026 (MB, kolejny próbny skład tekstu Ostendorf): § 7.2: inicjał imienia w przypisie dla każdej osoby – autora, redaktora, tłumacza, reżysera – także nazwiska islandzkiego; § 9.1, § 9.4: w bibliografii przecinek zamyka pole autora (`Fotta Martin, *Tytuł*`), redaktorzy i tłumacze z imionami w pełnym brzmieniu. § 3.4: kursywa odwrócona tylko dla tytułu w tytule; wyraz obcy w tytule – kursywą jak tytuł. § 12.2.4 c: cytat przytoczony przez autora po angielsku – przekład z jego przekładu bez adnotacji; adnotacja tylko przy wydaniu polskim i przekładzie z oryginału (do oryginału – gdy to istotne), raz na dzieło. Uchyla adnotację `tłum. z przekładu angielskiego autora` z wersji 1.6. |
 | 1.14 | Rozstrzygnięcia z 02.10.2026 (MB, po v1.13): § 3.4: kursywa odwrócona przywrócona w pełnym zakresie – w tytule składanym kursywą pismem prostym zapisuje się tytuł w tytule **oraz** wyraz lub zwrot obcy, formułę łacińską, egzonim (SJP PWN, Poradnia, *Wyróżnienie tytułu w tytule*); uchyla zdanie z wersji 1.13 („wyraz obcy w tytule – kursywą jak tytuł”), które było błędne. Nowe: nazwy serii wydawniczych i konferencji – z dużych liter, pismem prostym, w cudzysłowie; kursywą także tytuły filmów, piosenek i innych utworów muzycznych, obrazów i rzeźb, audycji radiowych i telewizyjnych; nazwy zespołów muzycznych – pismem prostym, wielką literą (wielowyrazowe: wszystkie wyrazy samodzielne znaczeniowo). |
+| 1.15 | Rozstrzygnięcie z 02.10.2026 (MB, po v1.14): § 3.4: w nazwach serii wydawniczych i konferencji wielką literą zapisuje się każdy wyraz (`„Leksykon Polskiej Muzyki Rozrywkowej”`). |
 
 Zmiany wchodzą w życie od kolejnego tomu. Tomy opublikowane nie podlegają retroaktywnemu ujednoliceniu.

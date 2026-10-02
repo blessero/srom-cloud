@@ -85,7 +85,7 @@ NOTES = [
     ("czas1928", "s. 2", "„Czas”, 03.05.1928, s. 2."),
     # § 7.2 (MB 02.10.2026): editors and translators by initial in the notes, an Icelandic name too (MB 02.10.2026, Ostendorf)
     ("rozdzialisl2003", "s. 80", "W. O’Reilly, **Divide et impera*: Race and Administration*, w: *Tytuł tomu*, red. G. Hálfdanarson, A.K. Isaacs, tłum. J. Nowak, Edizioni Plus, Pisa 2003, s. 80."),
-    # § 3.4 (v1.14): a foreign word (Divide et impera, above) and a title within a title, keyed <i>, are set roman inside the italic title (nested emphasis: roman in the DOCX)
+    # § 3.4: a foreign word (Divide et impera, above) and a title within a title, keyed <i>, are set roman inside the italic title (nested emphasis: roman in the DOCX)
     ("tytulwtytule2021", "s. 3", "N. Ndiaye, *Race and Dance in *The Spanish Gypsie**, „Czasopismo”, 2021, t. 5, s. 3."),
 ]
 

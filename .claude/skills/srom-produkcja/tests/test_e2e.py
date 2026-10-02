@@ -367,7 +367,7 @@ check("_citations.json: every printed entry as plain text, CSL entries with thei
 
 # keying fault that prints wrong without failing (MB 02.10.2026, Ostendorf): a person keyed as a literal name (full
 # name in the notes, § 7.2) -> report warning; an institution and a pseudonym stay silent. Italics inside an italic
-# title (foreign word, title in a title) are right by § 3.4 (v1.14): no report by reference
+# title (foreign word, title in a title) are right by § 3.4: no report by reference
 md = "---\ntitle: T\n---\n\nA [@w1, s. 1]. B [@w2, s. 2].\n"
 d = tempfile.mkdtemp(); rp = os.path.join(d, "refs.json")
 json.dump([{"id": "w1", "type": "chapter", "title": "<i>Divide et impera</i>: Race (<i>Cigano</i>)", "container-title": "V",
