@@ -247,3 +247,5 @@ Preliminary translation for MB: `srom-tlumacz/work/tittel/tittel_pl.md` (100 not
 3. Ostendorf intake: needs MB — see T34 above (read-only frozen file).
 4. Master file name: done — PLAN OUT-DELIVERY has the rename step; `tlumacz-test_handoff.py` +1 case (a `_v2` master renamed → TAKE-BACK OK): HANDOFF CONTRACT 34/34. T30's earlier line ("done") stands for the PLAN text; the test case is what was missing.
 5. This section: done.
+
+- T34, update 03.10.2026 00:32 [Ostendorf]: done — `refs.json` 8958c705…30f09ce copied into `work/ostendorf/src/`, manifest updated, `shasum -c` 4/4 OK; pair check OK, `--draft` build PASS against it. Review 02.10.2026 row 3: done.
