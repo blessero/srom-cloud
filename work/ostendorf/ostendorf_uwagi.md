@@ -72,5 +72,5 @@ HOUSE zastosowane: urasowienie / urasawiać (C-0001; 20×), matryca rasowa (C-00
 - 14 luk wydawniczych do uzupełnienia ręcznie (D19 A2) i licencja NC (D19 A1) — etap srom-produkcja / Twój.
 
 
-## Kanon v1.13 / v1.11 — [Ostendorf] (03.10.2026 00:11)
+## OST-10 — Kanon v1.13 / v1.11 — [Ostendorf] (03.10.2026 00:11)
 - Nagłówki bez numerów (§ 2, T31). Adnotacje „tłum. z przekładu angielskiego…” usunięte z przypisów (§ 12.2.4 c, T33); zdania powyżej o adnotacjach są nieaktualne. Kopia Word wyeksportowana od nowa (nikt jej nie otwierał). **Do Twojej decyzji (MB):** przekłady z oryginału zostają na razie bez zmian — przyp. 24 (Roldán, hiszp., u Galletti) i 41 (Bolzius, niem., Urlsperger) mają adnotację „przekład z oryginału”; bez adnotacji, ale z oryginału: Galletti (przyp. 4), Poisson (26), Berquin-Duvallon (27), Milfort (31), Loskiel (38), Schmidl (14). Reguła: oryginał tylko tam, gdzie to ma znaczenie (angielski wątpliwy albo brzmienie niesie argument); wtedy jedna adnotacja na dzieło. Zdanie o oryginałach w nocie tytułowej usunięte. Które z nich wracają do angielskiego?
