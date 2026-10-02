@@ -153,9 +153,10 @@ Checks run from the repo root. K = .claude/skills/srom-kanon, T = .claude/skills
   EVIDENCE: 1 | CHECK OK | PASS (file dated 28.09.2026 02:41; it is MB's working file and will change)
 
 - [x] F3: srom-tlumacz's contract test sees E16 closed (run read-only)
-  CHECK: ~/.venvs/srom/bin/python ../srom-tlumacz/tlumacz-test_handoff.py | grep -E "E16|HANDOFF CONTRACT"
+  CHECK: ~/.venvs/srom/bin/python ~/.claude/skills/srom-tlumacz/scripts/tlumacz-test_handoff.py | grep -E "E16|HANDOFF CONTRACT"
   EXPECT: /GAP CLOSED ok\s+E16[\s\S]*HANDOFF CONTRACT (\d+)\/\1/
   EVIDENCE: GAP CLOSED ok  E16: … | HANDOFF CONTRACT 30/30
+  NOTE 03.10.2026 01:45: path updated after srom-tlumacz leaf 1.4.1 (review 03.10.2026 row 1); gate closed as of its original date.
 
 - [x] F4: SKILL.md and srom-md.md no longer say comments fail the build (contract: never block)
   CHECK: cat .claude/skills/srom-produkcja/SKILL.md .claude/skills/srom-produkcja/references/srom-md.md | grep -c "open editor comments\|fails the build\*\* until resolved"

@@ -99,11 +99,9 @@ The commands (`$S` = srom-produkcja's `scripts/`):
 python3 $S/export_work.py <id>_pl.md -o <id>_robocza.docx        # srom-tlumacz, once; the editor works in Word
 python3 $S/docx_in.py <id>_robocza.docx -o <id>_pl.md            # srom-tlumacz, after each round; lossless
 python3 $S/check.py --pair <id>_src.md <id>_pl.md --refs refs.json --refs <id>_refs_tlum.json   # handoff check
-# terminology slot (advisory, never blocks; when srom-tlumacz provides it):
-#   python3 <srom-tlumacz>/scripts/tb_check.py <id>_src.md <id>_pl.md --tb tlumacz-tb.tsv --csv <id>_pytania_tb.csv
 python3 $S/take_back.py <srom-tlumacz>/work/<id> <id> --src-dir work/<id> --expect <id>_pl.md=… …   # srom-produkcja
 python3 $S/build.py work/<id>/pl/<id>_pl.md --refs work/<id>/refs.json --refs work/<id>/pl/<id>_refs_tlum.json \
-        --pair-src work/<id>/<id>_src.md --queries work/<id>/pl/<id>_pytania_tlum.csv [--queries <id>_pytania_tb.csv] \
+        --pair-src work/<id>/<id>_src.md --queries work/<id>/pl/<id>_pytania_tlum.csv \
         --out work/<id>/build/
 ```
 
