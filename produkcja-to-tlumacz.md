@@ -623,3 +623,4 @@ Suite: SUITE ALL PASS 22/22.
 3. **refs.json changed** (foreign words in titles no longer keyed `<i>`; the Icelandic editor keyed family/given):
    **[Ostendorf]** `7b055ff1…0e9e054` (oreilly2003, fotta2019, cunniffe2023), **[Ndiaye]** `2e35d0f2…64376c1`
    (cathelin2004). Copy and verify at your next intake; T32's Ostendorf hash is void.
+- T33, correction 02.10.2026 18:58: [Ostendorf] 13 annotations in 12 notes (n. 12 has two), not 12.
