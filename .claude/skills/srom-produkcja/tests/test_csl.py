@@ -83,13 +83,13 @@ NOTES = [
     ("nowakblog", None, "A. Nowak, *Tytuł wpisu*, w: *Nazwa serwisu*, 05.10.2016, https://przyklad.pl/wpis."),
     ("papusza", "00:42:15", "*Papusza*, reż. J. Kos-Krauze, K. Krauze, Polska 2013, 00:42:15."),
     ("czas1928", "s. 2", "„Czas”, 03.05.1928, s. 2."),
-    # § 7.2 (v1.13): editors and translators by initial in the notes, an Icelandic name too (MB 02.10.2026, Ostendorf)
-    ("rozdzialisl2003", "s. 80", "W. O’Reilly, *Divide et impera: Race and Administration*, w: *Tytuł tomu*, red. G. Hálfdanarson, A.K. Isaacs, tłum. J. Nowak, Edizioni Plus, Pisa 2003, s. 80."),
-    # § 3.4: a title within a title, keyed <i>, is set roman inside the italic title (nested emphasis: roman in the DOCX)
+    # § 7.2 (MB 02.10.2026): editors and translators by initial in the notes, an Icelandic name too (MB 02.10.2026, Ostendorf)
+    ("rozdzialisl2003", "s. 80", "W. O’Reilly, **Divide et impera*: Race and Administration*, w: *Tytuł tomu*, red. G. Hálfdanarson, A.K. Isaacs, tłum. J. Nowak, Edizioni Plus, Pisa 2003, s. 80."),
+    # § 3.4 (v1.14): a foreign word (Divide et impera, above) and a title within a title, keyed <i>, are set roman inside the italic title (nested emphasis: roman in the DOCX)
     ("tytulwtytule2021", "s. 3", "N. Ndiaye, *Race and Dance in *The Spanish Gypsie**, „Czasopismo”, 2021, t. 5, s. 3."),
 ]
 
-# § 9.1 (v1.13, MB 02.10.2026): the bibliography gives every name in full, editors and translators too
+# § 9.1 (MB 02.10.2026): the bibliography gives every name in full, editors and translators too
 BIB = {
     "ficowski1985": "[Ficowski]{.sc} Jerzy, *Cyganie na polskich drogach*, Wydawnictwo Literackie, Kraków 1985.",
     "mroz1998": "[Mróz]{.sc} Lech, [Bartosz]{.sc} Adam, *Tytuł pracy*, Wydawnictwo, Warszawa 1998.",
@@ -107,7 +107,7 @@ BIB = {
     "list1900": "*Tytuł listu*, w: *Tytuł tomu*, red. Reuben Gold Thwaites, t. 67, Wydawnictwo, Cleveland 1900.",
     "demeter2018": "[Demeter]{.sc} Nadezhda, *Istoriia tsygan* [Historia Cyganów], Nauka, Moskva 2018.",
     "kopanska2018": "[Kopańska]{.sc} Joanna, *Tytuł*, Uniwersytet Jagielloński, Kraków 2018 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej).",
-    "rozdzialisl2003": "[O’Reilly]{.sc} William, *Divide et impera: Race and Administration*, w: *Tytuł tomu*, red. Guðmundur Hálfdanarson, Ann Katherine Isaacs, tłum. Jan Nowak, Edizioni Plus, Pisa 2003, s. 77–100.",
+    "rozdzialisl2003": "[O’Reilly]{.sc} William, **Divide et impera*: Race and Administration*, w: *Tytuł tomu*, red. Guðmundur Hálfdanarson, Ann Katherine Isaacs, tłum. Jan Nowak, Edizioni Plus, Pisa 2003, s. 77–100.",
     "kowalskiweb": "[Kowalski]{.sc} Andrzej, *Tytuł tekstu*, w: *Nazwa serwisu*, https://przyklad.pl/tekst [dostęp: 18.03.2025].",
 }
 

@@ -335,27 +335,15 @@ NAME_ROLES = ("author", "editor", "translator", "container-author", "director")
 
 
 def refs_data_warnings(refs_list):
-    """two keying faults that print wrong without failing (MB 02.10.2026, Ostendorf):
-    a person's name keyed as a CSL `literal` prints in full in the notes (§ 7.2 wants the initial);
-    a foreign word inside a title keyed <i> prints roman, since the title is italic (§ 3.4 reverses only a title
-    within a title). Both are heuristics: a literal shaped like "Forename Surname"; an inner <i> span of one word
-    or with at most one capitalised word (a title within a title has two or more: "Antony and Cleopatra")."""
+    """a keying fault that prints wrong without failing (MB 02.10.2026, Ostendorf): a person's name keyed as a CSL
+    `literal` prints in full in the notes (§ 7.2 wants the initial). Heuristic: a literal shaped like "Forename Surname".
+    (Italics inside an italic title print roman, foreign word or title alike: § 3.4, v1.14; nothing to report.)"""
     out = []
     lit = [f"{r['id']} ({role}) “{n['literal']}”" for r in refs_list for role in NAME_ROLES
            for n in r.get(role) or [] if PERSON_LIKE.match(n.get("literal", ""))]
     if lit:
         out.append("name keyed as written (refs.json `literal`) prints in full in the notes, without the initial "
                    "(Kanon § 7.2): " + "; ".join(lit) + " — a person: give family and given")
-    ital = []
-    for r in refs_list:
-        for f in ("title", "title-short", "container-title", "volume-title"):
-            for span in re.findall(r"<i>(.*?)</i>", r.get(f) or ""):
-                words = span.split()
-                if len(words) < 2 or sum(w[:1].isupper() for w in words) < 2:
-                    ital.append(f"{r['id']} ({f}) “{span}”")
-    if ital:
-        out.append("italics inside a title print roman (Kanon § 3.4 reverses only a title within a title): "
-                   + "; ".join(ital) + " — a foreign word or phrase: remove the <i> in refs.json")
     return out
 
 
@@ -798,18 +786,9 @@ def main():
     base = ["--citeproc", "--bibliography", refs_path, "--lua-filter", LUA, *meta]
     code, out_a, err = run(["pandoc", comp_path, "-f", FROM, *base, "--csl", CSL, "-t", "json"])
     nopage = []
-    # inner italics keyed in refs.json are reported once, by reference (refs_data_warnings); the Lua filter's
-    # per-occurrence warning stays for italics nested in the text itself
-    refs_inner = {sp.strip() for r in refs_list for f in ("title", "title-short", "container-title", "volume-title")
-                  for sp in re.findall(r"<i>(.*?)</i>", r.get(f) or "")}
     for ln in err.splitlines():
         if ln.startswith("SROM-WARN:"):
-            w = ln[10:].strip()
-            m = re.match(r"nested italics(?: \(deep\))? set roman \(.*?\): (.*)$", w)
-            if m and m.group(1).strip() in refs_inner:
-                continue
-            if w not in report["warnings"]:
-                report["warnings"].append(w)
+            report["warnings"].append(ln[10:].strip())
         elif ln.startswith("SROM-ERROR:"):
             report["errors"].append(ln[11:].strip())
         elif ln.startswith("SROM-NOPAGE:"):

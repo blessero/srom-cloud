@@ -225,6 +225,13 @@ G12) after.
    them. Bibliography: comma after the author field; editors and translators in full (initials are a citation-level CSL
    option). Translator's annotations reversed (§ 12.2.4 c): only a Polish edition or a translation from the original,
    once per work; the old formula is a linter WARN (TLUM-ADNOTACJA). Drafts: srom-tlumacz (T33).
+   Fourth (MB, 02.10.2026 19:58, Kanon v1.14, decisions row 27): v1.13's "foreign word in a title stays italic" was wrong —
+   inside an italic title a foreign word/phrase and a title in a title are roman (SJP PWN). Reverted: Kanon § 3.4, the
+   by-reference italics warning and the Lua "verify" warning removed (they fired on correct cases), `<i>` restored in
+   Ostendorf's (fotta2019, oreilly2003, cunniffe2023) and Ndiaye's (cathelin2004 "Paios") refs.json; Ostendorf INJECT
+   rebuilt. New § 3.4 rules: series and conference names in quotation marks, roman; titles of films, songs, paintings,
+   programmes italic; band names roman, capitalised. Announced to srom-tlumacz: T34. Open: whether "z dużych liter" for series and
+   conferences means every word or the first only (the Kanon says "z dużych liter" as MB wrote it).
 7. Stage 3: ~~house style / reduce the style set (§4, D3)~~ — done 29.09.2026 (house style v3, §4). Next: G12, the first
    real article placed in a v3 template — **a translated article** (Ndiaye after MB's edit, via 5b; review
    29.09.2026 row 6), so that `_postimport.jsx`, `_ibidem.jsx` and `_gwiazdki.jsx`, never yet run in InDesign, are proven

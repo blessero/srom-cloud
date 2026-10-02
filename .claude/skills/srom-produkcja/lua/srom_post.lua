@@ -341,7 +341,7 @@ local inline_pass = {
     return out
   end,
   Emph = function(el)
-    -- nested italics (title inside a title, Kanon § 3.4): the italic run is split and the inner title set as a
+    -- nested italics (title in a title, foreign word, Latin formula, exonym; Kanon § 3.4, reverse italics; always right, no warning): the italic run is split and the inner title set as a
     -- roman run between its parts ("*A Note on _Les Fourberies_*" -> italic "A Note on " + roman "Les Fourberies")
     local out, cur = pandoc.List(), pandoc.List()
     local function flush()
@@ -349,14 +349,13 @@ local inline_pass = {
     end
     for _, x in ipairs(el.content) do
       if x.t == "Span" and x.attributes["custom-style"] == C.italic then
-        warn("nested italics set roman (§ 3.4: right for a title within a title; a foreign word: remove the inner italics): " .. short(x.content))
         flush()
         out:extend(x.content)
       else
         -- deeper nesting (inside quotes, links): unwrap as before; rare
         cur:insert(pandoc.walk_inline(x, {Span = function(s)
           if s.attributes["custom-style"] == C.italic then
-            warn("nested italics (deep) set roman (§ 3.4: right for a title within a title; a foreign word: remove the inner italics): " .. short(s.content)); return s.content
+            return s.content
           end
         end}))
       end

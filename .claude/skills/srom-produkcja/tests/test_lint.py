@@ -55,7 +55,7 @@ orth = orth and lo3.stdout.count("[PUNCT-SPOJNIK]") == 1 and lo3.returncode == 0
 open(bad, "w", encoding="utf-8").write("Cytat.^[Herzog, *Tytuł…*, s. 133. [tłum. z przekładu angielskiego – przyp. tłum.]]\n")
 lo4 = subprocess.run([sys.executable, LINT, bad], capture_output=True, text=True)
 orth = orth and lo4.stdout.count("[TLUM-ADNOTACJA]") == 1 and lo4.returncode == 0
-print("§ 12.2.4 c (v1.13): withdrawn annotation flagged (WARN):", lo4.stdout.count("[TLUM-ADNOTACJA]") == 1)
+print("§ 12.2.4 c (MB 02.10.2026): withdrawn annotation flagged (WARN):", lo4.stdout.count("[TLUM-ADNOTACJA]") == 1)
 print("§ 12.3 spelling warnings (2 + 2, surnames/pronoun/verb/sentence start silent; mimo, że flagged, chyba, że not; no ERROR):", orth)
 control = control and orth
 print("negative control detected:", control, "| build blocked on lint ERROR:", blocks)

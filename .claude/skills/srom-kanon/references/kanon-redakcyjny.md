@@ -1,6 +1,6 @@
 # STUDIA ROMOLOGICA – KANON EDYTORSKI (DOKUMENT WEWNĘTRZNY)
 
-**Wersja 1.13 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
+**Wersja 1.14 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
 
 > Wersja dla autorów (*Wskazówki dla autorów*) jest skrótem tego dokumentu i nie zawiera § 13–17. W razie rozbieżności rozstrzyga niniejszy tekst.
 
@@ -64,13 +64,15 @@ Podstawowy `„ ”`, wewnętrzny `» «`. Glosy znaczeniowe: `‘ ’`.
 Po: `s.`, `t.`, `z.`, `nr`, `r.`, `w.`, `sygn.`, `k.`, inicjałach imion; przed `%`; po jednoliterowych spójnikach i przyimkach (`i`, `a`, `o`, `u`, `w`, `z`). **Nakłada je skład automatycznie (styl GREP)**; redakcja nie wstawia ich ręcznie, a w pliku tekstu się ich nie przechowuje – spacja nierozdzielająca zastana w maszynopisie zostaje zamieniona na zwykłą.
 
 ### 3.4. Wyróżnienia
-- **Kursywa**: tytuły dzieł; obcojęzyczne i romskie wyrazy pospolite i terminy (§ 5.1).
+- **Kursywa**: tytuły dzieł – książek, artykułów, filmów, piosenek i innych utworów muzycznych, obrazów i rzeźb, audycji radiowych i telewizyjnych; obcojęzyczne i romskie wyrazy pospolite i terminy (§ 5.1).
 - **Nigdy kursywą**: nazwy własne – etnonimy, nazwy grup, imiona, nazwiska, toponimy, instytucje – niezależnie od języka i pisowni. Zasada dotyczy tekstu – głównego, przypisów, podpisów, bibliografii. W elementach wydzielonych składu (pagina, nazwisko mówcy i afiliacja w zapisie wystąpień, spis treści) kursywa pozostaje środkiem wyróżnienia typograficznego i zakaz jej nie obejmuje.
 - **Wyjątek – egzonimy obce**: określenie grupy nadane z zewnątrz w języku obcym i nieprzyswojone polszczyźnie ani w pisowni, ani w odmianie (*Ciganos*, *Gitanos*, *Bohémiens*, *Zigeuner*, *Tsiganes*) jest wyrazem obcym, nie nazwą własną w tekście polskim – kursywą, w każdym wystąpieniu, także gdy mowa o samym wyrazie. Etnonimy własne grup (endonimy: Calon, Sinti, Kelderasze) i egzonimy przyswojone (Cyganie, Bosza) – zawsze pismem prostym. Rozstrzyga kartoteka wzorcowa (§ 6.3).
 - **Kapitaliki**: nazwiska w bibliografii (§ 9.3) oraz kategorie gramatyczne w glosach (§ 5.3). Nigdzie indziej.
 - Półgrube, rozstrzelenie, podkreślenie, wersaliki w tekście ciągłym: nie stosuje się.
 - Wyróżnienie autora w cytacie: `[podkr. – J.K.]`.
-- Tytuł w obrębie tytułu składanego kursywą – pismem prostym (kursywa odwrócona): *Recepcja* Cyganów na polskich drogach *w krytyce*. Kursywa odwrócona dotyczy wyłącznie tytułu w tytule. Wyraz lub zwrot obcy, formuła łacińska, egzonim obcy w obrębie tytułu – kursywą, jak cały tytuł: *Divide et impera: Race, Ethnicity, and Administration…*, *The Figure of the Gypsy (Cigano) as a Signpost…*.
+- W tekście składanym kursywą (tytuł dzieła) pismem prostym zapisuje się tytuł w tytule, wyraz lub zwrot obcy, formułę łacińską i egzonim obcy (kursywa odwrócona; za: SJP PWN, Poradnia, *Wyróżnienie tytułu w tytule*): *Recepcja* Cyganów na polskich drogach *w krytyce*; *Divide et impera: Race, Ethnicity, and Administration…* w zapisie kodowanym `<i>Divide et impera</i>: Race…` (kursywa wewnętrzna wchodzi do pliku, skład odwraca ją sam). Dotyczy to także obcego wyrazu w tytule przytoczonym w przypisie i bibliografii.
+- **Nazwy serii wydawniczych i nazwy konferencji** – z dużych liter, pismem prostym, w cudzysłowie (`w serii „Prace Etnologiczne”`, na konferencji „Romowie w Europie”).
+- **Nazwy zespołów muzycznych** – pismem prostym, od wielkiej litery: `Bajm`, `Dżem`, `Kombi`. W nazwach wielowyrazowych wielką literą zapisuje się wszystkie wyrazy samodzielne znaczeniowo: `Banda i Wanda`, `Big Cyc`, `Chłopcy z Placu Broni`, `Jazz Band Ball Orchestra`, `Niebiesko-Czarni`, `Pod Budą`, `Uliczna Orkiestra z Chmielnej`. Tytuły ich utworów i płyt – kursywą (wyżej).
 
 ### 3.5. Daty i liczby
 
@@ -660,5 +662,6 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.11 | Rozstrzygnięcia z 02.10.2026 (MB, próbny skład tekstu Ostendorf): § 2: śródtytuły bez numeracji, także gdy oryginał je numeruje; odstęp jednego wiersza przed śródtytułem oraz przed cytatem blokowym i po nim. § 7.1: numer w treści przypisu bez kropki. § 7.2, § 9.4: edycja źródła bez autora i tekst opracowany przez redaktora w czasopiśmie – od tytułu, redaktor po tytule (nie na miejscu autora). § 9.1, § 9.3–9.5, § 14: w bibliografii bez przecinka po nazwisku (`Paucke Florian`). |
 | 1.12 | Rozstrzygnięcie z 02.10.2026 (MB, drugi próbny skład tekstu Ostendorf): § 7.2, § 7.3, § 9.4, § 9.5, § 11: redaktor zawsze po tytule, nigdy na miejscu autora – także praca zbiorowa cytowana jako całość (`*Tytuł tomu*, red. A. Kowalski`); forma skrócona i szeregowanie w bibliografii – wg tytułu. Uchyla zasadę z wersji 1.1 („redaktor tomu przed tytułem”). |
 | 1.13 | Rozstrzygnięcia z 02.10.2026 (MB, kolejny próbny skład tekstu Ostendorf): § 7.2: inicjał imienia w przypisie dla każdej osoby – autora, redaktora, tłumacza, reżysera – także nazwiska islandzkiego; § 9.1, § 9.4: w bibliografii przecinek zamyka pole autora (`Fotta Martin, *Tytuł*`), redaktorzy i tłumacze z imionami w pełnym brzmieniu. § 3.4: kursywa odwrócona tylko dla tytułu w tytule; wyraz obcy w tytule – kursywą jak tytuł. § 12.2.4 c: cytat przytoczony przez autora po angielsku – przekład z jego przekładu bez adnotacji; adnotacja tylko przy wydaniu polskim i przekładzie z oryginału (do oryginału – gdy to istotne), raz na dzieło. Uchyla adnotację `tłum. z przekładu angielskiego autora` z wersji 1.6. |
+| 1.14 | Rozstrzygnięcia z 02.10.2026 (MB, po v1.13): § 3.4: kursywa odwrócona przywrócona w pełnym zakresie – w tytule składanym kursywą pismem prostym zapisuje się tytuł w tytule **oraz** wyraz lub zwrot obcy, formułę łacińską, egzonim (SJP PWN, Poradnia, *Wyróżnienie tytułu w tytule*); uchyla zdanie z wersji 1.13 („wyraz obcy w tytule – kursywą jak tytuł”), które było błędne. Nowe: nazwy serii wydawniczych i konferencji – z dużych liter, pismem prostym, w cudzysłowie; kursywą także tytuły filmów, piosenek i innych utworów muzycznych, obrazów i rzeźb, audycji radiowych i telewizyjnych; nazwy zespołów muzycznych – pismem prostym, wielką literą (wielowyrazowe: wszystkie wyrazy samodzielne znaczeniowo). |
 
 Zmiany wchodzą w życie od kolejnego tomu. Tomy opublikowane nie podlegają retroaktywnemu ujednoliceniu.

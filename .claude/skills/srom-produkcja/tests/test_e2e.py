@@ -207,7 +207,7 @@ check("whole-work reference (no quote): builds, listed for the editor to confirm
 code, out, stem, rep = build(md_text="Tekst **pogrubiony** i __podkreślony__.\n")
 check("bold removed with warning (kanon §3.4), build passes", code == 0 and "bold removed" in rep, rep[:700])
 code, out, stem, rep = build(md_text="Tekst *z tytułem _wewnętrznym_ w środku*.\n")
-check("nested italics: inner run roman + warning", code == 0 and "nested italics" in rep, rep[:700])
+check("nested italics: inner run roman, no warning (§ 3.4)", code == 0 and "nested italics" not in rep, rep[:700])
 
 code, out, stem, rep = build(md_text="A[^1] b[^2].\n\n[^1]: [@ficowski1985, s. 5].\n\n[^2]: Szerzej o tym pisze [@ficowski1985, s. 7].\n")
 txt = open(os.path.join(out, stem + ".txt"), encoding="utf-8").read()
@@ -365,9 +365,9 @@ check("_citations.json: every printed entry as plain text, CSL entries with thei
       and not any("smallcaps" in c["text"] or "](" in c["text"] or "*" in c["text"] for c in cit)
       and any(c["key"] is None for c in cit), [c for c in cit if "smallcaps" in c["text"] or "](" in c["text"] or "*" in c["text"]] or cit[:3])
 
-# keying faults that print wrong without failing (MB 02.10.2026, Ostendorf): a person keyed as a literal name (full
-# name in the notes, § 7.2) and a foreign word keyed <i> inside a title (printed roman, § 3.4) -> report warnings;
-# an institution, a pseudonym and a title within a title stay silent
+# keying fault that prints wrong without failing (MB 02.10.2026, Ostendorf): a person keyed as a literal name (full
+# name in the notes, § 7.2) -> report warning; an institution and a pseudonym stay silent. Italics inside an italic
+# title (foreign word, title in a title) are right by § 3.4 (v1.14): no report by reference
 md = "---\ntitle: T\n---\n\nA [@w1, s. 1]. B [@w2, s. 2].\n"
 d = tempfile.mkdtemp(); rp = os.path.join(d, "refs.json")
 json.dump([{"id": "w1", "type": "chapter", "title": "<i>Divide et impera</i>: Race (<i>Cigano</i>)", "container-title": "V",
@@ -378,9 +378,9 @@ json.dump([{"id": "w1", "type": "chapter", "title": "<i>Divide et impera</i>: Ra
             "publisher": "P", "publisher-place": "M", "issued": {"date-parts": [[2003]]}}], open(rp, "w", encoding="utf-8"), ensure_ascii=False)
 code, out, stem, rep = build(md, refs=rp, extra=["--draft"])
 warn = rep.split("## Warnings")[-1]
-check("literal person name and foreign word in italics inside a title -> warnings; legit literals and a title in a title silent",
-      "“Gudmundur Hálfdánarson”" in warn and "“Divide et impera”" in warn and "“Cigano”" in warn
-      and "Elvas" not in warn and "Akademie" not in warn and "Writers" not in warn and "Antony" not in warn, warn)
+check("literal person name -> warning; legit literals silent; no by-reference report for italics inside a title (§ 3.4)",
+      "“Gudmundur Hálfdánarson”" in warn and "Elvas" not in warn and "Akademie" not in warn and "Writers" not in warn
+      and "italics inside a title" not in warn, warn)
 
 n, ok = len(results), sum(results)
 print(f"E2E ALL PASS {n}/{n}" if ok == n else f"E2E FAILED {n - ok}/{n}")
