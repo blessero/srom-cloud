@@ -16,7 +16,6 @@ send) · **Later** (a reminder, nothing to do now).
 | GEN-1 | Vol. 18 copyright clause: who writes the replacement, where does it go? | Decide | **the open-access announcement** |
 | GEN-2 | Drop the CC BY-NC-ND option for authors? | Decide (kolegium) | nothing yet |
 | GEN-3 | Non-commercial licences (Pahulich, Ostendorf): ask for written consent? | Decide | publication |
-| GEN-8 | Which parts does a bibliography have; where do Kant, Marx, Grellmann go? | Decide | nothing |
 | V19-1 | *nomadic* → „koczowniczy”, *itinerant* → „wędrowny” in all vol. 19 texts? | Decide | nothing |
 | V19-2 | „sowiecki” or „radziecki”? | Decide | nothing |
 | V19-3 | Six shared terms (antyczarność, uinnienie, białość …) into the termbase | Approve | nothing |
@@ -81,10 +80,14 @@ Each line is settled; the Kanon, the style and the tools are changed only from t
 - **GEN-13**: "Noty o autorach" for every contributor of the parts **before** the last two (Recenzje, Opinie and the one
   after: usually parts III–IV, sometimes IV–V). That is parts I–II, or I–III when a theme title counts as part I. No notes for
   the last two parts. Change `volume_lists.py`; re-run on vol. 18 as the test.
+- **GEN-8**: bibliography parts, each only when present, in this order: **Wykaz skrótów · Źródła archiwalne · Źródła
+  terenowe · Źródła drukowane · Opracowania · Źródła internetowe.** Laws, press and old printed works (Kant, Marx,
+  Grellmann) go to "Źródła drukowane"; "Literatura przedmiotu" is renamed "Opracowania"; "bez DOI" is dropped from the
+  web part. Change Kanon § 9.2, the build's section names and tests; check Tittel and Scheffknecht.
 - **GEN-10**: **no DOIs are printed** in notes or bibliographies, whatever the Kanon says: delete the DOI rule (Kanon
   §§ 7.2, 9.1, 9.7, 12.2 and the examples; "bez DOI" in § 9.2). DOIs stay in the data (reference data, master CSV,
-  Crossref). One open point for you: the translation note prints the DOI of the *original* article (Kanon § 12.2.3) —
-  keep that one or drop it too? Until you say, srom-produkcja leaves it. Clickable DOIs in the online PDF: SYS-5.
+  Crossref). The DOI of the *original* article in the translation note (§ 12.2.3) goes too (MB, 02.10.2026 21:50).
+  Clickable DOIs in the online PDF: SYS-5.
 - **GEN-12**: Fotta — *Institute of Ethnology, Czech Academy of Sciences* (the vol. 18 form is right; the "Slovak" in the
   register was wrong; source: romaniatlantic.cz). Marushiakova — *Institute of Ethnology and Social Anthropology, Slovak
   Academy of Sciences, Bratislava*, there since 2023 (source: uesa.sav.sk); the register's "Bułgarska AN / Humboldt" is
@@ -129,30 +132,6 @@ Whether SROM's distribution is non-commercial (the printed volume is sold?) is y
 - (b) rely on the licence alone
 
 *Trail: D17 A1, D19 A1 (corrected 28.09: Ostendorf is open access, CC BY-NC 4.0); Kanon § 12.2.3 pt 2.*
-
-### GEN-8 · Which parts does a bibliography have? (Kant, Marx, Grellmann: where do old printed works go?)
-**Decide** · blocks nothing yet (typesetting of Tittel, Scheffknecht and every later text)
-
-The Kanon today allows these parts, in this order, each printed only when the text has such items (one part = no
-heading): **Wykaz skrótów · Źródła archiwalne · Źródła terenowe · Źródła drukowane i prawne · Źródła internetowe
-(bez DOI) · Literatura przedmiotu.** Laws are already in "Źródła drukowane i prawne"; Kant, Marx, Grellmann sit in
-"Literatura przedmiotu" by default. I could check only vol. 18 (its master CSV shows just "Literatura"); the older
-volumes are not in the system, so how they were divided is for you to say.
-The other AI's six-part list (podmiotowa / przedmiotowa / akty prawne / archiwalne / prasa / netografia) is the
-Kanon's list with two more parts and different names; for a journal article it only adds headings.
-- (a) keep the Kanon's six parts as they are, and add a rule for old printed works (say, published before 1900, or the
-  object of the author's analysis → "Źródła drukowane i prawne")
-- (b) simpler: **Źródła archiwalne · Źródła terenowe · Źródła drukowane · Opracowania · Źródła internetowe**, each only
-  when present; laws, press and old printed works all go to "Źródła drukowane"; "Literatura przedmiotu" is renamed
-  "Opracowania" — **recommended**: it is your trio plus the two parts articles on Roma actually need (archives, interviews)
-- (c) only three parts, Źródła drukowane / Opracowania / Źródła internetowe: archive and interview sources would
-  have to go under "Źródła drukowane"
-
-Also decide with it: "Źródła internetowe (bez DOI)": since no DOIs are printed (see below), the "bez DOI" goes — web
-sources are simply the ones with only a URL.
-
-*Trail: D20 A6 (c); Kanon § 9.2.*
-
 
 ## Volume 19, all translated texts (V19)
 Next free: V19-5. Per-text choices stay under each text. Detail for V19-1 to V19-3:
