@@ -26,6 +26,7 @@ send) · **Later** (a reminder, nothing to do now).
 | GEN-11 | Kanon line for a quotation translated from someone else's English translation | Approve | nothing |
 | GEN-12 | Authors register: five contradictions in your author data | Look up | nothing yet |
 | GEN-13 | "Noty o autorach": a note for every contributor, or only some? | Decide | the vol. 19 notes page |
+| GEN-14 | Place and publisher: "Wrocław: Ossolineum 1974" (your 02.10 pattern) or "Ossolineum, Wrocław 1974" (Kanon)? | Decide | nothing yet |
 | V19-1 | *nomadic* → „koczowniczy”, *itinerant* → „wędrowny” in all vol. 19 texts? | Decide | nothing |
 | V19-2 | „sowiecki” or „radziecki”? | Decide | nothing |
 | V19-3 | Six shared terms (antyczarność, uinnienie, białość …) into the termbase | Approve | nothing |
@@ -81,7 +82,7 @@ send) · **Later** (a reminder, nothing to do now).
 | SYS-4 | After the first Crossref deposit: two checks | Later | nothing |
 
 ## Journal-wide (GEN)
-Next free: GEN-14.
+Next free: GEN-15.
 
 ### GEN-1 · Vol. 18 copyright clause: who writes the replacement text, and where does it go?
 **Decide** · blocks **any open-access announcement** · urgent
@@ -228,6 +229,19 @@ Detail: 🔴 `_widok/noty_o_autorach_18_test.docx` (vol. 18 regenerated as a tes
 
 *Trail: 30.09.2026, root session [general]; srom-produkcja `volume_lists.py`.*
 
+
+### GEN-14 · Place and publisher: which order? [general] (02.10.2026 16:43)
+**Decide** · blocks nothing yet (every note with a book changes if you choose (a))
+
+The pattern you sent on 02.10.2026 for edited volumes (now in the Kanon: title first, „red.” after it) also writes
+the imprint as "Wrocław: Ossolineum 1974" — place, colon, publisher. The Kanon has "Ossolineum, Wrocław 1974" since
+v1.1 (publisher first, comma, no colon), and every note and bibliography entry is printed that way now. Only the
+editor's position was changed; the imprint was left as it is until you say.
+- (a) "Miasto: Wydawnictwo rok" in every note and bibliography entry (a Kanon change; the style does it at once)
+- (b) keep "Wydawnictwo, Miasto rok" — **recommended** only because nothing printed so far needs redoing; if the
+  pattern you sent is the journal's own standard, choose (a)
+
+*Trail: Kanon § 7.2 ("Wydawnictwo przed miejscem"), § 9.4; v1.12.*
 ## Volume 19, all translated texts (V19)
 Next free: V19-5. Per-text choices stay under each text. Detail for V19-1 to V19-3:
 🔴 `srom-tlumacz/tlumacz-1.3.2/findings.md` (table `vol19-concordance.tsv`).
