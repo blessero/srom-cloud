@@ -163,9 +163,34 @@ def notes_text(doc):
 
 
 # ------------------------------------------------------------------ reference.docx from config
+# InDesign's Word import reads a paragraph without alignment as left-aligned and keeps it as a local override,
+# so every justified style arrived ragged (Ostendorf test, 02.10.2026). Each style therefore carries the
+# alignment of its template style (indesign/style_spec.json, resolved through basedOn).
+WD_JC = {"LEFT_JUSTIFIED": "JUSTIFY", "LEFT_ALIGN": "LEFT", "CENTER_ALIGN": "CENTER", "CENTER_JUSTIFIED": "CENTER",
+         "RIGHT_ALIGN": "RIGHT"}
+
+
+def spec_alignment():
+    spec = json.load(open(os.path.join(ROOT, "indesign", "style_spec.json"), encoding="utf-8"))
+    by = {p["name"]: p for p in spec["paragraph"]}
+
+    def jc(name):
+        while name:
+            p = by.get(name)
+            if p is None:
+                return None
+            if "justification" in p["props"]:
+                return p["props"]["justification"]
+            name = p.get("basedOn")
+        return None
+    return {n: WD_JC.get(jc(n)) for n in by}
+
+
 def make_reference_docx(cfg, path):
     import docx
     from docx.enum.style import WD_STYLE_TYPE
+    from docx.enum.text import WD_ALIGN_PARAGRAPH
+    align = spec_alignment()
     tmp = path + ".base.docx"
     with open(tmp, "wb") as f:
         f.write(subprocess.run(["pandoc", "--print-default-data-file", "reference.docx"], capture_output=True).stdout)
@@ -181,6 +206,22 @@ def make_reference_docx(cfg, path):
             st.font.bold = True
         if key == "quote":
             st.paragraph_format.left_indent = docx.shared.Cm(1)
+    # the document default font: the template's (Cambria), not Word's theme font (Aptos), which an import can carry
+    # into every character-style run as a local font override (InDesign scripted import, 02.10.2026)
+    from docx.oxml.ns import qn
+    font = json.load(open(os.path.join(ROOT, "indesign", "style_spec.json"), encoding="utf-8"))["document"]["basic_paragraph"]["appliedFont"]
+    rpr = d.styles.element.find(qn("w:docDefaults")).find(qn("w:rPrDefault")).find(qn("w:rPr"))
+    rf = rpr.find(qn("w:rFonts"))
+    for k in list(rf.attrib):
+        del rf.attrib[k]
+    for k in ("w:ascii", "w:hAnsi", "w:cs", "w:eastAsia"):
+        rf.set(qn(k), font)
+    for st in d.styles:
+        if st.type != WD_STYLE_TYPE.PARAGRAPH:
+            continue
+        jc = align.get(cfg["paragraph"]["footnote"] if st.name.lower() == "footnote text" else st.name)
+        if jc:
+            st.paragraph_format.alignment = getattr(WD_ALIGN_PARAGRAPH, jc)
     for key, name in cfg["character"].items():
         if name in names:
             continue

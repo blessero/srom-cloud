@@ -11,9 +11,11 @@ vol. 18's own values (read from `dump/03_Ellis.idml` and `dump/09_Konferencja.id
 names and in a designer's order:
 
 - **Root, most used first (15):** Tekst · Tekst BEZ WCIĘCIA · Przypis · Śródtytuł · Śródtytuł MAŁE · Cytat ·
-  Bibliografia · Podpis · Podpis LINIA · Wyliczenie · Tytuł · Autor · Afiliacja · Mówca · Tekst INICJAŁ.
-- **Folder "Rzadkie" (9):** Motto · Motto ŹRÓDŁO · Cytat WIERSZ · Przypis GWIAZDKOWY · Tabela TYTUŁ · Tabela TREŚĆ ·
-  Przykład FORMA / GLOSA / PRZEKŁAD. Most are applied by the build, rarely by hand.
+  Bibliografia · Podpis · Podpis LINIA · Wyliczenie · Tytuł · Autor · Afiliacja · Mówca · Tekst INICJAŁ;
+  **then the rarer ones (9), also at the root:** Motto · Motto ŹRÓDŁO · Cytat WIERSZ · Przypis GWIAZDKOWY · Tabela TYTUŁ ·
+  Tabela TREŚĆ · Przykład FORMA / GLOSA / PRZEKŁAD. Every style the DOCX uses must be at the root: InDesign's Word
+  import does not look into folders and makes its own copy (the "Rzadkie" folder, 29.09–02.10.2026, gave a Przypis
+  GWIAZDKOWY based on Word's Normal).
 - **Folder "Numer" (5):** Pagina · Folio · Spis treści · Spis AUTOR · Spis JĘZYKI.
 - **Character styles (8):** Kursywa · Kapitaliki · Indeks górny · Bez podziału · Proste · Pogrubienie · Gwiazdka ·
   Kapitaliki GLOSA.
@@ -26,7 +28,7 @@ names and in a designer's order:
 margins and masters. It:
 
 1. sets the document values: baseline grid every 13.2945 pt from 62.362 pt, relative to the top of the page;
-   Footnote Options (style Przypis, superscript reference, "." + en space after the number, 0.5 pt × 40 mm rule,
+   Footnote Options (style Przypis, superscript reference, an en space after the number (no full stop, Kanon v1.11), 0.5 pt × 40 mm rule,
    numbering restarts per section, long notes may split); superscript 58 %/33 %; small caps 70 %;
 2. **purges** every paragraph and character style. Text in an old style takes its new one (Podrozdzial →
    Śródtytuł, Bez wciecia → Tekst BEZ WCIĘCIA …, the table in `style-sheet.md`); unknown styles → Tekst;

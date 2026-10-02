@@ -55,7 +55,7 @@ bib = seq[max(i for i, (s, t) in enumerate(seq) if s == "Śródtytuł" and t.low
 check("bibliography: only the sections used, without numerals (kanon), in kanon order", [t for s, t in bib if s == "Śródtytuł MAŁE"] ==
       ["Źródła archiwalne", "Źródła terenowe", "Literatura przedmiotu"], bib)
 lit = [t for s, t in bib if s == "Bibliografia"][2:]
-check("Literatura przedmiotu sorted Polish order", [t.split(",")[0] for t in lit] == ["Ficowski", "Hancock", "Kołaczek", "Mróz"], lit)
+check("Literatura przedmiotu sorted Polish order", [t.split(" ")[0] for t in lit] == ["Ficowski", "Hancock", "Kołaczek", "Mróz"], lit)
 sc = [ptext(r) for r in doc.iter(W + "r") if r.find(W + "rPr/" + W + "rStyle") is not None and id2name.get(r.find(W + "rPr/" + W + "rStyle").get(W + "val"), r.find(W + "rPr/" + W + "rStyle").get(W + "val")) == "Kapitaliki"]
 check("surnames (only) in small-caps char style", sc == ["Ficowski", "Hancock", "Kołaczek", "Mróz"], sc)
 check("author note via role div (Tekst BEZ WCIĘCIA, v3)", seq[-1][0] == "Tekst BEZ WCIĘCIA")
@@ -142,6 +142,21 @@ fails("E15: two title-note blocks -> build error naming the one-block form (hand
 
 fails("unknown citation key stops the build", "Tekst[^1].\n\n[^1]: [@nieistnieje, s. 5].\n", "citation keys not in refs")
 fails("marker without definition stops the build (pandoc alone would print '[^2]')", "Tekst[^1] i[^2].\n\n[^1]: Nota.\n", "[^2] has no definition")
+code, out, stem, rep = build(md_text="# 1. WSTĘP\n\nTekst.\n\n## 1.2. Ujęcia\n\nTekst.\n\n# II. DALEJ\n\nTekst.\n\n# 1989 I POTEM\n\nTekst.\n")
+hd = ["".join(t.text or "" for t in p.iter(W + "t")) for p in etree.fromstring(zipfile.ZipFile(os.path.join(out, stem + ".docx")).read("word/document.xml")).iter(W + "p")]
+check("headings unnumbered (kanon §2 v1.11): '1.', '1.2.', 'II.' dropped with a warning, a year kept",
+      code == 0 and "WSTĘP" in hd and "Ujęcia" in hd and "DALEJ" in hd and "1989 I POTEM" in hd and rep.count("heading number removed") == 3, (hd, rep[:600]))
+sty = zipfile.ZipFile(os.path.join(out, stem + ".docx")).read("word/styles.xml").decode()
+def jc_of(name):
+    m = re.search(r'<w:style [^>]*>(?:(?!</w:style>).)*?<w:name w:val="' + re.escape(name) + r'"/>((?:(?!</w:style>).)*)</w:style>', sty, re.S)
+    j = re.search(r'<w:jc w:val="(\w+)"', m.group(1)) if m else None
+    return j.group(1) if j else None
+check("DOCX styles carry the template's alignment (InDesign keeps a missing one as a left-align override)",
+      [jc_of(n) for n in ("Tekst", "Tekst BEZ WCIĘCIA", "Przypis", "Cytat", "Bibliografia", "Śródtytuł")] == ["both"] * 5 + ["left"],
+      [jc_of(n) for n in ("Tekst", "Tekst BEZ WCIĘCIA", "Przypis", "Cytat", "Bibliografia", "Śródtytuł")])
+check("DOCX default font is the template's (no Word theme font for the import to carry into italic runs)",
+      re.search(r'<w:docDefaults>.*?<w:rFonts w:ascii="Cambria"', sty, re.S) is not None and "asciiTheme" not in re.search(r"<w:docDefaults>.*?</w:docDefaults>", sty, re.S).group(0),
+      re.search(r"<w:docDefaults>.*?</w:docDefaults>", sty, re.S).group(0)[:300])
 fails("heading level 3 stops the build", "# 1. A\n\n### za głęboko\n\nTekst.\n", "heading level 3")
 code, out, stem, rep = build(md_text="Tekst.\n\n1. pierwszy;\n2. drugi.\n")
 nl = [p for p in etree.fromstring(zipfile.ZipFile(os.path.join(out, stem + ".docx")).read("word/document.xml")).iter(W + "p")]
@@ -346,7 +361,7 @@ code, out, stem, rep = build(md_path=os.path.join(FX, "sample_article.md"))
 cit = json.load(open(os.path.join(out, stem + "_citations.json"), encoding="utf-8")) if os.path.exists(os.path.join(out, stem + "_citations.json")) else []
 fic = [c for c in cit if c["key"] == "ficowski1985"]
 check("_citations.json: every printed entry as plain text, CSL entries with their key (and DOI), literal entries keyless",
-      len(cit) >= 3 and fic and fic[0]["text"].startswith("Ficowski, Jerzy. Cyganie na polskich drogach")
+      len(cit) >= 3 and fic and fic[0]["text"].startswith("Ficowski Jerzy. Cyganie na polskich drogach")
       and not any("smallcaps" in c["text"] or "](" in c["text"] or "*" in c["text"] for c in cit)
       and any(c["key"] is None for c in cit), [c for c in cit if "smallcaps" in c["text"] or "](" in c["text"] or "*" in c["text"]] or cit[:3])
 

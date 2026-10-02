@@ -46,9 +46,10 @@ function findChar(doc, name) {
 
 function main() {
   if (app.documents.length === 0) { alert("SROM asterisk notes: no document open."); return; }
-  var doc = app.activeDocument, out = [], bad = 0, i, pg, k, first, n = 0, cs, hits = [];
+  var doc = app.activeDocument, out = [], todo = [], bad = 0, i, pg, k, first, n = 0, cs, hits = [];
   var story = selectedStory() || mainStory(doc);
   out.push("SROM asterisk notes (kanon § 7.1) — " + doc.name);
+  out.push("Report only: nothing is changed. Each line = one marker and its note, with the asterisks they must get.");
   cs = findChar(doc, AST_CHAR);
   if (!story || !cs) { out.push("!! " + (cs ? "no story" : "character style missing: " + AST_CHAR)); bad++; }
   else {
@@ -70,17 +71,28 @@ function main() {
     perPage[pg] = k;
     n = i + (TITLE ? 1 : 0);
     out.push("p. " + pg + "  " + stars(k) + (k < 3 ? "  " : "") + "  " + (n < NOTES.length ? NOTES[n] : "!! no note text"));
+    if (k > 1) { todo.push("p. " + pg + ": the marker in the text and the opening of its note → " + stars(k) + " (now *)  " + (n < NOTES.length ? NOTES[n].substr(0, 40) : "")); }
     if (pg === "overset" || pg === "?") { bad++; }
   }
-  out.push("Set each marker and the opening of its note to the asterisks shown; notes above the numbered notes, same style.");
-  out.push(bad === 0 ? "RESULT: OK" : "RESULT: " + bad + " item(s) need attention");
+  out.push("");
+  if (bad) { out.push("RESULT: " + bad + " item(s) need attention (lines marked !! or on an overset page above)"); }
+  if (todo.length) {
+    out.push("TO DO by hand (" + todo.length + "):");
+    for (i = 0; i < todo.length; i++) { out.push("  " + (i + 1) + ". " + todo[i]); }
+  } else if (!bad) {
+    out.push("RESULT: OK — every marker keeps the single * the build typed");
+  }
+  out.push("Asterisk notes stand above the numbered notes of their page, in Przypis GWIAZDKOWY.");
 
   var report = out.join("\r"), f;
   try { f = new File(doc.filePath + "/" + doc.name.replace(/\.indd$/i, "") + "_gwiazdki.txt"); }
   catch (e) { f = new File(Folder.desktop + "/srom_gwiazdki.txt"); }
   f.encoding = "UTF-8";
   if (f.open("w")) { f.write(report); f.close(); }
-  alert(report.length > 1500 ? report.substr(0, 1500) + "\r…\rfull report: " + f.fsName : report);
+  if (report.length > 1800) {
+    report = out.slice(0, 2).join("\r") + "\r…\r" + out.slice(out.length - todo.length - 3).join("\r") + "\r\rfull report: " + f.fsName;
+  }
+  alert(report);
 }
 
 main();

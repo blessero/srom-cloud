@@ -68,6 +68,10 @@ NOTES = [
     ("relacja1932", "s. 118", "J. Nowak, *Relacja*, tłum. i red. J. Robertson, Wydawnictwo, DeLand 1932, s. 118."),
     ("relacja1933", "s. 5", "J. Nowak, *Relacja druga*, red. A. Kowalska, tłum. J. Robertson, Wydawnictwo, DeLand 1933, s. 5."),
     ("list1900", "s. 314", "*Tytuł listu*, w: *Tytuł tomu*, red. R.G. Thwaites, t. 67, Wydawnictwo, Cleveland 1900, s. 314."),
+    # 02.10.2026 (MB, Ostendorf nn. 34, 41): the editor stands in the author's place only for an edited volume; an
+    # anonymous edition of a source (type "classic") and an edited article open with the title, the editor after it
+    ("edycja1865", "s. 88", "*Relacja z Plymouth*, red. H. Dexter, Wydawnictwo, Boston 1865, s. 88."),
+    ("odpowiedzi1957", "s. 220", "*Odpowiedzi na kwestionariusz*, tłum. i red. K.G. Loewald, P.S. Taylor, „The William and Mary Quarterly”, 1957, t. 14, nr 2, s. 220."),
     # § 9.5 (28.09.2026): a preposition particle is a dropping particle — in full in the first note
     ("fuente2020", "s. 5", "A. de la Fuente, A.J. Gross, *Becoming Free*, Cambridge University Press, Cambridge 2020, s. 5."),
     ("hippel1995", "s. 42", "W. von Hippel, *Armut, Unterschichten, Randgruppen*, Oldenbourg, München 1995, s. 42."),
@@ -82,21 +86,23 @@ NOTES = [
 ]
 
 BIB = {
-    "ficowski1985": "[Ficowski]{.sc}, Jerzy. *Cyganie na polskich drogach*, Wydawnictwo Literackie, Kraków 1985.",
-    "mroz1998": "[Mróz]{.sc}, Lech, [Bartosz]{.sc}, Adam. *Tytuł pracy*, Wydawnictwo, Warszawa 1998.",
-    "fialkowska2020": "[Fiałkowska]{.sc}, Kamila, [Garapich]{.sc}, Michał P., [Mirga-Wójtowicz]{.sc}, Elżbieta, [Kowalski]{.sc}, Jan. *Tytuł pracy*, Wydawnictwo, Warszawa 2020.",
-    "kowalski2011": "[Kowalski]{.sc}, Andrzej (red.). *Tytuł tomu*, Wydawnictwo, Kraków 2011.",
-    "mroz2011": "[Mróz]{.sc}, Lech. *Tytuł rozdziału*, w: *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88–104.",
-    "kolaczek2012": "[Kołaczek]{.sc}, Małgorzata. *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 211–228. DOI: 10.1234/srom.2012.5.11.",
-    "turner1926": "[Turner]{.sc}, Ralph L. *The position of Romani*, „Journal of the Gypsy Lore Society”, 1926, t. 5, nr 4, s. 145–189.",
-    "hancock2007": "[Hancock]{.sc}, Ian. *Tytuł*, tłum. J. Nowak, Wydawnictwo, Warszawa 2007.",
-    "zrodlo1959": "[Nowak]{.sc}, Jan. *Tytuł źródła*, red. A. Kowalska, Wydawnictwo, Wien 1959.",
-    "fuente2020": "[Fuente]{.sc}, Alejandro de la, [Gross]{.sc}, Ariela J. *Becoming Free*, Cambridge University Press, Cambridge 2020.",
-    "hippel1995": "[Hippel]{.sc}, Wolfgang von. *Armut, Unterschichten, Randgruppen*, Oldenbourg, München 1995.",
+    "ficowski1985": "[Ficowski]{.sc} Jerzy. *Cyganie na polskich drogach*, Wydawnictwo Literackie, Kraków 1985.",
+    "mroz1998": "[Mróz]{.sc} Lech, [Bartosz]{.sc} Adam. *Tytuł pracy*, Wydawnictwo, Warszawa 1998.",
+    "fialkowska2020": "[Fiałkowska]{.sc} Kamila, [Garapich]{.sc} Michał P., [Mirga-Wójtowicz]{.sc} Elżbieta, [Kowalski]{.sc} Jan. *Tytuł pracy*, Wydawnictwo, Warszawa 2020.",
+    "kowalski2011": "[Kowalski]{.sc} Andrzej (red.). *Tytuł tomu*, Wydawnictwo, Kraków 2011.",
+    "mroz2011": "[Mróz]{.sc} Lech. *Tytuł rozdziału*, w: *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88–104.",
+    "kolaczek2012": "[Kołaczek]{.sc} Małgorzata. *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 211–228. DOI: 10.1234/srom.2012.5.11.",
+    "turner1926": "[Turner]{.sc} Ralph L. *The position of Romani*, „Journal of the Gypsy Lore Society”, 1926, t. 5, nr 4, s. 145–189.",
+    "hancock2007": "[Hancock]{.sc} Ian. *Tytuł*, tłum. J. Nowak, Wydawnictwo, Warszawa 2007.",
+    "zrodlo1959": "[Nowak]{.sc} Jan. *Tytuł źródła*, red. A. Kowalska, Wydawnictwo, Wien 1959.",
+    "fuente2020": "[Fuente]{.sc} Alejandro de la, [Gross]{.sc} Ariela J. *Becoming Free*, Cambridge University Press, Cambridge 2020.",
+    "hippel1995": "[Hippel]{.sc} Wolfgang von. *Armut, Unterschichten, Randgruppen*, Oldenbourg, München 1995.",
+    "edycja1865": "*Relacja z Plymouth*, red. H. Dexter, Wydawnictwo, Boston 1865.",
+    "odpowiedzi1957": "*Odpowiedzi na kwestionariusz*, tłum. i red. K.G. Loewald, P.S. Taylor, „The William and Mary Quarterly”, 1957, t. 14, nr 2, s. 205–231.",
     "list1900": "*Tytuł listu*, w: *Tytuł tomu*, red. R.G. Thwaites, t. 67, Wydawnictwo, Cleveland 1900.",
-    "demeter2018": "[Demeter]{.sc}, Nadezhda. *Istoriia tsygan* [Historia Cyganów], Nauka, Moskva 2018.",
-    "kopanska2018": "[Kopańska]{.sc}, Joanna. *Tytuł*, Uniwersytet Jagielloński, Kraków 2018 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej).",
-    "kowalskiweb": "[Kowalski]{.sc}, Andrzej. *Tytuł tekstu*, w: *Nazwa serwisu*, https://przyklad.pl/tekst [dostęp: 18.03.2025].",
+    "demeter2018": "[Demeter]{.sc} Nadezhda. *Istoriia tsygan* [Historia Cyganów], Nauka, Moskva 2018.",
+    "kopanska2018": "[Kopańska]{.sc} Joanna. *Tytuł*, Uniwersytet Jagielloński, Kraków 2018 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej).",
+    "kowalskiweb": "[Kowalski]{.sc} Andrzej. *Tytuł tekstu*, w: *Nazwa serwisu*, https://przyklad.pl/tekst [dostęp: 18.03.2025].",
 }
 
 POSITION_MD = (
@@ -138,6 +144,8 @@ def main():
         pairs.append(("short-form", n2[2], "Ficowski, *Cyganie na polskich drogach…*, s. 51."))
         n4 = notes_of(render("A [@hippel1995, s. 42]. B [@mroz1998, s. 1]. C [@hippel1995, s. 43].")["blocks"])
         pairs.append(("short form without the preposition particle (§ 9.5)", n4[2], "Hippel, *Armut, Unterschichten, Randgruppen*, s. 43."))
+        n5 = notes_of(render("A [@edycja1865, s. 88]. B [@mroz1998, s. 1]. C [@edycja1865, s. 89].")["blocks"])
+        pairs.append(("short form, anonymous source edition", n5[2], "*Relacja z Plymouth*, s. 89."))
         n3 = notes_of(render("A [@list1900, s. 314]. B [@mroz1998, s. 1]. C [@list1900, s. 315].")["blocks"])
         pairs.append(("short-form, chapter without author", n3[2], "*Tytuł listu*, s. 315."))
         check("NOTES", pairs)
@@ -165,7 +173,7 @@ def main():
             g.write("---\nlang: pl-PL\nnocite: '@*'\n---\n\nX\n")
         r = subprocess.run(["pandoc", g.name, "-f", "markdown-smart", "--citeproc", "--csl", CSL, "--bibliography", f.name, "-t", "plain"],
                            capture_output=True, text=True)
-        order = [ln.split(",")[0] for ln in r.stdout.splitlines() if ln.strip() and ln.strip() != "X"]
+        order = [ln.split(" ")[0] for ln in r.stdout.splitlines() if ln.strip() and ln.strip() != "X"]
         exp = ["CZARNECKI", "ĆWIEK", "FUENTE", "LEWANDOWSKI", "ŁODZIŃSKI", "SOWA", "ŚLIWA", "ZIELIŃSKI", "ŹREBIEC", "ŻAK"]   # de la Fuente under F (§ 9.5)
         pairs.append(("collation", " ".join(order), " ".join(exp)))
         check("POSITION", pairs)

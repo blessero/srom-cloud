@@ -118,7 +118,7 @@ ES3 with acorn if installed (sandbox: `npm i acorn` in `/home/claude/es3`; Mac: 
 ## House style in InDesign
 
 `indesign/style_spec.json` (v3, 29.09.2026) is the one definition of the SROM styles: 29 paragraph styles
-(15 at the root, most used first; folders "Rzadkie" and "Numer") and 8 character styles, with vol. 18's own
+(24 at the root, most used first — every style the DOCX uses must be there; folder "Numer") and 8 character styles, with vol. 18's own
 values (read from the templates in `dump/`), the document settings (baseline grid 13.2945 pt, Footnote Options)
 and the map old style → new style. `python3 scripts/make_style_setup.py` renders `indesign/srom_style_setup.jsx`
 (run on a blank document or a copy of an old one: purges every style, builds the house set, maps text in old

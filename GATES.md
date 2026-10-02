@@ -499,3 +499,24 @@ Source: MB's manchesterhive PDF (`work/Peripheral whiteness …pdf`), Chicago en
   CHECK: git -C ../_handoffs log --format=%s | grep -c "^typeset: T25\|^typeset: T26"
 - [x] V6: stale text: quick rule 9, decisions row 21, handover (no D21 open, G12 translated, 5a/5b), gate rule
   CHECK: grep -c "not in display elements" .claude/skills/srom-kanon/SKILL.md; grep -c "MB-decisions D21\.$\|D21 (speaker" .claude/skills/srom-produkcja/references/decisions.md docs/HANDOVER-produkcja.md; grep -c "a translated article" docs/HANDOVER-produkcja.md; grep -c "not files meant to change later" CLAUDE.md
+
+## Ostendorf INJECT test (MB, 02.10.2026) — Kanon v1.11, DOCX/template/report fixes — done 02.10.2026
+
+- [x] O1: editor first only for an edited volume; `classic` and edited articles title first; bibliography without the comma
+  CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-produkcja/tests/test_csl.py | tail -3
+  EXPECT: /NOTES ALL PASS[\s\S]*BIB ALL PASS[\s\S]*POSITION ALL PASS/
+- [x] O2: headings unnumbered; DOCX styles carry alignment and the Cambria default font
+  CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-produkcja/tests/test_e2e.py | grep -c "PASS headings unnumbered\|PASS DOCX styles carry\|PASS DOCX default font"
+  EXPECT: /^3$/
+- [x] O3: template v3 rebuilt (gaps, no dot after the note number, range rule, every DOCX style at the root) and checked in InDesign
+  CHECK: grep -c '"group": "Rzadkie"' .claude/skills/srom-produkcja/indesign/style_spec.json; unzip -p .claude/skills/srom-produkcja/indesign/SROM_szablon_v3.idml Resources/Styles.xml | grep -c 'ParagraphStyleGroup[^>]*Rzadkie'
+  EXPECT: /^0\s+0$/
+  EVIDENCE: indesign_check.py --template: INDESIGN CHECK ALL PASS 26/26 (control = vol. 18 603/603, 468/468)
+- [x] O4: Kanon v1.11 everywhere it is cited
+  CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-produkcja/tests/test_kanon.py | tail -1
+  EXPECT: /KANON ALL PASS/
+- [x] O5: post-import check: real attributes, duplicate styles, `~"`, notes in text order, attention list at the end
+  CHECK: grep -c 'notesInOrder\|exists twice\|"~\\""' .claude/skills/srom-produkcja/indesign/srom_postimport.jsx.tpl
+  EXPECT: /^[3-9]$/
+  EVIDENCE: in InDesign: MB's test file → 6 items (duplicate Przypis GWIAZDKOWY, 185 left-aligned paragraphs, Aptos);
+  the rebuilt DOCX in the rebuilt template → "RESULT: OK — import is clean"; Ibidem finds nn. 18, 22 on page turns

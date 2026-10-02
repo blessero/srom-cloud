@@ -10,6 +10,15 @@ var MAP = {
 /*MAP*/
 };
 
+// the story's footnotes in text order: story.footnotes is not always in that order (after placing into a
+// threaded template it may start mid-text and wrap round; 02.10.2026)
+function notesInOrder(story) {
+  var a = [], i, f = story.footnotes;
+  for (i = 0; i < f.length; i++) { a.push(f[i]); }
+  a.sort(function (x, y) { return x.storyOffset.index - y.storyOffset.index; });
+  return a;
+}
+
 function pad(n) { return (n < 10 ? "  " : (n < 100 ? " " : "")) + n; }
 
 function mainStory(doc) {
@@ -63,35 +72,41 @@ function main() {
   var doc = app.activeDocument;
   // one article in a larger document: put the cursor in its text first
   var story = selectedStory() || mainStory(doc);
-  var fns = story ? story.footnotes : [];
-  var out = [], bad = 0, checked = 0, k, n, cur, prv, a, b, txt;
+  var fns = story ? notesInOrder(story) : [];
+  var out = [], todo = [], checked = 0, k, n, cur, prv, a, b, txt, i;
   out.push("SROM Ibidem check — " + doc.name);
   out.push("footnotes in main story: " + fns.length + " / expected from build: " + EXPECTED_TOTAL);
   if (fns.length !== EXPECTED_TOTAL) {
     out.push("!! COUNT MISMATCH — numbering below is unreliable; fix the import first.");
-    bad++;
+    todo.push("footnote count differs from the build: run the post-import check first");
   }
   for (k in MAP) {
     if (!MAP.hasOwnProperty(k)) { continue; }
     n = parseInt(k, 10);
-    if (n < 2 || n > fns.length) { out.push(pad(n) + "  !! note not found"); bad++; continue; }
+    if (n < 2 || n > fns.length) { out.push(pad(n) + "  !! note not found"); todo.push("note " + n + ": not found"); continue; }
     cur = fns[n - 1]; prv = fns[n - 2];
     txt = cur.texts[0].contents;
     if (String(txt).indexOf("Ibidem") < 0) {
-      out.push(pad(n) + "  !! expected Ibidem, found: " + String(txt).substr(0, 60)); bad++; continue;
+      out.push(pad(n) + "  !! expected Ibidem, found: " + String(txt).substr(0, 60)); todo.push("note " + n + ": the build wrote Ibidem here, the document has other text — check the note by eye"); continue;
     }
     a = locate(prv); b = locate(cur); checked++;
     if (!a.ok || !b.ok) {
-      out.push(pad(n) + "  ?? cannot locate (" + (a.ok ? b.why : a.why) + ") — check by eye"); bad++;
+      out.push(pad(n) + "  ?? cannot locate (" + (a.ok ? b.why : a.why) + ") — check by eye"); todo.push("note " + n + ": cannot be located (" + (a.ok ? b.why : a.why) + "): check by eye once the text fits");
     } else if (a.page !== b.page || a.frame !== b.frame || a.col !== b.col) {
-      out.push(pad(n) + "  REPLACE (prev note p." + a.page + " col " + (a.col + 1) + ", this p." + b.page + " col " + (b.col + 1) + ")");
-      out.push("       with: " + MAP[k].full); bad++;
+      out.push(pad(n) + "  REPLACE: “Ibidem” points to note " + (n - 1) + " on p. " + a.page + (a.col ? " col " + (a.col + 1) : "") + ", but this note is on p. " + b.page + (b.col ? " col " + (b.col + 1) : "") + " (Kanon § 7.3)");
+      out.push("       type instead: " + MAP[k].full);
+      todo.push("note " + n + " (p. " + b.page + "): replace its text with the one shown at note " + n + " above (*…* = Kursywa)");
     } else {
       out.push(pad(n) + "  ok (p." + b.page + " col " + (b.col + 1) + ")");
     }
   }
   if (checked === 0) { out.push("no CSL Ibidem notes in this article."); }
-  out.push(bad === 0 ? "RESULT: OK" : "RESULT: " + bad + " item(s) need attention");
+  if (todo.length === 0) { out.push("RESULT: OK"); }
+  else {
+    out.push("");
+    out.push("RESULT: " + todo.length + " item(s) need attention:");
+    for (i = 0; i < todo.length; i++) { out.push("  " + (i + 1) + ". " + todo[i]); }
+  }
 
   var report = out.join("\r");
   var f;
@@ -99,7 +114,11 @@ function main() {
   catch (e) { f = new File(Folder.desktop + "/srom_ibidem.txt"); }
   f.encoding = "UTF-8";
   if (f.open("w")) { f.write(report); f.close(); }
-  alert(report.length > 1500 ? report.substr(0, 1500) + "\r…\rfull report: " + f.fsName : report);
+  if (report.length > 1800) {
+    // the attention list stays visible: the middle of a long report is cut, not the end
+    report = out.slice(0, 2).join("\r") + "\r…\r" + out.slice(out.length - todo.length - 2).join("\r") + "\r\rfull report: " + f.fsName;
+  }
+  alert(report);
 }
 
 main();

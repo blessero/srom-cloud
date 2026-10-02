@@ -18,7 +18,7 @@ PL = {"appliedFont": "krój", "fontStyle": "odmiana", "pointSize": "stopień", "
       "justification": "wyrównanie", "capitalization": "wersaliki", "hyphenation": "dzielenie", "gridAlignment": "siatka",
       "dropCapCharacters": "inicjał (znaki)", "dropCapLines": "inicjał (wiersze)", "appliedLanguage": "język", "position": "położenie",
       "composer": "składacz", "ruleBelow": "linia pod", "ruleBelowLineWeight": "grubość linii", "ruleBelowOffset": "odsunięcie linii",
-      "noBreak": "bez podziału", "desiredLetterSpacing": "odstęp liter (pożądany)"}
+      "noBreak": "bez podziału", "sameParaStyleSpacing": "odstęp między akapitami tego stylu", "desiredLetterSpacing": "odstęp liter (pożądany)"}
 VALS = {"LEFT_JUSTIFIED": "justowanie", "LEFT_ALIGN": "do lewej", "RIGHT_ALIGN": "do prawej", "CENTER_ALIGN": "do środka",
         "CENTER_JUSTIFIED": "justowanie, ostatni wiersz do środka", "AWAY_FROM_BINDING_SIDE": "od grzbietu", "TO_BINDING_SIDE": "do grzbietu", "ALIGN_BASELINE": "tak",
         "NONE": "nie", "ALL_CAPS": "tak", "NORMAL": "nie", "SMALL_CAPS": "kapitaliki", "CAP_TO_SMALL_CAP": "wersaliki → kapitaliki",

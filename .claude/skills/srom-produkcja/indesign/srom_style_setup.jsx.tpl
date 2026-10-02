@@ -5,7 +5,7 @@
 //   2. PURGE: every existing paragraph/character style is replaced by the house set — text in an old style
 //      takes its new style (Tekst → Tekst, Podrozdzial → Śródtytuł, Bez wciecia → Tekst BEZ WCIĘCIA …),
 //      anything unknown becomes Tekst / no character style;
-//   3. creates the house styles in panel order (working set at the top, folders "Rzadkie" and "Numer"),
+//   3. creates the house styles in panel order (working set at the top, then the rarer styles; folder "Numer"),
 //      with their values, GREP styles (non-breaking spaces, kanon § 3.3) and nested styles;
 //   4. reads every value back and reports what did not take.
 // A report is shown and saved next to the document (<name>_style_setup.txt; unsaved document: on the Desktop).

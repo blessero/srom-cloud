@@ -22,6 +22,7 @@ Style GREP w Tekście (dziedziczone) — styl znakowy *Bez podziału*:
 - `\h(?=%)` — before % (kanon § 3.3)
 - `(?<=\d)\h(?=\d{3}\b)` — thousands: 13 000 (kanon § 3.3)
 - `\h(?=–)` — a spaced dash never starts a line (kanon § 3.3)
+- `(?<![\w.])(?:\d+|[IVXLC]+)–(?:\d+|[IVXLC]+)(?!\w)` — a range is never broken at its dash: 1992–1995, s. 115–128, XIX–XX (kanon § 3.6; MB 02.10.2026)
 
 ## Na wierzchu (zestaw roboczy, od najczęstszych)
 
@@ -29,9 +30,9 @@ Style GREP w Tekście (dziedziczone) — styl znakowy *Bez podziału*:
 |---|---|---|---|---|
 | **Tekst BEZ WCIĘCIA** | Tekst | wcięcie akapitowe 0 | Bez wciecia, Abstrakt, Abstrakt ang | first paragraph after a heading, motto or speaker line; abstract and summary text (as Ellis) |
 | **Przypis** | Tekst | stopień 9; interlinia 10.8; wcięcie akapitowe 0; siatka nie; inicjał (znaki) 1; inicjał (wiersze) 1; styl zagnieżdżony *Indeks górny* przez inicjał | Przypis, Tekst przypisu dolnego, Tekst przypisu dolnego, Znak, footnote text, Footnote text, Footnote Text, Footnote, Footnote text_wrd_1, Tekst przypisu końcowego, Endnote text, sdendnote | footnotes, 9/10.8, not on the grid (a grid-aligned note would get 13.29 pt lines). The 1-line drop cap + nested style set the note number superscript — kept from vol. 18. |
-| **Śródtytuł** | Tekst | odmiana Bold; wersaliki tak; składacz Adobe World-Ready Single-line Composer; wyrównanie do lewej; wcięcie akapitowe 0; dzielenie nie; keepWithNext 2 | Podrozdzial, Heading 1, Abstrakt tytul | section heading: 10.5 bold capitals, left, no hyphenation (= vol. 18 'Podrozdzial'); also the bibliography title **Zmiana:** keep with next 2 lines (Kanon § 3.6: a heading never closes a column); vol. 18 had none. |
+| **Śródtytuł** | Tekst | odmiana Bold; wersaliki tak; składacz Adobe World-Ready Single-line Composer; wyrównanie do lewej; wcięcie akapitowe 0; dzielenie nie; keepWithNext 2; odstęp przed 13.29 (4.7 mm) | Podrozdzial, Heading 1, Abstrakt tytul | section heading: 10.5 bold capitals, left, no hyphenation (= vol. 18 'Podrozdzial'); also the bibliography title **Zmiana:** keep with next 2 lines (Kanon § 3.6: a heading never closes a column); vol. 18 had none. **Zmiana:** one grid line before (MB 02.10.2026; vol. 18 typed an empty paragraph); at the top of a column InDesign drops it. |
 | **Śródtytuł MAŁE** | Śródtytuł | wersaliki nie | Podrozdział SECONDARY | second-level heading and bibliography divisions: Śródtytuł without capitals **Zmiana:** replaces the unused 'Podrozdział SECONDARY' (11 pt, tracking −10, default H&J) — now Śródtytuł in lower case. |
-| **Cytat** | Tekst | stopień 9; interlinia 10.8; wcięcie akapitowe 0; wcięcie z lewej 28.35 (10.0 mm) | Cytat blokowy, Cytat_blokowy | block quotation and dialogue: 9 pt, indent 1 cm, on the grid, the H&J of Tekst **Zmiana:** leading 12 → 10.8 (= Przypis; prints the same, the grid sets the line). **Zmiana:** Ellis: 9 pt with default H&J and tracking −10 → Tekst's H&J, tracking 0 (MB 29.09.2026); Konferencja: 9.5 → 9 pt. |
+| **Cytat** | Tekst | stopień 9; interlinia 10.8; wcięcie akapitowe 0; wcięcie z lewej 28.35 (10.0 mm); odstęp przed 13.29 (4.7 mm); odstęp po 13.29 (4.7 mm); odstęp między akapitami tego stylu 0 | Cytat blokowy, Cytat_blokowy | block quotation and dialogue: 9 pt, indent 1 cm, on the grid, the H&J of Tekst **Zmiana:** leading 12 → 10.8 (= Przypis; prints the same, the grid sets the line). **Zmiana:** Ellis: 9 pt with default H&J and tracking −10 → Tekst's H&J, tracking 0 (MB 29.09.2026); Konferencja: 9.5 → 9 pt. **Zmiana:** one grid line before and after the quotation, none between its own paragraphs (a dialogue, a quotation of several paragraphs) (MB 02.10.2026; vol. 18 typed empty paragraphs). |
 | **Bibliografia** | Tekst | stopień 10; wcięcie akapitowe -11.34 (-4.0 mm); wcięcie z lewej 11.34 (4.0 mm) | Literatura | bibliography entry: 10 pt on the grid, hanging indent = the paragraph indent (4 mm) |
 | **Podpis** | Tekst | stopień 9; interlinia 10.8; wyrównanie justowanie, ostatni wiersz do środka; wcięcie akapitowe 0; siatka nie; dzielenie nie | Podpisy, Podpisy BLACK | caption (also the source line under a table) **Zmiana:** based on Tekst instead of Przypis (same values; drops the inherited drop cap). |
 | **Podpis LINIA** | Podpis | linia pod tak; grubość linii 0.4; odsunięcie linii 9.92 (3.5 mm) | Podpisy (z linią) | caption with the 0.4 pt rule below (as Ellis) |
@@ -41,20 +42,15 @@ Style GREP w Tekście (dziedziczone) — styl znakowy *Bez podziału*:
 | **Afiliacja** | Tekst BEZ WCIĘCIA | odmiana Italic; siatka nie; keepWithNext 2 | Uni | affiliation under the author's or the speaker's name: 10.5/13 italic, off the grid (= vol. 18 'Uni'); italics allowed in display lines (Kanon § 3.4, MB 29.09.2026) **Zmiana:** keep with next 2 lines (Kanon § 3.6). |
 | **Mówca** | Tekst BEZ WCIĘCIA | odmiana Bold Italic; wcięcie z lewej 2.83 (1.0 mm); keepWithNext 2; punktor „>” + tab; tabulator 9.92 pt | Panelant | speaker's own line in a transcript: '> Name', bold italic (= vol. 18 'Panelant'); italics allowed in display lines (Kanon § 3.4, MB 29.09.2026) **Zmiana:** keep with next 2 lines (Kanon § 3.6). |
 | **Tekst INICJAŁ** | Tekst BEZ WCIĘCIA | inicjał (znaki) 1; inicjał (wiersze) 2 | Inicjal | opening paragraph with a two-line drop cap (by hand) |
-
-## Folder „Rzadkie”
-
-| styl | na bazie | wartości (różnice) | zastępuje (tom 18) | uwagi |
-|---|---|---|---|---|
-| **Motto** | Cytat | odmiana Italic | — | opening quotation = Cytat in italics (as Ellis); a title inside it in Proste |
-| **Motto ŹRÓDŁO** | Cytat | wyrównanie do prawej; dzielenie nie | — | source line under the motto, roman, right |
+| **Motto** | Cytat | odmiana Italic; odstęp po 0 | — | opening quotation = Cytat in italics (as Ellis); a title inside it in Proste |
+| **Motto ŹRÓDŁO** | Cytat | wyrównanie do prawej; dzielenie nie; odstęp przed 0 | — | source line under the motto, roman, right |
 | **Cytat WIERSZ** | Cytat | wyrównanie do lewej; dzielenie nie | — | verse: lines kept (a justified line before a forced break would stretch) |
 | **Przypis GWIAZDKOWY** | Przypis | inicjał (znaki) 0; inicjał (wiersze) 0; GREP `^\*+` → *Indeks górny* | — | title note, translator's and editorial notes (one * series per page, above the numbered notes, kanon § 7.1); = Przypis |
 | **Tabela TYTUŁ** | Tekst | odmiana Bold; stopień 9; interlinia 10.8; wyrównanie do środka; wcięcie akapitowe 0; odstęp po 2.83 (1.0 mm); keepWithNext 1 | Tytuł tabeli | table title, 9 bold centred, on the grid **Zmiana:** leading 13 → 10.8 (prints the same on the grid). **Zmiana:** keep with next 1 line (stays with its table). |
 | **Tabela TREŚĆ** | Podpis | wyrównanie do lewej | — | table cell: the caption's 9/10.8, left |
-| **Przykład FORMA** | Cytat | odmiana Italic; wyrównanie do lewej; dzielenie nie | — | interlinear example (kanon § 5.3), line 1: the form, italic; columns by tabs |
-| **Przykład GLOSA** | Przykład FORMA | odmiana Regular; GREP `(?<!\l)\u{2,}(?!\l)` → *Kapitaliki GLOSA* | — | line 2: morpheme gloss, categories in small caps |
-| **Przykład PRZEKŁAD** | Przykład FORMA | odmiana Regular | — | line 3: translation in ‘ ’ |
+| **Przykład FORMA** | Cytat | odmiana Italic; wyrównanie do lewej; dzielenie nie; odstęp po 0 | — | interlinear example (kanon § 5.3), line 1: the form, italic; columns by tabs |
+| **Przykład GLOSA** | Przykład FORMA | odmiana Regular; odstęp przed 0; GREP `(?<!\l)\u{2,}(?!\l)` → *Kapitaliki GLOSA* | — | line 2: morpheme gloss, categories in small caps |
+| **Przykład PRZEKŁAD** | Przykład FORMA | odmiana Regular; odstęp przed 0; odstęp po 13.29 (4.7 mm) | — | line 3: translation in ‘ ’ |
 
 ## Folder „Numer”
 
@@ -66,7 +62,7 @@ Style GREP w Tekście (dziedziczone) — styl znakowy *Bez podziału*:
 | **Spis AUTOR** | Spis treści | odmiana Italic; światło -10; wyrównanie do lewej; wcięcie z lewej 0; odstęp przed 7.09 (2.5 mm); odstęp po 1.42; odstęp liter (pożądany) 0 | tresci_autor | contents: author line |
 | **Spis JĘZYKI** | Spis treści | stopień 9; interlinia 10; wyrównanie do lewej; odstęp przed 2.83 (1.0 mm) | spis tresci - jezyki | contents: other-language titles |
 
-Zmiany w Tekście: based on nothing instead of 'Normalny' (same values, one style fewer); five GREP rules of kanon § 3.3 added to the vol. 18 one; hyphenation zone 21.25 (a Word 'Normalny' leftover, read only by the single-line composer) and auto-leading 120 (the default) no longer written.
+Zmiany w Tekście: based on nothing instead of 'Normalny' (same values, one style fewer); five GREP rules of kanon § 3.3 and the range rule of § 3.6 (02.10.2026) added to the vol. 18 one; hyphenation zone 21.25 (a Word 'Normalny' leftover, read only by the single-line composer) and auto-leading 120 (the default) no longer written.
 
 ## Style znakowe
 

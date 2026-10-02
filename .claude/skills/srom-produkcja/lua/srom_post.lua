@@ -485,6 +485,18 @@ function speaker_label(inls)
   return out
 end
 
+-- Kanon § 2 (v1.11, MB 02.10.2026): headings are not numbered, even where the original numbers them.
+-- A leading "1.", "1.2." or "IV." followed by a space is dropped; a year ("1989 i potem") is not a number with a dot.
+local function unnumber(inls)
+  local a, b = inls[1], inls[2]
+  if a and b and a.t == "Str" and b.t == "Space"
+     and (a.text:match("^%d+%.[%d%.]*$") or a.text:match("^[IVXLC]+%.$")) then
+    warn("heading number removed (kanon §2): " .. a.text .. " " .. short(pandoc.List({table.unpack(inls, 3)})))
+    return pandoc.List({table.unpack(inls, 3)})
+  end
+  return inls
+end
+
 local process
 process = function(blocks, ctx)
   local out = pandoc.List()
@@ -498,7 +510,7 @@ process = function(blocks, ctx)
       elseif b.level == 1 then style = P.h1
       elseif b.level == 2 then style = P.h2
       else err("heading level " .. b.level .. " (kanon §2 allows two): " .. short(b.content)); style = P.h2 end
-      out:insert(styled_para(b.content, style))
+      out:insert(styled_para(ctx.mode == "bib" and b.content or unnumber(b.content), style))
     elseif t == "Para" or t == "Plain" then
       local style
       if ctx.fixed then style = ctx.fixed

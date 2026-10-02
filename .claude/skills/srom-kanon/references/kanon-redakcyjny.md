@@ -1,6 +1,6 @@
 # STUDIA ROMOLOGICA – KANON EDYTORSKI (DOKUMENT WEWNĘTRZNY)
 
-**Wersja 1.10 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
+**Wersja 1.11 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
 
 > Wersja dla autorów (*Wskazówki dla autorów*) jest skrótem tego dokumentu i nie zawiera § 13–17. W razie rozbieżności rozstrzyga niniejszy tekst.
 
@@ -42,8 +42,8 @@ Sekcje I–V nie różnią się zasadami składu. Recenzje (dz. IV) i kroniki (d
 
 ## 2. Tekst główny – struktura
 
-- Śródtytuły: **dwa poziomy**. Poziom 1 – cyfra arabska, wersaliki (`1. ROMANIPEN JAKO KATEGORIA`). Poziom 2 – numeracja dziesiętna, pismo proste półgrube (`1.2. Ujęcia normatywne`). Bez śródtytułów nienumerowanych; „Wstęp” i „Zakończenie” numerowane na równi.
-- Akapit: wcięcie pierwszego wiersza. **Bez wcięcia po śródtytule. Po cytacie blokowym – wcięcie, zawsze.** Bez odstępów międzyakapitowych.
+- Śródtytuły: **dwa poziomy, bez numeracji** – także wtedy, gdy oryginał lub maszynopis je numeruje (numer pomija się). Poziom 1 – wersaliki (`ROMANIPEN JAKO KATEGORIA`). Poziom 2 – pismo proste półgrube (`Ujęcia normatywne`). „Wstęp” i „Zakończenie” – na równi z pozostałymi.
+- Akapit: wcięcie pierwszego wiersza. **Bez wcięcia po śródtytule. Po cytacie blokowym – wcięcie, zawsze.** Bez odstępów międzyakapitowych; wyjątek: odstęp jednego wiersza przed śródtytułem oraz przed cytatem blokowym i po nim (nadaje go styl składu, nie pusty akapit; między akapitami jednego cytatu – bez odstępu).
 - Wyliczenia nienumerowane (punkty równorzędne, bez odwołań w tekście): półpauza jako punktor, człony małą literą, średnik na końcu, kropka po ostatnim.
 - Wyliczenia numerowane (gdy tekst odwołuje się do numeru pozycji, np. „zob. punkt 2”, lub kolejność/liczba pozycji ma znaczenie): cyfra arabska z kropką (`1.`, `2.`, `3.`), człony małą literą, średnik na końcu, kropka po ostatnim. Bez nawiasu po cyfrze (`1.`, nie `1)`).
 
@@ -173,7 +173,7 @@ Tekst artykułu: forma autorska. Indeks tomu, słowa kluczowe, rekord deponowany
 ## 7. Przypisy
 
 ### 7.1. Odsyłacz
-Cyfry arabskie, indeks górny, numeracja ciągła w obrębie artykułu, przypisy **dolne**. Odsyłacz **przed kropką, przecinkiem, średnikiem i dwukropkiem**, po cudzysłowie i nawiasie zamykającym; gdy zdanie kończy skrót z kropką (`XV w.`) – po tej kropce.
+Cyfry arabskie, indeks górny, numeracja ciągła w obrębie artykułu, przypisy **dolne**. W treści przypisu numer bez kropki, po nim odstęp (`⁴⁸ B. Hofland, …`). Odsyłacz **przed kropką, przecinkiem, średnikiem i dwukropkiem**, po cudzysłowie i nawiasie zamykającym; gdy zdanie kończy skrót z kropką (`XV w.`) – po tej kropce.
 
 **Przypisy nieautorskie** – przypis do tytułu, przypisy tłumacza (zakończone formułą `– przyp. tłum.`) i redakcji (`– przyp. red.`) – tworzą odrębny ciąg, oznaczany gwiazdkami (`*`, `**`, `***` …) i liczony od nowa na każdej stronie; na pierwszej stronie artykułu pierwszą gwiazdkę otrzymuje przypis do tytułu. Przypis do tytułu jest jeden: w artykule tłumaczonym najpierw nota o przekładzie (§ 12.2.3), po niej – jako dalszy akapit – przypis autora do tytułu (np. podziękowania). Stoją nad przypisami numerowanymi, tym samym stopniem i krojem co one. Numeracja ciągła obejmuje wyłącznie przypisy autora.
 
@@ -196,6 +196,8 @@ Cyfry arabskie, indeks górny, numeracja ciągła w obrębie artykułu, przypisy
 | Przekład | I. Hancock, *Tytuł*, tłum. J. Nowak, Wydawnictwo, Warszawa 2007, s. 33. |
 | Edycja źródła | F. Paucke, *Tytuł*, red. E. Becker-Donner, Wydawnictwo, Wien 1959, s. 183. |
 | Przekład i redakcja tej samej osoby | J. Nowak, *Tytuł*, tłum. i red. J. Robertson, Wydawnictwo, DeLand 1932, s. 118. |
+| Edycja źródła bez autora | *Tytuł relacji*, red. H. Dexter, Wydawnictwo, Boston 1865, s. 88. |
+| Artykuł – tekst opracowany przez redaktora | *Tytuł*, tłum. i red. K.G. Loewald, P.S. Taylor, „Tytuł czasopisma”, 1957, t. 14, nr 2, s. 220. |
 | Kolejne wydanie | A. Bartosz, *Tytuł*, wyd. 3 popr., Wydawnictwo, Tarnów 2019, s. 51. |
 | Wielotomowa | A. Kowalski, *Tytuł*, t. 2: *Tytuł tomu*, Wydawnictwo, Kraków 2015, s. 77. |
 | Hasło | A. Nowak, *Romani chib*, w: *Tytuł encyklopedii*, t. 4, Wydawnictwo, Warszawa 2010, s. 221. |
@@ -212,7 +214,7 @@ Zasady wspólne:
 - Strona lub zakres stron – zawsze, gdy przywołuje się określone miejsce dzieła, a bezwzględnie przy cytacie. Odwołanie do dzieła jako całości podaje się bez strony, także bez zakresu stron artykułu (ten podaje bibliografia). Każde takie odwołanie potwierdza redakcja; brak strony przy cytacie jest pytaniem do autora.
 - Lokalizacja inna niż strona – etykieta polska, liczby arabskie: dramat `akt 4, sc. 1, w. 883`; wersy `w. 93–96`; karty starodruków według sygnatur `k. S2r`, `k. D4v`; księga i rozdział `ks. 11, rozdz. 2`.
 - Odesłania: `zob.`, `zob. też`, `por.`; przytoczenie z drugiej ręki – `cyt. za`.
-- Redaktor tomu przed tytułem, gdy cytujemy tom jako całość; po tytule, gdy cytujemy rozdział. Edycja tekstu autora (źródło wydane przez badacza): autor przed tytułem, wydawca naukowy po tytule – `red.`; ta sama osoba jako tłumacz i redaktor – raz, `tłum. i red.`
+- Redaktor tomu przed tytułem, gdy cytujemy tom jako całość (praca zbiorowa); po tytule, gdy cytujemy rozdział. Edycja źródła bez autora i tekst opracowany przez redaktora w czasopiśmie – od tytułu, redaktor po nim; nigdy z redaktorem na miejscu autora. Edycja tekstu autora (źródło wydane przez badacza): autor przed tytułem, wydawca naukowy po tytule – `red.`; ta sama osoba jako tłumacz i redaktor – raz, `tłum. i red.`
 - Tekst bez autora w tomie zbiorowym (list, dokument, hasło) – redakcja ustala autora ze spisu treści lub nagłówka tomu; gdy się nie da – opis od tytułu, redaktor tomu po tytule tomu; każdy taki opis trafia do wykazu pytań.
 - **Uwagi o postaci fizycznej i miejscu przechowywania** (maszynopis, rękopis, egzemplarz w bibliotece) – w nawiasie okrągłym **na samym końcu pozycji**.
 
@@ -306,7 +308,7 @@ Adres URL jest w tekście do składu zwykłym tekstem, nie hiperłączem. Datę 
 ### 9.1. Relacja do przypisu
 Zapis bibliograficzny jest **tą samą konstrukcją co przypis**, z czterema różnicami – i żadną inną:
 
-1. **Nazwisko, przecinek, imię**; nazwisko kapitalikami (§ 9.3); imiona w pełnym brzmieniu.
+1. **Nazwisko, po nim imię – bez przecinka**; nazwisko kapitalikami (§ 9.3); imiona w pełnym brzmieniu. Przecinek oddziela kolejnych autorów.
 2. **Wszyscy autorzy wymienieni** – `i in.` nie występuje.
 3. Pełny zakres stron artykułu lub rozdziału.
 4. DOI; ISBN – jeżeli podał go autor.
@@ -321,12 +323,12 @@ Możliwe części, w tej kolejności: Wykaz skrótów · Źródła archiwalne (n
 Każda pozycja z przypisów musi wystąpić w bibliografii – z wyjątkiem pojedynczych jednostek archiwalnych, pojedynczych numerów prasy, aktów prawnych przywołanych jednorazowo. Drukuje się całą bibliografię autora, także pozycje nieprzywołane w przypisach.
 
 ### 9.3. Kapitaliki w nazwiskach
-> MRÓZ, Lech, BARTOSZ, Adam. *Tytuł pracy*, Wydawnictwo, Warszawa 1998.
+> MRÓZ Lech, BARTOSZ Adam. *Tytuł pracy*, Wydawnictwo, Warszawa 1998.
 
-Przecinek zachowuje zgodność z indeksem osobowym tomu (`MIRGA-WÓJTOWICZ, Elżbieta`).
+Bez przecinka po nazwisku (`MIRGA-WÓJTOWICZ Elżbieta`): kapitaliki same oddzielają nazwisko od imienia.
 
 1. **Prawdziwe kapitaliki OpenType** – nie „All Caps”, nie skalowane wersaliki. Krój bez kapitalików: wersaliki pełne, jak w indeksie.
-2. **Tylko nazwisko.** Przedrostki małą literą i bez kapitalików, na miejscu wskazanym w § 9.5: `HEUSCH, Luc de`, `FUENTE, Alejandro de la`, `HIPPEL, Wolfgang von`. Nazwiska złożone – oba człony. Autor instytucjonalny (urząd, organizacja) – bez kapitalików.
+2. **Tylko nazwisko.** Przedrostki małą literą i bez kapitalików, na miejscu wskazanym w § 9.5: `HEUSCH Luc de`, `FUENTE Alejandro de la`, `HIPPEL Wolfgang von`. Nazwiska złożone – oba człony. Autor instytucjonalny (urząd, organizacja) – bez kapitalików.
 3. **Kapitaliki to styl znakowy, nie dane.** W CSV i w rekordzie deponowanym nazwisko ma postać normalną (`Mróz`).
 
 ### 9.4. Wzorce
@@ -334,17 +336,18 @@ Przecinek zachowuje zgodność z indeksem osobowym tomu (`MIRGA-WÓJTOWICZ, Elż
 
 | Typ | Wzór |
 |---|---|
-| Książka | Ficowski, Jerzy. *Cyganie na polskich drogach*, Wydawnictwo Literackie, Kraków 1985. |
-| 2–3 autorów | Mróz, Lech, Bartosz, Adam. *Tytuł pracy*, Wydawnictwo, Warszawa 1998. |
-| 4 i więcej | Fiałkowska, Kamila, Garapich, Michał P., Mirga-Wójtowicz, Elżbieta, Kowalski, Jan. *Tytuł pracy*, Wydawnictwo, Warszawa 2020. |
-| Praca zbiorowa | Kowalski, Andrzej (red.). *Tytuł tomu*, Wydawnictwo, Kraków 2011. |
-| Rozdział | Mróz, Lech. *Tytuł rozdziału*, w: *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88–104. |
-| Artykuł | Kołaczek, Małgorzata. *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 211–228. DOI: 10.1234/srom.2012.5.11. |
-| Artykuł – tom i zeszyt | Turner, Ralph L. *The position of Romani*, „Journal of the Gypsy Lore Society”, 1926, t. 5, nr 4, s. 145–189. |
-| Przekład | Hancock, Ian. *Tytuł*, tłum. J. Nowak, Wydawnictwo, Warszawa 2007. |
-| Edycja źródła | Paucke, Florian. *Tytuł*, red. E. Becker-Donner, Wydawnictwo, Wien 1959. |
-| Cyrylica | Demeter, Nadezhda. *Istoriia tsygan*, Nauka, Moskva 2018. |
-| Niepublikowana | Kopańska, Joanna. *Tytuł*, Uniwersytet Jagielloński, Kraków 2018 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej). |
+| Książka | Ficowski Jerzy. *Cyganie na polskich drogach*, Wydawnictwo Literackie, Kraków 1985. |
+| 2–3 autorów | Mróz Lech, Bartosz Adam. *Tytuł pracy*, Wydawnictwo, Warszawa 1998. |
+| 4 i więcej | Fiałkowska Kamila, Garapich Michał P., Mirga-Wójtowicz Elżbieta, Kowalski Jan. *Tytuł pracy*, Wydawnictwo, Warszawa 2020. |
+| Praca zbiorowa | Kowalski Andrzej (red.). *Tytuł tomu*, Wydawnictwo, Kraków 2011. |
+| Rozdział | Mróz Lech. *Tytuł rozdziału*, w: *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88–104. |
+| Artykuł | Kołaczek Małgorzata. *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 211–228. DOI: 10.1234/srom.2012.5.11. |
+| Artykuł – tom i zeszyt | Turner Ralph L. *The position of Romani*, „Journal of the Gypsy Lore Society”, 1926, t. 5, nr 4, s. 145–189. |
+| Przekład | Hancock Ian. *Tytuł*, tłum. J. Nowak, Wydawnictwo, Warszawa 2007. |
+| Edycja źródła | Paucke Florian. *Tytuł*, red. E. Becker-Donner, Wydawnictwo, Wien 1959. |
+| Edycja źródła bez autora | *Tytuł relacji*, red. H. Dexter, Wydawnictwo, Boston 1865. |
+| Cyrylica | Demeter Nadezhda. *Istoriia tsygan*, Nauka, Moskva 2018. |
+| Niepublikowana | Kopańska Joanna. *Tytuł*, Uniwersytet Jagielloński, Kraków 2018 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej). |
 | Zespół archiwalny | Archiwum Narodowe w Krakowie (ANK), zespół 29/456: Starostwo Powiatowe w Tarnowie, sygn. 1–48. |
 | Archiwum postsowieckie | Arkhiv vneshneĭ politiki Rossiĭskoĭ imperii (AVPRI), f. 151. |
 | Rozmówca | W12 – mężczyzna, ur. 1951, Polska Roma, Tarnów, wywiad 14.06.2019; nagranie: Archiwum MET, sygn. AT/W/12. |
@@ -353,9 +356,9 @@ Przecinek zachowuje zgodność z indeksem osobowym tomu (`MIRGA-WÓJTOWICZ, Elż
 Alfabetycznie wg nazwiska pierwszego autora, porządek polski. Ten sam autor – chronologicznie; ten sam autor i rok – alfabetycznie wg tytułu. Prace autorskie przed współautorskimi. Pozycje transliterowane – wg formy transliterowanej.
 
 **Nazwiska z przedrostkiem i nazwiska złożone** – w formie hasła zgodnej ze zwyczajem języka osoby, jak w kartotece haseł wzorcowych Biblioteki Kongresu (LC NAF; także VIAF), i według tej formy szeregowane (tak samo *Chicago Manual of Style*, indeksy i bibliografie):
-- przedrostek-przyimek (niem. `von`, niderl. `van` w Holandii, fr. `de`, hiszp. `de`, `de la`, port. `da`, `dos`) – po imieniu: `Hippel, Wolfgang von`, `Fuente, Alejandro de la`, `Heusch, Luc de`;
-- rodzajnik lub przedrostek zrośnięty z nazwiskiem (fr. `La`, `Le`, `Du`; nazwiska angielskie i amerykańskie: `De Witt`, `Van Buren`) – na początku: `La Fontaine, Jean de`;
-- nazwiska hiszpańskie złożone – pod pierwszym członem (`Gómez Alfaro, Antonio`); portugalskie i brazylijskie – pod ostatnim (`Costa, Elisa Maria Lopes da`);
+- przedrostek-przyimek (niem. `von`, niderl. `van` w Holandii, fr. `de`, hiszp. `de`, `de la`, port. `da`, `dos`) – po imieniu: `Hippel Wolfgang von`, `Fuente Alejandro de la`, `Heusch Luc de`;
+- rodzajnik lub przedrostek zrośnięty z nazwiskiem (fr. `La`, `Le`, `Du`; nazwiska angielskie i amerykańskie: `De Witt`, `Van Buren`) – na początku: `La Fontaine Jean de`;
+- nazwiska hiszpańskie złożone – pod pierwszym członem (`Gómez Alfaro Antonio`); portugalskie i brazylijskie – pod ostatnim (`Costa Elisa Maria Lopes da`);
 - nazwiska islandzkie (patronimiczne) – pod imieniem (`Guðmundur Hálfdanarson`).
 W przypisie pierwszym nazwisko w pełnym brzmieniu (`A. de la Fuente`, `W. von Hippel`); w formie skróconej – bez przedrostka-przyimka (`Fuente`, `Hippel`).
 
@@ -563,7 +566,7 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 
 **Przecinek po tytule czasopisma.** Tom 18 stosował obie formy. Zapis jednolity, ze stroną na końcu, nie wymaga pamiętania wyjątków.
 
-**Kapitaliki z przecinkiem.** Wersaliki rozwiązują dwuznaczność przy wielu autorach; przecinek zachowuje zgodność z indeksem tomu.
+**Kapitaliki bez przecinka.** Kapitaliki rozwiązują dwuznaczność przy wielu autorach i same oddzielają nazwisko od imienia; przecinek po nazwisku (do wersji 1.10, dla zgodności z indeksem tomu) zdwajał przecinki między autorami (`Mróz, Lech, Bartosz, Adam`). Usunięty 02.10.2026 (MB).
 
 **Daty cyframi arabskimi.** Jeden format w całym aparacie zamiast dwóch; `dd.mm.rrrr` to domyślny zapis polskiego i europejskiego czytelnika. Miesiące rzymskie rozważono i odrzucono: usuwają dwuznaczność dzień/miesiąc tylko dla czytelnika amerykańskiego, marginalnego w przypisach polskojęzycznego czasopisma. Tomy wcześniejsze pozostają bez zmian.
 
@@ -646,5 +649,6 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.8 | Rozstrzygnięcia z 28–29.09.2026, dotąd dopisywane do wersji 1.7 jako uzupełnienia: 28.09.2026 (MB): § 7.1: rok ze stroną bez nazwiska – dzieło przywołane bezpośrednio przedtem; praca spoza bibliografii autora – wykaz pytań z propozycją opisu. § 8.6: tekst datowany w sieci – data publikacji, ustalana ze strony, gdy jej brak. 28.09.2026 (MB, tekst Ostendorf): § 7.2, § 9.4: edycja źródła – wydawca naukowy po tytule (`red.`), tłumacz i redaktor w jednej osobie – `tłum. i red.`; tekst bez autora w tomie zbiorowym – autor ustalany przez redakcję, inaczej opis od tytułu i pytanie. § 9.3, § 9.5: nazwiska z przedrostkiem i złożone – forma hasła wg zwyczaju języka osoby (LC NAF). 29.09.2026 (MB): § 3.4: zakaz kursywy nazw własnych dotyczy tekstu, nie elementów wydzielonych składu (pagina, mówca i afiliacja, spis treści). |
 | 1.9 | Rozstrzygnięcie z 30.09.2026 (MB): § 12.3 Pisownia – zasady Rady Języka Polskiego obowiązujące od 01.01.2026 (przymiotniki od nazw osobowych na `-owski` małą literą; `nie` z imiesłowami odmiennymi łącznie; nazwy mieszkańców wielką literą; `-by` po spójnikach rozdzielnie); cytaty i tytuły w pisowni źródła; formy wzorcowe z tomu 18/2025 w nowej pisowni bez zmiany brzmienia. |
 | 1.10 | Rozstrzygnięcie z 30.09.2026 (MB): § 12.3: spójniki złożone (`mimo że`, `zwłaszcza że` …) bez przecinka w środku; linter sygnalizuje. |
+| 1.11 | Rozstrzygnięcia z 02.10.2026 (MB, próbny skład tekstu Ostendorf): § 2: śródtytuły bez numeracji, także gdy oryginał je numeruje; odstęp jednego wiersza przed śródtytułem oraz przed cytatem blokowym i po nim. § 7.1: numer w treści przypisu bez kropki. § 7.2, § 9.4: edycja źródła bez autora i tekst opracowany przez redaktora w czasopiśmie – od tytułu, redaktor po tytule (nie na miejscu autora). § 9.1, § 9.3–9.5, § 14: w bibliografii bez przecinka po nazwisku (`Paucke Florian`). |
 
 Zmiany wchodzą w życie od kolejnego tomu. Tomy opublikowane nie podlegają retroaktywnemu ujednoliceniu.

@@ -85,11 +85,15 @@ def main():
         idml = os.path.join(w, stem + ".idml")
         shutil.copy(os.path.join(DUMP, stem + ".idml"), idml)
         sp = copy.deepcopy(spec)
+        sp["document"]["footnotes"]["separatorText"] = ".\u2002"        # vol. 18: "." + en space (MB 02.10.2026: no dot)
         for p in sp["paragraph"]:
             if p["name"] == "Tekst":
                 p["grep"] = p["grep"][:1]
             if p["name"] == "Cytat":
                 p["props"].update(OLD_CYTAT[stem])
+            for k in ("spaceBefore", "spaceAfter"):                      # vol. 18 typed empty paragraphs (MB 02.10.2026: style gaps)
+                if k in p["props"]:
+                    p["props"][k] = 0
         keeps = os.path.join(w, f"keeps_{stem}.jsx")
         open(keeps, "w", encoding="utf-8").write(tpl.replace("/*SPEC*/", json.dumps(sp, ensure_ascii=True)))
         for p in sp["paragraph"]:
@@ -120,7 +124,8 @@ def main():
         pk = pymupdf.open(P["keeps"] + ".pdf").page_count
         pb, pr = pymupdf.open(P["before"] + ".pdf").page_count, pymupdf.open(P["real"] + ".pdf").page_count
         t(f"{stem}: keeps run keeps the page count ({pb} → {pk})", pb == pk)
-        t(f"{stem}: real run keeps the page count ({pb} → {pr})", pb == pr)
+        # the real run adds the heading and quotation gaps (02.10.2026) on top of vol. 18's typed empty paragraphs
+        t(f"{stem}: real run adds at most one page ({pb} → {pr})", pb <= pr <= pb + 1, (pb, pr))
         sm = difflib.SequenceMatcher(None, [x[5] for x in b], [x[5] for x in r], autojunk=False)
         moved = sum(i2 - i1 for op, i1, i2, _, _ in sm.get_opcodes() if op in ("replace", "delete"))
         print(f"     info: {moved}/{len(b)} lines re-broken in the real run (no-break rules of Kanon § 3.3, unified Cytat)")

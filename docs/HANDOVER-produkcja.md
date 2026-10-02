@@ -1,4 +1,4 @@
-# srom-produkcja — handover (state at 01.10.2026)
+# srom-produkcja — handover (state at 02.10.2026)
 
 For the next session (Claude Code). Start with `../_handoffs/tlumacz-to-produkcja.md` (incoming) and
 `../_handoffs/MB-decisions.md` (the one list of MB's decisions — this file keeps none), per `../CLAUDE.md`. Then this,
@@ -43,6 +43,7 @@ check (in `_extract.md`); `lookup.py dois` (Kanon § 9.7: registry check of give
 `<stem>_citations.json` → `volumes/<vol>/citations/<article_id>.json` at INJECT → srom-quant `<citation_list>`;
 `volumes/ror.tsv` (13 of vol. 18's 15 institutions) → ROR in Crossref affiliations; `srom-quant/scripts/wikidata_qs.py`.
 The old per-article copies (`work/<id>/wordcheck.py`, `source_imprints.py`, `doi_check.txt`) stay: closed gates re-run them.
+**Kanon v1.11** (02.10.2026, MB, after the Ostendorf INJECT test): headings unnumbered; a line before headings and around block quotations; note number without a dot; no comma after the surname in the bibliography; anonymous source editions and edited articles title first (item 7a).
 **Kanon v1.10** (30.09.2026, MB): § 12.3 compound conjunctions without a comma inside; linter WARN `PUNCT-SPOJNIK` (the one
 rule from Zawisławska's error corpus that measured clean on 19 texts; title case, *poprzez*, *posiadać* dropped as noise).
 `check.py --pair`: WARN when a paragraph's length leaves 0.8–1.25 of the text's usual target/source ratio (a dropped or
@@ -203,6 +204,16 @@ G12) after.
    with sha256; here `take_back.py` → `work/<id>/pl/` → `build.py` from there → status line. First expected: Ndiaye.
    Waiting for srom-tlumacz to align its PLAN/HANDOVER and test (T26).
 6. ~~Kartoteka E12 flags~~ — done (E13/T9): Nawar, Gurbati, Halabi italic; Mutribowie, Gadżar, Garaczi roman (assimilated).
+7a. **First real INJECT test** (MB, 02.10.2026: Ostendorf's draft, `work/ostendorf/build_inject/`, placed in the v3
+   template, `dump/SROM_Ostendorf Test.idml`; postimport, Ibidem and asterisk scripts run). Found and fixed (Kanon v1.11,
+   decisions row 24; reproduced and re-checked in InDesign with `place_probe`-style runs): justified styles arrived
+   left-aligned (the DOCX styles had no alignment); Przypis GWIAZDKOWY arrived as a new root style based on Word's
+   Normal (the import ignores style folders → "Rzadkie" dissolved); editors printed in the author's place (nn. 34, 41,
+   51: keying + CSL; `type: classic`, OST-9 open); "1. WSTĘP" numbering, dot after the note number, comma after the
+   surname, no gap before headings and around quotations, ranges broken at the dash — all now per v1.11. The
+   post-import check counted InDesign's phantom override flags and every curly quote as "straight": now it compares
+   real attributes, finds duplicate styles, uses `~"`, and lists all attention items at the end (also Ibidem, asterisks).
+   Open offers to MB (not built): asterisk and Ibidem scripts that apply their fixes; PDF bookmarks + XMP metadata.
 7. Stage 3: ~~house style / reduce the style set (§4, D3)~~ — done 29.09.2026 (house style v3, §4). Next: G12, the first
    real article placed in a v3 template — **a translated article** (Ndiaye after MB's edit, via 5b; review
    29.09.2026 row 6), so that `_postimport.jsx`, `_ibidem.jsx` and `_gwiazdki.jsx`, never yet run in InDesign, are proven

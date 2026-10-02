@@ -38,7 +38,9 @@ def depth(n, seen=()):
     return 0 if not b else 1 + depth(b, seen + (n,))
 t("no 'based on' cycles, hierarchy at most 4 deep", all(depth(n) <= 4 for n in P), {n: depth(n) for n in P})
 root = [p["name"] for p in spec["paragraph"] if p["group"] == ""]
-t("working set at the root: at most 16 styles, Tekst / Tekst BEZ WCIĘCIA / Przypis first (a designer's panel)", len(root) <= 16 and root[:3] == ["Tekst", "Tekst BEZ WCIĘCIA", "Przypis"], root)
+docx_styles = set(json.load(open(os.path.join(ROOT, "config", "styles.json"), encoding="utf-8"))["paragraph"].values())
+t("every style the DOCX uses is at the root (InDesign's Word import matches names at the root only), Tekst / Tekst BEZ WCIĘCIA / Przypis first",
+  docx_styles <= set(root) and root[:3] == ["Tekst", "Tekst BEZ WCIĘCIA", "Przypis"], sorted(docx_styles - set(root)))
 t("at most 30 paragraph and 8 character styles in all", len(P) <= 30 and len(C) <= 8, (len(P), len(C)))
 t("names short enough for a narrow panel (≤ 20 characters)", all(len(n) <= 20 for n in list(P) + list(C)), [n for n in list(P) + list(C) if len(n) > 20])
 # every style of the vol. 18 templates goes somewhere on purpose
@@ -122,7 +124,8 @@ if os.path.isdir(DUMP):
             if ik in o and sk in n:
                 compared += 1
             if ik in o and sk in n and conv(ik, o[ik]) != (round(n[sk], 3) if isinstance(n[sk], float) else n[sk]):
-                if not (sk == "justification" and new == "Autor") and not (sk == "hyphenation" and new == "Autor"):   # Autor: deliberate, one-line name
+                if not (sk == "justification" and new == "Autor") and not (sk == "hyphenation" and new == "Autor") \
+                        and not (sk == "spaceBefore" and new == "Śródtytuł"):   # deliberate: Autor one-line name; heading gap (MB 02.10.2026)
                     bad.setdefault(new, []).append((sk, o[ik], n[sk]))
     t(f"kept styles resolve to the vol. 18 values (dump/*.idml; {compared} values compared)", not bad and compared > 150, (compared, bad))
 else:

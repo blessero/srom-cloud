@@ -38,11 +38,12 @@
   </locale>
 
   <!-- ============ names ============ -->
-  <!-- a chapter (letter, entry) without an author opens with its title: the volume's editor is printed after the
-       volume title (§ 7.2), never in the author's place -->
+  <!-- the editor stands in the author's place only for an edited volume cited as a whole (§ 7.2 "Praca zbiorowa").
+       A chapter (letter, entry), an edited article and an anonymous edition of a source (CSL type "classic",
+       MB 02.10.2026, Ostendorf nn. 34, 41) open with their title; their editor follows the title -->
   <macro name="author-note">
     <choose>
-      <if type="chapter paper-conference entry-encyclopedia entry-dictionary" match="any">
+      <if type="chapter paper-conference entry-encyclopedia entry-dictionary article-journal article-magazine article-newspaper classic" match="any">
         <names variable="author">
           <name initialize-with="." delimiter=", " delimiter-precedes-et-al="never"/>
         </names>
@@ -62,7 +63,7 @@
   </macro>
   <macro name="author-short">
     <choose>
-      <if type="chapter paper-conference entry-encyclopedia entry-dictionary" match="any">
+      <if type="chapter paper-conference entry-encyclopedia entry-dictionary article-journal article-magazine article-newspaper classic" match="any">
         <names variable="author">
           <name form="short" delimiter=", " delimiter-precedes-et-al="never"/>
         </names>
@@ -79,21 +80,21 @@
   </macro>
   <macro name="author-bib">
     <choose>
-      <if type="chapter paper-conference entry-encyclopedia entry-dictionary" match="any">
+      <if type="chapter paper-conference entry-encyclopedia entry-dictionary article-journal article-magazine article-newspaper classic" match="any">
         <names variable="author">
-          <name name-as-sort-order="all" sort-separator=", " delimiter=", " delimiter-precedes-last="always">
+          <name name-as-sort-order="all" sort-separator=" " delimiter=", " delimiter-precedes-last="always">
             <name-part name="family" font-variant="small-caps"/>
           </name>
         </names>
       </if>
       <else>
     <names variable="author">
-      <name name-as-sort-order="all" sort-separator=", " delimiter=", " delimiter-precedes-last="always">
+      <name name-as-sort-order="all" sort-separator=" " delimiter=", " delimiter-precedes-last="always">
         <name-part name="family" font-variant="small-caps"/>
       </name>
       <substitute>
         <names variable="editor">
-          <name name-as-sort-order="all" sort-separator=", " delimiter=", " delimiter-precedes-last="always">
+          <name name-as-sort-order="all" sort-separator=" " delimiter=", " delimiter-precedes-last="always">
             <name-part name="family" font-variant="small-caps"/>
           </name>
           <label form="short" prefix=" (" suffix=")"/>
@@ -105,7 +106,7 @@
   </macro>
   <macro name="author-sort">
     <choose>
-      <if type="chapter paper-conference entry-encyclopedia entry-dictionary" match="any">
+      <if type="chapter paper-conference entry-encyclopedia entry-dictionary article-journal article-magazine article-newspaper classic" match="any">
         <names variable="author">
           <name name-as-sort-order="all" sort-separator=", " delimiter=", "/>
           <substitute>
@@ -138,7 +139,8 @@
   </macro>
   <!-- a book with an author and an editor (an edition of a source: "ed. E. Becker-Donner"): the editor after the
        title, as for a chapter's volume (§ 7.2); editor and translator the same people ("trans. and ed.") -> once,
-       "tłum. i red.". A book without an author has its editor in the author's place (substituted there, so not here). -->
+       "tłum. i red.". An edited volume without an author has its editor in the author's place (substituted there, so not
+       here); an edited article or an anonymous source edition ("classic") has it here. -->
   <macro name="editor-translator">
     <names variable="editor translator" delimiter=", ">
       <label form="verb-short" suffix=" "/>
@@ -299,6 +301,7 @@
     <choose>
       <if type="article-journal article-magazine article-newspaper" match="any">
         <group delimiter=", ">
+          <text macro="editor-translator"/>
           <text macro="container"/>
           <text macro="serial-details"/>
         </group>

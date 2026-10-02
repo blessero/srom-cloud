@@ -135,3 +135,19 @@ keywords (Cambridge Core chapter page, not the PDF) — now in `ostendorf_src_fr
 - **D4** Note 41: Urlsperger's title ends "erster [Theil]" but the locator is 3:979 (vol. 3). Which part/volume?
   29.09.2026: answered by the originals (B12): vol. 3 is right, the title is volume 1's; nothing to ask the author.
 - **D5** Note 44: Tucker's *Blackstone's Commentaries* (1803) has five volumes; pp. 33, 165–66 of which?
+
+## OST-9 · Who stands first in three edited texts (02.10.2026 01:48, srom-produkcja)
+
+MB's test layout (02.10.2026) printed editors in the author's place: n. 34 „H. Dexter (red.), *Mourt's Relation…*”,
+n. 41 „K.G. Loewald, B. Starika, P.S. Taylor (red.), *Johann Martin Bolzius Answers…*” (twice), n. 51 „W. Cambell (red.),
+*The Life and Writings…*”. Cause: refs.json keyed them as edited volumes (editor, no author), and the style printed any
+editor-only item with the editor first. The author's own notes open with the title in nn. 34 and 51 ("*Mourt's
+Relation…*, ed. Henry Dexter"; "*The Life and Writings…*, ed. William Cambell"); in n. 41 she puts the editors first
+("Klaus G. Loewald, Beverly Starika and Paul S. Taylor, trans. and eds.").
+Fixed (Kanon v1.11): `mourt1865`, `clinton1849` → `type: classic` (an edition of a source: title first, „red.” after it);
+`loewald1957`/`1958` stay articles, now printed title first with „tłum. i red.” (translator and editors as the author
+gives them). Keys and tokens unchanged; the translation is not affected.
+Open (MB-decisions OST-9): who stands first. Checked 02.10.2026: Crossref 10.2307/1922111 (Part I) lists Loewald,
+Starika, Taylor as authors; 10.2307/1919443 (Part II) the same three plus Johann Martin Bolzius. archive.org's copies of
+Clinton 1849 (`lifewritingsofde00clin`, `lifeandwritings00campgoog`) give Clinton, DeWitt and Campbell, William W.
+Proposed: title first in all three (as now); Campbell's spelling per B4.

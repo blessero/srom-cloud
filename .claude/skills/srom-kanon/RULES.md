@@ -1,4 +1,4 @@
-# SROM RULES — English digest of the Kanon (v1.10)
+# SROM RULES — English digest of the Kanon (v1.11)
 
 Normative text: `references/kanon-redakcyjny.md` — *Kanon edytorski Studia Romologica* (Polish, internal), in this skill. This file is its compact English digest; **section numbers are the Kanon's**. If the two differ, the Kanon governs and this file is corrected. New rules go into the Kanon first (with a § 17 entry), then here.
 
@@ -16,7 +16,7 @@ Author · affiliation (or `badacz niezależny, [town]`) · **ORCID** · title PL
 
 ## 2. Body
 
-Two heading levels: `1. CAPS`, `1.2. Bold roman`; no unnumbered headings. First-line indent; **none after a heading; always after a block quote.** No paragraph spacing.
+Two heading levels: `CAPS`, `Bold roman`, **never numbered** — not even when the original numbers them (the build drops the number). First-line indent; **none after a heading; always after a block quote.** No paragraph spacing, except one line before a heading and before and after a block quote (set by the styles; none between the paragraphs of one quote).
 
 **Lists.** Unnumbered (no in-text reference to an item's number) → en-dash bullets, lowercase, semicolons, final period. Numbered (text refers to an item by number, or sequence/count matters) → arabic `1.` `2.` `3.` (never `1)`), lowercase, semicolons, final period.
 
@@ -71,7 +71,7 @@ Common nouns italic on first use (§ 5.1). Gloss: `rom. *kris* ‘sąd’` (§ 5
 ## 7. Footnotes
 
 ### 7.1. Marker and note series
-Superscript arabic, continuous, foot of page. Marker **before the period, comma, semicolon and colon**, after closing quote/bracket; after an abbreviation's own period (`XV w.³`).
+Superscript arabic, continuous, foot of page; in the note itself the number has no full stop (`⁴⁸ B. Hofland, …`). Marker **before the period, comma, semicolon and colon**, after closing quote/bracket; after an abbreviation's own period (`XV w.³`).
 **Non-author notes** — title note, translator's notes (ending `– przyp. tłum.`), editorial notes (`– przyp. red.`) — are **one separate series** marked `*`, `**`, `***` …, restarting on every page; on the first page the title note takes the first `*`. There is one title note: in a translation, the translation note first, then the author's own note on the title as a further paragraph. They stand **above** the numbered notes, same size and face. Continuous numbering covers the author's notes only.
 **Author-date conversion:** parenthetical `(A 1985)` → marker in its place; narrative `Ficowski (1985) twierdzi` → marker right after the name; page-only `(s. 21)` → citation of the work cited just before; year and page without a name `(1992, 81)` → the work of the author named earlier in the sentence/note, else the work cited just before if the year matches, else the author's only work of that year, queried; a work cited but missing from the author's list → query with a proposed description (author confirms), not added; `Name (year)` where the name is no cited author (`w Warszawie (1920)`) stays.
 
@@ -89,6 +89,7 @@ Superscript arabic, continuous, foot of page. Marker **before the period, comma,
 | Article vol+issue | `S. Płoski, *Tytuł*, „Dzieje Najnowsze”, 1947, t. 1, z. 2, s. 310.` |
 | Translation | `I. Hancock, *Tytuł*, tłum. J. Nowak, Wydawnictwo, Warszawa 2007, s. 33.` |
 | Edition of a source | `F. Paucke, *Tytuł*, red. E. Becker-Donner, Wydawnictwo, Wien 1959, s. 183.` |
+| Anonymous source edition; edited text in a journal | `*Tytuł relacji*, red. H. Dexter, Wydawnictwo, Boston 1865, s. 88.` · `*Tytuł*, tłum. i red. K.G. Loewald, „Czasopismo”, 1957, t. 14, nr 2, s. 220.` — title first; the editor stands first only for an edited volume cited whole (v1.11) |
 | Translator = editor | `J. Nowak, *Tytuł*, tłum. i red. J. Robertson, Wydawnictwo, DeLand 1932, s. 118.` |
 | Edition | `A. Bartosz, *Tytuł*, wyd. 3 popr., Wydawnictwo, Tarnów 2019, s. 51.` |
 | Multivolume | `A. Kowalski, *Tytuł*, t. 2: *Tytuł tomu*, …, s. 77.` |
@@ -128,19 +129,19 @@ Same construction as the note, four differences only: **`Surname, Given-name.`**
 
 | Type | Pattern |
 |---|---|
-| Book | `Ficowski, Jerzy. *Cyganie na polskich drogach*, Wydawnictwo Literackie, Kraków 1985.` |
-| 2–3 | `Mróz, Lech, Bartosz, Adam. *Tytuł*, Wydawnictwo, Warszawa 1998.` |
-| 4+ | `Fiałkowska, Kamila, Garapich, Michał P., Mirga-Wójtowicz, Elżbieta, Kowalski, Jan. *Tytuł*, …` |
-| Edited | `Kowalski, Andrzej (red.). *Tytuł tomu*, Wydawnictwo, Kraków 2011.` |
-| Chapter | `Mróz, Lech. *Tytuł rozdziału*, w: *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88–104.` |
+| Book | `Ficowski Jerzy. *Cyganie na polskich drogach*, Wydawnictwo Literackie, Kraków 1985.` |
+| 2–3 | `Mróz Lech, Bartosz Adam. *Tytuł*, Wydawnictwo, Warszawa 1998.` |
+| 4+ | `Fiałkowska Kamila, Garapich Michał P., Mirga-Wójtowicz Elżbieta, Kowalski Jan. *Tytuł*, …` |
+| Edited | `Kowalski Andrzej (red.). *Tytuł tomu*, Wydawnictwo, Kraków 2011.` |
+| Chapter | `Mróz Lech. *Tytuł rozdziału*, w: *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88–104.` |
 | Article | `Kołaczek, Małgorzata. *Tytuł*, „Studia Romologica”, 2012, nr 5, s. 211–228. DOI: 10.1234/srom.2012.5.11.` |
 | Cyrillic | `Demeter, Nadezhda. *Istoriia tsygan*, Nauka, Moskva 2018.` |
 | Unpublished | `Kopańska, Joanna. *Tytuł*, Uniwersytet Jagielloński, Kraków 2018 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej).` |
 | Informant | `W12 – mężczyzna, ur. 1951, Polska Roma, Tarnów, wywiad 14.06.2019; nagranie: Archiwum MET, sygn. AT/W/12.` |
 
 **9.2 Divisions**, in this order, only those present, headed but **unnumbered**; a bibliography with a single division has no division heading: Abbreviations · Archives (fonds level) · Fieldwork · Printed/legal · Web without DOI · Literature. Coverage: every cited work, except single archival units, single press issues, one-off legal acts; and the author's whole bibliography, cited or not.
-**9.3 Small caps:** genuine OpenType (fallback: full caps, as in the index); surname only; particles lowercase and outside small caps, placed as § 9.5 says (`HEUSCH, Luc de`); institutional authors not in small caps. **Character style, never data.** Comma kept for consistency with the volume index.
-**9.5 Order:** Polish collation by transliterated form; same author chronological, then by title; sole-author works before co-authored. **Particles and compound surnames:** the heading form of the name's own language, as in LC NAF/VIAF (also Chicago): preposition particles after the given name (`Hippel, Wolfgang von`, `Fuente, Alejandro de la`, `Heusch, Luc de`); articles and fused particles first (`La Fontaine`, English/American `De Witt`, `Van Buren`); Spanish compounds under the first element, Portuguese/Brazilian under the last (`Costa, Elisa Maria Lopes da`); Icelandic under the forename. First note: full form (`A. de la Fuente`); short form without the preposition particle (`Fuente`).
+**9.3 Small caps:** genuine OpenType (fallback: full caps, as in the index); surname only; particles lowercase and outside small caps, placed as § 9.5 says (`HEUSCH Luc de`); institutional authors not in small caps. **Character style, never data.** **No comma after the surname** (`Paucke Florian`; v1.11, 02.10.2026): the small caps mark the surname; commas separate authors.
+**9.5 Order:** Polish collation by transliterated form; same author chronological, then by title; sole-author works before co-authored. **Particles and compound surnames:** the heading form of the name's own language, as in LC NAF/VIAF (also Chicago): preposition particles after the given name (`Hippel Wolfgang von`, `Fuente Alejandro de la`, `Heusch Luc de`); articles and fused particles first (`La Fontaine`, English/American `De Witt`, `Van Buren`); Spanish compounds under the first element, Portuguese/Brazilian under the last (`Costa Elisa Maria Lopes da`); Icelandic under the forename. First note: full form (`A. de la Fuente`); short form without the preposition particle (`Fuente`).
 **9.7 Identifiers:** DOI mandatory where one exists, printed `DOI: 10.1234/abcd` (no `https://doi.org/`). An article without DOI (online journal): its URL in the bibliography in the DOI's place. ISBN only in the bibliography and only when the author gives it (not added), printed `ISBN 978-…` without a colon.
 
 ### 9.6. Cyrillic
