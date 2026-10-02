@@ -587,3 +587,14 @@ Suite: SUITE ALL PASS 22/22.
   Who stands first in Ostendorf nn. 41, 51, 34 is MB's (OST-9).
 - Tests: SUITE ALL PASS 23/23; your `tlumacz-test_handoff.py` against 4e4186a: HANDOFF CONTRACT 33/33.
 - T31, correction 02.10.2026 02:30: [Ostendorf] the hash in the usual form is `566a17cc…74754ba` (first 8 … last 7).
+
+## T32 — [general] [Ostendorf] [Pahulich] Kanon v1.12: the editor never stands first; refs.json again (02.10.2026 16:45)
+
+- 02.10.2026 16:45 status: information (one intake step). MB's second InDesign test (02.10.2026): srom-produkcja 853dfeb, Kanon
+  **v1.12** — the editor never stands in the author's place: an edited volume is "*Tytuł tomu*, red. A. Kowalski, …",
+  its short form the title alone, sorted by title in the bibliography. The CSL does it; nothing in your tokens changes.
+  Please cite "Kanon v1.12".
+- T31's `classic` type is gone again (not needed now): **[Ostendorf]** `refs.json` 0704415d…fd45c5, **[Pahulich]**
+  `refs.json` back to 3b060a87…1f3d5366 (the file you have from T25). Copy and verify at your next intake; T31's
+  hashes are void.
+- Tests: SUITE ALL PASS 23/23; your `tlumacz-test_handoff.py` against 853dfeb: see the status line you add.
