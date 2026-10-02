@@ -83,26 +83,32 @@ NOTES = [
     ("nowakblog", None, "A. Nowak, *Tytuł wpisu*, w: *Nazwa serwisu*, 05.10.2016, https://przyklad.pl/wpis."),
     ("papusza", "00:42:15", "*Papusza*, reż. J. Kos-Krauze, K. Krauze, Polska 2013, 00:42:15."),
     ("czas1928", "s. 2", "„Czas”, 03.05.1928, s. 2."),
+    # § 7.2 (v1.13): editors and translators by initial in the notes, an Icelandic name too (MB 02.10.2026, Ostendorf)
+    ("rozdzialisl2003", "s. 80", "W. O’Reilly, *Divide et impera: Race and Administration*, w: *Tytuł tomu*, red. G. Hálfdanarson, A.K. Isaacs, tłum. J. Nowak, Edizioni Plus, Pisa 2003, s. 80."),
+    # § 3.4: a title within a title, keyed <i>, is set roman inside the italic title (nested emphasis: roman in the DOCX)
+    ("tytulwtytule2021", "s. 3", "N. Ndiaye, *Race and Dance in *The Spanish Gypsie**, „Czasopismo”, 2021, t. 5, s. 3."),
 ]
 
+# § 9.1 (v1.13, MB 02.10.2026): the bibliography gives every name in full, editors and translators too
 BIB = {
-    "ficowski1985": "[Ficowski]{.sc} Jerzy. *Cyganie na polskich drogach*, Wydawnictwo Literackie, Kraków 1985.",
-    "mroz1998": "[Mróz]{.sc} Lech, [Bartosz]{.sc} Adam. *Tytuł pracy*, Wydawnictwo, Warszawa 1998.",
-    "fialkowska2020": "[Fiałkowska]{.sc} Kamila, [Garapich]{.sc} Michał P., [Mirga-Wójtowicz]{.sc} Elżbieta, [Kowalski]{.sc} Jan. *Tytuł pracy*, Wydawnictwo, Warszawa 2020.",
-    "kowalski2011": "*Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011.",
-    "mroz2011": "[Mróz]{.sc} Lech. *Tytuł rozdziału*, w: *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88–104.",
-    "kolaczek2012": "[Kołaczek]{.sc} Małgorzata. *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 211–228. DOI: 10.1234/srom.2012.5.11.",
-    "turner1926": "[Turner]{.sc} Ralph L. *The position of Romani*, „Journal of the Gypsy Lore Society”, 1926, t. 5, nr 4, s. 145–189.",
-    "hancock2007": "[Hancock]{.sc} Ian. *Tytuł*, tłum. J. Nowak, Wydawnictwo, Warszawa 2007.",
-    "zrodlo1959": "[Nowak]{.sc} Jan. *Tytuł źródła*, red. A. Kowalska, Wydawnictwo, Wien 1959.",
-    "fuente2020": "[Fuente]{.sc} Alejandro de la, [Gross]{.sc} Ariela J. *Becoming Free*, Cambridge University Press, Cambridge 2020.",
-    "hippel1995": "[Hippel]{.sc} Wolfgang von. *Armut, Unterschichten, Randgruppen*, Oldenbourg, München 1995.",
-    "edycja1865": "*Relacja z Plymouth*, red. H. Dexter, Wydawnictwo, Boston 1865.",
-    "odpowiedzi1957": "*Odpowiedzi na kwestionariusz*, tłum. i red. K.G. Loewald, P.S. Taylor, „The William and Mary Quarterly”, 1957, t. 14, nr 2, s. 205–231.",
-    "list1900": "*Tytuł listu*, w: *Tytuł tomu*, red. R.G. Thwaites, t. 67, Wydawnictwo, Cleveland 1900.",
-    "demeter2018": "[Demeter]{.sc} Nadezhda. *Istoriia tsygan* [Historia Cyganów], Nauka, Moskva 2018.",
-    "kopanska2018": "[Kopańska]{.sc} Joanna. *Tytuł*, Uniwersytet Jagielloński, Kraków 2018 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej).",
-    "kowalskiweb": "[Kowalski]{.sc} Andrzej. *Tytuł tekstu*, w: *Nazwa serwisu*, https://przyklad.pl/tekst [dostęp: 18.03.2025].",
+    "ficowski1985": "[Ficowski]{.sc} Jerzy, *Cyganie na polskich drogach*, Wydawnictwo Literackie, Kraków 1985.",
+    "mroz1998": "[Mróz]{.sc} Lech, [Bartosz]{.sc} Adam, *Tytuł pracy*, Wydawnictwo, Warszawa 1998.",
+    "fialkowska2020": "[Fiałkowska]{.sc} Kamila, [Garapich]{.sc} Michał P., [Mirga-Wójtowicz]{.sc} Elżbieta, [Kowalski]{.sc} Jan, *Tytuł pracy*, Wydawnictwo, Warszawa 2020.",
+    "kowalski2011": "*Tytuł tomu*, red. Andrzej Kowalski, Wydawnictwo, Kraków 2011.",
+    "mroz2011": "[Mróz]{.sc} Lech, *Tytuł rozdziału*, w: *Tytuł tomu*, red. Andrzej Kowalski, Wydawnictwo, Kraków 2011, s. 88–104.",
+    "kolaczek2012": "[Kołaczek]{.sc} Małgorzata, *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 211–228. DOI: 10.1234/srom.2012.5.11.",
+    "turner1926": "[Turner]{.sc} Ralph L., *The position of Romani*, „Journal of the Gypsy Lore Society”, 1926, t. 5, nr 4, s. 145–189.",
+    "hancock2007": "[Hancock]{.sc} Ian, *Tytuł*, tłum. Jan Nowak, Wydawnictwo, Warszawa 2007.",
+    "zrodlo1959": "[Nowak]{.sc} Jan, *Tytuł źródła*, red. Anna Kowalska, Wydawnictwo, Wien 1959.",
+    "fuente2020": "[Fuente]{.sc} Alejandro de la, [Gross]{.sc} Ariela J., *Becoming Free*, Cambridge University Press, Cambridge 2020.",
+    "hippel1995": "[Hippel]{.sc} Wolfgang von, *Armut, Unterschichten, Randgruppen*, Oldenbourg, München 1995.",
+    "edycja1865": "*Relacja z Plymouth*, red. Henry Dexter, Wydawnictwo, Boston 1865.",
+    "odpowiedzi1957": "*Odpowiedzi na kwestionariusz*, tłum. i red. Klaus G. Loewald, Paul S. Taylor, „The William and Mary Quarterly”, 1957, t. 14, nr 2, s. 205–231.",
+    "list1900": "*Tytuł listu*, w: *Tytuł tomu*, red. Reuben Gold Thwaites, t. 67, Wydawnictwo, Cleveland 1900.",
+    "demeter2018": "[Demeter]{.sc} Nadezhda, *Istoriia tsygan* [Historia Cyganów], Nauka, Moskva 2018.",
+    "kopanska2018": "[Kopańska]{.sc} Joanna, *Tytuł*, Uniwersytet Jagielloński, Kraków 2018 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej).",
+    "rozdzialisl2003": "[O’Reilly]{.sc} William, *Divide et impera: Race and Administration*, w: *Tytuł tomu*, red. Guðmundur Hálfdanarson, Ann Katherine Isaacs, tłum. Jan Nowak, Edizioni Plus, Pisa 2003, s. 77–100.",
+    "kowalskiweb": "[Kowalski]{.sc} Andrzej, *Tytuł tekstu*, w: *Nazwa serwisu*, https://przyklad.pl/tekst [dostęp: 18.03.2025].",
 }
 
 POSITION_MD = (

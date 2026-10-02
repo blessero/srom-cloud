@@ -349,14 +349,14 @@ local inline_pass = {
     end
     for _, x in ipairs(el.content) do
       if x.t == "Span" and x.attributes["custom-style"] == C.italic then
-        warn("nested italics set roman, verify: " .. short(x.content))
+        warn("nested italics set roman (§ 3.4: right for a title within a title; a foreign word: remove the inner italics): " .. short(x.content))
         flush()
         out:extend(x.content)
       else
         -- deeper nesting (inside quotes, links): unwrap as before; rare
         cur:insert(pandoc.walk_inline(x, {Span = function(s)
           if s.attributes["custom-style"] == C.italic then
-            warn("nested italics (deep) set roman, verify: " .. short(s.content)); return s.content
+            warn("nested italics (deep) set roman (§ 3.4: right for a title within a title; a foreign word: remove the inner italics): " .. short(s.content)); return s.content
           end
         end}))
       end

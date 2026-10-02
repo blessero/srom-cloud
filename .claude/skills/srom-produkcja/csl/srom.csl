@@ -68,13 +68,13 @@
   <macro name="container-editors">
     <names variable="container-author editor">
       <label form="verb-short" suffix=" "/>
-      <name initialize-with="." delimiter=", "/>
+      <name delimiter=", "/>
     </names>
   </macro>
   <macro name="translator">
     <names variable="translator">
       <label form="verb-short" suffix=" "/>
-      <name initialize-with="." delimiter=", "/>
+      <name delimiter=", "/>
     </names>
   </macro>
   <!-- a book with an author and an editor (an edition of a source: "ed. E. Becker-Donner"): the editor after the
@@ -83,13 +83,13 @@
   <macro name="editor-translator">
     <names variable="editor translator" delimiter=", ">
       <label form="verb-short" suffix=" "/>
-      <name initialize-with="." delimiter=", "/>
+      <name delimiter=", "/>
     </names>
   </macro>
   <macro name="director">
     <names variable="director">
       <label form="verb-short" suffix=" "/>
-      <name initialize-with="." delimiter=", "/>
+      <name delimiter=", "/>
     </names>
   </macro>
 
@@ -286,7 +286,10 @@
   </macro>
 
   <!-- ============ citation (footnotes) ============ -->
-  <citation et-al-min="4" et-al-use-first="1">
+  <!-- Kanon § 7.2, § 9.1 (v1.13, MB 02.10.2026): authors, editors, translators by initial in the notes; the
+       bibliography is the one place with every name in full, so its editors and translators are spelled out too.
+       The name macros carry no initialize-with of their own and inherit it from here. -->
+  <citation et-al-min="4" et-al-use-first="1" initialize-with=".">
     <layout suffix="." delimiter="; ">
       <choose>
         <if position="ibid-with-locator">
@@ -329,17 +332,20 @@
     </sort>
     <layout suffix=".">
       <group delimiter=". ">
-        <text macro="author-bib"/>
-        <group>
-          <group delimiter=", ">
-            <text macro="title-full"/>
-            <text macro="body-after-title"/>
-            <group delimiter=" ">
-              <label variable="page" form="short"/>
-              <text variable="page"/>
+        <!-- Kanon § 9.1 (v1.13, MB 02.10.2026): a comma, not a full stop, after the author field -->
+        <group delimiter=", ">
+          <text macro="author-bib"/>
+          <group>
+            <group delimiter=", ">
+              <text macro="title-full"/>
+              <text macro="body-after-title"/>
+              <group delimiter=" ">
+                <label variable="page" form="short"/>
+                <text variable="page"/>
+              </group>
             </group>
+            <text variable="note" prefix=" (" suffix=")"/>
           </group>
-          <text variable="note" prefix=" (" suffix=")"/>
         </group>
         <choose>
           <if type="webpage post post-weblog" match="none">

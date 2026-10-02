@@ -678,5 +678,63 @@
     ]
    ]
   }
+ },
+ {
+  "id": "rozdzialisl2003",
+  "type": "chapter",
+  "title": "Divide et impera: Race and Administration",
+  "container-title": "Tytuł tomu",
+  "author": [
+   {
+    "family": "O’Reilly",
+    "given": "William"
+   }
+  ],
+  "editor": [
+   {
+    "family": "Hálfdanarson",
+    "given": "Guðmundur"
+   },
+   {
+    "family": "Isaacs",
+    "given": "Ann Katherine"
+   }
+  ],
+  "translator": [
+   {
+    "family": "Nowak",
+    "given": "Jan"
+   }
+  ],
+  "publisher": "Edizioni Plus",
+  "publisher-place": "Pisa",
+  "page": "77–100",
+  "issued": {
+   "date-parts": [
+    [
+     2003
+    ]
+   ]
+  }
+ },
+ {
+  "id": "tytulwtytule2021",
+  "type": "article-journal",
+  "title": "Race and Dance in <i>The Spanish Gypsie</i>",
+  "author": [
+   {
+    "family": "Ndiaye",
+    "given": "Noémie"
+   }
+  ],
+  "container-title": "Czasopismo",
+  "volume": "5",
+  "issued": {
+   "date-parts": [
+    [
+     2021
+    ]
+   ]
+  }
  }
 ]

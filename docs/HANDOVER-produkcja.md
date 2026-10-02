@@ -217,6 +217,14 @@ G12) after.
    Then built (MB asked): Ibidem and asterisk scripts apply their fixes after a confirm; `srom_zakladki.jsx` PDF
    bookmarks (all proven in InDesign on the rebuilt Ostendorf layout). PDF metadata: srom-quant `pdf_metadata.py` (proven in InDesign: XMP incl. prism:doi). Not built: tagged-PDF heading tags.
    Open: GEN-14 (place: publisher order, from MB's 02.10 pattern).
+   Third review (MB, 02.10.2026 18:56, Kanon v1.13, decisions row 26): "red. Gudmundur Hálfdánarson" in full in n. 19 came
+   from keying the Icelandic name as a CSL `literal` (to sort it under the forename, § 9.5) — a literal is never
+   abbreviated; "Divide et impera" (and "Cigano", "c.", Ndiaye's "Paios") printed roman because the source's `<i>` was
+   keyed into the title and CSL nests it. Both are now build-report warnings by reference (5/5, no false alarms on the
+   five texts); the Lua filter's old per-occurrence "verify" warning, which had fired and been ignored, is suppressed for
+   them. Bibliography: comma after the author field; editors and translators in full (initials are a citation-level CSL
+   option). Translator's annotations reversed (§ 12.2.4 c): only a Polish edition or a translation from the original,
+   once per work; the old formula is a linter WARN (TLUM-ADNOTACJA). Drafts: srom-tlumacz (T33).
 7. Stage 3: ~~house style / reduce the style set (§4, D3)~~ — done 29.09.2026 (house style v3, §4). Next: G12, the first
    real article placed in a v3 template — **a translated article** (Ndiaye after MB's edit, via 5b; review
    29.09.2026 row 6), so that `_postimport.jsx`, `_ibidem.jsx` and `_gwiazdki.jsx`, never yet run in InDesign, are proven

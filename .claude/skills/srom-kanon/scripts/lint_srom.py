@@ -152,6 +152,9 @@ RULES = [
     # measured on 19 texts, 30.09.2026: real errors only). Not "chyba, że", "dlatego, że", "tyle, że": legitimate uses exist
     ("PUNCT-SPOJNIK", "WARN", r"\b(?:[Mm]imo|[Pp]omimo|[Zz]właszcza|[Ss]zczególnie|[Tt]ym bardziej|[Jj]ako),\s+że\b",
      "Compound conjunction: no comma inside — ', mimo że', not 'mimo, że' (§12.3).", ["pl"], 0),
+    # withdrawn translator's annotation (v1.13, MB 02.10.2026): exact phrase, no false alarms possible
+    ("TLUM-ADNOTACJA", "WARN", r"tłum\. z przekładu angielskiego",
+     "Annotation withdrawn: a quotation translated from the author's English needs none (§12.2.4 c) — remove it.", ["pl"], 0),
 
     # --- spacing ----------------------------------------------------------
     ("SPACE-DOUBLE", "WARN", r"(?<=\S) {2,}(?=\S)",

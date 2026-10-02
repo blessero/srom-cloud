@@ -361,9 +361,26 @@ code, out, stem, rep = build(md_path=os.path.join(FX, "sample_article.md"))
 cit = json.load(open(os.path.join(out, stem + "_citations.json"), encoding="utf-8")) if os.path.exists(os.path.join(out, stem + "_citations.json")) else []
 fic = [c for c in cit if c["key"] == "ficowski1985"]
 check("_citations.json: every printed entry as plain text, CSL entries with their key (and DOI), literal entries keyless",
-      len(cit) >= 3 and fic and fic[0]["text"].startswith("Ficowski Jerzy. Cyganie na polskich drogach")
+      len(cit) >= 3 and fic and fic[0]["text"].startswith("Ficowski Jerzy, Cyganie na polskich drogach")
       and not any("smallcaps" in c["text"] or "](" in c["text"] or "*" in c["text"] for c in cit)
       and any(c["key"] is None for c in cit), [c for c in cit if "smallcaps" in c["text"] or "](" in c["text"] or "*" in c["text"]] or cit[:3])
+
+# keying faults that print wrong without failing (MB 02.10.2026, Ostendorf): a person keyed as a literal name (full
+# name in the notes, § 7.2) and a foreign word keyed <i> inside a title (printed roman, § 3.4) -> report warnings;
+# an institution, a pseudonym and a title within a title stay silent
+md = "---\ntitle: T\n---\n\nA [@w1, s. 1]. B [@w2, s. 2].\n"
+d = tempfile.mkdtemp(); rp = os.path.join(d, "refs.json")
+json.dump([{"id": "w1", "type": "chapter", "title": "<i>Divide et impera</i>: Race (<i>Cigano</i>)", "container-title": "V",
+            "author": [{"family": "O’Reilly", "given": "William"}], "editor": [{"literal": "Gudmundur Hálfdánarson"}],
+            "publisher": "P", "publisher-place": "Pisa", "issued": {"date-parts": [[2003]]}},
+           {"id": "w2", "type": "book", "title": "On <i>Antony and Cleopatra</i>", "author": [{"literal": "A Gentleman of Elvas"}],
+            "editor": [{"literal": "Preussische Akademie der Wissenschaften"}, {"literal": "Federal Writers’ Project"}],
+            "publisher": "P", "publisher-place": "M", "issued": {"date-parts": [[2003]]}}], open(rp, "w", encoding="utf-8"), ensure_ascii=False)
+code, out, stem, rep = build(md, refs=rp, extra=["--draft"])
+warn = rep.split("## Warnings")[-1]
+check("literal person name and foreign word in italics inside a title -> warnings; legit literals and a title in a title silent",
+      "“Gudmundur Hálfdánarson”" in warn and "“Divide et impera”" in warn and "“Cigano”" in warn
+      and "Elvas" not in warn and "Akademie" not in warn and "Writers" not in warn and "Antony" not in warn, warn)
 
 n, ok = len(results), sum(results)
 print(f"E2E ALL PASS {n}/{n}" if ok == n else f"E2E FAILED {n - ok}/{n}")

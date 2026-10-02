@@ -1,6 +1,6 @@
 # STUDIA ROMOLOGICA – KANON EDYTORSKI (DOKUMENT WEWNĘTRZNY)
 
-**Wersja 1.12 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
+**Wersja 1.13 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
 
 > Wersja dla autorów (*Wskazówki dla autorów*) jest skrótem tego dokumentu i nie zawiera § 13–17. W razie rozbieżności rozstrzyga niniejszy tekst.
 
@@ -70,7 +70,7 @@ Po: `s.`, `t.`, `z.`, `nr`, `r.`, `w.`, `sygn.`, `k.`, inicjałach imion; przed 
 - **Kapitaliki**: nazwiska w bibliografii (§ 9.3) oraz kategorie gramatyczne w glosach (§ 5.3). Nigdzie indziej.
 - Półgrube, rozstrzelenie, podkreślenie, wersaliki w tekście ciągłym: nie stosuje się.
 - Wyróżnienie autora w cytacie: `[podkr. – J.K.]`.
-- Tytuł w obrębie tytułu składanego kursywą – pismem prostym (kursywa odwrócona): *Recepcja* Cyganów na polskich drogach *w krytyce*.
+- Tytuł w obrębie tytułu składanego kursywą – pismem prostym (kursywa odwrócona): *Recepcja* Cyganów na polskich drogach *w krytyce*. Kursywa odwrócona dotyczy wyłącznie tytułu w tytule. Wyraz lub zwrot obcy, formuła łacińska, egzonim obcy w obrębie tytułu – kursywą, jak cały tytuł: *Divide et impera: Race, Ethnicity, and Administration…*, *The Figure of the Gypsy (Cigano) as a Signpost…*.
 
 ### 3.5. Daty i liczby
 
@@ -205,7 +205,7 @@ Cyfry arabskie, indeks górny, numeracja ciągła w obrębie artykułu, przypisy
 | Praca niepublikowana | J. Kopańska, *Tytuł*, Uniwersytet Jagielloński, Kraków 2018, s. 60 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej). |
 
 Zasady wspólne:
-- **Inicjał imienia + nazwisko.** Dwa inicjały bez spacji: `R.L. Turner`.
+- **Inicjał imienia + nazwisko** – w przypisie każda osoba: autor, redaktor, tłumacz, reżyser. Dwa inicjały bez spacji: `R.L. Turner`. Także nazwisko islandzkie: `red. G. Hálfdanarson`. Imiona w pełnym brzmieniu podaje wyłącznie bibliografia (§ 9.1). Bez inicjału pozostają: autor instytucjonalny, pseudonim i podpis w brzmieniu druku (`A Gentleman of Elvas`, `M.W.`); dzieło anonimowe opisuje się od tytułu. Przypadki nietypowe rozstrzyga redakcja.
 - Tytuły dzieł i artykułów kursywą; tytuły czasopism pismem prostym w cudzysłowie.
 - Wydawnictwo przed miejscem; bez przecinka między miejscem a rokiem. Brak danych: `b.m.`, `b.r.`
 - **Miejsce wydania w brzmieniu ze strony tytułowej**, bez spolszczania: `London`, `New York`, `München`, `Istanbul`; wydania w cyrylicy – ALA-LC: `Moskva`, `Kyïv`. Egzonimy polskie (Londyn, Moskwa) pozostają w tekście głównym.
@@ -306,14 +306,15 @@ Adres URL jest w tekście do składu zwykłym tekstem, nie hiperłączem. Datę 
 ## 9. Bibliografia załącznikowa
 
 ### 9.1. Relacja do przypisu
-Zapis bibliograficzny jest **tą samą konstrukcją co przypis**, z czterema różnicami – i żadną inną:
+Zapis bibliograficzny jest **tą samą konstrukcją co przypis**, z pięcioma różnicami – i żadną inną:
 
-1. **Nazwisko, po nim imię – bez przecinka**; nazwisko kapitalikami (§ 9.3); imiona w pełnym brzmieniu. Przecinek oddziela kolejnych autorów.
+1. **Nazwisko, po nim imię – bez przecinka**; nazwisko kapitalikami (§ 9.3); imiona w pełnym brzmieniu. Przecinek oddziela kolejnych autorów i zamyka pole autora: `Fotta Martin, *Tytuł*`.
 2. **Wszyscy autorzy wymienieni** – `i in.` nie występuje.
 3. Pełny zakres stron artykułu lub rozdziału.
 4. DOI; ISBN – jeżeli podał go autor.
+5. **Redaktorzy, tłumacze, reżyserzy – imiona w pełnym brzmieniu**, w porządku naturalnym: `red. Andrzej Kowalski`, `tłum. Jan Nowak`. Przypis podaje osoby inicjałem (§ 7.2), bibliografia jest więc jedynym miejscem, w którym artykuł podaje pełne dane każdej osoby.
 
-Kropka zamyka pole autora. Bez dwukropka po miejscu wydania.
+Bez dwukropka po miejscu wydania. Kropka oddziela dopiero DOI i ISBN.
 
 ### 9.2. Podział
 Możliwe części, w tej kolejności: Wykaz skrótów · Źródła archiwalne (na poziomie zespołu) · Źródła terenowe · Źródła drukowane i prawne · Źródła internetowe (bez DOI) · Literatura przedmiotu.
@@ -323,7 +324,7 @@ Możliwe części, w tej kolejności: Wykaz skrótów · Źródła archiwalne (n
 Każda pozycja z przypisów musi wystąpić w bibliografii – z wyjątkiem pojedynczych jednostek archiwalnych, pojedynczych numerów prasy, aktów prawnych przywołanych jednorazowo. Drukuje się całą bibliografię autora, także pozycje nieprzywołane w przypisach.
 
 ### 9.3. Kapitaliki w nazwiskach
-> MRÓZ Lech, BARTOSZ Adam. *Tytuł pracy*, Wydawnictwo, Warszawa 1998.
+> MRÓZ Lech, BARTOSZ Adam, *Tytuł pracy*, Wydawnictwo, Warszawa 1998.
 
 Bez przecinka po nazwisku (`MIRGA-WÓJTOWICZ Elżbieta`): kapitaliki same oddzielają nazwisko od imienia.
 
@@ -336,18 +337,18 @@ Bez przecinka po nazwisku (`MIRGA-WÓJTOWICZ Elżbieta`): kapitaliki same oddzie
 
 | Typ | Wzór |
 |---|---|
-| Książka | Ficowski Jerzy. *Cyganie na polskich drogach*, Wydawnictwo Literackie, Kraków 1985. |
-| 2–3 autorów | Mróz Lech, Bartosz Adam. *Tytuł pracy*, Wydawnictwo, Warszawa 1998. |
-| 4 i więcej | Fiałkowska Kamila, Garapich Michał P., Mirga-Wójtowicz Elżbieta, Kowalski Jan. *Tytuł pracy*, Wydawnictwo, Warszawa 2020. |
-| Praca zbiorowa | *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011. |
-| Rozdział | Mróz Lech. *Tytuł rozdziału*, w: *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88–104. |
-| Artykuł | Kołaczek Małgorzata. *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 211–228. DOI: 10.1234/srom.2012.5.11. |
-| Artykuł – tom i zeszyt | Turner Ralph L. *The position of Romani*, „Journal of the Gypsy Lore Society”, 1926, t. 5, nr 4, s. 145–189. |
-| Przekład | Hancock Ian. *Tytuł*, tłum. J. Nowak, Wydawnictwo, Warszawa 2007. |
-| Edycja źródła | Paucke Florian. *Tytuł*, red. E. Becker-Donner, Wydawnictwo, Wien 1959. |
-| Edycja źródła bez autora | *Tytuł relacji*, red. H. Dexter, Wydawnictwo, Boston 1865. |
-| Cyrylica | Demeter Nadezhda. *Istoriia tsygan*, Nauka, Moskva 2018. |
-| Niepublikowana | Kopańska Joanna. *Tytuł*, Uniwersytet Jagielloński, Kraków 2018 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej). |
+| Książka | Ficowski Jerzy, *Cyganie na polskich drogach*, Wydawnictwo Literackie, Kraków 1985. |
+| 2–3 autorów | Mróz Lech, Bartosz Adam, *Tytuł pracy*, Wydawnictwo, Warszawa 1998. |
+| 4 i więcej | Fiałkowska Kamila, Garapich Michał P., Mirga-Wójtowicz Elżbieta, Kowalski Jan, *Tytuł pracy*, Wydawnictwo, Warszawa 2020. |
+| Praca zbiorowa | *Tytuł tomu*, red. Andrzej Kowalski, Wydawnictwo, Kraków 2011. |
+| Rozdział | Mróz Lech, *Tytuł rozdziału*, w: *Tytuł tomu*, red. Andrzej Kowalski, Wydawnictwo, Kraków 2011, s. 88–104. |
+| Artykuł | Kołaczek Małgorzata, *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 211–228. DOI: 10.1234/srom.2012.5.11. |
+| Artykuł – tom i zeszyt | Turner Ralph L., *The position of Romani*, „Journal of the Gypsy Lore Society”, 1926, t. 5, nr 4, s. 145–189. |
+| Przekład | Hancock Ian, *Tytuł*, tłum. Jan Nowak, Wydawnictwo, Warszawa 2007. |
+| Edycja źródła | Paucke Florian, *Tytuł*, red. Etta Becker-Donner, Wydawnictwo, Wien 1959. |
+| Edycja źródła bez autora | *Tytuł relacji*, red. Henry M. Dexter, Wydawnictwo, Boston 1865. |
+| Cyrylica | Demeter Nadezhda, *Istoriia tsygan*, Nauka, Moskva 2018. |
+| Niepublikowana | Kopańska Joanna, *Tytuł*, Uniwersytet Jagielloński, Kraków 2018 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej). |
 | Zespół archiwalny | Archiwum Narodowe w Krakowie (ANK), zespół 29/456: Starostwo Powiatowe w Tarnowie, sygn. 1–48. |
 | Archiwum postsowieckie | Arkhiv vneshneĭ politiki Rossiĭskoĭ imperii (AVPRI), f. 151. |
 | Rozmówca | W12 – mężczyzna, ur. 1951, Polska Roma, Tarnów, wywiad 14.06.2019; nagranie: Archiwum MET, sygn. AT/W/12. |
@@ -359,7 +360,7 @@ Alfabetycznie wg nazwiska pierwszego autora, porządek polski; pozycja bez autor
 - przedrostek-przyimek (niem. `von`, niderl. `van` w Holandii, fr. `de`, hiszp. `de`, `de la`, port. `da`, `dos`) – po imieniu: `Hippel Wolfgang von`, `Fuente Alejandro de la`, `Heusch Luc de`;
 - rodzajnik lub przedrostek zrośnięty z nazwiskiem (fr. `La`, `Le`, `Du`; nazwiska angielskie i amerykańskie: `De Witt`, `Van Buren`) – na początku: `La Fontaine Jean de`;
 - nazwiska hiszpańskie złożone – pod pierwszym członem (`Gómez Alfaro Antonio`); portugalskie i brazylijskie – pod ostatnim (`Costa Elisa Maria Lopes da`);
-- nazwiska islandzkie (patronimiczne) – pod imieniem (`Guðmundur Hálfdanarson`).
+- nazwiska islandzkie (patronimiczne) – w polu autora pod imieniem (`Guðmundur Hálfdanarson`; ustawia redakcja); w przypisie i po tytule – jak każde inne (`G. Hálfdanarson`; w bibliografii `red. Guðmundur Hálfdanarson`).
 W przypisie pierwszym nazwisko w pełnym brzmieniu (`A. de la Fuente`, `W. von Hippel`); w formie skróconej – bez przedrostka-przyimka (`Fuente`, `Hippel`).
 
 ### 9.6. Cyrylica – transkrypcja i transliteracja
@@ -471,7 +472,7 @@ Paragraf dotyczy artykułów publikowanych w przekładzie na język polski z ory
   2. licencję pierwodruku z adresem jej tekstu albo podstawę zgody na przekład; przy licencjach Creative Commons – wskazanie, że przekład stanowi zmianę utworu, oraz nota o prawach autorskich pierwodruku, jeżeli ją zawiera (wymogi licencji);
   3. tłumacza;
   4. zakres ingerencji (§ 12.2.8), jeżeli wystąpiły;
-  5. formułę o cytatach (§ 12.2.4 d).
+  5. formułę o cytatach (§ 12.2.4 c, d).
 
 Wzór:
 > \* Pierwodruk: I. Nazwisko, *Tytuł oryginału*, „Czasopismo”, rrrr, t. nn, nr nn, s. aa–bb, DOI: 10.nnnn/nnnn. © I. Nazwisko. Tekst opublikowany na licencji CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); niniejszy przekład stanowi zmianę utworu w rozumieniu licencji. Tłumaczenie: Imię Nazwisko. Cytaty ze źródeł obcojęzycznych, o ile nie wskazano inaczej, w przekładzie tłumacza artykułu.
@@ -482,9 +483,11 @@ Wzór:
 |---|---|
 | a) Dzieło cytowane przez autora ma wydanie polskie | Cytat według wydania polskiego, ze stroną tego wydania; przypis odsyła do wydania polskiego (§ 4.3); odesłanie autora do oryginału zachowuje się w tym samym przypisie po średniku. Kilka przekładów polskich – najnowsze wydanie naukowe, chyba że starsze jest merytorycznie lepsze (decyzja redakcji, wpis do rejestru decyzji). Przekład własny zamiast wydania polskiego – wyłącznie gdy wydanie nie oddaje brzmienia istotnego dla wywodu; decyzja redakcji, przypis tłumacza podaje powód. |
 | b) Źródło pierwotnie polskie, przytoczone przez autora po angielsku | Przywraca się brzmienie oryginału; przypis wskazuje źródło polskie; odesłanie autora zachowuje się po średniku, poprzedzone formułą `autor cytuje za:`. |
-| c) Źródło w innym języku, przytoczone przez autora w przekładzie angielskim | Przekład z oryginału, jeżeli jest dostępny; w przeciwnym razie z przekładu autora, z adnotacją w przypisie `tłum. z przekładu angielskiego autora`. Materiał terenowy (wypowiedzi rozmówców w przekładzie autora) – jedna formuła w nocie zamiast adnotacji przy każdym cytacie. |
+| c) Źródło w innym języku, przytoczone przez autora w przekładzie angielskim (własnym albo cudzym) | Wydanie polskie, jeżeli istnieje – jak w sytuacji a. W przeciwnym razie przekład z przekładu angielskiego, **bez adnotacji** – obejmuje go formuła noty (§ 12.2.3). Do oryginału sięga się tylko wtedy, gdy przekład angielski budzi wątpliwość albo brzmienie oryginału jest istotne dla wywodu (decyzja redakcji); cytat otrzymuje wówczas adnotację `[przekład z oryginału – przyp. tłum.]`, a gdy autor nie przywołuje wydania oryginału – z jego opisem: `[przekład z oryginału: …, s. 45 – przyp. tłum.]`. Materiał terenowy (wypowiedzi rozmówców w przekładzie autora) – jedna formuła w nocie zamiast adnotacji przy każdym cytacie. |
 | d) Źródło anglojęzyczne bez wydania polskiego | Przekład tłumacza artykułu, bez adnotacji przy cytacie – obejmuje go formuła noty (§ 12.2.3). Formuły `[tłum. własne]` (§ 4.2) w przekładzie się nie stosuje: byłaby dwuznaczna. |
 | e) Poezja, pieśń, przysłowie | Jak a–c. Brzmienie oryginału (np. romskie), jeżeli przytacza je autor, pozostaje tam, gdzie umieścił je autor. |
+
+**Adnotacja raz na dzieło.** Adnotację o podstawie przekładu (wydanie polskie, przekład z oryginału) podaje się przy pierwszym cytacie z danego dzieła; kolejne cytaty z tego dzieła na tej samej podstawie – formą skróconą (§ 7.3), bez adnotacji.
 
 Nieodnalezienie miejsca w wydaniu polskim albo niedostępność oryginału – pozycja w wykazie pytań. Tekstu nie oddaje się do składu z cytatem przełożonym tymczasowo i nieoznaczonym (§ 0, zasada integralności danych).
 
@@ -566,7 +569,11 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 
 **Przecinek po tytule czasopisma.** Tom 18 stosował obie formy. Zapis jednolity, ze stroną na końcu, nie wymaga pamiętania wyjątków.
 
-**Kapitaliki bez przecinka.** Kapitaliki rozwiązują dwuznaczność przy wielu autorach i same oddzielają nazwisko od imienia; przecinek po nazwisku (do wersji 1.10, dla zgodności z indeksem tomu) zdwajał przecinki między autorami (`Mróz, Lech, Bartosz, Adam`). Usunięty 02.10.2026 (MB).
+**Kapitaliki bez przecinka.** Kapitaliki rozwiązują dwuznaczność przy wielu autorach i same oddzielają nazwisko od imienia; przecinek po nazwisku (do wersji 1.10, dla zgodności z indeksem tomu) zdwajał przecinki między autorami (`Mróz, Lech, Bartosz, Adam`). Usunięty 02.10.2026 (MB). Przecinek zamyka też pole autora (`Fotta Martin, *Tytuł*`; wersja 1.13): pole autora nie jest odrębnym zdaniem.
+
+**Pełne imiona tylko w bibliografii.** Przypis identyfikuje dzieło, bibliografia – także osoby; skoro przypis podaje każdą osobę inicjałem, pełne dane autorów, redaktorów i tłumaczy muszą się znaleźć w bibliografii.
+
+**Adnotacje tłumacza tylko przy odstępstwie.** Domyślną podstawą przekładu cytatu jest tekst autora, także jego przekład angielski; formuła noty o przekładzie obejmuje wszystkie takie cytaty. Adnotacja przy każdym cytacie powtarzałaby rzecz oczywistą; oznacza się tylko to, czego czytelnik nie może się domyślić – wydanie polskie i przekład z oryginału.
 
 **Daty cyframi arabskimi.** Jeden format w całym aparacie zamiast dwóch; `dd.mm.rrrr` to domyślny zapis polskiego i europejskiego czytelnika. Miesiące rzymskie rozważono i odrzucono: usuwają dwuznaczność dzień/miesiąc tylko dla czytelnika amerykańskiego, marginalnego w przypisach polskojęzycznego czasopisma. Tomy wcześniejsze pozostają bez zmian.
 
@@ -607,7 +614,8 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 - [ ] Każdy cytat ma stronę; odwołania do dzieła jako całości potwierdzone przez redakcję
 - [ ] Brak znaczników `[BRAK …]` (§ 0)
 - [ ] Zero: `op. cit.`, `dz. cyt.`, `idem`, `tenże`, `tamże`, `str.`, `przeł.`, `[w:]`, `2012a`
-- [ ] Inicjały w przypisach, pełne imiona w bibliografii
+- [ ] Inicjały w przypisach (autorzy, redaktorzy, tłumacze); w bibliografii wszystkie imiona w pełnym brzmieniu
+- [ ] Adnotacje tłumacza o podstawie przekładu tylko przy wydaniu polskim i przekładzie z oryginału, raz na dzieło
 - [ ] Przecinek po tytule czasopisma; strona na końcu
 - [ ] Cyfry arabskie przy wydaniach, tomach, datach
 - [ ] Daty w aparacie `dd.mm.rrrr`, bez `r.` po dacie liczbowej; akty prawne w brzmieniu urzędowym
@@ -651,5 +659,6 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.10 | Rozstrzygnięcie z 30.09.2026 (MB): § 12.3: spójniki złożone (`mimo że`, `zwłaszcza że` …) bez przecinka w środku; linter sygnalizuje. |
 | 1.11 | Rozstrzygnięcia z 02.10.2026 (MB, próbny skład tekstu Ostendorf): § 2: śródtytuły bez numeracji, także gdy oryginał je numeruje; odstęp jednego wiersza przed śródtytułem oraz przed cytatem blokowym i po nim. § 7.1: numer w treści przypisu bez kropki. § 7.2, § 9.4: edycja źródła bez autora i tekst opracowany przez redaktora w czasopiśmie – od tytułu, redaktor po tytule (nie na miejscu autora). § 9.1, § 9.3–9.5, § 14: w bibliografii bez przecinka po nazwisku (`Paucke Florian`). |
 | 1.12 | Rozstrzygnięcie z 02.10.2026 (MB, drugi próbny skład tekstu Ostendorf): § 7.2, § 7.3, § 9.4, § 9.5, § 11: redaktor zawsze po tytule, nigdy na miejscu autora – także praca zbiorowa cytowana jako całość (`*Tytuł tomu*, red. A. Kowalski`); forma skrócona i szeregowanie w bibliografii – wg tytułu. Uchyla zasadę z wersji 1.1 („redaktor tomu przed tytułem”). |
+| 1.13 | Rozstrzygnięcia z 02.10.2026 (MB, kolejny próbny skład tekstu Ostendorf): § 7.2: inicjał imienia w przypisie dla każdej osoby – autora, redaktora, tłumacza, reżysera – także nazwiska islandzkiego; § 9.1, § 9.4: w bibliografii przecinek zamyka pole autora (`Fotta Martin, *Tytuł*`), redaktorzy i tłumacze z imionami w pełnym brzmieniu. § 3.4: kursywa odwrócona tylko dla tytułu w tytule; wyraz obcy w tytule – kursywą jak tytuł. § 12.2.4 c: cytat przytoczony przez autora po angielsku – przekład z jego przekładu bez adnotacji; adnotacja tylko przy wydaniu polskim i przekładzie z oryginału (do oryginału – gdy to istotne), raz na dzieło. Uchyla adnotację `tłum. z przekładu angielskiego autora` z wersji 1.6. |
 
 Zmiany wchodzą w życie od kolejnego tomu. Tomy opublikowane nie podlegają retroaktywnemu ujednoliceniu.

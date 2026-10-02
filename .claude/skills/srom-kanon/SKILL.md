@@ -3,7 +3,7 @@ name: srom-kanon
 description: House style enforcement for Studia Romologica, the Polish-language Romani studies annual. Use when checking, correcting, copyediting or typesetting any article for this journal, or when asked about SRom citation format, footnotes, bibliography, dates, Cyrillic transcription/transliteration, archival citation, interview coding, captions, or Romani-name capitalisation. Also use when preparing SRom bibliography data for the master CSV or Crossref deposit, and when an article arrives in the wrong style and needs normalising. Triggers on "Studia Romologica", "SRom", "kanon edytorski", or a Polish humanities article that must follow the journal's footnote system.
 ---
 
-# Studia Romologica — house style (Kanon v1.12)
+# Studia Romologica — house style (Kanon v1.13)
 
 Polish-language journal. Footnotes + full end bibliography; **never author-date.** English appears only in metadata (title, abstract, keywords).
 
@@ -38,7 +38,7 @@ Missing year, page or publisher, or an illegible/ambiguous element → **do not 
 4. Apparatus dates `dd.mm.rrrr`, no `r.` after them: `04.03.1937`, `[dostęp: 18.03.2025]`. Legal acts keep official wording (`Ustawa z dnia 6 stycznia 2005 r.`). Body text: words (`12 marca 1943 roku`).
 5. Imprint place as on the title page, never Polonised: `London`, `Moskva`.
 6. Cyrillic: body → Polish transcription (PWN; KSNG for places). Apparatus → ALA-LC, no tie-bars. `Biessonow` in text, `Bessonov` in notes.
-7. Notes: `J. Ficowski`. Bibliography: `Ficowski Jerzy.`, no comma after the surname (small caps by typesetting; **never capitals in the CSV**), all authors, no colon after place.
+7. Notes: every person by initial (`J. Ficowski`, `red. A. Kowalski`). Bibliography: `Ficowski Jerzy, *Tytuł*`, no comma after the surname, a comma after the author field, editors and translators in full (small caps by typesetting; **never capitals in the CSV**), all authors, no colon after place.
 8. Title translation `[in square brackets]` right after the title; physical-form note `(maszynopis…)` at the very end.
 9. Proper names never italic, including Romani group names in any spelling — in the text (main text, notes, captions, bibliography), not in display elements (running head, speaker and affiliation in a talk, table of contents), where italic stays a typographic device (§ 3.4, 29.09.2026). Exception (§ 3.4): foreign exonyms not assimilated in Polish (*Ciganos*, *Gitanos*, *Bohémiens*, *Zigeuner*) are italic, every time; the kartoteka's `italic_house` column decides.
 10. Labels always Polish, even for foreign works: `red.`, never `Hrsg.`/`ed.`.
