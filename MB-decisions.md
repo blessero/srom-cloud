@@ -16,9 +16,7 @@ send) · **Later** (a reminder, nothing to do now).
 | GEN-1 | Vol. 18 copyright clause: who writes the replacement, where does it go? | Decide | **the open-access announcement** |
 | GEN-2 | Drop the CC BY-NC-ND option for authors? | Decide (kolegium) | nothing yet |
 | GEN-3 | Non-commercial licences (Pahulich, Ostendorf): ask for written consent? | Decide | publication |
-| GEN-8 | 18th–19th-century authors (Kant, Marx, Grellmann): which bibliography section? | Later | nothing |
-| GEN-10 | Add DOIs the author did not give? | Decide | nothing |
-| GEN-12 | Authors register: five contradictions in your author data | Look up | nothing yet |
+| GEN-8 | Which parts does a bibliography have; where do Kant, Marx, Grellmann go? | Decide | nothing |
 | V19-1 | *nomadic* → „koczowniczy”, *itinerant* → „wędrowny” in all vol. 19 texts? | Decide | nothing |
 | V19-2 | „sowiecki” or „radziecki”? | Decide | nothing |
 | V19-3 | Six shared terms (antyczarność, uinnienie, białość …) into the termbase | Approve | nothing |
@@ -71,6 +69,7 @@ send) · **Later** (a reminder, nothing to do now).
 | SYS-2 | Create the journal's Wikidata record (10 minutes, your account) | Look up | nothing |
 | SYS-3 | Check 13 institution IDs (ROR) for the Crossref deposit | Approve | nothing |
 | SYS-4 | After the first Crossref deposit: two checks | Later | nothing |
+| SYS-5 | Clickable DOIs in the online PDF (for a stronger model) | Later | nothing |
 
 ## Decided by MB 02.10.2026 21:30 — srom-produkcja to apply (then delete this section) [general]
 Each line is settled; the Kanon, the style and the tools are changed only from the srom-produkcja session, with a test.
@@ -82,6 +81,16 @@ Each line is settled; the Kanon, the style and the tools are changed only from t
 - **GEN-13**: "Noty o autorach" for every contributor of the parts **before** the last two (Recenzje, Opinie and the one
   after: usually parts III–IV, sometimes IV–V). That is parts I–II, or I–III when a theme title counts as part I. No notes for
   the last two parts. Change `volume_lists.py`; re-run on vol. 18 as the test.
+- **GEN-10**: **no DOIs are printed** in notes or bibliographies, whatever the Kanon says: delete the DOI rule (Kanon
+  §§ 7.2, 9.1, 9.7, 12.2 and the examples; "bez DOI" in § 9.2). DOIs stay in the data (reference data, master CSV,
+  Crossref). One open point for you: the translation note prints the DOI of the *original* article (Kanon § 12.2.3) —
+  keep that one or drop it too? Until you say, srom-produkcja leaves it. Clickable DOIs in the online PDF: SYS-5.
+- **GEN-12**: Fotta — *Institute of Ethnology, Czech Academy of Sciences* (the vol. 18 form is right; the "Slovak" in the
+  register was wrong; source: romaniatlantic.cz). Marushiakova — *Institute of Ethnology and Social Anthropology, Slovak
+  Academy of Sciences, Bratislava*, there since 2023 (source: uesa.sav.sk); the register's "Bułgarska AN / Humboldt" is
+  out of date. Chiriac Bogdan: **Chiriac** is the surname (sorts under C; drop the flag). **Veselin** Popov is the
+  spelling (the register and later notes). Correct "Dr jarosław / eva / johannes ries" to capitals when next printed.
+  Change `srom-produkcja/volumes/autorzy.tsv` (affiliation column, flags, spelling).
 - **GEN-14**: the Kanon stands: "Ossolineum, Wrocław 1974" (publisher first, comma, no colon). Nothing to change.
 
 ## Journal-wide (GEN)
@@ -121,42 +130,29 @@ Whether SROM's distribution is non-commercial (the printed volume is sold?) is y
 
 *Trail: D17 A1, D19 A1 (corrected 28.09: Ostendorf is open access, CC BY-NC 4.0); Kanon § 12.2.3 pt 2.*
 
-### GEN-8 · Kant, Marx, Grellmann (18th–19th-century printed works): "Źródła drukowane i prawne" or "Literatura przedmiotu"?
-**Later** (MB, 02.10.2026 21:30: not now) · blocks nothing
+### GEN-8 · Which parts does a bibliography have? (Kant, Marx, Grellmann: where do old printed works go?)
+**Decide** · blocks nothing yet (typesetting of Tittel, Scheffknecht and every later text)
 
-Laws and law collections already go to "Źródła drukowane i prawne". The old printed authors are in "Literatura
-przedmiotu" (the default). No recommendation yet.
+The Kanon today allows these parts, in this order, each printed only when the text has such items (one part = no
+heading): **Wykaz skrótów · Źródła archiwalne · Źródła terenowe · Źródła drukowane i prawne · Źródła internetowe
+(bez DOI) · Literatura przedmiotu.** Laws are already in "Źródła drukowane i prawne"; Kant, Marx, Grellmann sit in
+"Literatura przedmiotu" by default. I could check only vol. 18 (its master CSV shows just "Literatura"); the older
+volumes are not in the system, so how they were divided is for you to say.
+The other AI's six-part list (podmiotowa / przedmiotowa / akty prawne / archiwalne / prasa / netografia) is the
+Kanon's list with two more parts and different names; for a journal article it only adds headings.
+- (a) keep the Kanon's six parts as they are, and add a rule for old printed works (say, published before 1900, or the
+  object of the author's analysis → "Źródła drukowane i prawne")
+- (b) simpler: **Źródła archiwalne · Źródła terenowe · Źródła drukowane · Opracowania · Źródła internetowe**, each only
+  when present; laws, press and old printed works all go to "Źródła drukowane"; "Literatura przedmiotu" is renamed
+  "Opracowania" — **recommended**: it is your trio plus the two parts articles on Roma actually need (archives, interviews)
+- (c) only three parts, Źródła drukowane / Opracowania / Źródła internetowe: archive and interview sources would
+  have to go under "Źródła drukowane"
 
-*Trail: D20 A6 (c).*
+Also decide with it: "Źródła internetowe (bez DOI)": since no DOIs are printed (see below), the "bez DOI" goes — web
+sources are simply the ones with only a URL.
 
-### GEN-10 · Add DOIs the author did not give?
-**Decide** · blocks nothing
+*Trail: D20 A6 (c); Kanon § 9.2.*
 
-The Kanon requires a DOI wherever one exists; nothing enters the reference data without your approval. West Ohueri:
-16 already added from Crossref, 13 more proposed. Tittel: 4 proposed.
-- (a) add them all — **recommended** (the Kanon asks for them)
-- (b) only what the authors give
-
-New (30.09.2026 02:18): the check is now a tested tool. It also found 6 DOIs in Ostendorf, and one year to check there (her 2019 article is dated 2020 by the journal's registry); West Ohueri's list has one misspelt author (Yural-Davis).
-
-*Trail: D20 C, D24 A9 and C2; Kanon § 9.7.*
-
-### GEN-12 · Authors register: five contradictions in your author data
-**Look up** · blocks nothing yet (the "Noty o autorach" of an author concerned, when printed)
-
-Your "Authors INFO" file is now a table (79 authors). Where your sources disagree, it keeps what they say and flags it:
-1. Martin Fotta: affiliation "Slovak Academy of Sciences" in the file, "Instytut Etnologii Czeskiej Akademii Nauk" in
-   vol. 18. Which is current?
-2. Elena Marushiakova: "Bułgarska Akademia Nauk / Humboldt" in the file, Bratislava (Institute of Ethnology and Social
-   Anthropology) in your ORCID list. Which is current?
-3. "Chiriac Bogdan": is the surname Chiriac (the file's order) or is he Bogdan Chiriac? It decides where he sorts.
-4. Popov: "Vesselin" (file, vol. 18) or "Veselin" (ORCID list)?
-5. Three notes write "Dr jarosław", "Dr eva", "Dr johannes ries" in lower case: correct them when next printed? —
-   **recommended** yes
-
-Detail: 🔴 `srom-produkcja/volumes/autorzy.tsv` (column `uwagi`)
-
-*Trail: 30.09.2026 00:50, root session [general].*
 
 ## Volume 19, all translated texts (V19)
 Next free: V19-5. Per-text choices stay under each text. Detail for V19-1 to V19-3:
@@ -415,7 +411,7 @@ Detail: 🔴 `srom-produkcja/work/ostendorf/ostendorf_uwagi.md` → OST-9
 
 ## Tittel — "Racial and Social Dimensions of Antiziganism" (On_Culture 10, 2020) (TIT)
 Source ready, translation drafted; Word copy for you: 🔴 `srom-tlumacz/work/tittel/tittel_robocza.docx`.
-Licence CC BY 4.0: no permission needed. Also concerns this text: GEN-4 to GEN-8, GEN-10, V19-1, V19-3, V19-4.
+Licence CC BY 4.0: no permission needed. Also concerns this text: GEN-4 to GEN-8, V19-1, V19-3, V19-4.
 Next free: TIT-13.
 
 ### TIT-1 · The author's "gypsy/gypsies" (in scare quotes, lower case): „Cyganie” with a capital, or lower case?
@@ -574,7 +570,7 @@ Detail: 🔴 `srom-tlumacz/work/ndiaye/ndiaye_uwagi.md` → NDI-3
 
 ## West Ohueri — "Peripheral whiteness and racial belonging and non-belonging" (Off White, ch. 6, MUP 2024) (WOH)
 Source ready; **not to be translated for publication without permission** (CC BY-NC-ND; you are asking the author and
-MUP). Also concerns this text: GEN-9, GEN-10, V19-2, V19-3. Next free: WOH-7.
+MUP). Also concerns this text: GEN-9, V19-2, V19-3. Next free: WOH-7.
 
 ### WOH-1 · Start translating before the permission arrives?
 **Decide** · blocks the translation
@@ -682,7 +678,7 @@ Detail: 🔴 `srom-produkcja/work/scheffknecht/scheffknecht_uwagi.md` → SCH-5 
 *Trail: D18 B1–B7.*
 
 ## Tooling and workflow (SYS)
-Next free: SYS-5.
+Next free: SYS-6.
 
 ### SYS-1 · Translator on the website; quant skill (former curator) in desktop Claude
 **Later** · blocks nothing
@@ -744,3 +740,15 @@ Detail: 🔴 `srom-produkcja/volumes/ror.tsv`
    QuickStatements as in SYS-2.
 
 *Trail: srom-quant SKILL.md, deployment steps 9–10.*
+
+### SYS-5 · Clickable DOIs in the online PDF (for a stronger model to build)
+**Later** · blocks nothing (print carries no DOIs: GEN-10)
+
+The online PDF of an article should link every reference to its DOI (`https://doi.org/…`) without printing it
+in the text: a link behind the citation, correctly encoded (DOI characters such as `<`, `>`, `;`, `(`, `)` need
+escaping), surviving the InDesign export. Needs a design (hyperlink in InDesign from the data, or added to the
+exported PDF afterwards) and a test on a real article. Meant for a separate chat on a higher model; the DOIs are
+already in the reference data. Open it when the first volume with the new rule is typeset.
+
+*Trail: GEN-10, 02.10.2026 [general].*
+
