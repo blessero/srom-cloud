@@ -20,7 +20,7 @@ One row per **concept**, not per English word. Every inflected or spelling varia
 | `first_use` | form at first occurrence in the article | kanon § 4.3: Polish form, then the original in italics in round brackets, as spelled in the source |
 | `grammar` | gender, declension, number, aspect | anything a translator could get wrong in inflection |
 | `note` | scope, connotation, conditions of use | including interference with other Polish senses |
-| `evidence` | sources for `pl_standing` | ` \| `-separated; bibliographic data only as far as verified (kanon § 0: no reconstruction). A source in the training corpus is cited `TR <key>: «quote»` (`<key>` from `training/sources.tsv`); the checker finds the quote in the file (whitespace-normalised). Works the training article only cites count for nothing until read: they go in `note` as "via <key>" |
+| `evidence` | sources for `pl_standing` | ` \| `-separated; bibliographic data only as far as verified (kanon § 0: no reconstruction). A source in the training corpus is cited `TR <key>: «quote»` (`<key>` from `training/sources.tsv` in the module folder); the checker finds the quote in the file (whitespace-normalised). Works the training article only cites count for nothing until read: they go in `note` as "via <key>" |
 | `precedent` | SROM occurrences | `SRom vol/year, author, line` in the project text file |
 | `decided` | date and decider | `dd.mm.rrrr MB`; empty for OPEN |
 
@@ -65,7 +65,7 @@ Terms a competent translator renders right unaided get no row (e.g. *scientific 
    - RANK-4 clarity — transparency for a non-specialist reader.
 4. A tie, or doubt at any step → OPEN, raised to MB before drafting.
 
-Published Polish translations of a theorist's work are recorded in `pl_variants`. They are binding for **quotations** from that work (kanon draft § 12.2.4 a), not automatically for the term; they count toward standing only when the rendering has been taken up in native scholarship.
+Published Polish translations of a theorist's work are recorded in `pl_variants`. They are binding for **quotations** from that work (Kanon § 12.2.4 a), not automatically for the term; they count toward standing only when the rendering has been taken up in native scholarship.
 
 ## Extension to further source languages
 

@@ -46,14 +46,14 @@ def coverage():
 def candidates():
     """Changed rows replace their concept_id, new rows are appended; the merge must pass check_tb, and every
     `md <art>: «…»` quote in a candidate row is verified here too (check_tb checks quotes of HOUSE rows only)."""
-    tb = os.path.join(ROOT, "tlumacz-tb.tsv"); cand = os.path.join(HERE, "tb-candidates.tsv")
+    tb = os.path.join(ROOT, ".claude", "skills", "srom-tlumacz", "references", "tlumacz-tb.tsv"); cand = os.path.join(HERE, "tb-candidates.tsv")
     base, C = rows(tb), rows(cand); H = list(base[0].keys())
     ids = {r["concept_id"] for r in C}
     merged = [r for r in base if r["concept_id"] not in ids] + C
     d = tempfile.mkdtemp(); m = os.path.join(d, "tb.tsv")
     with open(m, "w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=H, delimiter="\t", lineterminator="\n"); w.writeheader(); w.writerows(merged)
-    r = subprocess.run([sys.executable, os.path.join(ROOT, "tlumacz-check_tb.py"), "--tb-file", m,
+    r = subprocess.run([sys.executable, os.path.join(ROOT, ".claude", "skills", "srom-tlumacz", "scripts", "tlumacz-check_tb.py"), "--tb-file", m,
                         "--schema", "--shape", "--vocab", "--precedent", "--evidence"], capture_output=True, text=True)
     print(r.stdout.strip())
     bad = 0

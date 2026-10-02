@@ -19,7 +19,8 @@ Output per article: "DRAFT <id>: leftover n, marks a=b, quotes x/y (c bad class,
 Exit 1 if any check fails. The draft is read, never written.
 """
 import os, re, sys, shutil, tempfile
-HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from tlumacz_paths import MODULE   # the module folder that holds work/<id>/
 WORDS = r"(?i)\b(the|and|of|with|which|that|this|from|were|was|is|for|not|but|have|had)\b"
 # a capitalised word followed by more capitalised words or connectors: "Detroit Institute of Arts",
 # "Rivals of the Past, Children of the Future", "The Author(s)" — institution, project and journal names stay in the original
@@ -70,7 +71,7 @@ def quoted_notes(src):
                 if nm: labels.add(nm.group(1))
     return labels
 
-def check(aid, root=HERE, want=("leftover", "marks", "quotes"), quiet=False):
+def check(aid, root=MODULE, want=("leftover", "marks", "quotes"), quiet=False):
     d = os.path.join(root, "work", aid)
     pl, uw = rd(os.path.join(d, f"{aid}_pl.md")), rd(os.path.join(d, f"{aid}_uwagi.md"))
     ok, parts = True, []
@@ -106,14 +107,14 @@ def check(aid, root=HERE, want=("leftover", "marks", "quotes"), quiet=False):
     print(f"DRAFT {aid}: " + ", ".join(parts))
     return ok
 
-def ids(root=HERE):
+def ids(root=MODULE):
     w = os.path.join(root, "work")
     return sorted(x for x in os.listdir(w) if os.path.exists(os.path.join(w, x, f"{x}_pl.md")))
 
 def selftest():
     def planted(aid, fn, change):
         tmp = tempfile.mkdtemp(); d = os.path.join(tmp, "work", aid)
-        shutil.copytree(os.path.join(HERE, "work", aid), d, ignore=shutil.ignore_patterns("build", "research", "*.docx"))
+        shutil.copytree(os.path.join(MODULE, "work", aid), d, ignore=shutil.ignore_patterns("build", "research", "*.docx"))
         p = os.path.join(d, fn); open(p, "w", encoding="utf-8").write(change(open(p, encoding="utf-8").read()))
         with open(os.devnull, "w") as nul:
             so = sys.stdout; sys.stdout = nul

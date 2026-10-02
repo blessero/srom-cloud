@@ -15,22 +15,22 @@
                training/sources.tsv (whitespace-normalised); every CANDIDATE row has at least one (leaf 1.3.5)
   --selftest   corrupts temporary copies and confirms each check above fails on them
 
-Paths resolved by tlumacz_paths.py (./, sources/, ../sources, ../_shared, /mnt/project); override with
---tb-file, --schema-file, --v18-file. Exit 1 on any failure.
+Termbase and schema: the skill's references/; vol. 18 text, vol18-md/ and training/: the module folder (tlumacz_paths.py);
+override with --tb-file, --schema-file, --v18-file. Exit 1 on any failure.
 """
-import re, argparse, csv, os, re, shutil, subprocess, sys, tempfile
+import argparse, csv, os, re, shutil, subprocess, sys, tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
 sys.path.insert(0, HERE)
-from tlumacz_paths import source as _source
+from tlumacz_paths import source as _source, ref, MODULE
 
 
 def locate(name, override, *alts):
     if override:
         return override
-    return _source(name, *alts) or os.path.join(HERE, name)
+    return _source(name, *alts) or os.path.join(MODULE, "sources", name)
 
 
 def norm(s):
@@ -122,7 +122,7 @@ def run_checks(a):
             for art, q in mdcites:
                 f = os.path.join(os.path.dirname(a.v18_file), "vol18-md", f"{art}_pl.md")
                 if not os.path.exists(f):
-                    f = os.path.join(HERE, "sources", "vol18-md", f"{art}_pl.md")
+                    f = os.path.join(MODULE, "sources", "vol18-md", f"{art}_pl.md")
                 if not (os.path.exists(f) and norm(q) in norm(open(f, encoding="utf-8").read())):
                     good = False; print(f"  {r['concept_id']}: quote not found in {art}_pl.md: «{q}»")
             for n, q in cites:
@@ -143,7 +143,7 @@ def run_checks(a):
         for cid, art, q in other:
             f = os.path.join(os.path.dirname(a.v18_file), "vol18-md", f"{art}_pl.md")
             if not os.path.exists(f):
-                f = os.path.join(HERE, "sources", "vol18-md", f"{art}_pl.md")
+                f = os.path.join(MODULE, "sources", "vol18-md", f"{art}_pl.md")
             if not (os.path.exists(f) and norm(q) in norm(open(f, encoding="utf-8").read())):
                 miss.append(cid); print(f"  {cid}: quote not found in {art}_pl.md: «{q}»")
         print(f"precedent quotes in rows not yet HOUSE: {len(other) - len(miss)}/{len(other)}")
@@ -160,9 +160,7 @@ def run_checks(a):
               else f"established rows: {len(short)} under-evidenced")
         ok &= not short
 
-        tdir = os.path.join(os.path.dirname(os.path.abspath(a.tb_file)), "training")
-        if not os.path.isfile(os.path.join(tdir, "sources.tsv")):
-            tdir = os.path.join(HERE, "training")
+        tdir = os.path.join(MODULE, "training")
         tfiles = {}
         if os.path.isfile(os.path.join(tdir, "sources.tsv")):
             with open(os.path.join(tdir, "sources.tsv"), encoding="utf-8") as f:
@@ -226,8 +224,8 @@ def main():
         ap.add_argument("--" + f, action="store_true")
     ap.add_argument("--tb-file"); ap.add_argument("--schema-file"); ap.add_argument("--v18-file")
     a = ap.parse_args()
-    a.tb_file = locate("tlumacz-tb.tsv", a.tb_file)
-    a.schema_file = locate("tlumacz-tb-schema.md", a.schema_file)
+    a.tb_file = a.tb_file or ref("tlumacz-tb.tsv")
+    a.schema_file = a.schema_file or ref("tlumacz-tb-schema.md")
     a.v18_file = locate("Studia_Romologica_nr_18_2025.txt", a.v18_file, "Studia_Romologica_nr_18_2025.pdf")
     ok = selftest(a) if a.selftest else run_checks(a)
     sys.exit(0 if ok else 1)

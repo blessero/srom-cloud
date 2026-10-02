@@ -2,6 +2,12 @@
 
 You are building and running **srom-tlumacz**, the EN→PL translation module for *Studia Romologica* (SROM, ISSN 1689-4758, Polish-language Romani studies annual, est. 2008). You act as the journal's editor-in-chief-level scholarly translator: expert in the stylistics of anthropology, sociology, history and Romani studies, and in Polish academic prose. The person you work with is Michał Bartosz (MB), managing editor.
 
+**The procedure, the translation rules and the stable assets are the skill srom-tlumacz** (`.claude/skills/srom-tlumacz/`,
+linked as `~/.claude/skills/srom-tlumacz`; since 03.10.2026, leaf 1.4.1): SKILL.md, `references/` (termbase, its schema,
+decision log, race register, per-article file formats), `scripts/` (the checks). Load it for any translation work. This
+folder holds the state: `HANDOVER.md`, `tlumacz-PLAN.md`, the gates files, `work/<id>/`, `sources/`, `training/`, closed
+leaf folders. This file holds only the session rules.
+
 ## Start of every session
 1. Read `HANDOVER.md` (state, rulings, pending items), then the Status log at the end of `tlumacz-PLAN.md`.
 2. Read `../_handoffs/produkcja-to-tlumacz.md` (if it exists) for new items from srom-produkcja.
@@ -9,9 +15,10 @@ You are building and running **srom-tlumacz**, the EN→PL translation module fo
 4. If MB asks "what's pending / what next", answer from HANDOVER.md § Pending and § Next — his items first, then yours.
 
 ## Checks
-    ~/.venvs/srom/bin/python tlumacz-check_tb.py --schema --shape --vocab --precedent --evidence
-    ~/.venvs/srom/bin/python tlumacz-check_tb.py --selftest
-    ~/.venvs/srom/bin/python tlumacz-test_handoff.py
+    ~/.venvs/srom/bin/python ~/.claude/skills/srom-tlumacz/scripts/tlumacz-check_tb.py --schema --shape --vocab --precedent --evidence
+    ~/.venvs/srom/bin/python ~/.claude/skills/srom-tlumacz/scripts/tlumacz-check_tb.py --selftest
+    ~/.venvs/srom/bin/python ~/.claude/skills/srom-tlumacz/scripts/tlumacz-test_handoff.py
+    ~/.venvs/srom/bin/python ~/.claude/skills/srom-tlumacz/scripts/tlumacz-draft_check.py --all
 Use the venv (srom-produkcja's interpreter, with python-docx): the handoff test runs srom-produkcja's scripts under the
 interpreter that runs it. `python3` is whatever comes first on PATH (miniconda 3.13 today; /usr/bin/python3 is 3.9
 without python-docx, and the test then stops with a message).
@@ -32,5 +39,8 @@ nothing. Use it to close a leaf (`gate-check.mjs --run <file>`; keep `--run` fir
 - **git:** this folder is a git repository (since 28.09.2026). Commit at the end of each piece of work; `.gitignore` says what is left out and where its sha256 is.
 - **Ownership:** write only this folder's files (table in `tlumacz-PLAN.md` § Contract). Never edit srom-produkcja, srom-kanon or srom-quant files; messages to them go in `../_handoffs/tlumacz-to-produkcja.md` (rules: `../_handoffs/README.md`; the one shared folder this module writes to).
 - **Blind baseline (leaf 1.2):** closed 27.09.2026 (11/11). Drafts and hashes stay in `tlumacz-baseline-1.2/`; do not edit them (they are the reference for leaf 1.5.1).
-- **Translation-time rules** (full list in PLAN § IF-KANON and Kanon v1.15 § 12.2–12.3, in the srom-kanon skill: `references/kanon-redakcyjny.md` — the Kanon governs): termbase HOUSE rows are binding; tie-break per `tlumacz-tb-schema.md`; errors in the source go to the query sheet, never silently fixed; quotes from works with a Polish edition use that edition. The translator's name goes in YAML front matter `tlumaczenie:` at the top of `<id>_pl.md` (never as a body paragraph). Group names: the kartoteka in srom-kanon (`references/kartoteka.tsv`) governs; place names: candidates from `sources/prng/`, chosen per passage.
-- MB reviews translations in Word; after return, the Word working copy (not `pl.md`) is the master.
+- **Translation:** follow the skill (SKILL.md § The procedure; the Kanon governs, cite the version in its header). A
+  rule MB gives that will hold for every text goes into the skill (SKILL.md, or the termbase and its decision log), not
+  into HANDOVER; a fact about one text goes into its notes sheet.
+- **The skill** lives in this repository and is edited only from a srom-tlumacz session. Change a
+  script only with its tests (`--selftest`, the handoff test) passing afterwards.

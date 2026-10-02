@@ -166,11 +166,10 @@ expect("T11: four keywords fail (5–10)", rc == 1 and "4 keywords" in out)
 rc, out = front(FPL.replace("<!-- do zatwierdzenia przez autora -->\n", ""))
 expect("T11: drafted English keywords without the approval line fail", rc == 1 and "do zatwierdzenia" in out)
 
-# E3, E5 (27.09.2026, T1): contract text only — the literal-note rule and the terminology slot with the fixed CLI
+# E3 (27.09.2026, T1): contract text only — the literal-note rule. (The E5 terminology slot was dropped in leaf 1.4.1,
+# 03.10.2026: tb_check.py is not built — on the four vol. 19 drafts a prototype gave 4 false flags and no real miss.)
 expect("E3: handoff.md keeps the literal-note rule (kanon § 8: fol. → k., file → sygn., fond → zespół)",
        "Literal notes" in HO and "fol. → k., file → sygn., fond → zespół" in HO)
-expect("E5: handoff.md keeps the terminology slot with the fixed tb_check.py CLI",
-       "tb_check.py <id>_src.md <id>_pl.md --tb tlumacz-tb.tsv --csv <id>_pytania_tb.csv" in HO)
 
 # E6 (27.09.2026, T1): query rows name the source note label; build.py --pair-src turns it into the printed number.
 # A case where the three differ: a citation in the main text takes printed note 1, and two translator notes (no
