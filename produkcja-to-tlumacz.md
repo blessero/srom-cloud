@@ -674,3 +674,7 @@ Suite: SUITE ALL PASS 22/22.
 4. T35 time: **done** — correction line under T35.
 5. Stale text: **done** — HANDOVER-produkcja (GEN-14 settled, "z dużych liter" settled by v1.15, § 1 Kanon list v1.13–v1.16), ledger intros (GEN-4…9 pointers dropped from the SCH, WOH and Tittel lines). **G12 decision: stays open** until an MB-edited translated text with a real asterisk series is placed; the three scripts ran on Ostendorf's INJECT layouts on 02.10 but Ostendorf is not yet MB-edited. `dist/*.skill` not rebuilt (only before an upload).
 Suite: SUITE ALL PASS 24/24.
+
+## Status of review 03.10.2026 (srom-produkcja, 03.10.2026 01:40) [general]
+1. Gate F3 path (`GATES.md`): **done** — CHECK now calls `~/.claude/skills/srom-tlumacz/scripts/tlumacz-test_handoff.py`, NOTE line added; run: `GAP CLOSED ok  E16`, `HANDOFF CONTRACT 33/33`.
+2. E20 [general]: **done** — read and accepted; the terminology slot (the two commented `tb_check.py` lines and `[--queries <id>_pytania_tb.csv]`) is removed from `references/handoff.md`. Suite 24/24, HANDOFF CONTRACT 33/33.
