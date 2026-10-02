@@ -645,3 +645,32 @@ Suite: SUITE ALL PASS 22/22.
 - 02.10.2026 20:10 status: for information. Kanon **v1.15** (supersedes v1.14's wording in T34 item 3): publishing-series
   and conference names are roman, in quotation marks, **every word capitalised** (`„Leksykon Polskiej Muzyki Rozrywkowej”`).
   Nothing else changes. Please cite "Kanon v1.15".
+- T35, correction 03.10.2026 00:28: [general] written 20:08, not 20:10 (the header time is the one `date` gave at commit).
+
+## T36 — [general] [Tittel] Kanon v1.16: DOI no longer printed, series, places, reprint, bibliography parts; linter fix (03.10.2026 00:30)
+
+- 03.10.2026 00:30 status: action for you (small). MB's decisions of 02.10.2026 21:30, srom-produkcja cb3cfe5: Kanon **v1.16**
+  (header, § 17 row, RULES.md, SKILL.md agree). Please cite "Kanon v1.16". Suite 24/24; your `tlumacz-test_handoff.py`
+  against cb3cfe5: HANDOFF CONTRACT 34/34.
+1. **No DOI is printed** — notes, bibliography, and the translation note (§ 12.2.3 item 1, § 9.7): the original's description
+   in the title note ends at the page range, `… s. aa–bb.`, without `DOI: …`. Drop it from the drafts' translation notes
+   (it stays in the record fields). The online PDF carries invisible DOI links; nothing for you.
+2. **Series, places, reprints** (§ 7.2) are the build's: series in parentheses after the year (`München 1995 („Nazwa”, 34)`),
+   several places with an en dash (the build turns `/` and `;` into `–`), a reprint as `2000 [1983]`. Data only
+   (`collection-title`/`-number`, `publisher-place`, `original-date`); no token changes.
+3. **§ 7.3:** after a lead-in the build prints `zob. ibidem` in lower case; nothing for you.
+4. **§ 9.2 bibliography parts:** Wykaz skrótów · Źródła archiwalne · Źródła terenowe · Źródła drukowane · Opracowania ·
+   Źródła internetowe ("Literatura przedmiotu" is now "Opracowania"; laws, press, old printed works and classics under
+   "Źródła drukowane"). If your drafts name a part, use the new names (the build still reads the old ones).
+5. **[Tittel]** `refs.json` changed (Kant, Marx, Grellmann, Biester, Rüdiger → `srom-section` IV, "Źródła drukowane"):
+   `71181a9a…2b320d9`. Copy and verify at your next intake.
+6. Linter `TLUM-ADNOTACJA` now also catches the capitalised `Tłum. z przekładu angielskiego` (review 02.10.2026; no rule change).
+   Your current `pahulich_pl.md` has none left, so there is nothing to report; the test covers both spellings.
+
+## Status of review 02.10.2026 (srom-produkcja, 03.10.2026 00:30) [general]
+1. Linter, capitalised annotation: **done** — `[Tt]łum\. z przekładu…`, test case added (cb3cfe5's parent commit); told in T36 item 6. The check on `pahulich_pl.md` could not be repeated: that draft has no annotation any more.
+2. MB's decisions of 21:30 (Kanon v1.16): **done** — Kanon § 7.2, 7.3, 8.6, 9.1, 9.2, 9.4, 9.7, 12.2.3 and § 17 row 1.16; CSL (series, reprint, DOI out), `build.py` (section names and order, places, lower-case ibidem; the InDesign Ibidem check finds either case), `volume_lists.py` (parts before the last two; vol. 18 gives 9 persons), `autorzy.tsv` (GEN-12; Popov spelled Veselin in the register — vol. 18's master CSV still says Vesselin, left as printed); Tittel's Kant/Marx/Grellmann/Biester/Rüdiger moved to "Źródła drukowane"; announced as T36; the ledger section deleted. Scheffknecht: only the series (GEN-5) and the place `Wien–München` apply; its refs data had no further change.
+3. Commit of `ostendorf_uwagi.md`: **done** — the line sits under the B-list of OST-3 (second editor's spelling).
+4. T35 time: **done** — correction line under T35.
+5. Stale text: **done** — HANDOVER-produkcja (GEN-14 settled, "z dużych liter" settled by v1.15, § 1 Kanon list v1.13–v1.16), ledger intros (GEN-4…9 pointers dropped from the SCH, WOH and Tittel lines). **G12 decision: stays open** until an MB-edited translated text with a real asterisk series is placed; the three scripts ran on Ostendorf's INJECT layouts on 02.10 but Ostendorf is not yet MB-edited. `dist/*.skill` not rebuilt (only before an upload).
+Suite: SUITE ALL PASS 24/24.

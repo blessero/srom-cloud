@@ -70,32 +70,6 @@ send) · **Later** (a reminder, nothing to do now).
 | SYS-3 | Check 13 institution IDs (ROR) for the Crossref deposit | Approve | nothing |
 | SYS-4 | After the first Crossref deposit: two checks | Later | nothing |
 
-## Decided by MB 02.10.2026 21:30 — srom-produkcja to apply (then delete this section) [general]
-Each line is settled; the Kanon, the style and the tools are changed only from the srom-produkcja session, with a test.
-- **GEN-4** (a): look up missing publishers in library catalogues; list for approval, item by item (Kanon § 9.4 note).
-- **GEN-5** (a): series in parentheses at the end of the description, in notes and bibliography.
-- **GEN-6** (a): several places of publication joined with an en dash, "Köln–Weimar–Wien".
-- **GEN-7**: lower case after a lead-in: "zob. ibidem".
-- **GEN-9**: print reprints as "Przedruk: rok wydania, po nim rok pierwodruku w nawiasie kwadratowym" (Kanon § 7.2).
-- **GEN-13**: "Noty o autorach" for every contributor of the parts **before** the last two (Recenzje, Opinie and the one
-  after: usually parts III–IV, sometimes IV–V). That is parts I–II, or I–III when a theme title counts as part I. No notes for
-  the last two parts. Change `volume_lists.py`; re-run on vol. 18 as the test.
-- **GEN-8**: bibliography parts, each only when present, in this order: **Wykaz skrótów · Źródła archiwalne · Źródła
-  terenowe · Źródła drukowane · Opracowania · Źródła internetowe.** Laws, press and old printed works (Kant, Marx,
-  Grellmann) go to "Źródła drukowane"; "Literatura przedmiotu" is renamed "Opracowania"; "bez DOI" is dropped from the
-  web part. Change Kanon § 9.2, the build's section names and tests; check Tittel and Scheffknecht.
-- **GEN-10**: **no DOIs are printed** in notes or bibliographies, whatever the Kanon says: delete the DOI rule (Kanon
-  §§ 7.2, 9.1, 9.7, 12.2 and the examples; "bez DOI" in § 9.2). DOIs stay in the data (reference data, master CSV,
-  Crossref). The DOI of the *original* article in the translation note (§ 12.2.3) goes too (MB, 02.10.2026 21:50).
-  Clickable DOIs in the online PDF: built 02.10.2026 (SYS-5 closed; srom-produkcja `<stem>_doi.jsx`).
-- **GEN-12**: Fotta — *Institute of Ethnology, Czech Academy of Sciences* (the vol. 18 form is right; the "Slovak" in the
-  register was wrong; source: romaniatlantic.cz). Marushiakova — *Institute of Ethnology and Social Anthropology, Slovak
-  Academy of Sciences, Bratislava*, there since 2023 (source: uesa.sav.sk); the register's "Bułgarska AN / Humboldt" is
-  out of date. Chiriac Bogdan: **Chiriac** is the surname (sorts under C; drop the flag). **Veselin** Popov is the
-  spelling (the register and later notes). Correct "Dr jarosław / eva / johannes ries" to capitals when next printed.
-  Change `srom-produkcja/volumes/autorzy.tsv` (affiliation column, flags, spelling).
-- **GEN-14**: the Kanon stands: "Ossolineum, Wrocław 1974" (publisher first, comma, no colon). Nothing to change.
-
 ## Journal-wide (GEN)
 Next free: GEN-15.
 
@@ -407,7 +381,7 @@ Detail: 🔴 `srom-tlumacz/work/ostendorf/ostendorf_uwagi.md` → OST-10 (final 
 
 ## Tittel — "Racial and Social Dimensions of Antiziganism" (On_Culture 10, 2020) (TIT)
 Source ready, translation drafted; Word copy for you: 🔴 `srom-tlumacz/work/tittel/tittel_robocza.docx`.
-Licence CC BY 4.0: no permission needed. Also concerns this text: GEN-4 to GEN-8, V19-1, V19-3, V19-4.
+Licence CC BY 4.0: no permission needed. Also concerns this text: V19-1, V19-3, V19-4.
 Next free: TIT-13.
 
 ### TIT-1 · The author's "gypsy/gypsies" (in scare quotes, lower case): „Cyganie” with a capital, or lower case?
@@ -566,7 +540,7 @@ Detail: 🔴 `srom-tlumacz/work/ndiaye/ndiaye_uwagi.md` → NDI-3
 
 ## West Ohueri — "Peripheral whiteness and racial belonging and non-belonging" (Off White, ch. 6, MUP 2024) (WOH)
 Source ready; **not to be translated for publication without permission** (CC BY-NC-ND; you are asking the author and
-MUP). Also concerns this text: GEN-9, V19-2, V19-3. Next free: WOH-7.
+MUP). Also concerns this text: V19-2, V19-3. Next free: WOH-7.
 
 ### WOH-1 · Start translating before the permission arrives?
 **Decide** · blocks the translation
@@ -626,7 +600,7 @@ For later (no question yet): its *Egyptians* (22×) are the present-day Balkan g
 drafts put in quotation marks; *racial belonging* (16×) will need a Polish form.
 
 ## Scheffknecht — "Zigeuner im Reichshof Lustenau" (Neujahrsblätter Lustenau 1, 2010) (SCH)
-Source ready (German test); not handed to translation. Also concerns this text: GEN-4, GEN-5, GEN-6. Next free: SCH-6.
+Source ready (German test); not handed to translation. Next free: SCH-6.
 
 ### SCH-1 · The text is German and srom-tlumacz works from English: who translates it?
 **Decide** · blocks stage 2
