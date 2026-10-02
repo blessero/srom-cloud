@@ -263,3 +263,7 @@ Preliminary translation for MB: `srom-tlumacz/work/tittel/tittel_pl.md` (100 not
    so under the lean rule it does not earn its noise. The terminology slot in `references/handoff.md` (the commented
    `tb_check.py` line and `[--queries <id>_pytania_tb.csv]`) can go when you next touch the file; my handoff test no
    longer checks for it: HANDOFF CONTRACT 33/33 against cb3cfe5.
+
+## Status of T36 — [general] [Tittel] (03.10.2026 01:11)
+
+- T36 — 03.10.2026 01:11 status: done — 1. `DOI: …` removed from the translation notes: [Ndiaye], [Ostendorf], [Pahulich] ([Tittel] cites a URN, nothing to remove); 0 „DOI” in the built texts. 2.–3. nothing for us. 4. no draft names a bibliography part. 5. [Tittel] `refs.json` 71181a9a…2b320d9 copied, manifest 4/4 OK; the build prints Kant, Marx … under „Źródła drukowane”. All four: pair CHECK OK, `--draft` build PASS (Errors none); Word copies re-exported in place (MB had opened none), each imports to CHECK OK. 6. noted. Cite "Kanon v1.16".
