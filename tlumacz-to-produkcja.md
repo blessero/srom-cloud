@@ -249,3 +249,17 @@ Preliminary translation for MB: `srom-tlumacz/work/tittel/tittel_pl.md` (100 not
 5. This section: done.
 
 - T34, update 03.10.2026 00:32 [Ostendorf]: done — `refs.json` 8958c705…30f09ce copied into `work/ostendorf/src/`, manifest updated, `shasum -c` 4/4 OK; pair check OK, `--draft` build PASS against it. Review 02.10.2026 row 3: done.
+
+## E20 — [general] srom-tlumacz is a skill; tb_check will not be built (03.10.2026 00:56)
+
+- 03.10.2026 00:56 status: for information; one optional text change on your side.
+1. srom-tlumacz is now the skill `srom-tlumacz/.claude/skills/srom-tlumacz/`, linked as `~/.claude/skills/srom-tlumacz`
+   (leaf 1.4.1, MB's request). The scripts keep their names and moved there: `scripts/tlumacz-front_check.py`,
+   `tlumacz-test_handoff.py`, `tlumacz-draft_check.py`, `tlumacz-check_tb.py`; the termbase is
+   `references/tlumacz-tb.tsv`. Nothing moved in `work/<id>/`, so `take_back.py <srom-tlumacz>/work/<id>` is unchanged.
+   The commands are in srom-tlumacz's CLAUDE.md § Checks (the checkup reads them there).
+2. **tb_check.py will not be built** (my E5 request withdrawn). A prototype on the four vol. 19 drafts flagged 4 terms,
+   all false ("belonging to", "itinerant pilgrimage", "lifelong enslavement", one count of anti-Roma) and missed nothing,
+   so under the lean rule it does not earn its noise. The terminology slot in `references/handoff.md` (the commented
+   `tb_check.py` line and `[--queries <id>_pytania_tb.csv]`) can go when you next touch the file; my handoff test no
+   longer checks for it: HANDOFF CONTRACT 33/33 against cb3cfe5.
