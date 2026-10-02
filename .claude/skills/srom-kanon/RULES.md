@@ -1,4 +1,4 @@
-# SROM RULES — English digest of the Kanon (v1.11)
+# SROM RULES — English digest of the Kanon (v1.12)
 
 Normative text: `references/kanon-redakcyjny.md` — *Kanon edytorski Studia Romologica* (Polish, internal), in this skill. This file is its compact English digest; **section numbers are the Kanon's**. If the two differ, the Kanon governs and this file is corrected. New rules go into the Kanon first (with a § 17 entry), then here.
 
@@ -83,13 +83,13 @@ Superscript arabic, continuous, foot of page; in the note itself the number has 
 | Book | `J. Ficowski, *Cyganie na polskich drogach*, Wydawnictwo Literackie, Kraków 1985, s. 15.` |
 | 2–3 | `L. Mróz, A. Bartosz, *Tytuł*, Wydawnictwo, Warszawa 1998, s. 40–42.` |
 | 4+ | `K. Fiałkowska i in., *Tytuł*, Wydawnictwo, Warszawa 2020, s. 12.` |
-| Edited vol. | `A. Kowalski (red.), *Tytuł tomu*, Wydawnictwo, Kraków 2011, s. 88.` |
+| Edited vol. | `*Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88.` — **the editor never stands in the author's place** (v1.12) |
 | Chapter | `L. Mróz, *Tytuł rozdziału*, w: *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88–104.` |
 | Article | `M. Kołaczek, *Tytuł*, „Studia Romologica”, 2012, nr 5, s. 217.` |
 | Article vol+issue | `S. Płoski, *Tytuł*, „Dzieje Najnowsze”, 1947, t. 1, z. 2, s. 310.` |
 | Translation | `I. Hancock, *Tytuł*, tłum. J. Nowak, Wydawnictwo, Warszawa 2007, s. 33.` |
 | Edition of a source | `F. Paucke, *Tytuł*, red. E. Becker-Donner, Wydawnictwo, Wien 1959, s. 183.` |
-| Anonymous source edition; edited text in a journal | `*Tytuł relacji*, red. H. Dexter, Wydawnictwo, Boston 1865, s. 88.` · `*Tytuł*, tłum. i red. K.G. Loewald, „Czasopismo”, 1957, t. 14, nr 2, s. 220.` — title first; the editor stands first only for an edited volume cited whole (v1.11) |
+| Anonymous source edition; edited text in a journal | `*Tytuł relacji*, red. H. Dexter, Wydawnictwo, Boston 1865, s. 88.` · `*Tytuł*, tłum. i red. K.G. Loewald, „Czasopismo”, 1957, t. 14, nr 2, s. 220.` — title first, like every work without an author |
 | Translator = editor | `J. Nowak, *Tytuł*, tłum. i red. J. Robertson, Wydawnictwo, DeLand 1932, s. 118.` |
 | Edition | `A. Bartosz, *Tytuł*, wyd. 3 popr., Wydawnictwo, Tarnów 2019, s. 51.` |
 | Multivolume | `A. Kowalski, *Tytuł*, t. 2: *Tytuł tomu*, …, s. 77.` |
@@ -102,7 +102,7 @@ Initial + surname (`R.L. Turner`). Publisher before place; no comma between plac
 **Locator:** always when a specific place is cited, without exception for a quotation. A reference to the work as a whole has no page (and no article page range — the bibliography has it); the editor confirms each; a quotation without a page is a query to the author.
 
 ### 7.3. Subsequent citations
-`Ficowski, *Cyganie na polskich drogach…*, s. 51.` Short title fixed once; `…` when truncated, a short enough title given in full without `…`. Multi-author: `Mróz, Bartosz, *Tytuł…*`; 4+ `Fiałkowska i in., *Tytuł…*`; edited volume: editor's surname, no `(red.)`.
+`Ficowski, *Cyganie na polskich drogach…*, s. 51.` Short title fixed once; `…` when truncated, a short enough title given in full without `…`. Multi-author: `Mróz, Bartosz, *Tytuł…*`; 4+ `Fiałkowska i in., *Tytuł…*`; edited volume or other work without an author: the short title alone (`*Tytuł tomu…*, s. 90`).
 `*Ibidem*, s. 52.` only if the immediately preceding note cites the same work **and stands in the same column** (checked after layout). Never inside a sentence; never when this or the preceding note also cites a non-bibliographic source (archival unit, press issue, legal act); never in a non-author note, nor in the author's note right after one — short form instead.
 **Forbidden:** `op. cit.` `dz. cyt.` `idem` `eadem` `tenże` `taż` `tamże` `loc. cit.` `passim` (as locator), year letters (`2012a`).
 
@@ -132,7 +132,7 @@ Same construction as the note, four differences only: **`Surname, Given-name.`**
 | Book | `Ficowski Jerzy. *Cyganie na polskich drogach*, Wydawnictwo Literackie, Kraków 1985.` |
 | 2–3 | `Mróz Lech, Bartosz Adam. *Tytuł*, Wydawnictwo, Warszawa 1998.` |
 | 4+ | `Fiałkowska Kamila, Garapich Michał P., Mirga-Wójtowicz Elżbieta, Kowalski Jan. *Tytuł*, …` |
-| Edited | `Kowalski Andrzej (red.). *Tytuł tomu*, Wydawnictwo, Kraków 2011.` |
+| Edited | `*Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011.` (sorted by title) |
 | Chapter | `Mróz Lech. *Tytuł rozdziału*, w: *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88–104.` |
 | Article | `Kołaczek, Małgorzata. *Tytuł*, „Studia Romologica”, 2012, nr 5, s. 211–228. DOI: 10.1234/srom.2012.5.11.` |
 | Cyrillic | `Demeter, Nadezhda. *Istoriia tsygan*, Nauka, Moskva 2018.` |
@@ -140,7 +140,7 @@ Same construction as the note, four differences only: **`Surname, Given-name.`**
 | Informant | `W12 – mężczyzna, ur. 1951, Polska Roma, Tarnów, wywiad 14.06.2019; nagranie: Archiwum MET, sygn. AT/W/12.` |
 
 **9.2 Divisions**, in this order, only those present, headed but **unnumbered**; a bibliography with a single division has no division heading: Abbreviations · Archives (fonds level) · Fieldwork · Printed/legal · Web without DOI · Literature. Coverage: every cited work, except single archival units, single press issues, one-off legal acts; and the author's whole bibliography, cited or not.
-**9.3 Small caps:** genuine OpenType (fallback: full caps, as in the index); surname only; particles lowercase and outside small caps, placed as § 9.5 says (`HEUSCH Luc de`); institutional authors not in small caps. **Character style, never data.** **No comma after the surname** (`Paucke Florian`; v1.11, 02.10.2026): the small caps mark the surname; commas separate authors.
+**9.3 Small caps:** genuine OpenType (fallback: full caps, as in the index); surname only; particles lowercase and outside small caps, placed as § 9.5 says (`HEUSCH Luc de`); institutional authors not in small caps. **Character style, never data.** **No comma after the surname** (`Paucke Florian`; 02.10.2026): the small caps mark the surname; commas separate authors.
 **9.5 Order:** Polish collation by transliterated form; same author chronological, then by title; sole-author works before co-authored. **Particles and compound surnames:** the heading form of the name's own language, as in LC NAF/VIAF (also Chicago): preposition particles after the given name (`Hippel Wolfgang von`, `Fuente Alejandro de la`, `Heusch Luc de`); articles and fused particles first (`La Fontaine`, English/American `De Witt`, `Van Buren`); Spanish compounds under the first element, Portuguese/Brazilian under the last (`Costa Elisa Maria Lopes da`); Icelandic under the forename. First note: full form (`A. de la Fuente`); short form without the preposition particle (`Fuente`).
 **9.7 Identifiers:** DOI mandatory where one exists, printed `DOI: 10.1234/abcd` (no `https://doi.org/`). An article without DOI (online journal): its URL in the bibliography in the DOI's place. ISBN only in the bibliography and only when the author gives it (not added), printed `ISBN 978-…` without a colon.
 
@@ -231,7 +231,7 @@ Record: DOI · titles · authors + ORCID + affiliation (**no capitals in surname
 6. Italics: common noun vs proper name; foreign exonym vs endonym (check the kartoteka).
 7. Group-name spelling consistent; variants in the authority file; keywords in standard form.
 8. Footnote names = initials; bibliography names = full.
-9. Editor placement: before title (whole volume) vs after (chapter).
+9. Editor placement: always after the title (`red. A. Kowalski`), never in the author's place.
 10. Cyrillic: body transcribed per PWN/KSNG; apparatus ALA-LC; `ʹ ʺ` not `' "`; Cyrillic institutions transcribed in body, not translated.
 11. Imprint places match the title page.
 12. Legal acts and rulings in official wording.

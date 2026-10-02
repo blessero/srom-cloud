@@ -52,7 +52,7 @@ NOTES = [
     ("ficowski1985", "s. 15", "J. Ficowski, *Cyganie na polskich drogach*, Wydawnictwo Literackie, Kraków 1985, s. 15."),
     ("mroz1998", "s. 40-42", "L. Mróz, A. Bartosz, *Tytuł pracy*, Wydawnictwo, Warszawa 1998, s. 40–42."),
     ("fialkowska2020", "s. 12", "K. Fiałkowska i in., *Tytuł pracy*, Wydawnictwo, Warszawa 2020, s. 12."),
-    ("kowalski2011", "s. 88", "A. Kowalski (red.), *Tytuł tomu*, Wydawnictwo, Kraków 2011, s. 88."),
+    ("kowalski2011", "s. 88", "*Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88."),
     ("mroz2011", "s. 88-104", "L. Mróz, *Tytuł rozdziału*, w: *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88–104."),
     ("kolaczek2012", "s. 217", "M. Kołaczek, *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 217."),
     ("ploski1947", "s. 310", "S. Płoski, *Relacja von dem Bacha o powstaniu warszawskim*, „Dzieje Najnowsze”, 1947, t. 1, z. 2, s. 310."),
@@ -68,8 +68,8 @@ NOTES = [
     ("relacja1932", "s. 118", "J. Nowak, *Relacja*, tłum. i red. J. Robertson, Wydawnictwo, DeLand 1932, s. 118."),
     ("relacja1933", "s. 5", "J. Nowak, *Relacja druga*, red. A. Kowalska, tłum. J. Robertson, Wydawnictwo, DeLand 1933, s. 5."),
     ("list1900", "s. 314", "*Tytuł listu*, w: *Tytuł tomu*, red. R.G. Thwaites, t. 67, Wydawnictwo, Cleveland 1900, s. 314."),
-    # 02.10.2026 (MB, Ostendorf nn. 34, 41): the editor stands in the author's place only for an edited volume; an
-    # anonymous edition of a source (type "classic") and an edited article open with the title, the editor after it
+    # 02.10.2026 (MB, Kanon § 7.2): the editor never stands in the author's place — an edited volume (kowalski2011),
+    # an anonymous edition of a source and an edited article open with the title, the editor after it
     ("edycja1865", "s. 88", "*Relacja z Plymouth*, red. H. Dexter, Wydawnictwo, Boston 1865, s. 88."),
     ("odpowiedzi1957", "s. 220", "*Odpowiedzi na kwestionariusz*, tłum. i red. K.G. Loewald, P.S. Taylor, „The William and Mary Quarterly”, 1957, t. 14, nr 2, s. 220."),
     # § 9.5 (28.09.2026): a preposition particle is a dropping particle — in full in the first note
@@ -89,7 +89,7 @@ BIB = {
     "ficowski1985": "[Ficowski]{.sc} Jerzy. *Cyganie na polskich drogach*, Wydawnictwo Literackie, Kraków 1985.",
     "mroz1998": "[Mróz]{.sc} Lech, [Bartosz]{.sc} Adam. *Tytuł pracy*, Wydawnictwo, Warszawa 1998.",
     "fialkowska2020": "[Fiałkowska]{.sc} Kamila, [Garapich]{.sc} Michał P., [Mirga-Wójtowicz]{.sc} Elżbieta, [Kowalski]{.sc} Jan. *Tytuł pracy*, Wydawnictwo, Warszawa 2020.",
-    "kowalski2011": "[Kowalski]{.sc} Andrzej (red.). *Tytuł tomu*, Wydawnictwo, Kraków 2011.",
+    "kowalski2011": "*Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011.",
     "mroz2011": "[Mróz]{.sc} Lech. *Tytuł rozdziału*, w: *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88–104.",
     "kolaczek2012": "[Kołaczek]{.sc} Małgorzata. *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 211–228. DOI: 10.1234/srom.2012.5.11.",
     "turner1926": "[Turner]{.sc} Ralph L. *The position of Romani*, „Journal of the Gypsy Lore Society”, 1926, t. 5, nr 4, s. 145–189.",
@@ -144,6 +144,8 @@ def main():
         pairs.append(("short-form", n2[2], "Ficowski, *Cyganie na polskich drogach…*, s. 51."))
         n4 = notes_of(render("A [@hippel1995, s. 42]. B [@mroz1998, s. 1]. C [@hippel1995, s. 43].")["blocks"])
         pairs.append(("short form without the preposition particle (§ 9.5)", n4[2], "Hippel, *Armut, Unterschichten, Randgruppen*, s. 43."))
+        n6 = notes_of(render("A [@kowalski2011, s. 88]. B [@mroz1998, s. 1]. C [@kowalski2011, s. 90].")["blocks"])
+        pairs.append(("short form, edited volume: title, no editor", n6[2], "*Tytuł tomu*, s. 90."))
         n5 = notes_of(render("A [@edycja1865, s. 88]. B [@mroz1998, s. 1]. C [@edycja1865, s. 89].")["blocks"])
         pairs.append(("short form, anonymous source edition", n5[2], "*Relacja z Plymouth*, s. 89."))
         n3 = notes_of(render("A [@list1900, s. 314]. B [@mroz1998, s. 1]. C [@list1900, s. 315].")["blocks"])

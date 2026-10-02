@@ -28,7 +28,7 @@ names and in a designer's order:
 margins and masters. It:
 
 1. sets the document values: baseline grid every 13.2945 pt from 62.362 pt, relative to the top of the page;
-   Footnote Options (style Przypis, superscript reference, an en space after the number (no full stop, Kanon v1.11), 0.5 pt × 40 mm rule,
+   Footnote Options (style Przypis, superscript reference, an en space after the number (no full stop, Kanon § 7.1), 0.5 pt × 40 mm rule,
    numbering restarts per section, long notes may split); superscript 58 %/33 %; small caps 70 %;
 2. **purges** every paragraph and character style. Text in an old style takes its new one (Podrozdzial →
    Śródtytuł, Bez wciecia → Tekst BEZ WCIĘCIA …, the table in `style-sheet.md`); unknown styles → Tekst;
@@ -79,6 +79,9 @@ and asterisk notes get their asterisks. One undo step each; run again after refl
 the numbered notes of their page stays by hand.
 `indesign/srom_zakladki.jsx` (general, in the panel): PDF bookmarks from Tytuł / Śródtytuł / Śródtytuł MAŁE; a rerun
 replaces its own bookmarks. Export the PDF with General ▸ Include ▸ **Bookmarks** ticked.
+PDF metadata: `srom-quant/scripts/pdf_metadata.py <master CSV> <article_id> --out <build dir>` → `<article_id>_metadane.jsx`;
+run it on the document before the export (title, author, citation line, keywords, licence, DOI and PRISM fields from the
+master row; a placeholder DOI is left out and named).
 
 ## After final layout: `indesign/srom_final_pass.jsx` (Kanon § 3.6)
 

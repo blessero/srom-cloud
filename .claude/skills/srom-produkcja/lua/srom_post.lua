@@ -485,7 +485,7 @@ function speaker_label(inls)
   return out
 end
 
--- Kanon § 2 (v1.11, MB 02.10.2026): headings are not numbered, even where the original numbers them.
+-- Kanon § 2 (MB 02.10.2026): headings are not numbered, even where the original numbers them.
 -- A leading "1.", "1.2." or "IV." followed by a space is dropped; a year ("1989 i potem") is not a number with a dot.
 local function unnumber(inls)
   local a, b = inls[1], inls[2]

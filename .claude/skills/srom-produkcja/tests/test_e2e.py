@@ -144,7 +144,7 @@ fails("unknown citation key stops the build", "Tekst[^1].\n\n[^1]: [@nieistnieje
 fails("marker without definition stops the build (pandoc alone would print '[^2]')", "Tekst[^1] i[^2].\n\n[^1]: Nota.\n", "[^2] has no definition")
 code, out, stem, rep = build(md_text="# 1. WSTĘP\n\nTekst.\n\n## 1.2. Ujęcia\n\nTekst.\n\n# II. DALEJ\n\nTekst.\n\n# 1989 I POTEM\n\nTekst.\n")
 hd = ["".join(t.text or "" for t in p.iter(W + "t")) for p in etree.fromstring(zipfile.ZipFile(os.path.join(out, stem + ".docx")).read("word/document.xml")).iter(W + "p")]
-check("headings unnumbered (kanon §2 v1.11): '1.', '1.2.', 'II.' dropped with a warning, a year kept",
+check("headings unnumbered (kanon §2): '1.', '1.2.', 'II.' dropped with a warning, a year kept",
       code == 0 and "WSTĘP" in hd and "Ujęcia" in hd and "DALEJ" in hd and "1989 I POTEM" in hd and rep.count("heading number removed") == 3, (hd, rep[:600]))
 sty = zipfile.ZipFile(os.path.join(out, stem + ".docx")).read("word/styles.xml").decode()
 def jc_of(name):

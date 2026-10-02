@@ -33,6 +33,7 @@ Load the artefact, don't re-derive it. When a task touches a surface you don't h
 | Master CSV + schema | this skill: `references/master_schema.md`, `scripts/validate_master.py` | — |
 | mu-plugin | this skill: `assets/srom-scholarly.php` | — |
 | Crossref generator | this skill: `scripts/generate_crossref_xml.py` | — |
+| PDF metadata (title, author, DOI, licence, PRISM) | this skill: `scripts/pdf_metadata.py <master> <article_id> --out <dir>` → `<article_id>_metadane.jsx`, run in InDesign before the PDF export | — |
 | **Importer plugin** (CPTs/taxonomies/ACF/CSV import) | bundled source at **`wp-acf-plugin-builder/assets/srom-importer/`** — read `class-srom-imp-setup.php` (model) + `class-srom-imp-runner.php` (upsert/coercion) to confirm any field name before you rely on it | **wp-acf-plugin-builder** |
 | Elementor templates | Theme Builder exports (in the working folder's `elementor-updated/`) | **wp-elementor-builder** |
 

@@ -115,12 +115,9 @@ Indian* (Princeton University Press, 2009), 12."; "Tabili, “Race Is a Relation
   several, or a key swapped for another's, fails); a work only named in prose is not a citation.
 - "Anonymous" → no author (title first, `srom-as-written`); "trans. and ed." by the same people → `editor` + `translator`
   (printed once, `tłum. i red.`); "PhD diss." → `thesis`, university as `publisher`, `note: "praca doktorska"`.
-- **Who stands first** (02.10.2026, MB: Ostendorf nn. 34, 41, 51 printed editors in the author's place). Only an edited
-  volume cited as a whole (`Molina, HoSang, Gutiérrez (red.)`) is a `book` with `editor` and no `author`. Follow the
-  author's own order: a note that opens with the title (`*Mourt's Relation*, ed. Henry Dexter`) is an edition of a
-  source → `type: "classic"` (title first, `red.` after it, Kanon § 7.2); a journal article edited or translated by
-  someone stays `article-journal` with `editor`/`translator` (they print after the title), never a `book`; a
-  bibliography that lists the editor first does not override the note.
+- **Editors never stand in the author's place** (Kanon § 7.2, 02.10.2026). Key `author` only for real authors; an
+  edited volume, an anonymous source edition, an edited journal text have `editor` (and `translator`) and no
+  `author` — the style prints the title first and `red.` after it. A journal article stays `article-journal`.
 
 Stay **literal** (plain text in the note, kanon §8): archival units (§8.1), fieldwork codes (§8.2),
 single press issues, legal acts cited once, statistics tables without a stable record.
@@ -157,7 +154,7 @@ Typed by Claude from the author's bibliography and notes, then verified: `cite_m
 | field | rule |
 |---|---|
 | `id` | `surnameYEAR`, ASCII, lower case; suffix for collisions (`nowak2010b`) |
-| `type` | book, chapter, article-journal, article-newspaper, entry-encyclopedia, thesis, report, webpage, motion_picture, paper-conference; `classic` = an edition of a source without a known author (title first, editor after it) |
+| `type` | book, chapter, article-journal, article-newspaper, entry-encyclopedia, thesis, report, webpage, motion_picture, paper-conference |
 | `author` / `editor` / `translator` / `director` | `{"family": "Mróz", "given": "Lech"}` — normal case, never capitals; particles per Kanon § 9.5 (the name's own language, LC NAF heading): a preposition particle is `dropping-particle` (`{"family": "Fuente", "given": "Alejandro", "dropping-particle": "de la"}` → note "A. de la Fuente", short form "Fuente", bibliography "Fuente, Alejandro de la", sorted under F); an article or fused particle (`La Fontaine`, American `Van Buren`) stays in `family`; Portuguese compound surnames sort under the last element — not expressible in CSL-JSON: keep the full surname in `family` and list the case when the person is a first author; institution `{"literal": "GUS"}` |
 | `title` | as published; Cyrillic transliterated per kanon §9.6; an omission marked in the author's list (". . ." in a long early-modern title) → `[…]` (§ 3.5, § 4.1), the words stay |
 | `title-short` | the short title for later citations, **with** `…` if truncated (`Cyganie na polskich drogach…`) |

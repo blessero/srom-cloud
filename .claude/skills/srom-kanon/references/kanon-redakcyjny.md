@@ -1,6 +1,6 @@
 # STUDIA ROMOLOGICA – KANON EDYTORSKI (DOKUMENT WEWNĘTRZNY)
 
-**Wersja 1.11 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
+**Wersja 1.12 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
 
 > Wersja dla autorów (*Wskazówki dla autorów*) jest skrótem tego dokumentu i nie zawiera § 13–17. W razie rozbieżności rozstrzyga niniejszy tekst.
 
@@ -188,7 +188,7 @@ Cyfry arabskie, indeks górny, numeracja ciągła w obrębie artykułu, przypisy
 | Książka | J. Ficowski, *Cyganie na polskich drogach*, Wydawnictwo Literackie, Kraków 1985, s. 15. |
 | 2–3 autorów | L. Mróz, A. Bartosz, *Tytuł pracy*, Wydawnictwo, Warszawa 1998, s. 40–42. |
 | 4 i więcej | K. Fiałkowska i in., *Tytuł pracy*, Wydawnictwo, Warszawa 2020, s. 12. |
-| Praca zbiorowa | A. Kowalski (red.), *Tytuł tomu*, Wydawnictwo, Kraków 2011, s. 88. |
+| Praca zbiorowa | *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88. |
 | Rozdział | L. Mróz, *Tytuł rozdziału*, w: *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88–104. |
 | Artykuł – rok i numer | M. Kołaczek, *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 217. |
 | Artykuł – tom i zeszyt | S. Płoski, *Relacja von dem Bacha o powstaniu warszawskim*, „Dzieje Najnowsze”, 1947, t. 1, z. 2, s. 310. |
@@ -214,14 +214,14 @@ Zasady wspólne:
 - Strona lub zakres stron – zawsze, gdy przywołuje się określone miejsce dzieła, a bezwzględnie przy cytacie. Odwołanie do dzieła jako całości podaje się bez strony, także bez zakresu stron artykułu (ten podaje bibliografia). Każde takie odwołanie potwierdza redakcja; brak strony przy cytacie jest pytaniem do autora.
 - Lokalizacja inna niż strona – etykieta polska, liczby arabskie: dramat `akt 4, sc. 1, w. 883`; wersy `w. 93–96`; karty starodruków według sygnatur `k. S2r`, `k. D4v`; księga i rozdział `ks. 11, rozdz. 2`.
 - Odesłania: `zob.`, `zob. też`, `por.`; przytoczenie z drugiej ręki – `cyt. za`.
-- Redaktor tomu przed tytułem, gdy cytujemy tom jako całość (praca zbiorowa); po tytule, gdy cytujemy rozdział. Edycja źródła bez autora i tekst opracowany przez redaktora w czasopiśmie – od tytułu, redaktor po nim; nigdy z redaktorem na miejscu autora. Edycja tekstu autora (źródło wydane przez badacza): autor przed tytułem, wydawca naukowy po tytule – `red.`; ta sama osoba jako tłumacz i redaktor – raz, `tłum. i red.`
+- **Redaktor zawsze po tytule, nigdy na miejscu autora**: praca zbiorowa cytowana jako całość (`*Tytuł tomu*, red. A. Kowalski`), rozdział (`w: *Tytuł tomu*, red. A. Kowalski`), edycja źródła bez autora, tekst opracowany przez redaktora w czasopiśmie – opis od tytułu. Edycja tekstu autora (źródło wydane przez badacza): autor przed tytułem, wydawca naukowy po tytule – `red.`; ta sama osoba jako tłumacz i redaktor – raz, `tłum. i red.`
 - Tekst bez autora w tomie zbiorowym (list, dokument, hasło) – redakcja ustala autora ze spisu treści lub nagłówka tomu; gdy się nie da – opis od tytułu, redaktor tomu po tytule tomu; każdy taki opis trafia do wykazu pytań.
 - **Uwagi o postaci fizycznej i miejscu przechowywania** (maszynopis, rękopis, egzemplarz w bibliotece) – w nawiasie okrągłym **na samym końcu pozycji**.
 
 ### 7.3. Przywołania kolejne
 Forma skrócona: `Ficowski, *Cyganie na polskich drogach…*, s. 51.` Skrócony tytuł ustala się raz i stosuje bez zmian; tytuł skrócony kończy wielokropek, tytuł dostatecznie krótki podaje się w pełnym brzmieniu, bez wielokropka.
 
-Prace wieloautorskie: dwóch lub trzech autorów – nazwiska po przecinku (`Mróz, Bartosz, *Tytuł pracy…*`); czterech i więcej – `Fiałkowska i in., *Tytuł pracy…*`; praca zbiorowa – nazwisko redaktora, bez `(red.)`. W bibliografii wymienia się zawsze wszystkich autorów (§ 9.1).
+Prace wieloautorskie: dwóch lub trzech autorów – nazwiska po przecinku (`Mróz, Bartosz, *Tytuł pracy…*`); czterech i więcej – `Fiałkowska i in., *Tytuł pracy…*`; praca zbiorowa i inne dzieło bez autora – sam tytuł skrócony (`*Tytuł tomu…*, s. 90`). W bibliografii wymienia się zawsze wszystkich autorów (§ 9.1).
 
 **`Ibidem`** – wyłącznie gdy przypis bezpośrednio poprzedzający odsyła do tego samego dzieła **i stoi na tej samej kolumnie**; kontrola po złamaniu. Nie stosuje się go wewnątrz zdania ani wtedy, gdy ten sam lub poprzedzający przypis przywołuje także źródło inne niż opis bibliograficzny (jednostkę archiwalną, numer prasy, akt prawny); nie występuje też w przypisach nieautorskich ani w przypisie autora następującym bezpośrednio po przypisie nieautorskim. W tych przypadkach – forma skrócona.
 
@@ -339,7 +339,7 @@ Bez przecinka po nazwisku (`MIRGA-WÓJTOWICZ Elżbieta`): kapitaliki same oddzie
 | Książka | Ficowski Jerzy. *Cyganie na polskich drogach*, Wydawnictwo Literackie, Kraków 1985. |
 | 2–3 autorów | Mróz Lech, Bartosz Adam. *Tytuł pracy*, Wydawnictwo, Warszawa 1998. |
 | 4 i więcej | Fiałkowska Kamila, Garapich Michał P., Mirga-Wójtowicz Elżbieta, Kowalski Jan. *Tytuł pracy*, Wydawnictwo, Warszawa 2020. |
-| Praca zbiorowa | Kowalski Andrzej (red.). *Tytuł tomu*, Wydawnictwo, Kraków 2011. |
+| Praca zbiorowa | *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011. |
 | Rozdział | Mróz Lech. *Tytuł rozdziału*, w: *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88–104. |
 | Artykuł | Kołaczek Małgorzata. *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 211–228. DOI: 10.1234/srom.2012.5.11. |
 | Artykuł – tom i zeszyt | Turner Ralph L. *The position of Romani*, „Journal of the Gypsy Lore Society”, 1926, t. 5, nr 4, s. 145–189. |
@@ -353,7 +353,7 @@ Bez przecinka po nazwisku (`MIRGA-WÓJTOWICZ Elżbieta`): kapitaliki same oddzie
 | Rozmówca | W12 – mężczyzna, ur. 1951, Polska Roma, Tarnów, wywiad 14.06.2019; nagranie: Archiwum MET, sygn. AT/W/12. |
 
 ### 9.5. Szeregowanie
-Alfabetycznie wg nazwiska pierwszego autora, porządek polski. Ten sam autor – chronologicznie; ten sam autor i rok – alfabetycznie wg tytułu. Prace autorskie przed współautorskimi. Pozycje transliterowane – wg formy transliterowanej.
+Alfabetycznie wg nazwiska pierwszego autora, porządek polski; pozycja bez autora (praca zbiorowa, edycja źródła bez autora) – wg pierwszego wyrazu tytułu. Ten sam autor – chronologicznie; ten sam autor i rok – alfabetycznie wg tytułu. Prace autorskie przed współautorskimi. Pozycje transliterowane – wg formy transliterowanej.
 
 **Nazwiska z przedrostkiem i nazwiska złożone** – w formie hasła zgodnej ze zwyczajem języka osoby, jak w kartotece haseł wzorcowych Biblioteki Kongresu (LC NAF; także VIAF), i według tej formy szeregowane (tak samo *Chicago Manual of Style*, indeksy i bibliografie):
 - przedrostek-przyimek (niem. `von`, niderl. `van` w Holandii, fr. `de`, hiszp. `de`, `de la`, port. `da`, `dos`) – po imieniu: `Hippel Wolfgang von`, `Fuente Alejandro de la`, `Heusch Luc de`;
@@ -422,7 +422,7 @@ Numeracja ciągła, osobna: `Il. 1`, `Tab. 1`, `Wykr. 1`. Podpis pod obiektem: n
 | `s.` | strona | |
 | `t.`, `z.`, `nr`, `cz.` | tom, zeszyt, numer, część | cyfry arabskie |
 | `r.`, `w.` | rok, wiek | tylko w aparacie; nie po dacie liczbowej |
-| `red.` | redakcja | `(red.)` przed tytułem |
+| `red.` | redakcja | po tytule: `red. A. Kowalski`; nigdy `(red.)` przed tytułem |
 | `tłum.`, `oprac.` | tłumaczył, opracował | |
 | `wyd.` | wydanie | `wyd. 3` |
 | `w:` | w (tomie, serwisie) | bez nawiasów |
@@ -650,5 +650,6 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.9 | Rozstrzygnięcie z 30.09.2026 (MB): § 12.3 Pisownia – zasady Rady Języka Polskiego obowiązujące od 01.01.2026 (przymiotniki od nazw osobowych na `-owski` małą literą; `nie` z imiesłowami odmiennymi łącznie; nazwy mieszkańców wielką literą; `-by` po spójnikach rozdzielnie); cytaty i tytuły w pisowni źródła; formy wzorcowe z tomu 18/2025 w nowej pisowni bez zmiany brzmienia. |
 | 1.10 | Rozstrzygnięcie z 30.09.2026 (MB): § 12.3: spójniki złożone (`mimo że`, `zwłaszcza że` …) bez przecinka w środku; linter sygnalizuje. |
 | 1.11 | Rozstrzygnięcia z 02.10.2026 (MB, próbny skład tekstu Ostendorf): § 2: śródtytuły bez numeracji, także gdy oryginał je numeruje; odstęp jednego wiersza przed śródtytułem oraz przed cytatem blokowym i po nim. § 7.1: numer w treści przypisu bez kropki. § 7.2, § 9.4: edycja źródła bez autora i tekst opracowany przez redaktora w czasopiśmie – od tytułu, redaktor po tytule (nie na miejscu autora). § 9.1, § 9.3–9.5, § 14: w bibliografii bez przecinka po nazwisku (`Paucke Florian`). |
+| 1.12 | Rozstrzygnięcie z 02.10.2026 (MB, drugi próbny skład tekstu Ostendorf): § 7.2, § 7.3, § 9.4, § 9.5, § 11: redaktor zawsze po tytule, nigdy na miejscu autora – także praca zbiorowa cytowana jako całość (`*Tytuł tomu*, red. A. Kowalski`); forma skrócona i szeregowanie w bibliografii – wg tytułu. Uchyla zasadę z wersji 1.1 („redaktor tomu przed tytułem”). |
 
 Zmiany wchodzą w życie od kolejnego tomu. Tomy opublikowane nie podlegają retroaktywnemu ujednoliceniu.

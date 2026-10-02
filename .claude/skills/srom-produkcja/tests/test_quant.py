@@ -58,6 +58,21 @@ t("wikidata articles: only final DOIs (upper case), journal, pages, date, CC BY,
   and 'LAST\tP304\t"1-20"' in r.stdout and "P577\t+2026-12-15T00:00:00Z/11" in r.stdout and "P275\tQ20007257" in r.stdout
   and 'P2093\t"Anna Nowak"\tP1545\t"1"' in r.stdout and "SROM-19-2026-002: no final DOI" in r.stderr, r.stdout + r.stderr)
 
+# pdf_metadata.py (02.10.2026): the master row → <id>_metadane.jsx; a placeholder DOI is never written
+PM = os.path.join(os.path.dirname(ROOT), "srom-quant", "scripts", "pdf_metadata.py")
+r = subprocess.run([sys.executable, PM, cp, "SROM-19-2026-001", "--out", d], capture_output=True, text=True)
+jsx = open(os.path.join(d, "SROM-19-2026-001_metadane.jsx"), encoding="utf-8").read() if r.returncode == 0 else ""
+t("pdf_metadata: title, author, licence, DOI, pages, PRISM namespace registered",
+  all(x in jsx for x in ('"prism:doi", "10.12345/ab3k9x2q"', '"dc:identifier", "doi:10.12345/ab3k9x2q"', 'CC BY 4.0', '"prism:startingPage", "1"', 'registerNamespace')), r.stdout + r.stderr + jsx[:600])
+rows[0]["doi"] = "10.XXXXX/todo"
+with open(cp, "w", encoding="utf-8", newline="") as f:
+    w = csv.DictWriter(f, fieldnames=cols); w.writeheader(); w.writerows(rows)
+r = subprocess.run([sys.executable, PM, cp, "SROM-19-2026-001", "--out", d], capture_output=True, text=True)
+jsx = open(os.path.join(d, "SROM-19-2026-001_metadane.jsx"), encoding="utf-8").read()
+t("pdf_metadata: a placeholder DOI is left out and named", "prism:doi" not in jsx and "DOI not written" in r.stdout, r.stdout + jsx[:400])
+es = subprocess.run(["node", os.path.join(ROOT, "tests", "es3check.mjs"), os.path.join(d, "SROM-19-2026-001_metadane.jsx")], capture_output=True, text=True)
+t("pdf_metadata: valid ES3", "JSX-DONE" in es.stdout and "FAIL" not in es.stdout, es.stdout)
+
 n, ok = len(res), sum(res)
 print(f"QUANT ALL PASS {n}/{n}" if ok == n else f"QUANT FAILED {n - ok}/{n}")
 sys.exit(0 if ok == n else 1)

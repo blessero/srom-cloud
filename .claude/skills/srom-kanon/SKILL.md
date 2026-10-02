@@ -3,7 +3,7 @@ name: srom-kanon
 description: House style enforcement for Studia Romologica, the Polish-language Romani studies annual. Use when checking, correcting, copyediting or typesetting any article for this journal, or when asked about SRom citation format, footnotes, bibliography, dates, Cyrillic transcription/transliteration, archival citation, interview coding, captions, or Romani-name capitalisation. Also use when preparing SRom bibliography data for the master CSV or Crossref deposit, and when an article arrives in the wrong style and needs normalising. Triggers on "Studia Romologica", "SRom", "kanon edytorski", or a Polish humanities article that must follow the journal's footnote system.
 ---
 
-# Studia Romologica — house style (Kanon v1.11)
+# Studia Romologica — house style (Kanon v1.12)
 
 Polish-language journal. Footnotes + full end bibliography; **never author-date.** English appears only in metadata (title, abstract, keywords).
 

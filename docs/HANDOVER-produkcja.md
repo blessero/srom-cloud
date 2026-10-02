@@ -43,6 +43,7 @@ check (in `_extract.md`); `lookup.py dois` (Kanon § 9.7: registry check of give
 `<stem>_citations.json` → `volumes/<vol>/citations/<article_id>.json` at INJECT → srom-quant `<citation_list>`;
 `volumes/ror.tsv` (13 of vol. 18's 15 institutions) → ROR in Crossref affiliations; `srom-quant/scripts/wikidata_qs.py`.
 The old per-article copies (`work/<id>/wordcheck.py`, `source_imprints.py`, `doi_check.txt`) stay: closed gates re-run them.
+**Kanon v1.12** (02.10.2026, MB): the editor never stands in the author's place — "*Tytuł tomu*, red. A. Kowalski".
 **Kanon v1.11** (02.10.2026, MB, after the Ostendorf INJECT test): headings unnumbered; a line before headings and around block quotations; note number without a dot; no comma after the surname in the bibliography; anonymous source editions and edited articles title first (item 7a).
 **Kanon v1.10** (30.09.2026, MB): § 12.3 compound conjunctions without a comma inside; linter WARN `PUNCT-SPOJNIK` (the one
 rule from Zawisławska's error corpus that measured clean on 19 texts; title case, *poprzez*, *posiadać* dropped as noise).
@@ -209,12 +210,13 @@ G12) after.
    decisions row 24; reproduced and re-checked in InDesign with `place_probe`-style runs): justified styles arrived
    left-aligned (the DOCX styles had no alignment); Przypis GWIAZDKOWY arrived as a new root style based on Word's
    Normal (the import ignores style folders → "Rzadkie" dissolved); editors printed in the author's place (nn. 34, 41,
-   51: keying + CSL; `type: classic`, OST-9 open); "1. WSTĘP" numbering, dot after the note number, comma after the
+   51: keying + CSL; OST-9 open; later the same day v1.12: the editor never stands first, decisions row 25); "1. WSTĘP" numbering, dot after the note number, comma after the
    surname, no gap before headings and around quotations, ranges broken at the dash — all now per v1.11. The
    post-import check counted InDesign's phantom override flags and every curly quote as "straight": now it compares
    real attributes, finds duplicate styles, uses `~"`, and lists all attention items at the end (also Ibidem, asterisks).
    Then built (MB asked): Ibidem and asterisk scripts apply their fixes after a confirm; `srom_zakladki.jsx` PDF
-   bookmarks (all proven in InDesign on the rebuilt Ostendorf layout). Not built: XMP metadata, tagged-PDF heading tags.
+   bookmarks (all proven in InDesign on the rebuilt Ostendorf layout). PDF metadata: srom-quant `pdf_metadata.py` (proven in InDesign: XMP incl. prism:doi). Not built: tagged-PDF heading tags.
+   Open: GEN-14 (place: publisher order, from MB's 02.10 pattern).
 7. Stage 3: ~~house style / reduce the style set (§4, D3)~~ — done 29.09.2026 (house style v3, §4). Next: G12, the first
    real article placed in a v3 template — **a translated article** (Ndiaye after MB's edit, via 5b; review
    29.09.2026 row 6), so that `_postimport.jsx`, `_ibidem.jsx` and `_gwiazdki.jsx`, never yet run in InDesign, are proven
