@@ -586,3 +586,4 @@ Suite: SUITE ALL PASS 22/22.
   `classic`). Keys and tokens unchanged; please copy both into `work/<id>/src/` and verify (sha256) at your next intake.
   Who stands first in Ostendorf nn. 41, 51, 34 is MB's (OST-9).
 - Tests: SUITE ALL PASS 23/23; your `tlumacz-test_handoff.py` against 4e4186a: HANDOFF CONTRACT 33/33.
+- T31, correction 02.10.2026 02:30: [Ostendorf] the hash in the usual form is `566a17cc…74754ba` (first 8 … last 7).
