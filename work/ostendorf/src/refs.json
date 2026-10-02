@@ -1048,7 +1048,8 @@
   ],
   "editor": [
    {
-    "literal": "Gudmundur Hálfdánarson"
+    "family": "Hálfdánarson",
+    "given": "Gudmundur"
    },
    {
     "family": "Isaacs",
@@ -1057,7 +1058,7 @@
   ],
   "publisher": "Edizioni Plus",
   "page": "77–100",
-  "title-short": "<i>Divide et impera</i>…",
+  "title-short": "Divide et impera…",
   "publisher-place": "Pisa",
   "srom-sourced": {
    "publisher-place": "LCCN 2004430927 (the volume; Pisa : PLUS, Università di Pisa)"
