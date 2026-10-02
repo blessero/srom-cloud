@@ -39,9 +39,7 @@ goes into the skill; a ruling for one text into its notes sheet.
   `references/kartoteka.tsv`; changes through `_handoffs/`.
 - Hand-back (T26, T30): `references/outputs.md` § Back in the skill. No delivery made yet: MB has returned none of the
   four Word copies.
-- **T36 [general] [Tittel] not yet answered** (03.10.2026 00:30): drop `DOI: …` from the translation notes of the
-  drafts (§ 12.2.3 item 1), copy Tittel's new `refs.json` (71181a9a…2b320d9), bibliography part names if a draft names
-  one. Then the Word copies are re-exported (only if MB has opened none) and a status line goes out.
+- T36 (Kanon v1.16) done 03.10.2026 01:11: DOI out of the translation notes (Ndiaye, Ostendorf, Pahulich; Tittel had none), Tittel `refs.json` 71181a9a…2b320d9 copied, Word copies re-exported in place (MB had opened none).
 
 ## 5. Vol. 18 material received (25.09.2026)
 
@@ -78,8 +76,7 @@ text's code. After MB returns a Word file: the hand-back (skill `references/outp
    Training corpus: MB may add Polish texts to `training/` (row in `sources.tsv`, sha256 in the manifest) → CANDIDATE
    rows and the register. Re-run `tlumacz-1.3.2/vol19_terms.py` after each new vol. 19 draft (West Ohueri: add probes
    for its terms, vol. 18 as a column; findings L4).
-6. T36 (Kanon v1.16): see § 4 — the next small job.
-7. Next in the tree: 1.5.1 (re-run of the 1.2 passages with the full module), when MB wants it; otherwise the next
+6. Next in the tree: 1.5.1 (re-run of the 1.2 passages with the full module), when MB wants it; otherwise the next
    text from srom-produkcja, run per the skill.
 
 

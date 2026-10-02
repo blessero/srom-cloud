@@ -602,7 +602,8 @@
    }
   ],
   "volume": "21",
-  "page": "108–165, 360–393"
+  "page": "108–165, 360–393",
+  "srom-section": "IV"
  },
  {
   "id": "ruch1986",
@@ -704,7 +705,8 @@
   "publisher-place": "Leipzig",
   "page": "37–84",
   "URL": "http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb10583110-8",
-  "title-short": "Von der Sprache und Herkunft der Zigeuner…"
+  "title-short": "Von der Sprache und Herkunft der Zigeuner…",
+  "srom-section": "IV"
  },
  {
   "id": "grellmann1783",
@@ -725,7 +727,8 @@
   ],
   "publisher": "Buchhandlung der Gelehrten",
   "publisher-place": "Dessau/Leipzig",
-  "title-short": "Die Zigeuner…"
+  "title-short": "Die Zigeuner…",
+  "srom-section": "IV"
  },
  {
   "id": "grellmann1787",
@@ -748,7 +751,8 @@
   "publisher-place": "Göttingen",
   "edition": "2",
   "URL": "http://mdz-nbn-resolving.de/urn:nbn:de:bvb:12-bsb11256263-6",
-  "title-short": "Historischer Versuch über die Zigeuner…"
+  "title-short": "Historischer Versuch über die Zigeuner…",
+  "srom-section": "IV"
  },
  {
   "id": "grellmann1787en",
@@ -769,7 +773,8 @@
   ],
   "publisher": "G. Bigg",
   "publisher-place": "London",
-  "title-short": "Dissertation on the Gipsies…"
+  "title-short": "Dissertation on the Gipsies…",
+  "srom-section": "IV"
  },
  {
   "id": "ufen2014",
@@ -896,7 +901,8 @@
   "publisher": "Cambridge University Press",
   "publisher-place": "Cambridge",
   "page": "227–429",
-  "title-short": "Anthropology from a Pragmatic Point of View"
+  "title-short": "Anthropology from a Pragmatic Point of View",
+  "srom-section": "IV"
  },
  {
   "id": "horkheimer2002",
@@ -982,7 +988,8 @@
   "publisher": "De Gruyter",
   "publisher-place": "Berlin/Leipzig",
   "page": "55–654",
-  "volume": "15"
+  "volume": "15",
+  "srom-section": "IV"
  },
  {
   "id": "kant2010b",
@@ -1015,7 +1022,8 @@
   "publisher": "Cambridge University Press",
   "publisher-place": "Cambridge",
   "page": "82–97",
-  "title-short": "Of the Different Races of Human Beings"
+  "title-short": "Of the Different Races of Human Beings",
+  "srom-section": "IV"
  },
  {
   "id": "kant1996",
@@ -1048,7 +1056,8 @@
   "publisher": "Cambridge University Press",
   "publisher-place": "Cambridge",
   "page": "39–216",
-  "title-short": "Religion within the Boundaries of Mere Reason"
+  "title-short": "Religion within the Boundaries of Mere Reason",
+  "srom-section": "IV"
  },
  {
   "id": "kant2010c",
@@ -1081,7 +1090,8 @@
   "publisher": "Cambridge University Press",
   "publisher-place": "Cambridge",
   "page": "143–159",
-  "title-short": "Determination of the Concept of a Human Race"
+  "title-short": "Determination of the Concept of a Human Race",
+  "srom-section": "IV"
  },
  {
   "id": "kant2010d",
@@ -1114,7 +1124,8 @@
   "publisher": "Cambridge University Press",
   "publisher-place": "Cambridge",
   "page": "192–218",
-  "title-short": "Teleological Principles"
+  "title-short": "Teleological Principles",
+  "srom-section": "IV"
  },
  {
   "id": "scholz2009",
@@ -1237,7 +1248,8 @@
   "publisher-place": "Berlin",
   "collection-title": "Karl Marx / Friedrich Engels: Werke",
   "collection-number": "23",
-  "title-short": "Das Kapital…"
+  "title-short": "Das Kapital…",
+  "srom-section": "IV"
  },
  {
   "id": "marx1958",
@@ -1263,7 +1275,8 @@
   "publisher": "Dietz",
   "publisher-place": "Berlin",
   "collection-title": "Karl Marx / Friedrich Engels: Werke",
-  "collection-number": "3"
+  "collection-number": "3",
+  "srom-section": "IV"
  },
  {
   "id": "marx1983",
@@ -1285,7 +1298,8 @@
   "publisher": "Dietz",
   "publisher-place": "Berlin",
   "collection-title": "Karl Marx / Friedrich Engels: Werke",
-  "collection-number": "42"
+  "collection-number": "42",
+  "srom-section": "IV"
  },
  {
   "id": "tomlins1811",

@@ -3,7 +3,7 @@ tlumaczenie: "Michał Bartosz"
 ---
 
 ::: przypis-tytulowy
-Pierwodruk: L. Pahulich, *Racialization of Roma, European Modernity, and the Entanglement of Empires*, „Critical Romani Studies”, 2025, t. 8, nr 1, s. 40–61, DOI: 10.29098/crs.v8i1.208. Tekst opublikowany na licencji CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/); niniejszy przekład stanowi zmianę utworu w rozumieniu licencji. Tłumaczenie: Michał Bartosz. Cytaty ze źródeł obcojęzycznych, o ile nie wskazano inaczej, w przekładzie tłumacza artykułu. <!-- DO SPRAWDZENIA: licencja i podstawa zgody na przekład – MB-decisions D17 A1 (CC BY-NC: zgoda autorki / CRS?); pierwodruk nie zawiera noty o prawach autorskich -->
+Pierwodruk: L. Pahulich, *Racialization of Roma, European Modernity, and the Entanglement of Empires*, „Critical Romani Studies”, 2025, t. 8, nr 1, s. 40–61. Tekst opublikowany na licencji CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/); niniejszy przekład stanowi zmianę utworu w rozumieniu licencji. Tłumaczenie: Michał Bartosz. Cytaty ze źródeł obcojęzycznych, o ile nie wskazano inaczej, w przekładzie tłumacza artykułu. <!-- DO SPRAWDZENIA: licencja i podstawa zgody na przekład – MB-decisions D17 A1 (CC BY-NC: zgoda autorki / CRS?); pierwodruk nie zawiera noty o prawach autorskich -->
 
 Jestem szczerze wdzięczna redaktorom tego numeru oraz anonimowym recenzentom za cenne i wnikliwe uwagi. Praca nad artykułem powstała w ramach projektu badawczego „Rivals of the Past, Children of the Future” (V 741), finansowanego przez Austrian Science Fund (FWF).
 :::

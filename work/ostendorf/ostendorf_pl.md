@@ -3,7 +3,7 @@ tlumaczenie: "Michał Bartosz"
 ---
 
 ::: przypis-tytulowy
-Pierwodruk: A. Ostendorf, *Familiar Outsiders Abroad: Relational Racialization in the Romani Atlantic World*, w: *The Romani Atlantic*, red. M. Fotta, A. Ostendorf, Cambridge University Press, Cambridge 2026, s. 86–108, DOI: 10.1017/9781009706032.005. © Cambridge University Press & Assessment 2026. Tekst opublikowany w otwartym dostępie na licencji CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/); niniejszy przekład stanowi zmianę utworu w rozumieniu licencji. Tłumaczenie: Michał Bartosz.
+Pierwodruk: A. Ostendorf, *Familiar Outsiders Abroad: Relational Racialization in the Romani Atlantic World*, w: *The Romani Atlantic*, red. M. Fotta, A. Ostendorf, Cambridge University Press, Cambridge 2026, s. 86–108. © Cambridge University Press & Assessment 2026. Tekst opublikowany w otwartym dostępie na licencji CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/); niniejszy przekład stanowi zmianę utworu w rozumieniu licencji. Tłumaczenie: Michał Bartosz.
 :::
 
 # WSTĘP

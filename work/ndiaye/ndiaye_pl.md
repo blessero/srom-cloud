@@ -3,7 +3,7 @@ tlumaczenie: "Michał Bartosz"
 ---
 
 ::: przypis-tytulowy
-Pierwodruk: N. Ndiaye, *Black Roma: Afro-Romani Connections in Early Modern Drama (and Beyond)*, „Renaissance Quarterly”, 2022, t. 75, nr [BRAK nr], s. 1266–1302, DOI: 10.1017/rqx.2022.332. © The Author(s), 2022. Tekst opublikowany na licencji CC BY 4.0 (http://creativecommons.org/licenses/by/4.0/); niniejszy przekład stanowi zmianę utworu w rozumieniu licencji. Tłumaczenie: Michał Bartosz. Cytaty ze źródeł obcojęzycznych, o ile nie wskazano inaczej, w przekładzie tłumacza artykułu; cytaty francuskie i łacińskie przełożono z oryginałów przytoczonych przez autorkę w przypisach.
+Pierwodruk: N. Ndiaye, *Black Roma: Afro-Romani Connections in Early Modern Drama (and Beyond)*, „Renaissance Quarterly”, 2022, t. 75, nr [BRAK nr], s. 1266–1302. © The Author(s), 2022. Tekst opublikowany na licencji CC BY 4.0 (http://creativecommons.org/licenses/by/4.0/); niniejszy przekład stanowi zmianę utworu w rozumieniu licencji. Tłumaczenie: Michał Bartosz. Cytaty ze źródeł obcojęzycznych, o ile nie wskazano inaczej, w przekładzie tłumacza artykułu; cytaty francuskie i łacińskie przełożono z oryginałów przytoczonych przez autorkę w przypisach.
 
 Szczególny dług wdzięczności mam wobec Ethel C. Brooks. Moje myślenie wiele zyskało na krytycznej hojności kręgu Theatre Without Borders, „Evanston Workshop” zorganizowanego przez Tracy C. Davis oraz panelu, który zorganizował Nigel Smith podczas konferencji MLA 2021. Serdecznie dziękuję recenzentom „Renaissance Quarterly” za wnikliwe uwagi, C. Rileyowi Snortonowi za wskazówki bibliograficzne, a Jessice Wolfe i Kim Coles za pomysł tego numeru specjalnego.
 :::
