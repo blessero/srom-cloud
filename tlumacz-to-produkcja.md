@@ -231,3 +231,19 @@ Preliminary translation for MB: `srom-tlumacz/work/tittel/tittel_pl.md` (100 not
 4. Master file name: done (T26/T30).
 5. Stale text: done — `CLAUDE.md:35`, `HANDOVER.md` header/§ tests/§ Kanon/§ 6, `tlumacz-PLAN.md` IF-KANON, inputs, srom-quant, srom-produkcja, srom-kanon lines now cite Kanon v1.10, 33/33 and ledger IDs. Older D-numbers elsewhere in HANDOVER/PLAN (termbase rows, status log) left as written: history.
 6. Gate drift: done — NOTE lines under 1.5.2a, 1.5.3a, 1.5.4a, 1.5.5a G1 and 1.1 G12.
+
+## Status of T31–T35 — [general] (03.10.2026 00:11)
+
+- T31 — 03.10.2026 00:11 status: done — headings unnumbered in all four drafts (Ndiaye 7, Ostendorf 5, Pahulich 3, Tittel 5); one cross-reference reworded ([Tittel] "część trzecia" → "kolejna część"); no other section-number references. Cite "Kanon v1.15" (CLAUDE.md, PLAN IF-KANON, HANDOVER).
+- T32 — 03.10.2026 00:11 status: noted (nothing in our tokens). [Pahulich] `refs.json` 3b060a87…1f3d5366 is what we have.
+- T33 — 03.10.2026 00:11 status: done, except Ostendorf's originals — annotations removed: [Ostendorf] 13 (12 notes), [Tittel] 2, [Pahulich] 3 (the `<!-- DO SPRAWDZENIA -->` comments stay); the title note's clause on originals is gone. Ostendorf's eight translations from the originals (two annotated, nn. 24 and 41) are left as they are: which to keep is MB's call, OST-10 in `MB-decisions.md`. Dal's question to the author: already in PAH-9's list (not re-checked here).
+- T34 — 03.10.2026 00:11 status: partly done — [Ndiaye] `refs.json` 6a058001…8ad988a is the file already in `work/ndiaye/src/` (sha256 OK), nothing to copy. [Ostendorf] needs MB: the copy of your `work/ostendorf/refs.json` (8958c705…30f09ce) into `work/ostendorf/src/` was refused (the frozen `src/refs.json` is read-only; overwriting it was blocked in this session). Meanwhile verified against your file directly: pair check OK, `--draft` build PASS, 0 TLUM-ADNOTACJA, 0 heading-number lines, new Word copy imports to CHECK OK. `src/refs.json` and `manifest.sha256` still hold T32's 0704415d…0fd45c5. Ndiaye's *Gitans* question: not done (a look at the author's italics in the source).
+- T35 — 03.10.2026 00:11 status: noted (Kanon v1.15; nothing in the texts: series/conference names occur in bibliographies only, keyed in refs.json).
+
+## Status of review 02.10.2026 — [general] (03.10.2026 00:11)
+
+1. T31–T35 answered above; "Kanon v1.15" cited in `CLAUDE.md`, PLAN IF-KANON, HANDOVER: done.
+2. Word copies: done — drafts fixed (T31, T33 as above), Word copies re-exported in place (Ndiaye's master `ndiaye_robocza_v2.docx`; git keeps the old ones; MB opened none). `build.py … --draft`: PASS, no heading-number or TLUM-ADNOTACJA lines; pair CHECK OK; `draft_check --all` clean; the new Word copies import to CHECK OK. Ostendorf's originals: listed for MB (OST-10).
+3. Ostendorf intake: needs MB — see T34 above (read-only frozen file).
+4. Master file name: done — PLAN OUT-DELIVERY has the rename step; `tlumacz-test_handoff.py` +1 case (a `_v2` master renamed → TAKE-BACK OK): HANDOFF CONTRACT 34/34. T30's earlier line ("done") stands for the PLAN text; the test case is what was missing.
+5. This section: done.

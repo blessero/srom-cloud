@@ -38,6 +38,7 @@ send) · **Later** (a reminder, nothing to do now).
 | OST-7 | The author's "[*sic*]" after "civilised" | Decide | nothing |
 | OST-8 | Abstract too long (1236 characters): who shortens it? | Decide | nothing |
 | OST-9 | Three edited texts: who is printed as their author? | Decide | nothing |
+| OST-10 | Quotations translated from the original languages: keep which? | Decide | nothing |
 | TIT-1 | The author's "gypsy/gypsies": „Cyganie” with a capital or lower case? | Decide | **delivery of the translation** |
 | TIT-2 | Acknowledgements moved to the note on the title | Approve | nothing |
 | TIT-3 | 12 quotations to check in Polish editions (Kant, Marx) and sources | Look up | the final text |
@@ -281,7 +282,7 @@ Detail: 🔴 `srom-produkcja/work/pahulich/pahulich_uwagi.md` → PAH-10
 
 ## Ostendorf — "Familiar Outsiders Abroad" (The Romani Atlantic, ch. 3, CUP 2026) (OST)
 Source ready, translation drafted; Word copy for you: 🔴 `srom-tlumacz/work/ostendorf/ostendorf_robocza.docx`.
-Nothing here blocks your Word edit. Also concerns this text: GEN-3 (licence), V19-3, V19-4. Next free: OST-10.
+Nothing here blocks your Word edit. Also concerns this text: GEN-3 (licence), V19-3, V19-4. Next free: OST-11.
 
 ### OST-1 · 14 places and publishers the library catalogues could not settle
 **Look up** · blocks typesetting
@@ -386,6 +387,23 @@ should stand first.
 Detail: 🔴 `srom-produkcja/work/ostendorf/ostendorf_uwagi.md` → OST-9
 
 *Trail: Kanon v1.11 § 7.2 (title-first rows); refs.json loewald1957/1958, clinton1849 (type classic), mourt1865 (type classic).*
+
+### OST-10 · Quotations translated from the original languages: keep which? [Ostendorf] (03.10.2026 00:11)
+**Decide** · blocks nothing
+
+Rule since Kanon v1.13: a quotation the author gives in English is translated from her English, with no annotation. A
+translation from the original (French, Spanish, German) is kept only where it matters — the English is doubtful or the
+wording carries the argument — and then one annotation per work, „[przekład z oryginału – przyp. tłum.]”. The draft
+still has eight such quotations; two carry an annotation (nn. 24 Roldán via Galletti, 41 Bolzius), six do not
+(Galletti n. 4, Schmidl 14, Poisson 26, Berquin-Duvallon 27, Milfort 31, Loskiel 38). The sentence about originals in the
+title note is already gone. (a) keep all eight from the originals, one annotation per work — the work is done, and the
+originals corrected her English in several places (Bolzius „Kühe”, Loskiel „niemal jak”); (b) keep only Bolzius, Loskiel
+and Roldán (where her English is wrong or the wording matters), translate the rest from her English —
+**recommended**; (c) all from her English.
+
+Detail: 🔴 `srom-tlumacz/work/ostendorf/ostendorf_uwagi.md` → OST-10 (final section)
+
+*Trail: Kanon v1.13 § 12.2.4 c; T33; research/originals.md.*
 
 ## Tittel — "Racial and Social Dimensions of Antiziganism" (On_Culture 10, 2020) (TIT)
 Source ready, translation drafted; Word copy for you: 🔴 `srom-tlumacz/work/tittel/tittel_robocza.docx`.
