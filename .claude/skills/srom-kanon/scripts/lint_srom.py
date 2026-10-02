@@ -153,7 +153,7 @@ RULES = [
     ("PUNCT-SPOJNIK", "WARN", r"\b(?:[Mm]imo|[Pp]omimo|[Zz]właszcza|[Ss]zczególnie|[Tt]ym bardziej|[Jj]ako),\s+że\b",
      "Compound conjunction: no comma inside — ', mimo że', not 'mimo, że' (§12.3).", ["pl"], 0),
     # withdrawn translator's annotation (MB 02.10.2026): exact phrase, no false alarms possible
-    ("TLUM-ADNOTACJA", "WARN", r"tłum\. z przekładu angielskiego",
+    ("TLUM-ADNOTACJA", "WARN", r"[Tt]łum\. z przekładu angielskiego",
      "Annotation withdrawn: a quotation translated from the author's English needs none (§12.2.4 c) — remove it.", ["pl"], 0),
 
     # --- spacing ----------------------------------------------------------
