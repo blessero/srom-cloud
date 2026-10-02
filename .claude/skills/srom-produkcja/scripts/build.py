@@ -10,6 +10,7 @@ Outputs in --out:
     <stem>_postimport.jsx       run right after placing the DOCX: styles/overrides/footnote count
     <stem>_ibidem.jsx           run after final layout: Ibidem on the same column as the preceding note (§7.3)
     <stem>_gwiazdki.jsx         (only with non-author notes) after layout: asterisks per page for the * series (§7.1)
+    <stem>_doi.jsx              (only if a printed work has a DOI) last, before the PDF export: invisible DOI links (SYS-5)
     <stem>.txt                  plain text (for linting / proofreading diff)
 
 Exit code 1 = verification failed (do not typeset). Placeholders [BRAK …] fail the build unless --draft.
@@ -23,6 +24,7 @@ LUA = os.path.join(ROOT, "lua", "srom_post.lua")
 JSX_TPL = os.path.join(ROOT, "indesign", "srom_ibidem_check.jsx.tpl")
 POSTIMPORT_TPL = os.path.join(ROOT, "indesign", "srom_postimport.jsx.tpl")
 ASTERISK_TPL = os.path.join(ROOT, "indesign", "srom_gwiazdki.jsx.tpl")
+DOI_TPL = os.path.join(ROOT, "indesign", "srom_doi.jsx.tpl")
 FROM = ("markdown-smart-superscript-subscript-strikeout-raw_html-raw_tex-tex_math_dollars"
         "-implicit_figures-fancy_lists-example_lists-task_lists-auto_identifiers")
 SECTIONS = OrderedDict([("I", "Wykaz skrótów"), ("II", "Źródła archiwalne"), ("III", "Źródła terenowe"),
@@ -58,24 +60,25 @@ def walk(x, fn):
             walk(x["c"], fn)
 
 
-def ser(x):
-    """AST -> readable text with *italics* (for reports and the ibidem map)."""
+def ser(x, marks=True):
+    """AST -> readable text with *italics* (for reports and the ibidem map); marks=False: the text as printed"""
     if isinstance(x, list):
-        return "".join(ser(i) for i in x)
+        return "".join(ser(i, marks) for i in x)
     t, c = x["t"], x.get("c")
+    m = "*" if marks else ""
     if t == "Str": return c
     if t in ("Space", "SoftBreak"): return " "
-    if t == "Emph": return "*" + ser(c) + "*"
-    if t == "Quoted": return ("„" + ser(c[1]) + "”") if c[0]["t"] == "DoubleQuote" else ("»" + ser(c[1]) + "«")
+    if t == "Emph": return m + ser(c, marks) + m
+    if t == "Quoted": return ("„" + ser(c[1], marks) + "”") if c[0]["t"] == "DoubleQuote" else ("»" + ser(c[1], marks) + "«")
     if t == "Span":
         kv = dict(c[0][2])
-        return ("*" + ser(c[1]) + "*") if kv.get("custom-style") == ITALIC_STYLE[0] else ser(c[1])
-    if t == "Link": return ser(c[1])
-    if t == "SmallCaps": return ser(c)
-    if t == "Cite": return ser(c[1])
+        return (m + ser(c[1], marks) + m) if kv.get("custom-style") == ITALIC_STYLE[0] else ser(c[1], marks)
+    if t == "Link": return ser(c[1], marks)
+    if t == "SmallCaps": return ser(c, marks)
+    if t == "Cite": return ser(c[1], marks)
     if t == "Note": return ""
-    if t in ("Para", "Plain"): return ser(c)
-    if t in ("Strong", "Underline", "Superscript", "Subscript", "Strikeout"): return ser(c)
+    if t in ("Para", "Plain"): return ser(c, marks)
+    if t in ("Strong", "Underline", "Superscript", "Subscript", "Strikeout"): return ser(c, marks)
     return ""
 
 
@@ -352,7 +355,7 @@ def plain_entry(e):
     e = re.sub(r"\[([^\]]*)\]\{[^}]*\}", r"\1", e)          # [Nazwisko]{.smallcaps}
     e = re.sub(r"(?<![\w\\])[*_]+|[*_]+(?![\w])", "", e)          # emphasis marks
     e = re.sub(r"<(https?://[^>\s]+)>", r"\1", e)                   # autolinks
-    e = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", e)                     # [10.1234/x](https://doi.org/…)
+    e = re.sub(r"\[([^\]]*)\]\((?:[^()\s]|\([^()\s]*\))*\)", r"\1", e)   # [10.1234/x](https://doi.org/…), "(" ")" in a DOI
     return re.sub(r"\\(.)", r"\1", e).strip()
 
 
@@ -667,6 +670,118 @@ def write_jsx(rows, total, cfg, outdir, stem, ast_texts=(), title=False):
         open(os.path.join(outdir, stem + "_gwiazdki.jsx"), "w", encoding="utf-8").write(tpl)
 
 
+# ------------------------------------------------------------------ DOI links in the online PDF (SYS-5, GEN-10)
+DOI_MARK = "\ue000"      # set between the citations of one note by a copy of the CSL, to cut them apart
+
+
+def doi_url(doi):
+    """(https://doi.org/… link, problem). Everything but letters, digits, - . _ ~ / is percent-encoded (DOI Handbook,
+    section 3.5.2.4: old SICI DOIs carry < > ; ( ) : #), so the link survives InDesign and every PDF reader."""
+    from urllib.parse import quote, unquote
+    d = re.sub(r"(?i)^(?:https?://(?:dx\.)?doi\.org/|doi:\s*)", "", (doi or "").strip())
+    note = None
+    if re.search(r"%[0-9A-Fa-f]{2}", d):
+        d, note = unquote(d), "looks URL-encoded in refs.json (decoded once; check the record)"
+    if not re.match(r"^10\.\d{4,9}/\S+$", d):
+        return None, "not a DOI (10.<prefix>/<suffix>): not linked"
+    return "https://doi.org/" + quote(d, safe="/"), note
+
+
+def mark_csl(workdir):
+    s = open(CSL, encoding="utf-8").read()
+    i = s.index("<citation")
+    j = s.index('delimiter="; "', i)
+    p = os.path.join(workdir, "doimark.csl")
+    open(p, "w", encoding="utf-8").write(s[:j] + 'delimiter="; &#xE000;"' + s[j + len('delimiter="; "'):])
+    return p
+
+
+def cite_sites(doc, ast_style):
+    """every Cite in print order, with where it prints: ("n", footnote number) or ("a", 0) for an asterisk note"""
+    out, n = [], [0]
+
+    def rec(x, where):
+        if isinstance(x, list):
+            for i in x:
+                rec(i, where)
+        elif isinstance(x, dict):
+            t = x.get("t")
+            if t == "Note":
+                n[0] += 1
+                rec(x["c"], ("n", n[0]))
+            elif t == "Div" and dict(x["c"][0][2]).get("custom-style") == ast_style:
+                rec(x["c"], ("a", 0))
+            elif t == "Cite":
+                out.append((where, x))
+            elif "c" in x:
+                rec(x["c"], where)
+    rec(doc["blocks"], ("m", 0))
+    return out
+
+
+def doi_links(A, C, refs, citations, ast_style, report):
+    """what the InDesign script links: {"notes": {n: [[text, url, key]]}, "ast": [...], "bib": [...]}. A is the printed
+    AST, C the same text rendered with DOI_MARK between the citations of a note; a citation's text is its piece."""
+    urls = {}
+    for k, r in refs.items():
+        if r.get("DOI"):
+            u, why = doi_url(r["DOI"])
+            if why:
+                report["warnings"].append(f"DOI of {k} “{r['DOI']}”: {why}")
+            if u:
+                urls[k] = u
+    out = {"notes": {}, "ast": [], "bib": [], "works": len(urls)}
+    if not urls:
+        return out
+    sa, sc = cite_sites(A, ast_style), cite_sites(C, ast_style) if C else []
+    lost = []
+    for i, (where, x) in enumerate(sa):
+        keys = [c["citationId"] for c in x["c"][0]]
+        if not any(k in urls for k in keys):
+            continue
+        txt = ser(x["c"][1], False)
+        mk = ser(sc[i][1]["c"][1], False) if len(sc) == len(sa) and sc[i][0] == where else ""
+        if len(keys) == 1:
+            pieces = [txt]
+        elif mk.replace(DOI_MARK, "") == txt:
+            pieces = mk.split(DOI_MARK)
+        else:                       # an Ibidem the build replaced by the short form, or a different structure
+            pieces = txt.split("; ")
+        if len(pieces) != len(keys):
+            lost.append(f"{'note ' + str(where[1]) if where[0] == 'n' else 'asterisk note'}: {', '.join(keys)}")
+            continue
+        for k, p in zip(keys, pieces):
+            p = p.strip().rstrip(";").strip()
+            if k in urls and p:
+                item = [p, urls[k], k]
+                (out["notes"].setdefault(str(where[1]), []) if where[0] == "n" else out["ast"]).append(item)
+    if lost:
+        report["warnings"].append("DOI links: citations not cut apart (link them by hand, or leave them): " + "; ".join(lost))
+    out["bib"] = [[c["text"], urls[c["key"]], c["key"]] for c in citations if c.get("key") in urls]
+    return out
+
+
+def write_doi_jsx(links, total, cfg, outdir, stem):
+    path = os.path.join(outdir, stem + "_doi.jsx")
+    if not (links["notes"] or links["ast"] or links["bib"]):
+        if os.path.exists(path):
+            os.remove(path)               # an older build's script would link what is no longer there
+        return False
+
+    def js(x):
+        return json.dumps(x, ensure_ascii=True)
+    tpl = open(DOI_TPL, encoding="utf-8").read()
+    rep_ = {"/*TOTAL*/": str(total), "/*BIBSTYLE*/": js(cfg["paragraph"]["bib_entry"]),
+            "/*ASTSTYLE*/": js(cfg["paragraph"]["asterisk_note"]),
+            "/*NOTES*/": ",\n".join(f"  {js(n)}: {js(v)}" for n, v in links["notes"].items()),
+            "/*AST*/": ",\n".join("  " + js(v) for v in links["ast"]),
+            "/*BIB*/": ",\n".join("  " + js(v) for v in links["bib"])}
+    for k, v in rep_.items():
+        tpl = tpl.replace(k, v)
+    open(path, "w", encoding="utf-8").write(tpl)
+    return True
+
+
 # ------------------------------------------------------------------ main
 def main():
     ap = argparse.ArgumentParser()
@@ -800,6 +915,7 @@ def main():
         elif ln.strip() and "SROM:" not in ln:
             report["errors"].append("pandoc: " + ln.strip())
     notes, rows, forced, literal_ibid = [], [], [], []
+    links = {"notes": {}, "ast": [], "bib": [], "works": 0}
     n_na, ast_texts = 0, []
     n_title = len(re.findall(r"^:::\s*\{?\.?przypis-tytulowy", md_text, re.M))   # more than one: check.py's error
     ok = False
@@ -858,6 +974,10 @@ def main():
         ast_texts = [ser(b["c"][1]) for b in ast_divs(A) if ser(b["c"][1]).startswith("* ")]
         merged = os.path.join(work, stem + ".json")
         open(merged, "w", encoding="utf-8").write(json.dumps(A))
+        if not a.proof and any(r.get("DOI") for r in refs_list):
+            code_c, out_c, _ = run(["pandoc", comp_path, "-f", FROM, *base, "--csl", mark_csl(work), "-t", "json"])
+            links = doi_links(A, json.loads(out_c) if not code_c else None, refs, report.get("citations", []),
+                              ast_style, report)
         notes = notes_text(A)
         code_d, _, err_d = run(["pandoc", "-f", "json", merged, "--reference-doc", refdoc, "-o", docx_path])
         if code_d:
@@ -881,6 +1001,7 @@ def main():
     # 5. InDesign scripts + author query sheet
     if not a.proof:
         write_jsx(rows, len(notes), cfg, a.out, stem, ast_texts, bool(n_title))
+        write_doi_jsx(links, len(notes), cfg, a.out, stem)
     label_map = {}
     if a.pair_src:
         try:
@@ -926,6 +1047,9 @@ def main():
            f"- pandoc {PANDOC_VERSION} · CSL {os.path.basename(CSL)} · config {os.path.basename(a.config)} · linter {report.get('linter') or 'none'}",
            f"- Ibidem notes to check after layout: {len(rows)} (run {stem}_ibidem.jsx)"
            + (f"; literal (non-CSL) Ibidem notes, check by hand: {literal_ibid}" if literal_ibid else ""),
+           f"- DOI links (online PDF, not printed): {sum(len(v) for v in links['notes'].values()) + len(links['ast'])} "
+           f"citations in notes, {len(links['bib'])} bibliography entries, {links['works']} works with a DOI"
+           + (f" (run {stem}_doi.jsx last, before the PDF export)" if links["bib"] or links["notes"] or links["ast"] else ""),
            "", "## Errors"] + ([f"- {e}" for e in report["errors"]] or ["- none"])
     if report.get("source_typo"):
         rep += ["", "## Source language: Polish typography not applied (handoff.md; normalize.py runs on the translation)"] \

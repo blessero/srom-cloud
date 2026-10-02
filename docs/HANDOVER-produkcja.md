@@ -20,12 +20,12 @@ Nothing here needs re-deriving; decisions marked ✔ are the editor's and closed
 | checks | `scripts/mutate_keyed.py` | mutation test of a keyed text: does `check.py --keyed` catch page/work/key errors (step 4b) |
 | back | `scripts/take_back.py` | takes a delivered translation from srom-tlumacz's `work/<id>/` into `work/<id>/pl/` (sha256, re-import of the Word master, `--pair`) |
 | Word | `scripts/export_work.py` | SROM-MD → editor's Word working copy (tokens editable, lossless round trip) |
-| build | `scripts/build.py` | DOCX + report + query sheet `_pytania` + `_postimport.jsx` + `_ibidem.jsx`; `--proof` reading copy |
+| build | `scripts/build.py` | DOCX + report + query sheet `_pytania` + `_postimport.jsx` + `_ibidem.jsx` (+ `_gwiazdki.jsx`, `_doi.jsx`); `--proof` reading copy |
 | rules | `csl/srom.csl`, `lua/srom_post.lua`, `config/styles.json` | citation style; DOCX styling; role → style names |
 | InDesign | `indesign/style_spec.json` → `scripts/make_style_setup.py` → `srom_style_setup.jsx` + `references/style-sheet.md` | house style definition and setup script |
 | docs | `references/*.md` | srom-md (format), handoff (contract with srom-tlumacz), indesign, decisions, style-sheet |
 
-Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 22/22` (~510 checks). Unlazy ledger: `/GATES.md`, batches from
+Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 24/24` (02.10.2026). Unlazy ledger: `/GATES.md`, batches from
 26.09.2026 on (the older G1–G16 ledger was lost, § 3 item 1; its G12, the InDesign import, is stage 3 / D3).
 
 ## 2. Decisions register (`references/decisions.md`)
@@ -216,6 +216,12 @@ G12) after.
    real attributes, finds duplicate styles, uses `~"`, and lists all attention items at the end (also Ibidem, asterisks).
    Then built (MB asked): Ibidem and asterisk scripts apply their fixes after a confirm; `srom_zakladki.jsx` PDF
    bookmarks (all proven in InDesign on the rebuilt Ostendorf layout). PDF metadata: srom-quant `pdf_metadata.py` (proven in InDesign: XMP incl. prism:doi). Not built: tagged-PDF heading tags.
+   **DOI links in the online PDF (SYS-5, built 02.10.2026, root session at MB's request):** `build.py` writes `<stem>_doi.jsx`
+   (citation texts per note, cut apart by a marked CSL copy; bibliography entries; URLs percent-encoded); the script makes
+   invisible InDesign hyperlinks, export with Hyperlinks ticked (`references/indesign.md`). Chosen over adding links to the
+   exported PDF with PyMuPDF: InDesign holds the exact text (no hyphenation or ligature guessing) and the links follow
+   reflow. Tests: `test_doi.py` (suite), live `tools/indesign_check/doi_check.py` (Ostendorf 36/36, SICI DOI 6/6).
+   Fixed on the way: `plain_entry` cut a DOI with parentheses short (the Crossref `unstructured_citation` too).
    Open: GEN-14 (place: publisher order, from MB's 02.10 pattern).
    Third review (MB, 02.10.2026 18:56, Kanon v1.13, decisions row 26): "red. Gudmundur Hálfdánarson" in full in n. 19 came
    from keying the Icelandic name as a CSL `literal` (to sort it under the forename, § 9.5) — a literal is never

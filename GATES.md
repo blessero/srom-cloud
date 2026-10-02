@@ -520,3 +520,10 @@ Source: MB's manchesterhive PDF (`work/Peripheral whiteness …pdf`), Chicago en
   EXPECT: /^[3-9]$/
   EVIDENCE: in InDesign: MB's test file → 6 items (duplicate Przypis GWIAZDKOWY, 185 left-aligned paragraphs, Aptos);
   the rebuilt DOCX in the rebuilt template → "RESULT: OK — import is clean"; Ibidem finds nn. 18, 22 on page turns
+
+## SYS-5 DOI links in the online PDF (02.10.2026 22:11, root session, MB's request)
+- [x] S1: build writes <stem>_doi.jsx (citation texts per note cut apart, bibliography entries, encoded URLs); invisible links, rerun replaces
+  CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-produkcja/tests/test_doi.py | tail -1
+  EXPECT: /DOI ALL PASS/
+  EVIDENCE: live in InDesign 2026, tools/indesign_check/doi_check.py: Ostendorf INJECT build 36/36 links (19 note citations,
+  17 bibliography entries, 17 DOIs), SICI + "#?" DOIs 6/6, border 0, URLs encoded in the PDF — INDESIGN DOI CHECK ALL PASS 7/7 both

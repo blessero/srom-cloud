@@ -1,7 +1,7 @@
 #!/bin/sh
 # Link the SROM InDesign scripts into InDesign's Scripts Panel (idempotent; InDesign may be closed).
 #   tools/install_scripts.sh                 the general scripts (style setup, final pass, PDF bookmarks)
-#   tools/install_scripts.sh <build dir>     also that article's scripts: <stem>_postimport/_ibidem/_gwiazdki.jsx,
+#   tools/install_scripts.sh <build dir>     also that article's scripts: <stem>_postimport/_ibidem/_gwiazdki/_doi.jsx,
 #                                            in their own panel folder "srom_<stem>" (several texts never mix)
 # Everything is a symlink, so a rebuild or a repo update is picked up without copying again.
 # InDesign reads the folder on launch and refreshes it while open; running a script needs InDesign open.
@@ -39,7 +39,7 @@ if [ -n "$1" ]; then
     [ -f "$f" ] || { echo "no *_postimport.jsx in $B (build first)"; exit 1; }
     stem=$(basename "$f" _postimport.jsx)
     D="$PANEL/srom_$stem"; mkdir -p "$D"
-    for k in postimport ibidem gwiazdki; do [ -f "$B/${stem}_$k.jsx" ] && { link "$B/${stem}_$k.jsx" "$D"; n=$((n+1)); }; done
+    for k in postimport ibidem gwiazdki doi; do [ -f "$B/${stem}_$k.jsx" ] && { link "$B/${stem}_$k.jsx" "$D"; n=$((n+1)); }; done
   done
   echo "article scripts: $n"
 fi

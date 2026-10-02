@@ -71,7 +71,7 @@ Built by `tools/indesign_check/indesign_check.py --template …` (`make_template
 To use it: open the IDML, save it as .indt, and start each article from it. Then place the DOCX into the first
 frame (Place, with "Replace Selected Item").
 
-## After final layout: Ibidem, asterisks, bookmarks
+## After final layout: Ibidem, asterisks, bookmarks, DOI links
 
 `<article>_ibidem.jsx` and `<article>_gwiazdki.jsx` report first, then ask whether to make the changes themselves
 (MB, 02.10.2026): Ibidem notes on a page or column turn are retyped in full (italics as character style); markers
@@ -79,6 +79,15 @@ and asterisk notes get their asterisks. One undo step each; run again after refl
 the numbered notes of their page stays by hand.
 `indesign/srom_zakladki.jsx` (general, in the panel): PDF bookmarks from Tytuł / Śródtytuł / Śródtytuł MAŁE; a rerun
 replaces its own bookmarks. Export the PDF with General ▸ Include ▸ **Bookmarks** ticked.
+`<article>_doi.jsx` (written when a printed work has a DOI; SYS-5): every citation in the notes and every bibliography
+entry whose work has a DOI gets an **invisible** hyperlink to `https://doi.org/…`; nothing is printed (GEN-10). The build
+finds each citation's text (several works in one note are cut apart with a marked copy of the CSL) and encodes the URL
+(everything but letters, digits, `- . _ ~ /`: old SICI DOIs carry `< > ; ( ) :`). The script finds the text in its
+note or entry, reports, asks, then links; a note retyped since the build (an Ibidem written in full) that cites one work
+becomes one link; anything not found is listed. Run it **last**, right before the export (text retyped after it loses
+its link); a rerun replaces its own links. Export with General ▸ Include ▸ **Hyperlinks** ticked. Proven live:
+`tools/indesign_check/doi_check.py <build dir>` (places the DOCX in the template, runs the script twice, reads the PDF:
+Ostendorf 36/36 links, a SICI DOI intact).
 PDF metadata: `srom-quant/scripts/pdf_metadata.py <master CSV> <article_id> --out <build dir>` → `<article_id>_metadane.jsx`;
 run it on the document before the export (title, author, citation line, keywords, licence, DOI and PRISM fields from the
 master row; a placeholder DOI is left out and named).
