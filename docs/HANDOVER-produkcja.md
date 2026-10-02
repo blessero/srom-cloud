@@ -43,6 +43,9 @@ check (in `_extract.md`); `lookup.py dois` (Kanon § 9.7: registry check of give
 `<stem>_citations.json` → `volumes/<vol>/citations/<article_id>.json` at INJECT → srom-quant `<citation_list>`;
 `volumes/ror.tsv` (13 of vol. 18's 15 institutions) → ROR in Crossref affiliations; `srom-quant/scripts/wikidata_qs.py`.
 The old per-article copies (`work/<id>/wordcheck.py`, `source_imprints.py`, `doi_check.txt`) stay: closed gates re-run them.
+**Kanon v1.15** (02.10.2026, MB): series and conference names, every word capitalised (T35).
+**Kanon v1.14** (02.10.2026, MB): reverse italics restored; § 3.4 names of series, conferences, films, songs, paintings, programmes, bands (T34).
+**Kanon v1.13** (02.10.2026, MB, Ostendorf review): every person by initial in notes, full names in the bibliography; translator's annotations only for a Polish edition or a translation from the original (T33).
 **Kanon v1.12** (02.10.2026, MB): the editor never stands in the author's place — "*Tytuł tomu*, red. A. Kowalski".
 **Kanon v1.11** (02.10.2026, MB, after the Ostendorf INJECT test): headings unnumbered; a line before headings and around block quotations; note number without a dot; no comma after the surname in the bibliography; anonymous source editions and edited articles title first (item 7a).
 **Kanon v1.10** (30.09.2026, MB): § 12.3 compound conjunctions without a comma inside; linter WARN `PUNCT-SPOJNIK` (the one
@@ -222,7 +225,7 @@ G12) after.
    exported PDF with PyMuPDF: InDesign holds the exact text (no hyphenation or ligature guessing) and the links follow
    reflow. Tests: `test_doi.py` (suite), live `tools/indesign_check/doi_check.py` (Ostendorf 36/36, SICI DOI 6/6).
    Fixed on the way: `plain_entry` cut a DOI with parentheses short (the Crossref `unstructured_citation` too).
-   Open: GEN-14 (place: publisher order, from MB's 02.10 pattern).
+   GEN-14 decided (MB 02.10.2026 21:30): the Kanon stands ("Ossolineum, Wrocław 1974"); nothing to change.
    Third review (MB, 02.10.2026 18:56, Kanon v1.13, decisions row 26): "red. Gudmundur Hálfdánarson" in full in n. 19 came
    from keying the Icelandic name as a CSL `literal` (to sort it under the forename, § 9.5) — a literal is never
    abbreviated; "Divide et impera" (and "Cigano", "c.", Ndiaye's "Paios") printed roman because the source's `<i>` was
@@ -236,12 +239,12 @@ G12) after.
    by-reference italics warning and the Lua "verify" warning removed (they fired on correct cases), `<i>` restored in
    Ostendorf's (fotta2019, oreilly2003, cunniffe2023) and Ndiaye's (cathelin2004 "Paios") refs.json; Ostendorf INJECT
    rebuilt. New § 3.4 rules: series and conference names in quotation marks, roman; titles of films, songs, paintings,
-   programmes italic; band names roman, capitalised. Announced to srom-tlumacz: T34. Open: whether "z dużych liter" for series and
-   conferences means every word or the first only (the Kanon says "z dużych liter" as MB wrote it).
+   programmes italic; band names roman, capitalised. Announced to srom-tlumacz: T34. Settled by v1.15 (T35): series and conference names, every word capitalised.
 7. Stage 3: ~~house style / reduce the style set (§4, D3)~~ — done 29.09.2026 (house style v3, §4). Next: G12, the first
    real article placed in a v3 template — **a translated article** (Ndiaye after MB's edit, via 5b; review
-   29.09.2026 row 6), so that `_postimport.jsx`, `_ibidem.jsx` and `_gwiazdki.jsx`, never yet run in InDesign, are proven
-   with a real asterisk series (title note + translator's notes) (the JSX runs in InDesign via AppleScript `do script` — proven, see
+   29.09.2026 row 6). The three scripts `_postimport.jsx`, `_ibidem.jsx` and `_gwiazdki.jsx` ran on Ostendorf's INJECT
+   layouts on 02.10.2026, but Ostendorf is not yet MB-edited: **G12 stays open until an MB-edited translated text with a real
+   asterisk series (title note + translator's notes) is placed** (the JSX runs in InDesign via AppleScript `do script` — proven, see
    `tools/indesign_check/`).
 8. Later: ICML output as a fallback to Word import (pandoc writes ICML with footnotes; needs a style-renaming
    step); wire `tb_check.py` into scenario C when srom-tlumacz ships it (E5; CLI fixed in `handoff.md`).

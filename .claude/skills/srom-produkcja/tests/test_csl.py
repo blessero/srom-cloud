@@ -55,6 +55,8 @@ NOTES = [
     ("kowalski2011", "s. 88", "*Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88."),
     ("mroz2011", "s. 88-104", "L. Mróz, *Tytuł rozdziału*, w: *Tytuł tomu*, red. A. Kowalski, Wydawnictwo, Kraków 2011, s. 88–104."),
     ("kolaczek2012", "s. 217", "M. Kołaczek, *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 217."),
+    ("seria1995", "s. 3", "P. Nowicki, *Armut*, Oldenbourg, München 1995 („Enzyklopädie Geschichte”, 34), s. 3."),   # series, GEN-5
+    ("przedruk2000", "s. 4", "C.J. Robinson, *Black Marxism*, University of North Carolina Press, Chapel Hill 2000 [1983], s. 4."),   # reprint, GEN-9
     ("ploski1947", "s. 310", "S. Płoski, *Relacja von dem Bacha o powstaniu warszawskim*, „Dzieje Najnowsze”, 1947, t. 1, z. 2, s. 310."),
     ("turner1926", "s. 145", "R.L. Turner, *The position of Romani*, „Journal of the Gypsy Lore Society”, 1926, t. 5, nr 4, s. 145."),
     ("hancock2007", "s. 33", "I. Hancock, *Tytuł*, tłum. J. Nowak, Wydawnictwo, Warszawa 2007, s. 33."),
@@ -96,7 +98,7 @@ BIB = {
     "fialkowska2020": "[Fiałkowska]{.sc} Kamila, [Garapich]{.sc} Michał P., [Mirga-Wójtowicz]{.sc} Elżbieta, [Kowalski]{.sc} Jan, *Tytuł pracy*, Wydawnictwo, Warszawa 2020.",
     "kowalski2011": "*Tytuł tomu*, red. Andrzej Kowalski, Wydawnictwo, Kraków 2011.",
     "mroz2011": "[Mróz]{.sc} Lech, *Tytuł rozdziału*, w: *Tytuł tomu*, red. Andrzej Kowalski, Wydawnictwo, Kraków 2011, s. 88–104.",
-    "kolaczek2012": "[Kołaczek]{.sc} Małgorzata, *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 211–228. DOI: 10.1234/srom.2012.5.11.",
+    "kolaczek2012": "[Kołaczek]{.sc} Małgorzata, *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 211–228.",   # the DOI is in the data and never printed (MB 02.10.2026, GEN-10)
     "turner1926": "[Turner]{.sc} Ralph L., *The position of Romani*, „Journal of the Gypsy Lore Society”, 1926, t. 5, nr 4, s. 145–189.",
     "hancock2007": "[Hancock]{.sc} Ian, *Tytuł*, tłum. Jan Nowak, Wydawnictwo, Warszawa 2007.",
     "zrodlo1959": "[Nowak]{.sc} Jan, *Tytuł źródła*, red. Anna Kowalska, Wydawnictwo, Wien 1959.",
@@ -108,6 +110,8 @@ BIB = {
     "demeter2018": "[Demeter]{.sc} Nadezhda, *Istoriia tsygan* [Historia Cyganów], Nauka, Moskva 2018.",
     "kopanska2018": "[Kopańska]{.sc} Joanna, *Tytuł*, Uniwersytet Jagielloński, Kraków 2018 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej).",
     "rozdzialisl2003": "[O’Reilly]{.sc} William, **Divide et impera*: Race and Administration*, w: *Tytuł tomu*, red. Guðmundur Hálfdanarson, Ann Katherine Isaacs, tłum. Jan Nowak, Edizioni Plus, Pisa 2003, s. 77–100.",
+    "seria1995": "[Nowicki]{.sc} Piotr, *Armut*, Oldenbourg, München 1995 („Enzyklopädie Geschichte”, 34).",   # GEN-5
+    "przedruk2000": "[Robinson]{.sc} Cedric J., *Black Marxism*, University of North Carolina Press, Chapel Hill 2000 [1983].",   # GEN-9
     "kowalskiweb": "[Kowalski]{.sc} Andrzej, *Tytuł tekstu*, w: *Nazwa serwisu*, https://przyklad.pl/tekst [dostęp: 18.03.2025].",
 }
 

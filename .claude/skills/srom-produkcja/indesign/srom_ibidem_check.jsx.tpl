@@ -31,7 +31,7 @@ function wantApply(n, what) {
 
 // replace the note's text from "Ibidem" to its end by FULL; *…* become the italic character style
 function retype(doc, fn, full) {
-  var c = fn.characters, txt = String(fn.texts[0].contents), i0 = txt.indexOf("Ibidem"), plain = "", spans = [], i, on = -1;
+  var c = fn.characters, txt = String(fn.texts[0].contents), i0 = txt.search(/[Ii]bidem/), plain = "", spans = [], i, on = -1;
   if (i0 < 0) { return false; }
   for (i = 0; i < full.length; i++) {
     if (full.charAt(i) === "*") { if (on < 0) { on = plain.length; } else { spans.push([on, plain.length]); on = -1; } }
@@ -112,10 +112,10 @@ function main() {
     if (n < 2 || n > fns.length) { out.push(pad(n) + "  !! note not found"); todo.push("note " + n + ": not found"); continue; }
     cur = fns[n - 1]; prv = fns[n - 2];
     txt = cur.texts[0].contents;
-    if (String(txt).indexOf("Ibidem") < 0 && String(txt).indexOf(MAP[k].full.replace(/\*/g, "").substr(0, 40)) >= 0) {
+    if (String(txt).search(/[Ii]bidem/) < 0 && String(txt).indexOf(MAP[k].full.replace(/\*/g, "").substr(0, 40)) >= 0) {
       out.push(pad(n) + "  ok (retyped in full)"); continue;
     }
-    if (String(txt).indexOf("Ibidem") < 0) {
+    if (String(txt).search(/[Ii]bidem/) < 0) {
       out.push(pad(n) + "  !! expected Ibidem, found: " + String(txt).substr(0, 60)); todo.push("note " + n + ": the build wrote Ibidem here, the document has other text — check the note by eye"); continue;
     }
     a = locate(prv); b = locate(cur); checked++;

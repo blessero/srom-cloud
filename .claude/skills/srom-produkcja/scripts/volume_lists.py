@@ -4,7 +4,9 @@ document by hand like an article (same Word import preset).
 
   volume_lists.py noty <master.csv> --authors <autorzy.tsv> -o <out.docx>
 
-noty — "Noty o autorach": one paragraph per person who authors a text of the volume (master CSV `authors_struct`,
+noty — "Noty o autorach": one paragraph per person who authors a text in the parts of the volume before the last two
+(MB 02.10.2026: parts I–II, or I–III when a theme title counts as part I; column `section_nr` of the master CSV; no
+section_nr at all: every text) (master CSV `authors_struct`,
 else `authors_display`), sorted by the register's key in Polish alphabetical order. The name as printed (degree
 included) in the character style for bold, then " – " and the note (the note's own opening name and separator are
 dropped); "Kontakt: …" after a line break; *…* in a note = italic. Texts as the register has them.
@@ -64,12 +66,27 @@ def add_text(p, text, italic_style):
                 r.style = italic_style
 
 
+def notes_parts(rows):
+    """Kanon-free house rule (MB 02.10.2026, GEN-13): notes for the contributors of every part (`section_nr`, in order of
+    appearance) except the last two (Recenzje, Opinie and the one after). A master CSV without section_nr: all rows."""
+    parts = []
+    for r in rows:
+        k = (r.get("section_nr") or "").strip()
+        if k and k not in parts:
+            parts.append(k)
+    if not parts:
+        return rows
+    keep = set(parts[:-2])
+    return [r for r in rows if (r.get("section_nr") or "").strip() in keep]
+
+
 def noty(a):
     import docx
     cfg = json.load(open(os.path.join(os.path.dirname(HERE), "config", "styles.json"), encoding="utf-8"))
     P, C = cfg["paragraph"], cfg["character"]
     reg = {bare(r["osoba"]).lower(): r for r in csv.DictReader(open(a.authors, encoding="utf-8"), delimiter="\t")}
     rows = list(csv.DictReader(open(a.csv, encoding="utf-8-sig")))
+    rows = notes_parts(rows)
     seen, people = set(), []
     for row in rows:
         for n in persons(row):

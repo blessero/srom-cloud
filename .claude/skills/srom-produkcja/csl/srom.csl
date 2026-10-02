@@ -142,7 +142,18 @@
           <text value="[BRAK MIEJSCA]"/>
         </else>
       </choose>
-      <text macro="year"/>
+      <!-- Kanon § 7.2 (MB 02.10.2026, GEN-9): a reprint prints the year of this edition, then the first edition's in square brackets -->
+      <group delimiter=" ">
+        <text macro="year"/>
+        <date variable="original-date" prefix="[" suffix="]">
+          <date-part name="year"/>
+        </date>
+      </group>
+      <!-- Kanon § 7.2 (MB 02.10.2026, GEN-5): the series closes the description, in parentheses -->
+      <group prefix="(" suffix=")" delimiter=", ">
+        <text variable="collection-title" quotes="true"/>
+        <text variable="collection-number"/>
+      </group>
     </group>
   </macro>
   <macro name="publisher">
@@ -197,9 +208,8 @@
   </macro>
   <macro name="access">
     <choose>
-      <if variable="DOI">
-        <text variable="DOI" prefix="DOI: "/>
-      </if>
+      <!-- Kanon § 7.2, § 9.7 (MB 02.10.2026, GEN-10): a DOI is never printed; the source with a DOI prints no URL either -->
+      <if variable="DOI"/>
       <else>
         <group delimiter=" ">
           <text variable="URL"/>
@@ -350,9 +360,7 @@
         <choose>
           <if type="webpage post post-weblog" match="none">
             <choose>
-              <if variable="DOI">
-                <text variable="DOI" prefix="DOI: "/>
-              </if>
+              <if variable="DOI"/>
               <else-if type="article-journal article-magazine article-newspaper" match="any">
                 <!-- Kanon § 9.7: an article without DOI (online journal) - its URL in the DOI's place -->
                 <text macro="access"/>

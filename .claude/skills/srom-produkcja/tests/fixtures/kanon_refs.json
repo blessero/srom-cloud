@@ -736,5 +736,54 @@
     ]
    ]
   }
+ },
+ {
+  "id": "seria1995",
+  "type": "book",
+  "author": [
+   {
+    "family": "Nowicki",
+    "given": "Piotr"
+   }
+  ],
+  "title": "Armut",
+  "publisher": "Oldenbourg",
+  "publisher-place": "München",
+  "issued": {
+   "date-parts": [
+    [
+     1995
+    ]
+   ]
+  },
+  "collection-title": "Enzyklopädie Geschichte",
+  "collection-number": "34"
+ },
+ {
+  "id": "przedruk2000",
+  "type": "book",
+  "author": [
+   {
+    "family": "Robinson",
+    "given": "Cedric J."
+   }
+  ],
+  "title": "Black Marxism",
+  "publisher": "University of North Carolina Press",
+  "publisher-place": "Chapel Hill",
+  "issued": {
+   "date-parts": [
+    [
+     2000
+    ]
+   ]
+  },
+  "original-date": {
+   "date-parts": [
+    [
+     1983
+    ]
+   ]
+  }
  }
 ]

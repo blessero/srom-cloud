@@ -1,4 +1,4 @@
-# SROM RULES — English digest of the Kanon (v1.15)
+# SROM RULES — English digest of the Kanon (v1.16)
 
 Normative text: `references/kanon-redakcyjny.md` — *Kanon edytorski Studia Romologica* (Polish, internal), in this skill. This file is its compact English digest; **section numbers are the Kanon's**. If the two differ, the Kanon governs and this file is corrected. New rules go into the Kanon first (with a § 17 entry), then here.
 
@@ -91,6 +91,7 @@ Superscript arabic, continuous, foot of page; in the note itself the number has 
 | Edition of a source | `F. Paucke, *Tytuł*, red. E. Becker-Donner, Wydawnictwo, Wien 1959, s. 183.` |
 | Anonymous source edition; edited text in a journal | `*Tytuł relacji*, red. H. Dexter, Wydawnictwo, Boston 1865, s. 88.` · `*Tytuł*, tłum. i red. K.G. Loewald, „Czasopismo”, 1957, t. 14, nr 2, s. 220.` — title first, like every work without an author |
 | Translator = editor | `J. Nowak, *Tytuł*, tłum. i red. J. Robertson, Wydawnictwo, DeLand 1932, s. 118.` |
+| Series · reprint | `A. Kowalski, *Tytuł*, Wydawnictwo, München 1995 („Nazwa Serii”, 34), s. 15.` · `C.J. Robinson, *Tytuł*, Wydawnictwo, Chapel Hill 2000 [1983], s. 4.` — series in parentheses closing the description (before the page), several places with an en dash (`Köln–Weimar–Wien`), reprint year then the first edition's in square brackets |
 | Edition | `A. Bartosz, *Tytuł*, wyd. 3 popr., Wydawnictwo, Tarnów 2019, s. 51.` |
 | Multivolume | `A. Kowalski, *Tytuł*, t. 2: *Tytuł tomu*, …, s. 77.` |
 | Foreign imprint | `A. Marsh, *Ethnicity and Identity*, w: *We are Here*, red. E. Uzpeder, EDROM, Istanbul 2008, s. 21.` |
@@ -103,7 +104,7 @@ Initial + surname (`R.L. Turner`) for **every person in a note**: author, editor
 
 ### 7.3. Subsequent citations
 `Ficowski, *Cyganie na polskich drogach…*, s. 51.` Short title fixed once; `…` when truncated, a short enough title given in full without `…`. Multi-author: `Mróz, Bartosz, *Tytuł…*`; 4+ `Fiałkowska i in., *Tytuł…*`; edited volume or other work without an author: the short title alone (`*Tytuł tomu…*, s. 90`).
-`*Ibidem*, s. 52.` only if the immediately preceding note cites the same work **and stands in the same column** (checked after layout). Never inside a sentence; never when this or the preceding note also cites a non-bibliographic source (archival unit, press issue, legal act); never in a non-author note, nor in the author's note right after one — short form instead.
+`*Ibidem*, s. 52.` only if the immediately preceding note cites the same work **and stands in the same column** (checked after layout). Never inside a sentence; never when this or the preceding note also cites a non-bibliographic source (archival unit, press issue, legal act); never in a non-author note, nor in the author's note right after one — short form instead. After a lead-in (`zob.`, `zob. też`, `por.`, `np.`) it is lower case: `zob. ibidem, s. 5`.
 **Forbidden:** `op. cit.` `dz. cyt.` `idem` `eadem` `tenże` `taż` `tamże` `loc. cit.` `passim` (as locator), year letters (`2012a`).
 
 ### 7.4. Substantive notes
@@ -120,12 +121,12 @@ Archive names never translated.
 
 **8.3 Press:** `J. Nowak, *Tytuł*, „Gazeta Krakowska”, 1963, nr 145, s. 3.` · unnumbered: `„Czas”, 03.05.1928, s. 2`.
 **8.4 Legal (official wording):** `Ustawa z dnia 6 stycznia 2005 r. …, Dz.U. 2005 nr 17 poz. 141, art. 20.` · `Wyrok TK z dnia 8 listopada 2016 r., sygn. akt P 126/15.`
-**8.6 Web:** `A. Kowalski, *Tytuł tekstu*, w: *Nazwa serwisu*, https://… [dostęp: 18.03.2025].` DOI replaces URL and access date; the access date only when the author gives it (not added, not queried). A dated web text (blog post, article or release on a site, reprint on a page) prints its publication date after the site, `dd.mm.rrrr` (`…, w: *Serwis*, 05.10.2016, https://…`); missing or incomplete → taken from the page (text or page metadata) and filled in, listed in the query sheet; a reprint is cited where the author cites it. An undated page (changing content: institution page, database) has no date; marked as checked in the record. URLs are plain text in the typesetting file, never hyperlinks.
+**8.6 Web:** `A. Kowalski, *Tytuł tekstu*, w: *Nazwa serwisu*, https://… [dostęp: 18.03.2025].` A source with a DOI prints neither URL nor access date (the DOI is never printed, § 9.7); the access date only when the author gives it (not added, not queried). A dated web text (blog post, article or release on a site, reprint on a page) prints its publication date after the site, `dd.mm.rrrr` (`…, w: *Serwis*, 05.10.2016, https://…`); missing or incomplete → taken from the page (text or page metadata) and filled in, listed in the query sheet; a reprint is cited where the author cites it. An undated page (changing content: institution page, database) has no date; marked as checked in the record. URLs are plain text in the typesetting file, never hyperlinks.
 **8.7 AV:** `*Papusza*, reż. J. Kos-Krauze, K. Krauze, Polska 2013, 00:42:15.` · `*Tytuł nagrania*, nagranie audio, 1978 r., Archiwum MET, sygn. AT/N/45.`
 
 ## 9. Bibliography
 
-Same construction as the note, five differences only: **`Surname Given-name,`** (no comma after the surname, a comma closes the author field; small caps at typesetting, full given names); all authors; full page range; DOI/ISBN; **editors, translators, directors with full given names**, natural order (`red. Andrzej Kowalski`) — the bibliography is the one place with every person in full. No colon after place; a full stop only before DOI/ISBN (§ 9.1).
+Same construction as the note, five differences only: **`Surname Given-name,`** (no comma after the surname, a comma closes the author field; small caps at typesetting, full given names); all authors; full page range; ISBN (no DOI, § 9.7); **editors, translators, directors with full given names**, natural order (`red. Andrzej Kowalski`) — the bibliography is the one place with every person in full. No colon after place; a full stop only before ISBN (§ 9.1).
 
 | Type | Pattern |
 |---|---|
@@ -134,16 +135,16 @@ Same construction as the note, five differences only: **`Surname Given-name,`** 
 | 4+ | `Fiałkowska Kamila, Garapich Michał P., Mirga-Wójtowicz Elżbieta, Kowalski Jan, *Tytuł*, …` |
 | Edited | `*Tytuł tomu*, red. Andrzej Kowalski, Wydawnictwo, Kraków 2011.` (sorted by title) |
 | Chapter | `Mróz Lech, *Tytuł rozdziału*, w: *Tytuł tomu*, red. Andrzej Kowalski, Wydawnictwo, Kraków 2011, s. 88–104.` |
-| Article | `Kołaczek Małgorzata, *Tytuł*, „Studia Romologica”, 2012, nr 5, s. 211–228. DOI: 10.1234/srom.2012.5.11.` |
+| Article | `Kołaczek Małgorzata, *Tytuł*, „Studia Romologica”, 2012, nr 5, s. 211–228.` |
 | Translation | `Hancock Ian, *Tytuł*, tłum. Jan Nowak, Wydawnictwo, Warszawa 2007.` |
 | Cyrillic | `Demeter Nadezhda, *Istoriia tsygan*, Nauka, Moskva 2018.` |
 | Unpublished | `Kopańska Joanna, *Tytuł*, Uniwersytet Jagielloński, Kraków 2018 (maszynopis pracy doktorskiej, egzemplarz przechowywany w Bibliotece Jagiellońskiej).` |
 | Informant | `W12 – mężczyzna, ur. 1951, Polska Roma, Tarnów, wywiad 14.06.2019; nagranie: Archiwum MET, sygn. AT/W/12.` |
 
-**9.2 Divisions**, in this order, only those present, headed but **unnumbered**; a bibliography with a single division has no division heading: Abbreviations · Archives (fonds level) · Fieldwork · Printed/legal · Web without DOI · Literature. Coverage: every cited work, except single archival units, single press issues, one-off legal acts; and the author's whole bibliography, cited or not.
+**9.2 Divisions**, in this order, only those present, headed but **unnumbered**; a bibliography with a single division has no division heading: Abbreviations · Archives (fonds level) · Fieldwork · Printed sources (legal acts, press, old prints, classics cited as sources) · Opracowania (literature) · Web. Names in Polish: Wykaz skrótów · Źródła archiwalne · Źródła terenowe · Źródła drukowane · Opracowania · Źródła internetowe. Coverage: every cited work, except single archival units, single press issues, one-off legal acts; and the author's whole bibliography, cited or not.
 **9.3 Small caps:** genuine OpenType (fallback: full caps, as in the index); surname only; particles lowercase and outside small caps, placed as § 9.5 says (`HEUSCH Luc de`); institutional authors not in small caps. **Character style, never data.** **No comma after the surname** (`Paucke Florian`; 02.10.2026): the small caps mark the surname; commas separate authors and close the author field (`Paucke Florian, *Tytuł*`).
 **9.5 Order:** Polish collation by transliterated form; same author chronological, then by title; sole-author works before co-authored. **Particles and compound surnames:** the heading form of the name's own language, as in LC NAF/VIAF (also Chicago): preposition particles after the given name (`Hippel Wolfgang von`, `Fuente Alejandro de la`, `Heusch Luc de`); articles and fused particles first (`La Fontaine`, English/American `De Witt`, `Van Buren`); Spanish compounds under the first element, Portuguese/Brazilian under the last (`Costa Elisa Maria Lopes da`); Icelandic under the forename in the author field (`Guðmundur Hálfdanarson`, set by the editors), in notes and after the title like any name (`G. Hálfdanarson`). First note: full form (`A. de la Fuente`); short form without the preposition particle (`Fuente`).
-**9.7 Identifiers:** DOI mandatory where one exists, printed `DOI: 10.1234/abcd` (no `https://doi.org/`). An article without DOI (online journal): its URL in the bibliography in the DOI's place. ISBN only in the bibliography and only when the author gives it (not added), printed `ISBN 978-…` without a colon.
+**9.7 Identifiers:** **a DOI is never printed** (notes, bibliography, translation note); it stays in the data and Crossref, is checked by machine, and the online PDF carries invisible `https://doi.org/…` links. An article without DOI (online journal): its URL in the bibliography. ISBN only in the bibliography and only when the author gives it (not added), printed `ISBN 978-…` without a colon.
 
 ### 9.6. Cyrillic
 
@@ -193,7 +194,7 @@ Same system; changes: quotes `“ ”`/`‘ ’`; `ed.`, `trans.`, `in:`, `p.`/`
 
 ### 12.2. Translated articles (from English; Kanon § 12.2 governs in a clash)
 - **Metadata (12.2.2):** EN title/abstract/keywords as in the original, no back-translation; PL abstract is the translation (trimmed to 1000 chars by the editors if needed); missing abstract/keywords written by the translator, EN approved by the author; keywords always the author's (PL translated, group names in authority form); record fields `original_title`, `original_source`, `original_doi`.
-- **Translation note (12.2.3):** mandatory title note `*`: original publication per § 7.2 with DOI; licence/permission (CC: the translation is an adaptation); translator; scope of interventions; formula on quotations. Translator also named under the author's affiliation: `Tłumaczenie: Imię Nazwisko`.
+- **Translation note (12.2.3):** mandatory title note `*`: original publication per § 7.2 (no DOI); licence/permission (CC: the translation is an adaptation); translator; scope of interventions; formula on quotations. Translator also named under the author's affiliation: `Tłumaczenie: Imię Nazwisko`.
 - **Quotations (12.2.4):** a) Polish edition exists → quote it, cite it, keep the author's reference after a semicolon; b) Polish source quoted in English → restore the original, `autor cytuje za:`; c) other language via an English translation (the author's or another's) → a Polish edition if one exists (as a); else translate from the English, **no annotation** (the translation note's formula covers it); go to the original only when the English is doubtful or the wording matters (editors' decision), then annotate `[przekład z oryginału – przyp. tłum.]` (with the original's record if the author gives none); **an annotation once per work**, at its first quotation — later quotations from it: short form, no annotation  (02.10.2026; the old `tłum. z przekładu angielskiego autora` is gone); d) English source without Polish edition → translator's version, no annotation, no `[tłum. własne]`; e) verse/song/proverb as a–c. Unfound place or unavailable original → query; never typeset a provisional unmarked translation.
 - **Terminology (12.2.5):** the editors' termbase; HOUSE entries (incl. all vol. 18/2025 rulings) binding; first mention Polish + original italic in brackets unless identical.
 - **Group names (12.2.6):** authority form in the translation, no original in brackets; self-ethnonyms and analysed forms stay; Gypsy → `Cyganie` by function, never swapped with Roma → `Romowie`.

@@ -138,8 +138,8 @@ W12 – mężczyzna, ur. 1951, Polska Roma, Tarnów, wywiad 14.06.2019; nagranie
 :::
 ```
 
-Section headings are the kanon names — Wykaz skrótów, Źródła archiwalne, Źródła terenowe, Źródła drukowane
-i prawne, Źródła internetowe, Literatura przedmiotu — without numerals (an unknown name stops the build).
+Section headings are the kanon names — Wykaz skrótów, Źródła archiwalne, Źródła terenowe, Źródła drukowane,
+Opracowania, Źródła internetowe — without numerals (an unknown name stops the build).
 Write literal sections only (archives, fieldwork, legal acts); sections filled from refs.json are
 generated: every cited key goes to its `srom-section` (I–VI = the six sections in that order; default VI,
 a webpage without DOI → V). A section may not have both literal and generated entries. Only the sections

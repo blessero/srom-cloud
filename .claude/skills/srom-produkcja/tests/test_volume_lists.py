@@ -44,4 +44,13 @@ t("joint note printed as written, its opening in bold, reported",
   ps[1].text + r.stdout)
 t("capital after the dash reported, text kept", ps[0].text == "Ewa Lis – Badaczka z Wrocławia." and "capital after the dash (Badaczka)" in r.stdout,
   ps[0].text + r.stdout)
+# GEN-13 (MB 02.10.2026): notes only for the parts before the last two
+csv2 = os.path.join(d, "master2.csv"); out2 = os.path.join(d, "noty2.docx")
+open(csv2, "w", encoding="utf-8").write(
+    "article_id,section_nr,authors_struct,authors_display\n"
+    "A1,I,Anna|Żak|X|,Anna Żak\nA2,II,Ewa|Lis|Z|,Ewa Lis\nA3,III,Jan|Łoś|Y|,Jan Łoś\nA4,IV,Piotr|Nowy||,Piotr Nowy\n")
+r2 = subprocess.run([sys.executable, os.path.join(S, "volume_lists.py"), "noty", csv2, "--authors", reg_p, "-o", out2], capture_output=True, text=True)
+ps2 = Document(out2).paragraphs
+t("parts I–IV: notes for the authors of I–II only, none for the last two parts",
+  [p.runs[0].text for p in ps2] == ["Ewa Lis", "Dr hab. Anna Żak"] and "Nowy" not in r2.stdout and "Łoś" not in "".join(p.text for p in ps2), (r2.stdout, [p.text for p in ps2]))
 print(f"VOLUME_LISTS ALL PASS {sum(res)}/{len(res)}" if all(res) else f"VOLUME_LISTS FAILED {res.count(False)}/{len(res)}")

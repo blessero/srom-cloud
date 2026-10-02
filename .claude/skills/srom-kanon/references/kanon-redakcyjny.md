@@ -1,6 +1,6 @@
 # STUDIA ROMOLOGICA – KANON EDYTORSKI (DOKUMENT WEWNĘTRZNY)
 
-**Wersja 1.15 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
+**Wersja 1.16 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
 
 > Wersja dla autorów (*Wskazówki dla autorów*) jest skrótem tego dokumentu i nie zawiera § 13–17. W razie rozbieżności rozstrzyga niniejszy tekst.
 
@@ -200,6 +200,8 @@ Cyfry arabskie, indeks górny, numeracja ciągła w obrębie artykułu, przypisy
 | Przekład i redakcja tej samej osoby | J. Nowak, *Tytuł*, tłum. i red. J. Robertson, Wydawnictwo, DeLand 1932, s. 118. |
 | Edycja źródła bez autora | *Tytuł relacji*, red. H. Dexter, Wydawnictwo, Boston 1865, s. 88. |
 | Artykuł – tekst opracowany przez redaktora | *Tytuł*, tłum. i red. K.G. Loewald, P.S. Taylor, „Tytuł czasopisma”, 1957, t. 14, nr 2, s. 220. |
+| Seria wydawnicza | A. Kowalski, *Tytuł*, Wydawnictwo, München 1995 („Nazwa Serii”, 34), s. 15. |
+| Przedruk | C.J. Robinson, *Tytuł*, Wydawnictwo, Chapel Hill 2000 [1983], s. 4. |
 | Kolejne wydanie | A. Bartosz, *Tytuł*, wyd. 3 popr., Wydawnictwo, Tarnów 2019, s. 51. |
 | Wielotomowa | A. Kowalski, *Tytuł*, t. 2: *Tytuł tomu*, Wydawnictwo, Kraków 2015, s. 77. |
 | Hasło | A. Nowak, *Romani chib*, w: *Tytuł encyklopedii*, t. 4, Wydawnictwo, Warszawa 2010, s. 221. |
@@ -211,6 +213,9 @@ Zasady wspólne:
 - Tytuły dzieł i artykułów kursywą; tytuły czasopism pismem prostym w cudzysłowie.
 - Wydawnictwo przed miejscem; bez przecinka między miejscem a rokiem. Brak danych: `b.m.`, `b.r.`
 - **Miejsce wydania w brzmieniu ze strony tytułowej**, bez spolszczania: `London`, `New York`, `München`, `Istanbul`; wydania w cyrylicy – ALA-LC: `Moskva`, `Kyïv`. Egzonimy polskie (Londyn, Moskwa) pozostają w tekście głównym.
+- **Kilka miejsc wydania** łączy się półpauzą bez spacji: `Köln–Weimar–Wien`.
+- **Seria wydawnicza** – w nawiasie okrągłym na końcu opisu, po roku, przed stroną; nazwa w cudzysłowie, wielką literą każdy wyraz (§ 3.4), po przecinku numer tomu: `Wydawnictwo, München 1995 („Nazwa Serii”, 34), s. 15`. Dotyczy przypisu i bibliografii.
+- **Przedruk** – rok wydania, z którego korzysta autor, po nim rok pierwodruku w nawiasie kwadratowym: `Chapel Hill 2000 [1983]`.
 - Nazwy wydawnictw w oryginale.
 - `w:` bez nawiasów.
 - Strona lub zakres stron – zawsze, gdy przywołuje się określone miejsce dzieła, a bezwzględnie przy cytacie. Odwołanie do dzieła jako całości podaje się bez strony, także bez zakresu stron artykułu (ten podaje bibliografia). Każde takie odwołanie potwierdza redakcja; brak strony przy cytacie jest pytaniem do autora.
@@ -225,7 +230,7 @@ Forma skrócona: `Ficowski, *Cyganie na polskich drogach…*, s. 51.` Skrócony 
 
 Prace wieloautorskie: dwóch lub trzech autorów – nazwiska po przecinku (`Mróz, Bartosz, *Tytuł pracy…*`); czterech i więcej – `Fiałkowska i in., *Tytuł pracy…*`; praca zbiorowa i inne dzieło bez autora – sam tytuł skrócony (`*Tytuł tomu…*, s. 90`). W bibliografii wymienia się zawsze wszystkich autorów (§ 9.1).
 
-**`Ibidem`** – wyłącznie gdy przypis bezpośrednio poprzedzający odsyła do tego samego dzieła **i stoi na tej samej kolumnie**; kontrola po złamaniu. Nie stosuje się go wewnątrz zdania ani wtedy, gdy ten sam lub poprzedzający przypis przywołuje także źródło inne niż opis bibliograficzny (jednostkę archiwalną, numer prasy, akt prawny); nie występuje też w przypisach nieautorskich ani w przypisie autora następującym bezpośrednio po przypisie nieautorskim. W tych przypadkach – forma skrócona.
+**`Ibidem`** – wyłącznie gdy przypis bezpośrednio poprzedzający odsyła do tego samego dzieła **i stoi na tej samej kolumnie**; kontrola po złamaniu. Nie stosuje się go wewnątrz zdania ani wtedy, gdy ten sam lub poprzedzający przypis przywołuje także źródło inne niż opis bibliograficzny (jednostkę archiwalną, numer prasy, akt prawny); nie występuje też w przypisach nieautorskich ani w przypisie autora następującym bezpośrednio po przypisie nieautorskim. W tych przypadkach – forma skrócona. **Po odesłaniu** (`zob.`, `zob. też`, `por.`, `np.`) – małą literą: `zob. ibidem, s. 5`.
 
 **Zakazane:** `op. cit.`, `dz. cyt.`, `idem`, `eadem`, `tenże`, `taż`, `tamże`, `loc. cit.`, `passim` jako zamiennik lokalizacji; oznaczenia literowe przy latach (`2012a`).
 
@@ -297,7 +302,7 @@ po nazwie serwisu, w zapisie `dd.mm.rrrr`, jak w prasie (§ 8.3). Datę brakują
 autor. **Strona bez daty publikacji** (treść zmienna: strona instytucji, baza, katalog) – bez daty; w rekordzie
 oznaczona jako sprawdzona.
 
-Adres URL jest w tekście do składu zwykłym tekstem, nie hiperłączem. Datę dostępu podaje się dla źródeł **bez DOI**, jeżeli podał ją autor; redakcja jej nie ustala, a jej brak nie jest pytaniem do autora. Przy DOI – DOI zamiast URL, bez daty dostępu. Media społecznościowe: konto, treść lub tytuł kursywą, platforma, data publikacji, URL, data dostępu; konta prywatne – anonimizacja wg § 8.2.
+Adres URL jest w tekście do składu zwykłym tekstem, nie hiperłączem. Datę dostępu podaje się, jeżeli podał ją autor; redakcja jej nie ustala, a jej brak nie jest pytaniem do autora. Źródło z DOI – bez URL i bez daty dostępu (DOI nie jest drukowany, § 9.7). Media społecznościowe: konto, treść lub tytuł kursywą, platforma, data publikacji, URL, data dostępu; konta prywatne – anonimizacja wg § 8.2.
 
 ### 8.7. Audiowizualia
 > *Papusza*, reż. J. Kos-Krauze, K. Krauze, Polska 2013, 00:42:15.
@@ -313,13 +318,13 @@ Zapis bibliograficzny jest **tą samą konstrukcją co przypis**, z pięcioma r�
 1. **Nazwisko, po nim imię – bez przecinka**; nazwisko kapitalikami (§ 9.3); imiona w pełnym brzmieniu. Przecinek oddziela kolejnych autorów i zamyka pole autora: `Fotta Martin, *Tytuł*`.
 2. **Wszyscy autorzy wymienieni** – `i in.` nie występuje.
 3. Pełny zakres stron artykułu lub rozdziału.
-4. DOI; ISBN – jeżeli podał go autor.
+4. ISBN – jeżeli podał go autor (DOI nie jest drukowany, § 9.7).
 5. **Redaktorzy, tłumacze, reżyserzy – imiona w pełnym brzmieniu**, w porządku naturalnym: `red. Andrzej Kowalski`, `tłum. Jan Nowak`. Przypis podaje osoby inicjałem (§ 7.2), bibliografia jest więc jedynym miejscem, w którym artykuł podaje pełne dane każdej osoby.
 
-Bez dwukropka po miejscu wydania. Kropka oddziela dopiero DOI i ISBN.
+Bez dwukropka po miejscu wydania. Kropka oddziela dopiero ISBN.
 
 ### 9.2. Podział
-Możliwe części, w tej kolejności: Wykaz skrótów · Źródła archiwalne (na poziomie zespołu) · Źródła terenowe · Źródła drukowane i prawne · Źródła internetowe (bez DOI) · Literatura przedmiotu.
+Możliwe części, w tej kolejności: Wykaz skrótów · Źródła archiwalne (na poziomie zespołu) · Źródła terenowe · Źródła drukowane · Opracowania · Źródła internetowe. Do źródeł drukowanych należą akty prawne, prasa i dawne druki, także dzieła klasyków (Kant, Marx, Grellmann), cytowane jako źródło.
 
 **Bez numeracji.** Podaje się tylko śródtytuły części faktycznie występujących, w powyższej kolejności; bibliografia złożona z jednej części nie ma śródtytułu.
 
@@ -344,7 +349,7 @@ Bez przecinka po nazwisku (`MIRGA-WÓJTOWICZ Elżbieta`): kapitaliki same oddzie
 | 4 i więcej | Fiałkowska Kamila, Garapich Michał P., Mirga-Wójtowicz Elżbieta, Kowalski Jan, *Tytuł pracy*, Wydawnictwo, Warszawa 2020. |
 | Praca zbiorowa | *Tytuł tomu*, red. Andrzej Kowalski, Wydawnictwo, Kraków 2011. |
 | Rozdział | Mróz Lech, *Tytuł rozdziału*, w: *Tytuł tomu*, red. Andrzej Kowalski, Wydawnictwo, Kraków 2011, s. 88–104. |
-| Artykuł | Kołaczek Małgorzata, *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 211–228. DOI: 10.1234/srom.2012.5.11. |
+| Artykuł | Kołaczek Małgorzata, *Tytuł artykułu*, „Studia Romologica”, 2012, nr 5, s. 211–228. |
 | Artykuł – tom i zeszyt | Turner Ralph L., *The position of Romani*, „Journal of the Gypsy Lore Society”, 1926, t. 5, nr 4, s. 145–189. |
 | Przekład | Hancock Ian, *Tytuł*, tłum. Jan Nowak, Wydawnictwo, Warszawa 2007. |
 | Edycja źródła | Paucke Florian, *Tytuł*, red. Etta Becker-Donner, Wydawnictwo, Wien 1959. |
@@ -354,6 +359,8 @@ Bez przecinka po nazwisku (`MIRGA-WÓJTOWICZ Elżbieta`): kapitaliki same oddzie
 | Zespół archiwalny | Archiwum Narodowe w Krakowie (ANK), zespół 29/456: Starostwo Powiatowe w Tarnowie, sygn. 1–48. |
 | Archiwum postsowieckie | Arkhiv vneshneĭ politiki Rossiĭskoĭ imperii (AVPRI), f. 151. |
 | Rozmówca | W12 – mężczyzna, ur. 1951, Polska Roma, Tarnów, wywiad 14.06.2019; nagranie: Archiwum MET, sygn. AT/W/12. |
+
+**Brakujący wydawca** (GEN-4): redakcja szuka go w katalogach bibliotecznych (`lookup.py imprints`: LoC, DNB, BN); znalezione propozycje trafiają do wykazu pytań i wchodzą do opisu dopiero po zatwierdzeniu, pozycja po pozycji.
 
 ### 9.5. Szeregowanie
 Alfabetycznie wg nazwiska pierwszego autora, porządek polski; pozycja bez autora (praca zbiorowa, edycja źródła bez autora) – wg pierwszego wyrazu tytułu. Ten sam autor – chronologicznie; ten sam autor i rok – alfabetycznie wg tytułu. Prace autorskie przed współautorskimi. Pozycje transliterowane – wg formy transliterowanej.
@@ -396,7 +403,7 @@ Ta sama osoba występuje w dwóch formach: w tekście `Biessonow`, w przypisie `
 - pozostałe istotne dla profilu czasopisma: rusiński (łemkowski), serbski, macedoński, rumuński w cyrylicy, języki niesłowiańskie w cyrylicy (dla tekstów romskich w cyrylicy – przed pierwszym użyciem sprawdzić, czy tablica obejmuje romani) – wszystkie w indeksie.
 
 ### 9.7. Identyfikatory
-DOI obowiązkowy dla każdej pozycji, która go posiada (weryfikacja maszynowa przed składem). Zapis `DOI: 10.1234/abcd` – w druku bez prefiksu `https://doi.org/`. Artykuł bez DOI (czasopismo internetowe): w bibliografii w miejscu DOI adres URL, data dostępu – jeżeli podał ją autor. ISBN wyłącznie w bibliografii i tylko wtedy, gdy podał go autor (redakcja go nie uzupełnia), w zapisie `ISBN 978-…` – bez dwukropka.
+**DOI nie jest drukowany** – ani w przypisach, ani w bibliografii, także w nocie o przekładzie (§ 12.2.3). Pozostaje w danych (opis bibliograficzny, plik główny tomu, Crossref) i podlega weryfikacji maszynowej przed składem; w PDF online skład nadaje pozycjom z DOI niewidoczne hiperłącza (`https://doi.org/…`). Artykuł bez DOI (czasopismo internetowe): w bibliografii adres URL, data dostępu – jeżeli podał ją autor. ISBN wyłącznie w bibliografii i tylko wtedy, gdy podał go autor (redakcja go nie uzupełnia), w zapisie `ISBN 978-…` – bez dwukropka.
 
 ---
 
@@ -470,14 +477,14 @@ Paragraf dotyczy artykułów publikowanych w przekładzie na język polski z ory
 
 - Tłumacz – w nagłówku artykułu, pod afiliacją autora: `Tłumaczenie: Imię Nazwisko`; ponadto w nocie o przekładzie.
 - **Nota o przekładzie jest obowiązkowa**: jawność pierwodruku wyklucza zarzut publikacji zdublowanej. Przypis do tytułu, oznaczony gwiazdką (§ 7.1). Zawiera, w tej kolejności:
-  1. opis pierwodruku według § 7.2, z DOI;
+  1. opis pierwodruku według § 7.2 (bez DOI, § 9.7);
   2. licencję pierwodruku z adresem jej tekstu albo podstawę zgody na przekład; przy licencjach Creative Commons – wskazanie, że przekład stanowi zmianę utworu, oraz nota o prawach autorskich pierwodruku, jeżeli ją zawiera (wymogi licencji);
   3. tłumacza;
   4. zakres ingerencji (§ 12.2.8), jeżeli wystąpiły;
   5. formułę o cytatach (§ 12.2.4 c, d).
 
 Wzór:
-> \* Pierwodruk: I. Nazwisko, *Tytuł oryginału*, „Czasopismo”, rrrr, t. nn, nr nn, s. aa–bb, DOI: 10.nnnn/nnnn. © I. Nazwisko. Tekst opublikowany na licencji CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); niniejszy przekład stanowi zmianę utworu w rozumieniu licencji. Tłumaczenie: Imię Nazwisko. Cytaty ze źródeł obcojęzycznych, o ile nie wskazano inaczej, w przekładzie tłumacza artykułu.
+> \* Pierwodruk: I. Nazwisko, *Tytuł oryginału*, „Czasopismo”, rrrr, t. nn, nr nn, s. aa–bb. © I. Nazwisko. Tekst opublikowany na licencji CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); niniejszy przekład stanowi zmianę utworu w rozumieniu licencji. Tłumaczenie: Imię Nazwisko. Cytaty ze źródeł obcojęzycznych, o ile nie wskazano inaczej, w przekładzie tłumacza artykułu.
 
 #### 12.2.4. Cytaty
 
@@ -664,5 +671,6 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.13 | Rozstrzygnięcia z 02.10.2026 (MB, kolejny próbny skład tekstu Ostendorf): § 7.2: inicjał imienia w przypisie dla każdej osoby – autora, redaktora, tłumacza, reżysera – także nazwiska islandzkiego; § 9.1, § 9.4: w bibliografii przecinek zamyka pole autora (`Fotta Martin, *Tytuł*`), redaktorzy i tłumacze z imionami w pełnym brzmieniu. § 3.4: kursywa odwrócona tylko dla tytułu w tytule; wyraz obcy w tytule – kursywą jak tytuł. § 12.2.4 c: cytat przytoczony przez autora po angielsku – przekład z jego przekładu bez adnotacji; adnotacja tylko przy wydaniu polskim i przekładzie z oryginału (do oryginału – gdy to istotne), raz na dzieło. Uchyla adnotację `tłum. z przekładu angielskiego autora` z wersji 1.6. |
 | 1.14 | Rozstrzygnięcia z 02.10.2026 (MB, po v1.13): § 3.4: kursywa odwrócona przywrócona w pełnym zakresie – w tytule składanym kursywą pismem prostym zapisuje się tytuł w tytule **oraz** wyraz lub zwrot obcy, formułę łacińską, egzonim (SJP PWN, Poradnia, *Wyróżnienie tytułu w tytule*); uchyla zdanie z wersji 1.13 („wyraz obcy w tytule – kursywą jak tytuł”), które było błędne. Nowe: nazwy serii wydawniczych i konferencji – z dużych liter, pismem prostym, w cudzysłowie; kursywą także tytuły filmów, piosenek i innych utworów muzycznych, obrazów i rzeźb, audycji radiowych i telewizyjnych; nazwy zespołów muzycznych – pismem prostym, wielką literą (wielowyrazowe: wszystkie wyrazy samodzielne znaczeniowo). |
 | 1.15 | Rozstrzygnięcie z 02.10.2026 (MB, po v1.14): § 3.4: w nazwach serii wydawniczych i konferencji wielką literą zapisuje się każdy wyraz (`„Leksykon Polskiej Muzyki Rozrywkowej”`). |
+| 1.16 | Rozstrzygnięcia z 02.10.2026 (MB, ledger 21:30): § 7.2: seria wydawnicza w nawiasie na końcu opisu; kilka miejsc wydania łączone półpauzą; przedruk – rok wydania i w nawiasie kwadratowym rok pierwodruku. § 7.3: po odesłaniu `ibidem` małą literą. § 8.6, § 9.1, § 9.4, § 9.7, § 12.2.3: **DOI nie jest drukowany** (zostaje w danych i w hiperłączach PDF online), także DOI oryginału w nocie o przekładzie. § 9.2: części bibliografii – Wykaz skrótów · Źródła archiwalne · Źródła terenowe · Źródła drukowane · Opracowania · Źródła internetowe (bez „bez DOI”; „Literatura przedmiotu” → „Opracowania”; prawo, prasa i dawne druki w źródłach drukowanych). § 9.4: brakujący wydawca – wyszukiwanie w katalogach, zatwierdzanie pozycja po pozycji. |
 
 Zmiany wchodzą w życie od kolejnego tomu. Tomy opublikowane nie podlegają retroaktywnemu ujednoliceniu.

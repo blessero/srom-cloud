@@ -27,8 +27,10 @@ ASTERISK_TPL = os.path.join(ROOT, "indesign", "srom_gwiazdki.jsx.tpl")
 DOI_TPL = os.path.join(ROOT, "indesign", "srom_doi.jsx.tpl")
 FROM = ("markdown-smart-superscript-subscript-strikeout-raw_html-raw_tex-tex_math_dollars"
         "-implicit_figures-fancy_lists-example_lists-task_lists-auto_identifiers")
+# Kanon § 9.2 (v1.16, GEN-8): the keys stay (srom-section "V" = web, "VI" = Opracowania); the print order is the dict's
 SECTIONS = OrderedDict([("I", "Wykaz skrótów"), ("II", "Źródła archiwalne"), ("III", "Źródła terenowe"),
-                        ("IV", "Źródła drukowane i prawne"), ("V", "Źródła internetowe"), ("VI", "Literatura przedmiotu")])
+                        ("IV", "Źródła drukowane"), ("VI", "Opracowania"), ("V", "Źródła internetowe")])
+SECTION_ALIASES = {"zrodla drukowane i prawne": "IV", "literatura przedmiotu": "VI"}      # names before v1.16
 ROMAN = list(SECTIONS.keys())
 BIB_NUMBERS = [False]   # set from config "bibliography.section_numbers"
 ITALIC_STYLE = ["Kursywa"]  # set from config in main()
@@ -253,7 +255,7 @@ def _norm(s):
 def parse_literal_bib(block, report=None):
     """Literal sections inside the ::: {#bibliografia} block -> {section id: [entries]}.
     A section heading is its name ("## Źródła archiwalne"); an old-style numeral ("## II. …") is accepted."""
-    by_name = {_norm(v): k for k, v in SECTIONS.items()}
+    by_name = {**SECTION_ALIASES, **{_norm(v): k for k, v in SECTIONS.items()}}
     secs, cur = OrderedDict(), None
     for ln in block.split("\n"):
         m = re.match(r"^##\s+(?:(?:I|II|III|IV|V|VI)\.\s+)?(.+?)\s*$", ln)
@@ -319,7 +321,7 @@ def section_of(ref):
     s = ref.get("srom-section")
     if s:
         return s
-    return "V" if ref.get("type") in ("webpage", "post", "post-weblog") and not ref.get("DOI") else "VI"
+    return "V" if ref.get("type") in ("webpage", "post", "post-weblog") else "VI"
 
 
 def unsmallcap_literals(entries, keys, refs):
@@ -670,6 +672,40 @@ def write_jsx(rows, total, cfg, outdir, stem, ast_texts=(), title=False):
         open(os.path.join(outdir, stem + "_gwiazdki.jsx"), "w", encoding="utf-8").write(tpl)
 
 
+LEAD_INS = {"zob.", "też", "por.", "np."}
+
+
+def _lower_first_ibidem(inls):
+    """lower-case the citation's first printed word if it is the italic "Ibidem"; True when the first word was seen"""
+    for f in inls:
+        t = f.get("t")
+        if t == "Space" or (t == "Str" and f["c"] == ""):
+            continue
+        if t in ("Emph", "Span"):
+            body = f["c"] if t == "Emph" else f["c"][1]
+            italic = t == "Emph" or dict(f["c"][0][2]).get("custom-style") == ITALIC_STYLE[0]
+            if italic and ser(body, False) == "Ibidem":
+                body[:] = [{"t": "Str", "c": "ibidem"}]
+                return True
+            if not italic:
+                return _lower_first_ibidem(body)
+        return True
+    return False
+
+
+def lower_ibidem_after_lead_in(x):
+    """Kanon § 7.3 (v1.16, GEN-7): after a lead-in (zob., zob. też, por., np.) "Ibidem" is lower case. Done on the finished
+    AST, after every check that looks for "Ibidem"; the InDesign Ibidem check finds it either way."""
+    if isinstance(x, list):
+        for i, e in enumerate(x):
+            if isinstance(e, dict) and e.get("t") == "Cite" and i >= 2 and isinstance(x[i - 1], dict) and x[i - 1].get("t") == "Space" \
+                    and isinstance(x[i - 2], dict) and x[i - 2].get("t") == "Str" and x[i - 2]["c"].lower() in LEAD_INS:
+                _lower_first_ibidem(e["c"][1])
+            lower_ibidem_after_lead_in(e)
+    elif isinstance(x, dict) and "c" in x:
+        lower_ibidem_after_lead_in(x["c"])
+
+
 # ------------------------------------------------------------------ DOI links in the online PDF (SYS-5, GEN-10)
 DOI_MARK = "\ue000"      # set between the citations of one note by a copy of the CSL, to cut them apart
 
@@ -822,6 +858,11 @@ def main():
         yr = ((r.get("issued") or {}).get("date-parts") or [[None]])[0][0]
         if not r.get("publisher") and isinstance(yr, int) and yr <= 1800:
             r["srom-early-print"] = "1"
+    # Kanon § 7.2 (v1.16, GEN-6): several places of publication joined with an en dash ("Köln–Weimar–Wien");
+    # the data may separate them with "/" or ";"
+    for r in refs_list:
+        if r.get("publisher-place"):
+            r["publisher-place"] = re.sub(r"\s*[/;]\s*", "–", r["publisher-place"])
     # pandoc's citeproc reads "name: value" lines of `note` as CSL fields: such a note vanishes from print
     for r in refs_list:
         if re.match(r"\s*[^\W\d_][\w-]*\s*:\s", r.get("note") or ""):
@@ -972,6 +1013,7 @@ def main():
                 x_["c"] = copy.deepcopy(y_["c"])
                 report["warnings"].append("Ibidem in a non-author note replaced by the short form: " + ser(y_["c"][1])[:90])
         ast_texts = [ser(b["c"][1]) for b in ast_divs(A) if ser(b["c"][1]).startswith("* ")]
+        lower_ibidem_after_lead_in(A["blocks"])      # last: every check above still sees "Ibidem"
         merged = os.path.join(work, stem + ".json")
         open(merged, "w", encoding="utf-8").write(json.dumps(A))
         if not a.proof and any(r.get("DOI") for r in refs_list):
