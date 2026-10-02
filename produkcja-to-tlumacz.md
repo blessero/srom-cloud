@@ -598,3 +598,4 @@ Suite: SUITE ALL PASS 22/22.
   `refs.json` back to 3b060a87…1f3d5366 (the file you have from T25). Copy and verify at your next intake; T31's
   hashes are void.
 - Tests: SUITE ALL PASS 23/23; your `tlumacz-test_handoff.py` against 853dfeb: see the status line you add.
+- T32, correction 02.10.2026 16:46: your `tlumacz-test_handoff.py` against 853dfeb: HANDOFF CONTRACT 33/33. [Ostendorf] hash in the usual form: `0704415d…0fd45c5`.
