@@ -68,7 +68,6 @@ send) · **Later** (a reminder, nothing to do now).
 | SYS-2 | Create the journal's Wikidata record (10 minutes, your account) | Look up | nothing |
 | SYS-3 | Check 13 institution IDs (ROR) for the Crossref deposit | Approve | nothing |
 | SYS-4 | After the first Crossref deposit: two checks | Later | nothing |
-| SYS-5 | Clickable DOIs in the online PDF (for a stronger model) | Later | nothing |
 
 ## Decided by MB 02.10.2026 21:30 — srom-produkcja to apply (then delete this section) [general]
 Each line is settled; the Kanon, the style and the tools are changed only from the srom-produkcja session, with a test.
@@ -87,7 +86,7 @@ Each line is settled; the Kanon, the style and the tools are changed only from t
 - **GEN-10**: **no DOIs are printed** in notes or bibliographies, whatever the Kanon says: delete the DOI rule (Kanon
   §§ 7.2, 9.1, 9.7, 12.2 and the examples; "bez DOI" in § 9.2). DOIs stay in the data (reference data, master CSV,
   Crossref). The DOI of the *original* article in the translation note (§ 12.2.3) goes too (MB, 02.10.2026 21:50).
-  Clickable DOIs in the online PDF: SYS-5.
+  Clickable DOIs in the online PDF: built 02.10.2026 (SYS-5 closed; srom-produkcja `<stem>_doi.jsx`).
 - **GEN-12**: Fotta — *Institute of Ethnology, Czech Academy of Sciences* (the vol. 18 form is right; the "Slovak" in the
   register was wrong; source: romaniatlantic.cz). Marushiakova — *Institute of Ethnology and Social Anthropology, Slovak
   Academy of Sciences, Bratislava*, there since 2023 (source: uesa.sav.sk); the register's "Bułgarska AN / Humboldt" is
@@ -719,15 +718,4 @@ Detail: 🔴 `srom-produkcja/volumes/ror.tsv`
    QuickStatements as in SYS-2.
 
 *Trail: srom-quant SKILL.md, deployment steps 9–10.*
-
-### SYS-5 · Clickable DOIs in the online PDF (for a stronger model to build)
-**Later** · blocks nothing (print carries no DOIs: GEN-10)
-
-The online PDF of an article should link every reference to its DOI (`https://doi.org/…`) without printing it
-in the text: a link behind the citation, correctly encoded (DOI characters such as `<`, `>`, `;`, `(`, `)` need
-escaping), surviving the InDesign export. Needs a design (hyperlink in InDesign from the data, or added to the
-exported PDF afterwards) and a test on a real article. Meant for a separate chat on a higher model; the DOIs are
-already in the reference data. Open it when the first volume with the new rule is typeset.
-
-*Trail: GEN-10, 02.10.2026 [general].*
 
