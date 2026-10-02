@@ -43,6 +43,7 @@ check (in `_extract.md`); `lookup.py dois` (Kanon § 9.7: registry check of give
 `<stem>_citations.json` → `volumes/<vol>/citations/<article_id>.json` at INJECT → srom-quant `<citation_list>`;
 `volumes/ror.tsv` (13 of vol. 18's 15 institutions) → ROR in Crossref affiliations; `srom-quant/scripts/wikidata_qs.py`.
 The old per-article copies (`work/<id>/wordcheck.py`, `source_imprints.py`, `doi_check.txt`) stay: closed gates re-run them.
+**Kanon v1.16** (02.10.2026 21:30, MB; applied 03.10.2026, T36): series in parentheses, places with an en dash, reprint `2000 [1983]`, `zob. ibidem`, **no DOI printed**, bibliography parts Źródła drukowane · Opracowania · Źródła internetowe, notes on authors for parts before the last two (`volume_lists.py`), `autorzy.tsv` corrected (GEN-12).
 **Kanon v1.15** (02.10.2026, MB): series and conference names, every word capitalised (T35).
 **Kanon v1.14** (02.10.2026, MB): reverse italics restored; § 3.4 names of series, conferences, films, songs, paintings, programmes, bands (T34).
 **Kanon v1.13** (02.10.2026, MB, Ostendorf review): every person by initial in notes, full names in the bibliography; translator's annotations only for a Polish edition or a translation from the original (T33).
