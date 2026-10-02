@@ -624,3 +624,18 @@ Suite: SUITE ALL PASS 22/22.
    **[Ostendorf]** `7b055ff1…0e9e054` (oreilly2003, fotta2019, cunniffe2023), **[Ndiaye]** `2e35d0f2…64376c1`
    (cathelin2004). Copy and verify at your next intake; T32's Ostendorf hash is void.
 - T33, correction 02.10.2026 18:58: [Ostendorf] 13 annotations in 12 notes (n. 12 has two), not 12.
+
+## T34 — [general] [Ostendorf] [Ndiaye] Kanon v1.14: reverse italics restored; refs.json changed again (02.10.2026 19:58)
+
+- 02.10.2026 19:58 status: action for you. MB's correction after v1.13, srom-produkcja commit "Kanon v1.14". Please cite "Kanon v1.14".
+1. **§ 3.4 (reverts a sentence of v1.13):** inside an italic title a foreign word or phrase, a Latin formula, a foreign
+   exonym *and* a title within a title are set **roman** (reverse italics; SJP PWN, Poradnia, *Wyróżnienie tytułu w
+   tytule*). So key the inner italics again as `<i>…</i>` in refs.json titles (`<i>Divide et impera</i>: Race…`); the
+   build prints them roman. T33 item 2's "only a title within a title" is void; the build's by-reference warning is gone.
+2. **refs.json changed (T33 item 3 is void):** [Ostendorf] `8958c705…f09ce` (fotta2019 `<i>Cigano</i>`, oreilly2003
+   `<i>Divide et impera</i>`, cunniffe2023 `<i>c.</i>`), [Ndiaye] `6a058001…8ad988a` (cathelin2004 `<i>Paios</i>`;
+   check whether the title's other foreign words, e.g. *Gitans*, were italic in the author's original). Copy and verify at your next intake.
+3. **New in § 3.4:** publishing-series and conference names — capitalised, roman, in quotation marks (`„Prace
+   Etnologiczne”`); in italics also titles of films, songs and other musical works, paintings and sculptures, radio and
+   TV programmes; names of musical bands — roman, capitalised, every independent word in a multi-word name
+   (`Big Cyc`, `Pod Budą`). Nothing changes in your tokens; keep the rules in mind for names that occur in texts.
