@@ -16,16 +16,9 @@ send) · **Later** (a reminder, nothing to do now).
 | GEN-1 | Vol. 18 copyright clause: who writes the replacement, where does it go? | Decide | **the open-access announcement** |
 | GEN-2 | Drop the CC BY-NC-ND option for authors? | Decide (kolegium) | nothing yet |
 | GEN-3 | Non-commercial licences (Pahulich, Ostendorf): ask for written consent? | Decide | publication |
-| GEN-4 | Missing publishers in German-style citations: catalogue look-up step? | Decide | typesetting |
-| GEN-5 | Book series: print them? | Decide | nothing |
-| GEN-6 | Several places of publication: slash or en dash? | Decide | nothing |
-| GEN-7 | "Zob. Ibidem" or "zob. ibidem"? | Decide | nothing |
-| GEN-8 | 18th–19th-century authors (Kant, Marx, Grellmann): which bibliography section? | Decide | nothing |
-| GEN-9 | Print the first-edition year of a reprint, "2000 [1983]"? | Approve | nothing |
+| GEN-8 | 18th–19th-century authors (Kant, Marx, Grellmann): which bibliography section? | Later | nothing |
 | GEN-10 | Add DOIs the author did not give? | Decide | nothing |
 | GEN-12 | Authors register: five contradictions in your author data | Look up | nothing yet |
-| GEN-13 | "Noty o autorach": a note for every contributor, or only some? | Decide | the vol. 19 notes page |
-| GEN-14 | Place and publisher: "Wrocław: Ossolineum 1974" (your 02.10 pattern) or "Ossolineum, Wrocław 1974" (Kanon)? | Decide | nothing yet |
 | V19-1 | *nomadic* → „koczowniczy”, *itinerant* → „wędrowny” in all vol. 19 texts? | Decide | nothing |
 | V19-2 | „sowiecki” or „radziecki”? | Decide | nothing |
 | V19-3 | Six shared terms (antyczarność, uinnienie, białość …) into the termbase | Approve | nothing |
@@ -79,6 +72,18 @@ send) · **Later** (a reminder, nothing to do now).
 | SYS-3 | Check 13 institution IDs (ROR) for the Crossref deposit | Approve | nothing |
 | SYS-4 | After the first Crossref deposit: two checks | Later | nothing |
 
+## Decided by MB 02.10.2026 21:30 — srom-produkcja to apply (then delete this section) [general]
+Each line is settled; the Kanon, the style and the tools are changed only from the srom-produkcja session, with a test.
+- **GEN-4** (a): look up missing publishers in library catalogues; list for approval, item by item (Kanon § 9.4 note).
+- **GEN-5** (a): series in parentheses at the end of the description, in notes and bibliography.
+- **GEN-6** (a): several places of publication joined with an en dash, "Köln–Weimar–Wien".
+- **GEN-7**: lower case after a lead-in: "zob. ibidem".
+- **GEN-9**: print reprints as "Przedruk: rok wydania, po nim rok pierwodruku w nawiasie kwadratowym" (Kanon § 7.2).
+- **GEN-13**: "Noty o autorach" for every contributor of the parts **before** the last two (Recenzje, Opinie and the one
+  after: usually parts III–IV, sometimes IV–V). That is parts I–II, or I–III when a theme title counts as part I. No notes for
+  the last two parts. Change `volume_lists.py`; re-run on vol. 18 as the test.
+- **GEN-14**: the Kanon stands: "Ossolineum, Wrocław 1974" (publisher first, comma, no colon). Nothing to change.
+
 ## Journal-wide (GEN)
 Next free: GEN-15.
 
@@ -116,65 +121,13 @@ Whether SROM's distribution is non-commercial (the printed volume is sold?) is y
 
 *Trail: D17 A1, D19 A1 (corrected 28.09: Ostendorf is open access, CC BY-NC 4.0); Kanon § 12.2.3 pt 2.*
 
-### GEN-4 · German-style citations give no publisher: do we look them up in library catalogues?
-**Decide** · blocks typesetting of the texts concerned (a missing publisher keeps a text out of typesetting)
-
-German practice cites place and year only. Scheffknecht: 29 of 35 works have no publisher. Tittel: one (Ruch 1986,
-also TIT-12). Every German, Austrian or Swiss source will raise this again. (Ostendorf's gaps were looked up already;
-14 are left for you: OST-1.)
-- (a) srom-produkcja looks each one up (DNB, ÖNB, library catalogues) and lists them for your approval, item by item —
-  **recommended**
-- (b) ask the authors
-- (c) a Kanon exception for such sources (not recommended: the bibliography would be inconsistent)
-
-New (30.09.2026 02:18): the look-up is now a tested tool (Library of Congress, German and Polish national libraries). On Scheffknecht it found 17 of the 29 missing publishers, each with its catalogue record as evidence. Option (a) would cost you one approval per text.
-
-*Trail: D18 A3, D19 A2, D20 A3.*
-
-### GEN-5 · Book series ("Enzyklopädie deutscher Geschichte, 34"): print them?
-**Decide** · blocks nothing
-
-The Kanon gives series no place, so they are stored but never printed (Scheffknecht: 14 works; Tittel: the volume
-number of Marx's *Werke* is lost from print).
-- (a) in parentheses at the end of the description, in notes and bibliography: `…, München 1995 (Enzyklopädie deutscher
-  Geschichte, 34)` — **recommended** (usual Polish form)
-- (b) bibliography only
-- (c) never
-
-*Trail: D18 A4, D20 A4 and A6 (d).*
-
-### GEN-6 · Several places of publication: "Köln/Weimar/Wien" or "Köln–Weimar–Wien"?
-**Decide** · blocks nothing
-
-The Kanon has no line. Kept as the authors write them for now (slashes; Scheffknecht once "Wien-München").
-- (a) en dash, the Polish practice — srom-produkcja's reading, no formal recommendation yet
-- (b) keep the author's form
-
-*Trail: D20 A6 (a), D18 B3.*
-
-### GEN-7 · After a lead-in: "Zob. *Ibidem*" or "zob. ibidem"?
-**Decide** · blocks nothing
-
-The build prints a capital after "Zob." (Tittel 2×, Ndiaye 2×). No Kanon line; srom-produkcja thinks Polish usage is
-lower case but has not checked it.
-
-*Trail: D20 A6 (b).*
-
 ### GEN-8 · Kant, Marx, Grellmann (18th–19th-century printed works): "Źródła drukowane i prawne" or "Literatura przedmiotu"?
-**Decide** · blocks nothing
+**Later** (MB, 02.10.2026 21:30: not now) · blocks nothing
 
 Laws and law collections already go to "Źródła drukowane i prawne". The old printed authors are in "Literatura
 przedmiotu" (the default). No recommendation yet.
 
 *Trail: D20 A6 (c).*
-
-### GEN-9 · Print the first-edition year of a reprint: "2000 [1983]"?
-**Approve** · blocks nothing
-
-Stored but not printed today (West Ohueri: Robinson 2000 [1983], Linné 1964 [1759]). Proposal for the Kanon: "Przedruk:
-rok wydania, po nim rok pierwodruku w nawiasie kwadratowym". Then one change in the citation style and a test.
-
-*Trail: D24 A8; Kanon § 7.2.*
 
 ### GEN-10 · Add DOIs the author did not give?
 **Decide** · blocks nothing
@@ -205,31 +158,6 @@ Detail: 🔴 `srom-produkcja/volumes/autorzy.tsv` (column `uwagi`)
 
 *Trail: 30.09.2026 00:50, root session [general].*
 
-### GEN-13 · "Noty o autorach": a note for every contributor, or only some?
-**Decide** · blocks the vol. 19 notes page (the generator lists every contributor today)
-
-Vol. 18 printed 10 notes for 14 contributors: Kledzik and Paszko (reviews) and Janowiak-Janik (co-author of
-"Wydawnictwa") have none, while her co-author Gancarz and Bartosz (conference report) do.
-- (a) every contributor of the volume, whatever the section — **recommended**: one rule, no case-by-case choice
-- (b) only authors of certain parts (say which)
-
-Detail: 🔴 `_widok/noty_o_autorach_18_test.docx` (vol. 18 regenerated as a test)
-
-*Trail: 30.09.2026, root session [general]; srom-produkcja `volume_lists.py`.*
-
-
-### GEN-14 · Place and publisher: which order? [general] (02.10.2026 16:43)
-**Decide** · blocks nothing yet (every note with a book changes if you choose (a))
-
-The pattern you sent on 02.10.2026 for edited volumes (now in the Kanon: title first, „red.” after it) also writes
-the imprint as "Wrocław: Ossolineum 1974" — place, colon, publisher. The Kanon has "Ossolineum, Wrocław 1974" since
-v1.1 (publisher first, comma, no colon), and every note and bibliography entry is printed that way now. Only the
-editor's position was changed; the imprint was left as it is until you say.
-- (a) "Miasto: Wydawnictwo rok" in every note and bibliography entry (a Kanon change; the style does it at once)
-- (b) keep "Wydawnictwo, Miasto rok" — **recommended** only because nothing printed so far needs redoing; if the
-  pattern you sent is the journal's own standard, choose (a)
-
-*Trail: Kanon § 7.2 ("Wydawnictwo przed miejscem"), § 9.4; v1.12.*
 ## Volume 19, all translated texts (V19)
 Next free: V19-5. Per-text choices stay under each text. Detail for V19-1 to V19-3:
 🔴 `srom-tlumacz/tlumacz-1.3.2/findings.md` (table `vol19-concordance.tsv`).
