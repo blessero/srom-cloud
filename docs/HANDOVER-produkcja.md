@@ -248,7 +248,7 @@ G12) after.
    asterisk series (title note + translator's notes) is placed** (the JSX runs in InDesign via AppleScript `do script` — proven, see
    `tools/indesign_check/`).
 8. Later: ICML output as a fallback to Word import (pandoc writes ICML with footnotes; needs a style-renaming
-   step); wire `tb_check.py` into scenario C when srom-tlumacz ships it (E5; CLI fixed in `handoff.md`).
+   step). (`tb_check.py` will not be built: E5 withdrawn by E20, 03.10.2026.)
 
 Done 27.09.2026: E10 translator front matter (T7, `test_e10.py`); E11/D9 kartoteka (`srom-kanon/references/
 kartoteka.tsv`, T8); E12 foreign exonyms italic (Kanon § 3.4, T6); Kodeks zecera references removed; decisions
