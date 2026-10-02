@@ -23,7 +23,6 @@ send) · **Later** (a reminder, nothing to do now).
 | GEN-8 | 18th–19th-century authors (Kant, Marx, Grellmann): which bibliography section? | Decide | nothing |
 | GEN-9 | Print the first-edition year of a reprint, "2000 [1983]"? | Approve | nothing |
 | GEN-10 | Add DOIs the author did not give? | Decide | nothing |
-| GEN-11 | Kanon line for a quotation translated from someone else's English translation | Approve | nothing |
 | GEN-12 | Authors register: five contradictions in your author data | Look up | nothing yet |
 | GEN-13 | "Noty o autorach": a note for every contributor, or only some? | Decide | the vol. 19 notes page |
 | GEN-14 | Place and publisher: "Wrocław: Ossolineum 1974" (your 02.10 pattern) or "Ossolineum, Wrocław 1974" (Kanon)? | Decide | nothing yet |
@@ -34,7 +33,6 @@ send) · **Later** (a reminder, nothing to do now).
 | PAH-1 | Grellmann: translate from the 1807 English or the 1787 German? | Decide | nothing |
 | PAH-2 | Two note markers side by side in the first sentence: merge? | Decide | nothing |
 | PAH-3 | Seven quotations to find in Polish editions | Look up | the final text |
-| PAH-4 | Dal and Thomasius: originals not found, translated from English | Approve | nothing |
 | PAH-5 | Term choices in the Pahulich draft | Approve | nothing |
 | PAH-6 | "Lithuania / Litva" → „Wielkie Księstwo Litewskie” | Decide | nothing |
 | PAH-7 | Shortened abstract | Approve | nothing |
@@ -190,16 +188,6 @@ New (30.09.2026 02:18): the check is now a tested tool. It also found 6 DOIs in 
 
 *Trail: D20 C, D24 A9 and C2; Kanon § 9.7.*
 
-### GEN-11 · Annotation for a quotation translated from someone else's published English translation
-**Approve** · blocks nothing
-
-When the author quotes a foreign text in her own English translation, the note says „tłum. z przekładu angielskiego
-autorki”. When she quotes someone else's published English translation, the Kanon has no formula. Proposal (one
-sentence in the Kanon): „tłum. z przekładu angielskiego” (the note already points to that translation). Used in
-Ostendorf and Pahulich (PAH-4). Grellmann (PAH-1) is a separate case.
-
-*Trail: D26 (e), D22, E17, T25; Kanon § 12.2.4 c.*
-
 ### GEN-12 · Authors register: five contradictions in your author data
 **Look up** · blocks nothing yet (the "Noty o autorach" of an author concerned, when printed)
 
@@ -284,7 +272,7 @@ The drafts credit you as translator (as Ndiaye): Ostendorf, Pahulich, Tittel. Th
 
 ## Pahulich — "Racialization of Roma, European Modernity, and the Entanglement of Empires" (CRS 8/1, 2025) (PAH)
 Source ready, translation drafted; Word copy for you: 🔴 `srom-tlumacz/work/pahulich/pahulich_robocza.docx`.
-Nothing here blocks your Word edit. Also concerns this text: GEN-3 (licence), GEN-11, V19-1 to V19-4. Next free: PAH-11.
+Nothing here blocks your Word edit. Also concerns this text: GEN-3 (licence), V19-1 to V19-4. Next free: PAH-11.
 
 ### PAH-1 · Grellmann: translate his quotations from the 1807 English the author quotes, or from the 1787 German?
 **Decide** · blocks nothing (the draft uses a)
@@ -321,16 +309,6 @@ i czarownica* (Karakter 2025; 3 quotations, and how the translator renders *encl
 Detail: 🔴 `srom-tlumacz/work/pahulich/pahulich_uwagi.md` → PAH-3 (items S1–S7)
 
 *Trail: D23 S1–S7.*
-
-### PAH-4 · Dal and Thomasius: the originals were not found, so they are translated from English. OK?
-**Approve** · blocks nothing
-
-Dal (note 86): the Russian text was not found; translated from the author's English with „tłum. z przekładu angielskiego
-autorki”; the author is asked for the title and year. Thomasius (note 85, quoted via Lewy) and note 9 (via Shahar):
-translated from the published English with „tłum. z przekładu angielskiego” (see GEN-11).
-Detail: 🔴 `srom-tlumacz/work/pahulich/pahulich_uwagi.md` → PAH-4 (items S8, S9)
-
-*Trail: D23 S8–S9.*
 
 ### PAH-5 · Term choices in the Pahulich draft
 **Approve** · blocks nothing
@@ -401,7 +379,7 @@ Detail: 🔴 `srom-produkcja/work/pahulich/pahulich_uwagi.md` → PAH-10
 
 ## Ostendorf — "Familiar Outsiders Abroad" (The Romani Atlantic, ch. 3, CUP 2026) (OST)
 Source ready, translation drafted; Word copy for you: 🔴 `srom-tlumacz/work/ostendorf/ostendorf_robocza.docx`.
-Nothing here blocks your Word edit. Also concerns this text: GEN-3 (licence), GEN-11, V19-3, V19-4. Next free: OST-10.
+Nothing here blocks your Word edit. Also concerns this text: GEN-3 (licence), V19-3, V19-4. Next free: OST-10.
 
 ### OST-1 · 14 places and publishers the library catalogues could not settle
 **Look up** · blocks typesetting

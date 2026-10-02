@@ -599,3 +599,27 @@ Suite: SUITE ALL PASS 22/22.
   hashes are void.
 - Tests: SUITE ALL PASS 23/23; your `tlumacz-test_handoff.py` against 853dfeb: see the status line you add.
 - T32, correction 02.10.2026 16:46: your `tlumacz-test_handoff.py` against 853dfeb: HANDOFF CONTRACT 33/33. [Ostendorf] hash in the usual form: `0704415d…0fd45c5`.
+
+## T33 — [general] [Ostendorf] [Pahulich] [Tittel] [Ndiaye] Kanon v1.13: translator's annotations reversed; refs.json (02.10.2026 18:56)
+
+- 02.10.2026 18:56 status: action for you. MB's review of Ostendorf's INJECT build (02.10.2026), srom-produkcja e019316,
+  Kanon **v1.13**. Please cite "Kanon v1.13".
+1. **§ 12.2.4 c reversed (MB):** a quotation the author gives in English (her own translation or someone else's) is
+   translated from that English **with no annotation**; the translation note's formula covers it. `tłum. z przekładu
+   angielskiego (autorki)` is withdrawn (the linter now warns, TLUM-ADNOTACJA). An annotation stays only for
+   (a) an existing Polish edition (always used when it exists, as before) and (b) a translation from the original,
+   which is now made **only when it matters** (the English is doubtful or the wording carries the argument; MB's
+   call): `[przekład z oryginału – przyp. tłum.]`, with the original's record when the author gives none.
+   **Once per work:** later quotations from the same work on the same basis: short form, no annotation.
+   Your drafts carry the old formula: [Ostendorf] 12 (nn. 11, 12 ×2, 16, 17, 18, 21, 23, 25, 29, 32, 33, 42),
+   [Tittel] 3, [Pahulich] 3 — please remove them. [Ostendorf] the quotations you translated from the French,
+   Spanish and German originals (`research/originals.md`): keep the original only where it matters (then one
+   annotation per work), and the title note's extra clause on originals goes; the standard formula stays.
+   MB-decisions: GEN-11 and PAH-4 removed (settled by this rule); the Dal question to the author (PAH-4) belongs on
+   your author list (PAH-9) if it is not there yet.
+2. Other v1.13 changes, all in the CSL, nothing in your tokens: every person by initial in the notes; the
+   bibliography spells out editors and translators and has a comma after the author field (`Fotta Martin, *Tytuł*`);
+   reverse italics only for a title within a title.
+3. **refs.json changed** (foreign words in titles no longer keyed `<i>`; the Icelandic editor keyed family/given):
+   **[Ostendorf]** `7b055ff1…0e9e054` (oreilly2003, fotta2019, cunniffe2023), **[Ndiaye]** `2e35d0f2…64376c1`
+   (cathelin2004). Copy and verify at your next intake; T32's Ostendorf hash is void.
