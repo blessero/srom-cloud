@@ -629,7 +629,7 @@ def write_jsx(rows, total, cfg, outdir, stem, ast_texts=(), title=False):
     body = ",\n".join(f"  {i}: {{ibid: {js(x)}, full: {js(y)}}}" for i, x, y in rows)
     tpl = open(JSX_TPL, encoding="utf-8").read()
     open(os.path.join(outdir, stem + "_ibidem.jsx"), "w", encoding="utf-8").write(
-        tpl.replace("/*MAP*/", body).replace("/*TOTAL*/", str(total)))
+        tpl.replace("/*MAP*/", body).replace("/*TOTAL*/", str(total)).replace("/*ITALIC*/", js(cfg["character"]["italic"])))
     extra = cfg.get("template_extra", {})
     para = [v for k, v in cfg["paragraph"].items()] + list(extra.get("paragraph", []))
     char = [v for k, v in cfg["character"].items()] + list(extra.get("character", []))

@@ -71,6 +71,15 @@ Built by `tools/indesign_check/indesign_check.py --template …` (`make_template
 To use it: open the IDML, save it as .indt, and start each article from it. Then place the DOCX into the first
 frame (Place, with "Replace Selected Item").
 
+## After final layout: Ibidem, asterisks, bookmarks
+
+`<article>_ibidem.jsx` and `<article>_gwiazdki.jsx` report first, then ask whether to make the changes themselves
+(MB, 02.10.2026): Ibidem notes on a page or column turn are retyped in full (italics as character style); markers
+and asterisk notes get their asterisks. One undo step each; run again after reflow. Moving the asterisk notes above
+the numbered notes of their page stays by hand.
+`indesign/srom_zakladki.jsx` (general, in the panel): PDF bookmarks from Tytuł / Śródtytuł / Śródtytuł MAŁE; a rerun
+replaces its own bookmarks. Export the PDF with General ▸ Include ▸ **Bookmarks** ticked.
+
 ## After final layout: `indesign/srom_final_pass.jsx` (Kanon § 3.6)
 
 Run it once the pages are final (after `_ibidem.jsx` and `_gwiazdki.jsx`) and again after any reflow. It checks

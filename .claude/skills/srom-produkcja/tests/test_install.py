@@ -16,7 +16,7 @@ with tempfile.TemporaryDirectory() as h, tempfile.TemporaryDirectory() as b:
         r = subprocess.run(["sh", sh, b], capture_output=True, text=True, env={**os.environ, "HOME": h})
         assert r.returncode == 0, r.stdout + r.stderr
     P = f"{h}/Library/Preferences/Adobe InDesign/Version {ver}.0/en_GB/Scripts/Scripts Panel"
-    need = ["srom_style_setup.jsx", "srom_final_pass.jsx", "srom_zz_pl/zz_pl_postimport.jsx", "srom_zz_pl/zz_pl_ibidem.jsx"]
+    need = ["srom_style_setup.jsx", "srom_final_pass.jsx", "srom_zakladki.jsx", "srom_zz_pl/zz_pl_postimport.jsx", "srom_zz_pl/zz_pl_ibidem.jsx"]
     miss = [n for n in need if not os.path.exists(f"{P}/{n}")]
     assert not miss, miss
 print("INSTALL ALL PASS 1/1")

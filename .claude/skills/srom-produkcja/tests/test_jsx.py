@@ -9,7 +9,7 @@ out = tempfile.mkdtemp()
 rows = [(2, "*Ibidem*, s. 17.", "Ficowski, *Cyganie na polskich drogach…*, s. 17."),
         (12, "*Ibidem*, s. 5; „Studia”", "Mróz, *Tytuł \"x\"*, s. 5; „Studia”")]
 build.write_jsx(rows, 40, cfg, out, "t", ["* Pierwodruk: „Tytuł” \"x\" żółć", "* Uwaga – przyp. tłum."], True)
-files = [os.path.join(out, f) for f in sorted(os.listdir(out))]
+files = [os.path.join(out, f) for f in sorted(os.listdir(out))] + [os.path.join(ROOT, "indesign", "srom_zakladki.jsx")]
 r = subprocess.run(["node", os.path.join(ROOT, "tests", "es3check.mjs"), *files], capture_output=True, text=True)
 print(r.stdout + r.stderr)
 

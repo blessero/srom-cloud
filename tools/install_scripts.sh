@@ -1,6 +1,6 @@
 #!/bin/sh
 # Link the SROM InDesign scripts into InDesign's Scripts Panel (idempotent; InDesign may be closed).
-#   tools/install_scripts.sh                 the two general scripts (style setup, final pass)
+#   tools/install_scripts.sh                 the general scripts (style setup, final pass, PDF bookmarks)
 #   tools/install_scripts.sh <build dir>     also that article's scripts: <stem>_postimport/_ibidem/_gwiazdki.jsx,
 #                                            in their own panel folder "srom_<stem>" (several texts never mix)
 # Everything is a symlink, so a rebuild or a repo update is picked up without copying again.
@@ -30,6 +30,7 @@ link() { # link <target> <dir>
 
 link "$IND/srom_style_setup.jsx" "$PANEL"
 link "$IND/srom_final_pass.jsx" "$PANEL"
+link "$IND/srom_zakladki.jsx" "$PANEL"
 
 if [ -n "$1" ]; then
   B=$(cd "$1" && pwd)

@@ -213,7 +213,8 @@ G12) after.
    surname, no gap before headings and around quotations, ranges broken at the dash — all now per v1.11. The
    post-import check counted InDesign's phantom override flags and every curly quote as "straight": now it compares
    real attributes, finds duplicate styles, uses `~"`, and lists all attention items at the end (also Ibidem, asterisks).
-   Open offers to MB (not built): asterisk and Ibidem scripts that apply their fixes; PDF bookmarks + XMP metadata.
+   Then built (MB asked): Ibidem and asterisk scripts apply their fixes after a confirm; `srom_zakladki.jsx` PDF
+   bookmarks (all proven in InDesign on the rebuilt Ostendorf layout). Not built: XMP metadata, tagged-PDF heading tags.
 7. Stage 3: ~~house style / reduce the style set (§4, D3)~~ — done 29.09.2026 (house style v3, §4). Next: G12, the first
    real article placed in a v3 template — **a translated article** (Ndiaye after MB's edit, via 5b; review
    29.09.2026 row 6), so that `_postimport.jsx`, `_ibidem.jsx` and `_gwiazdki.jsx`, never yet run in InDesign, are proven
