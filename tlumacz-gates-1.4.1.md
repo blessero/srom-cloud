@@ -86,7 +86,7 @@ P=~/.venvs/srom/bin/python, T=~/.claude/skills/srom-tlumacz/scripts (in every CH
 - [x] G13: walk-through — every step actually run on the four texts (intake and draft gates 1.5.2–1.5.5, the hand-back) has its place in SKILL.md, and every live ruling of HANDOVER § 3 sits in the skill, the termbase schema or the Kanon (manual)
   EVIDENCE: 03.10.2026 01:05. Gates 1.5.2a–1.5.5b mapped: src hashes, intake coverage, one quotes row per quotation, catalogue-backed claims → SKILL § The procedure (intake gates) and step 1; pair, front, build (Errors none + translator), leftover English, S-marks, Word round trip in a temp dir → step 3 (run as written on Ostendorf: CHECK OK, FRONT OK, build exit 0 / Errors none, DRAFT 0, 2=2, 43/43, round trip CHECK OK); re-read and HOUSE-term counts → step 4; MB items and E-items (1.5.2a G5–G6) → step 5; hand-back T26/T30 → step 6 and `references/outputs.md` § Back. HANDOVER § 3 (old text): scope + PL→EN keywords → Hard rules; vol. 18 precedent, LOCK, tie-break, floor, exclusions as queries → Terminology + schema; editing separate, translation-time §§ → step 1 (now with § 0, § 12.3) + Hard rules; neologisms → Terminology; § 12.2 rulings → Kanon § 12.2, § 7.1 (all adopted); kartoteka → step 1; Word master → intro; 27.09 rulings: urasowienie, gypsylorists → termbase C-0001, C-0005 + decision log; places per case → step 1; pronouns → step 1; error mapping diagnostic → step 4 + PLAN 1.3.4. HANDOVER § 8 facts: official names, *mniejszość etniczna* → step 1; urasowienie, subalterni → termbase rows. One gap found and closed: the intake gates were not named in SKILL.md (added).
 
-- [ ] G14: committed
+- [x] G14: committed
   CHECK: git log --format=%s | grep -cE '^1\.4\.1: gates ALL MET'
   EXPECT: /^[1-9][0-9]*$/m
-  EVIDENCE: pending
+  EVIDENCE: 1
