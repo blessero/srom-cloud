@@ -25,6 +25,7 @@ a separate request.
 - `_handoffs/README.md` and all of `_handoffs/` (MB-decisions.md, both outgoing files, the newest `review-*.md`)
 - both modules' CLAUDE.md and handovers
 - `srom-tlumacz/tlumacz-PLAN.md` (contract, tree, status log)
+- `srom-tlumacz/.claude/skills/srom-tlumacz/SKILL.md` and its `references/outputs.md` (per-article file formats, OUT-*)
 - `srom-produkcja/GATES.md`
 - `srom-produkcja/.claude/skills/srom-produkcja/SKILL.md` and `references/handoff.md`
 - the git log of srom-produkcja, srom-tlumacz and _handoffs since the last review
@@ -46,8 +47,9 @@ a separate request.
    - nothing "done" on one side that the other hasn't verified or has contradicted
    - no one writing in the other side's file
    - every dated entry has its time, and that time is not later than the commit that contains it
-4. **Contract.** `handoff.md` (Out and Back) matches what both sides actually do: the scripts' behaviour, PLAN § Contract
-   (including OUT-DELIVERY), and SKILL.md scenario C. Any contract change made on one side only, or without tests on
+4. **Contract.** `handoff.md` (Out and Back) matches what both sides actually do: the scripts' behaviour, PLAN § Contract,
+   srom-tlumacz's `references/outputs.md` (including OUT-DELIVERY) and SKILL.md step 6, and srom-produkcja's SKILL.md
+   scenario C. Any contract change made on one side only, or without tests on
    both sides?
 5. **Kanon and kartoteka.**
    - one normative text (srom-kanon `references/kanon-redakcyjny.md`)
