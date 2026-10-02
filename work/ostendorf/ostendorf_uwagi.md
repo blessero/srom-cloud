@@ -88,7 +88,7 @@ keywords (Cambridge Core chapter page, not the PDF) — now in `ostendorf_src_fr
   gives Bloomsbury); Block — LoC has the book as 2018 (the author's 2021 is probably the paperback); Muhlenberg — the record
   gives "Philadelphia: Evangelical Lutheran Ministerium of Pennsylvania…, 1942–58" (the author: Muhlenberg Press 1945);
   O'Reilly's volume: "PLUS, Università di Pisa" (the author: Edizioni Plus); the volume editor is **Guðmundur Hálfdanarson**
-  (LC NAF; the author: "Gudmundur Hálfdánarson").
+  (LC NAF; the author: "Gudmundur Hálfdánarson"). (02.10.2026 18:58) The second editor: the author has "Anne Katherine Isaacs"; she publishes as **Ann Katherine Isaacs** (to confirm in LC NAF). Since v1.13 the bibliography prints editors' full names, so both spellings now show; refs.json keeps the author's forms until MB decides (OST-3).
 - **B12** (29.09.2026 17:47, srom-tlumacz E18 [Ostendorf], verified by srom-produkcja) note 41 — Urlsperger: the author's title
   "*Der ausführlichen nachrichten … in America erster*" (Halle, 1751) is volume 1's; her locator "3:979" is right.
   Bolzius's answers are in the **18th Continuation** (Halle 1752, pp. 777–1004), which is part of **volume 3** (collective
