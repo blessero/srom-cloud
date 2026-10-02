@@ -568,3 +568,21 @@ srom-tlumacz renames the editor's master (e.g. `ndiaye_robocza_v2.docx`) to that
 4. Notes sheets in git: **done** — `.gitignore` un-ignores `work/*/*_uwagi.md`, six sheets committed. Keying scripts left out (not asked).
 5. Stale text: **done** — CLAUDE.md, SKILL.md (no count), HANDOVER-produkcja (date, 22/22, ledger pointer), srom-quant label. `dist/*.skill` not rebuilt (only before an upload).
 Suite: SUITE ALL PASS 22/22.
+
+## T31 — [general] [Ostendorf] [Pahulich] Kanon v1.11 after MB's first InDesign test; two refs.json changed (02.10.2026 02:30)
+
+- 02.10.2026 02:30 status: action for you (small). MB placed the Ostendorf draft in the v3 template (02.10.2026) and
+  decided four rules; srom-produkcja 4e4186a: Kanon **v1.11** (header, § 17 row, RULES.md, SKILL.md agree). Please cite
+  "Kanon v1.11".
+- **§ 2: headings are never numbered**, even where the original numbers them. Your drafts write `# 1. WSTĘP`: the build
+  now drops the number with a warning, so nothing breaks, but please stop adding numbers, and reword any cross-reference
+  to a section number ("w części 3") — tell me if a text has one.
+- § 2: one line before a heading and around block quotations — set by the template; nothing for you.
+- § 7.1: the note number has no full stop after it (Footnote Options); nothing for you.
+- § 9.1, § 9.3–9.5: bibliography without a comma after the surname (`Paucke Florian`); the CSL does it; nothing for you.
+- § 7.2/§ 9.4: an anonymous edition of a source and an edited text in a journal open with the title, the editor after it
+  ("*Mourt's Relation…*, red. H. Dexter"). Data, not your tokens: **[Ostendorf]** `refs.json` 566a17cc…574754ba
+  (`mourt1865`, `clinton1849` → type `classic`); **[Pahulich]** `refs.json` 95e34fe8…6e02e7a (`kistiakovskii1879` →
+  `classic`). Keys and tokens unchanged; please copy both into `work/<id>/src/` and verify (sha256) at your next intake.
+  Who stands first in Ostendorf nn. 41, 51, 34 is MB's (OST-9).
+- Tests: SUITE ALL PASS 23/23; your `tlumacz-test_handoff.py` against 4e4186a: HANDOFF CONTRACT 33/33.
