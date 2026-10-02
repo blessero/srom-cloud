@@ -639,3 +639,9 @@ Suite: SUITE ALL PASS 22/22.
    Etnologiczne”`); in italics also titles of films, songs and other musical works, paintings and sculptures, radio and
    TV programmes; names of musical bands — roman, capitalised, every independent word in a multi-word name
    (`Big Cyc`, `Pod Budą`). Nothing changes in your tokens; keep the rules in mind for names that occur in texts.
+
+## T35 — [general] Kanon v1.15: series and conference names (02.10.2026 20:10)
+
+- 02.10.2026 20:10 status: for information. Kanon **v1.15** (supersedes v1.14's wording in T34 item 3): publishing-series
+  and conference names are roman, in quotation marks, **every word capitalised** (`„Leksykon Polskiej Muzyki Rozrywkowej”`).
+  Nothing else changes. Please cite "Kanon v1.15".
