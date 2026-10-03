@@ -19,8 +19,8 @@ State, open decisions and the work queue: `docs/HANDOVER-*.md` — read before s
   (`tools/setup_mac.sh`). claude.ai gets copies via `sh tools/package_skills.sh` → `dist/*.skill` (upload by hand).
 - Python: venv `~/.venvs/srom/bin/python` (3.13 + python-docx, lxml, PyMuPDF); `python3` on PATH is miniconda 3.13 with
   the packages, `/usr/bin/python3` is 3.9 without them; `run_all.py` switches to the venv itself, other scripts are called with the venv.
-- pandoc 3.8.3, node + acorn (`~/.venvs/srom/node`), InDesign 2026. No LibreOffice → `test_pdf.py` skips its LibreOffice part (Word-made PDF);
-  the hand-set pages run.
+- pandoc 3.8.3, node + acorn (`~/.venvs/srom/node`), InDesign 2026, LibreOffice (Homebrew cask, 03.10.2026: `test_pdf.py` now runs
+  its Word-made-PDF part too).
 
 ## Working rules
 - The editor (Michał) writes tersely and wants conclusions first, honest critique, errors and limits flagged.

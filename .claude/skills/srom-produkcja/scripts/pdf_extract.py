@@ -802,11 +802,14 @@ def main():
         cand = first[:k]
         # the title's size, not a chapter number's (a lone numeral set larger above a book chapter's title)
         tsize = max((L.size for L in cand if any(c.isalpha() for c in L.text)), default=max(L.size for L in cand))
-        if tsize > B * 1.1:
+        again = lambda H: any(M.page > p0 and M.head and abs(M.size - H.size) < 0.15 and M.caps_head == H.caps_head
+                              for M in body_lines)
+        # no title when the largest lines are a heading style the text uses again on later pages (an extract
+        # starting with its first section heading, e.g. a chapter read with --pages without its title page)
+        tlines = [L for L in cand if abs(L.size - tsize) < 0.15 and any(c.isalpha() for c in L.text)]
+        if tsize > B * 1.1 and not (tlines and all(L.head and again(L) for L in tlines)):
             # a heading right above the text stays in it; with a text heading of that style (size, capitals) later
             # on, only headings of a style the text uses again (the author's name, set large, is front matter)
-            again = lambda H: any(M.page > p0 and M.head and abs(M.size - H.size) < 0.15 and M.caps_head == H.caps_head
-                                  for M in body_lines)
             styled = any(again(H) for H in cand if H.head and H.size < tsize - 0.1)
             while cand and cand[-1].head and cand[-1].size < tsize - 0.1 and (again(cand[-1]) or not styled):
                 cand.pop()

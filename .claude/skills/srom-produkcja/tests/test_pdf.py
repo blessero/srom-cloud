@@ -48,6 +48,10 @@ if SOFFICE:
         else:
             el = OxmlElement("w:fldChar"); el.set(qn("w:fldCharType"), kind)
         r._r.append(el)
+    # footnotes numbered through the document, as in a Word-made article: pandoc's default reference.docx (3.8.3)
+    # sets <w:numRestart w:val="eachSect"/>, which LibreOffice >= 26 turns into numbering restarting at every Heading 1
+    for nr in sec._sectPr.xpath("w:footnotePr/w:numRestart"):
+        nr.set(qn("w:val"), "continuous")
     D.save(ref)
     src = os.path.join(FX, "src.md")
     subprocess.run(["pandoc", src, "--reference-doc", ref, "-o", os.path.join(d, "art.docx")], check=True)
