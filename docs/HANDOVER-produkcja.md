@@ -223,7 +223,7 @@ G12) after.
    **Online cover page (MB 03.10.2026, built 03.10.2026):** srom-quant `scripts/cover_page.py` draws the metadata page from
    the master CSV row after MB's template (`dump/SROM Meta Page.idml`, 200 × 250 mm → 165 × 235 mm, IBM Plex Sans, SROM
    red; no InDesign), prepends it to the InDesign export, writes links, page labels (i, ii / printed numbers) and the
-   `pdf_metadata.build()` fields as Info + XMP. MB's final template (03.10.2026 23:20, ): one page strictly,
+   `pdf_metadata.build()` fields as Info + XMP. MB's final template (03.10.2026 23:20, `SROM_okladka_szablon_MB.idml`): one page strictly,
    abstracts 7.5 pt justified, ink 88 % black; too-long abstracts stop the run (vol. 18: 4 of 8). Stops on placeholders. Choices awaiting MB: SYS-6, SYS-7 (`MB-decisions.md`). Tests in `test_quant.py`.
    **DOI links in the online PDF (SYS-5, built 02.10.2026, root session at MB's request):** `build.py` writes `<stem>_doi.jsx`
    (citation texts per note, cut apart by a marked CSL copy; bibliography entries; URLs percent-encoded); the script makes
