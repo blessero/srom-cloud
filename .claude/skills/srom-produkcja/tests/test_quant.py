@@ -136,7 +136,7 @@ def crow(n, **kw):
              language="pl", license="CC-BY", license_url="https://creativecommons.org/licenses/by/4.0/", is_translation="",
              original_title="", original_source="", original_doi="", translators_struct="")
     r.update(kw); return r
-long_pl, long_en = "Długie zdanie abstraktu o Romach w Polsce. " * 24, "A long sentence of the abstract about Roma. " * 24
+long_pl, long_en = "Długie zdanie abstraktu o Romach w Polsce. " * 40, "A long sentence of the abstract about Roma. " * 40
 crs = [crow(1), crow(2, abstract_pl=long_pl, abstract_en=long_en), crow(3, abstract_pl="", abstract_en="", keywords_pl="", keywords_en=""),
        crow(4, doi="10.XXXXX/todo0004", pub_date_online="2026-12-TODO"), crow(5, is_translation="TAK"),
        crow(6, is_translation="TAK", translators_struct="Michał|Bartosz||", original_title="Roma", original_source="„Romani Studies”, 2024",
@@ -174,9 +174,12 @@ t("cover_page: Info + XMP metadata (title, PRISM DOI, licence)",
 t("cover_page: Kanon § 3.3 hard spaces (one-letter words, t., initials)",
   cv.nbsp("Romowie w Polsce i w Europie, t. 5, J. Ficowski, 5 %") == "Romowie w\u00a0Polsce i\u00a0w\u00a0Europie, t.\u00a05, J.\u00a0Ficowski, 5\u00a0%"
   and cv.nbsp("Tow. Wszechnicy") == "Tow. Wszechnicy", cv.nbsp("Romowie w Polsce i w Europie, t. 5, J. Ficowski, 5 %"))
-r = cvrun("SROM-19-2026-002"); d2 = pymupdf.open(os.path.join(cdir, "SROM-19-2026-002_okladka.pdf")) if r.returncode == 0 else None
-t("cover_page: long abstracts → English abstract on a second page, 9 pt", d2 and len(d2) == 2 and "Abstract" in d2[1].get_text()
-  and "Abstrakt" in d2[0].get_text() and "cover 2 pages, abstracts 9 pt" in r.stdout, r.stdout + r.stderr)
+r = cvrun("SROM-19-2026-002")
+t("cover_page: one page strictly — abstracts too long → ABORT, nothing written", r.returncode != 0 and "does not fit on one page" in r.stderr
+  and not os.path.exists(os.path.join(cdir, "SROM-19-2026-002_okladka.pdf")), r.stdout + r.stderr)
+t("cover_page: MB's template — 88 % black ink, red edge bars, justified abstracts",
+  cv.INK == "#424241" and "text-align:justify" in cv.p(7.5, 11.52, "x", extra="; text-align:justify")
+  and len([d for d in doc[0].get_drawings() if d.get("fill") and abs(d["fill"][0] - 227 / 255) < .01 and d["rect"].height > 600]) == 2, "")
 r = cvrun("SROM-19-2026-003"); d3 = pymupdf.open(os.path.join(cdir, "SROM-19-2026-003_okladka.pdf")) if r.returncode == 0 else None
 t("cover_page: no abstracts (review) → header alone, one page", d3 and len(d3) == 1 and "Abstrakt" not in d3[0].get_text(), r.stdout + r.stderr)
 r = cvrun("SROM-19-2026-004")
@@ -192,10 +195,10 @@ t6 = flat(d6[0]) if d6 else ""
 t("cover_page: translation → translator, Pierwodruk linked to the original's DOI; CC BY-NC-ND named in Polish",
   all(x in t6 for x in ("Tłumaczenie: Michał Bartosz", "Pierwodruk:", "Użycie niekomercyjne – Bez utworów zależnych 4.0 (CC BY-NC-ND 4.0)"))
   and "https://doi.org/10.3828/rs.2024.3" in {l.get("uri") for l in d6[0].get_links()}, r.stdout + r.stderr + t6[:800])
-r = cvrun("SROM-19-2026-002", os.path.join(cdir, "art.pdf"))
+r = cvrun("SROM-19-2026-001", os.path.join(cdir, "art.pdf"))
 t("cover_page: article PDF page count = CSV range → no warning", "article PDF has" not in r.stdout
   and "RESULT: OK" in r.stdout, r.stdout)
-crs[1]["pages_to"] = "20"
+crs[1].update(pages_to="20", abstract_pl="Krótki.", abstract_en="Short.")
 with open(ccp, "w", encoding="utf-8-sig", newline="") as f:
     w = csv.DictWriter(f, fieldnames=ccols); w.writeheader(); w.writerows(crs)
 r = cvrun("SROM-19-2026-002", os.path.join(cdir, "art.pdf"))

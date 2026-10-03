@@ -8,13 +8,13 @@ cover_page.py — the online edition's metadata page, put in front of the articl
         → <dir>/<article_id>_okladka.pdf   the cover page alone, to look at
 
 One source: the master CSV row (master_schema.md). No InDesign: PyMuPDF draws the page at the journal's trim size
-(165 × 235 mm) after MB's template (dump/SROM Meta Page.idml, 200 × 250 mm), in its own typography (IBM Plex Sans,
-SROM red), so it reads as a digital add-on, not a printed page. The final PDF also gets links (DOI, ORCID, licence,
-the original's DOI, the journal's site), page labels (cover i, ii; the article keeps its printed page numbers) and the
+(165 × 235 mm) after MB's final template (SROM_okladka_szablon_MB.idml, 03.10.2026: IBM Plex Sans, SROM red, all other
+type 88 % black = RGB 66 66 65), so it reads as a digital add-on, not a printed page. The final PDF also gets links (DOI, ORCID, licence,
+the original's DOI, the journal's site), page labels (cover i; the article keeps its printed page numbers) and the
 metadata of pdf_metadata.py (Info dictionary + XMP with PRISM).
 
-Fit: both abstracts on one page at 9 or 8.5 pt; if they do not fit, the English abstract goes on a second cover page
-(both at 9 pt). Texts without abstracts (reviews, chronicles) get the header alone.
+One page, strictly (MB): type sizes are fixed; if the abstracts do not fit, the run stops and names the overflow.
+Texts without abstracts (reviews, chronicles) get the header alone.
 
 A printed field holding a placeholder (10.XXXXX, todo…, TODO) or left empty stops the run, so a page with a fake DOI
 is never written; --proof prints it as it stands, marks the page PODGLĄD and names the file *_proof.pdf.
@@ -29,9 +29,16 @@ from pdf_metadata import build as metadata, licence_name, placeholder  # noqa: E
 
 MM = 72 / 25.4
 W, H = 165 * MM, 235 * MM                      # SROM trim size (InDesign template: 467.72 × 666.14 pt)
-LX, TX, RX = 14 * MM, 40 * MM, 151 * MM        # label column · text column · right edge
-TOP, BODY, FOOT = 12 * MM, 39 * MM, 219 * MM   # logo top · first text line · footer top
-RED = (227 / 255, 0, 11 / 255)                 # "SROM red", RGB 227 0 11 as in the template
+# geometry in pt, from MB's template (frames' top-left corners; text frames grow downwards)
+LX, TX, RX = 34.0, 90.7, 433.7                 # label column · text column · right edge
+LOGO = (90.7, 19.8, 204.0, 66.0)               # x0 y0 x1 y1
+INFO_X, INFO_Y, TITLE_Y = 290.4, 21.0, 113.5
+FOOT, OA = 617.9, (34.0, 620.6, 81.0, 637.6)
+BAR = 4.25                                     # red bars at both edges, full height
+GAP = {"title_en": 11.2, "author": 7.4, "author2": 6, "translator": 6, "cite": 13.1, "original": 4,
+       "abstract": 15.7, "abstract_en": 17.8}
+RED = (227 / 255, 0, 11 / 255)                 # "SROM red", RGB 227 0 11
+INK = "#424241"                                # 88 % black (CMYK 0 0 0 88 → RGB 66 66 65, InDesign's conversion)
 ASSETS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "cover")
 FONT_DIRS = [os.path.expanduser("~/Library/Fonts/FontBase"), os.path.expanduser("~/Library/Fonts"), "/Library/Fonts"]
 FONTS = {"normal": "IBMPlexSans-Regular.ttf", "italic": "IBMPlexSans-Italic.ttf"}
@@ -49,7 +56,7 @@ CC_BY_CLAUSE = ("zezwalającej na nieograniczone używanie, rozpowszechnianie i 
 CSS = """
 @font-face {font-family: plex; src: url(%(normal)s);}
 @font-face {font-family: plex; font-style: italic; src: url(%(italic)s);}
-* {font-family: plex; margin: 0; padding: 0;}
+* {font-family: plex; margin: 0; padding: 0; color: #424241;}
 p {margin: 0;}
 .red {color: #e3000b;}
 """
@@ -147,11 +154,11 @@ class Pen:
         spare, _ = self.page.insert_htmlbox(r, body, css=self.css, archive=self.arch, scale_low=1)
         if spare < 0:
             raise ValueError("does not fit")
-        return r.y1 - spare
+        return r.y1 - spare - 2.0               # PyMuPDF's block is 2 pt taller than InDesign's frame (measured on MB's template)
 
 
 def a(href, text):
-    return f'<a href="{esc(href)}" style="color:#000000; text-decoration:none">{text}</a>'
+    return f'<a href="{esc(href)}" style="color:#424241; text-decoration:none">{text}</a>'
 
 
 def p(size, lead, body, cls="", extra=""):
@@ -160,11 +167,10 @@ def p(size, lead, body, cls="", extra=""):
 
 def band(pen, row):
     """Logo and the journal block, at the top of every cover page; returns where the text may start."""
-    logo = pymupdf.open(os.path.join(ASSETS, "sr_logo.pdf"))
-    lw = 40 * MM
-    lh = lw * logo[0].rect.height / logo[0].rect.width
-    box = pymupdf.Rect(TX - 0.8 * MM, TOP, TX - 0.8 * MM + lw, TOP + lh)     # the wordmark's ink starts ~1 mm in
-    pen.page.show_pdf_page(box, logo, 0)
+    for x in (0, W - BAR):
+        pen.page.draw_rect(pymupdf.Rect(x, 0, x + BAR, H), color=None, fill=RED)
+    box = pymupdf.Rect(*LOGO)
+    pen.page.show_pdf_page(box, pymupdf.open(os.path.join(ASSETS, "sr_logo.pdf")), 0)
     pen.page.insert_link({"kind": pymupdf.LINK_URI, "from": box, "uri": SITE})
     short = licence(row)[0]
     doi_url = f"https://doi.org/{row.get('doi', '')}"
@@ -176,15 +182,15 @@ def band(pen, row):
             f'Opublikowano online: {esc(date_pl(row.get("pub_date_online")))}']
     info = [s for s in info if s]
     font = pymupdf.Font(fontfile=os.path.join(pen.fdir, FONTS["normal"]))
-    iw = max(font.text_length(html.unescape(re.sub(r"<[^>]+>", "", s)), 8.5) for s in info)
-    ix = max(box.x1 + 8 * MM, RX - iw - 1)
-    return pen.put(ix, TOP + 1.2, RX + 4, "".join(p(8.5, 10.5, s) for s in info))
+    iw = max(font.text_length(html.unescape(re.sub(r"<[^>]+>", "", s)), 8) for s in info)
+    ix = min(INFO_X, RX - iw - 1)                  # a long line (DOI, names) moves the block left, never wraps it
+    return pen.put(ix, INFO_Y, RX + 2, "".join(p(8, 10.5, s) for s in info))
 
 
 def header(pen, row, y):
     """Titles, authors, translator, citation, original; returns the y below."""
     y = pen.put(TX, y, RX, p(17, 20.5, pl(row.get("title_pl")), "red"))
-    y = pen.put(TX, y + 8, RX, p(14, 17, esc(row.get("title_en"))))
+    y = pen.put(TX, y + GAP["title_en"], RX, p(12, 17, esc(row.get("title_en"))))
     au = authors(row)
     for i, (name, aff, orcid) in enumerate(au):
         body = p(12.5, 15, esc(name), "red")
@@ -192,72 +198,63 @@ def header(pen, row, y):
             body += p(9.5, 12, pl(aff))
         if orcid:
             body += p(9.5, 12, a(orcid, esc(orcid)))
-        y = pen.put(TX, y + (16 if i == 0 else 6), RX, body)
+        y = pen.put(TX, y + (GAP["author"] if i == 0 else GAP["author2"]), RX, body)
     tr = translators(row)
     if tr:
-        y = pen.put(TX, y + 6, RX, p(9.5, 12, f"Tłumaczenie: {esc(', '.join(tr))}"))
+        y = pen.put(TX, y + GAP["translator"], RX, p(9.5, 12, f"Tłumaczenie: {esc(', '.join(tr))}"))
     cite = (f'<span class="red">Jak cytować:</span> {esc(", ".join(a[0] for a in au))}, <i>{pl(row.get("title_pl"))}</i>, '
             f'„{esc(row.get("journal_title") or "Studia Romologica")}”, {esc(row.get("year"))}, t.\u00a0{esc(row.get("volume"))}'
             + (f", s.\u00a0{esc(row.get('pages'))}" if row.get("pages") else "") + ".")
-    y = pen.put(TX, y + 14, RX, p(8, 10.5, cite))
+    y = pen.put(TX, y + GAP["cite"], RX, p(7.5, 10.5, cite))
     if row.get("is_translation") == "TAK" and (row.get("original_title") or row.get("original_source")):
         orig = ", ".join(x for x in (f'<i>{esc(row.get("original_title"))}</i>' if row.get("original_title") else "",
                                      esc(row.get("original_source"))) if x)
         od = row.get("original_doi", "")
         if od and not placeholder(od):
             orig = a(f"https://doi.org/{od}", orig)
-        y = pen.put(TX, y + 4, RX, p(8, 10.5, f'<span class="red">Pierwodruk:</span> {orig}'))
+        y = pen.put(TX, y + GAP["original"], RX, p(7.5, 10.5, f'<span class="red">Pierwodruk:</span> {orig}'))
     return y
 
 
-def abstract(pen, row, key, y, size):
+def abstract(pen, row, key, y, size=7.5):
     """Label in the left column, abstract and keywords in the text column; returns the y below."""
     label, kw = {"pl": ("Abstrakt", "Słowa kluczowe:"), "en": ("Abstract", "Keywords:")}[key]
     text = pl if key == "pl" else esc
-    lead = round(size * 1.28, 2)
-    pen.put(LX, y, TX - 4 * MM, p(9.5, 11.5, label, "red"))
-    body = (p(size, lead, text(row.get("abstract_" + key)))
-            + p(size, lead, f'<span class="red">{kw}</span> {text(keywords(row.get("keywords_" + key)))}', extra="; margin-top:3pt"))
-    return pen.put(TX, y + 0.6, RX, body, bottom=FOOT - 4 * MM)
+    lead = 11.52
+    pen.put(LX, y, TX - 4, p(9.5, 11.5, label, "red"))
+    body = (p(size, lead, text(row.get("abstract_" + key)), extra="; text-align:justify")
+            + p(size, lead, f'<span class="red">{kw}</span> {text(keywords(row.get("keywords_" + key)))}',
+                extra="; text-align:justify; margin-top:3pt"))
+    return pen.put(TX, y, RX, body, bottom=FOOT - 4 * MM + 2)
 
 
 def footer(pen, row):
     oa = pymupdf.open(os.path.join(ASSETS, "open_access.pdf"))
-    ow = TX - LX - 6 * MM
-    pen.page.show_pdf_page(pymupdf.Rect(LX, FOOT + 1, LX + ow, FOOT + 1 + ow * oa[0].rect.height / oa[0].rect.width), oa, 0)
+    pen.page.show_pdf_page(pymupdf.Rect(*OA), oa, 0)
     lic = licence(row)[1]
-    body = p(6.5, 8.5, a(row.get("license_url"), pl(lic))) if lic else ""
-    body += p(6.5, 8.5, f'Wydawca: {pl(row.get("publisher"))} · {a(SITE, SITE.split("//")[1])}',
-              extra="; margin-top:3pt" if lic else "")
+    body = p(6, 8.5, a(row.get("license_url"), pl(lic)), extra="; letter-spacing:-0.01em") if lic else ""
+    body += p(6, 8.5, f'Wydawca: {pl(row.get("publisher"))} · {a(SITE, SITE.split("//")[1])}',
+              extra="; letter-spacing:-0.01em" + ("; margin-top:3pt" if lic else ""))
     pen.put(TX, FOOT, RX, body)
 
 
 def cover(row, proof=False):
-    """The cover as a PyMuPDF document of one or two pages, and the abstracts' type size."""
+    """The cover as a one-page PyMuPDF document; stops if the text runs into the footer."""
     fdir = font_dir()
-    keys = [k for k in ("pl", "en") if row.get("abstract_" + k)]
-    gap = (18, 12)
-    for size, split in ((9.0, False), (8.5, False), (9.0, True), (8.5, True)):
-        doc = pymupdf.open()
-        try:
-            pen = Pen(doc.new_page(width=W, height=H), fdir)
-            y = header(pen, row, max(BODY, band(pen, row) + 5 * MM))
-            for i, k in enumerate(keys):
-                if split and i == 1:
-                    footer(pen, row)
-                    pen = Pen(doc.new_page(width=W, height=H), fdir)
-                    y = max(BODY, band(pen, row) + 5 * MM) - gap[i]
-                y = abstract(pen, row, k, y + gap[i], size)
-            footer(pen, row)
-        except ValueError:
-            continue
-        if proof:
-            for pg in doc:
-                pg.insert_text((LX, TOP + 4 * MM), "PODGLĄD", fontsize=10, color=RED,
-                               fontname="plex", fontfile=os.path.join(fdir, FONTS["normal"]))
-        return doc, size
-    sys.exit(f"ABORT: {row.get('article_id')}: an abstract does not fit on its page even at 8.5 pt "
-             f"({len(row.get('abstract_pl', ''))} + {len(row.get('abstract_en', ''))} characters). Shorten it.")
+    doc = pymupdf.open()
+    pen = Pen(doc.new_page(width=W, height=H), fdir)
+    try:
+        y = header(pen, row, max(TITLE_Y, band(pen, row) + 12))
+        for i, k in enumerate(k for k in ("pl", "en") if row.get("abstract_" + k)):
+            y = abstract(pen, row, k, y + (GAP["abstract"] if i == 0 else GAP["abstract_en"]))
+        footer(pen, row)
+    except ValueError:
+        sys.exit(f"ABORT: {row.get('article_id')}: the cover does not fit on one page (abstracts "
+                 f"{len(row.get('abstract_pl', ''))} + {len(row.get('abstract_en', ''))} characters). Shorten an abstract.")
+    if proof:
+        pen.page.insert_text((LX, 120), "PODGLĄD", fontsize=10, color=RED,
+                             fontname="plex", fontfile=os.path.join(fdir, FONTS["normal"]))
+    return doc, 7.5
 
 
 def xmp(meta, row):
@@ -326,7 +323,7 @@ def main():
         art.set_xml_metadata(xmp(meta, row))
         path = os.path.join(a.out, re.sub(r"\.pdf$", "", row.get("pdf_file") or a.article_id) + tag + ".pdf")
         art.save(path, garbage=3, deflate=True)
-    print(f"written {path}: cover {n} page{'s' if n > 1 else ''}, abstracts {size:g} pt"
+    print(f"written {path}"
           + "".join(f"\n!! {x}" for x in probs))
     print("RESULT: PROOF — not for upload" if a.proof else
           f"RESULT: CHECK — {len(probs)} warning(s) above before upload" if probs else "RESULT: OK")
