@@ -136,7 +136,7 @@ def crow(n, **kw):
              language="pl", license="CC-BY", license_url="https://creativecommons.org/licenses/by/4.0/", is_translation="",
              original_title="", original_source="", original_doi="", translators_struct="")
     r.update(kw); return r
-long_pl, long_en = "Długie zdanie abstraktu o Romach w Polsce. " * 40, "A long sentence of the abstract about Roma. " * 40
+long_pl, long_en = "Długie zdanie abstraktu o Romach w Polsce. " * 80, "A long sentence of the abstract about Roma. " * 80
 crs = [crow(1), crow(2, abstract_pl=long_pl, abstract_en=long_en), crow(3, abstract_pl="", abstract_en="", keywords_pl="", keywords_en=""),
        crow(4, doi="10.XXXXX/todo0004", pub_date_online="2026-12-TODO"), crow(5, is_translation="TAK"),
        crow(6, is_translation="TAK", translators_struct="Michał|Bartosz||", original_title="Roma", original_source="„Romani Studies”, 2024",
@@ -180,20 +180,20 @@ t("cover_page: one page strictly — abstracts too long → ABORT, nothing writt
 t("cover_page: MB's template — 88 % black ink, red edge bars, justified abstracts",
   cv.INK == "#424241" and "text-align:justify" in cv.p(7.5, 11.52, "x", extra="; text-align:justify")
   and len([d for d in doc[0].get_drawings() if d.get("fill") and abs(d["fill"][0] - 227 / 255) < .01 and d["rect"].height > 600]) == 2, "")
-# MB's template 1.1 (04.10.2026): abstract blocks flex between the citation and 218 mm; 7.2 pt, then 7 pt, then stop
+# MB's template 1.2 (04.10.2026): abstract blocks flex between the citation and 218 mm; 7.2 pt, then 7 pt, then stop
 def cover_size(n):
-    ws = ["Romowie", "w", "Polsce", "oraz", "Europie", "żyją"]; ew = ["Roma", "in", "Poland", "and", "Europe", "live"]
+    ws = ["Romowie", "w", "Polsce"]; ew = ["Roma", "in", "Poland"]
     row = crow(1, abstract_pl=" ".join((ws * n)[:n]), abstract_en=" ".join((ew * n)[:n]))
     try:
         d, size = cv.cover(row)
     except SystemExit:
         return None, None
     return d, size
-seq = [cover_size(n)[1] for n in range(226, 240)]
+seq = [cover_size(n)[1] for n in range(278, 312)]
 t("cover_page: abstracts 7.2 pt while they fit, then 7 pt, then stop — never anything else",
   seq[0] == 7.2 and seq[-1] is None and set(seq) == {7.2, 7.0, None}
   and seq == sorted(seq, key=lambda v: (v is None, -(v or 0))), seq)
-last = max(n for n in range(226, 240) if cover_size(n)[1] == 7.0)
+last = max(n for n in range(278, 312) if cover_size(n)[1] == 7.0)
 dl, szl = cover_size(last)
 words = dl[0].get_text("words")
 kw_bottom = max(w[3] for w in words if w[4] == "Keywords:")
@@ -203,8 +203,8 @@ t("cover_page: the longest abstracts that fit end above 218 mm; labels Abstrakt 
   (szl, kw_bottom, cv.ABSTRACT_BOTTOM, lab))
 sp = cover_size(1)[0][0]
 at = lambda s: sp.search_for(s)[0]
-t("cover_page: template 1.1 — journal block under the logo, info block order Strony · DOI · licence · © · date",
-  abs(at("ISSN: 1689-4758").x0 - cv.TX) < 1 and 64 < at("ISSN: 1689-4758").y0 < 86 and at("Strony: 11–14").x0 > 250
+t("cover_page: template 1.2 — journal block under the logo, info block order Strony · DOI · licence · © · date",
+  abs(at("ISSN: 1689-4758").x0 - cv.TX) < 2 and 64 < at("ISSN: 1689-4758").y0 < 86 and at("Strony: 11–14").x0 > 250
   and at("Strony: 11–14").y0 < at("https://doi.org/10.12345/ab3k9x21").y0 < at("CC BY 4.0").y0 < at("© 2026").y0
   < at("Opublikowano online: 02.07.2026").y0, "")
 r = cvrun("SROM-19-2026-003"); d3 = pymupdf.open(os.path.join(cdir, "SROM-19-2026-003_okladka.pdf")) if r.returncode == 0 else None

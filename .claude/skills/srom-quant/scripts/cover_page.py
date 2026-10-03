@@ -8,14 +8,14 @@ cover_page.py — the online edition's metadata page, put in front of the articl
         → <dir>/<article_id>_okladka.pdf   the cover page alone, to look at
 
 One source: the master CSV row (master_schema.md). No InDesign: PyMuPDF draws the page at the journal's trim size
-(165 × 235 mm) after MB's template (SROM_okladka_szablon_MB1.1.idml, 04.10.2026: IBM Plex Sans, SROM red, all other
+(165 × 235 mm) after MB's template (SROM_okladka_szablon_MB1.2.idml, 04.10.2026: IBM Plex Sans, SROM red, all other
 type 88 % black = RGB 66 66 65), so it reads as a digital add-on, not a printed page. The final PDF also gets links (DOI, ORCID, licence,
 the original's DOI, the journal's site), page labels (cover i; the article keeps its printed page numbers) and the
 metadata of pdf_metadata.py (Info dictionary + XMP with PRISM).
 
 One page, strictly (MB, 04.10.2026): the two abstract blocks (Polish, then English, each with its keywords) are not
 frames of a fixed height. The Polish one starts under the citation, the English one follows it at the template's gap,
-and the English one may grow down to ABSTRACT_BOTTOM (218 mm from the top; the footer starts below it). The type is
+and the English one may grow down to ABSTRACT_BOTTOM (218 mm from the top; the footer starts below it). The keywords stand 14 pt (baseline to baseline) under the last line. The type is
 7.2 pt in both; only if the text still does not fit, both go down to 7 pt (never below, never one without the other).
 If it does not fit at 7 pt, the run stops and names the overflow. The header, footer and leading never change.
 Texts without abstracts (reviews, chronicles) get the header alone.
@@ -34,15 +34,15 @@ from pdf_metadata import build as metadata, licence_name, placeholder  # noqa: E
 MM = 72 / 25.4
 W, H = 165 * MM, 235 * MM                      # SROM trim size (InDesign template: 467.72 × 666.14 pt)
 # geometry in pt, from MB's template (frames' top-left corners; text frames grow downwards)
-LX, TX, RX = 34.0, 90.7, 433.7                 # label column · text column · right edge
-LOGO = (90.7, 14.2, 204.1, 60.4)               # x0 y0 x1 y1
-INFO_X, INFO_Y, JOURNAL_Y, TITLE_Y = 290.4, 15.4, 64.6, 96.5
-FOOT, OA = 627.2, (34.0, 629.9, 81.1, 646.9)
+LX, TX, RX = 17.0, 70.9, 433.7                 # label column · text column · right edge
+LOGO = (70.9, 11.3, 184.3, 57.5)               # x0 y0 x1 y1
+INFO_X, INFO_Y, JOURNAL_Y, TITLE_Y = 290.4, 12.5, 61.8, 95.8
+FOOT, OA = 627.2, (17.0, 630.2, 62.2, 646.5)
 BAR = 4.25                                     # red bars at both edges, full height
-GAP = {"title_en": 7.1, "author": 8.0, "author2": 6, "translator": 6, "cite": 9.6, "original": 4,
-       "abstract": 15.0, "abstract_en": 24.5, "journal": 11.0}   # frame to frame, as in the template
+GAP = {"title_en": 7.3, "author": 7.2, "author2": 6, "translator": 6, "cite": 10.3, "original": 4,
+       "abstract": 15.6, "abstract_en": 13.4, "journal": 13.1}   # frame to frame, as in the template
 ABSTRACT_BOTTOM = 218 * MM                     # the English abstract may grow down to here (MB, 04.10.2026)
-ABSTRACT_LEAD = 11.52                          # pt, template's "Abstrakt" style
+ABSTRACT_LEAD, KEYWORDS_GAP = 10, 4           # pt: leading of the abstracts; extra space above the keywords line
 ABSTRACT_SIZES = (7.2, 7.0)                    # pt, both abstracts; 7.0 only when 7.2 does not fit
 RED = (227 / 255, 0, 11 / 255)                 # "SROM red", RGB 227 0 11
 INK = "#424241"                                # 88 % black (CMYK 0 0 0 88 → RGB 66 66 65, InDesign's conversion)
@@ -197,8 +197,8 @@ def band(pen, row):
 
 def header(pen, row, y):
     """Titles, authors, translator, citation, original; returns the y below."""
-    y = pen.put(TX, y, RX, p(16, 20, pl(row.get("title_pl")), "red"))
-    y = pen.put(TX, y + GAP["title_en"], RX, p(12, 17, esc(row.get("title_en"))))
+    y = pen.put(TX, y, RX, p(16, 19, pl(row.get("title_pl")), "red"))
+    y = pen.put(TX, y + GAP["title_en"], RX, p(12, 16, esc(row.get("title_en"))))
     au = authors(row)
     for i, (name, aff, orcid) in enumerate(au):
         body = p(12.5, 15, esc(name), "red")
@@ -233,7 +233,7 @@ def abstract(pen, row, key, y, size):
     pen.put(LX, y, TX - 4, p(9.5, 11.5, label, "red"))
     body = (p(size, lead, text(row.get("abstract_" + key)), extra="; text-align:justify")
             + p(size, lead, f'<span class="red">{kw}</span> {text(keywords(row.get("keywords_" + key)))}',
-                extra="; text-align:justify; margin-top:3pt"))
+                extra=f"; text-align:justify; margin-top:{KEYWORDS_GAP}pt"))
     return pen.put(TX, y, RX, body, bottom=ABSTRACT_BOTTOM)
 
 

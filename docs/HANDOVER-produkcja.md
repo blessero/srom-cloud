@@ -223,14 +223,15 @@ G12) after.
    **Online cover page (MB 03.10.2026, built 03.10.2026):** srom-quant `scripts/cover_page.py` draws the metadata page from
    the master CSV row after MB's template (`dump/SROM Meta Page.idml`, 200 × 250 mm → 165 × 235 mm, IBM Plex Sans, SROM
    red; no InDesign), prepends it to the InDesign export, writes links, page labels (i, ii / printed numbers) and the
-   `pdf_metadata.build()` fields as Info + XMP. MB's template 1.1 (04.10.2026, `SROM_okladka_szablon_MB1.1.idml`, replaces `…_MB.idml`): one page strictly, ink 88 % black,
-   journal block under the logo, info block Strony · DOI · licence · © · date at the right, title 16/20 pt, citation 8 pt, footer at 627 pt.
+   `pdf_metadata.build()` fields as Info + XMP. MB's template 1.2 (04.10.2026, `SROM_okladka_szablon_MB1.2.idml`, replaces `…_MB.idml`, `…_MB1.1.idml`): one page strictly, ink 88 % black,
+   text column from 25 mm, labels from 6 mm, journal block under the logo, info block Strony · DOI · licence · © · date at the right,
+   title 16/19 pt, English title 12/16, citation 8 pt, abstracts 7.2/10 pt, footer at 627 pt. Leadings are read from the template's
+   *inline* overrides, not from the paragraph styles (the 1.1 pass wrongly used the style's 11.52 for the abstracts; that pass is void).
    **Rule (MB 04.10.2026): the two abstract blocks are as tall as their text.** Polish starts under the citation, English follows at
-   the template's gap (24.5 pt) and may reach 218 mm from the top; both 7.2 pt, if that does not fit both 7.0 pt (leading 11.52 stays),
-   beyond that the run stops. Cleaned: label *Abstract* aligned with *Abstrakt* (was 5.7 pt right), both labels level with their text
-   (0.6 pt). Title leading 20 pt read from the template's frame (style says 20.5). Vol. 18 result: 001, 002, 004, 007, 008 fit;
-   003 (6 pt over), 005 (49 pt over = 17 mm), 006 stop — 7 pt gains almost nothing (leading 11.52 decides), so "any paper" is not met:
-   it would need leading ≈ 9.5 pt at 7 pt for 005. Decision for MB. Stops on placeholders. Choices awaiting MB: SYS-6, SYS-7 (`MB-decisions.md`). Tests in `test_quant.py`.
+   the template's gap (13.4 pt) and may reach 218 mm from the top; both 7.2 pt, if that does not fit both 7.0 pt, beyond that the run
+   stops. Keywords stand 14 pt baseline to baseline under the last line (MB built it as a blank line + a 4 pt line; made a spacing, so
+   keywords of two lines do not collapse). Cleaned: stray 7.2 run in the English sample, *Abstract* label 0.6 pt above its text.
+   Vol. 18, all 8 of Część I and II fit at 7.2 pt (the longest, 005, ends at 211 of 218 mm; 006 at 217). Stops on placeholders. Choices awaiting MB: SYS-6, SYS-7 (`MB-decisions.md`). Tests in `test_quant.py`.
    **DOI links in the online PDF (SYS-5, built 02.10.2026, root session at MB's request):** `build.py` writes `<stem>_doi.jsx`
    (citation texts per note, cut apart by a marked CSL copy; bibliography entries; URLs percent-encoded); the script makes
    invisible InDesign hyperlinks, export with Hyperlinks ticked (`references/indesign.md`). Chosen over adding links to the
