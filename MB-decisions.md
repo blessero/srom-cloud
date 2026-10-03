@@ -720,10 +720,7 @@ Detail: 🔴 `srom-produkcja/volumes/ror.tsv`
 The cover page is built (`cover_page.py`, 03.10.2026 05:23 [general]): from the master CSV, put in front of the
 InDesign PDF, no InDesign template. Your design kept (IBM Plex Sans, SROM red, label column, logo + journal block,
 Open Access mark), at 165 × 235 mm. Look at the samples (vol. 18 data, still marked PODGLĄD), then one yes covers:
-1. **Long abstracts → a second cover page.** On the smaller page, 6 of 8 vol. 18 articles do not fit both abstracts
-   even at 7.5 pt; the English abstract then goes on page ii, both at 9 pt. (Other way: one page, type down to 7.5 pt.)
-2. **Abstracts ragged right**, not justified: without hyphenation, justified Polish leaves wide gaps. (Justified with
-   hyphenation needs one small Python library, `pyphen`; say if you want it.)
+(Rows 1–2 settled by MB 03.10.2026 23:20 [general]: one page strictly, his template SROM_okladka_szablon_MB.idml, abstracts justified 7.5 pt.)
 3. **Kanon over the template:** volume `t. 18`, not `t. XVIII` (§ 3.5); date `02.07.2026`, not `02/07/2026`; keywords
    separated by semicolons (§ 1 pt 9); ISSN and ORCID with hyphens (the template had dashes, which break the ORCID
    link); no line ending in a one-letter word (§ 3.3).
