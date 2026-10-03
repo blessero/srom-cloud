@@ -117,6 +117,91 @@ ms.run(mp2, "10.12345")
 t("mint_suffixes: another volume's suffix is never reused",
   [g["doi_suffix"] for g in csv.DictReader(open(mp2, encoding="utf-8-sig", newline=""))] == ["cccccccc"], "")
 
+# cover_page.py (03.10.2026): the online metadata page from the master row, prepended to the article's PDF
+import pymupdf
+CV = os.path.join(os.path.dirname(GEN), "cover_page.py")
+spec = importlib.util.spec_from_file_location("cover_page", CV); cv = importlib.util.module_from_spec(spec); spec.loader.exec_module(cv)
+cdir = tempfile.mkdtemp()
+ccols = ["article_id", "doi", "journal_title", "issn", "volume", "year", "publisher", "pub_date_online", "title_pl", "title_en",
+         "authors_display", "authors_struct", "abstract_pl", "abstract_en", "keywords_pl", "keywords_en", "pages", "pages_from",
+         "pages_to", "pdf_file", "language", "license", "license_url", "is_translation", "original_title", "original_source",
+         "original_doi", "translators_struct"]
+def crow(n, **kw):
+    r = dict(article_id=f"SROM-19-2026-00{n}", doi=f"10.12345/ab3k9x2{n}", journal_title="Studia Romologica", issn="1689-4758",
+             volume="19", year="2026", publisher="Komitet Opieki nad Zabytkami Kultury Żydowskiej w Tarnowie",
+             pub_date_online="2026-07-02", title_pl="Romowie w Polsce i w Europie", title_en="Roma in Poland and in Europe",
+             authors_display="Anna Nowak, Jan Lis", authors_struct="Anna|Nowak|Uniwersytet Jagielloński|https://orcid.org/0000-0002-1825-0097 ;; Jan|Lis||",
+             abstract_pl="Krótki abstrakt o Romach w Polsce.", abstract_en="A short abstract.", keywords_pl="Romowie, Polska",
+             keywords_en="Roma, Poland", pages="11–14", pages_from="11", pages_to="14", pdf_file=f"SROM_19_2026_Nowak_{n}.pdf",
+             language="pl", license="CC-BY", license_url="https://creativecommons.org/licenses/by/4.0/", is_translation="",
+             original_title="", original_source="", original_doi="", translators_struct="")
+    r.update(kw); return r
+long_pl, long_en = "Długie zdanie abstraktu o Romach w Polsce. " * 24, "A long sentence of the abstract about Roma. " * 24
+crs = [crow(1), crow(2, abstract_pl=long_pl, abstract_en=long_en), crow(3, abstract_pl="", abstract_en="", keywords_pl="", keywords_en=""),
+       crow(4, doi="10.XXXXX/todo0004", pub_date_online="2026-12-TODO"), crow(5, is_translation="TAK"),
+       crow(6, is_translation="TAK", translators_struct="Michał|Bartosz||", original_title="Roma", original_source="„Romani Studies”, 2024",
+            original_doi="10.3828/rs.2024.3", license_url="https://creativecommons.org/licenses/by-nc-nd/4.0/")]
+ccp = os.path.join(cdir, "m.csv")
+with open(ccp, "w", encoding="utf-8-sig", newline="") as f:
+    w = csv.DictWriter(f, fieldnames=ccols); w.writeheader(); w.writerows(crs)
+art = pymupdf.open()
+for i in range(4):
+    pg = art.new_page(width=cv.W, height=cv.H); pg.insert_text((72, 72), f"strona {11 + i}")
+art.set_toc([[1, "Wstęp", 2]]); art.save(os.path.join(cdir, "art.pdf"))
+def cvrun(*args):
+    return subprocess.run([sys.executable, CV, ccp, *args, "--out", cdir], capture_output=True, text=True)
+r = cvrun("SROM-19-2026-001", os.path.join(cdir, "art.pdf"))
+fp = os.path.join(cdir, "SROM_19_2026_Nowak_1.pdf")
+doc = pymupdf.open(fp) if os.path.exists(fp) else None
+flat = lambda pg: " ".join(pg.get_text().replace("\u00a0", " ").split())
+txt = flat(doc[0]) if doc else ""
+t("cover_page: cover + article, page labels i, 11…14, bookmark still on the article's page",
+  doc and len(doc) == 5 and [doc[i].get_label() for i in range(5)] == ["i", "11", "12", "13", "14"]
+  and doc.get_toc() == [[1, "Wstęp", 3]] and "RESULT: OK" in r.stdout, r.stdout + r.stderr)
+t("cover_page: page shows DOI URL, both authors, date dd.mm.rrrr, CC BY sentence, citation with t. 19",
+  all(x in txt for x in ("https://doi.org/10.12345/ab3k9x21", "Anna Nowak", "Jan Lis", "Opublikowano online: 02.07.2026",
+                          "Uznanie autorstwa 4.0 (CC BY 4.0)", "„Studia Romologica”, 2026, t. 19, s. 11–14.",
+                          "Romowie; Polska")), txt[:1500])
+links = {l.get("uri") for l in doc[0].get_links()} if doc else set()
+t("cover_page: links to DOI, ORCID, licence, site",
+  {"https://doi.org/10.12345/ab3k9x21", "https://orcid.org/0000-0002-1825-0097", "https://creativecommons.org/licenses/by/4.0/",
+   "https://studiaromologica.pl"} <= links, links)
+x = doc.get_xml_metadata() if doc else ""
+t("cover_page: Info + XMP metadata (title, PRISM DOI, licence)",
+  doc and doc.metadata["title"] == "Romowie w Polsce i w Europie" and "<prism:doi>10.12345/ab3k9x21</prism:doi>" in x
+  and "<xmpRights:WebStatement>https://creativecommons.org/licenses/by/4.0/</xmpRights:WebStatement>" in x
+  and etree.fromstring(x.split("?>", 1)[1].rsplit("<?xpacket", 1)[0].encode()) is not None, x[:600])
+t("cover_page: Kanon § 3.3 hard spaces (one-letter words, t., initials)",
+  cv.nbsp("Romowie w Polsce i w Europie, t. 5, J. Ficowski, 5 %") == "Romowie w\u00a0Polsce i\u00a0w\u00a0Europie, t.\u00a05, J.\u00a0Ficowski, 5\u00a0%"
+  and cv.nbsp("Tow. Wszechnicy") == "Tow. Wszechnicy", cv.nbsp("Romowie w Polsce i w Europie, t. 5, J. Ficowski, 5 %"))
+r = cvrun("SROM-19-2026-002"); d2 = pymupdf.open(os.path.join(cdir, "SROM-19-2026-002_okladka.pdf")) if r.returncode == 0 else None
+t("cover_page: long abstracts → English abstract on a second page, 9 pt", d2 and len(d2) == 2 and "Abstract" in d2[1].get_text()
+  and "Abstrakt" in d2[0].get_text() and "cover 2 pages, abstracts 9 pt" in r.stdout, r.stdout + r.stderr)
+r = cvrun("SROM-19-2026-003"); d3 = pymupdf.open(os.path.join(cdir, "SROM-19-2026-003_okladka.pdf")) if r.returncode == 0 else None
+t("cover_page: no abstracts (review) → header alone, one page", d3 and len(d3) == 1 and "Abstrakt" not in d3[0].get_text(), r.stdout + r.stderr)
+r = cvrun("SROM-19-2026-004")
+t("cover_page: placeholder DOI / date → ABORT, nothing written", r.returncode != 0 and "doi is a placeholder" in r.stderr
+  and "pub_date_online" in r.stderr and not os.path.exists(os.path.join(cdir, "SROM-19-2026-004_okladka.pdf")), r.stdout + r.stderr)
+r = cvrun("SROM-19-2026-004", "--proof"); pf = os.path.join(cdir, "SROM-19-2026-004_okladka_proof.pdf")
+t("cover_page --proof: written as *_proof, marked PODGLĄD", os.path.exists(pf) and "PODGLĄD" in pymupdf.open(pf)[0].get_text()
+  and "PROOF" in r.stdout, r.stdout + r.stderr)
+r = cvrun("SROM-19-2026-005")
+t("cover_page: translation without translators_struct → ABORT (Kanon § 12.2.3)", r.returncode != 0 and "translators_struct" in r.stderr, r.stdout + r.stderr)
+r = cvrun("SROM-19-2026-006"); d6 = pymupdf.open(os.path.join(cdir, "SROM-19-2026-006_okladka.pdf")) if r.returncode == 0 else None
+t6 = flat(d6[0]) if d6 else ""
+t("cover_page: translation → translator, Pierwodruk linked to the original's DOI; CC BY-NC-ND named in Polish",
+  all(x in t6 for x in ("Tłumaczenie: Michał Bartosz", "Pierwodruk:", "Użycie niekomercyjne – Bez utworów zależnych 4.0 (CC BY-NC-ND 4.0)"))
+  and "https://doi.org/10.3828/rs.2024.3" in {l.get("uri") for l in d6[0].get_links()}, r.stdout + r.stderr + t6[:800])
+r = cvrun("SROM-19-2026-002", os.path.join(cdir, "art.pdf"))
+t("cover_page: article PDF page count = CSV range → no warning", "article PDF has" not in r.stdout
+  and "RESULT: OK" in r.stdout, r.stdout)
+crs[1]["pages_to"] = "20"
+with open(ccp, "w", encoding="utf-8-sig", newline="") as f:
+    w = csv.DictWriter(f, fieldnames=ccols); w.writeheader(); w.writerows(crs)
+r = cvrun("SROM-19-2026-002", os.path.join(cdir, "art.pdf"))
+t("cover_page: article PDF page count ≠ CSV range → warning, RESULT: CHECK", "article PDF has 4 pages, the CSV says 11–20 (10)" in r.stdout
+  and "RESULT: CHECK" in r.stdout, r.stdout)
+
 n, ok = len(res), sum(res)
 print(f"QUANT ALL PASS {n}/{n}" if ok == n else f"QUANT FAILED {n - ok}/{n}")
 sys.exit(0 if ok == n else 1)

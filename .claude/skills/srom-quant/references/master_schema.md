@@ -1,8 +1,8 @@
 # SROM master CSV — column reference (v3, 38 columns + 1 optional)
 
-One row per article. All-English headers (InDesign Data Merge binds to header names — a rename forces a cover-page re-map). Encoding UTF-8 with BOM (InDesign-friendly). Consumers: InDesign Data Merge · Importer plugin · `generate_crossref_xml.py`.
+One row per article. All-English headers (the scripts read columns by header name — a rename means changing them). Encoding UTF-8 with BOM. Consumers: `cover_page.py` (online cover page) · Importer plugin · `generate_crossref_xml.py`.
 
-Legend for **Consumed by**: **X**=Crossref XML · **W**=WordPress via Importer · **D**=InDesign Data Merge · **—**=reference/derivation only.
+Legend for **Consumed by**: **X**=Crossref XML · **W**=WordPress via Importer · **D**=online cover page (`cover_page.py`; was InDesign Data Merge) · **—**=reference/derivation only.
 
 | # | Column | Consumed by | Goes to / meaning |
 |---|---|---|---|
@@ -52,4 +52,4 @@ Columns map to the `srom_volume` group: `volume`, `year`, `signature` (upsert ke
 
 ## Change protocol
 
-Any header change → note the InDesign Data Merge re-map cost. Any new column that should become article meta → confirm it belongs in ACF (persisted) vs a taxonomy vs derived, per the contract in SKILL.md; default away from adding stored fields that duplicate a taxonomy or core field.
+Any header change → note which scripts read the column (`cover_page.py`, `pdf_metadata.py`, the Crossref generator) and change them with their tests. Any new column that should become article meta → confirm it belongs in ACF (persisted) vs a taxonomy vs derived, per the contract in SKILL.md; default away from adding stored fields that duplicate a taxonomy or core field.

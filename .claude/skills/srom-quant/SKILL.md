@@ -35,6 +35,7 @@ Load the artefact, don't re-derive it. When a task touches a surface you don't h
 | Crossref generator | this skill: `scripts/generate_crossref_xml.py` | — |
 | Suffix minting | this skill: `scripts/mint_suffixes.py` | — |
 | PDF metadata (title, author, DOI, licence, PRISM) | this skill: `scripts/pdf_metadata.py <master> <article_id> --out <dir>` → `<article_id>_metadane.jsx`, run in InDesign before the PDF export | — |
+| Online cover page (metadata page in front of the article; links, page labels, PDF metadata) | this skill: `scripts/cover_page.py <master> <article_id> <article.pdf> --out <dir>` → `<pdf_file>` ready to upload; `--proof` / no PDF for a look. PyMuPDF, no InDesign; assets `assets/cover/` (logo, Open Access mark), font IBM Plex Sans from the Mac | — |
 | **Importer plugin** (CPTs/taxonomies/ACF/CSV import) | bundled source at **`wp-acf-plugin-builder/assets/srom-importer/`** — read `class-srom-imp-setup.php` (model) + `class-srom-imp-runner.php` (upsert/coercion) to confirm any field name before you rely on it | **wp-acf-plugin-builder** |
 | Elementor templates | Theme Builder exports (in the working folder's `elementor-updated/`) | **wp-elementor-builder** |
 
@@ -82,7 +83,7 @@ Templates and the mu-plugin bind by exact key. Three kinds of "field" exist and 
 
 ## Master CSV schema (v3, 38 columns + optional `translators_struct`)
 
-One row per article. Feeds three consumers from one cell each: InDesign Data Merge (cover pages) · Importer (WP posts) · Crossref generator (deposit XML). Full field reference: `references/master_schema.md`. Validate any master CSV before deposit with `scripts/validate_master.py`.
+One row per article. Feeds three consumers from one cell each: `cover_page.py` (online cover pages; formerly planned as InDesign Data Merge) · Importer (WP posts) · Crossref generator (deposit XML). Full field reference: `references/master_schema.md`. Validate any master CSV before deposit with `scripts/validate_master.py`.
 
 Column groups: identity (`article_id`, `doi_suffix`, `doi`, `landing_url`, `pdf_url`) · volume constants repeated per row (`journal_title`, `issn`, `volume`, `year`, `issue_signature`, `issue_theme`, `publisher`, `pub_date_online`) · ordering (`section_nr`, `section_label`, `seq`) · bibliographic (`title_pl`, `title_en`, `authors_display`, `authors_struct`, `affiliation_display`, `orcid_display`, `abstract_pl`, `abstract_en`, `keywords_pl`, `keywords_en`, `bio_note`, `pages`, `pages_from`, `pages_to`, `pdf_file`) · rights/provenance (`language`, `license`, `license_url`, `is_translation`, `original_title`, `original_source`, `original_doi`).
 
@@ -90,7 +91,7 @@ Column groups: identity (`article_id`, `doi_suffix`, `doi`, `landing_url`, `pdf_
 
 `translators_struct` (optional, added 27.09.2026, last column): translators of a translated article (`is_translation` = `TAK`), same encoding as `authors_struct`. Kanon § 12.2.3 credits the translator in the article header. Crossref gets them as `<person_name contributor_role="translator">` after the authors. CSVs without the column stay valid. The Importer ignores it (no ACF field yet), and so does Data Merge (no header renamed).
 
-CSV headers are all-English by decision. InDesign Data Merge binds placeholders to headers, so a header rename forces a one-time re-map of the cover-page template — flag this whenever proposing a schema change.
+CSV headers are all-English by decision. `cover_page.py` and the other scripts read columns by header name, so a header rename means changing them (and their tests) — flag this whenever proposing a schema change.
 
 ## Locked decisions (do not re-litigate; each was settled with rationale)
 
@@ -152,7 +153,7 @@ Run against any master CSV before minting. Checks: 38-column schema present · D
 1. Crossref membership → prefix + credentials (smallest tier ≈ $275/yr + $1/current DOI). Parallelizable with everything below.
 2. Generate opaque suffixes: `scripts/mint_suffixes.py <csv> --prefix 10.NNNNN` (`--dry-run` first; replaces `todoNNNN` placeholders, unique across all volumes, fills `doi`/`landing_url`, never touches a final suffix). Fill `pub_date_online`, licenses, any `original_doi`. Run `validate_master.py` until clean.
 3. mu-plugin in `mu-plugins/`; set `SROM_DOI_PREFIX`. Settings → Permalinks → Save.
-4. Rename PDFs per `pdf_file`; upload to `/uploads/archive/{vol}-{year}/`. Never move/rename again.
+4. Online PDF per article: `scripts/cover_page.py <csv> <article_id> <InDesign export, 165 × 235 mm, no marks> --out <dir>` (stops on any placeholder; names the file per `pdf_file`); upload to `/uploads/archive/{vol}-{year}/`. Never move/rename again.
 5. Importer: dry-run the CSV, confirm taxonomy mappings resolve, then import (drafts).
 6. Build/verify templates in Theme Builder (single `srom_article`/`srom_volume`) with a real imported post as preview. Verify one article: view-source shows `citation_*` tags; DOI renders as full `https://doi.org/…`; `curl -I` the PDF → 200, no 301.
 7. Publish articles.
