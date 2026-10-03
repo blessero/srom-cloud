@@ -35,7 +35,7 @@ Load the artefact, don't re-derive it. When a task touches a surface you don't h
 | Crossref generator | this skill: `scripts/generate_crossref_xml.py` | — |
 | Suffix minting | this skill: `scripts/mint_suffixes.py` | — |
 | PDF metadata (title, author, DOI, licence, PRISM) | this skill: `scripts/pdf_metadata.py <master> <article_id> --out <dir>` → `<article_id>_metadane.jsx`, run in InDesign before the PDF export | — |
-| Online cover page (metadata page in front of the article; links, page labels, PDF metadata) | this skill: `scripts/cover_page.py <master> <article_id> <article.pdf> --out <dir>` → `<pdf_file>` ready to upload; `--proof` / no PDF for a look. PyMuPDF, no InDesign; assets `assets/cover/` (logo, Open Access mark), font IBM Plex Sans from the Mac | — |
+| Online cover page (metadata page in front of the article; links, page labels, PDF metadata) | this skill: `scripts/cover_page.py <master> <article_id> <article.pdf> --out <dir>` → `<pdf_file>` ready to upload; `--proof` / no PDF for a look. Abstract blocks flex (7.2 pt → 7.0 pt, English may end at 218 mm; else stop). PyMuPDF, no InDesign; assets `assets/cover/` (logo, Open Access mark), font IBM Plex Sans from the Mac | — |
 | **Importer plugin** (CPTs/taxonomies/ACF/CSV import) | bundled source at **`wp-acf-plugin-builder/assets/srom-importer/`** — read `class-srom-imp-setup.php` (model) + `class-srom-imp-runner.php` (upsert/coercion) to confirm any field name before you rely on it | **wp-acf-plugin-builder** |
 | Elementor templates | Theme Builder exports (in the working folder's `elementor-updated/`) | **wp-elementor-builder** |
 
