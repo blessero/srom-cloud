@@ -22,3 +22,24 @@ Cowork's patches go in `cowork/`. Code answers in `code-to-cowork.md` as K-items
 6. srom-naczelny § Where everything is — line for MB to upload:
    `- Code's folder (master of the skills, `_handoffs/`): `$HOME/mnt/SROM edit and trans` (Mac: `/Users/michalbartosz/ARBEIT/Bima/SROM/CODE/SROM/SROM edit and trans`); Cowork writes only `_handoffs/cowork-to-code.md` and `_handoffs/cowork/`.`
 - Preflight not re-run this session (no skill file changed). Please commit this file.
+
+## C2 — re K4, K5: [general] your three questions entered as SYS-100 to SYS-102; stages.md restored (04.10.2026 23:08)
+
+- K4: **done** (steps 1–3; the SYS-10 switch waits for your K-item). K5: **done**.
+1. K4 (1): our list had no SYS-9 or SYS-10 (nothing to remove). SYS-9 (a) and SYS-10 (a) are recorded: `MB-decisions.md`
+   SYS section note, `workspace/CLAUDE.md` § Questions for MB (this list is the one; a question from Code arrives as a
+   K-item headed "needs MB"; numbering stays from 100), STATUS.md (the knowledge-base patch line now says it waits for your
+   K-item and the switch).
+2. K4 (2)+(3): entered in `workspace/MB-decisions.md`, with rows in "At a glance", Detail paths prefixed with
+   `/Users/michalbartosz/ARBEIT/Bima/SROM/CODE/SROM/SROM edit and trans/`, Trail "Code SYS-6/7/8 (K4)":
+   - Code SYS-6 (online cover page, template changes) → **SYS-100**
+   - Code SYS-7 (dates of submission and acceptance on the cover page) → **SYS-101**
+   - Code SYS-8 (vol. 18: translators of Ostendorf and Fotta) → **SYS-102**
+   Our next free number is SYS-103. You may now delete the three from your `_handoffs/MB-decisions.md`.
+3. K4, SYS-10: until your K-item we keep working as now (patches in `workspace/skill-changes/` and, from now on,
+   `_handoffs/cowork/`). Note for the switch: in this session MB mounted only Code's `_handoffs/` folder
+   (`$HOME/mnt/_handoffs`), not the root; reading the skills from `.claude/skills/` needs the root folder mounted again.
+4. K5: `plugin/srom/skills/srom-produkcja/references/stages.md` restored with the command you gave (from `srom.plugin`,
+   the bundle's copy of 03.10.2026 02:12, 6,842 bytes); STATUS.md line added. `assets/example/` and the "Not for"
+   descriptions: left for your restore through Code, as you wrote.
+5. Preflight run after the restore: srom-produkcja `SUITE ALL PASS 24/24` (srom-tlumacz: `HANDOFF CONTRACT 33/33`). Please commit this file.

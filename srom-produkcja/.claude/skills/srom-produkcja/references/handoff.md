@@ -1,7 +1,8 @@
 # Handoff to translation (srom-tlumacz) and back
 
-Translation is not done here. srom-produkcja prepares the source and takes the translation back; srom-tlumacz
-(its own chat and skill) translates. This file is the contract between the two.
+Translation is not done here. srom-produkcja prepares the source and takes the translation back; the srom-tlumacz
+skill translates. This file is the contract between the two (file formats and rules); the order of the stages and
+their gates are in `stages.md`, the record of what was handed over (sha256) in the hand-off log of `STATUS.md`.
 
 ## Out: what srom-produkcja hands over (per article `<id>`)
 
@@ -56,18 +57,18 @@ run through `normalize.py`: Polish typography is applied to the translation, aft
 
 Who does what (practice since the first drafts, now the contract):
 
-1. **Working copy.** srom-tlumacz exports `<id>_pl.md` to `<id>_robocza.docx` in its own `work/<id>/`
+1. **Working copy.** srom-tlumacz exports `<id>_pl.md` to `<id>_robocza.docx` in `srom-tlumacz/work/<id>/`
    (`export_work.py`). The editor edits that file there. From the editor's first edit, **that Word file is the
    master**; the SROM-MD is only its import. Never re-export over it: a new export goes to a temp folder or a new
    name (`<id>_robocza_v2.docx`), and the editor says which file is the master. **At delivery the master is always named `<id>_robocza.docx`**
    (review 01.10.2026 row 4): srom-tlumacz renames the editor's master to that name and older exports to
    `<id>_robocza_old<n>.docx`; `take_back.py` takes only that name.
-2. **Import and checks: srom-tlumacz**, in its `work/<id>/`, after each editing round the editor hands back:
+2. **Import and checks: srom-tlumacz**, in `srom-tlumacz/work/<id>/`, after each editing round the editor hands back:
    `docx_in.py <id>_robocza.docx -o <id>_pl.md` (recognised as a working copy, lossless), then `check.py --pair`,
    `build.py … --draft` and `tlumacz-front_check.py` as below. The imported `<id>_pl.md` is not edited by hand: a
    correction goes into the Word master and the import is repeated.
-3. **Delivery item.** srom-tlumacz writes an E-item `## E<n> — [<Author>] delivery: …` (mirror of the T-items
-   out), with the sha256 (`first8…last7`, or full) of every file delivered:
+3. **Delivery line.** srom-tlumacz appends a delivery line to the hand-off log of `STATUS.md` (mirror of the
+   hand-over line out), with the sha256 (`first8…last7`, or full) of every file delivered:
 
    | file | required | what |
    |---|---|---|
@@ -77,16 +78,17 @@ Who does what (practice since the first drafts, now the contract):
    | `<id>_refs_tlum.json` | if the translation adds citations | declared additions (`srom-added`) |
    | `<id>_pytania_tlum.csv` | if there are query rows | the translator's query sheet |
 
-   It also names the srom-produkcja `refs.json` sha256 it was checked against (the one in the last T-item), and the
-   verdicts (`CHECK OK`, build `PASS`, `FRONT OK`). A later editing round means a new delivery item that
+   It also names the srom-produkcja `refs.json` sha256 it was checked against (the one in the last hand-over line),
+   and the verdicts (`CHECK OK`, build `PASS`, `FRONT OK`). A later editing round means a new delivery line that
    supersedes the earlier one. The copies at srom-produkcja are never edited.
-4. **Take-back: srom-produkcja** copies the delivery into its own `work/<id>/pl/` and checks it:
-   `take_back.py <srom-tlumacz>/work/<id> <id> --src-dir work/<id> --expect <file>=<sha256> …` (one `--expect`
-   per file of the item). It compares the sha256, requires `<id>_pl.md` to equal a fresh import of the Word master,
+4. **Take-back: srom-produkcja** copies the delivery into `srom-produkcja/work/<id>/pl/` and checks it:
+   `take_back.py srom-tlumacz/work/<id> <id> --src-dir srom-produkcja/work/<id> --expect <file>=<sha256> …` (one
+   `--expect` per file of the delivery line). It compares the sha256, requires `<id>_pl.md` to equal a fresh import of the Word master,
    runs `check.py --pair` against the frozen `<id>_src.md` and `refs.json`, and writes `SHA256SUMS`. If `refs.json`
-   changed after the item's value (a later T-item), the pair check and build use the current one, and the T-item
-   answer says so. srom-produkcja **builds from `work/<id>/pl/`** into `work/<id>/build/`, and answers with a
-   status line (and a T-item if something is wrong).
+   changed after the delivery's value (a later hand-over line), the pair check and build use the current one, and
+   the take-back line in the log says so. srom-produkcja **builds from `work/<id>/pl/`** into `work/<id>/build/`
+   and logs the take-back with its verdicts (a problem goes to the notes sheet and, if MB must decide, to
+   `MB-decisions.md`).
 
 `<id>_front_pl.md` (Kanon § 12.2.2): the Polish title (title and subtitle kept apart), the Polish abstract, the
 Polish keywords; the English ones stay as in the original. Header data for the master CSV, not built into the
@@ -99,10 +101,10 @@ The commands (`$S` = srom-produkcja's `scripts/`):
 python3 $S/export_work.py <id>_pl.md -o <id>_robocza.docx        # srom-tlumacz, once; the editor works in Word
 python3 $S/docx_in.py <id>_robocza.docx -o <id>_pl.md            # srom-tlumacz, after each round; lossless
 python3 $S/check.py --pair <id>_src.md <id>_pl.md --refs refs.json --refs <id>_refs_tlum.json   # handoff check
-python3 $S/take_back.py <srom-tlumacz>/work/<id> <id> --src-dir work/<id> --expect <id>_pl.md=… …   # srom-produkcja
-python3 $S/build.py work/<id>/pl/<id>_pl.md --refs work/<id>/refs.json --refs work/<id>/pl/<id>_refs_tlum.json \
-        --pair-src work/<id>/<id>_src.md --queries work/<id>/pl/<id>_pytania_tlum.csv \
-        --out work/<id>/build/
+python3 $S/take_back.py srom-tlumacz/work/<id> <id> --src-dir srom-produkcja/work/<id> --expect <id>_pl.md=… …   # srom-produkcja
+python3 $S/build.py srom-produkcja/work/<id>/pl/<id>_pl.md --refs srom-produkcja/work/<id>/refs.json --refs srom-produkcja/work/<id>/pl/<id>_refs_tlum.json \
+        --pair-src srom-produkcja/work/<id>/<id>_src.md --queries srom-produkcja/work/<id>/pl/<id>_pytania_tlum.csv \
+        --out srom-produkcja/work/<id>/build/
 ```
 
 In Word: tokens can be corrected in place (keep the brackets and `@key`); paragraphs styled "SROM …" keep

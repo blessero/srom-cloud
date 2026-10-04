@@ -7,7 +7,7 @@ def _usable():
         import docx, fitz, lxml  # noqa: F401
     except ImportError:
         return False
-    return sys.version_info >= (3, 12)
+    return sys.version_info >= (3, 10)
 if not _usable() and os.path.exists(VENV) and os.path.realpath(sys.executable) != os.path.realpath(VENV):
     os.execv(VENV, [VENV] + sys.argv)
 here = os.path.dirname(os.path.abspath(__file__))

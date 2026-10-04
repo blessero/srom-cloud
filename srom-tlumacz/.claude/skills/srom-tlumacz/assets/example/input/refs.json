@@ -1,0 +1,44 @@
+[
+ {
+  "id": "brooks2012",
+  "type": "article-journal",
+  "author": [
+   {
+    "family": "Brooks",
+    "given": "Ethel C."
+   }
+  ],
+  "title": "The Possibilities of Romani Feminism",
+  "container-title": "Signs: Journal of Women in Culture & Society",
+  "issued": {
+   "date-parts": [
+    [
+     2012
+    ]
+   ]
+  },
+  "volume": "38",
+  "issue": "1",
+  "page": "1–11"
+ },
+ {
+  "id": "hornback2018",
+  "type": "book",
+  "author": [
+   {
+    "family": "Hornback",
+    "given": "Robert"
+   }
+  ],
+  "title": "Racism and Early Blackface Comic Traditions: From the Old World to the New",
+  "publisher-place": "Cham",
+  "publisher": "Palgrave Macmillan",
+  "issued": {
+   "date-parts": [
+    [
+     2018
+    ]
+   ]
+  }
+ }
+]

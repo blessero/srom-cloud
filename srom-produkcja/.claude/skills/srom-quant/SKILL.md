@@ -1,6 +1,6 @@
 ---
 name: srom-quant
-description: Grounding + quant role (the data side: metadata, DOI, website; formerly srom-scholarly-curator) for the Studia Romologica (SROM) scholarly-publishing infrastructure — the DOI/Crossref pipeline, the master metadata CSV, the WordPress content model, and the mu-plugin that emits scholarly metadata. Use when working on ANY of: the SROM master CSV / metadata schema; Crossref deposit XML; DOI minting or landing-page compliance; the srom-scholarly.php mu-plugin (citation tags, JSON-LD, permalinks, shortcodes); WordPress CPT/ACF/taxonomy questions for srom_article / srom_volume; Elementor article/volume templates; or arbitrating a change that spans more than one of those. Load this before touching SROM publishing infrastructure so the canonical data contract and locked decisions are in hand rather than re-derived.
+description: Grounding + quant role (the data side: metadata, DOI, website; formerly srom-scholarly-curator) for the Studia Romologica (SROM) scholarly-publishing infrastructure — the DOI/Crossref pipeline, the master metadata CSV, the WordPress content model, and the mu-plugin that emits scholarly metadata. Use when working on ANY of: the SROM master CSV / metadata schema; Crossref deposit XML; DOI minting or landing-page compliance; the srom-scholarly.php mu-plugin (citation tags, JSON-LD, permalinks, shortcodes); WordPress CPT/ACF/taxonomy questions for srom_article / srom_volume; Elementor article/volume templates; or arbitrating a change that spans more than one of those. Load this before touching SROM publishing infrastructure so the canonical data contract and locked decisions are in hand rather than re-derived. Not for the article text, its citations or its build (srom-produkcja), house style (srom-kanon) or translation (srom-tlumacz).
 ---
 
 # SROM Scholarly Infrastructure — Quant
@@ -11,7 +11,7 @@ register (bio notes, ORCID, affiliations): `srom-produkcja/volumes/autorzy.tsv`.
 
 You are the integrating authority over *Studia Romologica*'s digital publishing stack. The work is split across three implementation surfaces that must agree on one data contract; your job is to hold that contract, generate the artefacts that depend on it, and arbitrate cross-surface changes so the surfaces never drift. This file is the single source of truth for the contract. When it and a downstream doc disagree, this file wins unless the human states otherwise.
 
-*Studia Romologica*: Polish/English peer-reviewed annual on Romani studies. ISSN 1689-4758. Publisher: Komitet Opieki nad Zabytkami Kultury Żydowskiej w Tarnowie. Diamond OA, print-first, now with an online edition. DOIs via **Crossref** (never DataCite, never Humanities Commons/CORE — if any input says otherwise it is stale).
+Facts about the journal (title, ISSN, publisher, open-access model, indexing, the state of DOI registration, the roadmap) live only in srom-kanon's `references/SROM_knowledge_base.md`; this skill holds the data contract. DOIs via **Crossref** (never DataCite, never Humanities Commons/CORE — if any input says otherwise it is stale).
 
 ## The three surfaces and who owns what
 
@@ -158,14 +158,14 @@ Run against any master CSV before minting. Checks: 38-column schema present · D
 6. Build/verify templates in Theme Builder (single `srom_article`/`srom_volume`) with a real imported post as preview. Verify one article: view-source shows `citation_*` tags; DOI renders as full `https://doi.org/…`; `curl -I` the PDF → 200, no 301.
 7. Publish articles.
 8. `generate_crossref_xml.py` → test.crossref.org → production. Await deposit report; click 2–3 DOIs to confirm resolution.
-9. OpenAlex (the open index most discovery tools read) picks the journal up from Crossref by itself. 2–4 weeks after the first deposit: `https://api.openalex.org/sources?filter=issn:1689-4758` must return the journal, and a DOI must show its references and abstract; if the journal record is wrong or missing, OpenAlex's support form fixes it.
+9. OpenAlex (the open index most discovery tools read) picks the journal up from Crossref by itself. 2–4 weeks after the first deposit: `https://api.openalex.org/sources?filter=issn:<ISSN>` (ISSN: knowledge base) must return the journal, and a DOI must show its references and abstract; if the journal record is wrong or missing, OpenAlex's support form fixes it.
 10. Wikidata: the journal item once (`scripts/wikidata_qs.py journal` → QuickStatements, MB's account); after each deposit `wikidata_qs.py articles <csv> --journal Q… --check` for the article items.
 
 Order dependency: suffixes freeze at import (step 5); everything before is reversible, nothing after deposit is.
 
-## Roadmap / not-yet-built (context for scoping requests)
+## Roadmap / not-yet-built
 
-eISSN application (blocked until online edition live; XMP re-injection into PDFs is safe post-hoc). Court register update Pr 162. ERIH+ / DOAJ applications (peer-review procedure + OA policy already drafted to support them). Ministry of Interior grant framed around OA-infrastructure deliverables. Possible Phase 3: Manifold/Quire photo-archive showcase on a subdomain, separate from core journal infra. None of these change the data contract above; treat them as downstream.
+In srom-kanon's `references/SROM_knowledge_base.md` § Roadmap. None of it changes the data contract above; treat it as downstream.
 
 ## Working style for this project
 

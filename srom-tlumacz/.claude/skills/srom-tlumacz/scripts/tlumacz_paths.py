@@ -5,18 +5,37 @@
   python3 tlumacz_paths.py --source <file>  -> prints the path of a module data file
   python3 tlumacz_paths.py --module         -> prints the module folder (work/, sources/, training/)
 
-SKILL   this skill (the real path, so ~/.claude/skills/srom-tlumacz resolves into the repository).
-MODULE  the module folder with the per-article state: $SROM_TLUMACZ, else the folder that holds .claude/skills/srom-tlumacz
-        (when it has work/), else the working directory.
+SKILL   this skill (its real path, so a link into the repository resolves).
+MODULE  the folder with the per-article state (work/, sources/, training/): $SROM_TLUMACZ, else the nearest
+        `srom-tlumacz/` folder with work/ found from the working directory upwards (the folder itself, or a child of
+        it: the workspace or repository root holds srom-tlumacz/), else the folder that holds this skill's
+        .claude/skills/ (when it has work/), else the working directory.
 ref(n)  SKILL/references/n — termbase, schema, decision log, register.
-Skills: $SROM_SKILLS_DIR, MODULE/.claude/skills, MODULE/../.claude/skills, ~/.claude/skills, /mnt/skills/plugins,
-/mnt/skills/user, MODULE/.. (sibling module folder). Data files: MODULE, MODULE/sources, ./, ./sources, /mnt/project.
+Skills: $SROM_SKILLS_DIR, MODULE/.claude/skills, MODULE/../.claude/skills (the root links), ~/.claude/skills, next to
+this skill, /mnt/skills/plugins, /mnt/skills/user, MODULE/.. (sibling module folder). Data files: MODULE, MODULE/sources, ./, ./sources, /mnt/project.
 """
 import os, sys
 
 SKILL = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-_up = os.path.dirname(os.path.dirname(os.path.dirname(SKILL)))
-MODULE = os.environ.get("SROM_TLUMACZ") or (_up if os.path.isdir(os.path.join(_up, "work")) else os.getcwd())
+
+
+def _module():
+    if os.environ.get("SROM_TLUMACZ"):
+        return os.environ["SROM_TLUMACZ"]
+    d = os.getcwd()
+    while True:
+        for c in (d, os.path.join(d, "srom-tlumacz")):
+            if os.path.basename(c) == "srom-tlumacz" and os.path.isdir(os.path.join(c, "work")):
+                return c
+        up = os.path.dirname(d)
+        if up == d:
+            break
+        d = up
+    _up = os.path.dirname(os.path.dirname(os.path.dirname(SKILL)))
+    return _up if os.path.isdir(os.path.join(_up, "work")) else os.getcwd()
+
+
+MODULE = _module()
 
 
 def ref(name):
@@ -26,7 +45,7 @@ def ref(name):
 def skill_dir(name):
     roots = [os.environ.get("SROM_SKILLS_DIR", ""), os.path.join(MODULE, ".claude", "skills"),
              os.path.join(MODULE, "..", ".claude", "skills"), os.path.expanduser("~/.claude/skills"),
-             "/mnt/skills/plugins", "/mnt/skills/user", os.path.join(MODULE, "..")]
+             os.path.dirname(SKILL), "/mnt/skills/plugins", "/mnt/skills/user", os.path.join(MODULE, "..")]
     for r in roots:
         if r and os.path.isfile(os.path.join(r, name, "SKILL.md")):
             return os.path.abspath(os.path.join(r, name))

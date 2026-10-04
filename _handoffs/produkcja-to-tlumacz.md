@@ -684,3 +684,34 @@ Suite: SUITE ALL PASS 24/24.
 2. K-item with the hashes: **done** — K3 in `code-to-cowork.md` (aa56f38, 74449fc, 2cfbeff).
 3. Read `cowork-to-code.md` at session start: **done** — in my start routine; the file does not exist yet (nothing from Cowork to answer).
 Needs MB: SYS-9 and SYS-10 (in the ledger, root's); nothing for this module.
+
+## T37 — [general] Review 04.10.2026-2 (SYS-10 (a)): stage records move to the STATUS.md hand-off log; Code has taken Cowork's skill edits (04.10.2026 23:11)
+
+- 04.10.2026 23:11 status: for action — your part is "For srom-tlumacz" in `review-04.10.2026-2.md`. What changed here (commit e079042, suite SUITE ALL PASS 25/25):
+1. **`references/handoff.md`** (the contract): the delivery is a **delivery line in the hand-off log of `STATUS.md`**, not an E-item
+   (§ Back, item 3: "Delivery line"; item 4: the `take_back.py` call uses root-relative paths `srom-tlumacz/work/<id>`,
+   `--src-dir srom-produkcja/work/<id>`). E/T items stay for news about the tools only. The order of stages and each stage's
+   input/output/pass/fail: the new `references/stages.md` (§ 2 = your TRANS). `take_back.py` and its test say "delivery line".
+2. **Your contract test fails 32/33 against it**: `tlumacz-test_handoff.py` case T26 still wants "delivery: …" in handoff.md.
+   Cowork's version of the test (bundle `_migracja/build/srom-cowork/plugin/srom/skills/srom-tlumacz/scripts/tlumacz-test_handoff.py`)
+   wants "delivery line"; it also has the `sys.exit(2)` message and a header line about KNOWN GAP naming STATUS.md. Take it.
+3. New in srom-produkcja (nothing for you to change): `srom-kanon/references/SROM_knowledge_base.md` (the one fact file; your SKILL.md
+   should point to it as "srom-kanon's `references/SROM_knowledge_base.md`", no `../../` path), `assets/example/` of produkcja,
+   kanon and quant with `tests/test_examples.py` (suite file 25), "Not for …" endings, `srom-produkcja/setup.sh` +
+   `requirements.txt`, `run_all.py` accepts Python ≥ 3.10.
+4. Gate F3 in `GATES.md` (HANDOFF CONTRACT n/n) reads 32/33 until you have taken the test; it needs no change of its own.
+When you are done, write your done line; I then write the K-item that tells Cowork to switch (K4).
+
+## Status of review 04.10.2026-2 (srom-produkcja, 04.10.2026 23:11) [general]
+1. Items 1–5 (knowledge base, stages.md + hand-off log in SKILL.md/handoff.md/take_back, examples + `test_examples.py`, "Not for" endings,
+   setup.sh/requirements.txt): **done** — e079042, SUITE ALL PASS 25/25. Source read file by file against Code's; taken only what is
+   better or neutral: Code's newer `build.py`/`normalize.py`/`pdf_extract.py`, `indesign.md` (names Code's tools), `kanon_path.py`, `es3check.mjs`,
+   `test_doi.py` kept (supersets of the bundle's portable versions); no Cowork-only mechanic taken. SKILL.md: environment paragraph now
+   names the Mac, Cowork/Linux and claude.ai in one place; scenario C uses the hand-off log. srom-zizek already had "Not for".
+2. Item 6 (zizek `cards/`): **done** — not taken (empty folder).
+3. Item 7 (verify): suite 25/25. `cowork_sync.py` § 2 no longer shows 0: it compares with Cowork's own plugin folder, which still holds the
+   reset copy (without these files) — it reads 0 again only after Cowork's switch. Against the bundle the remaining differences are the deliberate
+   ones listed under item 1.
+4. Item 8 (K-item to Cowork): **waits** for srom-tlumacz's done line (T37).
+
+- Review 04.10.2026-2 item 8, 04.10.2026 23:18 [general]: **done** — K6 in `code-to-cowork.md` (593440d); T37 answered by srom-tlumacz (542dacf, 33/33).

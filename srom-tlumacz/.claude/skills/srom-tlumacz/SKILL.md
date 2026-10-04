@@ -1,6 +1,6 @@
 ---
 name: srom-tlumacz
-description: EN→PL scholarly translation for Studia Romologica (SROM), the Polish Romani-studies annual — stage TRANS between srom-produkcja's RIP and INJECT. Turns a frozen English source (`<id>_src.md` + refs.json from srom-produkcja) into a Polish SROM-MD translation with its notes sheet for the editor, query rows, quotation sheet, Polish title/abstract/keywords and Word working copy, then delivers the editor's Word master back. Use for translating or re-checking an SROM article from English, choosing Polish terms (termbase, HOUSE rows, vol. 18 precedent, race/racialisation vocabulary, group names, historical place names), re-sourcing quotations to Polish editions, the translation note, translator's notes, `<id>_pl.md`, `<id>_uwagi.md`, `_pytania_tlum.csv`, termbase upkeep; also PL→EN author keywords of Polish articles. Triggers: "przekład", "tłumaczenie", "przetłumacz", "TRANS", "srom-tlumacz", "termbase", "urasowienie". Complements srom-produkcja (toolchain), srom-kanon (house rules), srom-quant (metadata).
+description: EN→PL scholarly translation for Studia Romologica (SROM), stage TRANS between srom-produkcja's RIP and INJECT. Turns a frozen English source (`<id>_src.md` + refs.json) into a Polish SROM-MD translation with its notes sheet for the editor, query rows, quotation sheet, Polish title/abstract/keywords and Word working copy, then takes the editor's Word master back. Use for translating or re-checking an SROM article from English, choosing Polish terms (termbase, HOUSE rows, vol. 18 precedent, race/racialisation vocabulary, group names, historical place names), re-sourcing quotations to Polish editions, translator's notes, `<id>_pl.md`, `<id>_uwagi.md`, termbase upkeep; also PL→EN keywords of Polish articles. Triggers: "przekład", "tłumaczenie", "przetłumacz", "TRANS", "termbase", "urasowienie". Not for extraction, keying, building or InDesign (srom-produkcja), the house rules (srom-kanon) or metadata (srom-quant).
 ---
 
 # srom-tlumacz — EN→PL translation for Studia Romologica
@@ -22,15 +22,18 @@ with the version in its header — and the group-name kartoteka `references/kart
 - **This skill:** `scripts/` (checks), `references/` — the termbase `tlumacz-tb.tsv`, its schema and decision rule
   `tlumacz-tb-schema.md`, MB's decision log `tlumacz-decisions.md`, the race register `tlumacz-rasa.md`, the per-article
   file formats `outputs.md`.
-- **The module folder** (`srom-tlumacz/`, found by `scripts/tlumacz_paths.py`): `work/<id>/` per article, `HANDOVER.md`
-  (state, what is next), `tlumacz-PLAN.md` (tree, status log), `tlumacz-gates-*.md`, `sources/` (vol. 18 texts
-  `vol18-md/`, the PRNG world register `prng/`, `SROM_knowledge_base.md`), `training/` (MB's Polish reading corpus).
-- **Claude Code on MB's Mac:** Python is `~/.venvs/srom/bin/python` (python-docx; srom-produkcja's scripts run under
-  it). The SROM session rules (handoff files, `MB-decisions.md`, dates, files MB must open) are in the CLAUDE.md files.
+- **The module folder** (`srom-tlumacz/`, found by `scripts/tlumacz_paths.py` from any folder below the workspace or
+  repository root): `work/<id>/` per article, `sources/` (vol. 18 texts `vol18-md/` and originals `vol18-en/`, the PRNG
+  world register `prng/`, the old vol. 18 extraction), `training/` (MB's Polish reading corpus), `tlumacz-1.3.2/` (the
+  vol. 19 concordance: re-run `vol19_terms.py` after each vol. 19 draft). The state of every text and the hand-off log:
+  `STATUS.md`; MB's open questions: `MB-decisions.md`; the session rules: the CLAUDE.md files (Code: this folder's and the
+  root's, plus `HANDOVER.md` and `tlumacz-PLAN.md` here; Cowork: `workspace/CLAUDE.md`). Journal facts: srom-kanon's `references/SROM_knowledge_base.md` (the one fact file).
+- **Python:** `python3` ≥ 3.10 with python-docx (srom-produkcja's scripts run under the same interpreter). Claude Code on
+  MB's Mac: `~/.venvs/srom/bin/python`. Cowork/Linux: `sh srom-produkcja/setup.sh` installs `requirements.txt`.
 - **claude.ai sandbox:** `python3`; work in `/home/claude/<id>/`, hand every file over (`present_files`); the checks
   that need `sources/` or `training/` (termbase precedent and evidence) do not run there.
 
-`P=~/.venvs/srom/bin/python  T=<this skill>/scripts  S=$($P $T/tlumacz_paths.py srom-produkcja)/scripts`
+`P=<python above>  T=<this skill>/scripts  S=$($P $T/tlumacz_paths.py srom-produkcja)/scripts`
 
 **Preflight, once per session:** `$P $T/tlumacz-check_tb.py --schema --shape --vocab --precedent --evidence` and
 `--selftest` (termbase sound, controls caught); `$P $T/tlumacz-test_handoff.py` → `HANDOFF CONTRACT n/n` (srom-produkcja
@@ -38,14 +41,17 @@ still does what this skill relies on; re-run after every srom-produkcja update).
 
 ## The procedure
 
-One text = two plan leaves, intake (a) and draft (b). Each starts by writing `tlumacz-gates-<leaf>.md` and ends when
-gate-check reports ALL MET. Intake gates: `src/` identical to the T-item's sha256; the intake covers its five sections;
+One text = two steps, intake (a) and draft (b); the stage and its gates in the pipeline: srom-produkcja
+`references/stages.md` (stage 2, TRANS). Each step starts by writing its gates file in `work/<id>/`
+(`<id>_gates_intake.md`, `<id>_gates_draft.md`, in the unlazy skill's format) and ends when the unlazy gate-check
+reports ALL MET. Intake gates: `src/` identical to the last hand-off log line; the intake covers its five sections;
 one quotes row per quotation; every edition or original claimed is backed by a catalogue or text check. Draft gates: one
 per check in step 3, plus the re-read and the HOUSE terms (manual, with counts). MB may say "go ahead, decisions
 later": then collect his decisions, never wait for them, and say which choice the draft assumes.
 
 **1. Intake** (`<id>_intake.md`, skeleton in `references/outputs.md`)
-- Copy srom-produkcja's hand-off into `work/<id>/src/` and verify the sha256 against its T-item. Measure (words, notes,
+- Copy srom-produkcja's hand-off into `work/<id>/src/` and verify the sha256 against its line in the `STATUS.md`
+  hand-off log. Measure (words, notes,
   keyed/literal, headings, block quotations) — numbers are measured, never estimated.
 - **Pronouns** of the author and of every person whose name is declined: from the source (quote it) or ask MB before
   drafting. Translator credit: ask, or assume MB as for earlier texts and list it.
@@ -55,7 +61,8 @@ later": then collect his decisions, never wait for them, and say which choice th
 - **Quotations:** classify every one (`<id>_quotes.tsv`, § 12.2.4 a–e). Polish editions: the BN catalogue
   (data.bn.org.pl) plus a second source; originals of third-language quotations only where § 12.2.4 c allows. MB looks
   up pages and wordings in his own books: each becomes an S-item.
-- **Names:** group names from the kartoteka (a missing form → an E-item to srom-produkcja, the Kanon's owner); place
+- **Names:** group names from the kartoteka (a missing form → a proposed row in the notes sheet and a question in
+  `MB-decisions.md`; the kartoteka belongs to srom-kanon and changes only with MB's approval); place
   names from candidates in `sources/prng/`, chosen per passage by chronology, geography and politics, never by a fixed
   mapping; institutions and acts: an official Polish name exists only for EU acts (EUR-Lex, IATE) and treaties
   published in Dziennik Ustaw (none for the Council of Europe, OSCE or UN) — otherwise an attested convention, otherwise
@@ -88,11 +95,12 @@ form; declined names in the right gender; titles of works translated at first me
 terms applied (count them, and their `avoid` forms); every term chosen by the author kept apart (Gypsy ≠ Roma, § 12.2.6).
 
 **5. For MB** — the notes sheet `<id>_uwagi.md` (Polish, plain words, recommendation with each choice) and one
-question per call in `_handoffs/MB-decisions.md` under the text's code (`_handoffs/README.md` § Questions for MB);
-for srom-produkcja an E-item (group names, refs.json slips, Kanon gaps). Then `<id>_robocza.docx` goes to MB.
+question per call in `MB-decisions.md` under the text's code (format: the session rules, CLAUDE.md);
+what srom-produkcja's side must change (a refs.json slip, a group name, a Kanon gap) goes in the text's section of
+`STATUS.md` and is done as a stage-1 correction (a new hand-off line). Then `<id>_robocza.docx` goes to MB.
 
-**6. Back** — after each editing round: rename the master, import it, check, deliver an E-item with sha256
-(`references/outputs.md` § Back). The md is never edited by hand after the first import.
+**6. Back** — after each editing round: rename the master, import it, check, log the delivery with sha256 in
+`STATUS.md` (`references/outputs.md` § Back). The md is never edited by hand after the first import.
 
 **7. Termbase** — terms the draft fixed go in as PROVISIONAL rows; MB's sign-off makes them HOUSE, logged in
 `references/tlumacz-decisions.md`; then the preflight checks.
@@ -116,7 +124,9 @@ for srom-produkcja an E-item (group names, refs.json slips, Kanon gaps). Then `<
 - Errors in the source go to the query sheet, never silently fixed. Doubts are flagged with what you would do.
 - Scope: EN→PL. Only exception: the author keywords of a Polish-original article, PL→EN, with the same termbase.
 - Editing is a separate step after translation: apply only the translation-time §§ listed in step 1.
-- Never edit srom-produkcja, srom-kanon or srom-quant files: ask through `_handoffs/`. Never write over a Word file MB
+- Translation never edits the frozen source, refs.json, the Kanon, the kartoteka or srom-quant's data: a change there is
+  a stage-1 correction by srom-produkcja's procedure (new hand-off line) or, for the house rules, MB's approved
+  decision. Never write over a Word file MB
   may have opened; never edit `<id>_pl.md` by hand once it is an import of MB's master.
 
 ## References

@@ -1,7 +1,7 @@
 # srom-tlumacz — per-article files
 
-All in `work/<id>/` of the module folder; `<id>` = the master CSV `article_id` (the folder srom-produkcja names in its
-T-item). The contract's source of truth is srom-produkcja `references/handoff.md`; `scripts/tlumacz-test_handoff.py`
+All in `work/<id>/` of the module folder (`srom-tlumacz/` in the workspace); `<id>` = the folder named in the
+`STATUS.md` hand-off log. The contract's source of truth is srom-produkcja `references/handoff.md`; `scripts/tlumacz-test_handoff.py`
 proves the parts relied on here. srom-tlumacz does not duplicate what srom-produkcja enforces: structure, note markers,
 citation keys, numbers, typography, Kanon lint, DOCX.
 
@@ -10,7 +10,7 @@ citation keys, numbers, typography, Kanon lint, DOCX.
 `src/`: `<id>_src.md` (frozen SROM-MD, every reference a `[@key …]` token, note labels = printed numbers),
 `refs.json`, `<id>_src_front.md` (title, abstract, keywords of the original), `<id>_queries.md` or `<id>_uwagi.md`
 (their RIP notes), `manifest.sha256`. Copy them, then `shasum -a 256 -c manifest.sha256` against the values in the
-T-item. A later T-item with a new `refs.json`: copy it in, update the manifest, re-run the pair check.
+hand-off log line. A later line with a new `refs.json`: copy it in, update the manifest, re-run the pair check.
 
 ## Out
 
@@ -72,25 +72,26 @@ become HOUSE on MB's sign-off (`references/tlumacz-tb-schema.md`, `references/tl
    and the import is repeated.
 3. `check.py --pair` (both `--refs`) → `CHECK OK`; `build.py … --pair-src <id>_src.md --queries <id>_pytania_tlum.csv
    --draft` → `PASS`; `tlumacz-front_check.py` → `FRONT OK`.
-4. E-item `## E<n> — [<Author>] delivery: …` with the sha256 (`first8…last7`) of `<id>_robocza.docx`, `<id>_pl.md`,
-   `<id>_front_pl.md` and, when they exist, `<id>_refs_tlum.json`, `<id>_pytania_tlum.csv`; the sha256 of the
-   srom-produkcja `refs.json` checked against; the three verdicts. A new round = a new item that supersedes the old.
+4. A delivery line in the `STATUS.md` hand-off log (srom-produkcja `references/stages.md`) with the sha256
+   (`first8…last7`) of `<id>_robocza.docx`, `<id>_pl.md`, `<id>_front_pl.md` and, when they exist,
+   `<id>_refs_tlum.json`, `<id>_pytania_tlum.csv`; the sha256 of the srom-produkcja `refs.json` checked against; the
+   three verdicts. A new round = a new line that supersedes the old.
 
 ## Skeleton: `<id>_intake.md` (English; the plan)
 
 ```
 # [<Author>] "<original title>" (<venue, year>) — intake (dd.mm.yyyy HH:MM)
-Source: src/… copied from srom-produkcja (T<n>); manifest n/n OK.
+Source: src/… copied from srom-produkcja (hand-off log dd.mm.yyyy HH:MM); manifest n/n OK.
 Size (measured, wc -w): … words; … notes (… keyed, … literal); headings; block quotations.
 Author: <name> — pronouns <from the source, quoted | asked MB>. Translator credit: <confirmed | assumed, MB to confirm>.
 ## 1. What the article needs   | Feature | Where | Rule (Kanon §) | Handling in the draft |
 ## 2. Polish editions and originals (§ 12.2.4) — checked dd.mm.yyyy   | Work | Polish edition / original found (two sources) | Use |
 ## 3. Terminology   HOUSE rows that apply; then | EN | Proposal | Why / alternative | (OPEN until MB decides)
 ## 4. Doubts in the source (flagged, not corrected; what I would do)
-## 5. Plan   files, checks, MB items, E-items
+## 5. Plan   files, checks, MB items, STATUS lines
 ```
 
-## Skeleton: `<id>_uwagi.md` (Polish; for MB, rendered by `_handoffs/tools/mb_view.py`)
+## Skeleton: `<id>_uwagi.md` (Polish; for MB)
 
 ```
 # [<Author>] „<tytuł polski>” — przekład wstępny: arkusz uwag dla MB (dd.mm.rrrr HH:MM)
@@ -104,4 +105,4 @@ Stan dd.mm.rrrr: n otwartych.
 ## 4. Wątpliwości w oryginale (bez poprawiania; co bym zrobił)
 ```
 An S-item closes as `[zamknięte dd.mm.rrrr (MB)]`. Each item that needs MB also gets its question in
-`_handoffs/MB-decisions.md` under the same ID (format: `_handoffs/README.md` § Questions for MB).
+`MB-decisions.md` (workspace root) under the same ID (format: the workspace `CLAUDE.md`).

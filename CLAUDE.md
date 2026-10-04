@@ -30,6 +30,22 @@ The system has to work, not impress. Never let it grow into an outsized, byzanti
 - Lean is about what gets built, not what MB hears: always tell MB about more automated options worth knowing
   (with their cost), then let him choose.
 
+## Model and effort for every instruction to MB (MB, 04.10.2026) — hard rule
+HARD RULE (MB, 04.10.2026). Every time you tell MB to do something in a session — in Claude Code or in Cowork: start a
+session, apply or test a patch, run a check, paste a text, take a step on the Mac — you give, together with the
+instructions, your best estimate of the Claude model and effort level that session should run at. An instruction to MB
+without it is incomplete: do not send it. If unsure, say so and still give your best estimate. This includes
+instructions you write for the Cowork session, and each item of a list of steps run in a different session.
+Format, one line directly under the instruction:
+  Run with: <Opus | Sonnet | Haiku> · <low | medium | high | xhigh | max> effort — <one clause: why>.
+(Opus, Sonnet, Haiku = the current version of each.) Rough scale, adjust to the task: Haiku/Sonnet low = one fully
+specified mechanical step; Sonnet medium = apply and test patches, preflights, routine work that follows a written
+procedure; Sonnet/Opus high = debugging or building across several files, difficult RIP/INJECT, CSV/DOI/Crossref work;
+Opus high–xhigh = editorial judgement, translation, referee-grade reviews, Zizek cards and block choice, anything MB
+relies on without checking every line; Opus xhigh–max = system-wide audits, changing rules or skills, reconciling Cowork
+and Code. Does not apply to chat answers or to what you do yourself in the session you are in.
+(Cowork's copy: its `workspace/CLAUDE.md` § "Tasks you hand to MB".)
+
 ## Start of every session
 1. Read your incoming file in `_handoffs/` (`tlumacz-to-produkcja.md` if you are srom-produkcja,
    `produkcja-to-tlumacz.md` if you are srom-tlumacz) and Cowork's `workspace/MB-decisions.md` (§ Cowork). Both modules also read

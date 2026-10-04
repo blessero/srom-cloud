@@ -1,0 +1,8 @@
+# SROM toolchain, Python >= 3.10 (suite tested on 3.10, 3.11 and 3.13).
+# Pinned to the versions the suite and the production texts ran on: PDF extraction depends on PyMuPDF's behaviour.
+python-docx==1.2.0
+lxml==6.1.3
+PyMuPDF==1.28.2
+# Not Python, also needed (setup.sh installs or checks them):
+#   pandoc >= 3.1 (tested with 3.8.3) — every import, build and Word copy
+#   node + the npm package acorn — optional: only the ES3 syntax test of the InDesign scripts (falls back to a weaker parser)

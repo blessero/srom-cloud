@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""tlumacz-draft_check.py — checks of a translation draft in work/<id>/ (leaf 1.4.2a; replaces the per-article copies).
+"""tlumacz-draft_check.py — checks of a translation draft in work/<id>/ (replaces the per-article copies).
 
   tlumacz-draft_check.py <id> [--leftover] [--marks] [--quotes]   (no flag = all three)
   tlumacz-draft_check.py --all          every work/<id>/ that has <id>_pl.md

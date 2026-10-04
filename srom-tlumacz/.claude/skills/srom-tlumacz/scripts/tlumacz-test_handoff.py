@@ -3,8 +3,8 @@
 
 Run after any srom-produkcja update. Builds fixtures in a temp dir and checks the verdicts of
 check.py --pair, export_work.py/docx_in.py round trip, build.py --queries header handling and
-cite_map.py audit. KNOWN GAP lines document behaviour that srom-produkcja is asked to change
-(../_handoffs/tlumacz-to-produkcja.md); they do not count as failures until the change lands, then flip.
+cite_map.py audit. KNOWN GAP lines document behaviour srom-produkcja does not have yet (listed in the hand-off notes);
+they do not count as failures until the change lands, then flip.
 
 Last line: HANDOFF CONTRACT n/n  (exit 0 only if every contract case holds)
 """
@@ -19,7 +19,7 @@ if not S:
 try:
     import docx  # noqa: F401  srom-produkcja's scripts run under this interpreter (sys.executable)
 except ImportError:
-    print(f"python-docx missing for {sys.executable}: run with ~/.venvs/srom/bin/python"); sys.exit(2)
+    print(f"python-docx missing for {sys.executable}: on the Mac use ~/.venvs/srom/bin/python, elsewhere install srom-produkcja's requirements.txt"); sys.exit(2)
 D = tempfile.mkdtemp()
 
 
@@ -197,11 +197,12 @@ m0 = rows6([])
 expect("E6 control: without --pair-src the cells keep the source labels 2, 3", m0.get("q-two") == "2" and m0.get("q-three") == "3")
 
 # T26 (29.09.2026): the hand-back ("Back" in handoff.md). The Word file in our work/<id>/ is the master; we import it
-# with docx_in.py (the md is never edited by hand) and name the files with sha256 in a delivery E-item; srom-produkcja
+# with docx_in.py (the md is never edited by hand) and name the files with sha256 in a delivery line of the hand-off
+# log (STATUS.md); srom-produkcja
 # takes them with take_back.py, which re-imports the master and requires the md to equal that import byte for byte.
 import hashlib, shutil
-expect("T26: handoff.md 'Back' — Word master in srom-tlumacz's work/<id>/, delivery E-item, take_back.py",
-       "## Back:" in HO and "that Word file is the\n   master" in HO and "delivery: …" in HO and "take_back.py" in HO)
+expect("T26: handoff.md 'Back' — Word master in srom-tlumacz's work/<id>/, delivery line, take_back.py",
+       "## Back:" in HO and "that Word file is the\n   master" in HO and "delivery line" in HO and "take_back.py" in HO)
 TB = os.path.join(S, "take_back.py")
 DL = os.path.join(D, "tl", "work", "x"); SD = os.path.join(D, "ts", "work", "x")
 os.makedirs(DL); os.makedirs(SD)

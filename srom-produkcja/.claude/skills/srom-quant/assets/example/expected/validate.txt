@@ -1,0 +1,14 @@
+Checked 2 rows against 38-column schema.
+
+BLOCKING ERRORS (4):
+  ✗ SROM-18-2025-001: DOI prefix still placeholder 10.XXXXX
+  ✗ SROM-18-2025-001: pub_date_online '2025-12-TODO' not YYYY-MM-DD
+  ✗ SROM-18-2025-002: DOI prefix still placeholder 10.XXXXX
+  ✗ SROM-18-2025-002: pub_date_online '2025-12-TODO' not YYYY-MM-DD
+
+WARNINGS (2):
+  ! SROM-18-2025-001: is_translation=TAK but translators_struct empty or absent (no translator in the deposit)
+  ! SROM-18-2025-002: is_translation=TAK but translators_struct empty or absent (no translator in the deposit)
+
+✗ NOT deposit-ready — resolve blocking errors first.
+exit 1

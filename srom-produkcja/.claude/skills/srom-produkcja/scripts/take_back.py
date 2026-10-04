@@ -4,18 +4,18 @@
     python3 take_back.py <delivery_dir> <id> --src-dir work/<id> [--out work/<id>/pl]
                          [--expect <file>=<sha256 | first8…last7>] …
 
-<delivery_dir> is srom-tlumacz's `work/<id>/`, read only. The delivery item (E-item) names the files with their
+<delivery_dir> is srom-tlumacz's `work/<id>/`, read only. The delivery line (STATUS.md hand-off log) names the files with their
 sha256. Required files: `<id>_robocza.docx` (the editor's Word file, the master), `<id>_pl.md` (its import),
 `<id>_front_pl.md`. Optional files: `<id>_refs_tlum.json` and `<id>_pytania_tlum.csv`, taken when present.
 Steps:
   1. every file present, and each --expect value matches (full hex, or the abbreviated form used in the
-     handoff items, "3b060a87…1f3d5366"); with --expect, every file taken needs one
+     hand-off log, "3b060a87…1f3d5366"); with --expect, every file taken needs one
   2. copied to --out (default <src-dir>/pl); SHA256SUMS written there (shasum -a 256 -c format)
   3. the Word master is imported again (docx_in.py) and must equal the delivered `<id>_pl.md` byte for byte, so
      that what is built is what the editor approved
   4. check.py --pair <src-dir>/<id>_src.md against the copy, with <src-dir>/refs.json (+ the refs_tlum copy)
 Then build from the copy (the command is printed). The copies are never edited. A correction goes into the
-master, and a new delivery item follows.
+master, and a new delivery line follows.
 Last line: TAKE-BACK OK <id> (n files) / TAKE-BACK FAILED <id>: n problem(s)
 """
 import argparse, hashlib, os, re, shutil, subprocess, sys, tempfile
@@ -71,16 +71,16 @@ def main():
     for n, h in hashes.items():
         if n in expect:
             if not matches(h, expect[n]):
-                probs.append(f"sha256 differs from the delivery item: {n} is {short(h)}, item says {expect[n]}")
+                probs.append(f"sha256 differs from the delivery line: {n} is {short(h)}, the line says {expect[n]}")
         elif expect:
-            probs.append(f"no --expect for {n} (the delivery item must list every file)")
+            probs.append(f"no --expect for {n} (the delivery line must list every file)")
     for f in expect:
         if f not in hashes:
             probs.append(f"--expect names a file that is not delivered: {f}")
     for n, h in hashes.items():
         print(f"  {n:34} {short(h)}" + ("  (compared)" if n in expect and matches(h, expect[n]) else ""))
     if not expect:
-        print("  note: no --expect given, sha256 not compared with a delivery item")
+        print("  note: no --expect given, sha256 not compared with a delivery line")
     if probs:
         return finish(i, probs, 0)
     os.makedirs(out, exist_ok=True)

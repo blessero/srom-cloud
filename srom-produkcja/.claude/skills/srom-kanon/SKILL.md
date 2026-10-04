@@ -1,6 +1,6 @@
 ---
 name: srom-kanon
-description: House style enforcement for Studia Romologica, the Polish-language Romani studies annual. Use when checking, correcting, copyediting or typesetting any article for this journal, or when asked about SRom citation format, footnotes, bibliography, dates, Cyrillic transcription/transliteration, archival citation, interview coding, captions, or Romani-name capitalisation. Also use when preparing SRom bibliography data for the master CSV or Crossref deposit, and when an article arrives in the wrong style and needs normalising. Triggers on "Studia Romologica", "SRom", "kanon edytorski", or a Polish humanities article that must follow the journal's footnote system.
+description: House style enforcement for Studia Romologica, the Polish-language Romani studies annual. Use when checking, correcting, copyediting or typesetting any article for this journal, or when asked about SRom citation format, footnotes, bibliography, dates, Cyrillic transcription/transliteration, archival citation, interview coding, captions, or Romani-name capitalisation. Also use when preparing SRom bibliography data for the master CSV or Crossref deposit, and when an article arrives in the wrong style and needs normalising. Triggers on "Studia Romologica", "SRom", "kanon edytorski", or a Polish humanities article that must follow the journal's footnote system. Not for running the conversion and build tools (srom-produkcja), translating (srom-tlumacz) or metadata, DOI and website work (srom-quant): those skills apply these rules.
 ---
 
 # Studia Romologica — house style (Kanon v1.16)
@@ -9,6 +9,7 @@ Polish-language journal. Footnotes + full end bibliography; **never author-date.
 
 - **Normative text:** `references/kanon-redakcyjny.md` — *Kanon edytorski*, Polish, § 0–17. Read the relevant § before ruling on anything not settled below; quote it by its §.
 - **Digest:** `RULES.md` — the same rules in English, same § numbers; load this first.
+- **Journal facts** (ISSN, publisher, indexing …): `references/SROM_knowledge_base.md`, the one fact file of the skills; not repeated elsewhere.
 - **Checks:** `scripts/lint_srom.py`. New rules: Kanon first (with a § 17 entry), then RULES.md; ask the editor before changing either.
 - The author guidelines (*Wskazówki dla autorów*) are a separate human text outside this skill, derived from the Kanon.
 

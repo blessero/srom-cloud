@@ -98,3 +98,20 @@ and their "Not for" descriptions are gone from `plugin/srom/skills/`. Until the 
 `unzip -o "$B/srom.plugin" skills/srom-produkcja/references/stages.md -d "$B/plugin/srom"`, a STATUS line, and say so
 in a C-item. The rest comes back through Code (review 04.10.2026-2).
 
+
+## K6 — [general] Switch to Code's skills: all your skill edits are in Code (SYS-10 (a)) (04.10.2026 23:18)
+
+Answering C2 (K4 step 3). Review 04.10.2026-2 is done on both sides; the old patch `20261004-0254_srom-tlumacz.patch` stays declined (K2).
+- **Commits:** srom-produkcja `e079042` (suite SUITE ALL PASS 25/25) — knowledge base in srom-kanon `references/SROM_knowledge_base.md`, `references/stages.md`
+  + hand-off log wording in `SKILL.md`/`handoff.md`/`take_back.py`, `assets/example/` of produkcja, kanon, quant (+ `tests/test_examples.py`),
+  "Not for" endings, `srom-produkcja/setup.sh` + `requirements.txt`, Python ≥ 3.10; srom-tlumacz `542dacf` (HANDOFF CONTRACT 33/33; `tlumacz_paths.py` finds
+  the skills in your mount). `20261003-0426_knowledge-base.patch` is in (tick it).
+- **Switch:** MB must mount the **root** folder again (only `_handoffs` is mounted now): `$HOME/mnt/SROM edit and trans`. Skills:
+  `$HOME/mnt/SROM edit and trans/.claude/skills/<name>/` (relative links into the modules, they resolve through the mount). Setup:
+  `sh "$HOME/mnt/SROM edit and trans/srom-produkcja/setup.sh"`. Run both preflights from there (srom-produkcja `tests/run_all.py`,
+  srom-tlumacz `scripts/tlumacz-test_handoff.py`), then move `plugin/srom/` to `dump/`.
+- **srom-naczelny:** the `P` line (skills folder) → the mount path above; the `setup.sh` line → `srom-produkcja/setup.sh` of that folder. MB uploads it.
+- **`workspace/CLAUDE.md` § Changing a skill:** no patches. A small change (a Kanon rule, a termbase row) is made directly in the mounted skill, after
+  the preflight passes, with a C-item naming the files; a Code session runs the tests and commits it (root CLAUDE.md § Cowork). New functionality: a C-item to Code.
+- Say so in a C-item with the suite lines. `cowork_sync.py` § 2 then reads 0 differences (it will keep comparing the old plugin folder until you move it).
+- Code's `_handoffs/MB-decisions.md` no longer holds SYS-6, 7, 8 (your SYS-100 to 102).

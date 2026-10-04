@@ -1,6 +1,6 @@
 ---
 name: srom-produkcja
-description: Tested toolchain that turns an article for Studia Romologica (SROM) — a Polish Word file with footnotes, an author-date/Harvard manuscript, or a foreign-language PDF/DOCX — into a kanon-compliant Polish DOCX that imports into the SROM InDesign template with named paragraph/character styles and real footnotes (first citation / short form / Ibidem generated from CSL-JSON). For translated articles it prepares the frozen source and takes the translation back; the translating itself is srom-tlumacz's (separate chat). Use whenever an SROM article is imported from DOCX/PDF, converted from author-date to footnotes, keyed into refs.json, exported as a Word working copy or proof, checked for note/marker integrity or translation handoff, built, or placed in InDesign; also for "SROM-MD", "refs.json", "build.py", "Ibidem check", "import do InDesign", "skład SROM". Complements srom-kanon (rules), srom-tlumacz (translation) and srom-quant (metadata).
+description: Tested toolchain for Studia Romologica (SROM) production, stages RIP and INJECT: turns an article — a Polish Word file with footnotes, an author-date/Harvard manuscript, or a foreign-language PDF/DOCX — into a kanon-compliant Polish DOCX that imports into the SROM InDesign template with named paragraph/character styles and real footnotes (first citation / short form / Ibidem generated from CSL-JSON), plus the InDesign scripts. Owns the stage-gate spec of the whole pipeline (references/stages.md). Use whenever an SROM article is imported from DOCX/PDF, converted from author-date to footnotes, keyed into refs.json, exported as a Word working copy or proof, checked for note/marker integrity, taken back from translation, built, or prepared for InDesign; also for "SROM-MD", "refs.json", "build.py", "Ibidem check", "import do InDesign", "skład SROM". Not for translating (srom-tlumacz), the house rules themselves (srom-kanon) or metadata, DOI and website work (srom-quant).
 ---
 
 # srom-produkcja — from manuscript to InDesign
@@ -10,13 +10,18 @@ verdict line; nothing goes to InDesign unless `build.py` prints `PASS`. The hous
 **srom-kanon** skill — `references/kanon-redakcyjny.md` (normative, Polish) and `RULES.md` (English digest), same
 § numbers; this skill implements them and cites them by §, never restates them. srom-kanon is **required**: the build
 runs its linter and fails, saying so, if the skill is missing (looked up next to this skill, in `~/.claude/skills`, or
-`$SROM_KANON`).
+`$SROM_KANON`). Journal facts (ISSN, publisher, indexing …) are in srom-kanon's `references/SROM_knowledge_base.md`,
+the one fact file; the stages of a text, with each stage's input, output and pass/fail check, in `references/stages.md`.
 
-Scripts live in `scripts/` next to this file (`S=<skill dir>/scripts`). Requirements: pandoc ≥ 3.1,
-Python ≥ 3.12 with python-docx, lxml, PyMuPDF. Where you run decides the rest:
-- **Claude Code on the editor's Mac** — Python is the venv `~/.venvs/srom/bin/python` (the system
-  `python3` is too old; wherever this file says `python3`, use the venv). Work in the article's own folder
-  in the editor's project, never inside the skill directory. InDesign is installed locally.
+Scripts live in `scripts/` next to this file (`S=<skill dir>/scripts`). Requirements: pandoc ≥ 3.1 (tested with
+3.8.3), Python ≥ 3.10 with python-docx, lxml, PyMuPDF (`srom-produkcja/requirements.txt`, pinned to the versions the
+suite runs on; `sh srom-produkcja/setup.sh` installs them on plain Linux). Work in the text's own folder
+(`srom-produkcja/work/<id>/`; volume data in `srom-produkcja/volumes/`), never inside the skill directory. Where you
+run decides the rest:
+- **The editor's Mac (Claude Code)** — Python is the venv `~/.venvs/srom/bin/python` (the system `python3` is too
+  old; wherever this file says `python3`, use the venv). InDesign is installed locally.
+- **Cowork / plain Linux** — `python3` after `setup.sh`. InDesign runs on the editor's Mac: the build writes the DOCX
+  and the `.jsx` scripts, he places the DOCX and runs the scripts (`references/stages.md` § 4).
 - **claude.ai sandbox** — `python3`; work in `/home/claude/<article>/` and hand every intermediate file to
   the user (`present_files`) — the sandbox resets between sessions.
 
@@ -57,16 +62,17 @@ and nothing verifies it.
 explicitly released (`--allow-unknown`, `--allow-unparsed`); a page-only "(s. 21)" becomes a citation of the
 work cited just before it and is listed.
 
-**C. Translated article** — the translating is srom-tlumacz's, in its own chat; the contract is
-`references/handoff.md`. Here: 1a/1b → 3 → 4a/4b **in the source language** (4a with `--apply <id>_src.md --renumber`:
-note labels = printed numbers) → `check.py` → hand over
-`<id>_src.md` + refs.json + `<id>_src_front.md` (+ working copy and `build.py --source` proof for you) with a
-T-item. Back (`handoff.md`, "Back"): srom-tlumacz makes `<id>_robocza.docx` in its `work/<id>/`, you edit it there
-(that Word file is the master), srom-tlumacz imports it (`docx_in.py`), checks it and sends a delivery E-item with
-the sha256 of `<id>_robocza.docx`, `<id>_pl.md`, `<id>_front_pl.md` (Polish title, abstract, keywords: header data
-for the CSV, not built), `<id>_refs_tlum.json`, `<id>_pytania_tlum.csv` → here `take_back.py <srom-tlumacz>/work/<id>
-<id> --src-dir work/<id> --expect …` (copies into `work/<id>/pl/`, compares sha256, re-imports the Word master,
-`check.py --pair`) → 2 → 6 from `work/<id>/pl/` with both `--refs`, `--pair-src <id>_src.md` and `--queries`
+**C. Translated article** — the translating is srom-tlumacz's (stage TRANS); the contract is
+`references/handoff.md`, the stage gates `references/stages.md`. Here: 1a/1b → 3 → 4a/4b **in the source language**
+(4a with `--apply <id>_src.md --renumber`: note labels = printed numbers) → `check.py` → hand over
+`<id>_src.md` + refs.json + `<id>_src_front.md` (+ working copy and `build.py --source` proof for the editor): copied
+into `srom-tlumacz/work/<id>/src/` with a line in the hand-off log of `STATUS.md`. Back (`handoff.md`, "Back"):
+srom-tlumacz makes `<id>_robocza.docx` in `srom-tlumacz/work/<id>/`, the editor edits it there (that Word file is the
+master), srom-tlumacz imports it (`docx_in.py`), checks it and logs the delivery with the sha256 of
+`<id>_robocza.docx`, `<id>_pl.md`, `<id>_front_pl.md` (Polish title, abstract, keywords: header data for the CSV, not
+built), `<id>_refs_tlum.json`, `<id>_pytania_tlum.csv` → here `take_back.py srom-tlumacz/work/<id> <id> --src-dir
+srom-produkcja/work/<id> --expect …` (values from the delivery line; copies into `work/<id>/pl/`, compares sha256,
+re-imports the Word master, `check.py --pair`) → 2 → 6 from `work/<id>/pl/` with both `--refs`, `--pair-src <id>_src.md` and `--queries`
 (merges the translator's query rows) → 7. The translator's name is front matter `tlumaczenie:` (not printed; the build report
 gives the `translators_struct` value for the master CSV). Never MarkItDown: it loses italics and note markers.
 
@@ -133,6 +139,7 @@ paragraph tracking ±5/±10, one undo step). Clean template: `indesign/SROM_szab
 
 - `references/srom-md.md` — SROM-MD format, citation syntax, refs.json field conventions, roles
 - `references/handoff.md` — what goes to srom-tlumacz and what comes back; the handoff check
+- `references/stages.md` — the stages RIP → TRANS → INJECT → InDesign: input, output, pass/fail of each; the hand-off log
 - `references/style-sheet.md` — the house style: every paragraph/character style, hierarchy and values
 - `references/indesign.md` — Word-import preset, template requirements, post-import and Ibidem scripts, first-article verification
 - `references/decisions.md` — Kanon rule → implementing file → test; toolchain-only conventions; open items

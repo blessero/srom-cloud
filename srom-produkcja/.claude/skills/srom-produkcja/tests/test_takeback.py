@@ -1,5 +1,5 @@
 """Hand-back of a translation (handoff.md "Back", review 29.09.2026 row 3): take_back.py copies a delivery from
-srom-tlumacz's folder, compares sha256 with the delivery item, requires the delivered SROM-MD to be the import of
+srom-tlumacz's folder, compares sha256 with the delivery line, requires the delivered SROM-MD to be the import of
 the editor's Word master, and runs the handoff check; handoff.md and SKILL.md describe that path."""
 import hashlib, json, os, re, shutil, subprocess, sys, tempfile
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -68,10 +68,10 @@ t("the build command is printed with both --refs, --pair-src and --queries",
 r2, _ = take(dl, *[f"--expect={f}={h}" for f, h in before.items()], out=os.path.join(d, "out_full"))
 t("full sha256 values are accepted too", r2.returncode == 0, r2.stdout)
 
-# 2. sha256 does not match the delivery item / item incomplete
+# 2. sha256 does not match the delivery line / line incomplete
 bad = [e if "art_pl.md" not in e else "--expect=art_pl.md=00000000…0000000" for e in exp]
 r, _ = take(dl, *bad, out=os.path.join(d, "out_badsha"))
-t("a sha256 that differs from the delivery item fails", r.returncode == 1 and "sha256 differs from the delivery item: art_pl.md" in r.stdout, r.stdout)
+t("a sha256 that differs from the delivery line fails", r.returncode == 1 and "sha256 differs from the delivery line: art_pl.md" in r.stdout, r.stdout)
 r, _ = take(dl, *exp[:-1], out=os.path.join(d, "out_partial"))
 t("with --expect, a file the item does not list fails", r.returncode == 1 and "no --expect for" in r.stdout, r.stdout)
 t("nothing is copied when the sha256 check fails", not os.path.exists(os.path.join(d, "out_badsha")))
@@ -108,8 +108,8 @@ HO = open(os.path.join(ROOT, "references", "handoff.md"), encoding="utf-8").read
 back = HO.split("## Back", 1)[1] if "## Back" in HO else ""
 t("handoff.md 'Back': the editor's Word file in srom-tlumacz's work/<id>/ is the master",
   "master" in back and "work/<id>/" in back and "<id>_robocza.docx" in back, back[:600])
-t("handoff.md 'Back': srom-tlumacz imports; a delivery E-item lists the files with sha256",
-  "delivery item" in back and "sha256" in back and all(f"`<id>_{x}`" in back for x in ("pl.md", "front_pl.md", "refs_tlum.json", "pytania_tlum.csv", "robocza.docx")), back[:1500])
+t("handoff.md 'Back': srom-tlumacz imports; a delivery line in the hand-off log lists the files with sha256",
+  "delivery line" in back and "sha256" in back and all(f"`<id>_{x}`" in back for x in ("pl.md", "front_pl.md", "refs_tlum.json", "pytania_tlum.csv", "robocza.docx")), back[:1500])
 t("handoff.md 'Back': srom-produkcja takes it with take_back.py into work/<id>/pl/ and builds from there",
   "take_back.py" in back and "work/<id>/pl/" in back and "build.py" in back, back[:1500])
 t("handoff.md 'Back': never re-export over the master", re.search(r"(?i)never .{0,60}(re-?export|overwrite)", back), back[:1500])

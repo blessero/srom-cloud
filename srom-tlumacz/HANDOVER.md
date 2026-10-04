@@ -14,7 +14,7 @@ Leaves closed (ALL MET): 1.1 contracts, 1.2 blind baseline, 1.3.1 vol. 18 preced
 | `work/<id>/` | per-article work: `src/` (srom-produkcja's frozen hand-off + sha256), intake, `<id>_pl.md`, `<id>_front_pl.md`, queries, quotes, notes sheet `<id>_uwagi.md`, Word working copy, `research/` |
 | `tlumacz-PLAN.md`, `tlumacz-gates-*.md` | tree, contract, status log; acceptance gates of each leaf (closed gates cite pre-1.4.1 paths: the scripts and the termbase moved into the skill, the per-article checker copies were deleted; see gates 1.4.1) |
 | `training/` | MB's Polish reading corpus: texts git-ignored; `sources.tsv` (keys for `TR <key>: «…»` evidence) and `manifest.sha256` tracked |
-| `sources/` | `vol18-md/` (clean vol. 18 EN + PL, precedent anchors), `vol18-en/` (originals, § 5), `Studia_Romologica_nr_18_2025.txt` (old extraction, line refs), `prng/` (PRNG world register), `SROM_knowledge_base.md` (journal facts: check here rather than assume) |
+| `sources/` | `vol18-md/` (clean vol. 18 EN + PL, precedent anchors), `vol18-en/` (originals, § 5), `Studia_Romologica_nr_18_2025.txt` (old extraction, line refs), `prng/` (PRNG world register) |
 | `tlumacz-baseline-1.2/`, `tlumacz-1.3.1/`, `tlumacz-1.3.2/` | closed leaves; `tlumacz-1.3.2/vol19_terms.py` is re-run after each vol. 19 draft |
 | `../_handoffs/tlumacz-to-produkcja.md` | messages to srom-produkcja (E-items; E18 twice, cite it with its [Author] tag); replies in `produkcja-to-tlumacz.md` |
 
@@ -83,4 +83,4 @@ text's code. After MB returns a Word file: the hand-back (skill `references/outp
 ## 8. Facts worth keeping
 
 Module facts now live in the skill (official Polish names, Roma as a *mniejszość etniczna*), the termbase (*urasowienie*
-ESTABLISHED, *subalterni* on one occurrence) and `sources/SROM_knowledge_base.md`.
+ESTABLISHED, *subalterni* on one occurrence) and srom-kanon's `references/SROM_knowledge_base.md` (journal facts; the old copy in `sources/` was merged into it 03.10.2026 and removed 04.10.2026).

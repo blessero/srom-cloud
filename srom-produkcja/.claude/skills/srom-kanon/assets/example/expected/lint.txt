@@ -1,0 +1,24 @@
+SROM canon check — input/pahulich_akapit.md
+============================================================
+
+--- WARN ---
+1:1126  [CYRILLIC] Cyrillic script: body → Polish transcription (PWN/KSNG); apparatus → ALA-LC.
+        … nie występują w opowiadaniu «Цыганка» (1830); tu przekład z angiel …
+
+--- counts (interpret by zone; RULES.md §J) ---
+  apparatus_year_forms (1943 r.): 0
+  prose_year_forms (1943 roku): 2
+  apparatus_century_forms (XX w.): 0
+  prose_century_forms (XX wieku): 0
+  i_in: 0
+  ibidem: 0
+  ascii_apostrophe_inside_word (soft sign?): 0
+
+Not checkable here:
+  · Ibidem legality (same page) — proofs.
+  · Short-title consistency; note↔bibliography coverage.
+  · Metryczki anonymisation — editor's call.
+  · Initials in notes / full names in bibliography.
+  · Surnames must NOT be capitalised in the CSV.
+  · Missing source data: flag it, never reconstruct.
+exit 0

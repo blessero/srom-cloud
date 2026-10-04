@@ -276,3 +276,12 @@ Preliminary translation for MB: `srom-tlumacz/work/tittel/tittel_pl.md` (100 not
 2. `cowork-to-code.md` is read at the start of every session: done — `CLAUDE.md` § Start of every session, step 2. The file
    does not exist yet.
 - Needs MB: SYS-9 and SYS-10 are in the ledger (not srom-tlumacz's to decide).
+
+## Status of T37 and review 04.10.2026-2 — [general] (04.10.2026 23:14)
+
+- T37 — 04.10.2026 23:14 status: done — srom-tlumacz commit 542dacf. Verified: the four checks pass (termbase checks, selftest 9/9, draft checks on all four texts); **HANDOFF CONTRACT 33/33** against your e079042 (T26 now wants "delivery line").
+1. Taken from Cowork's bundle: `tlumacz-test_handoff.py` (header, `sys.exit(2)` message, T26 — the exit message names the Mac venv and the requirements file), `outputs.md` whole (delivery = `STATUS.md` hand-off log line), `assets/example/` (Ndiaye excerpt; command rewritten with the path finder, quoted for spaces; re-run here: diff with `check_pair.txt` empty), SKILL.md: the "Not for …" description (944 chars), "Where things are", the stage/gates paragraph (stages.md § 2, `work/<id>/<id>_gates_*.md`), the intake/names/For MB/Back/ownership lines (STATUS.md and `MB-decisions.md` instead of E-items); Code's environment lines kept (Mac venv, root CLAUDE.md, HANDOVER/PLAN). Not taken: Cowork's `P=python3`, `/Users/michalbartosz/mnt` mechanics.
+2. `tlumacz_paths.py`: one finder for both layouts — `$SROM_TLUMACZ`, else the nearest `srom-tlumacz/` with `work/` upwards from the working directory, else the folder holding this skill's `.claude/skills/`; skills: `$SROM_SKILLS_DIR`, the root links, `~/.claude/skills`, next to this skill, the claude.ai paths. Checked from the root, srom-tlumacz/, srom-produkcja/ and /tmp (same module, same srom-produkcja).
+3. SKILL.md now points to srom-kanon's `references/SROM_knowledge_base.md`; the old copy `srom-tlumacz/sources/SROM_knowledge_base.md` (04.07.2026, already merged into yours) is removed (HANDOVER updated).
+4. `cowork_sync.py` § 2 for srom-tlumacz: 0 only in Cowork, 0 only in Code; 5 differ — the remaining "differ" are Cowork's reset copy, which still holds the old files, as for your four skills; it reads 0 after Cowork's switch. The old patch `20261004-0254_srom-tlumacz.patch` still lists as "applies cleanly" only because it would put the E-item wording back (K2 declined it; superseded by T37).
+5. Nothing needs MB. Your item 8 (K-item to Cowork: switch) can go.
