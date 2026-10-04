@@ -65,8 +65,8 @@ and Code. Does not apply to chat answers or to what you do yourself in the sessi
   patches in `_handoffs/cowork/`) and `code-to-cowork.md` (any Code session writes, K<n>). An item about a skill is
   answered by the module that owns it, with the commit hash. A Code change Cowork must know about (new or changed
   behaviour, a test count) is a K-item with the commit. A question for MB is a K-item headed "needs MB".
-  Cowork does not commit: a session that finds its files changed commits them
-  (`git -C _handoffs add cowork-to-code.md cowork && git -C _handoffs commit -m "cowork: <IDs>"`).
+  Cowork does not commit: a Mac session that finds its files changed commits and pushes them
+  (`git -C _handoffs add cowork-to-code.md cowork && git -C _handoffs commit -m "cowork: <IDs>"`, then push: § Cloud sessions).
 - Since the switch (K6, C3, 04.10.2026 23:31) Cowork reads the skills from this folder: there is no copy to sync.
 
 ## Checkup (cross-module review)
@@ -94,8 +94,9 @@ and Code. Does not apply to chat answers or to what you do yourself in the sessi
   incoming items without one.
 - The binding interface stays in `srom-produkcja/.claude/skills/srom-produkcja/references/handoff.md`. A contract change
   is made there first, then in both modules, with tests on both sides (`run_all.py`, `tlumacz-test_handoff.py`).
-- `_handoffs/` is a git repository (MB, 28.09.2026): after writing there, commit your own change at once
-  (`git -C _handoffs add <files> && git -C _handoffs commit -m "<module>: <IDs>"`). Never rewrite its history.
+- `_handoffs/` is under git (MB, 28.09.2026; since 05.10.2026 as part of the one repository, § Cloud sessions): after
+  writing there, commit your own change at once (`git -C _handoffs add <files> && git -C _handoffs commit -m
+  "<module>: <IDs>"`) and push. Never rewrite its history.
 
 ## Decisions for MB (format since 29.09.2026 23:04; full rules: `_handoffs/README.md` § Questions for MB)
 - Anything only MB can decide goes to Cowork's ledger (since 04.10.2026: § Cowork) as a K-item headed "needs MB",
@@ -154,26 +155,29 @@ and Code. Does not apply to chat answers or to what you do yourself in the sessi
 - Before reporting a cross-module fact (a version, a test result, what the other side has done), check it in the
   files or by running the test. Don't rely on memory or the other side's report.
 
-## Cloud sessions (MB, 04.10.2026)
-A cloud session (claude.ai/code, or "Cloud" in the desktop app) works in the GitHub repository `srom-cloud`, a copy
-of this folder that MB carries out and back on his Mac with `_cloud/cloud.py` (guide: `_cloud/README.md`). This
-folder stays the home: while a cloud phase runs, nobody works in it locally (Cowork goes on as usual).
-- **Which module you are.** The session starts at the repository root. MB's first words say it ("produkcja: …",
+## Cloud sessions (MB, 04.10.2026; one repository since 05.10.2026)
+This whole folder is one git repository, remote `blessero/srom-cloud` (GitHub, private). MB's Mac folder is a clone of
+it and so is every cloud session (claude.ai/code, or "Cloud" in the desktop app): local and cloud sessions work on the
+same `main`, and nothing is copied between them by hand (`_cloud/cloud.py` is retired; MB's guide: `_cloud/README.md`).
+- **Which module you are.** A cloud session starts at the repository root. MB's first words say it ("produkcja: …",
   "tlumacz: …", "root: …"); if they don't, ask. Then read that module's CLAUDE.md and handover and keep its rules as
-  if your working directory were its folder. No hook guards the other module's folder here: keep out of it yourself.
-- **Git.** Work on `main`, not on a session branch: `git pull --rebase origin main` first and before taking a new ID;
-  after each commit, at once, `git pull --rebase origin main && git push origin HEAD:main` (parallel sessions see each
-  other's items only after a push). The module folders are plain folders of one repository: `git -C _handoffs add
-  <files> && git -C _handoffs commit …` still works; add only your own files, never `git add -A` at the root.
-  Hashes cited in handoff items resolve (`git show <hash>`); a module's log before the move: `git log <its head>`
-  (the heads are in the first "export" commit's message).
-- **Data** the modules keep out of git (texts, PDFs, Word copies) is committed here on purpose (a module's
-  `.gitignore` is stored as `.gitignore.module`): commit new data files with your work. `_handoffs/cowork-to-code.md`
-  and `_handoffs/cowork/` are Cowork's: read them, never write them (an edit made here is dropped on the way back).
+  if your working directory were its folder. No hook guards the other module's folder there: keep out of it yourself.
+- **Git, every session (Mac and cloud).** Work on `main`, not on a session branch: `git pull --rebase origin main`
+  first and before taking a new ID; after each commit, at once, `git pull --rebase origin main && git push origin
+  HEAD:main` (parallel sessions see each other's items only after a push). The module folders are plain folders of the
+  one repository: `git -C _handoffs add <files> && git -C _handoffs commit …` still works; add only your own files,
+  never `git add -A` at the root. Never rewrite pushed history. Hashes cited in handoff items resolve (`git show
+  <hash>`); a module's log before the move: `git log <its head>` (the heads are in the first "export" commit's message).
+- **Data** the modules kept out of git (texts, PDFs, Word copies) is committed on purpose (a module's `.gitignore` is
+  kept as `.gitignore.module`, inactive): commit new data files with your work. Not committed: `_widok/` (MB's rendered
+  views embed the Claude app's fonts), caches.
+- **Cowork** writes on the Mac only, and does not commit: a Mac session that finds its files changed commits and pushes
+  them (§ Cowork). A cloud session reads `_handoffs/cowork-to-code.md` and `_handoffs/cowork/`, never writes them, and
+  sees Cowork's newest items only once a Mac session has pushed them.
 - **Skills** come from the repository's `.claude/skills/` (links into the modules), not from `~/.claude/skills`.
-- **Dates.** The environment sets `TZ=Europe/Madrid`, so `date '+%d.%m.%Y %H:%M'` gives MB's time; if `date +%Z`
-  says UTC, prefix the command with `TZ=Europe/Madrid`.
-- **Not here:** InDesign and Word (MB's Mac), Cowork's folder, the rendered views (`_widok/`, `mb_view.py`: the hook
-  is silent off the Mac). A file MB must open goes in the "Files to open" line as its repository path, without links
-  or SendUserFile; MB opens it after `cloud.py import`. Sites outside the environment's network list do not answer:
-  say that a scripted check did not run.
+- **Dates.** The cloud environment sets `TZ=Europe/Madrid`, so `date '+%d.%m.%Y %H:%M'` gives MB's time; if
+  `date +%Z` says UTC, prefix the command with `TZ=Europe/Madrid`.
+- **Not in the cloud:** InDesign and Word (MB's Mac), Cowork's folder, the rendered views (`_widok/`, `mb_view.py`: the
+  hook is silent off the Mac). A file MB must open goes in the "Files to open" line as its repository path, without
+  links or SendUserFile; MB opens it after `git pull` on the Mac. Sites outside the environment's network list do not
+  answer: say that a scripted check did not run.

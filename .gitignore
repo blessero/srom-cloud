@@ -1,4 +1,4 @@
-# mirror of "SROM edit and trans" (_cloud/cloud.py): junk only; data is committed on purpose
+# "SROM edit and trans", one repository (blessero/srom-cloud): junk only; data is committed on purpose
 .DS_Store
 __pycache__/
 *.pyc
@@ -6,4 +6,6 @@ __pycache__/
 node_modules/
 ~$*
 _widok/
-_cloud/state/
+srom-produkcja/dist/
+_migracja/build/
+_migracja/*.zip

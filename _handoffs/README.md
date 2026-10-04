@@ -25,13 +25,15 @@ One file per direction, named `<sender>-to-<receiver>.md`:
 4. **Contracts stay where they are.** The binding interface is still `srom-produkcja/.claude/skills/srom-produkcja/references/handoff.md` (and the Kanon in srom-kanon). This folder carries requests and news about them, not the contract itself.
 5. **Decisions that belong to MB** go in `MB-decisions.md` as questions with a text-coded ID (next section). A handoff item that needs MB says `needs MB: <ID>`. Module handovers point to the ledger instead of keeping their own list.
 6. **Each module reads its incoming file at the start of every session** and reports new items before anything else.
-7. **This folder is a git repository** (since 28.09.2026, MB). After writing here, commit only your own change:
-   `git -C _handoffs add <files> && git -C _handoffs commit -m "<module>: <IDs>"`. Local only, no remote.
+7. **This folder is under git** (since 28.09.2026, MB; since 05.10.2026 a plain folder of the one repository, remote
+   `blessero/srom-cloud`). After writing here, commit only your own change and push it at once:
+   `git -C _handoffs add <files> && git -C _handoffs commit -m "<module>: <IDs>"`, then
+   `git pull --rebase origin main && git push origin HEAD:main` (root CLAUDE.md § Cloud sessions).
 
 ## Checkup
 
 `checkup/SKILL.md` is the source of the root session's `srom-checkup` skill (symlinked from `../.claude/skills/srom-checkup`;
-versioned here because the root folder is not a git repository). Reviews it writes: `review-<dd.mm.yyyy>.md`. How module
+versioned here since 28.09.2026, when the root folder was not yet a git repository). Reviews it writes: `review-<dd.mm.yyyy>.md`. How module
 sessions apply them: root `CLAUDE.md` § Checkup.
 
 ## Questions for MB (since 29.09.2026 23:04)
