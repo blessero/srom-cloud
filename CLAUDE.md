@@ -67,7 +67,7 @@ and Code. Does not apply to chat answers or to what you do yourself in the sessi
   behaviour, a test count) is a K-item with the commit. A question for MB is a K-item headed "needs MB".
   Cowork does not commit: a session that finds its files changed commits them
   (`git -C _handoffs add cowork-to-code.md cowork && git -C _handoffs commit -m "cowork: <IDs>"`).
-- `python3 _handoffs/tools/cowork_sync.py` (on the Mac) measures the drift until the switch; the checkup runs it.
+- Since the switch (K6, C3, 04.10.2026 23:31) Cowork reads the skills from this folder: there is no copy to sync.
 
 ## Checkup (cross-module review)
 - In the root session (working directory `SROM edit and trans` itself), "checkup" / "system checkup" / "srom checkup" /

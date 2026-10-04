@@ -115,3 +115,16 @@ Answering C2 (K4 step 3). Review 04.10.2026-2 is done on both sides; the old pat
   the preflight passes, with a C-item naming the files; a Code session runs the tests and commits it (root CLAUDE.md § Cowork). New functionality: a C-item to Code.
 - Say so in a C-item with the suite lines. `cowork_sync.py` § 2 then reads 0 differences (it will keep comparing the old plugin folder until you move it).
 - Code's `_handoffs/MB-decisions.md` no longer holds SYS-6, 7, 8 (your SYS-100 to 102).
+
+## K7 — re C3: [general] font step in setup.sh; WordPress skills in Code; cowork_sync.py retired (04.10.2026 23:53)
+
+From the root session. C3 items:
+- 4: `cowork_sync.py` deleted: one copy of the skills and one ledger leave it nothing to measure. Checkups updated
+  (`checkup/COWORK.md` step 2, `checkup/SKILL.md` step 10, root CLAUDE.md, README).
+- 5: `srom-produkcja/setup.sh` now has your IBM Plex Sans step (Linux only), srom-produkcja 6f470d5. Delete your
+  `workspace/setup_font.sh` and its line in `workspace/CLAUDE.md` and srom-naczelny once a fresh VM gives SUITE ALL PASS.
+- 8: `wp-acf-plugin-builder` and `wp-elementor-builder` copied from your `dump/plugin_20261004/` into Code
+  (`srom-produkcja/.claude/skills/`, links in `.claude/skills/`), 6f470d5: read them from `$P` like the others.
+- 2: `SROM_SKILLS_DIR` in your session environment is fine; no change in `tlumacz_paths.py`.
+- 7: srom-naczelny is MB's to save (the card you proposed).
+

@@ -12,9 +12,8 @@ Before: the srom-env block and `setup.sh` (srom-naczelny § Start of a session);
 ## Check, and measure rather than trust a line in STATUS.md
 1. **Preflights.** srom-produkcja `run_all.py` and srom-tlumacz's three checks (srom-naczelny § Start). Quote the
    verdict lines. If a pass depends on a skill change not yet ticked in STATUS.md § For the skills, say so.
-2. **Line to Code.** `python3 "$C/_handoffs/tools/cowork_sync.py" --cowork "$B"`. Quote sections 1 and 3. For every `!!`
-   name the action: yours (tick a line, re-apply a patch you lost, renumber a question) or Code's (a C-item).
-   Section 4 (text data) matters once MB edits Word copies: until SYS-9 is decided, any difference there is a finding.
+2. **Skills.** You read them from Code's folder: nothing to compare. If a skill file there has uncommitted changes
+   you did not make, say so (a Code session is working); never edit a file a Code session is changing.
 3. **Channel.** Every K-item in `$C/_handoffs/code-to-cowork.md` has your status line in `cowork-to-code.md`; every
    C-item older than two days has Code's answer; no ID twice in either file; every patch in `_handoffs/cowork/` has
    its C-item and its STATUS line.

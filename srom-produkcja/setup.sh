@@ -33,3 +33,29 @@ if command -v npm >/dev/null 2>&1; then
 else
   echo "node/npm: not installed (optional: the ES3 test of the InDesign scripts uses a weaker parser)"
 fi
+
+# IBM Plex Sans for srom-quant's cover_page.py (a Mac has it in ~/Library/Fonts; this step is for Linux, i.e. Cowork's VM).
+# npm ships the official release as WOFF only: converted to the two TTFs the script wants, in ~/.local/share/fonts.
+FD="$HOME/.local/share/fonts"
+if [ "$(uname -s)" = Linux ]; then
+  if [ -f "$FD/IBMPlexSans-Regular.ttf" ] && [ -f "$FD/IBMPlexSans-Italic.ttf" ]; then
+    echo "IBM Plex Sans: ok"
+  elif command -v npm >/dev/null 2>&1; then
+    t=$(mktemp -d); mkdir -p "$FD"
+    ( cd "$t" && npm pack --silent @ibm/plex-sans >/dev/null 2>&1 && tar xzf ibm-plex-sans-*.tgz \
+      && python3 -m pip install -q fonttools 2>/dev/null || python3 -m pip install -q --user fonttools 2>/dev/null \
+      || python3 -m pip install -q --break-system-packages fonttools
+      python3 - "$FD" <<'PY'
+import sys, os
+from fontTools.ttLib import TTFont
+for n in ("Regular", "Italic"):
+    f = TTFont(f"package/fonts/complete/woff/IBMPlexSans-{n}.woff"); f.flavor = None
+    f.save(os.path.join(sys.argv[1], f"IBMPlexSans-{n}.ttf"))
+PY
+    ) >/dev/null 2>&1; rm -rf "$t"
+    [ -f "$FD/IBMPlexSans-Italic.ttf" ] && echo "IBM Plex Sans: installed in $FD" \
+      || echo "IBM Plex Sans: not installed (cover_page.py needs the two .ttf files; set SROM_FONT_DIR to their folder)"
+  else
+    echo "IBM Plex Sans: missing and no npm (cover_page.py needs IBMPlexSans-Regular/Italic.ttf; set SROM_FONT_DIR)"
+  fi
+fi
