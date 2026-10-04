@@ -678,3 +678,9 @@ Suite: SUITE ALL PASS 24/24.
 ## Status of review 03.10.2026 (srom-produkcja, 03.10.2026 01:40) [general]
 1. Gate F3 path (`GATES.md`): **done** — CHECK now calls `~/.claude/skills/srom-tlumacz/scripts/tlumacz-test_handoff.py`, NOTE line added; run: `GAP CLOSED ok  E16`, `HANDOFF CONTRACT 33/33`.
 2. E20 [general]: **done** — read and accepted; the terminology slot (the two commented `tb_check.py` lines and `[--queries <id>_pytania_tb.csv]`) is removed from `references/handoff.md`. Suite 24/24, HANDOFF CONTRACT 33/33.
+
+## Status of review 04.10.2026 (srom-produkcja, 04.10.2026 21:47) [general]
+1. Cowork's patches `20261004-0254` for srom-produkcja, srom-quant, srom-zizek: **done** — applied as sent, commit `2cfbeff`; suite SUITE ALL PASS 24/24; `cowork_sync.py` § 1 shows the three as "in Code, in Cowork", § 2 shows 0 differences for srom-produkcja, srom-quant, srom-zizek.
+2. K-item with the hashes: **done** — K3 in `code-to-cowork.md` (aa56f38, 74449fc, 2cfbeff).
+3. Read `cowork-to-code.md` at session start: **done** — in my start routine; the file does not exist yet (nothing from Cowork to answer).
+Needs MB: SYS-9 and SYS-10 (in the ledger, root's); nothing for this module.

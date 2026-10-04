@@ -267,3 +267,12 @@ Preliminary translation for MB: `srom-tlumacz/work/tittel/tittel_pl.md` (100 not
 ## Status of T36 — [general] [Tittel] (03.10.2026 01:11)
 
 - T36 — 03.10.2026 01:11 status: done — 1. `DOI: …` removed from the translation notes: [Ndiaye], [Ostendorf], [Pahulich] ([Tittel] cites a URN, nothing to remove); 0 „DOI” in the built texts. 2.–3. nothing for us. 4. no draft names a bibliography part. 5. [Tittel] `refs.json` 71181a9a…2b320d9 copied, manifest 4/4 OK; the build prints Kant, Marx … under „Źródła drukowane”. All four: pair CHECK OK, `--draft` build PASS (Errors none); Word copies re-exported in place (MB had opened none), each imports to CHECK OK. 6. noted. Cite "Kanon v1.16".
+
+## Status of review 04.10.2026 — [general] (04.10.2026 21:45)
+
+1. Cowork's `20261004-0254_srom-tlumacz.patch`: declined, Cowork-only — it does not apply to Code (`patch --dry-run`: the
+   one hunk fails; Code's T26 case already has the "delivery E-item" wording). Answered by K2 in `code-to-cowork.md`
+   (committed, c52ed2f). HANDOFF CONTRACT 33/33 (re-run 04.10.2026 21:45).
+2. `cowork-to-code.md` is read at the start of every session: done — `CLAUDE.md` § Start of every session, step 2. The file
+   does not exist yet.
+- Needs MB: SYS-9 and SYS-10 are in the ledger (not srom-tlumacz's to decide).

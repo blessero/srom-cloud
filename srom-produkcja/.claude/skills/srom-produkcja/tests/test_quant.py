@@ -179,7 +179,7 @@ t("cover_page: one page strictly — abstracts too long → ABORT, nothing writt
   and not os.path.exists(os.path.join(cdir, "SROM-19-2026-002_okladka.pdf")), r.stdout + r.stderr)
 t("cover_page: MB's template — 88 % black ink, red edge bars, justified abstracts",
   cv.INK == "#424241" and "text-align:justify" in cv.p(7.5, 11.52, "x", extra="; text-align:justify")
-  and len([d for d in doc[0].get_drawings() if d.get("fill") and abs(d["fill"][0] - 227 / 255) < .01 and d["rect"].height > 600]) == 2, "")
+  and doc is not None and len([d for d in doc[0].get_drawings() if d.get("fill") and abs(d["fill"][0] - 227 / 255) < .01 and d["rect"].height > 600]) == 2, "")
 # MB's template 1.2 (04.10.2026): abstract blocks flex between the citation and 218 mm; 7.2 pt, then 7 pt, then stop
 def cover_size(n):
     ws = ["Romowie", "w", "Polsce"]; ew = ["Roma", "in", "Poland"]

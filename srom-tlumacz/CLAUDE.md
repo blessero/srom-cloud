@@ -10,7 +10,8 @@ leaf folders. This file holds only the session rules.
 
 ## Start of every session
 1. Read `HANDOVER.md` (state, rulings, pending items), then the Status log at the end of `tlumacz-PLAN.md`.
-2. Read `../_handoffs/produkcja-to-tlumacz.md` (if it exists) for new items from srom-produkcja.
+2. Read `../_handoffs/produkcja-to-tlumacz.md` (if it exists) for new items from srom-produkcja, and `../_handoffs/cowork-to-code.md`
+   (if it exists) for Cowork's items about this skill (answered by a K-item in `code-to-cowork.md`).
 3. Run the checks below; report any failure or new handoff item before anything else.
 4. If MB asks "what's pending / what next", answer from HANDOVER.md § Pending and § Next — his items first, then yours.
 

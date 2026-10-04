@@ -32,22 +32,26 @@ The system has to work, not impress. Never let it grow into an outsized, byzanti
 
 ## Start of every session
 1. Read your incoming file in `_handoffs/` (`tlumacz-to-produkcja.md` if you are srom-produkcja,
-   `produkcja-to-tlumacz.md` if you are srom-tlumacz) and `_handoffs/MB-decisions.md`. Both modules also read
+   `produkcja-to-tlumacz.md` if you are srom-tlumacz) and Cowork's `workspace/MB-decisions.md` (§ Cowork). Both modules also read
    `_handoffs/cowork-to-code.md` (from Cowork, if it exists) for items about their own skills (§ Cowork).
 2. Report to MB, before anything else: new incoming items not yet answered, and open decisions that block you.
 
-## Cowork (MB, 04.10.2026)
-- Cowork (Claude desktop's Cowork, folder `SROM/Cowork/srom-cowork`) runs the same skills from its own copy (plugin
-  folder) with its own `STATUS.md` and ledger. Code is the master of the skills; Cowork's changes come as patches.
-- Channel, same rules as between the modules (`_handoffs/README.md`): `cowork-to-code.md` (Cowork writes, IDs C<n>;
-  its patches in `_handoffs/cowork/`) and `code-to-cowork.md` (either module writes, IDs K<n>). An item about a skill
-  is answered by the module that owns the skill: apply the patch, test, commit, then a K-item with the commit hash.
-  A Code change Cowork needs goes out as a K-item with its patch (`git format-patch`, paths relative to `skills/`).
-  The repository does not commit Cowork's files for it: a session that finds them changed commits them first
+## Cowork (MB, 04.10.2026; SYS-9 and SYS-10 decided (a) 04.10.2026 22:30) — who does what
+- **Cowork is where the journal is made**: the texts (RIP → TRANS → INJECT), the volume data, each text's state
+  (`STATUS.md`) and the one list of MB's questions (its `workspace/MB-decisions.md`, answered on the Editorial Desk),
+  all in `SROM/Cowork/srom-cowork/workspace/`. **Code is the workshop**: it builds and tests the skills (new
+  functionality, fixes). Code's copies of the texts in `work/` are reference only: no session edits them.
+- **One copy of the skills, Code's** (this repository). Until the switch (review 04.10.2026-2), Cowork still runs its
+  own copy and sends patches; after it, Cowork reads the skills from this folder and makes small changes (a Kanon rule,
+  a termbase row) here directly, after its preflight, with a C-item. A session that finds such uncommitted changes
+  runs the module's tests and commits them first: `git commit -m "cowork: C<n> …"`.
+- **Channel**, rules as between the modules (`_handoffs/README.md`): `cowork-to-code.md` (Cowork writes, C<n>; its
+  patches in `_handoffs/cowork/`) and `code-to-cowork.md` (any Code session writes, K<n>). An item about a skill is
+  answered by the module that owns it, with the commit hash. A Code change Cowork must know about (new or changed
+  behaviour, a test count) is a K-item with the commit. A question for MB is a K-item headed "needs MB".
+  Cowork does not commit: a session that finds its files changed commits them
   (`git -C _handoffs add cowork-to-code.md cowork && git -C _handoffs commit -m "cowork: <IDs>"`).
-- Question IDs: until SYS-9 is settled the two ledgers stay separate; Cowork numbers from 100 up in every code.
-- `python3 _handoffs/tools/cowork_sync.py` (on the Mac) shows the drift: patches applied or not on each side, skill
-  files that differ, colliding question IDs, text files that differ. The checkup runs it.
+- `python3 _handoffs/tools/cowork_sync.py` (on the Mac) measures the drift until the switch; the checkup runs it.
 
 ## Checkup (cross-module review)
 - In the root session (working directory `SROM edit and trans` itself), "checkup" / "system checkup" / "srom checkup" /
@@ -78,8 +82,9 @@ The system has to work, not impress. Never let it grow into an outsized, byzanti
   (`git -C _handoffs add <files> && git -C _handoffs commit -m "<module>: <IDs>"`). Never rewrite its history.
 
 ## Decisions for MB (format since 29.09.2026 23:04; full rules: `_handoffs/README.md` § Questions for MB)
-- Anything only MB can decide goes in `_handoffs/MB-decisions.md`, not only in your own handover. Your handover may
-  point to it but should not keep a second list.
+- Anything only MB can decide goes to Cowork's ledger (since 04.10.2026: § Cowork) as a K-item headed "needs MB",
+  written in the format below; `_handoffs/MB-decisions.md` is only a pointer now. Your handover may point to it but
+  should not keep a second list.
 - One question = one ID made of the text's code and a running number: `PAH-3`, `OST-1`, `GEN-4` (journal-wide),
   `V19-2` (all vol. 19 texts), `SYS-1` (tooling). Codes are listed in the README table; a new text gets its row there.
   The next free number is in the text's section of the ledger. The old D<n> numbers survive only in *Trail* lines.

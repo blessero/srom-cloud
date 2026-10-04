@@ -91,7 +91,10 @@ refs2 = [{k: v for k, v in x.items() if k != "DOI"} for x in refs]
 json.dump(refs2, open(rp, "w", encoding="utf-8"), ensure_ascii=False)
 r = subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "build.py"), md, "--refs", rp, "--out", out, "--draft"], capture_output=True, text=True)
 t("no DOI in the refs: no _doi.jsx (the old one removed)", r.returncode == 0 and not os.path.exists(jp), r.stdout)
-inst = open(os.path.join(ROOT, "..", "..", "..", "tools", "install_scripts.sh"), encoding="utf-8").read()
+# Code: <repo>/tools/; the Cowork bundle: <bundle>/local/ (the plugin sits at plugin/srom/skills/srom-produkcja)
+inst_p = next((p for p in (os.path.join(ROOT, "..", "..", "..", "tools", "install_scripts.sh"),
+                           os.path.join(ROOT, "..", "..", "..", "..", "local", "install_scripts.sh")) if os.path.exists(p)), "")
+inst = open(inst_p, encoding="utf-8").read() if inst_p else ""
 t("install_scripts.sh links the article's _doi.jsx into the panel", "postimport ibidem gwiazdki doi" in inst)
 n, ok = len(res), sum(res)
 print(f"DOI ALL PASS {n}/{n}" if ok == n else f"DOI FAILED {n - ok}/{n}")

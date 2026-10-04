@@ -656,12 +656,13 @@ def main():
         extra.append(f"- {fields['EndNote']} EndNote citation fields: not harvested — their displayed text was imported; key by hand")
     os.remove(lua)
     issues = [m for m in msgs if m.split("\t")[0] in ("FAKE-NOTE", "FIGURE", "IMAGE", "BOLDPARA", "TABS")]
+    n_fn = len(re.findall(r"^\[\^[^\]]+\]:", md, re.M))   # outside the f-strings: Python < 3.12 allows no backslash in them
     rep = [f"# DOCX import — {a.docx}", "",
            f"- tracked changes accepted: {ins} insertions, {dele} deletions · comments dropped: {comments}"
            + ("  **← confirm nothing was pending**" if ins or dele or comments else ""),
-           f"- footnotes: {len(re.findall(r'^\[\^[^\]]+\]:', md, re.M))} · citation fields: "
+           f"- footnotes: {n_fn} · citation fields: "
            + ", ".join(f"{k} {v}" for k, v in fields.items() if v) if any(fields.values()) else
-           f"- footnotes: {len(re.findall(r'^\[\^[^\]]+\]:', md, re.M))}"] + extra + ["", "## To check"]
+           f"- footnotes: {n_fn}"] + extra + ["", "## To check"]
     rep += [f"- {m.replace(chr(9), ': ', 1)}" for m in msgs] or ["- nothing"]
     rep += ["", "Next: python3 normalize.py " + a.out]
     rp = base + "_import.md"

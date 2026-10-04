@@ -49,3 +49,52 @@ to `workspace/CLAUDE.md`: "checkup" → `_handoffs/checkup/COWORK.md`.
 Steps 2, 3, 5 and 6 change your `workspace/CLAUDE.md`; say in C1 what you changed. srom-naczelny (your entry skill)
 needs one line in § Where everything is, the Code folder's mount path: MB uploads that change, so put the exact line in
 C1 for him.
+
+## K2 — [general] srom-tlumacz patch 20261004-0254: declined, Cowork-only (04.10.2026 21:47)
+
+- 04.10.2026 21:45 status (srom-tlumacz, answering review 04.10.2026 row 1): **declined — nothing to apply in Code.**
+- The patch (`20261004-0254_srom-tlumacz.patch`, one hunk in `scripts/tlumacz-test_handoff.py`, the T26 case) puts your
+  copy of the test back to the wording Code already has. Code's own T26 case (lines 199–204) reads "delivery E-item" /
+  "delivery: …" and passes against `handoff.md` ("Delivery item"); `patch --dry-run` on Code's skill folder: 1 of 1
+  hunks fails. Tick it in STATUS.md as "Cowork-only".
+- Verified by running the test in Code: HANDOFF CONTRACT 33/33.
+- Row 2 (read `cowork-to-code.md` at session start) is taken into srom-tlumacz's start routine; the file does not exist
+  yet, so there is nothing from you to answer.
+
+## K3 — [general] Your patches now in Code, with hashes (04.10.2026 04.10.2026 21:46)
+
+Answering review 04.10.2026 (srom-produkcja, items 1–2). Tick these in STATUS.md § For the skills:
+- 20261003-0426 srom-produkcja → Code `aa56f38`
+- 20261003-1935 srom-zizek → Code `74449fc`
+- 20261004-0254 srom-produkcja (`docx_in.py`, `test_doi.py`, `test_quant.py`), 20261004-0254 srom-quant (`cover_page.py`),
+  20261004-0254 srom-zizek (`extract.py`) → Code `2cfbeff` (applied as sent, no changes; suite 24/24)
+- 20261004-0254 srom-tlumacz: Cowork-only (see K2).
+- 20261003-0426 knowledge-base: no file in Code; waits for SYS-10.
+`python3 _handoffs/tools/cowork_sync.py` § 2 now shows 0 differences for srom-produkcja, srom-quant and srom-zizek.
+
+## K4 — [general] SYS-9 and SYS-10 decided (a): your ledger is the one; one copy of the skills, in Code (04.10.2026 22:30)
+
+From the root session. MB decided both on 04.10.2026.
+- **SYS-9 (a)**: Cowork holds the texts, the volume data, the state of each text and the one list of MB's questions.
+  Code builds and tests the skills; its copies of the texts are reference only (no session edits them). Code's
+  `MB-decisions.md` is now a pointer to yours. Please: (1) remove SYS-9 and SYS-10 from your list if you have them;
+  (2) add the three Code questions under "Handed to Cowork in K4" in Code's `_handoffs/MB-decisions.md` (SYS-6 online
+  cover page, SYS-7 dates on the cover page, SYS-8 vol. 18 translators) as your next SYS IDs, Detail paths prefixed with
+  Code's folder, *Trail* "Code SYS-6/7/8"; (3) answer with their new IDs. Keep numbering from 100: it costs nothing.
+  New questions from Code come as K-items headed "needs MB".
+- **SYS-10 (a)**: one copy of the skills, Code's. srom-produkcja and srom-tlumacz now take your copy's edits into
+  Code (review 04.10.2026-2). When they are done you get a K-item: then you switch to reading the skills from
+  `$HOME/mnt/SROM edit and trans/.claude/skills/<name>/`, run both preflights from there, retire `plugin/srom/` (move it
+  to `dump/`), and say so in a C-item with the suite lines. Until that K-item: keep working as now (patches).
+- After the switch, a small skill change you need (a Kanon rule, a termbase row) you make directly in Code's folder,
+  after your preflight passes, with a C-item naming the files; a Code session commits it. New functionality is
+  Code's: ask for it in a C-item.
+
+## K5 — [general] Your srom-produkcja lost `references/stages.md` and the examples at 20:39 (04.10.2026 22:32)
+
+The reset of 20:39 replaced your srom-produkcja and srom-quant folders with Code's versions, which never had the
+bundle's edits: `srom-produkcja/references/stages.md` (named in your `workspace/CLAUDE.md`), `assets/example/` of both,
+and their "Not for" descriptions are gone from `plugin/srom/skills/`. Until the switch (K4), restore only `stages.md`:
+`unzip -o "$B/srom.plugin" skills/srom-produkcja/references/stages.md -d "$B/plugin/srom"`, a STATUS line, and say so
+in a C-item. The rest comes back through Code (review 04.10.2026-2).
+

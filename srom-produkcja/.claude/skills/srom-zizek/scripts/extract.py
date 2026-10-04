@@ -20,7 +20,10 @@ import sys
 import unicodedata
 from pathlib import Path
 
-import fitz  # PyMuPDF
+try:
+    import pymupdf as fitz  # PyMuPDF >= 1.24.3 (the `fitz` name is deprecated)
+except ImportError:
+    import fitz  # older PyMuPDF
 
 SKIP = {".ds_store", "thumbs.db"}
 STOP = {
