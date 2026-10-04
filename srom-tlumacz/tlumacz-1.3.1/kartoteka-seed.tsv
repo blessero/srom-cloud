@@ -1,0 +1,36 @@
+source_form	en_variants	pl_standard_vol18	pl_attested	articles	italic_vol18	flag	note
+Roma	Roma	Romowie	Romowie | Romów	takacs ostendorf fotta dom	n		§ 6.1: Rom, Romowie, Romka; adj. romski
+Rom	Rom	Rom	Rom	dom	n		branch name in „Dom-Lom-Rom”; indeclinable in vol. 18
+Gypsies	Gypsies | Gypsy	Cyganie	Cyganie | Cyganów	takacs ostendorf fotta dom	n		§ 6.1 functions (source category, self-identification, quotations); § 12.2.6: Gypsy never → Romowie
+Romanies	Romanies	Romowie	Romowie | Romów	fotta	n		the author distinguishes Romanies (umbrella) from Roma; vol. 18 renders both as Romowie – two source terms, one Polish form. Accepted (MB 27.09.2026, D8 f): a translator's note only where the author's distinction carries the argument
+Romani Americans	Romani Americans	Romowie amerykańscy	amerykańskich Romów | Romów amerykańskich	ostendorf takacs	n		word order varies in vol. 18
+Ciganos	Ciganos | Cigano	Ciganos	Ciganos	fotta ostendorf	y	TS	Portuguese source term kept; vol. 18 italicises it, Kanon § 3.4 (from vol. 19): ethnonyms never in italics. MB 27.09.2026: § 3.4 clearly covers endonyms; these are exonyms not used in Polish (foreign words, unlike Cygan), so italics may be right – decision passed to srom-typeset (E12)
+Calon	Calon	Calon	Calon | Calonów	fotta dom	n		Brazilian/Iberian Calon; „Romowie z grupy Calon”
+Gitanos	Gitanos | Gitana/os	Gitanos	Gitanos | Gitana	ostendorf dom	y	TS	historical source term kept (Ostendorf translator's note); italics vs Kanon § 3.4. MB 27.09.2026: § 3.4 clearly covers endonyms; these are exonyms not used in Polish (foreign words, unlike Cygan), so italics may be right – decision passed to srom-typeset (E12)
+Bohémiens	Bohémiens | Bohémien	Bohémiens	Bohémiens	ostendorf	y	TS	historical French source term kept; italics vs Kanon § 3.4. MB 27.09.2026: § 3.4 clearly covers endonyms; these are exonyms not used in Polish (foreign words, unlike Cygan), so italics may be right – decision passed to srom-typeset (E12)
+Tsiganes	Tsiganes	Tsiganes	Tsiganes	ostendorf dom	n		only in titles and quoted designations
+Zigeuner	Zigeuner	Zigeuner	Zigeuner	dom	n		only in titles and quoted designations
+Travellers	Travellers | Travelers | Traveller	Travellersi	Travellersi | Travellersów	dom	n		„Travellersi” is the primary form, used nearly always; „Wędrowcy” is a synonym (MB 27.09.2026). Vol. 18 uses „Wędrowcy” for the wider category („populacje Wędrowców, w tym etnicznych Travellersów”)
+Sinti	Sinti	Sinti	Sinti	dom	n		
+Manush	Manush	Manusze	Manusze	dom	n		
+Calé	Cale | Calé	Calé	Calé	dom	n		Iberian Calé (cf. Calon)
+Kale	Kale	Kale	Kale	dom	n		Finnish/Welsh Kale
+Kaale	Kaale	Kaale	Kaale	dom	n		
+Romanichals	Romanichels | Romanichals	Romaniczale	Romaniczale	dom	n		
+Boyash	Boyash	Bojasze	Bojasze	dom	n		
+Rudari	Rudari	Rudari	Rudari	dom	n		
+Ashkali	Ashkali	Aszkali	Aszkali	dom	n		
+Egyptians	Egyptians	Egipcjanie (bałkańscy)	Egipcjanie	dom	n		Balkan Egyptians
+Yenish	Yenish	Jenisze	Jenisze	dom	n		
+Dom	Dom	Domowie	Domowie | Domów	dom	n		gen. pl. Domów = homonym of domów 'houses'; capital letter disambiguates
+Lom	Lom	Lomowie	Lomowie | Lomów	dom	n		„Lom / Lomowie” (MB 27.09.2026, D8 c); the one „Łomom” in vol. 18 (Dom, note 2) is a slip
+Bosha	Bosha | Posha	Bosza / Posza	Bosza | Posza	dom	n		exonyms for Lom (Armenia, Georgia / Turkey)
+Garachi	Garachi | Karachi | Garachiler	Garaczi	Garaczi	dom	n		both Garachi and Karachi are legitimate (Azerbaijani vs Russian-based transliteration); follow the author's form: Garachi → „Garaczi”, Karachi → „Karaczi” as a recorded variant (not attested in vol. 18; regular transcription) (MB 27.09.2026, D8 d). Vol. 18 renders both „Garaczi”
+Parsi Dom	Parsi Dom	Parsi Dom	Parsi Dom	dom	n		
+Lyuli/Dzhugi	Lyuli | Dzhugi | Lyuli/Dzhugi	Luli / Dżugi	Luli | Dżugi	dom	n		Central Asia
+Nawar	Nawar	Nawar	Nawar	dom	n		exonym (Arabic, used by the surrounding population; often pejorative); the Dom endonym is dōm (E13)
+Ghajar	Ghajar	Gadżar	Gadżar	dom	n		body text; Ghajar kept in titles
+Mutrib	Mutrib	Mutribowie	Mutribów	dom	n	SV	only in the Polish: not in the English file we hold (the Polish follows a revised version)
+Abdal	Abdal	Abdalowie	Abdalowie	dom	n		
+Gurbati	Gurbati	Gurbati	Gurbati	dom	n	SV	only in the Polish: not in the English file we hold (the Polish follows a revised version); exonym (surrounding population, Arabic-speaking areas) (E13); attested in Marushiakova/Popov, Kulturní studia 24 (1/2025), DOI 10.7160/KS.2025-01(24).01
+Halabi	Halabi	Halabi	Halabi	dom	n	SV	only in the Polish: not in the English file we hold (the Polish follows a revised version); exonym (surrounding population; 'from Aleppo') (E13); attested in Marushiakova/Popov, Kulturní studia 24 (1/2025), DOI 10.7160/KS.2025-01(24).01

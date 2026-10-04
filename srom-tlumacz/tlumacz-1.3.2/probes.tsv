@@ -1,0 +1,26 @@
+id	concept	en_regex	alternatives (label=regex; …)	note
+P01	whiteness	[Ww]hiteness	białość=biał\w*ś\w*	sibling of C-0013 czarność
+P02	anti-Blackness	[Aa]nti-Blackness	antyczarność=antyczarno\w*; rasizm wobec czarnych=rasizm\w* wobec czarnych
+P03	othering	[Oo]thering	uinnienie=uinn\w*; konstruowanie inności=konstruowani\w* inności	C-0024 OPEN member
+P04	anti-Roma	[Aa]nti-Roma\b	antyromski=antyromsk\w*; wobec Romów=rasizm\w* wobec Romów	C-0007 avoid: kept apart from antycyganizm
+P05	antigypsyism	[Aa]ntigypsyism|[Aa]ntiziganis\w*|[Aa]nti-Gypsyism	antycyganizm=antycyganizm\w*|antycygańsk\w*	HOUSE C-0007
+P06	vagrancy	[Vv]agran\w*|[Vv]agabond\w*	włóczęgostwo=włóczęg\w*; tułactwo=tułacz\w*|tułactw\w*
+P07	sedentarization (process)	[Ss]edentari[sz]\w*	osiadanie/osiedlanie=osiedl\w*|osiada\w*; sedentaryzacja=sedentaryz\w*	sedentariness (state) is „osiadłość”, not probed
+P08	nomadic (adj.)	[Nn]omadic|[Ss]emi-nomadic	koczowniczy=koczow\w*|półkoczow\w*; wędrowny=wędrown\w*; nomadyczny=nomadyczn\w*	vol. 18 precedent: koczowniczy (dom_pl 6, fotta_pl 1)
+P09	Soviet	Soviet	sowiecki=[Ss]owieck\w*; radziecki=[Rr]adzieck\w*
+P10	Indigenous	Indigenous|Native American\w*|indigenous	rdzenni=rdzenn\w*; tubylcy=tubyl\w*
+P11	coloniality	[Cc]oloniality|[Dd]ecolonial\w*	kolonialność=kolonialnoś\w*|dekolonial\w*
+P12	negro (period)	[Nn]egro\w*|[Bb]lackamoor\w*	Murzyn=[Mm]urzyn\w*	MB D11 (4); register B2
+P13	savage (period)	[Ss]avage\w*	dzicy=[Dd]zic\w*|dzikus\w*
+P14	Egyptians	Egyptian\w*	Egipcjanie=Egipcjan\w*	D13 early-modern; Balkan Egyptians are a different sense
+P15	enslaved	[Ee]nslave\w*	zniewoleni=zniewol\w*	HOUSE C-0018
+P16	racial capitalism	[Rr]acial capitalism	kapitalizm rasowy=kapitalizm\w* rasow\w*|rasow\w* kapitalizm\w*	HOUSE C-0016
+P17	racial matrix	[Rr]acial matri\w*	matryca rasowa=matryc\w* rasow\w*	HOUSE C-0015
+P18	passing	\bpassing\b	uchodzenie=uchodz\w*; przechodzenie=przechodzeni\w*	C-0036
+P19	entanglement	[Ee]ntangle\w*	splątanie=splątan\w*; uwikłanie=uwikła\w*; splot=\bsplot\w*
+P20	belonging (noun)	(?<![\w-])(?:non-)?[Bb]elonging(?! to)	przynależność=przynależn\w*; nieprzynależność=nieprzynależn\w*	"belonging to" (verb) excluded
+P21	Gypsy (author's term)	Gyps(y|ies)|gyps(y|ies)|Gipsy|gipsy	Cyganie=Cygan\w*|cygańsk\w*|Cygańsk\w*
+P22	white supremacy	[Ww]hite supremac\w*	biała supremacja=biał\w* supremacj\w*|białosupremacyj\w*; supremacja białych=supremacj\w* białych	HOUSE C-0012
+P23	Europeanness	Europeanness	europejskość=europejskoś\w*
+P24	nomadism	[Nn]omadism	koczownictwo=koczownictw\w*; nomadyzm=nomadyzm\w*	vol. 18 precedent: koczownictwo (dom_pl)
+P25	itinerant, peripatetic	[Ii]tinerant\w*|[Pp]eripatetic\w*	wędrowny=wędrown\w*; koczowniczy=koczow\w*	vol. 18 precedent: wędrowny (fotta_pl 3)
