@@ -22,7 +22,8 @@ a separate request.
 
 ## Read first
 - `./CLAUDE.md`
-- `_handoffs/README.md` and all of `_handoffs/` (MB-decisions.md, both outgoing files, the newest `review-*.md`)
+- `_handoffs/README.md` and all of `_handoffs/` (MB-decisions.md, both outgoing files, the Cowork channel files, the
+  newest `review-*.md`)
 - both modules' CLAUDE.md and handovers
 - `srom-tlumacz/tlumacz-PLAN.md` (contract, tree, status log)
 - `srom-tlumacz/.claude/skills/srom-tlumacz/SKILL.md` and its `references/outputs.md` (per-article file formats, OUT-*)
@@ -74,7 +75,11 @@ a separate request.
    - `~/.claude/skills/srom-*` are symlinks into the repo, not copies
    - `~/.claude/skills/srom-quant` is a symlink into the srom-produkcja repo like the other skills (moved there 30.09.2026)
    - `dist/*.skill` are current (they matter only before a claude.ai upload)
-10. **Anything else** that will cause friction at the next milestone (the next hand-back, the first InDesign placement,
+10. **Cowork.** `python3 _handoffs/tools/cowork_sync.py` (read-only): quote its sections 1 and 3 and its last line. Every
+    `!!` is a finding (who fixes it: srom-produkcja, srom-tlumacz, Cowork, MB). Every C-item in `cowork-to-code.md` has
+    a status line in `code-to-cowork.md`. Findings for Cowork go into a K-item the root writes after the report
+    (Cowork's own checkup: `checkup/COWORK.md`).
+11. **Anything else** that will cause friction at the next milestone (the next hand-back, the first InDesign placement,
     a new text or source type).
 
 ## Report
