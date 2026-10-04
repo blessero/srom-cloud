@@ -1,0 +1,72 @@
+{
+  "_comment": "Style names MUST equal the InDesign template names exactly (case, diacritics, spaces). Defined in indesign/style_spec.json (house style v3); several roles may share one style.",
+  "paragraph": {
+    "h1": "Śródtytuł",
+    "h2": "Śródtytuł MAŁE",
+    "body": "Tekst",
+    "body_first": "Tekst BEZ WCIĘCIA",
+    "quote": "Cytat",
+    "list": "Wyliczenie",
+    "footnote": "Przypis",
+    "bib_title": "Śródtytuł",
+    "bib_section": "Śródtytuł MAŁE",
+    "bib_entry": "Bibliografia",
+    "caption": "Podpis",
+    "table_title": "Tabela TYTUŁ",
+    "author_note": "Tekst BEZ WCIĘCIA",
+    "quote_verse": "Cytat WIERSZ",
+    "table_cell": "Tabela TREŚĆ",
+    "example_form": "Przykład FORMA",
+    "example_gloss": "Przykład GLOSA",
+    "example_trans": "Przykład PRZEKŁAD",
+    "table_source": "Podpis",
+    "asterisk_note": "Przypis GWIAZDKOWY",
+    "list_numbered": "Wyliczenie",
+    "motto": "Motto",
+    "motto_source": "Motto ŹRÓDŁO",
+    "dialog": "Cytat",
+    "speaker": "Mówca",
+    "speaker_affiliation": "Afiliacja"
+  },
+  "roles": {
+    "_comment": "fenced-div class -> paragraph key above; lets front matter or special blocks carry a style",
+    "podpis": "caption",
+    "tabela-tytul": "table_title",
+    "nota": "author_note",
+    "bez-wciecia": "body_first",
+    "tabela-zrodlo": "table_source",
+    "przypis-tytulowy": "asterisk_note",
+    "motto": "motto",
+    "motto-zrodlo": "motto_source"
+  },
+  "character": {
+    "italic": "Kursywa",
+    "smallcaps": "Kapitaliki",
+    "speaker": "Pogrubienie",
+    "roman": "Proste",
+    "asterisk_ref": "Gwiazdka"
+  },
+  "template_extra": {
+    "_comment": "template styles the DOCX never uses (placed or applied by hand / by GREP)",
+    "paragraph": [
+      "Tytuł",
+      "Autor",
+      "Tekst INICJAŁ",
+      "Podpis LINIA",
+      "Pagina",
+      "Folio",
+      "Spis treści",
+      "Spis AUTOR",
+      "Spis JĘZYKI"
+    ],
+    "character": [
+      "Bez podziału",
+      "Kapitaliki GLOSA",
+      "Indeks górny"
+    ]
+  },
+  "bibliography": {
+    "_comment": "kanon: only the sections an article uses are printed; true = prefix them with consecutive Roman numerals",
+    "section_numbers": false
+  }
+}

@@ -1,0 +1,12 @@
+.DS_Store
+.venv/
+__pycache__/
+*.pyc
+*.skill
+node_modules/
+dist/
+work/*
+!work/*/
+work/*/*
+!work/*/*_uwagi.md
+dump/

@@ -1,0 +1,40 @@
+function ser(v) {
+  if (v === null || v === undefined) { return "null"; }
+  var t = typeof v;
+  if (t === "number" || t === "boolean") { return String(v); }
+  if (t === "string") { return '"' + v.replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\r/g, "\\r").replace(/\n/g, "\\n").replace(/\t/g, "\\t") + '"'; }
+  try { if (v.constructor && v.constructor.name === "Enumerator") { return '"E:' + v.toString() + '"'; } } catch (e0) {}
+  try { if (v instanceof Array) { var a = [], i; for (i = 0; i < v.length && i < 40; i++) { a.push(ser(v[i])); } return "[" + a.join(",") + "]"; } } catch (e1) {}
+  try { if (v.hasOwnProperty("name") || v.name !== undefined) { return '"O:' + v.constructor.name + ":" + String(v.name).replace(/"/g, "'") + '"'; } } catch (e2) {}
+  try { return '"?' + String(v).replace(/"/g, "'") + '"'; } catch (e3) { return '"?"'; }
+}
+function dumpObj(o) {
+  var p = o.properties, k, out = [];
+  for (k in p) {
+    if (k === "parent" || k === "index" || k === "id" || k === "label" || k === "styleUniqueId" || k === "imported" || k === "isValid" || k === "properties") { continue; }
+    out.push(ser(k) + ":" + ser(p[k]));
+  }
+  return "{" + out.join(",") + "}";
+}
+function grp(s) { try { return s.parent.constructor.name === "ParagraphStyleGroup" || s.parent.constructor.name === "CharacterStyleGroup" ? s.parent.name : ""; } catch (e) { return ""; } }
+function dumpDoc(doc, path) {
+  var out = [], i, a, u = app.scriptPreferences.measurementUnit;
+  app.scriptPreferences.measurementUnit = MeasurementUnits.POINTS;
+  a = doc.allParagraphStyles;
+  for (i = 0; i < a.length; i++) { out.push('"P|' + grp(a[i]) + "|" + a[i].name.replace(/"/g, "'") + '":' + dumpObj(a[i])); }
+  a = doc.allCharacterStyles;
+  for (i = 0; i < a.length; i++) { out.push('"C|' + grp(a[i]) + "|" + a[i].name.replace(/"/g, "'") + '":' + dumpObj(a[i])); }
+  out.push('"DOC|grid":' + dumpObj(doc.gridPreferences));
+  out.push('"DOC|fn":' + dumpObj(doc.footnoteOptions));
+  out.push('"DOC|textpref":' + dumpObj(doc.textPreferences));
+  out.push('"DOC|order":' + ser(orderList(doc)));
+  var o = new File(path); o.encoding = "UTF-8"; o.open("w"); o.write("{" + out.join(",\n") + "}"); o.close();
+  app.scriptPreferences.measurementUnit = u;
+}
+function orderList(doc) {   // panel order: top-level styles and groups by index
+  var r = [], i, j, g;
+  for (i = 0; i < doc.paragraphStyles.length; i++) { r.push("P:" + doc.paragraphStyles[i].name); }
+  for (i = 0; i < doc.paragraphStyleGroups.length; i++) { g = doc.paragraphStyleGroups[i]; for (j = 0; j < g.paragraphStyles.length; j++) { r.push("G:" + g.name + "/" + g.paragraphStyles[j].name); } }
+  for (i = 0; i < doc.characterStyles.length; i++) { r.push("C:" + doc.characterStyles[i].name); }
+  return r;
+}

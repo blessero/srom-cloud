@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="note" version="1.0" default-locale="pl-PL" demote-non-dropping-particle="never" initialize-with-hyphen="true" page-range-format="expanded">
+  <info>
+    <title>Studia Romologica – kanon edytorski (przypisy dolne)</title>
+    <id>srom-kanon-1-5</id>
+    <updated>2026-09-24T00:00:00+00:00</updated>
+  </info>
+  <!--
+    Data conventions (CSL-JSON, see SKILL.md):
+      title-short     short title exactly as printed in subsequent notes, incl. "…" if truncated (§7.3)
+      original-title  Polish translation of a foreign title, printed in [ ] after the title (§4.3)
+      note            physical form / holding remark, printed in ( ) at the very end (§7.2)
+      publisher-place literal "b.m." only when the SOURCE lacks it; a missing field prints [BRAK …]
+      issue           numeric -> "nr N"; non-numeric printed verbatim (use "z. 2" for zeszyt)
+      edition         printed after "wyd. " verbatim ("3 popr.")
+  -->
+  <locale xml:lang="pl">
+    <terms>
+      <term name="ibid">Ibidem</term>
+      <term name="et-al">i in.</term>
+      <term name="open-quote">„</term>
+      <term name="close-quote">”</term>
+      <term name="open-inner-quote">»</term>
+      <term name="close-inner-quote">«</term>
+      <term name="page" form="short"><single>s.</single><multiple>s.</multiple></term>
+      <term name="table" form="short"><single>tabl.</single><multiple>tabl.</multiple></term>
+      <term name="volume" form="short"><single>t.</single><multiple>t.</multiple></term>
+      <term name="folio" form="short"><single>k.</single><multiple>k.</multiple></term>
+      <term name="chapter" form="short"><single>rozdz.</single><multiple>rozdz.</multiple></term>
+      <term name="figure" form="short"><single>il.</single><multiple>il.</multiple></term>
+      <term name="section" form="short"><single>§</single><multiple>§</multiple></term>
+      <term name="editor" form="short"><single>red.</single><multiple>red.</multiple></term>
+      <term name="editor" form="verb-short">red.</term>
+      <term name="translator" form="verb-short">tłum.</term>
+      <term name="editortranslator" form="verb-short">tłum. i red.</term>
+      <term name="director" form="verb-short">reż.</term>
+    </terms>
+  </locale>
+
+  <!-- ============ names ============ -->
+  <!-- the editor never stands in the author's place (MB 02.10.2026, Kanon § 7.2): a work without an author opens
+       with its title — an edited volume, an anonymous source edition, an edited article; "red." follows the title -->
+  <macro name="author-note">
+    <names variable="author">
+      <name initialize-with="." delimiter=", " delimiter-precedes-et-al="never"/>
+    </names>
+  </macro>
+  <macro name="author-short">
+    <names variable="author">
+      <name form="short" delimiter=", " delimiter-precedes-et-al="never"/>
+    </names>
+  </macro>
+  <macro name="author-bib">
+    <names variable="author">
+      <name name-as-sort-order="all" sort-separator=" " delimiter=", " delimiter-precedes-last="always">
+        <name-part name="family" font-variant="small-caps"/>
+      </name>
+    </names>
+  </macro>
+  <macro name="author-sort">
+    <names variable="author">
+      <name name-as-sort-order="all" sort-separator=", " delimiter=", "/>
+      <substitute>
+        <text variable="title"/>
+      </substitute>
+    </names>
+  </macro>
+  <macro name="container-editors">
+    <names variable="container-author editor">
+      <label form="verb-short" suffix=" "/>
+      <name delimiter=", "/>
+    </names>
+  </macro>
+  <macro name="translator">
+    <names variable="translator">
+      <label form="verb-short" suffix=" "/>
+      <name delimiter=", "/>
+    </names>
+  </macro>
+  <!-- a book with an author and an editor (an edition of a source: "ed. E. Becker-Donner"): the editor after the
+       title, as for a chapter's volume (§ 7.2); editor and translator the same people ("trans. and ed.") -> once,
+       "tłum. i red."; a work without an author (edited volume, source edition, edited article) has it here too. -->
+  <macro name="editor-translator">
+    <names variable="editor translator" delimiter=", ">
+      <label form="verb-short" suffix=" "/>
+      <name delimiter=", "/>
+    </names>
+  </macro>
+  <macro name="director">
+    <names variable="director">
+      <label form="verb-short" suffix=" "/>
+      <name delimiter=", "/>
+    </names>
+  </macro>
+
+  <!-- ============ titles ============ -->
+  <macro name="title-full">
+    <group delimiter=" ">
+      <text variable="title" font-style="italic"/>
+      <text variable="original-title" prefix="[" suffix="]"/>
+    </group>
+  </macro>
+  <macro name="title-short">
+    <text variable="title" form="short" font-style="italic"/>
+  </macro>
+  <macro name="container">
+    <choose>
+      <if type="article-journal article-magazine article-newspaper" match="any">
+        <text variable="container-title" quotes="true"/>
+      </if>
+      <else>
+        <text variable="container-title" font-style="italic" prefix="w: "/>
+      </else>
+    </choose>
+  </macro>
+
+  <!-- ============ imprint ============ -->
+  <macro name="year">
+    <choose>
+      <if variable="issued">
+        <date variable="issued"><date-part name="year"/></date>
+      </if>
+      <else>
+        <text value="[BRAK ROKU]"/>
+      </else>
+    </choose>
+  </macro>
+  <macro name="date-full">
+    <date variable="issued">
+      <date-part name="day" form="numeric-leading-zeros" suffix="."/>
+      <date-part name="month" form="numeric-leading-zeros" suffix="."/>
+      <date-part name="year"/>
+    </date>
+  </macro>
+  <macro name="place-year">
+    <group delimiter=" ">
+      <choose>
+        <if variable="publisher-place">
+          <text variable="publisher-place"/>
+        </if>
+        <else>
+          <text value="[BRAK MIEJSCA]"/>
+        </else>
+      </choose>
+      <!-- Kanon § 7.2 (MB 02.10.2026, GEN-9): a reprint prints the year of this edition, then the first edition's in square brackets -->
+      <group delimiter=" ">
+        <text macro="year"/>
+        <date variable="original-date" prefix="[" suffix="]">
+          <date-part name="year"/>
+        </date>
+      </group>
+      <!-- Kanon § 7.2 (MB 02.10.2026, GEN-5): the series closes the description, in parentheses -->
+      <group prefix="(" suffix=")" delimiter=", ">
+        <text variable="collection-title" quotes="true"/>
+        <text variable="collection-number"/>
+      </group>
+    </group>
+  </macro>
+  <macro name="publisher">
+    <choose>
+      <if variable="publisher">
+        <text variable="publisher"/>
+      </if>
+      <else-if variable="srom-early-print"/>
+      <else-if type="motion_picture webpage post post-weblog" match="none">
+        <text value="[BRAK WYDAWCY]"/>
+      </else-if>
+    </choose>
+  </macro>
+  <macro name="edition">
+    <text variable="edition" prefix="wyd. "/>
+  </macro>
+  <macro name="volume-book">
+    <group delimiter=": ">
+      <group delimiter=" ">
+        <label variable="volume" form="short"/>
+        <text variable="volume"/>
+      </group>
+      <text variable="volume-title" font-style="italic"/>
+    </group>
+  </macro>
+  <macro name="serial-details">
+    <group delimiter=", ">
+      <choose>
+        <if variable="volume issue" match="any">
+          <text macro="year"/>
+        </if>
+        <else-if type="article-newspaper">
+          <text macro="date-full"/>
+        </else-if>
+        <else>
+          <text macro="year"/>
+        </else>
+      </choose>
+      <group delimiter=" ">
+        <label variable="volume" form="short"/>
+        <text variable="volume"/>
+      </group>
+      <choose>
+        <if is-numeric="issue">
+          <text variable="issue" prefix="nr "/>
+        </if>
+        <else>
+          <text variable="issue"/>
+        </else>
+      </choose>
+    </group>
+  </macro>
+  <macro name="access">
+    <choose>
+      <!-- Kanon § 7.2, § 9.7 (MB 02.10.2026, GEN-10): a DOI is never printed; the source with a DOI prints no URL either -->
+      <if variable="DOI"/>
+      <else>
+        <group delimiter=" ">
+          <text variable="URL"/>
+          <date variable="accessed" prefix="[dostęp: " suffix="]">
+            <date-part name="day" form="numeric-leading-zeros" suffix="."/>
+            <date-part name="month" form="numeric-leading-zeros" suffix="."/>
+            <date-part name="year"/>
+          </date>
+        </group>
+      </else>
+    </choose>
+  </macro>
+
+  <!-- ============ locator ============ -->
+  <macro name="locator">
+    <choose>
+      <if variable="locator">
+        <choose>
+          <if type="motion_picture">
+            <text variable="locator"/>
+          </if>
+          <else>
+            <group delimiter=" ">
+              <label variable="locator" form="short"/>
+              <text variable="locator"/>
+            </group>
+          </else>
+        </choose>
+      </if>
+      <else-if type="webpage post post-weblog motion_picture" match="none">
+        <text value="[BRAK STRONY]"/>
+      </else-if>
+    </choose>
+  </macro>
+
+  <!-- ============ body (shared by first note and bibliography) ============ -->
+  <macro name="body-after-title">
+    <choose>
+      <if type="article-journal article-magazine article-newspaper" match="any">
+        <group delimiter=", ">
+          <text macro="editor-translator"/>
+          <text macro="container"/>
+          <text macro="serial-details"/>
+        </group>
+      </if>
+      <else-if type="chapter paper-conference entry-encyclopedia entry-dictionary" match="any">
+        <group delimiter=", ">
+          <text macro="container"/>
+          <text macro="container-editors"/>
+          <text macro="translator"/>
+          <text macro="edition"/>
+          <text macro="volume-book"/>
+          <text macro="publisher"/>
+          <text macro="place-year"/>
+        </group>
+      </else-if>
+      <else-if type="webpage post post-weblog" match="any">
+        <!-- Kanon § 8.6: a dated web text (blog post, article on a site) prints its publication date after the site -->
+        <group delimiter=", ">
+          <text macro="container"/>
+          <text macro="date-full"/>
+          <text macro="access"/>
+        </group>
+      </else-if>
+      <else-if type="motion_picture">
+        <group delimiter=", ">
+          <text macro="director"/>
+          <group delimiter=" ">
+            <text variable="publisher-place"/>
+            <text macro="year"/>
+          </group>
+        </group>
+      </else-if>
+      <else>
+        <group delimiter=", ">
+          <text macro="editor-translator"/>
+          <text macro="edition"/>
+          <text macro="volume-book"/>
+          <text macro="publisher"/>
+          <text macro="place-year"/>
+        </group>
+      </else>
+    </choose>
+  </macro>
+
+  <!-- ============ citation (footnotes) ============ -->
+  <!-- Kanon § 7.2, § 9.1 (MB 02.10.2026): authors, editors, translators by initial in the notes; the
+       bibliography is the one place with every name in full, so its editors and translators are spelled out too.
+       The name macros carry no initialize-with of their own and inherit it from here. -->
+  <citation et-al-min="4" et-al-use-first="1" initialize-with=".">
+    <layout suffix="." delimiter="; ">
+      <choose>
+        <if position="ibid-with-locator">
+          <group delimiter=", ">
+            <text term="ibid" font-style="italic"/>
+            <text macro="locator"/>
+          </group>
+        </if>
+        <else-if position="ibid">
+          <text term="ibid" font-style="italic"/>
+        </else-if>
+        <else-if position="subsequent">
+          <group delimiter=", ">
+            <text macro="author-short"/>
+            <text macro="title-short"/>
+            <text macro="locator"/>
+          </group>
+        </else-if>
+        <else>
+          <group>
+            <group delimiter=", ">
+              <text macro="author-note"/>
+              <text macro="title-full"/>
+              <text macro="body-after-title"/>
+              <text macro="locator"/>
+            </group>
+            <text variable="note" prefix=" (" suffix=")"/>
+          </group>
+        </else>
+      </choose>
+    </layout>
+  </citation>
+
+  <!-- ============ bibliography ============ -->
+  <bibliography>
+    <sort>
+      <key macro="author-sort"/>
+      <key variable="issued"/>
+      <key variable="title"/>
+    </sort>
+    <layout suffix=".">
+      <group delimiter=". ">
+        <!-- Kanon § 9.1 (MB 02.10.2026): a comma, not a full stop, after the author field -->
+        <group delimiter=", ">
+          <text macro="author-bib"/>
+          <group>
+            <group delimiter=", ">
+              <text macro="title-full"/>
+              <text macro="body-after-title"/>
+              <group delimiter=" ">
+                <label variable="page" form="short"/>
+                <text variable="page"/>
+              </group>
+            </group>
+            <text variable="note" prefix=" (" suffix=")"/>
+          </group>
+        </group>
+        <choose>
+          <if type="webpage post post-weblog" match="none">
+            <choose>
+              <if variable="DOI"/>
+              <else-if type="article-journal article-magazine article-newspaper" match="any">
+                <!-- Kanon § 9.7: an article without DOI (online journal) - its URL in the DOI's place -->
+                <text macro="access"/>
+              </else-if>
+            </choose>
+          </if>
+        </choose>
+        <text variable="ISBN" prefix="ISBN "/>
+      </group>
+    </layout>
+  </bibliography>
+</style>
