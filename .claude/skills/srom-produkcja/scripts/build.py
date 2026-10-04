@@ -878,6 +878,17 @@ def main():
     md_text = open(a.md, encoding="utf-8").read()
     sys.path.insert(0, os.path.join(ROOT, "scripts"))
     import check as integrity
+    # Polish typography is never left to memory: normalize.py must have nothing left to change (e.g. after the
+    # editor's Word edit came back). A source (--source) keeps its own typography; a draft or proof only warns.
+    if not a.source:
+        from normalize import Normalizer
+        nz = Normalizer()
+        nz.run(md_text)
+        if nz.log:
+            msg = (f"not normalised: normalize.py would make {len(nz.log)} change(s) ("
+                   + ", ".join(f"{v}× {k}" for k, v in Counter(r for _, r, _, _ in nz.log).most_common(6))
+                   + f") — run normalize.py {os.path.basename(a.md)} -o … --log …, then build again")
+            report["warnings" if a.proof or a.draft else "errors"].append(msg)
     md_text, comments = integrity.strip_comments(md_text)
     if comments:
         report["warnings"].append(f"{len(comments)} comment(s) removed from the text (never printed, never blocking): "

@@ -400,5 +400,13 @@ check("literal person name -> warning; legit literals silent; no by-reference re
       "“Gudmundur Hálfdánarson”" in warn and "Elvas" not in warn and "Akademie" not in warn and "Writers" not in warn
       and "italics inside a title" not in warn, warn)
 
+# typography never left to memory (MB 04.10.2026): text normalize.py would still change fails the build; a proof warns
+md = "---\ntitle: T\n---\n\nTekst...  z \"cytatem\" [@w1, s. 1].\n"
+code, out, stem, rep = build(md, refs=rp)
+code2, _, _, rep2 = build(md, refs=rp, extra=["--draft"])
+check("not normalised: final build fails and names normalize.py; --draft (srom-tlumacz) only warns",
+      code == 1 and "not normalised" in rep.split("## Warnings")[0] and "normalize.py" in rep
+      and "not normalised" in rep2.split("## Warnings")[-1], rep[:800])
+
 n, ok = len(results), sum(results)
 print(f"E2E ALL PASS {n}/{n}" if ok == n else f"E2E FAILED {n - ok}/{n}")

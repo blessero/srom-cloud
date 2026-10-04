@@ -124,17 +124,25 @@ class Normalizer:
         # whitespace
         body = self.sub("ZW", r"[\u200b\u200c\u200d\ufeff\u00ad]", "", body, ln)
         body = self.sub("NBSP", r"[\u00a0\u2007\u2009\u202f\t]", " ", body, ln)
-        body = self.sub("SPACES", r"(?<=\S) {2,}", " ", body, ln)
+        if not body.startswith("|"):      # pipe-table rows: pandoc pads cells to align the columns
+            body = self.sub("SPACES", r"(?<=\S) {2,}", " ", body, ln)
         body = self.sub("TRAIL", r" +$", "", body, ln)
 
         # ellipsis and omissions (§3.5, §4.1)
         # English spaced dots (". . .", ". . . ." at a sentence end) mark an omission in a quotation -> […] (logged: check)
         body = self.sub("OMISSION-SPACED", r"(?<=\S)\. \. \. \.(?= |$)", ". […]", body, ln)     # full stop + omission
         body = self.sub("OMISSION-SPACED", r" ?(?<!\[)\. \. \.(?= |$|[,;:!?”’)])", " […]", body, ln)
-        body = self.sub("ELLIPSIS", r"\.\.\.", "…", body, ln)
+        body = self.sub("ELLIPSIS", r"\.{3,}", "…", body, ln)        # "...." too: the ellipsis takes no full stop
+        body = self.sub("ELLIPSIS-STOP", r"…\.(?!\.)", "…", body, ln)  # "…." -> "…"; "[…]." stays
+        body = self.sub("DOUBLE-STOP", r"(?<=[^\s\[(.])\.\.(?![.\])])", ".", body, ln)   # "[..]" (a source's omission) is left alone
         body = self.sub("OMISSION", r"[\(\[]\s*…\s*[\)\]]", "[…]", body, ln)
 
-        # quotes (§3.1)
+        # quotes (§3.1); Polish keyboards: ",," for „ and '' for ” (then balanced as any quote); a doubled comma
+        body = self.sub("QUOTE-COMMAS", r"(?:^|(?<=[\s(\[–—/*_]))(?:,,|‚‚)(?=[\w*_…\[])", "„", body, ln)
+        body = self.sub("QUOTE-APOS", r"''|’’", '"', body, ln)
+        body = self.sub("DOUBLE-COMMA", r"(?<=\S),,(?=\s|$)", ",", body, ln)
+        for m in re.finditer(r",,", body):
+            self.flag(ln, "DOUBLE-COMMA?", body[max(0, m.start() - 20): m.end() + 20])
         body = self.quotes(body, ln)
 
         # dashes (§3.2)

@@ -30,7 +30,7 @@ the DOCX reader; the tests are what proves the toolchain still does what this fi
 |---|---|---|---|
 | 1a DOCX in | `python3 $S/docx_in.py art.docx -o art.md` | `IMPORT OK/CHECK n` | `_import.md`: pending track changes, fake superscript notes, manual headings. The author's reference list goes to `art_bib.txt`; Zotero/Mendeley fields are harvested into `art_cited.md` + `art_refs.json`. Notes typed as text (superscript digits + numbered note paragraphs page by page, a PDF rip): add `--typed-notes` → real notes labelled with the source numbers; read every REPAIRED / GAP / LOST TEXT line against the PDF |
 | 1b PDF in | `python3 $S/pdf_extract.py art.pdf -o src.md [--pages a-b]` | `EXTRACT OK/CHECK n` | `_extract.md`: hyphen joins, headings, verse, captions, retyped small caps, dropped lines, word check (every lost word read against the PDF); reference list → `src_bib.txt`; title/author/abstract → `src_front.md` (for the CSV) |
-| 2 normalise | `python3 $S/normalize.py art.md -o art.md --log art_norm.md` | change log + flags | resolve every flag |
+| 2 normalise | `python3 $S/normalize.py art.md -o art.md --log art_norm.md` | change log + flags | resolve every flag. Routine cleanup is all here (spaces, `..`/`...`/`....`/`….`, `,,` and `''` quotes, dashes, ranges, markers); the build fails while anything is left for it |
 | 3 refs | Claude writes `refs.json` from `_bib.txt` (or completes `_refs.json`) per `references/srom-md.md` | `cite_map.py audit --refs refs.json --bib art_bib.txt` → `CITEMAP OK`; web texts: `lookup.py webdates refs.json --csv art_q.csv`; DOIs (§ 9.7): `lookup.py dois refs.json --csv art_q.csv --tsv doi_check.tsv`; missing places/publishers: `lookup.py imprints refs.json --csv art_q.csv --tsv imprints.tsv` (LoC, DNB, BN) | every PROBLEM line; publication dates found on the pages (fill in, § 8.6), undated pages → `"srom-undated": true`; DOI differences and proposals, catalogue imprints: the editor approves each before it enters refs.json |
 | 4a author-date | `python3 $S/cite_map.py scan art.md --refs refs.json --apply art_fn.md` | `CITEMAP OK/FAIL` | INFLECTED, TRIMMED, YEAR-ONLY, YEAR-UNIQUE, IN-NOTE, NOT-CITED?, YEAR-ONLY?, PAGE-ONLY rows; a citation of a work missing from the author's list: `lookup.py missing "Names" year --csv art_q.csv` (query to the author, never into refs.json until confirmed); `art_q.csv` goes to `build.py --queries` |
 | 4b footnoted | Claude keys literal notes → `[@key, s. N]` (archival, fieldwork, laws stay literal) | `check.py --keyed art.md art_keyed.md --refs refs.json` → `CHECK OK`, then `mutate_keyed.py art.md art_keyed.md --refs refs.json` → `MUTATIONS CAUGHT n/n` | a MISSED mutant is a hole in the check for this text's citation style: fix `check.py` (with a test) before handing over, or name the undecidable case in the queries |
@@ -44,7 +44,7 @@ at any time; `build.py` runs it itself.
 
 ## Scenarios
 
-**A. Polish Word file, footnotes** — 1a → 2 → 3 → 4b → 6 → 7. If the author used Zotero/Mendeley, 1a has
+**A. Polish Word file, footnotes** (any text written in Polish, no TRANS) — 1a → 2 → 3 → 4b → 5 (the editor's content edit in the working copy) → 2 → 6 → 7. If the author used Zotero/Mendeley, 1a has
 already keyed the citations (`_cited.md`): complete `_refs.json`, run `--keyed art.md art_cited.md`, go on
 from the `_cited` file. Keying by hand is the only non-deterministic step; `--keyed` proves no page,
 note or work was lost. *Lite variant* for an article whose notes are already kanon-clean: skip 3–4,
@@ -52,7 +52,7 @@ keep notes literal, put the whole bibliography as literal sections in the `::: {
 Styles, markers and linter are still enforced, but first/short/Ibidem sequence is then the author's
 and nothing verifies it.
 
-**B. Author-date manuscript** — 1a → 2 → 3 → 4a → 2 → 6 → 7 (Zotero/Mendeley: 1a already converted it).
+**B. Author-date manuscript** — 1a → 2 → 3 → 4a → 2 → 5 → 2 → 6 → 7 (Zotero/Mendeley: 1a already converted it).
 `cite_map` never guesses a work: AMBIGUOUS/UNKNOWN/UNPARSED/PAGE-ONLY? block `--apply` until resolved or
 explicitly released (`--allow-unknown`, `--allow-unparsed`); a page-only "(s. 21)" becomes a citation of the
 work cited just before it and is listed.
@@ -83,7 +83,7 @@ gives the `translators_struct` value for the master CSV). Never MarkItDown: it l
   build on any in literal notes
 - bibliography sections I–VI assembled, empty ones omitted, renumbered, Polish collation, surnames
   (not particles, not institutions) in the small-caps character style
-- the build **fails** on: unknown key, marker without note or orphan note, `@key` / `[-@key]`
+- the build **fails** on: text `normalize.py` would still change (`--draft`/`--proof` only warn), unknown key, marker without note or orphan note, `@key` / `[-@key]`
   citations, missing bibliographic data `[BRAK MIEJSCA/ROKU/WYDAWCY]` (kanon §0; `--draft` for proofs
   only), heading level 3, numbered
   list, image in text, code block outside `::: przyklad`, literal and CSL entries in one bibliography

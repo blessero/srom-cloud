@@ -30,6 +30,13 @@ CASES = [
     ("Opuszczenie (...) i [...] oraz wielokropek...", "Opuszczenie […] i […] oraz wielokropek…", None),
     ("„Romani (adjective). . . . When referring” i „słowa . . . dalej”.", "„Romani (adjective). […] When referring” i „słowa […] dalej”.", None),
     ("Znak\u00admiękki\u200b usunięty.", "Znakmiękki usunięty.", None),
+    # routine slips (MB 04.10.2026): two or four dots, "…." ; "[…]." stays
+    ("Koniec zdania.. Wielokropek.... Albo…. Opuszczenie […]. W 1943 r.. dalej", "Koniec zdania. Wielokropek… Albo… Opuszczenie […]. W 1943 r. dalej", None),
+    # Polish keyboard quotes: ,,tekst'' and ,,tekst” ; doubled comma before a space
+    ("Mówił ,,tak'' i (,,nie”), potem,, dalej.", "Mówił „tak” i („nie”), potem, dalej.", None),
+    ("| Rok  | Liczba  |\n|------|---------|\n| 1921 | 13  000 |", "| Rok  | Liczba  |\n|------|---------|\n| 1921 | 13  000 |", None),
+    ("Opuszczenie w źródle [..] zostaje.", "Opuszczenie w źródle [..] zostaje.", None),
+    ("Słowo,,dziwne zostaje.", "Słowo,,dziwne zostaje.", "DOUBLE-COMMA?"),
     # note markers
     ("Zdanie kończy się.[^1] Następne,[^2] i dalej", "Zdanie kończy się[^1]. Następne[^2], i dalej", None),
     ("W 1943 r.[^3] zmarł.", "W 1943 r.[^3] zmarł.", None),
