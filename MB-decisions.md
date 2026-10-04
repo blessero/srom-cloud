@@ -72,6 +72,8 @@ send) · **Later** (a reminder, nothing to do now).
 | SYS-6 | Online cover page: approve the changes to your template | Approve | the first online PDF |
 | SYS-7 | Print the dates of submission and acceptance on the cover page? | Decide | nothing |
 | SYS-8 | Vol. 18: who translated Ostendorf and Fotta? | Look up | their online PDFs |
+| SYS-9 | Texts and your questions: kept in Cowork or in Code? | Decide | **your first Word edit** |
+| SYS-10 | Make the skill files the same in Code and Cowork? | Decide | nothing |
 
 ## Journal-wide (GEN)
 Next free: GEN-15.
@@ -651,7 +653,7 @@ Detail: 🔴 `srom-produkcja/work/scheffknecht/scheffknecht_uwagi.md` → SCH-5 
 *Trail: D18 B1–B7.*
 
 ## Tooling and workflow (SYS)
-Next free: SYS-9.
+Next free: SYS-11.
 
 ### SYS-1 · Translator on the website; quant skill (former curator) in desktop Claude
 **Later** · blocks nothing
@@ -758,3 +760,37 @@ Both are translations, but the master CSV names no translator, and the cover pag
 also needs a translator line.
 
 *Trail: `volumes/18/srom_master_v3.csv` column `translators_struct`.*
+
+### SYS-9 · Texts and your questions: kept in Cowork or in Code?
+**Decide** · blocks your first Word edit (nothing is broken today)
+
+Since 03.10.2026 both systems hold a full copy of every text (Word copies, notes sheets) and each keeps its own list of
+your questions. The lists have already drifted: this one gained three tooling questions (SYS-6 to SYS-8) that Cowork's
+lacks, and Cowork had used the numbers SYS-6 and SYS-7 for two other questions. No text file has changed on either
+side yet, so now is the time to choose, before you edit a Word copy in one place and not the other.
+- (a) Cowork holds the texts, this list and the state of each text; Code (here or in the cloud) builds and tests the
+  skills and keeps its copies of the texts only as reference until you delete them. Questions from Code go to Cowork
+  through the channel in `_handoffs/` — **recommended**: Cowork already runs every stage and your Editorial Desk
+- (b) Code holds the texts and this list; Cowork does editorial work and Zizek only
+- (c) both keep everything, compared after each session with `cowork_sync.py`; the risk of two diverging Word copies
+  stays
+Detail: 🔴 `_handoffs/review-04.10.2026.md` → SYS-9
+
+*Trail: root session 04.10.2026 21:30 [general]; cowork_sync.py sections 3–4; Cowork's SYS-6 (network allowlist) and
+SYS-7 (Zizek's home) are not this list's SYS-6/SYS-7. Until decided: Cowork numbers new questions from 100 up (K1).*
+
+### SYS-10 · Make the skill files the same in Code and Cowork?
+**Decide** · blocks nothing (keeping two versions works, with hand merging)
+
+When the skills were packed for Cowork they were edited: journal facts moved into one knowledge-base file, a page on
+the stages, worked examples, Linux fixes, a "not for" line in each description. Code never took these edits. So every
+change made here has to be merged by hand into Cowork's copy (it was done on 04.10 at 01:03 and 02:34, and Cowork's
+copy was reset and repaired again between 20:39 and 21:22), and some of Cowork's fixes do not fit Code.
+- (a) bring Cowork's edits into Code once (one srom-produkcja and one srom-tlumacz session; a good first job for the
+  cloud credit); after that, Code → Cowork is a plain copy of the skill folders and Cowork's patches fit as they are
+  — **recommended**
+- (b) keep two versions and merge each change by hand
+Detail: 🔴 `_handoffs/review-04.10.2026.md` → SYS-10
+
+*Trail: cowork_sync.py sections 1–2 (srom-tlumacz: 5 files differ, 5 only in Cowork; srom-kanon SKILL.md; the
+knowledge-base patch has no file in Code); _migracja/PLAN.md L1–L5.*
