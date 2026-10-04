@@ -1,0 +1,16 @@
+--- srom-tlumacz/scripts/tlumacz-test_handoff.py
++++ srom-tlumacz/scripts/tlumacz-test_handoff.py
+@@ -198,11 +198,11 @@
+ 
+ # T26 (29.09.2026): the hand-back ("Back" in handoff.md). The Word file in our work/<id>/ is the master; we import it
+ # with docx_in.py (the md is never edited by hand) and name the files with sha256 in a delivery line of the hand-off
+-# log (STATUS.md); srom-produkcja
++# log (STATUS.md; handoff.md since 01.10.2026: an E-item, "Delivery item"); srom-produkcja
+ # takes them with take_back.py, which re-imports the master and requires the md to equal that import byte for byte.
+ import hashlib, shutil
+ expect("T26: handoff.md 'Back' — Word master in srom-tlumacz's work/<id>/, delivery line, take_back.py",
+-       "## Back:" in HO and "that Word file is the\n   master" in HO and "delivery line" in HO and "take_back.py" in HO)
++       "## Back:" in HO and "that Word file is the\n   master" in HO and "delivery item" in HO.lower() and "take_back.py" in HO)
+ TB = os.path.join(S, "take_back.py")
+ DL = os.path.join(D, "tl", "work", "x"); SD = os.path.join(D, "ts", "work", "x")
+ os.makedirs(DL); os.makedirs(SD)

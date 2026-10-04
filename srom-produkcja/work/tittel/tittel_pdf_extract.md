@@ -1,0 +1,303 @@
+# PDF extraction — ../Racial_and_Social_Dimensions_of_Antiziga.pdf (pages 1–23)
+
+- body size 12.0 pt · note size 10.0 pt · paragraphs 46 · headings 5
+- footnotes 101 · markers 101 · italic runs 140
+
+## Issues (fix before translating)
+- none
+
+## Front matter (not in the text: title, author, abstract go to the master CSV, Kanon § 13.3) -> tittel_pdf_front.md
+- Published as *_Article* in *On_Culture: The Open Journal for the Study of Culture*
+- (ISSN 2366-4142)
+- RACIAL AND SOCIAL DIMENSIONS OF ANTIZIGANISM: THE REPRESENTATION OF “GYPSIES” IN POLITICAL THEORY
+- LAURA SORÉNA TITTEL
+- Laura.tittel@sowi.uni-giessen.de Laura Soréna Tittel is a research associate at the chair of Political Theory and History of Ideas at Justus Liebig University Giessen. She is part of the research team
+- KEYWORDS
+- antiziganism, history of ideas, Kant, Marx, police work, racism
+- PUBLICATION DATE
+- Issue 10, April 21, 2021
+- HOW TO CITE
+- Tittel, Laura Soréna. “Racial and Social Dimensions of Antiziganism: The Representation of ‘Gypsies’ in Political Theory.” *On_Culture: The Open Journal for the Study of Culture* 10 (2020). <http://ge
+- Permalink URL: <http://geb.uni-giessen.de/geb/volltexte/2021/16025/> URN: <urn:nbn:de:hebis:26-opus-160255>
+- Racial and Social Dimensions of Antiziganism: The Representation of “Gypsies” in Political Theory
+- _Abstract
+- Within antiziganism research, the relation of racial and social connotations in the usage of the term “gypsy” is subject of an ongoing debate. Especially in the context of police work, historians sugg
+
+## Warnings
+- endnotes section found on page 17 — parsed as notes
+- front matter: pages 1–2 up to the heading '1_Introduction' (abstract/keywords section)
+- page 7: superscript text kept as plain: ['th']
+- heading decoration: '1_Introduction' -> '1. Introduction'
+- heading decoration: '2_Kant: “Gypsies” as an Unreasonable Rac' -> '2. Kant: “Gypsies” as an Unreasonable Ra'
+- heading decoration: '3_Marx: The Creation of Vagabonds' -> '3. Marx: The Creation of Vagabonds'
+- heading decoration: '4_”Gypsies” in German Police Legislation' -> '4. ”Gypsies” in German Police Legislatio'
+- heading decoration: '5_”Gypsy” as Racial and Social Category' -> '5. ”Gypsy” as Racial and Social Category'
+- images on pages [1]: not extracted (figures are placed by hand); captions -> ::: podpis
+
+## Line-end hyphen joins (proofread)
+- Dy-|namics -> Dynamics
+- ex-|amines -> examines (prefix, but found in the text)
+- imagi-|nation -> imagination
+- Poli-|tics -> Politics
+- URL http://geb.uni-|giessen.de/geb/volltexte/ -> hyphen kept (the same address elsewhere in the document)
+- us-|age -> usage
+- exam-|ines -> examines
+- the-|ory -> theory
+- raciali-|zation -> racialization
+- an-|tiziganism -> antiziganism
+- any-|where -> anywhere
+- crim-|inal -> criminal
+- per-|ceived -> perceived
+- organ-|izing -> organizing
+- Lang-|zeitverlauf -> Langzeitverlauf
+- Psychoso-|zial -> Psychosozial
+- Atten-|tat -> Attentat
+- im-|plied -> implied
+- repre-|sentation -> representation
+- so-|cial -> social
+- popula-|tion -> population
+- liter-|ary -> literary
+- gen-|erally -> generally
+- ille-|gitimate -> illegitimate
+- seden-|tariness -> sedentariness
+- Social-|ism -> Socialism
+- transfor-|mation -> transformation
+- cat-|egories -> categories
+- Würz-|burg -> Würzburg
+- LIT-|Verlag, -> hyphen kept (capital follows)
+- vaga-|bondage -> vagabondage
+- explana-|tions -> explanations
+- socio-|economic -> socioeconomic (prefix, but found in the text)
+- Ger-|man -> German
+- atten-|tion -> attention
+- Acad-|emy -> Academy
+- Diskussions-|reihe -> Diskussionsreihe
+- URL archiv-2020/kant-ein-ras-|sist-interdisziplinaere-d -> hyphen kept, no link in the PDF — check the address
+- gyp-|sies -> gypsies
+- West-|ern -> Western
+- prob-|lematic -> problematic
+- inter-|views -> inter-views (hyphen kept: prefix, not found in the text — check)
+- Ber-|liner -> Berliner
+- contemporar-|ies -> contemporaries
+- con-|demnation -> condemnation
+- ras-|sistischen -> rassistischen
+- Literaturge-|schichte -> Literaturgeschichte
+- re-|search -> research
+- respon-|sible -> responsible
+- Bü-|cheranzeigen -> Bücheranzeigen
+- URL http://mdz-nbn-resol-|ving.de/urn:nbn:de:bvb:12 -> hyphen removed (the same address elsewhere in the document)
+- availa-|ble -> available
+- writ-|ings -> writings
+- characteris-|tics -> characteristics
+- Deter-|mination -> Determination
+- charac-|teristics -> characteristics
+- URL https://www.db-|thueringen.de/receive/dbt -> hyphen kept, no link in the PDF — check the address
+- rethink-|ing -> rethinking
+- na-|ture -> nature
+- mod-|ern -> modern
+- em-|phasis -> emphasis
+- ma-|jor -> major
+- Ed-|mund -> Edmund
+- man-|ifested -> manifested
+- rea-|son -> reason
+- Zhavor-|onkov -> Zhavoronkov
+- Voll-|kommenheiten -> Vollkommenheiten
+- transla-|tion -> translation
+- pre-|sents -> pre-sents (hyphen kept: prefix, not found in the text — check)
+- His-|tory -> History
+- non-|simultaneity -> non-simultaneity (hyphen kept: prefix, not found in the text — check)
+- Prin-|ciples -> Principles
+- inde-|pendent -> independent
+- an-|säßige -> ansäßige
+- charac-|teristics -> characteristics
+- civiliza-|tion -> civilization
+- descrip-|tions -> descriptions
+- vaga-|bondage -> vagabondage
+- Arbeitsgesell-|schaft -> Arbeitsgesellschaft
+- Mar-|kus -> Markus
+- vaga-|bondage -> vagabondage
+- ar-|rived -> arrived
+- gen-|eral -> general
+- Eurocen-|tric -> Eurocentric
+- develop-|ment -> development
+- Autonome-|dia -> Autonomedia
+- on-|wards -> onwards
+- manufac-|ture -> manufacture
+- bour-|geois -> bourgeois
+- En-|gels -> Engels
+- inclina-|tion -> inclination
+- em-|ploys -> employs
+- impover-|ished -> impoverished
+- Ber-|lin -> Berlin
+- to-|gether -> together
+- Fol-|lowing -> Following
+- Vag-|abonds -> Vagabonds
+- anti-|“gypsy” -> hyphen kept, no space (quotation mark follows)
+- im-|migration -> immigration
+- tell-|ing -> telling
+- fol-|lowing -> following
+- life-|style -> lifestyle
+- ad-|dressed -> addressed
+- pre-|sent -> present (prefix, but found in the text)
+- sto-|ries -> stories
+- legis-|lation -> legislation
+- so-|ciety -> society
+- unemploy-|ment -> unemployment
+- reproduc-|tion -> reproduction
+- pop-|ulation -> population
+- pov-|erty -> poverty
+- Liberalis-|mus -> Liberalismus
+- or-|ganized -> organized
+- popula-|tion -> population
+- gang-|master -> gang-master (hyphen kept: found in the text)
+- impu-|dence -> impudence
+- socioeco-|nomic -> socioeconomic
+- develop-|ments -> developments
+- let-|ters -> letters
+- progres-|sively -> progressively
+- Ger-|many -> Germany
+- Regie-|rungs -> Regierungs
+- Abgrenzungs-|prozesse -> Abgrenzungsprozesse
+- würt-|tembergischen -> württembergischen
+- württem-|bergischen -> württembergischen
+- territo-|ries -> territories
+- land-|damaging -> landdamaging
+- re-|quirements -> requirements
+- rab-|ble -> rabble
+- Samm-|lung -> Sammlung
+- Vernichtungspo-|litik -> Vernichtungspolitik
+- un-|derstanding -> understanding
+- capi-|talism -> capitalism
+- devel-|opment -> development
+- dec-|ades -> decades
+- Jahr-|hundert -> Jahrhundert
+- interpreta-|tion -> interpretation
+- lan-|guage -> language
+- perpet-|uates -> perpetuates
+- con-|temporaries -> contemporaries
+- dif-|ferences -> differences
+- pro-|cesses -> processes (prefix, but found in the text)
+- ex-|cluded -> excluded (prefix, but found in the text)
+- flexi-|bility -> flexibility
+- ac-|cording -> according
+- cate-|gorizing -> categorizing
+- eli-|gible -> eligible
+- so-|called -> so-called (hyphen kept: found in the text)
+- anti-|social -> anti-social (hyphen kept: prefix, not found in the text — check)
+- Iden-|tities -> Identities
+- Nachkriegs-|zeit -> Nachkriegszeit
+- ap-|proach -> approach
+- phe-|nomena -> phenomena
+- Tou-|risten -> Touristen
+
+## Dropped running heads / page numbers
+- p2: On_Culture: The Open Journal for the Study of Culture
+- p2: Issue 10 (2020): Metaphors of Migration
+- p2: www.on-culture.org
+- p2: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p2: 2
+- p3: On_Culture: The Open Journal for the Study of Culture
+- p3: Issue 10 (2020): Metaphors of Migration
+- p3: www.on-culture.org
+- p3: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p3: 3
+- p4: On_Culture: The Open Journal for the Study of Culture
+- p4: Issue 10 (2020): Metaphors of Migration
+- p4: www.on-culture.org
+- p4: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p4: 4
+- p5: On_Culture: The Open Journal for the Study of Culture
+- p5: Issue 10 (2020): Metaphors of Migration
+- p5: www.on-culture.org
+- p5: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p5: 5
+- p6: On_Culture: The Open Journal for the Study of Culture
+- p6: Issue 10 (2020): Metaphors of Migration
+- p6: www.on-culture.org
+- p6: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p6: 6
+- p7: On_Culture: The Open Journal for the Study of Culture
+- p7: Issue 10 (2020): Metaphors of Migration
+- p7: www.on-culture.org
+- p7: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p7: 7
+- p8: On_Culture: The Open Journal for the Study of Culture
+- p8: Issue 10 (2020): Metaphors of Migration
+- p8: www.on-culture.org
+- p8: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p8: 8
+- p9: On_Culture: The Open Journal for the Study of Culture
+- p9: Issue 10 (2020): Metaphors of Migration
+- p9: www.on-culture.org
+- p9: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p9: 9
+- p10: On_Culture: The Open Journal for the Study of Culture
+- p10: Issue 10 (2020): Metaphors of Migration
+- p10: www.on-culture.org
+- p10: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p10: 10
+- p11: On_Culture: The Open Journal for the Study of Culture
+- p11: Issue 10 (2020): Metaphors of Migration
+- p11: www.on-culture.org
+- p11: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p11: 11
+- p12: On_Culture: The Open Journal for the Study of Culture
+- p12: Issue 10 (2020): Metaphors of Migration
+- p12: www.on-culture.org
+- p12: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p12: 12
+- p13: On_Culture: The Open Journal for the Study of Culture
+- p13: Issue 10 (2020): Metaphors of Migration
+- p13: www.on-culture.org
+- p13: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p13: 13
+- p14: On_Culture: The Open Journal for the Study of Culture
+- p14: Issue 10 (2020): Metaphors of Migration
+- p14: www.on-culture.org
+- p14: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p14: 14
+- p15: On_Culture: The Open Journal for the Study of Culture
+- p15: Issue 10 (2020): Metaphors of Migration
+- p15: www.on-culture.org
+- p15: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p15: 15
+- p16: On_Culture: The Open Journal for the Study of Culture
+- p16: Issue 10 (2020): Metaphors of Migration
+- p16: www.on-culture.org
+- p16: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p16: 16
+- p17: On_Culture: The Open Journal for the Study of Culture
+- p17: Issue 10 (2020): Metaphors of Migration
+- p17: www.on-culture.org
+- p17: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p17: 17
+- p18: On_Culture: The Open Journal for the Study of Culture
+- p18: Issue 10 (2020): Metaphors of Migration
+- p18: www.on-culture.org
+- p18: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p18: 18
+- p19: On_Culture: The Open Journal for the Study of Culture
+- p19: Issue 10 (2020): Metaphors of Migration
+- p19: www.on-culture.org
+- p19: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p19: 19
+- p20: On_Culture: The Open Journal for the Study of Culture
+- p20: Issue 10 (2020): Metaphors of Migration
+- p20: www.on-culture.org
+- p20: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p20: 20
+- p21: On_Culture: The Open Journal for the Study of Culture
+- p21: Issue 10 (2020): Metaphors of Migration
+- p21: www.on-culture.org
+- p21: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p21: 21
+- p22: On_Culture: The Open Journal for the Study of Culture
+- p22: Issue 10 (2020): Metaphors of Migration
+- p22: www.on-culture.org
+- p22: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p22: 22
+- p23: On_Culture: The Open Journal for the Study of Culture
+- p23: Issue 10 (2020): Metaphors of Migration
+- p23: www.on-culture.org
+- p23: http://geb.uni-giessen.de/geb/volltexte/2021/16025/
+- p23: 23

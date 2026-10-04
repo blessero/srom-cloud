@@ -1,0 +1,192 @@
+# PDF extraction — Noemie Ndiaye Black Roma.pdf (pages 1–37)
+
+- body size 10.8 pt · note size 9.0 pt · paragraphs 144 · headings 8
+- footnotes 133 · markers 133 · italic runs 123
+
+## Issues (fix before translating)
+- none
+
+## Front matter (not in the text: title, author, abstract go to the master CSV, Kanon § 13.3) -> ndiaye/ndiaye_pdf_front.md
+- Black Roma: Afro-Romani Connections in Early Modern Drama (and Beyond)
+- NOÉMIE NDIAYE, *University of Chicago*
+- *This essay brings to light a hitherto unnoticed network of Afro-Romani connections in later seventeenth-century French and English drama, and it construes that network as conceptual and ethical genea
+- *Renaissance Quarterly* 75 (2022): 1266–302 © The Author(s), 2022. Published by Cambridge University Press on behalf of the Renaissance Society of America. This is an Open Access article, distributed 
+
+## Warnings
+- page 4: superscript text in a note kept as plain: ['e']
+- note 44 continues on page 14
+- page 1: opening words in small capitals retyped: 'THIS ESSAY ORIGINATES' -> 'This essay originates' (check proper names)
+- page 34: superscript text kept as plain: ['e', 'e']
+- page 34: superscript text kept as plain: ['e']
+- page 37: superscript text kept as plain: ['e']
+- paragraph continued across a caption: “…ual culture articulates a wide” | “chromatic spectrum for Romnia’…” (caption placed after the paragraph)
+- paragraph continued across a caption: “…with this herbe,” and the idea” | “seems to have gotten particula…” (caption placed after the paragraph)
+- paragraph continued across a caption: “…elp mar our hue, it is nothing” | “compared to the juice of a cer…” (caption placed after the paragraph)
+- page 1: unnumbered note at the foot of the first page -> ::: przypis-tytulowy (the author's note on the title, Kanon § 7.1; check)
+- URL text 'https://shakespeare.edel.univ-poitiers.fr/shakespeare/index.php?id¼1859' differs from its link target -> 'https://shakespeare.edel.univ-poitiers.fr/shakespeare/index.php?id=1859' (the link used)
+- images on pages [8, 9, 10]: not extracted (figures are placed by hand); captions -> ::: podpis
+- 5 verse quotation(s): line breaks kept (> …\) — check where each begins and ends
+- reference list: 84 entries written to ndiaye/ndiaye_pdf_bib.txt (input for refs.json + cite_map audit)
+
+## Line-end hyphen joins (proofread)
+- adapta-|tion -> adaptation
+- arti-|cle -> article
+- URL http://creative-|commons.org/licenses/by/4 -> hyphen removed (link target)
+- rec-|ommendations -> recommendations
+- dis-|connected -> disconnected
+- adap-|tation -> adaptation
+- adjec-|tive -> adjective
+- lan-|guage -> language
+- per-|formance -> performance
+- con-|cerned -> concerned
+- capital-|ism -> capitalism
+- sub-|jected -> subjected
+- cen-|tury -> century
+- recep-|tion -> reception
+- imperson-|ation -> impersonation
+- stud-|ies -> studies
+- enslave-|ment -> enslavement
+- assimila-|tion -> assimilation
+- work-|force -> workforce
+- cul-|tural -> cultural
+- repro-|duced -> reproduced
+- pro-|duction -> production (prefix, but found in the text)
+- indi-|cated -> indicated
+- hyper-|canonical -> hyper-canonical (hyphen kept: found in the text)
+- forma-|tions -> formations
+- mean-|ingfully -> meaningfully
+- four-|beries -> fourberies
+- mod-|ern -> modern
+- eth-|ically -> ethically
+- erro-|neously -> erroneously
+- follow-|ing -> following
+- adja-|cent -> adjacent
+- peu-|vent -> peuvent
+- l’em-|porte -> l’emporte
+- men-|tioned -> mentioned
+- his-|torian -> historian
+- some-|times -> sometimes
+- sus-|pected -> suspected
+- cul-|ture -> culture
+- nature-|lle -> naturelle
+- per-|mission -> permission
+- per-|meated -> permeated
+- pal-|pable -> palpable
+- evo-|cation -> evocation
+- enslave-|ment -> enslavement
+- for-|mer -> former
+- him-|self -> himself
+- liter-|alizes -> literalizes
+- neo-|classical -> neoclassical (prefix, but found in the text)
+- tra-|dition -> tradition
+- self-|ownership -> self-ownership (hyphen kept: prefix, not found in the text — check)
+- woo-|ing -> wooing
+- four-|beries -> fourberies
+- prov-|ince -> province
+- ono-|mastic -> onomastic
+- jus-|tice -> justice
+- dis-|agreement -> disagreement
+- fam-|ily -> family
+- repre-|sented -> represented
+- del-|l’arte -> dell’arte
+- infiltrat-|ing -> infiltrating
+- geno-|cidal -> genocidal
+- threaten-|ing -> threatening
+- recruit-|ment -> recruitment
+- pos-|sible -> possible
+- mar-|rying -> marrying
+- indi-|vidual -> individual
+- appropri-|ated -> appropriated
+- re-|educated -> reeducated
+- stat-|istically -> statistically
+- white-|ness -> whiteness
+- adapta-|tion -> adaptation
+- orna-|mental -> ornamental
+- plot-|line -> plotline
+- elim-|inated -> eliminated
+- suf-|fered -> suffered
+- seven-|teenth -> seventeenth
+- eliminat-|ing -> eliminating
+- leg-|islators -> legislators
+- tradi-|tional -> traditional
+- cul-|tural -> cultural
+- black-|masqued -> blackmasqued
+- fas-|cination -> fascination
+- anal-|ysis -> analysis
+- temper-|ance -> temperance
+- trans-|lated -> translated (prefix, but found in the text)
+- appar-|ently -> apparently
+- charac-|ters -> characters
+- prin-|cess -> princess
+- connec-|tion -> connection
+- emer-|gence -> emergence
+- his-|tory -> history
+- ulti-|mately -> ultimately
+- materi-|ality -> materiality
+- dis-|guise -> disguise
+- resolu-|tion -> resolution
+- fol-|lowed -> followed
+- repay-|ing -> repaying
+- traf-|ficking -> trafficking
+- unac-|ceptable -> unacceptable
+- engage-|ments -> engagements
+- met-|aphor -> metaphor
+- dis-|cuss -> discuss
+- enslave-|ment -> enslavement
+- disci-|plinary -> disciplinary
+- ambig-|uous -> ambiguous
+- two-|dimensional -> twodimensional
+- con-|sciousness -> consciousness
+- raciali-|zation -> racialization
+- compari-|sons -> comparisons
+- paraphras-|ing -> paraphrasing
+- col-|oniality -> coloniality
+- conven-|tionally -> conventionally
+- URL https://laviedesi-|dees.fr/La-France-contre- -> hyphen removed (link target)
+- robber-|ies -> robberies
+- URL https://medicalhealth-|humanities.com/2019/06/10 -> hyphen removed (link target)
+- URL -reproductive-rights-and-|women-of-color-across-tim -> hyphen kept (link target)
+
+## Dropped running heads / page numbers
+- p2: BLACK ROMA1267
+- p3: 1268RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p4: BLACK ROMA1269
+- p5: 1270RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p6: BLACK ROMA1271
+- p7: 1272RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p8: BLACK ROMA1273
+- p9: 1274RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p10: BLACK ROMA1275
+- p11: 1276RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p12: BLACK ROMA1277
+- p13: 1278RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p14: BLACK ROMA1279
+- p15: 1280RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p16: BLACK ROMA1281
+- p17: 1282RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p18: BLACK ROMA1283
+- p19: 1284RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p20: BLACK ROMA1285
+- p21: 1286RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p22: BLACK ROMA1287
+- p23: 1288RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p24: BLACK ROMA1289
+- p25: 1290RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p26: BLACK ROMA1291
+- p27: 1292RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p28: BLACK ROMA1293
+- p29: 1294RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p30: BLACK ROMA1295
+- p31: 1296RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p32: BLACK ROMA1297
+- p33: 1298RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p34: BLACK ROMA1299
+- p35: 1300RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p36: BLACK ROMA1301
+- p37: 1302RENAISSANCE QUARTERLYVOLUME LXXV, NO. 4
+- p1: Renaissance Quarterly 75 (2022): 1266–302 © The Author(s), 2 (set apart below the notes)
+- p1: University Press on behalf of the Renaissance Society of Ame (set apart below the notes)
+- p1: cle, distributed under the terms of the Creative Commons Att (set apart below the notes)
+- p1: commons.org/licenses/by/4.0/), which permits unrestricted re (set apart below the notes)
+- p1: reproduction in any medium, provided the original work is pr (set apart below the notes)
+- p1: doi: 10.1017/rqx.2022.332 (set apart below the notes)

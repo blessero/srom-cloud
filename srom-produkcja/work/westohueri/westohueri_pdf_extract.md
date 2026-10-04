@@ -1,0 +1,140 @@
+# PDF extraction — westohueri.pdf (pages 1–18)
+
+- body size 10.0 pt · note size 9.0 pt · paragraphs 34 · headings 6
+- footnotes 68 · markers 68 · italic runs 77
+
+## Issues (fix before translating)
+- none
+
+## Front matter (not in the text: title, author, abstract go to the master CSV, Kanon § 13.3) -> westohueri_pdf_front.md
+- 6
+- Peripheral whiteness and racial belonging and non-belonging: accounts from Albania
+- *Chelsi West Ohueri*
+
+## Warnings
+- page 15: note zone opens without a number after a note ending mid-sentence ('n South-East Europe: Political') -> continues that note: 'and Cultural Representations of the Past'
+- page 17: note zone opens without a number after a note ending mid-sentence ('al, 41:4 (1998), 431–51). Such') -> continues that note: 'ideas have been debated by numerous scho'
+- endnotes section found on page 14 — parsed as notes
+- note 2 continues on page 15
+- note 39 continues on page 17
+- 3 lower case from a small-capitals font read as capitals — spot-check numbers and names against the PDF
+
+## Line-end hyphen joins (proofread)
+- eth~|nographically -> ethnographically (soft hyphen, joined)
+- proxim~|ity -> proximity (soft hyphen, joined)
+- Islam-as-|Historical-Force -> hyphen kept (capital follows)
+- black~|ness. -> blackness. (soft hyphen, joined)
+- develop~|ment’.[^8] -> development’.[^8] (soft hyphen, joined)
+- European~|ness. -> Europeanness. (soft hyphen, joined)
+- histori~|cal -> historical (soft hyphen, joined)
+- attach~|ments -> attachments (soft hyphen, joined)
+- anthro~|pologist -> anthropologist (soft hyphen, joined)
+- dehuman~|ising -> dehumanising (soft hyphen, joined)
+- nine~|teenth -> nineteenth (soft hyphen, joined)
+- conceptu~|alisations -> conceptualisations (soft hyphen, joined)
+- oppres~|sors.[^28] -> oppressors.[^28] (soft hyphen, joined)
+- Schwandner-|Sievers -> hyphen kept (capital follows)
+- pos~|sessed -> possessed (soft hyphen, joined)
+- transform~|ing -> transforming (soft hyphen, joined)
+- perfor~|mances -> performances (soft hyphen, joined)
+- geo~|graphical, -> geographical, (soft hyphen, joined)
+- analyti~|cal -> analytical (soft hyphen, joined)
+- Revolution~|ary -> Revolutionary (soft hyphen, joined)
+- perpetu~|ated -> perpetuated (soft hyphen, joined)
+- demon~|strated -> demonstrated (soft hyphen, joined)
+- liber~|ate -> liberate (soft hyphen, joined)
+- Neo~|liberalism -> Neoliberalism (soft hyphen, joined)
+- neighbour~|hood -> neighbourhood (soft hyphen, joined)
+- socio~|economic, -> socioeconomic, (soft hyphen, joined)
+- URL enojne-dhunen-e-policise-|bashkiake-ndaj-ricikluesi -> hyphen kept, no link in the PDF — check the address
+
+## Dropped running heads / page numbers
+- p1: Chelsi West Ohueri - 9781526172211
+- p1: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p1: via Open Access. CC BY-NC-ND
+- p1: https://creativecommons.org/licenses/by-nc-nd/4.0/
+- p2: Peripheral whiteness and racial belonging in Albania 139
+- p2: Chelsi West Ohueri - 9781526172211
+- p2: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p2: via Open Access. CC BY-NC-ND
+- p2: https://creativecommons.org/licenses/by-nc-nd/4.0/
+- p3: 140 Off white
+- p3: Chelsi West Ohueri - 9781526172211
+- p3: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p3: via Open Access. CC BY-NC-ND
+- p3: https://creativecommons.org/licenses/by-nc-nd/4.0/
+- p4: Peripheral whiteness and racial belonging in Albania 141
+- p4: Chelsi West Ohueri - 9781526172211
+- p4: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p4: via Open Access. CC BY-NC-ND
+- p4: https://creativecommons.org/licenses/by-nc-nd/4.0/
+- p5: 142 Off white
+- p5: Chelsi West Ohueri - 9781526172211
+- p5: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p5: via Open Access. CC BY-NC-ND
+- p5: https://creativecommons.org/licenses/by-nc-nd/4.0/
+- p6: Peripheral whiteness and racial belonging in Albania 143
+- p6: Chelsi West Ohueri - 9781526172211
+- p6: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p6: via Open Access. CC BY-NC-ND
+- p6: https://creativecommons.org/licenses/by-nc-nd/4.0/
+- p7: 144 Off white
+- p7: Chelsi West Ohueri - 9781526172211
+- p7: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p7: via Open Access. CC BY-NC-ND
+- p7: https://creativecommons.org/licenses/by-nc-nd/4.0/
+- p8: Peripheral whiteness and racial belonging in Albania 145
+- p8: Chelsi West Ohueri - 9781526172211
+- p8: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p8: via Open Access. CC BY-NC-ND
+- p8: https://creativecommons.org/licenses/by-nc-nd/4.0/
+- p9: 146 Off white
+- p9: Chelsi West Ohueri - 9781526172211
+- p9: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p9: via Open Access. CC BY-NC-ND
+- p9: https://creativecommons.org/licenses/by-nc-nd/4.0/
+- p10: Peripheral whiteness and racial belonging in Albania 147
+- p10: Chelsi West Ohueri - 9781526172211
+- p10: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p10: via Open Access. CC BY-NC-ND
+- p10: https://creativecommons.org/licenses/by-nc-nd/4.0/
+- p11: 148 Off white
+- p11: Chelsi West Ohueri - 9781526172211
+- p11: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p11: via Open Access. CC BY-NC-ND
+- p11: https://creativecommons.org/licenses/by-nc-nd/4.0/
+- p12: Peripheral whiteness and racial belonging in Albania 149
+- p12: Chelsi West Ohueri - 9781526172211
+- p12: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p12: via Open Access. CC BY-NC-ND
+- p12: https://creativecommons.org/licenses/by-nc-nd/4.0/
+- p13: 150 Off white
+- p13: Chelsi West Ohueri - 9781526172211
+- p13: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p13: via Open Access. CC BY-NC-ND
+- p13: https://creativecommons.org/licenses/by-nc-nd/4.0/
+- p14: Peripheral whiteness and racial belonging in Albania 151
+- p14: Chelsi West Ohueri - 9781526172211
+- p14: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p14: via Open Access. CC BY-NC-ND
+- p14: https://creativecommons.org/licenses/by-nc-nd/4.0/
+- p15: 152 Off white
+- p15: Chelsi West Ohueri - 9781526172211
+- p15: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p15: via Open Access. CC BY-NC-ND
+- p15: https://creativecommons.org/licenses/by-nc-nd/4.0/
+- p16: Peripheral whiteness and racial belonging in Albania 153
+- p16: Chelsi West Ohueri - 9781526172211
+- p16: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p16: via Open Access. CC BY-NC-ND
+- p16: https://creativecommons.org/licenses/by-nc-nd/4.0/
+- p17: 154 Off white
+- p17: Chelsi West Ohueri - 9781526172211
+- p17: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p17: via Open Access. CC BY-NC-ND
+- p17: https://creativecommons.org/licenses/by-nc-nd/4.0/
+- p18: Peripheral whiteness and racial belonging in Albania 155
+- p18: Chelsi West Ohueri - 9781526172211
+- p18: Downloaded from manchesterhive.com at 09/29/2026 01:37:31AM
+- p18: via Open Access. CC BY-NC-ND
+- p18: https://creativecommons.org/licenses/by-nc-nd/4.0/

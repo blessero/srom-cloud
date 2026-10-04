@@ -1,0 +1,136 @@
+# Build report — westohueri_src
+
+**RESULT: PROOF — reading copy with the full apparatus; not for InDesign**
+
+- footnotes: 68 · citation keys used: 52 · bibliography sections: {'V': 1, 'VI': 51}
+- pandoc 3.8.3 · CSL srom.csl · config styles.json · linter /Users/michalbartosz/ARBEIT/Bima/SROM/CODE/SROM/SROM edit and trans/srom-typeset/.claude/skills/srom-kanon/scripts/lint_srom.py (Kanon v1.7)
+- Ibidem notes to check after layout: 2 (run westohueri_src_ibidem.jsx)
+
+## Errors
+- none
+
+## Source language: Polish typography not applied (handoff.md; normalize.py runs on the translation)
+- no English quotes “: 1
+- linter [NOTE-AFTERDOT]: 63
+
+## Warnings (review)
+- 2 comment(s) removed from the text (never printed, never blocking): DO SPRAWDZENIA (pytania D1): cytat bez wskazania źródła; zap | DO SPRAWDZENIA (pytania D2): w 2025 r. ukazała się książka a
+- corrections of the author's data (approved; refs.json srom-as-written): erebara2020: URL “www.reporter.al/organizatat-denojne-dhunen-e-policise-bashkiake-ndaj-ricikluesit/” (as written) → corrected
+- query sheet westohueri_src_pytania.md: 48× odwołanie do całości dzieła (bez strony), 13× cytat bez numeru strony
+
+## DOCX verification
+- [x] paragraph styles ⊆ config: used {'Tekst BEZ WCIĘCIA': 7, 'Tekst': 22, 'Śródtytuł': 7, 'Cytat': 5, 'Śródtytuł MAŁE': 2, 'Bibliografia': 52}; foreign {}; unstyled 0
+- [x] character styles ⊆ config: used {'Kursywa': 175, 'Kapitaliki': 57}; foreign {}
+- [x] no direct italic/bold/caps runs: 0 direct-formatted runs
+- [x] footnote count: docx 68 / source 68
+- [x] footnote paragraphs use footnote style only: {'Przypis': 68}
+- [x] no leading space in notes: 0 notes start with a space
+- [x] footnote number not in an empty paragraph: 0
+- [x] no translator/editorial note among the numbered footnotes (§7.1): footnotes []
+- [x] asterisk markers in the text = translator/editorial notes: markers 0 / notes 0
+- [x] asterisk notes at the end = notes + title note: 'Przypis GWIAZDKOWY' notes 0 / expected 0 + 0
+- [x] no hyperlinks: 0
+- [x] no straight double quotes: 0
+- [x] no em dash: 0
+- [x] no double spaces: 0
+- [x] no ASCII ellipsis: 0
+- [ ] no English quotes “: 1
+
+## Ibidem replaced by the short form at build time (§7.3)
+- 53: Deriving from the Ottoman term ‘Toskalik’, ‘Tosk’ is a term that refers to one of Albania’s two major dialectal and cultural subgroups. The other major group, Gheg Albanians, reside in northern Albania, north of the Shkumbin river, and primarily speak the Gheg dialect of Albanian. It is important to note that many of the Party’s leaders were Tosk and that Enver Hoxha emerged from the southern city of Gjirokastër. Zob. Blumi, *The Politics of Culture and Power*, for more on the distinctions between Gheg and Tosk and how these manifested during state socialism.  — Ibidem inside a sentence
+
+## Ibidem map (note → form to use if it lands on a different column)
+- 28: *Ibidem*.  ⇒  Malcolm, *Myths of Albanian National Identity*.
+- 37: *Ibidem*.  ⇒  Tochka, *To „Enlighten and Beautify”*.
+
+## Lint (srom-kanon lint_srom.py on rendered text)
+```
+SROM canon check — build/westohueri_src.txt
+============================================================
+
+--- ERROR ---
+1:669  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … whiteness and racial belonging.[1] In doing so, it also illustra …
+5:107  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … self-definition as Europeans’.[2] This anxious self-definition …
+5:538  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … arly Roma and Balkan Egyptians.[3] This concept takes into consi …
+5:918  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … ans to feel and not feel white.[4] …
+7:267  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … onal investment and attachment.[5] This analytic of racial belon …
+7:560  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … acialised outside of whiteness.[6] The expansion of Western capi …
+7:1248  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … haped by capitalist structures.[7] Such structures shape Albania …
+7:1885  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … ses of capitalist development’.[8] I employ these frameworks of …
+7:2126  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … variegated forms of inequality.[9] …
+13:140  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … lytically situated within them.[10] We know from Edward Said’s th …
+13:385  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … alisation, and human hierarchy.[11] Todorova in particular notes …
+13:619  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … hing during the Enlightenment’.[12] At the same time, Todorova’s …
+13:783  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … ples of this peripheralisation.[13] While common frameworks of th …
+15:348  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … race generate social effects’.[14] As many chapters in this book …
+15:655  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … present in Albanian discourse.[15] Interlocutors frequently asse …
+17:775  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … en race is denied or dismissed.[16] When we turn attention away f …
+17:1166  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … e more or less white over time.[17] As part of globalised racial …
+17:1687  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … eripherally white, view others.[18] …
+21:366  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … and silent ordering of peoples.[19] The Balkans are Europe’s peri …
+21:463  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … erises as Europe’s ‘abnormals’.[20] I use the idea of peripheral …
+21:753  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … ty of whiteness and its limits.[21] …
+27:1061  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … s and those with horse’s tails.[23] Such ideas are derived from e …
+27:1238  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … not thought to be fully human.[24] …
+29:480  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … were fastened by their tails’.[25] Examples such as this one ill …
+33:660  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … ntury nation-building projects.[26] Facets of this racial imagina …
+33:1553  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … the ‘lawful owners of Albania’.[27] This was an attempt to procla …
+33:1951  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … ity against foreign oppressors.[28] I do not draw attention to th …
+35:512  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … les against the Ottoman Empire.[29] Nationalist leaders, particul …
+35:773  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … ope from ‘vile Asiatic hordes’.[30] These constructions of Skande …
+35:1401  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … fend Albania against invasions.[31] As such, the story of Skander …
+37:593  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … re cohesive national citizenry.[32] The stances taken by Vatra co …
+37:794  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … o align with Western whiteness.[33] Speaking on behalf of the nat …
+37:1149  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … by Albanian leaders in the US.[34] Acting on behalf of Vatra, Fa …
+39:366  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … western culture and traditions.[35] …
+43:547  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … as] given up the Turkish airs’.[36] Vatra as an organisation ‘sig …
+43:700  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … notion of whiteness as arrival.[37] Researcher Nicholas Tochka is …
+45:364  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … into and performed in Albanian.[38] Noli was among those Albanian …
+45:583  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … ng anti-black racism in the US.[39] While Noli believed there was …
+45:1094  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … as well as the Albanian other.[40] At the same time, Marinela Go …
+49:416  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … toman and the interwar periods.[41] Similarly to Albanian nationa …
+49:694  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … al and anti-Ottoman discourses.[42] As a result of these occupati …
+49:863  [NOTE-AFTERDOT] Note marker goes before the closing period.
+        … ess under the p
+```

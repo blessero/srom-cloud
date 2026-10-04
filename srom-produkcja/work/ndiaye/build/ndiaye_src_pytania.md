@@ -1,0 +1,43 @@
+# Pytania i potwierdzenia — ndiaye_src
+
+| adresat | rodzaj | przypis | dzieło | szczegóły |
+|---|---|---|---|---|
+| redakcja | odwołanie do całości dzieła (bez strony) — potwierdzić | 5 | ndiaye2022 | …metic techniques akin to those used to perform characters of sub-Saharan descent / przypis: In N. Ndiaye, *Scripts of Blackness: Early Modern Performance Culture and the Making of Race*, University of P… |
+| redakcja | odwołanie do całości dzieła (bez strony) — potwierdzić | 9 | framolinero1995 | … which the word negro became synonymous with esclavo in sixteenth-century Spain. / przypis: For an in-depth exploration of this synonymy, zob. B. Fra-Molinero, *La imagen de los negros en el teatro del … |
+| autor | cytat bez numeru strony — prosimy o stronę | 13 | wagner2019 | …ntations of Roma as “beings that only mass consumed and reproduced monstrously.” / przypis: S. Wagner, A. Andrzejewski, *„Bodies Mutilated for the Nation”: Reproductive Rights and Women of Color Across … |
+| redakcja | odwołanie do całości dzieła (bez strony) — potwierdzić | 28 | ndiaye2021 | …Roma as white—as Gadje counterfeits deliberately espousing a marginal lifestyle. / przypis: N. Ndiaye, *„Come Aloft, Jack-Little-Ape!”: Race and Dance in *The Spanish Gypsie, „English Literary Renaissan… |
+| redakcja | odwołanie do całości dzieła (bez strony) — potwierdzić | 58 | filhol2010 asseo1974 | …s, the mentally ill, and sex workers, to be reeducated, so to speak, into Gadje. / przypis: E. Filhol, *La France contre ses Tsiganes*, „La vie des idées”, 2010; Asséo, *Le traitement administratif des … |
+| redakcja | odwołanie do całości dzieła (bez strony) — potwierdzić | 60 | taylor2014 cressy2016 | …e or refusal of European populations to implement those laws at the local level. / przypis: B. Taylor, *Another Darkness, Another Dawn: A History of Gypsies, Roma and Travellers*, Reaktion Books, London… |
+| redakcja | odwołanie do całości dzieła (bez strony) — potwierdzić | 62 | lucassen2003 | …e galleys as often as possible and to commute capital punishment to that effect. / przypis: J. Admant, *L’existence régionale de la „nation bohémienne”: Les Bohémiens lorrains à la fin de l’Ancien Régim… |
+| redakcja | odwołanie do całości dzieła (bez strony) — potwierdzić | 80 | ndiaye2022 | …on” and whose Africanness has been brought to the fore most notably by Hornback. / przypis: Hornback, *Racism and Early Blackface Comic Traditions: From the Old World to the New*, s. 35–65. I would add … |
+| redakcja | odwołanie do całości dzieła (bez strony) — potwierdzić | 89 | thompson2008 | …lackness in a visual grammar that makes explicit the implicit of Molière’s play. / przypis: On the aesthetics of racial spectacle in Restoration theater, zob. A. Thompson, *Performing Race and Torture o… |
+| redakcja | odwołanie do całości dzieła (bez strony) — potwierdzić | 113 | ndiaye2022 | …t Petrarchan trope construes Blackness as the result of one’s burning true love. / przypis: I study that trope in depth and its deployment across Western Europe in Ndiaye, *Scripts of Blackness: Early M… |
+| redakcja | odwołanie do całości dzieła (bez strony) — potwierdzić | 120 | hutner2001 | …s of abundance, the broker’s map frames marriageable women as colonial subjects. / przypis: On the use of gendered rhetoric to frame colonial conquest, zob. H. Hutner, *Colonial Women: Race and Culture … |
+| redakcja | odwołanie do całości dzieła (bez strony) — potwierdzić | 120 | hendricks1994 nocentelli2013 | …s of abundance, the broker’s map frames marriageable women as colonial subjects. / przypis: On the use of gendered rhetoric to frame colonial conquest, zob. H. Hutner, *Colonial Women: Race and Culture … |
+| autor | cytat bez numeru strony — prosimy o stronę | 125 | wagner2019 | …e targeting “women of color in the US, particularly Black and Indigenous women.” / przypis: Wagner, Andrzejewski, *„Bodies Mutilated for the Nation”: Reproductive Rights and Women of Color Across Time*. |
+| redakcja | odwołanie do całości dzieła (bez strony) — potwierdzić | 127 | matache2018 | … comparable histories of enslaved people” in the US, the Caribbean, and Romania. / przypis: M. Matache, C. West, *Roma and African-Americans Share a Common Struggle*, „Guardian”, 20.02.2018. |
+| redakcja | odwołanie do całości dzieła (bez strony) — potwierdzić | 129 | cathelin2004 | …in other countries westwards, those with the darkest skin are also the poorest.” / przypis: M. Plésiat, *Les Tsiganes: L’intégration éprouvée*, t. 2, L’Harmattan, Paris 2010, s. 65–66. Zob. też E. Filho… |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | hornback2018 | Racism and Early Blackface Comic Traditions: From the Old World to the New |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | ndiaye2022 | Scripts of Blackness: Early Modern Performance Culture and the Making of Race |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | chang2020 | Roma Rights and Civil Rights: A Transatlantic Comparison |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | matras2014 | I Met Lucky People: The Story of the Romany Gypsies |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | wagner2019 | ‘Bodies Mutilated for the Nation’: Reproductive Rights and Women of Color Across Time |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | pasquier1621 | Les recherches de la France d’Estienne Pasquier |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | ndiaye2021 | ‘Come Aloft, Jack-Little-Ape!’: Race and Dance in <i>The Spanish Gypsie</i> |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | browne1672 | Pseudodoxia epidemica, or Enquiries into the very many received tenents and commonly presumed truths |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | patterson1982 | Slavery and Social Death: A Comparative Study |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | jaffeberg2015 | Commedia Dell’arte and the Mediterranean: Charting Journeys and Mapping “Others” |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | taylor2014 | Another Darkness, Another Dawn: A History of Gypsies, Roma and Travellers |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | cressy2016 | Trouble with the Gypsies in Early Modern England |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | lucassen2003 | The Weakness of Well-Ordered Societies: Gypsies in Western Europe, the Ottoman Empire, and India, 1400–1914 |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | zysberg1987 | Les galériens: Vies et destins de 60,000 forçats sur les galères de France, 1680–1748 |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | daugeroth2019 | Signing the Body: Marks on Skin in Early Modern France |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | vanlennep1965 | The London Stage, 1660–1800: A Calendar of Plays, Entertainments and Afterpieces, Together with Casts, Box-Rec… |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | ravenscroft1677 | Scaramouch a philosopher, Harlequin a school-boy, bravo, merchant, and magician. A comedy after the Italian ma… |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | mayall2004 | Gypsy Identities, 1500–2000: From Egipcyans and Moon-Men to the Ethnic Romany |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | hitchcock2016 | Vagrancy in English Culture and Society, 1650–1750 |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | ruggle1662 | Ignoramus: a comedy as it was several times acted with extraordinary applause before the Majesty of King James… |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | brome | The English Moor, or the Mock-Marriage |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | carlell1657 | The fool would be a favourit, or, The discreet lover: A trage-comedy |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | mw1662 | A comedy called The marriage broaker: or, The pander |
+| redakcja | długi tytuł bez formy skróconej (title-short) — ustalić (§7.3) |  | king2019 | The Black Shoals: Offshore Formations of Black and Native Studies |

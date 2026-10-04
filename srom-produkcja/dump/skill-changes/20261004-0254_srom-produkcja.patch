@@ -1,0 +1,43 @@
+--- srom-produkcja/scripts/docx_in.py
++++ srom-produkcja/scripts/docx_in.py
+@@ -656,12 +656,13 @@
+         extra.append(f"- {fields['EndNote']} EndNote citation fields: not harvested — their displayed text was imported; key by hand")
+     os.remove(lua)
+     issues = [m for m in msgs if m.split("\t")[0] in ("FAKE-NOTE", "FIGURE", "IMAGE", "BOLDPARA", "TABS")]
++    n_fn = len(re.findall(r"^\[\^[^\]]+\]:", md, re.M))   # outside the f-strings: Python < 3.12 allows no backslash in them
+     rep = [f"# DOCX import — {a.docx}", "",
+            f"- tracked changes accepted: {ins} insertions, {dele} deletions · comments dropped: {comments}"
+            + ("  **← confirm nothing was pending**" if ins or dele or comments else ""),
+-           f"- footnotes: {len(re.findall(r'^\[\^[^\]]+\]:', md, re.M))} · citation fields: "
++           f"- footnotes: {n_fn} · citation fields: "
+            + ", ".join(f"{k} {v}" for k, v in fields.items() if v) if any(fields.values()) else
+-           f"- footnotes: {len(re.findall(r'^\[\^[^\]]+\]:', md, re.M))}"] + extra + ["", "## To check"]
++           f"- footnotes: {n_fn}"] + extra + ["", "## To check"]
+     rep += [f"- {m.replace(chr(9), ': ', 1)}" for m in msgs] or ["- nothing"]
+     rep += ["", "Next: python3 normalize.py " + a.out]
+     rp = base + "_import.md"
+--- srom-produkcja/tests/test_doi.py
++++ srom-produkcja/tests/test_doi.py
+@@ -91,7 +91,10 @@
+ json.dump(refs2, open(rp, "w", encoding="utf-8"), ensure_ascii=False)
+ r = subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "build.py"), md, "--refs", rp, "--out", out, "--draft"], capture_output=True, text=True)
+ t("no DOI in the refs: no _doi.jsx (the old one removed)", r.returncode == 0 and not os.path.exists(jp), r.stdout)
+-inst = open(os.path.join(ROOT, "..", "..", "..", "tools", "install_scripts.sh"), encoding="utf-8").read()
++# Code: <repo>/tools/; the Cowork bundle: <bundle>/local/ (the plugin sits at plugin/srom/skills/srom-produkcja)
++inst_p = next((p for p in (os.path.join(ROOT, "..", "..", "..", "tools", "install_scripts.sh"),
++                           os.path.join(ROOT, "..", "..", "..", "..", "local", "install_scripts.sh")) if os.path.exists(p)), "")
++inst = open(inst_p, encoding="utf-8").read() if inst_p else ""
+ t("install_scripts.sh links the article's _doi.jsx into the panel", "postimport ibidem gwiazdki doi" in inst)
+ n, ok = len(res), sum(res)
+ print(f"DOI ALL PASS {n}/{n}" if ok == n else f"DOI FAILED {n - ok}/{n}")
+--- srom-produkcja/tests/test_quant.py
++++ srom-produkcja/tests/test_quant.py
+@@ -179,7 +179,7 @@
+   and not os.path.exists(os.path.join(cdir, "SROM-19-2026-002_okladka.pdf")), r.stdout + r.stderr)
+ t("cover_page: MB's template — 88 % black ink, red edge bars, justified abstracts",
+   cv.INK == "#424241" and "text-align:justify" in cv.p(7.5, 11.52, "x", extra="; text-align:justify")
+-  and len([d for d in doc[0].get_drawings() if d.get("fill") and abs(d["fill"][0] - 227 / 255) < .01 and d["rect"].height > 600]) == 2, "")
++  and doc is not None and len([d for d in doc[0].get_drawings() if d.get("fill") and abs(d["fill"][0] - 227 / 255) < .01 and d["rect"].height > 600]) == 2, "")
+ # MB's template 1.2 (04.10.2026): abstract blocks flex between the citation and 218 mm; 7.2 pt, then 7 pt, then stop
+ def cover_size(n):
+     ws = ["Romowie", "w", "Polsce"]; ew = ["Roma", "in", "Poland"]

@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "H=\"$CLAUDE_PROJECT_DIR/_handoffs/tools/hooks/render_mb_view.py\"; [ -f \"$H\" ] && [ \"$(uname)\" = Darwin ] || exit 0; /usr/bin/python3 \"$H\"",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}
