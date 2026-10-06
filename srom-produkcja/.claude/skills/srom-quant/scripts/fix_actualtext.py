@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-fix_actualtext.py - repair the text layer of an InDesign PDF; the page renders exactly as before.
+fix_actualtext.py — repair the text layer of an InDesign PDF; the page renders exactly as before (Cowork C6, 06.10.2026;
+prototype measured on the whole vol. 18 PDF). cover_page.py runs it on the article PDF before the cover goes in.
 
 InDesign (vol. 18, Cambria) draws many accented letters (ó ś ż ń ć ź, also á é í …) as two glyphs: the base letter
 inside a marked-content span /Span <</ActualText (ó)>> BDC … EMC, and a zero-width accent glyph right after the EMC,
@@ -12,6 +13,11 @@ Two repairs, both invisible:
     some of these letters (their spacing heuristic; measured, not fixed);
  2. the accent glyph's ToUnicode entry U+FFFD becomes the combining mark that the spans' ActualText implies
     (ó → o + U+0301), so readers that ignore ActualText (pdf.js) read a decomposed "ó" instead of "o�".
+
+Known leftovers, not repaired (Cowork, vol. 18 of 13.05.2026: 12,005 → 60 U+FFFD): the show operator after the EMC is
+not the next one (it starts in a new text object, after a font change or any operator other than Td), so the accent
+glyph stays outside its span, and its U+FFFD stays unless another span in the same font taught its code a mark.
+cover_page.py counts what is left after saving and prints it; nothing hides it.
 
     python3 fix_actualtext.py in.pdf out.pdf
 """
@@ -154,8 +160,8 @@ def patch_tounicode(pdf, font):
     return n
 
 
-def main(src, dst):
-    pdf = pikepdf.open(src)
+def repair(pdf):
+    """Repairs an open pikepdf.Pdf in place; returns (spans fixed, accent glyphs given a Unicode mapping)."""
     cache, total, seen = {}, 0, set()
     def run(holder, res):
         nonlocal total
@@ -175,7 +181,12 @@ def main(src, dst):
             if x.get("/Subtype") == "/Form" and x.objgen not in seen:
                 seen.add(x.objgen)
                 run(x, x.get("/Resources") if x.get("/Resources") is not None else res)
-    maps = sum(patch_tounicode(pdf, f) for f in cache.values())
+    return total, sum(patch_tounicode(pdf, f) for f in cache.values())
+
+
+def main(src, dst):
+    pdf = pikepdf.open(src)
+    total, maps = repair(pdf)
     pdf.save(dst)
     print(f"spans fixed: {total}; accent glyphs given a Unicode mapping: {maps}")
 

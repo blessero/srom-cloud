@@ -13,6 +13,11 @@ type 88 % black = RGB 66 66 65), so it reads as a digital add-on, not a printed 
 the original's DOI, the journal's site), page labels (cover i; the article keeps its printed page numbers) and the
 metadata of pdf_metadata.py (Info dictionary + XMP with PRISM).
 
+Before the cover goes in, the article PDF's text layer is repaired (fix_actualtext.py, pikepdf: InDesign's accent glyphs
+read as U+FFFD; the pages render as before, tags kept), and /Lang (the CSV's `language`, else pl) and
+ViewerPreferences/DisplayDocTitle are set where the export lacks them (Cowork C6, 06.10.2026). After saving, a
+self-check line reads the written file back: U+FFFD left, pages, tagged, /Lang, DisplayDocTitle, DOI in XMP.
+
 One page, strictly (MB, 04.10.2026): the two abstract blocks (Polish, then English, each with its keywords) are not
 frames of a fixed height. The Polish one starts under the citation, the English one follows it at the template's gap,
 and the English one may grow down to ABSTRACT_BOTTOM (218 mm from the top; the footer starts below it). The keywords stand 14 pt (baseline to baseline) under the last line. The type is
@@ -23,7 +28,7 @@ Texts without abstracts (reviews, chronicles) get the header alone.
 A printed field holding a placeholder (10.XXXXX, todo…, TODO) or left empty stops the run, so a page with a fake DOI
 is never written; --proof prints it as it stands, marks the page PODGLĄD and names the file *_proof.pdf.
 """
-import argparse, csv, html, os, re, sys
+import argparse, csv, html, io, os, re, sys
 from datetime import datetime, timezone
 
 import pymupdf
@@ -306,6 +311,45 @@ def xmp(meta, row):
 <?xpacket end="w"?>"""
 
 
+def prepare(path, row):
+    """The article PDF with its text layer repaired and /Lang, DisplayDocTitle set where missing;
+    returns (PyMuPDF document, report line, warnings)."""
+    try:
+        import pikepdf
+        from fix_actualtext import repair
+    except ImportError:
+        sys.exit("ABORT: pikepdf missing (the text-layer repair needs it): ~/.venvs/srom/bin/pip install pikepdf")
+    pdf, warn = pikepdf.open(path), []
+    spans, maps = repair(pdf)
+    lang = (row.get("language") or "pl").strip()
+    if "/Lang" not in pdf.Root:
+        pdf.Root.Lang = pikepdf.String(lang)
+    elif str(pdf.Root.Lang).split("-")[0].lower() != lang.split("-")[0].lower():
+        warn.append(f"the PDF's /Lang is {pdf.Root.Lang}, the CSV's language is {lang}")
+    vp = pdf.Root.get("/ViewerPreferences")
+    if vp is None:
+        pdf.Root.ViewerPreferences = pikepdf.Dictionary(DisplayDocTitle=True)
+    elif "/DisplayDocTitle" not in vp:
+        vp.DisplayDocTitle = True
+    buf = io.BytesIO()
+    pdf.save(buf)
+    return (pymupdf.open("pdf", buf.getvalue()),
+            f"text layer: {spans} accent glyph(s) moved into their ActualText span, {maps} accent code(s) mapped", warn)
+
+
+def selfcheck(path, doi):
+    """One line read back from the written file. U+FFFD as pdftotext counts it: MuPDF without its default
+    TEXT_CID_FOR_UNKNOWN_UNICODE, which would hide the replacement character."""
+    d = pymupdf.open(path)
+    cat = d.pdf_catalog()
+    key = lambda k: d.xref_get_key(cat, k)[1]
+    fffd = sum(pg.get_text(flags=pymupdf.TEXT_PRESERVE_WHITESPACE | pymupdf.TEXT_MEDIABOX_CLIP).count("\ufffd") for pg in d)
+    tagged = key("MarkInfo/Marked") == "true" and key("StructTreeRoot") != "null"
+    return (f"self-check: U+FFFD {fffd} · pages {len(d)} · tagged {'yes' if tagged else 'no'} · /Lang {key('Lang')}"
+            f" · DisplayDocTitle {key('ViewerPreferences/DisplayDocTitle')}"
+            f" · DOI in XMP {'yes' if doi and f'<prism:doi>{doi}</prism:doi>' in d.get_xml_metadata() else 'no'}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("master"); ap.add_argument("article_id"); ap.add_argument("article_pdf", nargs="?")
@@ -326,7 +370,8 @@ def main():
         path = os.path.join(a.out, f"{a.article_id}_okladka{tag}.pdf")
         doc.save(path, garbage=4, deflate=True)
     else:
-        art = pymupdf.open(a.article_pdf)
+        art, fixed, warn = prepare(a.article_pdf, row)
+        probs += warn
         r0 = art[0].rect
         if abs(r0.width - W) > 1 or abs(r0.height - H) > 1:
             probs.append(f"article page is {r0.width / MM:.1f} × {r0.height / MM:.1f} mm, not 165 × 235 "
@@ -345,6 +390,8 @@ def main():
         art.set_xml_metadata(xmp(meta, row))
         path = os.path.join(a.out, re.sub(r"\.pdf$", "", row.get("pdf_file") or a.article_id) + tag + ".pdf")
         art.save(path, garbage=3, deflate=True)
+        print(fixed)
+        print(selfcheck(path, row.get("doi", "")))
     print(f"written {path}"
           + "".join(f"\n!! {x}" for x in probs))
     print("RESULT: PROOF — not for upload" if a.proof else

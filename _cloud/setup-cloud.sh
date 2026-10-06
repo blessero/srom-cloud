@@ -7,9 +7,9 @@ set -u
 log() { echo "[srom-setup] $*"; }
 
 # Python packages, the same versions as on the Mac and in Cowork
-python3 -m pip install -q --break-system-packages python-docx==1.2.0 lxml==6.1.3 PyMuPDF==1.28.2 fonttools \
-  || python3 -m pip install -q python-docx==1.2.0 lxml==6.1.3 PyMuPDF==1.28.2 fonttools
-log "python $(python3 --version 2>&1 | cut -d' ' -f2): python-docx, lxml, PyMuPDF installed"
+python3 -m pip install -q --break-system-packages python-docx==1.2.0 lxml==6.1.3 PyMuPDF==1.28.2 pikepdf==10.16.0 fonttools \
+  || python3 -m pip install -q python-docx==1.2.0 lxml==6.1.3 PyMuPDF==1.28.2 pikepdf==10.16.0 fonttools
+log "python $(python3 --version 2>&1 | cut -d' ' -f2): python-docx, lxml, PyMuPDF, pikepdf installed"
 
 # pandoc: GitHub release downloads of other repositories are blocked in cloud sessions, so it comes from PyPI
 # (pypandoc_binary 1.17 = pandoc 3.9; the Mac has 3.8.3); Ubuntu's own 3.1.3 only as a last resort

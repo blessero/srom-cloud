@@ -232,6 +232,69 @@ r = cvrun("SROM-19-2026-002", os.path.join(cdir, "art.pdf"))
 t("cover_page: article PDF page count ≠ CSV range → warning, RESULT: CHECK", "article PDF has 4 pages, the CSV says 11–20 (10)" in r.stdout
   and "RESULT: CHECK" in r.stdout, r.stdout)
 
+# text-layer repair (Cowork C6, 06.10.2026): fix_actualtext.py runs on the article before the cover goes in. Fixture: three
+# pages of the vol. 18 PDF (Ostendorf, InDesign export of 13.05.2026); the cut lost the structure tree, so the tests add one.
+import pikepdf
+FX = os.path.join(ROOT, "tests", "fixtures", "pdf", "vol18_actualtext_3pp.pdf")
+CLEAN = pymupdf.TEXT_PRESERVE_WHITESPACE | pymupdf.TEXT_MEDIABOX_CLIP          # as pdftotext: no CIDs for unknown Unicode
+fffd = lambda d, pages, fl=CLEAN: sum(d[i].get_text(flags=fl).count("�") for i in pages)
+mcids = lambda d, pages: sum(d[i].read_contents().count(b"/MCID") for i in pages)
+def variant(name, lang=None, vp=None, break_spans=False):
+    p = pikepdf.open(FX)
+    p.Root.MarkInfo = pikepdf.Dictionary(Marked=True)
+    st = p.make_indirect(pikepdf.Dictionary(Type=pikepdf.Name.StructTreeRoot, ParentTree=pikepdf.Dictionary(Nums=[])))
+    st.K = p.make_indirect(pikepdf.Dictionary(Type=pikepdf.Name.StructElem, S=pikepdf.Name.Document, P=st))
+    p.Root.StructTreeRoot = st
+    if lang:
+        p.Root.Lang = pikepdf.String(lang)
+    if vp is not None:
+        p.Root.ViewerPreferences = vp
+    if break_spans:      # an operator between EMC and the accent glyph: the leftover case the repair does not touch
+        for pg in p.pages:
+            out = []
+            for ins in pikepdf.parse_content_stream(pg):
+                out.append(ins)
+                if ins.operator == pikepdf.Operator("EMC"):
+                    out += [pikepdf.ContentStreamInstruction([], pikepdf.Operator(o)) for o in ("BX", "EX")]
+            pg.obj.Contents = p.make_stream(pikepdf.unparse_content_stream(out))
+    path = os.path.join(cdir, name + ".pdf"); p.save(path); return path
+fx = pymupdf.open(FX)
+fxt = "".join(fx[i].get_text(flags=CLEAN) for i in range(3))
+t("text layer: the fixture shows the defect (152 U+FFFD, 151 right after the accented letter its span gives: „Romó�”)",
+  fffd(fx, range(3)) == 152 and len(re.findall("[óśżńćźáéí]�", fxt)) == 151 and "Romó�" in fxt, fffd(fx, range(3)))
+crs += [crow(7, pages="29–31", pages_from="29", pages_to="31", pdf_file="SROM_19_2026_Fix_7.pdf"),
+        crow(8, pages="29–31", pages_from="29", pages_to="31", pdf_file="SROM_19_2026_Fix_8.pdf"),
+        crow(9, pages="29–31", pages_from="29", pages_to="31", pdf_file="SROM_19_2026_Fix_9.pdf", language="en")]
+with open(ccp, "w", encoding="utf-8-sig", newline="") as f:
+    w = csv.DictWriter(f, fieldnames=ccols); w.writeheader(); w.writerows(crs)
+r = cvrun("SROM-19-2026-007", variant("tagged"))
+d7 = pymupdf.open(os.path.join(cdir, "SROM_19_2026_Fix_7.pdf")) if r.returncode == 0 else None
+t("text layer: U+FFFD 152 → 0, for readers with and without ActualText; „Romów” searchable",
+  d7 and fffd(d7, range(1, 4)) == 0 and fffd(d7, range(1, 4), CLEAN | pymupdf.TEXT_IGNORE_ACTUALTEXT) == 0
+  and d7[1].search_for("Romów") and "text layer: 149 accent glyph(s) moved" in r.stdout, r.stdout + r.stderr)
+t("text layer: the article's pages render pixel-identical at 150 dpi",
+  d7 and all(d7[i + 1].get_pixmap(dpi=150).samples == fx[i].get_pixmap(dpi=150).samples for i in range(3)), "")
+t("text layer: MarkInfo, StructTreeRoot, all 150 MCIDs and the ActualText spans kept",
+  d7 and mcids(d7, range(1, 4)) == mcids(fx, range(3)) == 150
+  and sum(d7[i].read_contents().count(b"/ActualText") for i in range(1, 4)) == sum(fx[i].read_contents().count(b"/ActualText") for i in range(3))
+  and d7.xref_get_key(d7.pdf_catalog(), "MarkInfo/Marked")[1] == "true" and d7.xref_get_key(d7.pdf_catalog(), "StructTreeRoot/K/S")[1] == "/Document", "")
+t("text layer: repaired file gets its cover (labels i, 29–31, DOI); /Lang pl and DisplayDocTitle set; self-check line",
+  d7 and len(d7) == 4 and [d7[i].get_label() for i in range(4)] == ["i", "29", "30", "31"]
+  and "https://doi.org/10.12345/ab3k9x27" in d7[0].get_text()
+  and "self-check: U+FFFD 0 · pages 4 · tagged yes · /Lang pl · DisplayDocTitle true · DOI in XMP yes" in r.stdout
+  and "RESULT: OK" in r.stdout, r.stdout + r.stderr)
+r = cvrun("SROM-19-2026-008", variant("tagged_lang", lang="pl-PL", vp=pikepdf.Dictionary(HideToolbar=False)))
+p8 = pikepdf.open(os.path.join(cdir, "SROM_19_2026_Fix_8.pdf")) if r.returncode == 0 else None
+t("text layer: the export's own /Lang and ViewerPreferences kept, DisplayDocTitle added",
+  p8 is not None and str(p8.Root.Lang) == "pl-PL" and p8.Root.ViewerPreferences.HideToolbar is False
+  and p8.Root.ViewerPreferences.DisplayDocTitle is True and "RESULT: OK" in r.stdout, r.stdout + r.stderr)
+r = cvrun("SROM-19-2026-009", os.path.join(cdir, "tagged_lang.pdf"))
+t("text layer: /Lang of the PDF ≠ the CSV's language → warning, RESULT: CHECK",
+  "the PDF's /Lang is pl-PL, the CSV's language is en" in r.stdout and "RESULT: CHECK" in r.stdout, r.stdout + r.stderr)
+r = cvrun("SROM-19-2026-007", variant("leftover", break_spans=True))
+t("text layer: the known leftovers (accent glyph not next after the span) are left as they are and counted, not hidden",
+  "text layer: 0 accent glyph(s) moved" in r.stdout and "self-check: U+FFFD 152 ·" in r.stdout, r.stdout + r.stderr)
+
 n, ok = len(res), sum(res)
 print(f"QUANT ALL PASS {n}/{n}" if ok == n else f"QUANT FAILED {n - ok}/{n}")
 sys.exit(0 if ok == n else 1)
