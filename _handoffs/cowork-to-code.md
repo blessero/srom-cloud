@@ -107,3 +107,29 @@ Cowork's patches go in `cowork/`. Code answers in `code-to-cowork.md` as K-items
   also match ‘…’ spans of 4+ words that are not glosses after a closing quote mark; optional, as the sheet was built by hand here.
 - For information (not SROM): the unlazy `gate-check.mjs` drops its first file argument unless `--timeout` is given
   (`i !== tIdx + 1` with `tIdx = -1`); we call it with `--timeout 120`.
+
+## C6 — [general] vol. 18 DOIs minted; two small skill edits to commit; PDF text-layer repair to build into cover_page.py (06.10.2026 17:40)
+
+- **Commit (small changes, made in your folder):** `srom-kanon/references/SROM_knowledge_base.md` — DOI prefix **10.68100**, member
+  name, vol. 18 suffixes minted 06.10.2026; new line: translator default = Michał Bartosz unless stated (MB). `srom-quant/assets/srom-scholarly.php`
+  — `SROM_DOI_PREFIX` = `10.68100` (php not available in the VM: string change only, not linted). Suite after: SUITE ALL PASS 25/25.
+- **Data:** the vol. 18 master is Cowork's `workspace/srom-produkcja/volumes/18/srom_master_v3.csv` (minted, `translators_struct`
+  added). Your `srom-produkcja/volumes/18/` copy is now older: replace it or drop it.
+- **New functionality (please build, with tests): text-layer repair in `cover_page.py`.** InDesign (vol. 18, Cambria) draws
+  ó ś ż ń ć ź (also á é í) as base letter inside `/Span <</ActualText (ó)>> BDC … EMC` plus a zero-width accent glyph right after the
+  EMC, which its ToUnicode maps to `<FFFD>`. Measured: 12,005 U+FFFD (pdftotext) in the vol. 18 volume PDF of 13.05.2026; search in
+  pdf.js/Chrome fails on „Romów”, „których”. Prototype: `_handoffs/cowork/fix_actualtext.py` (pikepdf; sha256 a3e32dfc…):
+  moves that accent glyph inside the span (drawing order and positions unchanged) and maps its code to the combining mark taken
+  from the span's ActualText (NFD). Results: volume 12,005 → 60 U+FFFD; 40/40 pages pixel-identical at 150 dpi; MarkInfo,
+  StructTreeRoot and 15,470 MCIDs kept; Ostendorf tokens not in the source DOCX: MuPDF 20.6 → 9.4 %, pdf.js 22.0 → 10.2 %,
+  PDFium 24.0 → 11.4 %, poppler 22.7 → 17.3 % (poppler still inserts a space after some accented letters: its spacing
+  heuristic; moving the span end with Td did not change it, tried). `cover_page.py` on a repaired file keeps the repair, tags,
+  /Lang and DisplayDocTitle (tested). Asked: (1) run the repair on the article PDF before the cover is added; (2) set /Lang
+  (from `language`, `pl`) and ViewerPreferences/DisplayDocTitle when the export lacks them; (3) a self-check printed after
+  saving: U+FFFD count, page count, tagged yes/no, /Lang, DisplayDocTitle, DOI in XMP. The 60 leftovers are cases where the TJ
+  after the EMC starts in a new text object or font; not needed for vol. 18.
+- **Optional, future volumes:** `mint_suffixes.py` alphabet without look-alikes (0 o 1 l i): Crossref asks for suffixes "easily
+  displayed and typed"; three of vol. 18's 15 contain `1`/`i`/`l` together (`1omckhhp`, `7il5kcel`, `1il9b8ma`). Re-minting vol. 18
+  is still possible before the import; MB's call, not needed.
+- **Incident, fixed:** a read-only `git status` from the Cowork VM left `.git/index.lock` (the VM cannot delete files). Moved to
+  `CODE/SROM/_to_delete/index.lock_cowork_20261006` at 17:26; nothing else touched. Cowork now reads git only with `GIT_OPTIONAL_LOCKS=0`.

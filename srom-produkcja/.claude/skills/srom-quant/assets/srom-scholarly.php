@@ -50,7 +50,7 @@
 if (!defined('ABSPATH')) exit;
 
 /** Crossref prefix — update ONCE after membership, then Settings -> Permalinks -> Save. */
-define('SROM_DOI_PREFIX', '10.XXXXX');
+define('SROM_DOI_PREFIX', '10.68100');
 
 /* ---------------------------------------------------------------
  * 1. URL MACHINERY ONLY. CPTs are registered by the SROM Importer

@@ -13,6 +13,8 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
 - **Field:** Romani studies (romologia): anthropology, sociology, history, linguistics.
 - **Language:** exclusively Polish: every article, translated ones included, is published in Polish. Only the
   abstracts, keywords, titles and contents are also given in English. The journal is not bilingual.
+- **Translator:** unless stated otherwise, Michał Bartosz translates every translated text (MB, 06.10.2026); the
+  master CSV's `translators_struct` then reads `Michał|Bartosz||` (no ORCID on record).
 - **Website:** https://studiaromologica.pl (WordPress; article landing pages `/articles/{full DOI}/`, volumes `/tom/{vol}-{year}/`).
 - **Cadence:** annual, one volume a year, usually published in December. Vol. 18 = 2025 (theme *Romski Atlantyk*);
   vol. 19 = 2026 (in production: the texts in the workspace).
@@ -43,8 +45,9 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
 
 - DOIs through **Crossref** only (never DataCite, never Humanities Commons/CORE: any input saying otherwise is stale);
   article-level DOIs only, no volume DOIs; deposit schema 5.4.0. Locked decisions: srom-quant.
-- **Crossref membership:** obtained, with full access (MB, 03.10.2026). **Nothing deposited or minted yet**: the vol.
-  18 CSV still carries the placeholder prefix `10.XXXXX` and `todo` suffixes. The first deposit is MB's next task.
+- **Crossref membership:** obtained, with full access (MB, 03.10.2026). Member name: Komitet Opieki nad Zabytkami
+  Kultury Żydowskiej w Tarnowie. **DOI prefix: 10.68100** (MB, 06.10.2026). Vol. 18 suffixes minted 06.10.2026 in the
+  workspace master CSV; nothing deposited yet (suffixes freeze at the website import). The first deposit is MB's next task.
 - **Metadata infrastructure (03.10.2026):** essentially done (master CSV v3, suffix minting, Crossref XML, PDF
   metadata, Highwire tags and JSON-LD in the mu-plugin `srom-scholarly.php` v2.3 in srom-quant's `assets/`); needs
   polishing. The live site was enough to pass Crossref's membership review but still needs work, and runs an older
