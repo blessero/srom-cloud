@@ -23,7 +23,7 @@ import csv, sys, html, datetime, pathlib, json, re, urllib.parse, urllib.request
 
 # ---------------- CONFIG ----------------
 DEPOSITOR_NAME  = "Studia Romologica / Komitet Opieki nad Zabytkami Kultury Zydowskiej w Tarnowie"
-DEPOSITOR_EMAIL = "studiaromologica@muzeum.tarnow.pl"   # deposit reports go here
+DEPOSITOR_EMAIL = "michalbartosz@studiaromologica.pl"   # deposit reports go here
 REGISTRANT      = "Komitet Opieki nad Zabytkami Kultury Żydowskiej w Tarnowie"
 JOURNAL_TITLE   = "Studia Romologica"
 ISSN_PRINT      = "1689-4758"
