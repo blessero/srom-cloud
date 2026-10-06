@@ -4,7 +4,7 @@ import os, re, subprocess, sys
 VENV = os.path.expanduser("~/.venvs/srom/bin/python")
 def _usable():
     try:
-        import docx, fitz, lxml  # noqa: F401
+        import docx, fitz, lxml, pikepdf  # noqa: F401
     except ImportError:
         return False
     return sys.version_info >= (3, 10)
