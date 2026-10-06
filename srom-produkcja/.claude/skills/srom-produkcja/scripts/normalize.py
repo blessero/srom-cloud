@@ -174,7 +174,9 @@ class Normalizer:
 
         # note markers / citations: after closing quote or paren, before . , ; : (§4.1, §7.1)
         mark = r"(\[\^[^\]\s]+\]|\[[^\[\]]*" + PH_OPEN + r"\d+" + PH_CLOSE + r"[^\[\]]*\])"
-        body = self.sub("MARK-AFTER-QUOTE", mark + r"([”«)])", r"\2\1", body, ln)
+        # not in notes: a citation inside a bracket or quote there ("(zob. [@a, 3])") belongs where the author put it
+        if not in_note:
+            body = self.sub("MARK-AFTER-QUOTE", mark + r"([”«)])", r"\2\1", body, ln)
 
         def move(m):
             word, punct, mk = m.group(1), m.group(2), m.group(3)

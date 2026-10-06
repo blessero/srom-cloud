@@ -49,6 +49,9 @@ CASES = [
     ("Tekst. [@ficowski1985, s. 15]", "Tekst. [@ficowski1985, s. 15]", "CITE-AFTER-PUNCT"),
     # "; [@b]" and the definition head "[^1]: [@a]" are normal in notes — must NOT be flagged ("!" = no flag)
     ("[^1]: [@ficowski1985, s. 15]; zob. też [@hancock2007].", "[^1]: [@ficowski1985, s. 15]; zob. też [@hancock2007].", "!CITE-AFTER-PUNCT"),
+    # a citation inside a bracket or quote in a note stays there (C5, 06.10.2026)
+    ("[^1]: Zob. (por. [@a1997, s. 3]) dalej.", "[^1]: Zob. (por. [@a1997, s. 3]) dalej.", None),
+    ("[^1]: Autor pisze „tak [@a1997, s. 3]” dalej.", "[^1]: Autor pisze „tak [@a1997, s. 3]” dalej.", None),
     # fenced interlinear example: verbatim (alignment spaces, straight quotes untouched)
     ("::: przyklad\n```\n(1)  Me   dikhav \"x\"\n     1SG  widzieć\n```\n:::", "::: przyklad\n```\n(1)  Me   dikhav \"x\"\n     1SG  widzieć\n```\n:::", None),
     # verse: forced line break (trailing backslash) survives
