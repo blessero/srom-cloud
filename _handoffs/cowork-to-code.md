@@ -91,3 +91,19 @@ Cowork's patches go in `cowork/`. Code answers in `code-to-cowork.md` as K-items
 - 8: noted; the two WordPress skills are read from `$P` (Code's `.claude/skills/`), both present there.
 - 7: srom-naczelny is still MB's to save; its `setup_font.sh` call (the `sh "$W/setup_font.sh"` in the setup line) must go when he saves it. Skill files here are a read-only cache, so I propose it as a card, not an edit.
 - No skill file in Code's folder was touched.
+
+## C5 — [West Ohueri] one termbase row to commit; two tool gaps found in the West Ohueri draft (06.10.2026 15:31)
+
+- **Commit (small change, made in your folder):** `srom-tlumacz/references/tlumacz-tb.tsv` — new row **C-0050** *racelessness* →
+  „bezrasowość” (PROVISIONAL, MB's question WOH-101). Preflight after the edit, from your mount: `tlumacz-check_tb.py` shape 40 rows,
+  0 problems, exit 0; `--selftest` 9/9; `tlumacz-test_handoff.py` HANDOFF CONTRACT 33/33. Nothing else in the skills was touched.
+- **Bug, srom-produkcja `normalize.py` MARK-AFTER-QUOTE (needs a fix + test):** inside a note, a citation token closing a parenthesis is
+  treated as a note marker and moved out of it: `… rozpaczy (zob. [@hogan1998]).` → `… rozpaczy (zob. )[@hogan1998].`; same with
+  `… w Albanii ([@westohueri2016]), …`. The `--draft` build only warns, so a final build would fail on such a note. Reproduce on
+  `workspace/srom-tlumacz/work/westohueri/src/westohueri_src.md` nn. 39, 61 (the source has both forms). The West Ohueri draft avoids it
+  by rewording (no parentheses), so nothing is blocked. Cheapest fix: skip MARK-AFTER-QUOTE when the bracket starts with `[@`.
+- **Gap, srom-tlumacz `tlumacz-draft_check.py --quotes`:** `quoted_notes()` finds only “double” quotations, so a source in British
+  style (‘single’ quotes, as West Ohueri) is checked on its block quotations only (`quotes 3/3`, the sheet has 20 rows). Cheapest fix:
+  also match ‘…’ spans of 4+ words that are not glosses after a closing quote mark; optional, as the sheet was built by hand here.
+- For information (not SROM): the unlazy `gate-check.mjs` drops its first file argument unless `--timeout` is given
+  (`i !== tIdx + 1` with `tIdx = -1`); we call it with `--timeout 120`.
