@@ -52,12 +52,20 @@ def is_title(q):
     w = [x for x in re.findall(r"[^\W\d_][\w’'-]*", q) if x.lower() not in ("of", "the", "and", "in", "on", "a", "an", "for", "to", "–")]
     return bool(w) and sum(x[0].isupper() for x in w) / len(w) >= 0.6
 
+# ‘…’ span: the closing ’ is not an apostrophe (not followed by a letter), the opening ‘ not an elision (‘twas, ‘tis)
+SINGLE = r"(?<![\w’])‘(?!t[wi]s?\b)([^‘’]*(?:’(?=\w)[^‘’]*)*)’(?!\w)"
+
 def quoted_notes(src):
+    """Notes that carry a quotation of 4+ words. “double” quotations; in a British-style source (no “double” span
+    of 4+ words at all) the ‘single’ ones instead. Glosses are short, titles are title case: both fall below the bar."""
+    qre = r"“([^”]*)”"
+    if not any(len(q.split()) >= 4 and not is_title(q) for q in re.findall(qre, src)):
+        qre = SINGLE
     labels, block = set(), []
     for para in [p for p in src.split("\n\n") if p.strip()] + [""]:
         m = re.match(r"\[\^(\w+)\]:", para)
         if m:
-            if any(len(q.split()) >= 4 and not is_title(q) for q in re.findall(r"“([^”]*)”", para)):
+            if any(len(q.split()) >= 4 and not is_title(q) for q in re.findall(qre, para)):
                 labels.add(m.group(1))
             continue
         if para.startswith(">"): block.append(para); continue
@@ -65,7 +73,7 @@ def quoted_notes(src):
             nm = re.search(r"\[\^(\w+)\]", " ".join(block)) or re.search(r"\[\^(\w+)\]", para)
             if nm: labels.add(nm.group(1))
             block = []
-        for q in re.finditer(r"“([^”]*)”", para):
+        for q in re.finditer(qre, para):
             if len(q.group(1).split()) >= 4 and not is_title(q.group(1)):
                 nm = re.search(r"\[\^(\w+)\]", para[q.end():])
                 if nm: labels.add(nm.group(1))
@@ -130,12 +138,20 @@ def selftest():
         ("bad class", "tittel", "tittel_quotes.tsv", lambda s: s.replace("\tEN-NO-PL\t", "\tENGLISH\t", 1)),
         ("open row naming a missing S-item", "tittel", "tittel_quotes.tsv", lambda s: s.replace("open (S2)", "open (S98)", 1)),
     ]
+    single = ("A.[^1] B ‘one two three four five’.[^2] C ‘short gloss’[^3] and the author’s own, ‘tis fine.[^4] "
+              "D “x”.[^5]\n\n[^1]: n.\n\n[^2]: n.\n")
+    britsh_ok = quoted_notes(single.replace("D “x”.[^5]", "")) == {"2"} and quoted_notes(single) == {"2"}
+    doubled = quoted_notes("A ‘one two three four five’.[^1] B “six seven eight nine”.[^2]") == {"2"}
     caught = 0
+    for name, ok in (("single-quote source: only the 4+ word span", britsh_ok), ("double-quote source ignores ‘…’", doubled)):
+        caught += ok
+        if not ok: print("  NOT CAUGHT:", name)
+    cases_n = len(cases) + 2
     for name, aid, fn, ch in cases:
         c = planted(aid, fn, ch); caught += c
         if not c: print("  NOT CAUGHT:", name)
-    print(f"selftest: {caught}/{len(cases)} negative controls caught")
-    return caught == len(cases)
+    print(f"selftest: {caught}/{cases_n} negative controls caught")
+    return caught == cases_n
 
 if __name__ == "__main__":
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
