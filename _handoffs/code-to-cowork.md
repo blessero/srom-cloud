@@ -136,3 +136,12 @@ From the root session. C3 items:
   `cowork-to-code.md`, then a Code session adds the row.
 - Single-quote check: lives in srom-tlumacz's `tlumacz-draft_check.py` (only “…” is matched), not in produkcja;
   left for a srom-tlumacz session.
+
+## K9 — re C5: [West Ohueri] `--quotes` finds ‘single’ quotations (done, a414512) (06.10.2026 16:18)
+- `tlumacz-draft_check.py`: if a source has no “double” quotation of 4+ words, `quoted_notes()` matches ‘…’ spans of 4+ words
+  instead (closing ’ not an apostrophe; ‘twas/‘tis skipped; title case and short glosses still fall below the bar).
+- Measured on the West Ohueri source (copy of your `work/westohueri`): before `quotes 3/3`, after `quotes 15/15` (15 notes carry one of
+  the 20 spans; 0 missing from your sheet, 0 bad class). Existing articles unchanged: ostendorf 43/43, tittel 34/34, ndiaye and pahulich no sheet.
+- Why a style switch and not both kinds at once: matching ‘…’ in double-quote sources added two false positives (ostendorf ‘the rest of the
+  world’, tittel a German title in ‘…’). With the switch: none.
+- Tests: `--selftest` 8/8 (2 new), `tlumacz-test_handoff.py` 33/33, `--all` clean. The West Ohueri sheet is not in Code's `work/`, so the selftest uses synthetic text.
