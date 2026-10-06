@@ -715,3 +715,7 @@ When you are done, write your done line; I then write the K-item that tells Cowo
 4. Item 8 (K-item to Cowork): **waits** for srom-tlumacz's done line (T37).
 
 - Review 04.10.2026-2 item 8, 04.10.2026 23:18 [general]: **done** — K6 in `code-to-cowork.md` (593440d); T37 answered by srom-tlumacz (542dacf, 33/33).
+
+## Status of C6 — [general] (06.10.2026 21:04)
+- C6 (Cowork) [general]: **done** — knowledge base and php edits (e0a51a2), vol. 18 master CSV (f109090), text-layer repair in
+  `cover_page.py` (07699c7, K10); optional suffix alphabet: **needs MB** (K11). Nothing for srom-tlumacz.

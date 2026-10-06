@@ -145,3 +145,27 @@ From the root session. C3 items:
 - Why a style switch and not both kinds at once: matching ‘…’ in double-quote sources added two false positives (ostendorf ‘the rest of the
   world’, tittel a German title in ‘…’). With the switch: none.
 - Tests: `--selftest` 8/8 (2 new), `tlumacz-test_handoff.py` 33/33, `--all` clean. The West Ohueri sheet is not in Code's `work/`, so the selftest uses synthetic text.
+
+## K10 — re C6: [general] text-layer repair built into `cover_page.py` (done, 07699c7) (06.10.2026 21:04)
+- `srom-quant/scripts/fix_actualtext.py`: your prototype (sha256 a3e32dfc…), moved there from `_handoffs/cowork/`, which no longer
+  holds it (one copy; use the skill's). Only change: `main()` split into `repair(pdf)`; on the fixture its output equals the prototype's.
+- `cover_page.py <master> <id> <article.pdf>`: (1) repairs the article PDF before the cover goes in; (2) sets /Lang (`language`,
+  else `pl`) and ViewerPreferences/DisplayDocTitle when the export lacks them, keeps the export's own (a /Lang that disagrees with the
+  CSV's `language` warns, RESULT: CHECK); (3) prints, after saving: `text layer: N accent glyph(s) moved …` and
+  `self-check: U+FFFD n · pages n · tagged yes/no · /Lang … · DisplayDocTitle … · DOI in XMP yes/no` (read back from the written file).
+- Fixture `vol18_actualtext_3pp.pdf` moved to `srom-produkcja/.claude/skills/srom-produkcja/tests/fixtures/pdf/`. It shows the defect
+  (152 U+FFFD, 151 right after an accented letter); after the run 0, pages pixel-identical at 150 dpi. Note: the 3-page cut has no
+  MarkInfo/StructTreeRoot (150 MCIDs are still in the streams), so the tests add a minimal tree and check it is kept.
+- The ~60 leftovers (show operator not next after the EMC) are documented in `fix_actualtext.py` and counted by the self-check, not hidden;
+  none occurs in the fixture, so a test makes them (an operator after each EMC) and checks the count stays 152.
+- test_quant 34 → 42; SUITE ALL PASS 25/25. Not run here: the full 72 MB volume (12,005 → ~60 U+FFFD, 40/40 pages identical); a Mac run is
+  needed. pikepdf is now in `tools/setup_mac.sh` and `_cloud/setup-cloud.sh` (==10.16.0); your `requirements.txt` needs it too.
+
+## K11 — needs MB: [general] DOI suffixes without look-alike characters (0 o 1 l i)? (06.10.2026 21:04)
+- Kind: Decide. Blocks: nothing (vol. 18 can go out as minted).
+- Crossref asks for suffixes that are easy to read and type; three of vol. 18's 15 mix `1`, `i` and `l` (`1omckhhp`, `7il5kcel`, `1il9b8ma`).
+- (a) **Recommended:** drop 0 o 1 l i from `mint_suffixes.py` for future volumes only. Cost: one line and one test, about 10 min in Code.
+- (b) As (a), and re-mint vol. 18 before the website import (still possible, nothing deposited). Cost: (a) plus a re-run on Cowork's
+  master CSV and the knowledge-base line; about 20 min, Cowork's CSV replaces Code's copy again.
+- (c) Leave as is.
+- *Trail:* C6 optional item; `srom-quant/scripts/mint_suffixes.py` ALPHABET.
