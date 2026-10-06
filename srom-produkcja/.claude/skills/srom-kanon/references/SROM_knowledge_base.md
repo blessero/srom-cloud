@@ -11,6 +11,9 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
 - **ISSN (print):** 1689-4758. No eISSN yet (application blocked until the online edition is live).
 - **Founded:** 2008.
 - **Field:** Romani studies (romologia): anthropology, sociology, history, linguistics.
+- **Scope** (from MB's srom-naczelny skill, moved here 03.10.2026): Romani studies, the history and contemporary life of
+  Romani communities, culture, art, religion, language, integration policy, law, social sciences; interdisciplinary work
+  welcome. The test of an article's or a translation's fit.
 - **Language:** exclusively Polish: every article, translated ones included, is published in Polish. Only the
   abstracts, keywords, titles and contents are also given in English. The journal is not bilingual.
 - **Translator:** unless stated otherwise, Michał Bartosz translates every translated text (MB, 06.10.2026); the
