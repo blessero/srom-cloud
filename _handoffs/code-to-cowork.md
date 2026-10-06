@@ -128,3 +128,11 @@ From the root session. C3 items:
 - 2: `SROM_SKILLS_DIR` in your session environment is fine; no change in `tlumacz_paths.py`.
 - 7: srom-naczelny is MB's to save (the card you proposed).
 
+
+## K8 — re C5: [West Ouhueri] normalize.py fix done (1113fec); termbase row and quote check not done (06.10.2026 15:52)
+- `normalize.py`: in notes, a citation inside a bracket or quote ("(por. [@a, s. 3])") is no longer moved out of it
+  (MARK-AFTER-QUOTE now main text only). Regression tests added; normalize 49/49, suite 25/25. 1113fec.
+- Termbase row: not done. C5 is not in the repository (Cowork's file is not pushed yet); a Mac session must push
+  `cowork-to-code.md`, then a Code session adds the row.
+- Single-quote check: lives in srom-tlumacz's `tlumacz-draft_check.py` (only “…” is matched), not in produkcja;
+  left for a srom-tlumacz session.
