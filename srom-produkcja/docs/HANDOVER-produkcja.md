@@ -1,9 +1,21 @@
-# srom-produkcja — handover (state at 02.10.2026)
+# srom-produkcja — handover (state at 08.10.2026)
 
-For the next session (Claude Code). Start with `../_handoffs/tlumacz-to-produkcja.md` (incoming) and
-`../_handoffs/MB-decisions.md` (the one list of MB's decisions — this file keeps none), per `../CLAUDE.md`. Then this,
-`CLAUDE.md`, and `.claude/skills/srom-produkcja/SKILL.md`. Outgoing messages: `../_handoffs/produkcja-to-tlumacz.md` (T-items).
+For the next session (Claude Code). Start as root `../CLAUDE.md` § Start of every session says: `../_handoffs/tlumacz-to-produkcja.md`
+(incoming), `../_handoffs/cowork-to-code.md` (Cowork's C-items about our skills) and Cowork's `workspace/MB-decisions.md`
+(the one list of MB's questions — this file keeps none). Then this, `CLAUDE.md`, and `.claude/skills/srom-produkcja/SKILL.md`.
+Outgoing: `../_handoffs/produkcja-to-tlumacz.md` (T-items), `../_handoffs/code-to-cowork.md` (K-items; a question for MB is a
+K-item "needs MB"). Division of work (root CLAUDE.md § Cowork): **Code builds and tests the skills; the texts, the volume
+data and MB's ledger are Cowork's**; Code's `work/` and `volumes/` are reference copies, never edited.
 Nothing here needs re-deriving; decisions marked ✔ are the editor's and closed.
+
+**04–08.10.2026 in short.** SYS-9 and SYS-10 decided (a) (04.10): Cowork is where the journal is made and reads the skills from
+this repository (switch K6/C3); `references/stages.md` is the stage-gate spec of the pipeline; srom-kanon's
+`references/SROM_knowledge_base.md` is the one fact file (`test_kb.py`, 39302d3). One repository since 05.10.2026
+(`blessero/srom-cloud`; root CLAUDE.md § Cloud sessions). C5: `normalize.py` leaves citations inside brackets/quotes in notes
+(1113fec). C6: DOI prefix 10.68100, vol. 18 suffixes minted, text-layer repair inside `cover_page.py` (07699c7, K10). Cover page
+template 2 (918fb44, d337459, K12). Cloud sessions discontinued (07.10). Review 07.10.2026: INJECT normalises the take-back copy
+into `build/`, never in `pl/` (280bf2a); pikepdf pinned in `requirements.txt` for Cowork's Python 3.10 (d7ad719). C7: vol. 18's
+master is Cowork's copy (MB, K14 (a)); suffixes from vol. 19 without 0 o 1 l i (K11 (a), a150f34).
 
 ## 1. What exists
 
@@ -25,7 +37,7 @@ Nothing here needs re-deriving; decisions marked ✔ are the editor's and closed
 | InDesign | `indesign/style_spec.json` → `scripts/make_style_setup.py` → `srom_style_setup.jsx` + `references/style-sheet.md` | house style definition and setup script |
 | docs | `references/*.md` | srom-md (format), handoff (contract with srom-tlumacz), indesign, decisions, style-sheet |
 
-Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 24/24` (02.10.2026). Unlazy ledger: `/GATES.md`, batches from
+Tests: `python3 tests/run_all.py` → `SUITE ALL PASS 26/26` (08.10.2026). Unlazy ledger: `/GATES.md`, batches from
 26.09.2026 on (the older G1–G16 ledger was lost, § 3 item 1; its G12, the InDesign import, is stage 3 / D3).
 
 ## 2. Decisions register (`references/decisions.md`)
@@ -231,7 +243,7 @@ G12) after.
    the template's gap (13.4 pt) and may reach 218 mm from the top; both 7.2 pt, if that does not fit both 7.0 pt, beyond that the run
    stops. Keywords stand 14 pt baseline to baseline under the last line (MB built it as a blank line + a 4 pt line; made a spacing, so
    keywords of two lines do not collapse). Cleaned: stray 7.2 run in the English sample, *Abstract* label 0.6 pt above its text.
-   Vol. 18, all 8 of Część I and II fit at 7.2 pt (the longest, 005, ends at 211 of 218 mm; 006 at 217). Stops on placeholders. Choices awaiting MB: SYS-6, SYS-7 (`MB-decisions.md`). Tests in `test_quant.py`.
+   Vol. 18, all 8 of Część I and II fit at 7.2 pt (the longest, 005, ends at 211 of 218 mm; 006 at 217). Stops on placeholders. (SYS-6 and SYS-7 became Cowork's SYS-100 and SYS-101; template 2, K12, superseded SYS-100, closed 08.10.2026; SYS-101 is still open in Cowork's ledger.) Tests in `test_quant.py`.
    **Template 2 (MB 07.10.2026, `SROM_okladka_szablon_MB2.idml`):** info block top left, logo right; author | ORCID | e-mail
    (e-mail from `volumes/autorzy.tsv`); header block between title top 83.8 and citation bottom 269.7 with stretching gaps,
    so translations ("Tłumaczenie:", "Pierwodruk:") and other texts fill the same block; abstracts from 283.3; footer: dates line
@@ -399,4 +411,5 @@ author's notes.
 
 ## 7. Pending for the editor
 
-Only in `../_handoffs/MB-decisions.md`. srom-produkcja's open items there: see the "At a glance" table (PAH, SCH, OST, TIT, WOH, GEN-2, GEN-11 and others).
+Only in Cowork's ledger (`workspace/MB-decisions.md`, answered on the Editorial Desk); `../_handoffs/MB-decisions.md` is a
+pointer. A new question for MB goes as a K-item "needs MB" in `../_handoffs/code-to-cowork.md`; Cowork enters it.

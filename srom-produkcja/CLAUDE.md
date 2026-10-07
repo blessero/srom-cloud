@@ -1,16 +1,22 @@
 # SROM tools — project instructions
 
 Repository of the production tools for *Studia Romologica* (Polish-language annual, Romani studies,
-ISSN 1689-4758); formerly srom-typeset (renamed 30.09.2026, MB). Three skills in `.claude/skills/`:
+ISSN 1689-4758); formerly srom-typeset (renamed 30.09.2026, MB). Six skills in `.claude/skills/`:
 - **srom-kanon** — the house rules (normative) and their linter.
 - **srom-produkcja** — manuscript → SROM-MD → DOCX → InDesign; citations via CSL; checks; Word working copies.
 - **srom-quant** — metadata, DOI/Crossref, website (formerly srom-scholarly-curator; no session of its own, used here).
+- **srom-zizek** — selection and critical review of papers for a volume (the stage before RIP).
+- **wp-acf-plugin-builder**, **wp-elementor-builder** — the website's WordPress plugins and Elementor templates.
 
-Volume data: `volumes/` (master CSV per volume `volumes/<vol>/srom_master_v3.csv`, authors register
-`volumes/autorzy.tsv`). Stage names (root CLAUDE.md): RIP and INJECT are this module's, TRANS is srom-tlumacz's.
+Code is the workshop: it builds and tests the skills. The texts, the volume data and MB's questions are Cowork's (root
+CLAUDE.md § Cowork). Volume data: Cowork's `workspace/srom-produkcja/volumes/` is the master (vol. 18: MB 08.10.2026,
+K14 (a)); this repository's `volumes/` (master CSV `volumes/<vol>/srom_master_v3.csv`, authors register
+`volumes/autorzy.tsv`) is a reference copy, never edited, used for tests and scratch runs. Stage names (root CLAUDE.md):
+RIP and INJECT are this module's, TRANS is srom-tlumacz's.
 
-The EN→PL translation module **srom-tlumacz** is a separate folder (`../srom-tlumacz/`, its own session; not a skill
-here, packaging deferred); it talks to srom-produkcja only through `.claude/skills/srom-produkcja/references/handoff.md`.
+The EN→PL translation module **srom-tlumacz** is a separate folder (`../srom-tlumacz/`, its own session; its skill
+`srom-tlumacz` since 03.10.2026, E20); it talks to srom-produkcja only through
+`.claude/skills/srom-produkcja/references/handoff.md`.
 
 State, open decisions and the work queue: `docs/HANDOVER-*.md` — read before starting.
 
@@ -41,7 +47,8 @@ State, open decisions and the work queue: `docs/HANDOVER-*.md` — read before s
   (`git commit <paths>`; never `git add -A`, `commit -a` or `git stash`); never revert, reformat or commit
   another session's uncommitted changes. If the suite fails in code you did not touch, check `git status`/`git diff`
   for another session's work in progress before fixing anything; say so to MB rather than "fixing" it.
-- IDs in shared files (T<n> in `../_handoffs/produkcja-to-tlumacz.md`, question IDs such as PAH-11 in `MB-decisions.md`): re-read the file's
+- IDs in shared files (T<n> in `../_handoffs/produkcja-to-tlumacz.md`, K<n> in `../_handoffs/code-to-cowork.md`; a question
+  for MB is a K-item "needs MB"; Cowork enters it in its ledger with an ID such as PAH-11): re-read the file's
   tail for the next free ID immediately before appending, and commit `_handoffs` at once. Cite the other side's
   items with their [Author] tag ("E18 [Pahulich]"), since parallel sessions have reused IDs. Commit a shared file
   (GATES.md, MB-decisions.md) by path only when every change in it is yours.
