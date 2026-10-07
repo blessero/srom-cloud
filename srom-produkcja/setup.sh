@@ -2,7 +2,8 @@
 # One-time setup of the SROM toolchain on plain Linux (Cowork's sandbox) or a Mac. Safe to run again.
 #   sh setup.sh            install the Python packages, check pandoc (install 3.8.3 into ~/.local/bin if missing or < 3.1),
 #                          install acorn for the optional ES3 test if npm is there
-# Lives at the root of the srom plugin (next to skills/). Then: python3 skills/srom-produkcja/tests/run_all.py  ->  SUITE ALL PASS n/n
+# Lives in srom-produkcja/ (next to requirements.txt): sh srom-produkcja/setup.sh, then
+#   python3 srom-produkcja/.claude/skills/srom-produkcja/tests/run_all.py  ->  SUITE ALL PASS n/n
 set -e
 HERE=$(cd "$(dirname "$0")" && pwd)
 PANDOC_VERSION=3.8.3

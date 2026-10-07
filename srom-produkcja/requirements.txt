@@ -3,6 +3,9 @@
 python-docx==1.2.0
 lxml==6.1.3
 PyMuPDF==1.28.2
+# srom-quant's cover_page.py (text-layer repair, 06.10.2026); 10.13.0.post1 is the last release for Python 3.10 (Cowork's VM)
+pikepdf==10.16.0; python_version >= "3.11"
+pikepdf==10.13.0.post1; python_version < "3.11"
 # Not Python, also needed (setup.sh installs or checks them):
 #   pandoc >= 3.1 (tested with 3.8.3) — every import, build and Word copy
 #   node + the npm package acorn — optional: only the ES3 syntax test of the InDesign scripts (falls back to a weaker parser)

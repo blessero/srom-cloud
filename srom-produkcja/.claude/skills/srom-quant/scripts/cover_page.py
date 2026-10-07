@@ -355,7 +355,7 @@ def prepare(path, row):
         import pikepdf
         from fix_actualtext import repair
     except ImportError:
-        sys.exit("ABORT: pikepdf missing (the text-layer repair needs it): ~/.venvs/srom/bin/pip install pikepdf")
+        sys.exit("ABORT: pikepdf missing (the text-layer repair needs it): pip install -r srom-produkcja/requirements.txt")
     pdf, warn = pikepdf.open(path), []
     spans, maps = repair(pdf)
     lang = (row.get("language") or "pl").strip()

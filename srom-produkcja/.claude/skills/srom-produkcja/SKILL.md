@@ -14,7 +14,7 @@ runs its linter and fails, saying so, if the skill is missing (looked up next to
 the one fact file; the stages of a text, with each stage's input, output and pass/fail check, in `references/stages.md`.
 
 Scripts live in `scripts/` next to this file (`S=<skill dir>/scripts`). Requirements: pandoc ≥ 3.1 (tested with
-3.8.3), Python ≥ 3.10 with python-docx, lxml, PyMuPDF (`srom-produkcja/requirements.txt`, pinned to the versions the
+3.8.3), Python ≥ 3.10 with python-docx, lxml, PyMuPDF, pikepdf (srom-quant's cover page) (`srom-produkcja/requirements.txt`, pinned to the versions the
 suite runs on; `sh srom-produkcja/setup.sh` installs them on plain Linux). Work in the text's own folder
 (`srom-produkcja/work/<id>/`; volume data in `srom-produkcja/volumes/`), never inside the skill directory. Where you
 run decides the rest:
