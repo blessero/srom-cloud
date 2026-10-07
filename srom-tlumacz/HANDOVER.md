@@ -33,7 +33,7 @@ goes into the skill; a ruling for one text into its notes sheet.
 
 ## 4. State of the srom-produkcja interface (03.10.2026)
 
-- `tlumacz-test_handoff.py` **33/33** against srom-produkcja 280bf2a (re-run 08.10.2026 01:00; handoff.md last changed in e079042/T26) (the E5 terminology-slot case removed in 1.4.1:
+- `tlumacz-test_handoff.py` **33/33** against srom-produkcja 280bf2a (re-run 08.10.2026 01:00) (the E5 terminology-slot case removed in 1.4.1:
   tb_check is not built; srom-produkcja told in an E-item). Run it after every srom-produkcja update.
 - The Kanon is at **v1.16** (T36, 03.10.2026); cite the version in its header. Kartoteka: srom-kanon
   `references/kartoteka.tsv`; changes through `_handoffs/`.
