@@ -189,7 +189,9 @@ def band(pen, row):
     pen.page.insert_link({"kind": pymupdf.LINK_URI, "from": box, "uri": SITE})
     short = licence(row)[0]
     doi_url = f"https://doi.org/{row.get('doi', '')}"
-    info = [f'Strony: {esc(row.get("pages"))}' if row.get("pages") else "", a(doi_url, esc(doi_url)), esc(short),
+    land = row.get("landing_url", "")      # the text stays the DOI URL (Crossref display rule); the link goes to our stable page
+    info = [f'Strony: {esc(row.get("pages"))}' if row.get("pages") else "",
+            a(land if land.startswith("http") and not placeholder(land) else doi_url, esc(doi_url)), esc(short),
             f'© {esc(row.get("year"))} {esc(", ".join(a[0] for a in authors(row)))}',
             f'Opublikowano online: {esc(date_pl(row.get("pub_date_online")))}']
     info = [s for s in info if s]

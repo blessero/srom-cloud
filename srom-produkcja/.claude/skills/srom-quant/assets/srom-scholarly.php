@@ -314,7 +314,8 @@ add_shortcode('srom_cite', function () {
         if ($m['lp'] !== '' && $m['lp'] !== null) $cite .= '–' . esc_html($m['lp']);
     }
     $cite .= '.';
-    if ($m['doi']) $cite .= sprintf(' DOI: <a href="https://doi.org/%1$s">https://doi.org/%1$s</a>', esc_attr($m['doi']));
+    // Text = DOI URL (Crossref display rule); link = our stable page (same page as the DOI resolves to).
+    if ($m['doi']) $cite .= sprintf(' DOI: <a href="%2$s">https://doi.org/%1$s</a>', esc_attr($m['doi']), esc_url(get_permalink($id)));
     return '<p class="srom-cite">' . $cite . '</p>';
 });
 
@@ -323,7 +324,7 @@ add_shortcode('srom_doi', function () {
     $id = srom_ctx_id('srom_article');
     if (!$id) return '';
     $doi = get_field('doi', $id);
-    return $doi ? sprintf('<a href="https://doi.org/%1$s">https://doi.org/%1$s</a>', esc_attr($doi)) : '';
+    return $doi ? sprintf('<a href="%2$s">https://doi.org/%1$s</a>', esc_attr($doi), esc_url(get_permalink($id))) : '';
 });
 
 /* ---------------------------------------------------------------

@@ -122,12 +122,12 @@ import pymupdf
 CV = os.path.join(os.path.dirname(GEN), "cover_page.py")
 spec = importlib.util.spec_from_file_location("cover_page", CV); cv = importlib.util.module_from_spec(spec); spec.loader.exec_module(cv)
 cdir = tempfile.mkdtemp()
-ccols = ["article_id", "doi", "journal_title", "issn", "volume", "year", "publisher", "pub_date_online", "title_pl", "title_en",
+ccols = ["article_id", "doi", "landing_url", "journal_title", "issn", "volume", "year", "publisher", "pub_date_online", "title_pl", "title_en",
          "authors_display", "authors_struct", "abstract_pl", "abstract_en", "keywords_pl", "keywords_en", "pages", "pages_from",
          "pages_to", "pdf_file", "language", "license", "license_url", "is_translation", "original_title", "original_source",
          "original_doi", "translators_struct"]
 def crow(n, **kw):
-    r = dict(article_id=f"SROM-19-2026-00{n}", doi=f"10.12345/ab3k9x2{n}", journal_title="Studia Romologica", issn="1689-4758",
+    r = dict(article_id=f"SROM-19-2026-00{n}", doi=f"10.12345/ab3k9x2{n}", landing_url=f"https://x.pl/articles/10.12345/ab3k9x2{n}/", journal_title="Studia Romologica", issn="1689-4758",
              volume="19", year="2026", publisher="Komitet Opieki nad Zabytkami Kultury Żydowskiej w Tarnowie",
              pub_date_online="2026-07-02", title_pl="Romowie w Polsce i w Europie", title_en="Roma in Poland and in Europe",
              authors_display="Anna Nowak, Jan Lis", authors_struct="Anna|Nowak|Uniwersytet Jagielloński|https://orcid.org/0000-0002-1825-0097 ;; Jan|Lis||",
@@ -163,8 +163,8 @@ t("cover_page: page shows DOI URL, both authors, date dd.mm.rrrr, CC BY sentence
                           "Uznanie autorstwa 4.0 (CC BY 4.0)", "„Studia Romologica”, 2026, t. 19, s. 11–14.",
                           "Romowie; Polska")), txt[:1500])
 links = {l.get("uri") for l in doc[0].get_links()} if doc else set()
-t("cover_page: links to DOI, ORCID, licence, site",
-  {"https://doi.org/10.12345/ab3k9x21", "https://orcid.org/0000-0002-1825-0097", "https://creativecommons.org/licenses/by/4.0/",
+t("cover_page: DOI line links to the landing page; ORCID, licence, site",
+  {"https://x.pl/articles/10.12345/ab3k9x21/", "https://orcid.org/0000-0002-1825-0097", "https://creativecommons.org/licenses/by/4.0/",
    "https://studiaromologica.pl"} <= links, links)
 x = doc.get_xml_metadata() if doc else ""
 t("cover_page: Info + XMP metadata (title, PRISM DOI, licence)",
