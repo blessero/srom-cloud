@@ -156,6 +156,11 @@ and Code. Does not apply to chat answers or to what you do yourself in the sessi
   files or by running the test. Don't rely on memory or the other side's report.
 
 ## Cloud sessions (MB, 04.10.2026; one repository since 05.10.2026)
+**Discontinued (MB's go-ahead 07.10.2026; review 07.10.2026): no new SROM sessions in the cloud.** Work on the Mac (Code)
+and in Cowork only. The repository and its GitHub remote stay (history, off-Mac backup), and so do the git and data rules
+below. What served only cloud sessions (`_cloud/`, the cloud-only lines below, `draft-review-*` passes) is retired in the
+cleanup task (review 07.10.2026, For MB 5).
+
 This whole folder is one git repository, remote `blessero/srom-cloud` (GitHub, private). MB's Mac folder is a clone of
 it and so is every cloud session (claude.ai/code, or "Cloud" in the desktop app): local and cloud sessions work on the
 same `main`, and nothing is copied between them by hand (`_cloud/cloud.py` is retired; MB's guide: `_cloud/README.md`).
