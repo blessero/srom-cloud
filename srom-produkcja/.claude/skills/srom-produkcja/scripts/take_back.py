@@ -14,11 +14,12 @@ Steps:
   3. the Word master is imported again (docx_in.py) and must equal the delivered `<id>_pl.md` byte for byte, so
      that what is built is what the editor approved
   4. check.py --pair <src-dir>/<id>_src.md against the copy, with <src-dir>/refs.json (+ the refs_tlum copy)
-Then build from the copy (the command is printed). The copies are never edited. A correction goes into the
-master, and a new delivery line follows.
+Then normalise the copy into <src-dir>/build/ and build from there (both commands are printed; review 07.10.2026 F3):
+normalize.py writes outside pl/, so the copies are never edited and SHA256SUMS still verifies. A normaliser flag or
+any other correction goes into the master (noted in the notes sheet), and a new delivery line follows.
 Last line: TAKE-BACK OK <id> (n files) / TAKE-BACK FAILED <id>: n problem(s)
 """
-import argparse, hashlib, os, re, shutil, subprocess, sys, tempfile
+import argparse, hashlib, os, re, shlex, shutil, subprocess, sys, tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REQUIRED = ("{id}_robocza.docx", "{id}_pl.md", "{id}_front_pl.md")
@@ -115,11 +116,14 @@ def main():
     print(f"  check.py --pair: {last}")
     if r.returncode or "CHECK OK" not in last:
         probs.append("check.py --pair fails:\n" + r.stdout[-1500:])
-    if not probs:
-        q = f" --queries {out}/{i}_pytania_tlum.csv" if f"{i}_pytania_tlum.csv" in hashes else ""
-        rt = f" --refs {out}/{i}_refs_tlum.json" if f"{i}_refs_tlum.json" in hashes else ""
-        print(f"  build: python3 {HERE}/build.py {out}/{i}_pl.md --refs {src}/refs.json{rt} "
-              f"--pair-src {src}/{i}_src.md{q} --out {src}/build/")
+    if not probs:                                 # printed quoted: paths on the Mac have spaces
+        Q, bd = shlex.quote, os.path.join(src, "build")
+        q = f" --queries {Q(f'{out}/{i}_pytania_tlum.csv')}" if f"{i}_pytania_tlum.csv" in hashes else ""
+        rt = f" --refs {Q(f'{out}/{i}_refs_tlum.json')}" if f"{i}_refs_tlum.json" in hashes else ""
+        print(f"  normalise: python3 {Q(HERE + '/normalize.py')} {Q(f'{out}/{i}_pl.md')} -o {Q(f'{bd}/{i}_pl.md')} "
+              f"--log {Q(f'{bd}/{i}_pl_norm.md')}")
+        print(f"  build: python3 {Q(HERE + '/build.py')} {Q(f'{bd}/{i}_pl.md')} --refs {Q(f'{src}/refs.json')}{rt} "
+              f"--pair-src {Q(f'{src}/{i}_src.md')}{q} --out {Q(bd + '/')}")
     return finish(i, probs, len(names))
 
 

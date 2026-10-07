@@ -887,7 +887,8 @@ def main():
         if nz.log:
             msg = (f"not normalised: normalize.py would make {len(nz.log)} change(s) ("
                    + ", ".join(f"{v}× {k}" for k, v in Counter(r for _, r, _, _ in nz.log).most_common(6))
-                   + f") — run normalize.py {os.path.basename(a.md)} -o … --log …, then build again")
+                   + f") — run normalize.py {os.path.basename(a.md)} -o … --log …, then build again (a take-back copy in pl/ "
+                   "is never edited: write the output to build/, handoff.md \"Back\")")
             report["warnings" if a.proof or a.draft else "errors"].append(msg)
     md_text, comments = integrity.strip_comments(md_text)
     if comments:

@@ -86,9 +86,11 @@ Who does what (practice since the first drafts, now the contract):
    `--expect` per file of the delivery line). It compares the sha256, requires `<id>_pl.md` to equal a fresh import of the Word master,
    runs `check.py --pair` against the frozen `<id>_src.md` and `refs.json`, and writes `SHA256SUMS`. If `refs.json`
    changed after the delivery's value (a later hand-over line), the pair check and build use the current one, and
-   the take-back line in the log says so. srom-produkcja **builds from `work/<id>/pl/`** into `work/<id>/build/`
-   and logs the take-back with its verdicts (a problem goes to the notes sheet and, if MB must decide, to
-   `MB-decisions.md`).
+   the take-back line in the log says so. srom-produkcja **normalises the copy from `work/<id>/pl/` into
+   `work/<id>/build/<id>_pl.md`** (`normalize.py`, never in place: `pl/` stays as delivered and `SHA256SUMS`
+   verifies), **builds that file** into `work/<id>/build/` and logs the take-back with its verdicts. A normaliser
+   flag, like any other problem, goes to the notes sheet and is fixed in the Word master, with a new delivery; the md
+   is never edited by hand (if MB must decide: a K-item "needs MB" for Cowork's ledger).
 
 `<id>_front_pl.md` (Kanon § 12.2.2): the Polish title (title and subtitle kept apart), the Polish abstract, the
 Polish keywords; the English ones stay as in the original. Header data for the master CSV, not built into the
@@ -102,7 +104,9 @@ python3 $S/export_work.py <id>_pl.md -o <id>_robocza.docx        # srom-tlumacz,
 python3 $S/docx_in.py <id>_robocza.docx -o <id>_pl.md            # srom-tlumacz, after each round; lossless
 python3 $S/check.py --pair <id>_src.md <id>_pl.md --refs refs.json --refs <id>_refs_tlum.json   # handoff check
 python3 $S/take_back.py srom-tlumacz/work/<id> <id> --src-dir srom-produkcja/work/<id> --expect <id>_pl.md=… …   # srom-produkcja
-python3 $S/build.py srom-produkcja/work/<id>/pl/<id>_pl.md --refs srom-produkcja/work/<id>/refs.json --refs srom-produkcja/work/<id>/pl/<id>_refs_tlum.json \
+python3 $S/normalize.py srom-produkcja/work/<id>/pl/<id>_pl.md -o srom-produkcja/work/<id>/build/<id>_pl.md \
+        --log srom-produkcja/work/<id>/build/<id>_pl_norm.md       # srom-produkcja; never over pl/
+python3 $S/build.py srom-produkcja/work/<id>/build/<id>_pl.md --refs srom-produkcja/work/<id>/refs.json --refs srom-produkcja/work/<id>/pl/<id>_refs_tlum.json \
         --pair-src srom-produkcja/work/<id>/<id>_src.md --queries srom-produkcja/work/<id>/pl/<id>_pytania_tlum.csv \
         --out srom-produkcja/work/<id>/build/
 ```

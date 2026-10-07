@@ -52,15 +52,15 @@ every line in its **Pass** row is printed (and the manual reads are done), and f
 - **Input:** translated: the delivery in `srom-tlumacz/work/<id>/` as logged; Polish original: MB's edited
   `<id>_robocza.docx`, imported with `docx_in.py`.
 - **Output:** `srom-produkcja/work/<id>/pl/` (copies of the delivery + `SHA256SUMS`, never edited) and
-  `srom-produkcja/work/<id>/build/`: `<stem>.docx`, `_report.md`, `_pytania.md/.csv`, `_postimport.jsx`, `_ibidem.jsx`
+  `srom-produkcja/work/<id>/build/`: `<id>_pl.md` + `_norm.md` (`normalize.py` of the copy, written here), `<stem>.docx`, `_report.md`, `_pytania.md/.csv`, `_postimport.jsx`, `_ibidem.jsx`
   (+ `_gwiazdki.jsx`, `_doi.jsx` when written), `_citations.json` → copied to
   `srom-produkcja/volumes/<vol>/citations/<article_id>.json`; the article's row of the master CSV filled (Polish title,
   abstract, keywords from `<id>_front_pl.md`; `translators_struct` from the build report).
-- **Pass:** `take_back.py … --expect <file>=<sha256> …` (one per logged file) → `TAKE-BACK OK <id>` · `build.py` without
-  `--draft` → `PASS` (no `[BRAK …]`, linter 0 ERROR, DOCX verified) · the CSV row: `validate_master.py` without blocking
+- **Pass:** `take_back.py … --expect <file>=<sha256> …` (one per logged file) → `TAKE-BACK OK <id>` · `normalize.py` of
+  the copy into `build/` with no flag left · `build.py` on that file without `--draft` → `PASS` (no `[BRAK …]`, linter 0 ERROR, DOCX verified) · the CSV row: `validate_master.py` without blocking
   errors before any deposit (srom-quant).
-- **Fail:** the report lists every error; fix in the Word master (or refs.json, with a new hand-off line), never in the
-  DOCX; deliver and take back again.
+- **Fail:** the report (or a normaliser flag) lists every error; note it in the notes sheet and fix it in the Word
+  master (or refs.json, with a new hand-off line), never in the md or the DOCX; deliver and take back again.
 
 ## 4. InDesign import — layout and PDF (MB, on his Mac; `references/indesign.md`)
 

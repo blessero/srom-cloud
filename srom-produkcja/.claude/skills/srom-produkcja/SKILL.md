@@ -72,7 +72,8 @@ master), srom-tlumacz imports it (`docx_in.py`), checks it and logs the delivery
 `<id>_robocza.docx`, `<id>_pl.md`, `<id>_front_pl.md` (Polish title, abstract, keywords: header data for the CSV, not
 built), `<id>_refs_tlum.json`, `<id>_pytania_tlum.csv` → here `take_back.py srom-tlumacz/work/<id> <id> --src-dir
 srom-produkcja/work/<id> --expect …` (values from the delivery line; copies into `work/<id>/pl/`, compares sha256,
-re-imports the Word master, `check.py --pair`) → 2 → 6 from `work/<id>/pl/` with both `--refs`, `--pair-src <id>_src.md` and `--queries`
+re-imports the Word master, `check.py --pair`) → 2 from `work/<id>/pl/` into `work/<id>/build/<id>_pl.md` (never in
+place; a flag goes to the notes sheet and the Word master, with a new delivery) → 6 on that file with both `--refs`, `--pair-src <id>_src.md` and `--queries`
 (merges the translator's query rows) → 7. The translator's name is front matter `tlumaczenie:` (not printed; the build report
 gives the `translators_struct` value for the master CSV). Never MarkItDown: it loses italics and note markers.
 

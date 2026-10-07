@@ -10,6 +10,7 @@ Usage:
     python3 normalize.py in.md -o out.md --log normalize_log.md
 """
 import argparse
+import os
 import re
 import sys
 
@@ -301,6 +302,7 @@ def main():
     text = open(a.src, encoding="utf-8").read()
     nz = Normalizer()
     res = nz.run(text)
+    os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
     open(a.out, "w", encoding="utf-8").write(res)
     open(a.log, "w", encoding="utf-8").write(nz.report())
     print(f"normalize: {len(nz.log)} changes, {len(nz.flags)} flags -> {a.log}")
