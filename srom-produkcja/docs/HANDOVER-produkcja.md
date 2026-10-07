@@ -235,7 +235,8 @@ G12) after.
    **Template 2 (MB 07.10.2026, `SROM_okladka_szablon_MB2.idml`):** info block top left, logo right; author | ORCID | e-mail
    (e-mail from `volumes/autorzy.tsv`); header block between title top 83.8 and citation bottom 269.7 with stretching gaps,
    so translations ("Tłumaczenie:", "Pierwodruk:") and other texts fill the same block; abstracts from 283.3; footer: dates line
-   (`pub_date_print`, `pub_date_online`, `editorial_period`, new optional CSV columns) and © + licence linked to the CC deed;
+   (`pub_date_print`, `pub_date_online`, `editorial_period`, new required CSV columns, empty in vol. 18 until MB fills them) and © + licence linked to the CC deed (deed.pl);
+   Open Access mark in ink grey;
    publisher line and CC BY clause dropped. Vol. 18 proofs: `_okladki_v18_v2/`. Spec: `docs/COVER-PAGE-DESIGN-SPEC.md`.
    **DOI links in the online PDF (SYS-5, built 02.10.2026, root session at MB's request):** `build.py` writes `<stem>_doi.jsx`
    (citation texts per note, cut apart by a marked CSL copy; bibliography entries; URLs percent-encoded); the script makes

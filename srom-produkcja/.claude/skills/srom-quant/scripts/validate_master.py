@@ -13,7 +13,7 @@ import csv, sys, re
 
 SCHEMA = [
     'article_id','doi_suffix','doi','landing_url','pdf_url',
-    'journal_title','issn','volume','year','issue_signature','issue_theme','publisher','pub_date_online',
+    'journal_title','issn','volume','year','issue_signature','issue_theme','publisher','pub_date_online','pub_date_print','editorial_period',
     'section_nr','section_label','seq',
     'title_pl','title_en','authors_display','authors_struct','affiliation_display','orcid_display',
     'abstract_pl','abstract_en','keywords_pl','keywords_en','bio_note',
@@ -23,8 +23,6 @@ SCHEMA = [
 # Optional columns: accepted when present, never required (older CSVs stay valid).
 OPTIONAL = [
     'translators_struct',   # Given|Surname|Affiliation|ORCID ;; … — translator(s), Kanon § 12.2.3
-    'pub_date_print',       # YYYY-MM-DD — cover page "Data publikacji"
-    'editorial_period',     # as printed, e.g. "marzec 2026 – czerwiec 2026" — cover page "Okres redakcji"
 ]
 SUFFIX_RE = re.compile(r'^[a-z0-9]{8}$')
 DATE_RE   = re.compile(r'^\d{4}-\d{2}-\d{2}$')
@@ -72,6 +70,9 @@ def main():
         # date
         d = r.get('pub_date_online', '')
         if not DATE_RE.match(d):       E(f"{rid}: pub_date_online '{d}' not YYYY-MM-DD")
+        d = r.get('pub_date_print', '')
+        if not DATE_RE.match(d):       E(f"{rid}: pub_date_print '{d}' not YYYY-MM-DD")
+        if not (r.get('editorial_period') or '').strip(): E(f"{rid}: editorial_period empty")
 
         # license
         for col in ('license', 'license_url'):

@@ -156,7 +156,7 @@ def licence(row):
     code, ver = m.group(1), m.group(2)
     short = licence_name(url, row.get("license", ""))
     return (short, f"Creative Commons {CC_PL.get(code, code.upper())} {ver} ({short})",
-            f"https://creativecommons.org/licenses/{code}/{ver}/deed.en")
+            f"https://creativecommons.org/licenses/{code}/{ver}/deed.pl")
 
 
 def check(row):
@@ -167,8 +167,10 @@ def check(row):
             probs.append(f"{k} empty")
     if placeholder(row.get("doi")):
         probs.append(f"doi is a placeholder: {row.get('doi') or 'empty'}")
-    if row.get("pub_date_print") and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", row["pub_date_print"]):
-        probs.append(f"pub_date_print not YYYY-MM-DD: {row['pub_date_print']}")
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", row.get("pub_date_print", "")):
+        probs.append(f"pub_date_print not YYYY-MM-DD: {row.get('pub_date_print') or 'empty'}")
+    if not row.get("editorial_period") or placeholder(row.get("editorial_period")):
+        probs.append("editorial_period empty")
     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", row.get("pub_date_online", "")):
         probs.append(f"pub_date_online not YYYY-MM-DD: {row.get('pub_date_online') or 'empty'}")
     if not licence(row)[0]:
@@ -278,9 +280,9 @@ def abstract(pen, row, key, y, size):
 
 def footer(pen, row):
     pen.page.show_pdf_page(pymupdf.Rect(*OA), pymupdf.open(os.path.join(ASSETS, "open_access.pdf")), 0)
-    dates = [f"Data publikacji: {date_pl(row['pub_date_print'])}" if row.get("pub_date_print") else "",
+    dates = [f"Data publikacji: {date_pl(row.get('pub_date_print'))}",
              f"Data publikacji online: {date_pl(row.get('pub_date_online'))}",
-             f"Okres redakcji: {nbsp(row['editorial_period'])}" if row.get("editorial_period") else ""]
+             f"Okres redakcji: {nbsp(row.get('editorial_period'))}"]
     pen.put(TX, FOOT_DATES, RX, p(6, 8.5, esc(SEP.join(d for d in dates if d)), extra="; letter-spacing:-0.01em"))
     short, name, deed = licence(row)
     body = f'© {esc(row.get("year"))} {esc(", ".join(a[0] for a in authors(row)))}.'

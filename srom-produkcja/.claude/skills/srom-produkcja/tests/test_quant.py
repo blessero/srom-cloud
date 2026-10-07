@@ -139,7 +139,7 @@ def crow(n, **kw):
     r.update(kw); return r
 long_pl, long_en = "Długie zdanie abstraktu o Romach w Polsce. " * 80, "A long sentence of the abstract about Roma. " * 80
 crs = [crow(1), crow(2, abstract_pl=long_pl, abstract_en=long_en), crow(3, abstract_pl="", abstract_en="", keywords_pl="", keywords_en=""),
-       crow(4, doi="10.XXXXX/todo0004", pub_date_online="2026-12-TODO"), crow(5, is_translation="TAK"),
+       crow(4, doi="10.XXXXX/todo0004", pub_date_online="2026-12-TODO", editorial_period=""), crow(5, is_translation="TAK"),
        crow(6, is_translation="TAK", translators_struct="Michał|Bartosz||", original_title="Roma", original_source="„Romani Studies”, 2024",
             original_doi="10.3828/rs.2024.3", license_url="https://creativecommons.org/licenses/by-nc-nd/4.0/")]
 ccp = os.path.join(cdir, "m.csv")
@@ -171,7 +171,7 @@ t("cover_page: page shows DOI URL, authors | ORCID | e-mail, dates and editorial
 links = {l.get("uri") for l in doc[0].get_links()} if doc else set()
 t("cover_page: DOI line links to the landing page; ORCID, e-mail, licence deed, site; no publisher line",
   {"https://x.pl/articles/10.12345/ab3k9x21/", "https://orcid.org/0000-0002-1825-0097", "mailto:a.nowak@uj.edu.pl",
-   "https://creativecommons.org/licenses/by/4.0/deed.en", "https://studiaromologica.pl"} <= links and "Wydawca" not in txt, links)
+   "https://creativecommons.org/licenses/by/4.0/deed.pl", "https://studiaromologica.pl"} <= links and "Wydawca" not in txt, links)
 x = doc.get_xml_metadata() if doc else ""
 t("cover_page: Info + XMP metadata (title, PRISM DOI, licence)",
   doc and doc.metadata["title"] == "Romowie w Polsce i w Europie" and "<prism:doi>10.12345/ab3k9x21</prism:doi>" in x
@@ -219,7 +219,7 @@ r = cvrun("SROM-19-2026-003"); d3 = pymupdf.open(os.path.join(cdir, "SROM-19-202
 t("cover_page: no abstracts (review) → header alone, one page", d3 and len(d3) == 1 and "Abstrakt" not in d3[0].get_text(), r.stdout + r.stderr)
 r = cvrun("SROM-19-2026-004")
 t("cover_page: placeholder DOI / date → ABORT, nothing written", r.returncode != 0 and "doi is a placeholder" in r.stderr
-  and "pub_date_online" in r.stderr and not os.path.exists(os.path.join(cdir, "SROM-19-2026-004_okladka.pdf")), r.stdout + r.stderr)
+  and "pub_date_online" in r.stderr and "editorial_period empty" in r.stderr and not os.path.exists(os.path.join(cdir, "SROM-19-2026-004_okladka.pdf")), r.stdout + r.stderr)
 r = cvrun("SROM-19-2026-004", "--proof"); pf = os.path.join(cdir, "SROM-19-2026-004_okladka_proof.pdf")
 t("cover_page --proof: written as *_proof, marked PODGLĄD", os.path.exists(pf) and "PODGLĄD" in pymupdf.open(pf)[0].get_text()
   and "PROOF" in r.stdout, r.stdout + r.stderr)
@@ -230,7 +230,7 @@ t6 = flat(d6[0]) if d6 else ""
 t("cover_page: translation → translator, Pierwodruk linked to the original's DOI; CC BY-NC-ND named in Polish",
   all(x in t6 for x in ("Tłumaczenie: Michał Bartosz", "Pierwodruk: Roma, „Romani Studies”, 2024, https://doi.org/10.3828/rs.2024.3",
                         "Użycie niekomercyjne – Bez utworów zależnych 4.0 (CC BY-NC-ND 4.0)"))
-  and {"https://doi.org/10.3828/rs.2024.3", "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en"} <= {l.get("uri") for l in d6[0].get_links()}
+  and {"https://doi.org/10.3828/rs.2024.3", "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.pl"} <= {l.get("uri") for l in d6[0].get_links()}
   and cite_y(d6[0]) <= cv.CITE_BOTTOM + 1, r.stdout + r.stderr + t6[:800])
 r = cvrun("SROM-19-2026-001", os.path.join(cdir, "art.pdf"))
 t("cover_page: article PDF page count = CSV range → no warning", "article PDF has" not in r.stdout

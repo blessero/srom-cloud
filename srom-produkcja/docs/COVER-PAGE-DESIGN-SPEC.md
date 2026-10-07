@@ -44,8 +44,7 @@ No hyphenation anywhere. Polish language. Italic only for the titles inside "Jak
   puts the e-mail under it.
 - **Abstract block, fixed edges:** Polish block top y 283.3 (label and text share it), English block 13.4 below it, as tall as
   its text, never below 218 mm (617.95). Keywords 14 pt baseline to baseline under the abstract's last line.
-- Footer: dates line top y 629.3 ("Data publikacji: … | Data publikacji online: … | Okres redakcji: …", items left out when
-  their field is empty); © + licence line top y 640.5, the licence name linked to its CC deed page (…/deed.en).
+- Footer: dates line top y 629.3 ("Data publikacji: … | Data publikacji online: … | Okres redakcji: …"); © + licence line top y 640.5, the licence name linked to its CC deed page (…/deed.pl).
   Open Access mark x 17.0–62.2, y 639.8–656.1. No publisher line.
 
 ## Behaviour (the rules that make it a template, not a picture)
@@ -53,7 +52,8 @@ No hyphenation anywhere. Polish language. Italic only for the titles inside "Jak
 - A placeholder or empty field in anything printed (10.XXXXX DOI, TODO, empty date) stops the run; `--proof` prints it anyway and marks the page PODGLĄD.
 - Texts without abstracts (reviews, chronicles) get the header alone.
 - Data: e-mails from `volumes/autorzy.tsv` (`kontakt`, by ORCID, else by name); dates from the CSV's `pub_date_print`
-  (optional) and `pub_date_online`; "Okres redakcji" from `editorial_period` (optional, printed as written).
+  and `pub_date_online`; "Okres redakcji" from `editorial_period` (printed as written); all three required.
+- Open Access mark recoloured to the ink (88 % black), as in template 2.
 - Hard spaces after one-letter words, s., t., nr, initials, before % (Kanon § 3.3). Dates dd.mm.rrrr. Keywords separated by semicolons.
 - Output also carries: page labels (cover i, article keeps printed numbers), link annotations, PDF Info + XMP (Dublin Core, rights, PRISM).
 

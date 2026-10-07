@@ -169,3 +169,15 @@ From the root session. C3 items:
   master CSV and the knowledge-base line; about 20 min, Cowork's CSV replaces Code's copy again.
 - (c) Leave as is.
 - *Trail:* C6 optional item; `srom-quant/scripts/mint_suffixes.py` ALPHABET.
+
+## K12 — [general] cover page template 2 (MB2) in `cover_page.py` (918fb44 + this commit) (07.10.2026 21:58)
+- Layout per `srom-produkcja/SROM_okladka_szablon_MB2.idml`: info block top left (journal · ISSN · Strony · DOI), logo right;
+  author line name | ORCID | e-mail (e-mail from `volumes/autorzy.tsv` `kontakt`, by ORCID, else name); "Tłumaczenie:" and
+  "Pierwodruk:" (title, source, original DOI) for translations; header block fixed between title top 83.8 and citation bottom
+  269.7 pt, gaps stretch ≤ 2× / shrink ≥ ½; abstracts from 283.3 pt, ≤ 218 mm. Footer: "Data publikacji | Data publikacji online |
+  Okres redakcji", then © + licence name linked to the CC deed (…/deed.pl). Publisher line and CC BY clause dropped (SYS-6 moot).
+  Open Access mark recoloured to ink grey (`assets/cover/open_access.pdf`).
+- **New required master CSV columns** `pub_date_print` (YYYY-MM-DD) and `editorial_period` (printed as written, e.g.
+  "marzec 2026 – czerwiec 2026"), after `pub_date_online`; `validate_master.py` and `cover_page.py` stop without them. Added
+  empty to vol. 18's CSV: **needs MB's values before the 09.10.2026 release** (until then vol. 18 is "NOT deposit-ready").
+- Emails added to autorzy.tsv: Fotta, Wesołkin. Proofs: `srom-produkcja/_okladki_v18_v2/`. test_quant 42/42, SUITE 26/26.
