@@ -8,7 +8,7 @@ cover_page.py — the online edition's metadata page, put in front of the articl
         → <dir>/<article_id>_okladka.pdf   the cover page alone, to look at
 
 One source: the master CSV row (master_schema.md). No InDesign: PyMuPDF draws the page at the journal's trim size
-(165 × 235 mm) after MB's template (SROM_okladka_szablon_MB1.2.idml, 04.10.2026: IBM Plex Sans, SROM red, all other
+(165 × 235 mm) after MB's template (SROM_okladka_szablon_MB2.idml, 07.10.2026: IBM Plex Sans, SROM red, all other
 type 88 % black = RGB 66 66 65), so it reads as a digital add-on, not a printed page. The final PDF also gets links (DOI, ORCID, licence,
 the original's DOI, the journal's site), page labels (cover i; the article keeps its printed page numbers) and the
 metadata of pdf_metadata.py (Info dictionary + XMP with PRISM).
@@ -18,8 +18,12 @@ read as U+FFFD; the pages render as before, tags kept), and /Lang (the CSV's `la
 ViewerPreferences/DisplayDocTitle are set where the export lacks them (Cowork C6, 06.10.2026). After saving, a
 self-check line reads the written file back: U+FFFD left, pages, tagged, /Lang, DisplayDocTitle, DOI in XMP.
 
+Two blocks with fixed edges (MB, 07.10.2026). Header: Polish title at TITLE_Y, citation ending at CITE_BOTTOM; the gaps
+between title, English title, authors, translator + original and citation stretch (up to 2×) or shrink (down to ½) so
+texts with and without translator lines fill the same block. Authors' e-mails come from volumes/autorzy.tsv (`kontakt`),
+matched by ORCID, else by name.
 One page, strictly (MB, 04.10.2026): the two abstract blocks (Polish, then English, each with its keywords) are not
-frames of a fixed height. The Polish one starts under the citation, the English one follows it at the template's gap,
+frames of a fixed height. The Polish one starts at ABSTRACT_TOP, the English one follows it at the template's gap,
 and the English one may grow down to ABSTRACT_BOTTOM (218 mm from the top; the footer starts below it). The keywords stand 14 pt (baseline to baseline) under the last line. The type is
 7.2 pt in both; only if the text still does not fit, both go down to 7 pt (never below, never one without the other).
 If it does not fit at 7 pt, the run stops and names the overflow. The header, footer and leading never change.
@@ -40,12 +44,12 @@ MM = 72 / 25.4
 W, H = 165 * MM, 235 * MM                      # SROM trim size (InDesign template: 467.72 × 666.14 pt)
 # geometry in pt, from MB's template (frames' top-left corners; text frames grow downwards)
 LX, TX, RX = 17.0, 70.9, 433.7                 # label column · text column · right edge
-LOGO = (70.9, 11.3, 184.3, 57.5)               # x0 y0 x1 y1
-INFO_X, INFO_Y, JOURNAL_Y, TITLE_Y = 290.4, 12.5, 61.8, 95.8
-FOOT, OA = 627.2, (17.0, 630.2, 62.2, 646.5)
+LOGO = (320.4, 17.7, 433.7, 63.9)              # x0 y0 x1 y1
+INFO_Y, TITLE_Y, CITE_BOTTOM, ABSTRACT_TOP = 18.9, 83.8, 269.7, 283.3
+FOOT_DATES, FOOT_LIC, OA = 629.3, 640.5, (17.0, 639.8, 62.2, 656.1)
 BAR = 4.25                                     # red bars at both edges, full height
-GAP = {"title_en": 7.3, "author": 7.2, "author2": 6, "translator": 6, "cite": 10.3, "original": 4,
-       "abstract": 15.6, "abstract_en": 13.4, "journal": 13.1}   # frame to frame, as in the template
+GAP = {"title_en": 14, "author": 8.3, "author2": 6, "translator": 9, "cite": 10.1,
+       "abstract": 13.6, "abstract_en": 13.4}  # least gap, frame to frame; header gaps stretch up to 2×
 ABSTRACT_BOTTOM = 218 * MM                     # the English abstract may grow down to here (MB, 04.10.2026)
 ABSTRACT_LEAD, KEYWORDS_GAP = 10, 4           # pt: leading of the abstracts; extra space above the keywords line
 ABSTRACT_SIZES = (7.2, 7.0)                    # pt, both abstracts; 7.0 only when 7.2 does not fit
@@ -58,15 +62,14 @@ FONT_DIRS = [d for d in (os.environ.get("SROM_FONT_DIR"),                       
                          "/usr/share/fonts/truetype/ibm-plex", "/usr/share/fonts/truetype") if d]
 FONTS = {"normal": "IBMPlexSans-Regular.ttf", "italic": "IBMPlexSans-Italic.ttf"}
 SITE = "https://studiaromologica.pl"
+SEP = "\u00a0\u00a0\u00a0|\u00a0\u00a0 "          # "   |   " as in the template; breaks only after the bar
+EMAILS = {}                                    # ORCID or name → e-mail, from volumes/autorzy.tsv (main() loads it)
 
-# Polish names of the CC 4.0 licences (official Polish translation). The clause after the name is MB's for CC BY
-# (template, 03.10.2026); the other licences point to the licence text until MB approves a wording (SYS-6).
+# Polish names of the CC 4.0 licences (official Polish translation).
 CC_PL = {"by": "Uznanie autorstwa", "by-sa": "Uznanie autorstwa – Na tych samych warunkach",
          "by-nd": "Uznanie autorstwa – Bez utworów zależnych", "by-nc": "Uznanie autorstwa – Użycie niekomercyjne",
          "by-nc-sa": "Uznanie autorstwa – Użycie niekomercyjne – Na tych samych warunkach",
          "by-nc-nd": "Uznanie autorstwa – Użycie niekomercyjne – Bez utworów zależnych"}
-CC_BY_CLAUSE = ("zezwalającej na nieograniczone używanie, rozpowszechnianie i kopiowanie w dowolnym medium "
-                "pod warunkiem prawidłowego zacytowania oryginału")
 
 CSS = """
 @font-face {font-family: plex; src: url(%(normal)s);}
@@ -100,14 +103,34 @@ def font_dir():
     sys.exit(f"ABORT: IBM Plex Sans ({', '.join(FONTS.values())}) not found in {', '.join(FONT_DIRS)}.")
 
 
+def load_emails(path):
+    """volumes/autorzy.tsv → {ORCID: e-mail, name as printed: e-mail}; {} if the file is missing."""
+    out = {}
+    if os.path.exists(path):
+        for r in csv.DictReader(open(path, encoding="utf-8-sig"), delimiter="\t"):
+            m = re.search(r"[\w.+-]+@[\w-]+(\.[\w-]+)+", r.get("kontakt") or "")
+            if m:
+                for k in (r.get("orcid"), r.get("osoba")):
+                    if k and k.strip():
+                        out[k.strip()] = m.group(0)
+    return out
+
+
+def email(name, orcid):
+    if orcid in EMAILS:
+        return EMAILS[orcid]
+    return next((v for k, v in EMAILS.items() if not k.startswith("http") and (k == name or k.endswith(" " + name))), "")
+
+
 def authors(row):
-    """[(name, affiliation, orcid)] from authors_struct; falls back to the display columns."""
+    """[(name, affiliation, orcid, e-mail)] from authors_struct; falls back to the display columns."""
     out = []
     for a in (row.get("authors_struct") or "").split(";;"):
         f = [x.strip() for x in a.split("|")] + ["", "", "", ""]
         if f[0] or f[1]:
-            out.append((f"{f[0]} {f[1]}".strip(), f[2], f[3]))
-    return out or [(row.get("authors_display", ""), row.get("affiliation_display", ""), row.get("orcid_display", ""))]
+            name = f"{f[0]} {f[1]}".strip()
+            out.append((name, f[2], f[3], email(name, f[3])))
+    return out or [(row.get("authors_display", ""), row.get("affiliation_display", ""), row.get("orcid_display", ""), "")]
 
 
 def translators(row):
@@ -125,15 +148,15 @@ def keywords(s):
 
 
 def licence(row):
-    """(short name, the footer sentence) from license_url; ("", "") if it is not a CC licence URL."""
+    """(short name, full Polish name, deed URL) from license_url; ("", "", "") if it is not a CC licence URL."""
     url = row.get("license_url", "")
     m = re.search(r"licenses/([a-z-]+)/(\d\.\d)", url)
     if not m:
-        return "", ""
+        return "", "", ""
     code, ver = m.group(1), m.group(2)
     short = licence_name(url, row.get("license", ""))
-    tail = CC_BY_CLAUSE if code == "by" else f"pełny tekst licencji: {url}"
-    return short, f"Artykuł w otwartym dostępie na licencji Creative Commons {CC_PL.get(code, code.upper())} {ver} ({short}), {tail}."
+    return (short, f"Creative Commons {CC_PL.get(code, code.upper())} {ver} ({short})",
+            f"https://creativecommons.org/licenses/{code}/{ver}/deed.en")
 
 
 def check(row):
@@ -144,6 +167,8 @@ def check(row):
             probs.append(f"{k} empty")
     if placeholder(row.get("doi")):
         probs.append(f"doi is a placeholder: {row.get('doi') or 'empty'}")
+    if row.get("pub_date_print") and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", row["pub_date_print"]):
+        probs.append(f"pub_date_print not YYYY-MM-DD: {row['pub_date_print']}")
     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", row.get("pub_date_online", "")):
         probs.append(f"pub_date_online not YYYY-MM-DD: {row.get('pub_date_online') or 'empty'}")
     if not licence(row)[0]:
@@ -163,13 +188,17 @@ class Pen:
         self.page, self.fdir = page, fdir
         self.arch = pymupdf.Archive(fdir)
         self.css = CSS % FONTS
+        self.scratch = pymupdf.open().new_page(width=W, height=H)
 
-    def put(self, x0, y, x1, body, bottom=None):
+    def put(self, x0, y, x1, body, bottom=None, page=None):
         r = pymupdf.Rect(x0, y, x1, bottom or H)
-        spare, _ = self.page.insert_htmlbox(r, body, css=self.css, archive=self.arch, scale_low=1)
+        spare, _ = (page or self.page).insert_htmlbox(r, body, css=self.css, archive=self.arch, scale_low=1)
         if spare < 0:
             raise ValueError("does not fit")
         return r.y1 - spare - 2.0               # PyMuPDF's block is 2 pt taller than InDesign's frame (measured on MB's template)
+
+    def height(self, x0, x1, body):
+        return self.put(x0, 0, x1, body, page=self.scratch)
 
 
 def a(href, text):
@@ -181,56 +210,56 @@ def p(size, lead, body, cls="", extra=""):
 
 
 def band(pen, row):
-    """Logo, the journal block under it and the info block at the right; returns where the title may start."""
+    """Red bars, the info block at the left and the logo at the right."""
     for x in (0, W - BAR):
         pen.page.draw_rect(pymupdf.Rect(x, 0, x + BAR, H), color=None, fill=RED)
     box = pymupdf.Rect(*LOGO)
     pen.page.show_pdf_page(box, pymupdf.open(os.path.join(ASSETS, "sr_logo.pdf")), 0)
     pen.page.insert_link({"kind": pymupdf.LINK_URI, "from": box, "uri": SITE})
-    short = licence(row)[0]
     doi_url = f"https://doi.org/{row.get('doi', '')}"
     land = row.get("landing_url", "")      # the text stays the DOI URL (Crossref display rule); the link goes to our stable page
-    info = [f'Strony: {esc(row.get("pages"))}' if row.get("pages") else "",
-            a(land if land.startswith("http") and not placeholder(land) else doi_url, esc(doi_url)), esc(short),
-            f'© {esc(row.get("year"))} {esc(", ".join(a[0] for a in authors(row)))}',
-            f'Opublikowano online: {esc(date_pl(row.get("pub_date_online")))}']
-    info = [s for s in info if s]
-    font = pymupdf.Font(fontfile=os.path.join(pen.fdir, FONTS["normal"]))
-    iw = max(font.text_length(html.unescape(re.sub(r"<[^>]+>", "", s)), 8) for s in info)
-    ix = min(INFO_X, RX - iw - 1)                  # a long line (DOI, names) moves the block left, never wraps it
-    right = pen.put(ix, INFO_Y, RX + 2, "".join(p(8, 10.5, s) for s in info))
-    journal = [f'{esc(row.get("journal_title") or "Studia Romologica")} {esc(row.get("volume"))}/{esc(row.get("year"))}',
-               f'ISSN: {esc(row.get("issn") or "1689-4758")}']
-    left = pen.put(TX, JOURNAL_Y, TX + 143.3, "".join(p(8, 10.5, s) for s in journal))
-    return max(TITLE_Y, left + GAP["journal"], right + GAP["journal"])
+    info = [f'{esc(row.get("journal_title") or "Studia Romologica")} {esc(row.get("volume"))}/{esc(row.get("year"))}',
+            f'ISSN: {esc(row.get("issn") or "1689-4758")}',
+            f'Strony: {esc(row.get("pages"))}' if row.get("pages") else "",
+            a(land if land.startswith("http") and not placeholder(land) else doi_url, esc(doi_url))]
+    pen.put(TX, INFO_Y, LOGO[0] - 6, "".join(p(8, 10.5, s) for s in info if s))
 
 
-def header(pen, row, y):
-    """Titles, authors, translator, citation, original; returns the y below."""
-    y = pen.put(TX, y, RX, p(16, 19, pl(row.get("title_pl")), "red"))
-    y = pen.put(TX, y + GAP["title_en"], RX, p(12, 16, esc(row.get("title_en"))))
+def header(pen, row):
+    """Titles, authors, translator + original, citation between TITLE_Y and CITE_BOTTOM; returns the y below."""
     au = authors(row)
-    for i, (name, aff, orcid) in enumerate(au):
-        body = p(12.5, 15, esc(name), "red")
+    blocks = [(0, p(15, 18, pl(row.get("title_pl")), "red")), (GAP["title_en"], p(12, 16, esc(row.get("title_en"))))]
+    for i, (name, aff, orcid, mail) in enumerate(au):
+        ids = [x for x in (a(orcid, esc(orcid)) if orcid else "", a(f"mailto:{mail}", esc(mail)) if mail else "") if x]
+        line = lambda ids: p(12, 15, f'<span class="red">{esc(name)}</span><span style="font-size:8pt">{"".join(SEP + x for x in ids)}</span>')
+        body = line(ids)
+        if len(ids) == 2 and pen.height(TX, RX, body) > 16:      # too long for one line: the e-mail goes under it
+            body = line(ids[:1]) + p(8, 10.5, ids[1])
         if aff:
-            body += p(9.5, 12, pl(aff))
-        if orcid:
-            body += p(9.5, 12, a(orcid, esc(orcid)))
-        y = pen.put(TX, y + (GAP["author"] if i == 0 else GAP["author2"]), RX, body)
+            body += p(8, 10.5, pl(aff))
+        blocks.append((GAP["author"] if i == 0 else GAP["author2"], body))
+    extra = ""
     tr = translators(row)
     if tr:
-        y = pen.put(TX, y + GAP["translator"], RX, p(9.5, 12, f"Tłumaczenie: {esc(', '.join(tr))}"))
+        extra += p(8, 10.5, f"Tłumaczenie: {esc(', '.join(tr))}")
+    if row.get("is_translation") == "TAK" and (row.get("original_title") or row.get("original_source")):
+        od = row.get("original_doi", "")
+        od = f"https://doi.org/{od}" if od and not placeholder(od) else ""
+        orig = ", ".join(x for x in (f'<i>{esc(row.get("original_title"))}</i>' if row.get("original_title") else "",
+                                     esc(row.get("original_source")), a(od, esc(od)) if od else "") if x)
+        extra += p(8, 10.5, f"Pierwodruk: {orig}")
+    if extra:
+        blocks.append((GAP["translator"], extra))
     cite = (f'<span class="red">Jak cytować:</span> {esc(", ".join(a[0] for a in au))}, <i>{pl(row.get("title_pl"))}</i>, '
             f'„{esc(row.get("journal_title") or "Studia Romologica")}”, {esc(row.get("year"))}, t.\u00a0{esc(row.get("volume"))}'
             + (f", s.\u00a0{esc(row.get('pages'))}" if row.get("pages") else "") + ".")
-    y = pen.put(TX, y + GAP["cite"], RX, p(8, 10.5, cite))
-    if row.get("is_translation") == "TAK" and (row.get("original_title") or row.get("original_source")):
-        orig = ", ".join(x for x in (f'<i>{esc(row.get("original_title"))}</i>' if row.get("original_title") else "",
-                                     esc(row.get("original_source"))) if x)
-        od = row.get("original_doi", "")
-        if od and not placeholder(od):
-            orig = a(f"https://doi.org/{od}", orig)
-        y = pen.put(TX, y + GAP["original"], RX, p(8, 10.5, f'<span class="red">Pierwodruk:</span> {orig}'))
+    blocks.append((GAP["cite"], p(8, 10.5, cite)))
+    gaps = [g for g, _ in blocks]
+    slack = CITE_BOTTOM - TITLE_Y - sum(pen.height(TX, RX, b) for _, b in blocks) - sum(gaps)
+    k = max(0.5, min(2, 1 + slack / sum(gaps)))     # stretch to fill the block, up to 2×; shrink to ½, then run over
+    y = TITLE_Y
+    for g, b in blocks:
+        y = pen.put(TX, y + g * k, RX, b)
     return y
 
 
@@ -248,21 +277,25 @@ def abstract(pen, row, key, y, size):
 
 
 def footer(pen, row):
-    oa = pymupdf.open(os.path.join(ASSETS, "open_access.pdf"))
-    pen.page.show_pdf_page(pymupdf.Rect(*OA), oa, 0)
-    lic = licence(row)[1]
-    body = p(6, 8.5, a(row.get("license_url"), pl(lic)), extra="; letter-spacing:-0.01em") if lic else ""
-    body += p(6, 8.5, f'Wydawca: {pl(row.get("publisher"))} · {a(SITE, SITE.split("//")[1])}',
-              extra="; letter-spacing:-0.01em" + ("; margin-top:3pt" if lic else ""))
-    pen.put(TX, FOOT, RX, body)
+    pen.page.show_pdf_page(pymupdf.Rect(*OA), pymupdf.open(os.path.join(ASSETS, "open_access.pdf")), 0)
+    dates = [f"Data publikacji: {date_pl(row['pub_date_print'])}" if row.get("pub_date_print") else "",
+             f"Data publikacji online: {date_pl(row.get('pub_date_online'))}",
+             f"Okres redakcji: {nbsp(row['editorial_period'])}" if row.get("editorial_period") else ""]
+    pen.put(TX, FOOT_DATES, RX, p(6, 8.5, esc(SEP.join(d for d in dates if d)), extra="; letter-spacing:-0.01em"))
+    short, name, deed = licence(row)
+    body = f'© {esc(row.get("year"))} {esc(", ".join(a[0] for a in authors(row)))}.'
+    if short:
+        body += f" Artykuł w\u00a0otwartym dostępie na licencji {a(deed, esc(name))}"
+    pen.put(TX, FOOT_LIC, RX, p(6, 8.5, body, extra="; letter-spacing:-0.01em"))
 
 
 def page(row, size, fdir):
     doc = pymupdf.open()
     pen = Pen(doc.new_page(width=W, height=H), fdir)
-    y = header(pen, row, band(pen, row))
+    band(pen, row)
+    y = header(pen, row)
     for i, k in enumerate(k for k in ("pl", "en") if row.get("abstract_" + k)):
-        y = abstract(pen, row, k, y + (GAP["abstract"] if i == 0 else GAP["abstract_en"]), size)
+        y = abstract(pen, row, k, max(ABSTRACT_TOP, y + GAP["abstract"]) if i == 0 else y + GAP["abstract_en"], size)
     footer(pen, row)
     return doc
 
@@ -361,6 +394,7 @@ def main():
     row = next((r for r in rows if r["article_id"] == a.article_id), None)
     if row is None:
         sys.exit(f"ABORT: {a.article_id}: no such row in {a.master}")
+    EMAILS.update(load_emails(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(a.master))), "autorzy.tsv")))
     probs = check(row)
     if probs and not a.proof:
         sys.exit(f"ABORT: {a.article_id}: " + "; ".join(probs) + ". Fill the master CSV (or run with --proof).")

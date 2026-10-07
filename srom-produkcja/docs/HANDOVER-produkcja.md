@@ -232,6 +232,11 @@ G12) after.
    stops. Keywords stand 14 pt baseline to baseline under the last line (MB built it as a blank line + a 4 pt line; made a spacing, so
    keywords of two lines do not collapse). Cleaned: stray 7.2 run in the English sample, *Abstract* label 0.6 pt above its text.
    Vol. 18, all 8 of Część I and II fit at 7.2 pt (the longest, 005, ends at 211 of 218 mm; 006 at 217). Stops on placeholders. Choices awaiting MB: SYS-6, SYS-7 (`MB-decisions.md`). Tests in `test_quant.py`.
+   **Template 2 (MB 07.10.2026, `SROM_okladka_szablon_MB2.idml`):** info block top left, logo right; author | ORCID | e-mail
+   (e-mail from `volumes/autorzy.tsv`); header block between title top 83.8 and citation bottom 269.7 with stretching gaps,
+   so translations ("Tłumaczenie:", "Pierwodruk:") and other texts fill the same block; abstracts from 283.3; footer: dates line
+   (`pub_date_print`, `pub_date_online`, `editorial_period`, new optional CSV columns) and © + licence linked to the CC deed;
+   publisher line and CC BY clause dropped. Vol. 18 proofs: `_okladki_v18_v2/`. Spec: `docs/COVER-PAGE-DESIGN-SPEC.md`.
    **DOI links in the online PDF (SYS-5, built 02.10.2026, root session at MB's request):** `build.py` writes `<stem>_doi.jsx`
    (citation texts per note, cut apart by a marked CSL copy; bibliography entries; URLs percent-encoded); the script makes
    invisible InDesign hyperlinks, export with Hyperlinks ticked (`references/indesign.md`). Chosen over adding links to the

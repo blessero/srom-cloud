@@ -23,6 +23,8 @@ SCHEMA = [
 # Optional columns: accepted when present, never required (older CSVs stay valid).
 OPTIONAL = [
     'translators_struct',   # Given|Surname|Affiliation|ORCID ;; … — translator(s), Kanon § 12.2.3
+    'pub_date_print',       # YYYY-MM-DD — cover page "Data publikacji"
+    'editorial_period',     # as printed, e.g. "marzec 2026 – czerwiec 2026" — cover page "Okres redakcji"
 ]
 SUFFIX_RE = re.compile(r'^[a-z0-9]{8}$')
 DATE_RE   = re.compile(r'^\d{4}-\d{2}-\d{2}$')
