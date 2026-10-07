@@ -34,10 +34,10 @@ nothing. Use it to close a leaf (`gate-check.mjs --run <file>`; keep `--run` fir
   (`git log --format=%s | grep -cE '^<leaf>: gates ALL MET'`), never `git log -1`. A CHECK never writes a file MB
   edits (`<id>_robocza.docx`, the Word master): export and import in a temp dir (`T=$(mktemp -d)`).
 - **Parallel sessions:** several srom-tlumacz sessions may run at once (one per text). Immediately before appending an
-  ID (E<n>, a question ID such as PAH-11 in `MB-decisions.md`, a status line) re-read the tail of the file for the next free ID, then commit at once. Commit only
+  ID (E<n>, K<n>, a status line) re-read the tail of the file for the next free ID, then commit at once. Commit only
   the files your text touched (`git add <files>`, never `-A`); tag every entry with its `[<Author>]`. Every time in an
   entry comes from `date '+%d.%m.%Y %H:%M'` at the moment of writing, never typed from memory.
-- **git:** this folder is a git repository (since 28.09.2026). Commit at the end of each piece of work; `.gitignore` says what is left out and where its sha256 is.
+- **git:** this folder is part of the one repository `blessero/srom-cloud` (since 05.10.2026; `.gitignore.module` is inactive). Work on `main`; commit by path (never `git add -A` at the root), then `git pull --rebase origin main && git push origin HEAD:main` (root CLAUDE.md § Cloud sessions).
 - **Ownership:** write only this folder's files (table in `tlumacz-PLAN.md` § Contract). Never edit srom-produkcja, srom-kanon or srom-quant files; messages to them go in `../_handoffs/tlumacz-to-produkcja.md` (rules: `../_handoffs/README.md`; the one shared folder this module writes to).
 - **Blind baseline (leaf 1.2):** closed 27.09.2026 (11/11). Drafts and hashes stay in `tlumacz-baseline-1.2/`; do not edit them (they are the reference for leaf 1.5.1).
 - **Translation:** follow the skill (SKILL.md § The procedure; the Kanon governs, cite the version in its header). A

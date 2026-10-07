@@ -9,14 +9,14 @@ Leaves closed (ALL MET): 1.1 contracts, 1.2 blind baseline, 1.3.1 vol. 18 preced
 | Where | What |
 |---|---|
 | skill `SKILL.md` | the procedure (intake, draft, checks, re-read, MB items, delivery, termbase upkeep), terminology rule, hard rules |
-| skill `references/` | `tlumacz-tb.tsv` termbase (18 HOUSE, 9 PROVISIONAL C-0041–C-0049 awaiting V19-1–3, 12 CANDIDATE), `tlumacz-tb-schema.md`, `tlumacz-decisions.md` (MB's log), `tlumacz-rasa.md` (race register; only for texts on race), `outputs.md` (per-article file formats, delivery, skeletons) |
+| skill `references/` | `tlumacz-tb.tsv` termbase (40 rows, 08.10.2026: 24 HOUSE, 4 PROVISIONAL — C-0042 othering (V19-100), C-0046, C-0047, C-0050 —, 12 CANDIDATE), `tlumacz-tb-schema.md`, `tlumacz-decisions.md` (MB's log), `tlumacz-rasa.md` (race register; only for texts on race), `outputs.md` (per-article file formats, delivery, skeletons) |
 | skill `scripts/` | `tlumacz-check_tb.py`, `tlumacz-draft_check.py`, `tlumacz-front_check.py`, `tlumacz-test_handoff.py`, `tlumacz_paths.py` |
 | `work/<id>/` | per-article work: `src/` (srom-produkcja's frozen hand-off + sha256), intake, `<id>_pl.md`, `<id>_front_pl.md`, queries, quotes, notes sheet `<id>_uwagi.md`, Word working copy, `research/` |
 | `tlumacz-PLAN.md`, `tlumacz-gates-*.md` | tree, contract, status log; acceptance gates of each leaf (closed gates cite pre-1.4.1 paths: the scripts and the termbase moved into the skill, the per-article checker copies were deleted; see gates 1.4.1) |
 | `training/` | MB's Polish reading corpus: texts git-ignored; `sources.tsv` (keys for `TR <key>: «…»` evidence) and `manifest.sha256` tracked |
 | `sources/` | `vol18-md/` (clean vol. 18 EN + PL, precedent anchors), `vol18-en/` (originals, § 5), `Studia_Romologica_nr_18_2025.txt` (old extraction, line refs), `prng/` (PRNG world register) |
 | `tlumacz-baseline-1.2/`, `tlumacz-1.3.1/`, `tlumacz-1.3.2/` | closed leaves; `tlumacz-1.3.2/vol19_terms.py` is re-run after each vol. 19 draft |
-| `../_handoffs/tlumacz-to-produkcja.md` | messages to srom-produkcja (E-items; E18 twice, cite it with its [Author] tag); replies in `produkcja-to-tlumacz.md` |
+| `../_handoffs/tlumacz-to-produkcja.md` | messages to srom-produkcja (E-items; E18 twice, cite it with its [Author] tag); `../_handoffs/cowork-to-code.md` / `code-to-cowork.md` (Cowork's C-items, answered by K-items); replies in `produkcja-to-tlumacz.md` |
 
 ## 2. How the module fits the pipeline
 
@@ -33,7 +33,7 @@ goes into the skill; a ruling for one text into its notes sheet.
 
 ## 4. State of the srom-produkcja interface (03.10.2026)
 
-- `tlumacz-test_handoff.py` **33/33** against srom-produkcja cb3cfe5 (the E5 terminology-slot case removed in 1.4.1:
+- `tlumacz-test_handoff.py` **33/33** against srom-produkcja 280bf2a (re-run 08.10.2026 01:00; handoff.md last changed in e079042/T26) (the E5 terminology-slot case removed in 1.4.1:
   tb_check is not built; srom-produkcja told in an E-item). Run it after every srom-produkcja update.
 - The Kanon is at **v1.16** (T36, 03.10.2026); cite the version in its header. Kartoteka: srom-kanon
   `references/kartoteka.tsv`; changes through `_handoffs/`.
@@ -54,11 +54,11 @@ English originals are in `sources/vol18-en/`; MB's Polish DOCX are in `vol18-PL-
 
 ## 6. Pending — MB
 
-Kept in one list for all modules: `../_handoffs/MB-decisions.md` (SYS-1 and V19-1–4 concern this module as a whole; OST-, PAH-, TIT-, NDI- its drafts). Not repeated here.
+Kept in Cowork's ledger (`SROM/Cowork/srom-cowork/workspace/MB-decisions.md`, answered on the Editorial Desk; `../_handoffs/MB-decisions.md` is only a pointer). A new question goes to Cowork as a K-item headed "needs MB" in `../_handoffs/code-to-cowork.md`. Not repeated here.
 
 ## 7. Next — Claude, in order
 
-Four preliminary translations wait for MB's Word edit; MB's questions are in `../_handoffs/MB-decisions.md` under each
+Four preliminary translations wait for MB's Word edit; MB's questions are in Cowork's ledger under each
 text's code. After MB returns a Word file: the hand-back (skill `references/outputs.md` § Back).
 
 0. **Ostendorf**, "Familiar Outsiders Abroad" (leaf 1.5.3): `work/ostendorf/ostendorf_robocza.docx`, notes sheet
@@ -71,8 +71,8 @@ text's code. After MB returns a Word file: the hand-back (skill `references/outp
    Grellmann's edition, is the one real decision).
 3. **Tittel** (leaf 1.5.5): `work/tittel/tittel_robocza.docx`, `tittel_uwagi.md`; MB: TIT-1–TIT-12 (TIT-1, the form
    of "gypsy", blocks delivery); then `tittel_refs_tlum.json` with the Polish editions once MB has the pages.
-4. **West Ohueri** (T23, T24): received, not started — WOH-1 (rights).
-5. **Termbase:** V19-1–V19-3 decide PROVISIONAL C-0041–C-0049 → HOUSE (log in `references/tlumacz-decisions.md`).
+4. **West Ohueri** (T23, T24): drafted in Cowork 06.10.2026 (SYS-9 (a): Cowork makes the texts; the drafts in `work/` here are reference copies, no session edits them). WOH-1 (rights) is in Cowork's ledger.
+5. **Termbase:** V19-2, V19-3 decided 06.10.2026 and applied (log in `references/tlumacz-decisions.md`, d0558b9); C-0042 othering waits on V19-100; V19 rows are Cowork's to apply through the desk.
    Training corpus: MB may add Polish texts to `training/` (row in `sources.tsv`, sha256 in the manifest) → CANDIDATE
    rows and the register. Re-run `tlumacz-1.3.2/vol19_terms.py` after each new vol. 19 draft (West Ohueri: add probes
    for its terms, vol. 18 as a column; findings L4).

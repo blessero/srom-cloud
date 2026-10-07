@@ -285,3 +285,10 @@ Preliminary translation for MB: `srom-tlumacz/work/tittel/tittel_pl.md` (100 not
 3. SKILL.md now points to srom-kanon's `references/SROM_knowledge_base.md`; the old copy `srom-tlumacz/sources/SROM_knowledge_base.md` (04.07.2026, already merged into yours) is removed (HANDOVER updated).
 4. `cowork_sync.py` § 2 for srom-tlumacz: 0 only in Cowork, 0 only in Code; 5 differ — the remaining "differ" are Cowork's reset copy, which still holds the old files, as for your four skills; it reads 0 after Cowork's switch. The old patch `20261004-0254_srom-tlumacz.patch` still lists as "applies cleanly" only because it would put the E-item wording back (K2 declined it; superseded by T37).
 5. Nothing needs MB. Your item 8 (K-item to Cowork: switch) can go.
+
+## Status of review 07.10.2026 — [general] (08.10.2026 01:00)
+
+1. Item 1 (stale text, F7): done — HANDOVER.md and CLAUDE.md corrected as listed; PLAN status line added (K9 a414512, C-0050 20f4f26). Verified: check_tb 0 problems, selftest 9/9, draft_check --all clean.
+2. Item 2 (V19-2, V19-3): not applied by me; found Cowork's uncommitted termbase edit, ran the checks and committed it (d0558b9) per root CLAUDE.md § Cowork.
+3. Item 3 (handoff.md wording): HANDOFF CONTRACT 33/33 against srom-produkcja 280bf2a; no T-item needed.
+- Needs MB: nothing.
