@@ -192,3 +192,44 @@ From the root session; MB approved 07.10.2026 (draft checkup 06.10.2026, finding
 - Step 5: "Next free" from 100 up (the SYS-9 clause is gone); every K-item headed "needs MB" is in your ledger.
   Step 6: every change you make in Code's folder has its C-item (no `plugin/srom/` any more).
 - Nothing to apply in a skill. Your status line in `cowork-to-code.md` is enough.
+
+## K14 — [general] Checkup 07.10.2026: vol. 18 data in one place, MB's desk answers, the ledger, records (07.10.2026 23:44)
+From the root session (`_handoffs/review-07.10.2026.md`, F1, F2, F5, F9, F10). MB starts you with "Do K14". In this order:
+1. **Vol. 18 data (blocks the 09.10 release).** Your `srom-produkcja/volumes/18/srom_master_v3.csv` and `volumes/autorzy.tsv` are
+   behind Code's. Code's hold everything yours do (compared field by field, 07.10.2026 23:3x) plus MB's 07.10 decisions — the licences
+   of 13 articles and `pub_date_online` 2026-10-09 (3ec2d51; V18-100/101) — and K12's two columns and the e-mails of Fotta and
+   Wesołkin (d337459). Only you have `volumes/18/citations/` and `bib_from_pdf.py`. Ask MB which copy is the master (review § For MB 1):
+   - (a) recommended: `cp "$K/srom-produkcja/volumes/18/srom_master_v3.csv" "$W/srom-produkcja/volumes/18/" && cp
+     "$K/srom-produkcja/volumes/autorzy.tsv" "$W/srom-produkcja/volumes/"`; keep your `citations/`; a STATUS.md line; the release runs here.
+   - (b) copy your `volumes/18/citations/` and `bib_from_pdf.py` into `$K/srom-produkcja/volumes/18/`; a STATUS.md line saying Code's
+     CSV is the vol. 18 master; a Code session commits.
+   Then MB's two values into all 15 rows (`pub_date_print`, YYYY-MM-DD; `editorial_period`, as printed) and `validate_master.py`:
+   0 blocking errors. Before the cover pages: `python3 -c 'import pikepdf'`; if that fails, `pip install pikepdf==10.13.0.post1`
+   (the last release for Python 3.10; srom-produkcja is adding it to `requirements.txt`).
+2. **MB's answers waiting on the desk** since 06.10.2026 23:07–23:58 (srom-naczelny § The desk, step 1; `meta/sync` 06.10 17:41):
+   - V18-100, V18-101: in the CSV after step 1 → out of the ledger, resolved on the desk.
+   - V19-2: MB: „Związek Radziecki/radziecki” is the standard, „Związek Sowiecki/sowiecki” accepted. Termbase C-0048 (house form,
+     variants, decision log) and the drafts with „sowiecki”: Pahulich 8×, West Ohueri 2×. MB has saved no Word copy (all at their
+     export times, no lock files, 07.10 23:30): check again, then change the drafts and re-export the Word copies in place (as for
+     T36). If "accepted" means the drafts may stay as they are, ask MB first.
+   - V19-3: approved except „uinnienie/uinniać” (MB: "needs to be established": ask what that asks for; C-0042 stays PROVISIONAL);
+     „sedentaryzacja” is fine beside „osiedlanie” (C-0049, a variant). The other rows of the six → HOUSE.
+   Termbase edits are a small skill change: preflight, a C-item naming the files, a STATUS line (a Code session commits).
+3. **Ledger.** Remove once MB confirms in chat: SYS-100 (K12: MB's own template 2 replaced the proposed changes; publisher line and
+   CC BY clause dropped) and SYS-102 (C6: translator default MB, `translators_struct` filled; ask about Takács's "adaptacja").
+   SYS-101: K12 prints „Okres redakcji” (`editorial_period`) instead of the dates of submission and acceptance; ask MB whether that
+   answers it. Enter K11 (Decide; blocks nothing, but vol. 18's suffixes freeze at the website import) and K12's question (blocks
+   the vol. 18 release), unless MB answers both in the same session.
+4. **Records.** Tick in STATUS.md § For the skills: C5's termbase row C-0050 (20f4f26, 06.10 16:09; `tlumacz-check_tb.py` 07.10
+   23:25: 40 rows, 0 problems); C6's small changes (e0a51a2), the CSV replacement (f109090), the text-layer repair (07699c7, K10);
+   the model-and-effort rule (in Code's root CLAUDE.md since 04.10). Correct "9 PROVISIONAL" (10 with C-0050) and the online-PDF
+   procedure (`fix_actualtext.py` runs inside `cover_page.py` since K10; the `_handoffs/cowork/` prototype is gone). From Code,
+   unannounced until now: 39302d3 (06.10 22:01: the knowledge base's Scope line, srom-zizek's link to it, `tests/test_kb.py`: SUITE
+   ALL PASS 26/26) and ef72369 (07.10 01:48: depositor e-mail michalbartosz@studiaromologica.pl in `generate_crossref_xml.py`;
+   made by a Mac Code session, despite "cowork:" in its message). Correction to K8: its time is 15:51 (commit adc86d1), its text
+   [West Ohueri].
+5. **Cloud sessions are discontinued** (MB 07.10.2026; root CLAUDE.md § Cloud sessions); your start step 5 (Code's folder current
+   against GitHub) still holds. The desk's hint under each answer box says "a SROM session reads it on 'sync the desk'": when you
+   next publish the desk page, say that Cowork reads it at the start of every session (MB looked for his answers in Code).
+6. Answer K8–K14 in `cowork-to-code.md` (C7), then run your checkup (`checkup/COWORK.md`; `workspace/reviews/` does not exist yet)
+   and give its verdict lines.
