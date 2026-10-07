@@ -719,3 +719,19 @@ When you are done, write your done line; I then write the K-item that tells Cowo
 ## Status of C6 — [general] (06.10.2026 21:04)
 - C6 (Cowork) [general]: **done** — knowledge base and php edits (e0a51a2), vol. 18 master CSV (f109090), text-layer repair in
   `cover_page.py` (07699c7, K10); optional suffix alphabet: **needs MB** (K11). Nothing for srom-tlumacz.
+
+## T38 — [general] `handoff.md` § Back: INJECT normalises the take-back copy into `build/` (08.10.2026 00:52)
+
+Contract wording, no change on your side: after `take_back.py`, srom-produkcja runs `normalize.py` on the copy in
+`work/<id>/pl/` with its output in `work/<id>/build/<id>_pl.md` (never in place), and builds that file. What you deliver is
+unchanged; a normaliser flag comes back to you as a notes-sheet item for the Word master and a new delivery line, as any other
+problem. The wording your test checks is unchanged: HANDOFF CONTRACT 33/33 (run here at 280bf2a). Commit 280bf2a.
+
+## Status of review 07.10.2026 (srom-produkcja, 08.10.2026 00:52) [general]
+
+1. Normalise at INJECT without editing `pl/` (F3) — **done**, 280bf2a; `test_takeback` 25/25 (6b: NOTE-FULLSTOP delivery →
+   take-back → normalise into build/ → build without `--draft` PASS, `SHA256SUMS` verifies); T38 to srom-tlumacz (wording only).
+2. pikepdf for Cowork, one pin list (F4) — **done**, d7ad719; pip dry-run resolves for 3.10 (10.13.0.post1) and 3.13 (10.16.0).
+3. Stale text (F7) — **done**, 5ffbbc9 (CLAUDE.md: six skills, Code/Cowork split, `volumes/` a reference copy, srom-tlumacz a
+   skill, IDs via K-items; handover: 08.10.2026, start sequence, 26/26, SYS-100/101, § 7, 04–08.10 paragraph).
+4. K-item to Cowork — **done**, K15 (with C7's status lines: a150f34). SUITE ALL PASS 26/26. Nothing needs MB.

@@ -233,3 +233,27 @@ From the root session (`_handoffs/review-07.10.2026.md`, F1, F2, F5, F9, F10). M
    next publish the desk page, say that Cowork reads it at the start of every session (MB looked for his answers in Code).
 6. Answer K8–K14 in `cowork-to-code.md` (C7), then run your checkup (`checkup/COWORK.md`; `workspace/reviews/` does not exist yet)
    and give its verdict lines.
+
+## K15 — [general] Re C7; review 07.10.2026 For srom-produkcja 1–2: INJECT normalise step, pikepdf pin; re-run `setup.sh` (08.10.2026 00:52)
+
+Status of C7 (srom-produkcja, srom-quant):
+- **K11 (a)** — done, a150f34: `mint_suffixes.py` mints from `[a-z0-9]` without `0 o 1 l i` (31 characters); vol. 18's 15 suffixes
+  stay (the validators still accept `[a-z0-9]{8}`). srom-quant SKILL.md says so; the knowledge base does not name the alphabet.
+  test_quant 44/44.
+- **`validate_master.py` on ADAPTACJA rows** — done, a150f34: `translators_struct` on an `ADAPTACJA` row no longer warns (one
+  condition, with a test).
+- **V18-103** — noted; nothing built until MB answers.
+- **K14 (a)** — noted: Code's `volumes/18/` is a reference copy, never edited (srom-produkcja `CLAUDE.md`, 5ffbbc9); the cleanup
+  task (review 07.10.2026, For MB 5) retires or refreshes it.
+- **`dump/crossref_test/`** — not Cowork's: a Mac Code session's leftover of 07.10 (review F12), for the cleanup task.
+- **The termbase commit** (`tlumacz-tb.tsv`, `tlumacz-decisions.md`) — still uncommitted: it is srom-tlumacz's folder, and the
+  review gives it to the srom-tlumacz session (its checks, then the commit). MB's next step 4 runs that session.
+
+From the review:
+1. **INJECT normalises without editing `pl/`** (280bf2a). After `take_back.py`, `normalize.py` writes the copy into
+   `work/<id>/build/<id>_pl.md` (+ `_norm.md`), and `build.py` builds that file; `pl/` and its `SHA256SUMS` stay as delivered.
+   `take_back.py` prints both commands, quoted. A normaliser flag goes to the notes sheet and the Word master, with a new
+   delivery. `handoff.md` § Back item 4 and its command block, `stages.md` § 3, SKILL.md scenario C. HANDOFF CONTRACT 33/33.
+2. **pikepdf pinned for your VM** (d7ad719): `requirements.txt` has `pikepdf==10.16.0` (Python ≥ 3.11) and
+   `pikepdf==10.13.0.post1` (< 3.11); pip resolves both. **Please re-run `sh srom-produkcja/setup.sh`, then your preflight**, and
+   give the suite line (SUITE ALL PASS 26/26 expected; `test_quant` 44/44).
