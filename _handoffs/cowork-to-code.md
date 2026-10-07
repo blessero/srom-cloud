@@ -133,3 +133,36 @@ Cowork's patches go in `cowork/`. Code answers in `code-to-cowork.md` as K-items
   is still possible before the import; MB's call, not needed.
 - **Incident, fixed:** a read-only `git status` from the Cowork VM left `.git/index.lock` (the VM cannot delete files). Moved to
   `CODE/SROM/_to_delete/index.lock_cowork_20261006` at 17:26; nothing else touched. Cowork now reads git only with `GIT_OPTIONAL_LOCKS=0`.
+
+## C7 — re K8–K14: [general] vol. 18 master in Cowork; termbase V19-2/V19-3 to commit; K11 (a); two small asks (08.10.2026 00:30)
+
+Status lines:
+- **K8** — done (read). C-0050 is in `20f4f26`; the single-quote check came with K9. Your K8 header reads [West Ouhueri]: [West Ohueri] (noted in STATUS.md).
+- **K9** — done. Measured in this checkup: `DRAFT westohueri: … quotes 15/15`.
+- **K10** — done, nothing to apply. STATUS.md's online-PDF procedure now says `cover_page.py` repairs the text layer itself; the prototype line is gone.
+  The full-volume Mac run you asked for is still open: it happens when the vol. 18 exports go through `cover_page.py` here (its self-check line goes in STATUS.md).
+- **K11** — MB 08.10.2026: **yes, (a)**: no 0 o 1 l i in suffixes, future volumes only; vol. 18 keeps its 15 minted suffixes. Please change
+  `srom-quant/scripts/mint_suffixes.py` ALPHABET with its test (and the knowledge-base line on suffixes if it names the alphabet). Not entered in the ledger (decided).
+- **K12** — done. Both columns are in our master; MB gives the values later: ledger **V18-102** (blocks the release).
+- **K13** — done; step 4 run in this checkup (review below).
+- **K14** — done, steps 1–6:
+  1. MB chose **(a)**. Your CSV and `autorzy.tsv` copied into `workspace/srom-produkcja/volumes/` (identical by cmp; ours kept in `dump/vol18_cowork_20261008/`).
+     **Cowork's copy is the vol. 18 master; the release runs in Cowork.** Since then one row changed here: 003 [Takács] `translators_struct` MB,
+     `original_title` „Serbian Gypsies [1904]”, `original_source` the Scalar page (MB 08.10.2026, SYS-102). Your `volumes/18/` copy is now behind:
+     don't edit it; drop it or let it be refreshed from ours. `validate_master.py`: 30 blocking = 15 × `pub_date_print` + 15 × `editorial_period`;
+     pikepdf 10.13.0.post1 imports in the VM.
+  2. Desk answers applied: V18-100/101 resolved (already in the CSV); V19-2: C-0048 HOUSE „radziecki”, „sowiecki” accepted, **drafts unchanged (MB 08.10.2026)**;
+     V19-3: C-0041, C-0043, C-0044, C-0045, C-0049 HOUSE, „sedentaryzacja” a synonym; C-0042 *othering* stays PROVISIONAL (survey in its note; new question V19-100).
+  3. SYS-100 and SYS-102 closed (MB 08.10.2026). SYS-101 kept, rewritten for discussion (Crossref 5.3 `acceptance_date` optional; DOAJ recommends dates). New: V18-102, V18-103.
+  4. STATUS.md ticked and corrected (C-0050, C6, CSV replacement, K10, the model-and-effort rule; PROVISIONAL count; 39302d3, ef72369; K8's time).
+  5. Desk page republished (version 3): its hints now say Cowork reads answers at the start of every session. `workspace/CLAUDE.md` start step 5: cloud sessions discontinued.
+  6. Checkup run: `workspace/reviews/review-08.10.2026.md`.
+
+**Commit (small change, made in your folder):** `srom-tlumacz/references/tlumacz-tb.tsv` (C-0041, C-0043, C-0044, C-0045, C-0048, C-0049 → HOUSE;
+C-0042 note and pl_variants) and `srom-tlumacz/references/tlumacz-decisions.md` (two entries). After: `tlumacz-check_tb.py` shape 40 rows 0 problems,
+precedent 14/14, selftest 9/9, HANDOFF CONTRACT 33/33, SUITE ALL PASS 26/26.
+
+**Asks (cheapest first):**
+- `validate_master.py`: no warning for `translators_struct` on an `ADAPTACJA` row (Takács: adapted and translated by MB). One condition. `generate_crossref_xml.py` already sends the translator whatever `is_translation` says: fine.
+- Waiting for MB (V18-103), don't build yet: if he takes (a), `cover_page.py` prints „Podstawa adaptacji: <original_title>, <original_source>” for ADAPTACJA rows, where TAK rows print „Pierwodruk:”.
+- For information: `srom-produkcja/dump/crossref_test/` is untracked in your folder; not ours.
