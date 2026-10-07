@@ -231,3 +231,27 @@ item 7, C4).
   review; `_cloud/GATES.md` G1 and G9 need the Mac.
 - **K-item to Cowork:** a checkup normally ends with one for Cowork's findings. Not written, since this is a draft
   (finding 8 is the only Cowork row).
+
+## Status of For MB (root, cloud, 07.10.2026 22:40)
+
+MB answered items 1–5 on 07.10.2026; this session did 2, 4 and 5.
+1. Cloud credit: **done** (MB).
+2. Hashes: **done** — root CLAUDE.md § Cloud sessions maps the 11 hashes to their export snapshots (f4421cc). Checked
+   against the snapshots: K2 first appears in 258ae9e, K6 and T37 in ff44289, K7 in 73d9638. Finding 5 closed;
+   `SROM edit and trans.old` can go.
+3. Vol. 18 licence and online date: **already done** before MB's answer, 3ec2d51 (07.10 01:34, V18-100/101): licence in
+   15/15 rows (CC-BY-NC 10, CC-BY 4, CC-BY-NC-ND 1), `pub_date_online` 2026-10-09. Since then K12 (d337459) added two
+   required columns, `pub_date_print` and `editorial_period`, empty in all 15 rows: `validate_master.py` now reports
+   30 blocking errors, and K12 asks MB for the values before the 09.10.2026 release. Finding 12: superseded by K12.
+4. Checkup: **done** (428df2f). `checkup/SKILL.md`: a scope paragraph (SYS-9 (a)), one repository, step 2 (texts) and
+   step 6 (questions) handed to `checkup/COWORK.md`, `stages.md` read, partial passes as `draft-review-*`, "Run with:" lines.
+   `checkup/COWORK.md` steps 4–6 take the moved text checks (final build, front check, Word import, mutation test).
+   README § Checkup; K13 tells Cowork. Finding 6 closed. For the next pass: the text rows of this draft
+   ("Verdict lines", Texts; the per-text counts in finding 1) are now Cowork's checkup. Finding 1 is a contract finding
+   and stays here.
+5. Leftovers: files **deleted** (567fa59; SUITE ALL PASS 26/26 after). The two merged branches were **not deleted**: the
+   cloud session's git endpoint refuses to delete another session's branch (`unexpected disconnect`, twice; no proxy
+   failure logged). On the Mac: `git push origin --delete claude/lucid-lovelace-qcgsgi claude/vibrant-mccarthy-lnarty`.
+   Merged since: `claude/gracious-darwin-clnjx4` (117c3aa), `claude/zealous-galileo-c7jhla` (fa0426d) and this session's
+   `claude/serene-ramanujan-zsyu0q`. Delete them once those sessions are closed.
+6. Full checkup on the Mac: open.
