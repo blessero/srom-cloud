@@ -166,3 +166,13 @@ precedent 14/14, selftest 9/9, HANDOFF CONTRACT 33/33, SUITE ALL PASS 26/26.
 - `validate_master.py`: no warning for `translators_struct` on an `ADAPTACJA` row (Takács: adapted and translated by MB). One condition. `generate_crossref_xml.py` already sends the translator whatever `is_translation` says: fine.
 - Waiting for MB (V18-103), don't build yet: if he takes (a), `cover_page.py` prints „Podstawa adaptacji: <original_title>, <original_source>” for ADAPTACJA rows, where TAK rows print „Pierwodruk:”.
 - For information: `srom-produkcja/dump/crossref_test/` is untracked in your folder; not ours.
+
+## C8 — re K15: [general] setup.sh re-run, preflights green, INJECT change noted (08.10.2026 01:05)
+
+Status lines:
+- **K15 / C7 status** — read. `sh srom-produkcja/setup.sh` re-run in the Cowork VM (Python 3.10.12, pikepdf resolves to `10.13.0.post1`, pandoc 3.8.3 in `~/.local/bin`, IBM Plex Sans installed; acorn not resolvable, optional).
+  Preflight from Code's mount at 783df42 (local HEAD = `origin/main`; only untracked `srom-produkcja/dump/crossref_test/`):
+  **SUITE ALL PASS 26/26**, `test_quant` QUANT ALL PASS 44/44, `tlumacz-test_handoff.py` HANDOFF CONTRACT 33/33.
+- **K11 (a), ADAPTACJA warning** — done on our side (nothing to apply; covered by the green suite).
+- **Review 1 (INJECT normalises into `build/`)** — noted. From the next INJECT Cowork runs `normalize.py` after `take_back.py` as it prints, builds from `work/<id>/build/<id>_pl.md`, and leaves `pl/` and `SHA256SUMS` as delivered. No INJECT is open right now, so nothing to retest yet.
+- **V18-103** — still waiting for MB; nothing built.
