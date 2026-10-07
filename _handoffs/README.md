@@ -34,7 +34,8 @@ One file per direction, named `<sender>-to-<receiver>.md`:
 
 `checkup/SKILL.md` is the source of the root session's `srom-checkup` skill (symlinked from `../.claude/skills/srom-checkup`;
 versioned here since 28.09.2026, when the root folder was not yet a git repository). Reviews it writes: `review-<dd.mm.yyyy>.md`. How module
-sessions apply them: root `CLAUDE.md` § Checkup.
+sessions apply them: root `CLAUDE.md` § Checkup. A partial pass (e.g. in the cloud) writes `draft-review-<dd.mm.yyyy>-<where>.md`,
+which no module applies; the next full pass turns it into a review. Cowork's checkup: `checkup/COWORK.md`.
 
 ## Questions for MB (since 29.09.2026 23:04)
 

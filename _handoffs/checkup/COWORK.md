@@ -19,13 +19,17 @@ Before: the srom-env block and `setup.sh` (srom-naczelny § Start of a session);
    its C-item and its STATUS line.
 4. **Texts** (one per section of STATUS.md): each hand-off log line's sha256 equals the files it names (`sha256sum`);
    srom-tlumacz's `src/` copies are byte-identical to srom-produkcja's frozen files; on temp copies, for each draft
-   `check.py --pair` and `build.py --pair-src --queries --draft`; a delivered text: `take_back.py` verifies and
-   srom-produkcja builds from `work/<id>/pl/`.
-5. **Ledger and desk.** The "At a glance" table lists every open question once, "Next free" is right (from 100 up while
-   SYS-9 is open), each Detail file exists; nothing decided in STATUS.md or a notes sheet is still open; the desk's
-   open decisions equal the ledger's (`desk_sync.py` bundle against the desk's `decisions` with status open).
-6. **Records.** Every change to `plugin/srom/` since the last checkup has a line in STATUS.md (file times newer than
-   the last line); statements in STATUS.md or `workspace/CLAUDE.md` the files now contradict.
+   `check.py --pair`, `build.py --pair-src --queries --draft`, the same build without `--draft` (only known `[BRAK …]`
+   gaps may fail it), `tlumacz-front_check.py`, and its Word copy imported (`docx_in.py`) → pair check; each keyed
+   (footnoted) source: `mutate_keyed.py` (srom-produkcja SKILL.md step 4b) → `MUTATIONS CAUGHT n/n`; a delivered text:
+   `take_back.py` verifies and srom-produkcja builds from `work/<id>/pl/`. A failure that lies in the tools or the
+   contract, not in the text, goes to Code as a C-item (Code's checkup no longer runs these checks: SYS-9 (a)).
+5. **Ledger and desk.** The "At a glance" table lists every open question once, "Next free" is right (from 100 up),
+   each Detail file exists; nothing decided in STATUS.md or a notes sheet is still open; every K-item headed "needs MB"
+   is in the ledger; the desk's open decisions equal the ledger's (`desk_sync.py` bundle against the desk's `decisions`
+   with status open).
+6. **Records.** Every change you made in Code's folder since the last checkup has its C-item; statements in STATUS.md or
+   `workspace/CLAUDE.md` the files now contradict.
 
 ## Report
 `workspace/reviews/review-<dd.mm.yyyy>.md`: `## Conclusions` (first), `## Verdict lines as printed`, `## Findings`

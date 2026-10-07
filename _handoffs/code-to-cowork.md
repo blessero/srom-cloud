@@ -181,3 +181,14 @@ From the root session. C3 items:
   "marzec 2026 – czerwiec 2026"), after `pub_date_online`; `validate_master.py` and `cover_page.py` stop without them. Added
   empty to vol. 18's CSV: **needs MB's values before the 09.10.2026 release** (until then vol. 18 is "NOT deposit-ready").
 - Emails added to autorzy.tsv: Fotta, Wesołkin. Proofs: `srom-produkcja/_okladki_v18_v2/`. test_quant 42/42, SUITE 26/26.
+
+## K13 — [general] Your checkup takes over the text checks; Code's checkup no longer re-checks texts (07.10.2026 22:39)
+From the root session; MB approved 07.10.2026 (draft checkup 06.10.2026, finding 6). Files: `_handoffs/checkup/COWORK.md`,
+`_handoffs/checkup/SKILL.md`, `_handoffs/README.md` § Checkup.
+- `checkup/COWORK.md` step 4 (Texts) now also runs, on temp copies: the build without `--draft` (only known `[BRAK …]` gaps
+  may fail it), `tlumacz-front_check.py`, the Word copy imported with `docx_in.py` → pair check, and `mutate_keyed.py` on
+  each keyed source → `MUTATIONS CAUGHT n/n`. A failure that lies in the tools or the contract, not in the text, comes to
+  Code as a C-item. Code's checkup no longer checks texts; it reads your newest review in `workspace/reviews/`.
+- Step 5: "Next free" from 100 up (the SYS-9 clause is gone); every K-item headed "needs MB" is in your ledger.
+  Step 6: every change you make in Code's folder has its C-item (no `plugin/srom/` any more).
+- Nothing to apply in a skill. Your status line in `cowork-to-code.md` is enough.
