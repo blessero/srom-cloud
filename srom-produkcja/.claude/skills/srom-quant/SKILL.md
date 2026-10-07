@@ -95,7 +95,7 @@ CSV headers are all-English by decision. `cover_page.py` and the other scripts r
 
 ## Locked decisions (do not re-litigate; each was settled with rationale)
 
-- **DOI suffix = opaque random `[a-z0-9]{8}`** (e.g. `ab3k9x2q`), generated separately. NOT human-readable. The readable `SROM-18-2025-001` string is `article_id`, an internal key only — different column, different job. Lowercase-only forever: DOIs are case-insensitive, URLs are not.
+- **DOI suffix = opaque random `[a-z0-9]{8}`** (e.g. `ab3k9x2q`), generated separately; from vol. 19 minted without `0 o 1 l i` (K11 (a), MB 08.10.2026; vol. 18's 15 stay). NOT human-readable. The readable `SROM-18-2025-001` string is `article_id`, an internal key only — different column, different job. Lowercase-only forever: DOIs are case-insensitive, URLs are not.
 - **`article_id` format:** `SROM-{vol}-{year}-{NNN}`. Upsert key for the Importer; never appears in a URL or DOI.
 - **Article URL:** `/articles/{full-doi}/` → `/articles/10.xxxxx/ab3k9x2q/`. The mu-plugin builds the permalink from each post's own `doi` field (so a future prefix change can't orphan old articles) and 301-redirects any non-canonical form. Slug = the 8-char suffix, frozen at import.
 - **Volume URL:** `/tom/{vol}-{year}/` (`/tom/18-2025/`). Importer sets the slug explicitly to `{vol}-{year}` so the signature's middle dot (`·`, U+00B7) never percent-encodes into the URL. `/tom/` is deliberately kept distinct from the `rocznik` taxonomy archive at `/rocznik/` — one-letter-apart bases would be a routing footgun.
@@ -146,7 +146,7 @@ CSV → deposit XML, schema 5.4.0, one file per volume. Fill the CONFIG block (d
 
 ## Pre-deposit invariants (`scripts/validate_master.py`)
 
-Run against any master CSV before minting. Checks: 38-column schema present · DOI prefix filled (not `10.XXXXX`) · every `doi_suffix` is final opaque `[a-z0-9]{8}` and unique · `pub_date_online` is `YYYY-MM-DD` · `license`/`license_url` filled (no `TODO`) · `pages_from ≤ pages_to` · `authors_struct` parses and every ORCID is well-formed · slugs lowercase · translators: `translators_struct` segments are 4 pipe-fields (error), with a warning when `is_translation=TAK` has no translator or a translator is given without `TAK`. Reports blocking errors vs warnings.
+Run against any master CSV before minting. Checks: 38-column schema present · DOI prefix filled (not `10.XXXXX`) · every `doi_suffix` is final opaque `[a-z0-9]{8}` and unique · `pub_date_online` is `YYYY-MM-DD` · `license`/`license_url` filled (no `TODO`) · `pages_from ≤ pages_to` · `authors_struct` parses and every ORCID is well-formed · slugs lowercase · translators: `translators_struct` segments are 4 pipe-fields (error), with a warning when `is_translation=TAK` has no translator or a translator is given without `TAK` or `ADAPTACJA`. Reports blocking errors vs warnings.
 
 ## Deployment sequence (fresh volume)
 

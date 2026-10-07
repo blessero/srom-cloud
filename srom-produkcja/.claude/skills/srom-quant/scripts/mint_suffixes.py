@@ -4,8 +4,8 @@ mint_suffixes.py — fill the DOI suffixes of one volume's master CSV.
 
     python3 mint_suffixes.py volumes/19/srom_master_v3.csv --prefix 10.12345 [--dry-run]
 
-For every row whose doi_suffix is empty or a placeholder (todo0001 …) it mints an opaque random [a-z0-9]{8}
-(Python `secrets`), unique across every volumes/*/srom_master*.csv. Then, for every row, it sets `doi` to
+For every row whose doi_suffix is empty or a placeholder (todo0001 …) it mints an opaque random 8-character suffix
+(Python `secrets`) from [a-z0-9] without the look-alikes 0 o 1 l i (K11 (a), MB 08.10.2026: vol. 19 on; vol. 18's are kept), unique across every volumes/*/srom_master*.csv. Then, for every row, it sets `doi` to
 <prefix>/<suffix> and swaps the old DOI for the new one inside `landing_url`. A suffix that is already final is never
 changed: suffixes freeze at import. A row whose DOI carries a different real prefix stops the run.
 
@@ -14,7 +14,7 @@ Nothing is written unless every check passes. Rewrites the CSV in place, byte-fo
 """
 import csv, glob, os, re, secrets, string, sys
 
-ALPHABET = string.ascii_lowercase + string.digits
+ALPHABET = "".join(c for c in string.ascii_lowercase + string.digits if c not in "0o1li")
 FINAL_RE = re.compile(r"^[a-z0-9]{8}$")
 PLACEHOLDER_RE = re.compile(r"^todo\d*$")
 PREFIX_RE = re.compile(r"^10\.\d{4,9}$")

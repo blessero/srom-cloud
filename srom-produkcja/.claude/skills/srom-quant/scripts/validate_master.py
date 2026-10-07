@@ -119,7 +119,7 @@ def main():
         is_tr = r.get('is_translation', '').upper() == 'TAK'
         if is_tr and not tstruct.strip():
             W(f"{rid}: is_translation=TAK but translators_struct empty or absent (no translator in the deposit)")
-        if tstruct.strip() and not is_tr:
+        if tstruct.strip() and not is_tr and r.get('is_translation', '').upper() != 'ADAPTACJA':   # adapted and translated (C7)
             W(f"{rid}: translators_struct filled but is_translation is not TAK")
         for t in tstruct.split(';;'):
             t = t.strip()

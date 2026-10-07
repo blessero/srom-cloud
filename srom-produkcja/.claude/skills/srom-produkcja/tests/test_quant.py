@@ -109,6 +109,8 @@ import importlib.util
 spec = importlib.util.spec_from_file_location("mint_suffixes", MS); ms = importlib.util.module_from_spec(spec); spec.loader.exec_module(ms)
 seq = iter("aaaaaaaa" + "todo1234" + "bbbbbbbb")
 ms.secrets.choice = lambda alpha: next(seq)
+t("mint_suffixes: the alphabet has no look-alikes 0 o 1 l i (K11 (a)); minted suffixes avoid them",
+  set(ms.ALPHABET) == set("abcdefghjkmnpqrstuvwxyz23456789") and not any(c in "0o1li" for s in sf[:2] for c in s), ms.ALPHABET + str(sf))
 t("mint_suffixes.mint: skips a taken suffix and a todo-looking one", ms.mint({"aaaaaaaa"}) == "bbbbbbbb", "")
 mp2 = os.path.join(mdir, "volumes", "20", "srom_master_v3.csv")
 mwrite(mp2, [mrow(1, "todo0001", vol=20)])
@@ -116,6 +118,18 @@ seq = iter("zz9y8x7w" + "cccccccc")          # first draw collides with volume 1
 ms.run(mp2, "10.12345")
 t("mint_suffixes: another volume's suffix is never reused",
   [g["doi_suffix"] for g in csv.DictReader(open(mp2, encoding="utf-8-sig", newline=""))] == ["cccccccc"], "")
+
+# validate_master.py (C7, 08.10.2026): translators_struct on an ADAPTACJA row (adapted and translated) is not warned about
+VM = os.path.join(os.path.dirname(GEN), "validate_master.py")
+vdir = tempfile.mkdtemp()
+def vwarn(is_tr):
+    p = os.path.join(vdir, f"m_{is_tr or 'none'}.csv")
+    with open(p, "w", encoding="utf-8-sig", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["article_id", "is_translation", "translators_struct"])
+        w.writeheader(); w.writerow({"article_id": "SROM-18-2025-003", "is_translation": is_tr, "translators_struct": "Michał|Bartosz||"})
+    return subprocess.run([sys.executable, VM, p], capture_output=True, text=True).stdout
+t("validate_master: translators_struct on an ADAPTACJA row → no 'not TAK' warning; on a plain row → warning",
+  "is_translation is not TAK" not in vwarn("ADAPTACJA") and "is_translation is not TAK" in vwarn(""), vwarn("ADAPTACJA"))
 
 # cover_page.py (03.10.2026): the online metadata page from the master row, prepended to the article's PDF
 import pymupdf
