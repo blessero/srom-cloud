@@ -1,4 +1,4 @@
-Checked 2 rows against 38-column schema.
+Checked 2 rows against 40-column schema.
 
 BLOCKING ERRORS (4):
   ✗ SROM-18-2025-001: DOI prefix still placeholder 10.XXXXX
