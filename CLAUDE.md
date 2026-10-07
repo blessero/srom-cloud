@@ -168,6 +168,9 @@ same `main`, and nothing is copied between them by hand (`_cloud/cloud.py` is re
   one repository: `git -C _handoffs add <files> && git -C _handoffs commit …` still works; add only your own files,
   never `git add -A` at the root. Never rewrite pushed history. Hashes cited in handoff items resolve (`git show
   <hash>`); a module's log before the move: `git log <its head>` (the heads are in the first "export" commit's message).
+  Except commits made in the old module repos between the first export and the move (04.10.2026 21:42 – 05.10.2026
+  00:31): only the next export snapshot holds them (`git show <snapshot>:<path>`): 2cfbeff, aa1096b, ffeaf34, c52ed2f →
+  258ae9e; e079042, 542dacf, 593440d, 4f00cb1, b653484 → ff44289; 6f470d5, eb4d3e1 → 73d9638.
 - **Data** the modules kept out of git (texts, PDFs, Word copies) is committed on purpose (a module's `.gitignore` is
   kept as `.gitignore.module`, inactive): commit new data files with your work. Not committed: `_widok/` (MB's rendered
   views embed the Claude app's fonts), caches.
