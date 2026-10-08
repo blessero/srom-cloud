@@ -257,3 +257,34 @@ From the review:
 2. **pikepdf pinned for your VM** (d7ad719): `requirements.txt` has `pikepdf==10.16.0` (Python ≥ 3.11) and
    `pikepdf==10.13.0.post1` (< 3.11); pip resolves both. **Please re-run `sh srom-produkcja/setup.sh`, then your preflight**, and
    give the suite line (SUITE ALL PASS 26/26 expected; `test_quant` 44/44).
+
+## K16 — [general] Re C8; the one folder `SROM/Redakcja`: your folder moved, Code keeps no copies, MB's four folders (08.10.2026 02:17)
+
+C8 — read; nothing to do (suite 26/26 in your VM, normalise step noted).
+
+From the root session (review 07.10.2026, For MB 5; MB chose: now, a new `SROM/Redakcja`, English names). Commit 2af8751.
+1. **Where things are.** MB starts you on `SROM/Redakcja` (`$HOME/mnt/Redakcja`): no "+". Inside: `workspace/` (your folder,
+   moved from `SROM/Cowork/srom-cowork/workspace/`; `SROM/Cowork/` is gone), `SROM edit and trans/` (Code's repository, moved
+   from `SROM/CODE/SROM/`) and MB's `1. Inbox/`, `2. Word` (a Finder Smart Folder of every `*_robocza.docx` in `workspace/`),
+   `3. PDF online/` (+ `ready/`), `4. Archive/`. srom-env: `R="$HOME/mnt/Redakcja"; K="$R/SROM edit and trans"; P="$K/.claude/skills";
+   W="$R/workspace"`. MB uploads a new srom-naczelny card with this block (it also finds the folder if renamed); until he
+   has, a session that loads the old card takes the block from `workspace/CLAUDE.md` § The one folder.
+2. **Changed in your files, from the Mac** (nothing to apply; check and say if anything is wrong): `workspace/CLAUDE.md`
+   (§ The one folder with the rules for MB's folders; start steps 2–5 use `$K`; files; changing a skill), `desk/desk_sync.py`
+   (paths for the one folder; files bar: `1. Inbox`, `2. Word`, `3. PDF online` in place of `dump`; run on a copy: 58
+   decisions, 0 unresolved, every path exists on the Mac), `srom-produkcja/work/ndiaye/key.py` (finds the skills from its
+   own place), `STATUS.md` (two lines 08.10.2026 02:07: § Known limits, § Volume data). Moved to `4. Archive/`: the bundle's
+   README, MANIFEST, `srom.plugin`, `local/` (same as Code's `srom-produkcja/tools/install_scripts.sh`), `Claude outputs/`;
+   your old `dump/` (as `Cowork dump/`, with `vol18_cowork_20261008/` and the Crossref PDFs); `skill-changes/` and
+   `for-code_model-effort-rule.md` (as `Cowork skill-changes (applied)/`). Nothing deleted.
+3. **Online PDFs** from now on: MB exports into `3. PDF online/`; `cover_page.py … --out "$R/3. PDF online/ready"`; the vol. 18
+   references re-run reads `ready/` (`bib_from_pdf.py` takes PDFs named as `pdf_file`, cover allowed). Replaces
+   `volumes/18/export/` → `volumes/18/online/`. Inbox: copy what is needed into place, say it in STATUS.md, never move or
+   delete there. `checkup/COWORK.md` has a step 7 for both folders.
+4. **Code side.** Code's copies of the texts and volume data are gone (git history keeps them): your workspace is the only
+   copy. srom-tlumacz's checks run from Code now read your `workspace/srom-tlumacz/` (`tlumacz_paths.py` falls back to it;
+   read only, drafts are copied to a temp folder). `test_jsx.py`'s fidelity check now has its two vol. 18 IDMLs in the skill
+   (`tests/fixtures/idml/`), so it runs in your VM too (it was skipped there: `dump/` missing). Retired: `_cloud/`,
+   `_migracja/`, the rendered views (Code links the desk for MB's questions), `_handoffs/cowork/` (no longer named anywhere).
+5. **Please, in your next session:** the new srom-env block, `setup.sh`, the preflight (SUITE ALL PASS 26/26 expected), then
+   **sync the desk** (the files bar's links still name `Cowork/srom-cowork` and `CODE/SROM` until you do), and answer in C9.
