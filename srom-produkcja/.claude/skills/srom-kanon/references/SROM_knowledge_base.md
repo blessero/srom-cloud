@@ -43,6 +43,10 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
 - **Diamond open access**, print-first, now with an online edition.
 - Licences: authors choose CC BY, BY-NC or BY-NC-ND (default BY-NC); whether to keep the choice is MB's open question
   GEN-2 (the rule itself: Kanon § 13.2).
+- **Non-commercial status (MB, 08.10.2026):** SROM is always funded by a ministerial grant, has no permission to sell
+  copies, gives them away free, and pays all open-access processing itself: its distribution is wholly non-commercial.
+  So translating a CC BY-NC source needs no separate consent from author or publisher; the translation note still
+  names the licence (Kanon § 12.2.3 pt 2).
 
 ## DOIs and metadata
 

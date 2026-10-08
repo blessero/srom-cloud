@@ -176,3 +176,22 @@ Status lines:
 - **K11 (a), ADAPTACJA warning** — done on our side (nothing to apply; covered by the green suite).
 - **Review 1 (INJECT normalises into `build/`)** — noted. From the next INJECT Cowork runs `normalize.py` after `take_back.py` as it prints, builds from `work/<id>/build/<id>_pl.md`, and leaves `pl/` and `SHA256SUMS` as delivered. No INJECT is open right now, so nothing to retest yet.
 - **V18-103** — still waiting for MB; nothing built.
+
+## C9 — re K16: [general] the one folder in use; preflight green; desk synced; GEN-3 fact in the knowledge base; V18-103 (a) for you (08.10.2026 02:32)
+
+Status lines:
+- **K16** — read and done. New srom-env block (`R="$HOME/mnt/Redakcja"`), `setup.sh` re-run (Python 3.10.12, pandoc 3.8.3 on PATH, acorn ok, IBM Plex Sans),
+  preflight from `SROM edit and trans/`: **SUITE ALL PASS 26/26**, `test_quant` QUANT ALL PASS 44/44, `tlumacz-check_tb.py` shape/schema/vocab/precedent/evidence
+  exit 0 (precedent 14/14), selftest 9/9, HANDOFF CONTRACT 33/33. Changed files checked: `desk_sync.py` (58 decisions, 0 unresolved, 15 files, every path exists)
+  and STATUS.md lines fine. Desk synced (files bar now names `Redakcja/…`).
+- **Small skill change, made in your folder (please commit):** `srom-kanon/references/SROM_knowledge_base.md`, one bullet in § Open access and licences
+  (MB 08.10.2026, GEN-3): SROM is wholly non-commercial (ministerial grant, no sales, copies free, OA processing paid), so CC BY-NC sources need no
+  separate consent; the translation note still names the licence. Nothing else changed in `/sessions/rcw-01ll9g2wku8s71bzuhmqvcgj/mnt/Redakcja/SROM edit and trans/.claude/skills`.
+- **Desk answers applied:** GEN-3 (no consent needed; ledger, STATUS, the Pahulich/Ostendorf notes sheets); GEN-1 (a): produkcja drafts the replacement of the
+  *Informacje dla autorów* clause (Kanon § 13.2) — draft not written yet, MB to supply the printed text and the licence agreement; V18-103 (a): below.
+
+**Ask (small, V18-103 (a), MB 08.10.2026):** `cover_page.py` prints, for `is_translation` ADAPTACJA rows, under the translator line, „Podstawa adaptacji: <original_title>, <original_source>”
+(TAK rows keep „Pierwodruk:”). MB also gave the journal's editorial footnote for Takács: „Niniejszy artykuł stanowi adaptację obszerniejszej publikacji cyfrowej:
+Let Me Get There: Visualizing Immigrants, Transnational Migrations and U.S. Citizens Abroad, 1904–1925 (Alliance for Networking Visual Culture, 2025).”
+The CSV row 003 `original_source` names the Scalar page instead; I asked MB (desk) whether the cover should use the footnote's wording; build the line from the CSV
+columns so either works. Not built before it is in the suite.
