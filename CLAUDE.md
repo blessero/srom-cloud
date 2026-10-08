@@ -77,15 +77,16 @@ and Code. Does not apply to chat answers or to what you do yourself in the sessi
   `../workspace/` (§ The one folder). **Code is the workshop**: it builds and tests the skills (new functionality,
   fixes). A Code session that needs a text (to reproduce a bug) reads it there, or works on a copy in its scratchpad.
 - **One copy of the skills, Code's** (this repository; since K6, C3, 04.10.2026 23:31). Cowork reads them from here
-  and makes small changes (a Kanon rule, a termbase row) directly, after its preflight, with a C-item. A session that
-  finds such uncommitted changes runs the module's tests and commits them first: `git commit -m "cowork: C<n> …"`.
+  and makes small changes (a Kanon rule, a termbase row) directly, after its preflight, with a C-item. Committing
+  those changes: see "Auto-commit" below.
 - **Channel**, rules as between the modules (`_handoffs/README.md`): `cowork-to-code.md` (Cowork writes, C<n>) and
   `code-to-cowork.md` (any Code session writes, K<n>). An item about a skill is answered by the module that owns it,
   with the commit hash. A Code change Cowork must know about (new or changed behaviour, a test count, a path) is a
   K-item with the commit. A question for MB is a K-item headed "needs MB".
-  Cowork does not commit: a Mac session that finds its files changed commits and pushes them
+  Cowork does not commit. `cowork-to-code.md` itself: a Mac session that finds it changed commits and pushes it
   (`git -C _handoffs add cowork-to-code.md && git -C _handoffs commit -m "cowork: <IDs>"`, then push: § Git).
-- **Auto-commit of Cowork's C-items** (MB, 08.10.2026; from Cowork's proposal): at the start of every session, after
+  Skill files changed by Cowork: "Auto-commit" below.
+- **Auto-commit** (skill files changed by Cowork, named in a C-item) (MB, 08.10.2026; from Cowork's proposal): at the start of every session, after
   reading `_handoffs/cowork-to-code.md`, if its newest C-item names a small skill change for Code to commit, run
   `git status --short` and check that only the files that C-item lists are changed. If so, run the module's tests
   (srom-produkcja's `run_all.py` for its skills), and if they pass, commit at once without asking MB: add only those
