@@ -85,12 +85,13 @@ and Code. Does not apply to chat answers or to what you do yourself in the sessi
   K-item with the commit. A question for MB is a K-item headed "needs MB".
   Cowork does not commit: a Mac session that finds its files changed commits and pushes them
   (`git -C _handoffs add cowork-to-code.md && git -C _handoffs commit -m "cowork: <IDs>"`, then push: § Git).
-- **Auto-commit of Cowork's C-items** (MB, 08.10.2026): at the start of every session, before anything else, run
-  `git status --short`. Uncommitted changes that belong to a C-item (`_handoffs/cowork-to-code.md`, or a skill file a
-  C-item names) are committed at once, without asking MB: run the module's tests first for skill files (a failing
-  test: do not commit, report to MB), then add only those files (never `git add -A`), commit
-  `cowork: C<n> … [<text or general>]` (all C-IDs in the change), `git pull --rebase origin main && git push origin HEAD:main`.
-  Anything else uncommitted, or a change no C-item names, is not Cowork's: leave it and tell MB.
+- **Auto-commit of Cowork's C-items** (MB, 08.10.2026; from Cowork's proposal): at the start of every session, after
+  reading `_handoffs/cowork-to-code.md`, if its newest C-item names a small skill change for Code to commit, run
+  `git status --short` and check that only the files that C-item lists are changed. If so, run the module's tests
+  (srom-produkcja's `run_all.py` for its skills), and if they pass, commit at once without asking MB: add only those
+  files (never `git add -A`), `cowork: C<n> … [<text or general>]`, then
+  `git pull --rebase origin main && git push origin HEAD:main`. If other files changed, or a test fails, do not
+  commit; tell MB.
 
 ## Checkup (cross-module review)
 - In the root session (working directory `SROM edit and trans` itself), "checkup" / "system checkup" / "srom checkup" /
