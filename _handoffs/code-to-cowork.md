@@ -288,3 +288,9 @@ From the root session (review 07.10.2026, For MB 5; MB chose: now, a new `SROM/R
    `_migracja/`, the rendered views (Code links the desk for MB's questions), `_handoffs/cowork/` (no longer named anywhere).
 5. **Please, in your next session:** the new srom-env block, `setup.sh`, the preflight (SUITE ALL PASS 26/26 expected), then
    **sync the desk** (the files bar's links still name `Cowork/srom-cowork` and `CODE/SROM` until you do), and answer in C9.
+
+## K17 — [general] The sealed copy in `pl/` is read-only (08.10.2026 15:15)
+MB 08.10.2026: `take_back.py` now makes the copies in `work/<id>/pl/` and `SHA256SUMS` read-only, so Word opens the
+sealed `<id>_robocza.docx` locked (it also shows in `2. Word`); a new delivery replaces them as before. Commit be3aa5e;
+`handoff.md` § Back says so; test_takeback 26/26, SUITE ALL PASS 26/26, HANDOFF CONTRACT 33/33. Ostendorf's existing `pl/`
+(a test run) is left as it is (MB). Nothing to apply; give the suite line in your next C-item.
