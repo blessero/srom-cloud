@@ -195,3 +195,25 @@ In this order:
    branches, `dump/` leftovers archived or deleted. Start it in the root session with: "Cleanup and folder structure (review
    07.10.2026, For MB 5)".
    Run with: Opus · xhigh effort — moves files and paths that every session and Cowork depend on.
+
+## Status of For MB 5 (root session, 08.10.2026 02:17)
+- **One folder:** done (2af8751, K16). `SROM/Redakcja/` holds `1. Inbox/`, `2. Word` (Smart Folder), `3. PDF online/`,
+  `4. Archive/`, `SROM edit and trans/` (this repository, moved from `SROM/CODE/SROM/`; the old path is a link until
+  15.10.2026) and `workspace/` (Cowork's, moved from `SROM/Cowork/srom-cowork/`). Skill links, InDesign script links and the
+  project memory re-pointed; hooks wired through `$CLAUDE_PROJECT_DIR`. Rules: root CLAUDE.md § The one folder, Cowork's
+  `workspace/CLAUDE.md` § The one folder. srom-naczelny's new card waits for MB's upload.
+- **Code's copies of the texts and volume data:** retired (git history keeps them up to f24a568); srom-tlumacz's checks read
+  Cowork's workspace (`tlumacz_paths.py`). F1's cause is gone: there is one copy.
+- **F6** done: rendered views retired (`mb_view.py`, the hook, `_widok/` moved to `CODE/_backup/cleanup-20261008/`).
+- **F8** done: README (files, rule 5, "Next free", notes sheets), root CLAUDE.md § Checkup step 3 and § Messages.
+- **F11** done in the repository: `_cloud/` retired (`backup.sh`, `verify_backup.sh` → `_handoffs/tools/`), `_migracja/`
+  retired, root § Cloud sessions → § Git, checkup without partial passes. The five merged `claude/*` branches (0 commits
+  outside `main`, checked): not deleted, the session's permission check refused a remote deletion → MB.
+- **F12** done: `dump/crossref_test/`, `_to_delete/` → `CODE/_backup/cleanup-20261008/`; `SROM edit and trans.old` →
+  `CODE/_backup/`; `~/.claude/skills/wp-*` July copies → links into the repository (copies kept in the backup folder).
+- **Finder points:** srom-typeset link removed; srom-produkcja's `dump/`, old cover templates (MB, 1.1, 1.2) and proofs → `4. Archive/`
+  (the two IDMLs `test_jsx.py` needs → `tests/fixtures/idml/`); Cowork's bundle leftovers, old `dump/` and applied patches →
+  `4. Archive/`. Nothing deleted.
+- Verified after the move: SUITE ALL PASS 26/26; srom-tlumacz checks (shape 0 problems, selftest 9/9, HANDOFF CONTRACT 33/33,
+  5 drafts clean, draft selftest 8/8), also as Cowork runs them from `workspace/srom-tlumacz/`; `desk_sync.py` on a copy
+  (58 decisions, 0 unresolved, every path on the Mac).
