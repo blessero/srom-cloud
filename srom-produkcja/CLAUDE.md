@@ -9,10 +9,9 @@ ISSN 1689-4758); formerly srom-typeset (renamed 30.09.2026, MB). Six skills in `
 - **wp-acf-plugin-builder**, **wp-elementor-builder** — the website's WordPress plugins and Elementor templates.
 
 Code is the workshop: it builds and tests the skills. The texts, the volume data and MB's questions are Cowork's (root
-CLAUDE.md § Cowork). Volume data: Cowork's `workspace/srom-produkcja/volumes/` is the master (vol. 18: MB 08.10.2026,
-K14 (a)); this repository's `volumes/` (master CSV `volumes/<vol>/srom_master_v3.csv`, authors register
-`volumes/autorzy.tsv`) is a reference copy, never edited, used for tests and scratch runs. Stage names (root CLAUDE.md):
-RIP and INJECT are this module's, TRANS is srom-tlumacz's.
+CLAUDE.md § Cowork, § The one folder): `../../workspace/srom-produkcja/` (`work/<id>/`, `volumes/<vol>/srom_master_v3.csv`,
+`volumes/autorzy.tsv`). This folder keeps no copies since 08.10.2026; read them there, and run anything that writes on a
+copy in your scratchpad. Stage names (root CLAUDE.md): RIP and INJECT are this module's, TRANS is srom-tlumacz's.
 
 The EN→PL translation module **srom-tlumacz** is a separate folder (`../srom-tlumacz/`, its own session; its skill
 `srom-tlumacz` since 03.10.2026, E20); it talks to srom-produkcja only through

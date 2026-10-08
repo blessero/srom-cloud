@@ -6,8 +6,9 @@ have no object; what can drift in Cowork is its line to Code, its texts, and its
 check, report, then fix what needs no decision once MB says go, put the rest in `MB-decisions.md`, and send Code what
 is Code's as a C-item.
 
-Before: the srom-env block and `setup.sh` (srom-naczelny § Start of a session); `C` = Code's folder as mounted in
-`device_bash` (`ls "$HOME/mnt"`). Nothing below writes a file MB edits: builds and imports go to `mktemp -d`.
+Before: the srom-env block and `setup.sh` (srom-naczelny § Start of a session); `C` = Code's folder inside the one
+folder, `$K` of the srom-env block (`$HOME/mnt/Redakcja/SROM edit and trans`). Nothing below writes a file MB edits:
+builds and imports go to `mktemp -d`.
 
 ## Check, and measure rather than trust a line in STATUS.md
 1. **Preflights.** srom-produkcja `run_all.py` and srom-tlumacz's three checks (srom-naczelny § Start). Quote the
@@ -15,8 +16,7 @@ Before: the srom-env block and `setup.sh` (srom-naczelny § Start of a session);
 2. **Skills.** You read them from Code's folder: nothing to compare. If a skill file there has uncommitted changes
    you did not make, say so (a Code session is working); never edit a file a Code session is changing.
 3. **Channel.** Every K-item in `$C/_handoffs/code-to-cowork.md` has your status line in `cowork-to-code.md`; every
-   C-item older than two days has Code's answer; no ID twice in either file; every patch in `_handoffs/cowork/` has
-   its C-item and its STATUS line.
+   C-item older than two days has Code's answer; no ID twice in either file.
 4. **Texts** (one per section of STATUS.md): each hand-off log line's sha256 equals the files it names (`sha256sum`);
    srom-tlumacz's `src/` copies are byte-identical to srom-produkcja's frozen files; on temp copies, for each draft
    `check.py --pair`, `build.py --pair-src --queries --draft`, the same build without `--draft` (only known `[BRAK …]`
@@ -30,6 +30,8 @@ Before: the srom-env block and `setup.sh` (srom-naczelny § Start of a session);
    with status open).
 6. **Records.** Every change you made in Code's folder since the last checkup has its C-item; statements in STATUS.md or
    `workspace/CLAUDE.md` the files now contradict.
+7. **MB's folders** (root CLAUDE.md § The one folder). Anything in `1. Inbox/` that a session took is said in
+   STATUS.md; every PDF in `3. PDF online/` has its result in `ready/`, or a STATUS line saying why not.
 
 ## Report
 `workspace/reviews/review-<dd.mm.yyyy>.md`: `## Conclusions` (first), `## Verdict lines as printed`, `## Findings`

@@ -5,8 +5,10 @@ You are building and running **srom-tlumacz**, the EN→PL translation module fo
 **The procedure, the translation rules and the stable assets are the skill srom-tlumacz** (`.claude/skills/srom-tlumacz/`,
 linked as `~/.claude/skills/srom-tlumacz`; since 03.10.2026, leaf 1.4.1): SKILL.md, `references/` (termbase, its schema,
 decision log, race register, per-article file formats), `scripts/` (the checks). Load it for any translation work. This
-folder holds the state: `HANDOVER.md`, `tlumacz-PLAN.md`, the gates files, `work/<id>/`, `sources/`, `training/`, closed
-leaf folders. This file holds only the session rules.
+folder holds the module's records: `HANDOVER.md`, `tlumacz-PLAN.md`, the gates files, closed leaf folders. The texts
+(`work/<id>/`), `sources/` and `training/` are Cowork's, in `../../workspace/srom-tlumacz/` (Code's copies retired
+08.10.2026); the checks below find them there (`tlumacz_paths.py`) and only read them. This file holds only the session
+rules.
 
 ## Start of every session
 1. Read `HANDOVER.md` (state, rulings, pending items), then the Status log at the end of `tlumacz-PLAN.md`.
@@ -37,7 +39,7 @@ nothing. Use it to close a leaf (`gate-check.mjs --run <file>`; keep `--run` fir
   ID (E<n>, K<n>, a status line) re-read the tail of the file for the next free ID, then commit at once. Commit only
   the files your text touched (`git add <files>`, never `-A`); tag every entry with its `[<Author>]`. Every time in an
   entry comes from `date '+%d.%m.%Y %H:%M'` at the moment of writing, never typed from memory.
-- **git:** this folder is part of the one repository `blessero/srom-cloud` (since 05.10.2026; `.gitignore.module` is inactive). Work on `main`; commit by path (never `git add -A` at the root), then `git pull --rebase origin main && git push origin HEAD:main` (root CLAUDE.md § Cloud sessions).
+- **git:** this folder is part of the one repository `blessero/srom-cloud` (since 05.10.2026; `.gitignore.module` is inactive). Work on `main`; commit by path (never `git add -A` at the root), then `git pull --rebase origin main && git push origin HEAD:main` (root CLAUDE.md § Git).
 - **Ownership:** write only this folder's files (table in `tlumacz-PLAN.md` § Contract). Never edit srom-produkcja, srom-kanon or srom-quant files; messages to them go in `../_handoffs/tlumacz-to-produkcja.md` (rules: `../_handoffs/README.md`; the one shared folder this module writes to).
 - **Blind baseline (leaf 1.2):** closed 27.09.2026 (11/11). Drafts and hashes stay in `tlumacz-baseline-1.2/`; do not edit them (they are the reference for leaf 1.5.1).
 - **Translation:** follow the skill (SKILL.md § The procedure; the Kanon governs, cite the version in its header). A

@@ -6,20 +6,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "H=\"/Users/michalbartosz/ARBEIT/Bima/SROM/CODE/SROM/SROM edit and trans/_handoffs/tools/hooks/guard_module.py\"; [ -f \"$H\" ] || exit 0; /usr/bin/python3 \"$H\" srom-produkcja",
+            "command": "H=\"$CLAUDE_PROJECT_DIR/../_handoffs/tools/hooks/guard_module.py\"; [ -f \"$H\" ] || exit 0; /usr/bin/python3 \"$H\" srom-produkcja",
             "timeout": 10
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/usr/bin/python3 \"/Users/michalbartosz/ARBEIT/Bima/SROM/CODE/SROM/SROM edit and trans/_handoffs/tools/hooks/render_mb_view.py\"",
-            "timeout": 60
           }
         ]
       }

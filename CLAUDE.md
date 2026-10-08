@@ -5,17 +5,36 @@ modules work together; everything else is in each module's own files.
 
 ## Names and stages (MB, 30.09.2026)
 - **srom-produkcja** (`srom-produkcja/`, formerly srom-typeset): production, the managing module — RIP, INJECT,
-  InDesign, volume data (`volumes/`: master CSV per volume, authors register). Its repo also holds the skills
-  **srom-kanon** (house style) and **srom-quant** (formerly srom-scholarly-curator: metadata, DOI/Crossref, website).
-  srom-quant has no session; srom-produkcja uses it. `_handoffs/tlumacz-to-quant.md` is read by srom-produkcja.
+  InDesign, the tools for the volume data (the data itself is Cowork's: § The one folder). Its folder also holds the
+  skills **srom-kanon** (house style), **srom-quant** (formerly srom-scholarly-curator: metadata, DOI/Crossref, website)
+  and **srom-zizek** (selection, before RIP). srom-quant has no session; srom-produkcja uses it.
+  `_handoffs/tlumacz-to-quant.md` is read by srom-produkcja.
 - **srom-tlumacz** (`srom-tlumacz/`): EN→PL translation.
 - The three stages of a translated text, as MB names them (capitals where they should stand out):
   1. **RIP** (ripping, srom-produkcja): PDF or Word → source ready for translation (extraction, notes, keying, refs).
   2. **TRANS** (translating, srom-tlumacz): the translation, up to MB's Word edit.
   3. **INJECT** (injecting, srom-produkcja): MB's edited Word copy taken back, built, placed in InDesign.
   "Stage 1/2/3" in older files means the same.
-- `srom-typeset` still resolves (a link to `srom-produkcja`, kept so older sessions open); older handoff entries,
-  gates and reviews keep the old names as written. T<n> IDs keep their letter.
+- Older handoff entries, gates and reviews keep the old names (srom-typeset) and paths as written. T<n> IDs keep
+  their letter.
+
+## The one folder (MB, 08.10.2026; review 07.10.2026, For MB 5)
+Everything lives in `SROM/Redakcja/` (Mac: `/Users/michalbartosz/ARBEIT/Bima/SROM/Redakcja`). MB starts Cowork on this
+folder (no "+"), and it is his Finder favourite. The four numbered folders are MB's; sessions keep their own files out
+of the top level.
+
+| folder | what it holds | rule |
+|---|---|---|
+| `1. Inbox/` | anything MB drops in: author files, PDFs, texts for the corpus | a session copies what it needs into place and says where; the original stays until MB clears it (Cowork cannot delete) |
+| `2. Word` | a Finder Smart Folder: every `*_robocza.docx` in `workspace/` | the Word copies MB edits, in place; one in a `pl/` folder is a sealed delivery, never edited |
+| `3. PDF online/` | MB's InDesign exports for the website (preset "SROM online") | Cowork repairs the text layer and adds the cover (`cover_page.py`) into `3. PDF online/ready/` |
+| `4. Archive/` | old material (Cowork's bundle and dump, old cover templates and proofs, Code's dump) | no session reads it unless MB asks |
+| `SROM edit and trans/` | this repository: the skills, `_handoffs/`, the module records | Code sessions start here or in a module folder |
+| `workspace/` | Cowork's: the texts, the volume data, `STATUS.md`, `MB-decisions.md`, the desk, srom-zizek's data | not in git; Code reads it (`../workspace/` from here) but never writes it, except srom-zizek's data as that skill says |
+
+The old Code path `SROM/CODE/SROM/SROM edit and trans` is a link to this repository until MB deletes it (planned
+15.10.2026), so sessions started there still open; start new sessions from `SROM/Redakcja/`. Code keeps no copies of
+the texts or the volume data (retired 08.10.2026; git history has them).
 
 ## Keep it lean (MB, 30.09.2026) — overrides the wish to be thorough
 The system has to work, not impress. Never let it grow into an outsized, byzantine clump.
@@ -48,26 +67,24 @@ and Code. Does not apply to chat answers or to what you do yourself in the sessi
 
 ## Start of every session
 1. Read your incoming file in `_handoffs/` (`tlumacz-to-produkcja.md` if you are srom-produkcja,
-   `produkcja-to-tlumacz.md` if you are srom-tlumacz) and Cowork's `workspace/MB-decisions.md` (§ Cowork). Both modules also read
+   `produkcja-to-tlumacz.md` if you are srom-tlumacz) and Cowork's `../workspace/MB-decisions.md` (§ Cowork). Both modules also read
    `_handoffs/cowork-to-code.md` (from Cowork, if it exists) for items about their own skills (§ Cowork).
 2. Report to MB, before anything else: new incoming items not yet answered, and open decisions that block you.
 
 ## Cowork (MB, 04.10.2026; SYS-9 and SYS-10 decided (a) 04.10.2026 22:30) — who does what
 - **Cowork is where the journal is made**: the texts (RIP → TRANS → INJECT), the volume data, each text's state
-  (`STATUS.md`) and the one list of MB's questions (its `workspace/MB-decisions.md`, answered on the Editorial Desk),
-  all in `SROM/Cowork/srom-cowork/workspace/`. **Code is the workshop**: it builds and tests the skills (new
-  functionality, fixes). Code's copies of the texts in `work/` are reference only: no session edits them.
-- **One copy of the skills, Code's** (this repository). Until the switch (review 04.10.2026-2), Cowork still runs its
-  own copy and sends patches; after it, Cowork reads the skills from this folder and makes small changes (a Kanon rule,
-  a termbase row) here directly, after its preflight, with a C-item. A session that finds such uncommitted changes
-  runs the module's tests and commits them first: `git commit -m "cowork: C<n> …"`.
-- **Channel**, rules as between the modules (`_handoffs/README.md`): `cowork-to-code.md` (Cowork writes, C<n>; its
-  patches in `_handoffs/cowork/`) and `code-to-cowork.md` (any Code session writes, K<n>). An item about a skill is
-  answered by the module that owns it, with the commit hash. A Code change Cowork must know about (new or changed
-  behaviour, a test count) is a K-item with the commit. A question for MB is a K-item headed "needs MB".
+  (`STATUS.md`) and the one list of MB's questions (its `MB-decisions.md`, answered on the Editorial Desk), all in
+  `../workspace/` (§ The one folder). **Code is the workshop**: it builds and tests the skills (new functionality,
+  fixes). A Code session that needs a text (to reproduce a bug) reads it there, or works on a copy in its scratchpad.
+- **One copy of the skills, Code's** (this repository; since K6, C3, 04.10.2026 23:31). Cowork reads them from here
+  and makes small changes (a Kanon rule, a termbase row) directly, after its preflight, with a C-item. A session that
+  finds such uncommitted changes runs the module's tests and commits them first: `git commit -m "cowork: C<n> …"`.
+- **Channel**, rules as between the modules (`_handoffs/README.md`): `cowork-to-code.md` (Cowork writes, C<n>) and
+  `code-to-cowork.md` (any Code session writes, K<n>). An item about a skill is answered by the module that owns it,
+  with the commit hash. A Code change Cowork must know about (new or changed behaviour, a test count, a path) is a
+  K-item with the commit. A question for MB is a K-item headed "needs MB".
   Cowork does not commit: a Mac session that finds its files changed commits and pushes them
-  (`git -C _handoffs add cowork-to-code.md cowork && git -C _handoffs commit -m "cowork: <IDs>"`, then push: § Cloud sessions).
-- Since the switch (K6, C3, 04.10.2026 23:31) Cowork reads the skills from this folder: there is no copy to sync.
+  (`git -C _handoffs add cowork-to-code.md && git -C _handoffs commit -m "cowork: <IDs>"`, then push: § Git).
 
 ## Checkup (cross-module review)
 - In the root session (working directory `SROM edit and trans` itself), "checkup" / "system checkup" / "srom checkup" /
@@ -76,7 +93,7 @@ and Code. Does not apply to chat answers or to what you do yourself in the sessi
   1. Open the newest `_handoffs/review-*.md` and follow only its `## For srom-produkcja` or `## For srom-tlumacz`
      section.
   2. Do the items that need no decision from MB, with your module's usual tests and commits.
-  3. Put items that need MB in `MB-decisions.md`.
+  3. Put items that need MB in a K-item headed "needs MB" (Cowork enters it in its ledger; § Decisions for MB).
   4. Write one status line per item in your outgoing file, under `## Status of review <dd.mm.yyyy>`
      (done / declined / needs MB), and commit.
   5. Report to MB in a few lines.
@@ -86,15 +103,14 @@ and Code. Does not apply to chat answers or to what you do yourself in the sessi
 ## Messages between modules
 - Rules: `_handoffs/README.md`. One file per direction; only the sender writes it; append, never rewrite;
   answers go in your own outgoing file, citing the item ID (E<n> from srom-tlumacz, T<n> from srom-produkcja).
-- Several sessions of one module may run at once (29.09.2026). Immediately before adding a new ID (E<n>, T<n>, or a
-  question ID such as PAH-11 in `MB-decisions.md`),
+- Several sessions of one module may run at once (29.09.2026). Immediately before adding a new ID (E<n>, T<n>, K<n>),
   re-read the end of the file to find the next free number, then commit straight away, so two sessions never
   take the same number. Cite items with their text tag, e.g. "E18 [Pahulich]".
 - An item is answered when the receiver writes a status line for it (done / declined / needs MB). Don't leave
   incoming items without one.
 - The binding interface stays in `srom-produkcja/.claude/skills/srom-produkcja/references/handoff.md`. A contract change
   is made there first, then in both modules, with tests on both sides (`run_all.py`, `tlumacz-test_handoff.py`).
-- `_handoffs/` is under git (MB, 28.09.2026; since 05.10.2026 as part of the one repository, § Cloud sessions): after
+- `_handoffs/` is under git (MB, 28.09.2026; since 05.10.2026 as part of the one repository, § Git): after
   writing there, commit your own change at once (`git -C _handoffs add <files> && git -C _handoffs commit -m
   "<module>: <IDs>"`) and push. Never rewrite its history.
 
@@ -118,23 +134,19 @@ and Code. Does not apply to chat answers or to what you do yourself in the sessi
   (decision recorded where it takes effect: Kanon, notes sheet, handover, handoff item, commit). No history there.
 
 ## Files MB must open (MB, 29.09.2026) — hard rule, every session
-- In any file MB reads, a file MB has to open (the ledger, a notes sheet, a Word copy to edit, a list to send to an
-  author) is written `` 🔴 `path` ``. The rendered view shows it as a red link, colour **#ea3d39**. Chat text cannot be
-  coloured: in replies the marker is the ⭕ described below.
+- In any file MB reads, a file MB has to open (a notes sheet, a Word copy to edit, a list to send to an author) is
+  written `` 🔴 `path` ``. Chat text cannot be coloured: in replies the marker is the ⭕ described below.
 - **End every reply with one line** listing the files MB needs to open for what the reply is about, or
   `Files to open: none`. Only files MB must act on, not every file you touched. Each file is its name as a link
-  (relative path: opens in the app) followed by ⭕ as a second link to the same file as an absolute `file://` URL
-  (opens in the browser; spaces as `%20`), e.g.
-  `Files to open: [MB-decisions](_widok/MB-decisions.html) [⭕](file:///…/_widok/MB-decisions.html) · …`
-- **Side panel by default:** before that line, send the rendered pages listed in it with SendUserFile (display:
-  render), so they open in the app's side panel without a click. Word copies and CSV lists are only linked.
-- For the ledger and notes sheets, link the rendered page, not the Markdown: first run
-  `~/.venvs/srom/bin/python <SROM root>/_handoffs/tools/mb_view.py --all` (a few seconds), then link
-  `_widok/MB-decisions.html` or the text's page (`_widok/PAH_pahulich.html`). Link paths relative to your working
-  directory (from a module session: `../_widok/…`).
-- On request ("show me", "as a document"), render with `mb_view.py` (HTML only; MB dropped Word output 29.09.2026) and send the HTML
-  with SendUserFile (display: render) if you have it, or open it (`open <file>`). The rendered files embed the Claude
-  app's fonts: they stay on this Mac, never published.
+  (path relative to your working directory: opens in the app) followed by ⭕ as a second link to the same file as an
+  absolute `file://` URL (opens in its Mac app or the browser; spaces as `%20`), e.g.
+  `Files to open: [pahulich_robocza.docx](../workspace/srom-tlumacz/work/pahulich/pahulich_robocza.docx) [⭕](file:///Users/michalbartosz/ARBEIT/Bima/SROM/Redakcja/workspace/srom-tlumacz/work/pahulich/pahulich_robocza.docx)`
+- **Side panel by default:** before that line, send the Markdown, HTML or PDF files listed in it with SendUserFile
+  (display: render), so they open in the app's side panel without a click. Word copies and CSV lists are only linked.
+- MB's questions: he reads and answers them on the Editorial Desk (`https://claude.ai/artifact/9w8QwRuni5c3fAPVtmRb61`);
+  link the desk, not the ledger file. Only Cowork reads the answers (srom-naczelny § The desk).
+- The rendered views (`_widok/`, `mb_view.py`) were retired 08.10.2026: they showed Code's pointer file and outdated
+  copies of the notes sheets.
 
 ## Dates and texts (MB, 28.09.2026)
 - Every dated entry MB may read (handoff items, status lines, MB-decisions, handovers, notes sheets) carries date
@@ -149,43 +161,29 @@ and Code. Does not apply to chat answers or to what you do yourself in the sessi
 ## Shared rules and skills
 - **Kanon** (house rules): `srom-produkcja/.claude/skills/srom-kanon/references/kanon-redakcyjny.md` is normative.
   It is edited only from the srom-produkcja session; other modules ask for changes through `_handoffs/`.
-- Use the local skills (`~/.claude/skills/srom-*`, symlinks into srom-produkcja's repo). Never use copies synced
-  from claude.ai (`anthropic-skills:srom-*`): they may be out of date.
+- Use the local skills (`~/.claude/skills/srom-*` and the two WordPress skills: symlinks into this repository; if
+  one is broken, `sh srom-produkcja/tools/setup_mac.sh`, and for srom-tlumacz
+  `ln -sfn "$PWD/srom-tlumacz/.claude/skills/srom-tlumacz" ~/.claude/skills/` from here). Never use copies synced from
+  claude.ai (`anthropic-skills:srom-*`): they may be out of date.
 - Never edit another module's folder. The only shared folder is `_handoffs/`.
 - Before reporting a cross-module fact (a version, a test result, what the other side has done), check it in the
   files or by running the test. Don't rely on memory or the other side's report.
 
-## Cloud sessions (MB, 04.10.2026; one repository since 05.10.2026)
-**Discontinued (MB's go-ahead 07.10.2026; review 07.10.2026): no new SROM sessions in the cloud.** Work on the Mac (Code)
-and in Cowork only. The repository and its GitHub remote stay (history, off-Mac backup), and so do the git and data rules
-below. What served only cloud sessions (`_cloud/`, the cloud-only lines below, `draft-review-*` passes) is retired in the
-cleanup task (review 07.10.2026, For MB 5).
-
-This whole folder is one git repository, remote `blessero/srom-cloud` (GitHub, private). MB's Mac folder is a clone of
-it and so is every cloud session (claude.ai/code, or "Cloud" in the desktop app): local and cloud sessions work on the
-same `main`, and nothing is copied between them by hand (`_cloud/cloud.py` is retired; MB's guide: `_cloud/README.md`).
-- **Which module you are.** A cloud session starts at the repository root. MB's first words say it ("produkcja: …",
-  "tlumacz: …", "root: …"); if they don't, ask. Then read that module's CLAUDE.md and handover and keep its rules as
-  if your working directory were its folder. No hook guards the other module's folder there: keep out of it yourself.
-- **Git, every session (Mac and cloud).** Work on `main`, not on a session branch: `git pull --rebase origin main`
-  first and before taking a new ID; after each commit, at once, `git pull --rebase origin main && git push origin
-  HEAD:main` (parallel sessions see each other's items only after a push). The module folders are plain folders of the
-  one repository: `git -C _handoffs add <files> && git -C _handoffs commit …` still works; add only your own files,
-  never `git add -A` at the root. Never rewrite pushed history. Hashes cited in handoff items resolve (`git show
-  <hash>`); a module's log before the move: `git log <its head>` (the heads are in the first "export" commit's message).
-  Except commits made in the old module repos between the first export and the move (04.10.2026 21:42 – 05.10.2026
-  00:31): only the next export snapshot holds them (`git show <snapshot>:<path>`): 2cfbeff, aa1096b, ffeaf34, c52ed2f →
-  258ae9e; e079042, 542dacf, 593440d, 4f00cb1, b653484 → ff44289; 6f470d5, eb4d3e1 → 73d9638.
-- **Data** the modules kept out of git (texts, PDFs, Word copies) is committed on purpose (a module's `.gitignore` is
-  kept as `.gitignore.module`, inactive): commit new data files with your work. Not committed: `_widok/` (MB's rendered
-  views embed the Claude app's fonts), caches.
-- **Cowork** writes on the Mac only, and does not commit: a Mac session that finds its files changed commits and pushes
-  them (§ Cowork). A cloud session reads `_handoffs/cowork-to-code.md` and `_handoffs/cowork/`, never writes them, and
-  sees Cowork's newest items only once a Mac session has pushed them.
-- **Skills** come from the repository's `.claude/skills/` (links into the modules), not from `~/.claude/skills`.
-- **Dates.** The cloud environment sets `TZ=Europe/Madrid`, so `date '+%d.%m.%Y %H:%M'` gives MB's time; if
-  `date +%Z` says UTC, prefix the command with `TZ=Europe/Madrid`.
-- **Not in the cloud:** InDesign and Word (MB's Mac), Cowork's folder, the rendered views (`_widok/`, `mb_view.py`: the
-  hook is silent off the Mac). A file MB must open goes in the "Files to open" line as its repository path, without
-  links or SendUserFile; MB opens it after `git pull` on the Mac. Sites outside the environment's network list do not
-  answer: say that a scripted check did not run.
+## Git (one repository since 05.10.2026; cloud sessions discontinued 07.10.2026)
+This repository (`SROM edit and trans/`) is one git repository, remote `blessero/srom-cloud` (GitHub, private): history
+and the off-Mac backup. **No SROM sessions in the cloud** (MB 07.10.2026): work on the Mac (Code) and in Cowork only.
+- **Every session.** Work on `main`, not on a session branch: `git pull --rebase origin main` first and before taking
+  a new ID; after each commit, at once, `git pull --rebase origin main && git push origin HEAD:main`. The module
+  folders are plain folders of the one repository: `git -C _handoffs add <files> && git -C _handoffs commit …` works;
+  add only your own files, never `git add -A` at the root. Never rewrite pushed history. Hashes cited in handoff items
+  resolve (`git show <hash>`); a module's log before the move: `git log <its head>` (the heads are in the first
+  "export" commit's message). Except commits made in the old module repos between the first export and the move
+  (04.10.2026 21:42 – 05.10.2026 00:31): only the next export snapshot holds them (`git show <snapshot>:<path>`):
+  2cfbeff, aa1096b, ffeaf34, c52ed2f → 258ae9e; e079042, 542dacf, 593440d, 4f00cb1, b653484 → ff44289; 6f470d5,
+  eb4d3e1 → 73d9638.
+- **Not in git:** Cowork's `../workspace/` (texts, volume data, ledger) and MB's numbered folders. Before any big step,
+  `sh _handoffs/tools/backup.sh` (the whole one folder except `4. Archive`, into `SROM/CODE/_backup/`), then
+  `sh _handoffs/tools/verify_backup.sh` → `BACKUP OK`. Code's old copies of the texts and volume data are in the
+  history up to 08.10.2026 (`git show f24a568:<path>`).
+- **Cowork** does not commit: a Mac session that finds Cowork's files in this repository changed (`_handoffs/cowork-to-code.md`,
+  a small skill change named in a C-item) commits and pushes them (§ Cowork).

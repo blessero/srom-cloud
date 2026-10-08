@@ -7,7 +7,7 @@ language is set. InDesign therefore takes everything from the template — provi
 ## Template: house style v3 (29.09.2026)
 
 The styles are defined in `indesign/style_spec.json`, readable in `references/style-sheet.md`. They are
-vol. 18's own values (read from `dump/03_Ellis.idml` and `dump/09_Konferencja.idml` in InDesign), under new
+vol. 18's own values (read from `tests/fixtures/idml/03_Ellis.idml` and `09_Konferencja.idml` in InDesign), under new
 names and in a designer's order:
 
 - **Root, most used first (15):** Tekst · Tekst BEZ WCIĘCIA · Przypis · Śródtytuł · Śródtytuł MAŁE · Cytat ·

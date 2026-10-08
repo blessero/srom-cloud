@@ -39,14 +39,15 @@ live in the volume files (`concept.md` § Open questions, `block.md` § 6 with M
 After srom-naczelny's srom-env block (and `setup.sh` once per session: PyMuPDF and pandoc):
 
 ```sh
-Z="$P/skills/srom-zizek/scripts"; cd "$W/srom-zizek"
+Z="$P/srom-zizek/scripts"; cd "$W/srom-zizek"
 python3 "$Z/extract.py" volumes/<vol> <file-or-folder> [--pages A-B]   # PDF/DOCX/MD -> text/<slug>.txt with page markers
 python3 "$Z/check.py" volumes/<vol>/cards/*.md [--online]              # anchors verbatim, card shape, DOIs at Crossref
 python3 "$Z/build_abstracts.py"                                         # after _sources/ changes
 ```
 
-- **New pool files:** MB drops them in the bundle's `dump/` folder (or a folder he connects); extract from there.
-  Paths inside the moved vol. 19 `pool.md` that point outside the bundle (`SROM/SROM 2026/…`) are MB's Mac folders.
+- **New pool files:** MB drops them in `1. Inbox/` at the top of the one folder (`SROM/Redakcja`, since 08.10.2026);
+  extract from there. Paths inside the moved vol. 19 `pool.md` that point outside it (`SROM/SROM 2026/…`) are MB's
+  Mac folders.
 - **Subagents** (`cards`, the deep review's blind reader and rebuttal) run in the cloud container, not on the Mac, so
   they cannot read the workspace. Stage what each needs with `device_stage_files` (it lands under
   `/mnt/user-data/uploads/srom-cowork/…`), give the subagent those paths and an output path under
@@ -55,8 +56,9 @@ python3 "$Z/build_abstracts.py"                                         # after 
   files it reads (`srom-archive.md`, `polish-field.md`; it greps `srom-abstracts.tsv`, so stage that too), the cards
   listed as calibration anchors, and the text. The blind reader gets `references/deep-review.md` and the text only.
   (Not yet run in Cowork, 03.10.2026: the first `cards` run is the test.)
-- **In Claude Code** (on MB's Mac): the same data folder, never a copy of it: `W=/Users/michalbartosz/ARBEIT/Bima/SROM/Cowork/srom-cowork/workspace`,
-  `P` = the srom plugin; scripts run in the normal shell, subagents read the Mac paths directly (no staging).
+- **In Claude Code** (on MB's Mac): the same data folder, never a copy of it: `W=/Users/michalbartosz/ARBEIT/Bima/SROM/Redakcja/workspace`,
+  `P` = `.claude/skills` in Code's folder (`$W/../SROM edit and trans/.claude/skills`); scripts run in the normal shell,
+  subagents read the Mac paths directly (no staging).
   Cowork is Zizek's home (MB, SYS-7, 03.10.2026); Code may work on the same files, never on a volume while a Cowork
   session is working on it.
 - **Network:** Crossref and OpenAlex answer from `device_bash` since SYS-6 (03.10.2026), so `check.py --online` and

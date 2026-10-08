@@ -5,13 +5,13 @@ For the next session (Claude Code). Start as root `../CLAUDE.md` § Start of eve
 (the one list of MB's questions — this file keeps none). Then this, `CLAUDE.md`, and `.claude/skills/srom-produkcja/SKILL.md`.
 Outgoing: `../_handoffs/produkcja-to-tlumacz.md` (T-items), `../_handoffs/code-to-cowork.md` (K-items; a question for MB is a
 K-item "needs MB"). Division of work (root CLAUDE.md § Cowork): **Code builds and tests the skills; the texts, the volume
-data and MB's ledger are Cowork's**; Code's `work/` and `volumes/` are reference copies, never edited.
+data and MB's ledger are Cowork's**, in `../../workspace/srom-produkcja/` (Code's copies retired 08.10.2026: root CLAUDE.md § The one folder).
 Nothing here needs re-deriving; decisions marked ✔ are the editor's and closed.
 
 **04–08.10.2026 in short.** SYS-9 and SYS-10 decided (a) (04.10): Cowork is where the journal is made and reads the skills from
 this repository (switch K6/C3); `references/stages.md` is the stage-gate spec of the pipeline; srom-kanon's
 `references/SROM_knowledge_base.md` is the one fact file (`test_kb.py`, 39302d3). One repository since 05.10.2026
-(`blessero/srom-cloud`; root CLAUDE.md § Cloud sessions). C5: `normalize.py` leaves citations inside brackets/quotes in notes
+(`blessero/srom-cloud`; root CLAUDE.md § Git). C5: `normalize.py` leaves citations inside brackets/quotes in notes
 (1113fec). C6: DOI prefix 10.68100, vol. 18 suffixes minted, text-layer repair inside `cover_page.py` (07699c7, K10). Cover page
 template 2 (918fb44, d337459, K12). Cloud sessions discontinued (07.10). Review 07.10.2026: INJECT normalises the take-back copy
 into `build/`, never in `pl/` (280bf2a); pikepdf pinned in `requirements.txt` for Cowork's Python 3.10 (d7ad719). C7: vol. 18's
@@ -54,7 +54,7 @@ check (in `_extract.md`); `lookup.py dois` (Kanon § 9.7: registry check of give
 `lookup.py imprints` (LoC + DNB + BN; Scheffknecht: 17 of 29 missing publishers found, GEN-4); `build.py` writes
 `<stem>_citations.json` → `volumes/<vol>/citations/<article_id>.json` at INJECT → srom-quant `<citation_list>`;
 `volumes/ror.tsv` (13 of vol. 18's 15 institutions) → ROR in Crossref affiliations; `srom-quant/scripts/wikidata_qs.py`.
-The old per-article copies (`work/<id>/wordcheck.py`, `source_imprints.py`, `doi_check.txt`) stay: closed gates re-run them.
+The old per-article copies (`work/<id>/wordcheck.py`, `source_imprints.py`, `doi_check.txt`) left with Code's `work/` on 08.10.2026 (`git show f24a568:srom-produkcja/work/<id>/<file>`); the closed text gates are history.
 **Kanon v1.16** (02.10.2026 21:30, MB; applied 03.10.2026, T36): series in parentheses, places with an en dash, reprint `2000 [1983]`, `zob. ibidem`, **no DOI printed**, bibliography parts Źródła drukowane · Opracowania · Źródła internetowe, notes on authors for parts before the last two (`volume_lists.py`), `autorzy.tsv` corrected (GEN-12).
 **Kanon v1.15** (02.10.2026, MB): series and conference names, every word capitalised (T35).
 **Kanon v1.14** (02.10.2026, MB): reverse italics restored; § 3.4 names of series, conferences, films, songs, paintings, programmes, bands (T34).

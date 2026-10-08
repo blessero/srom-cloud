@@ -54,7 +54,7 @@ English originals are in `sources/vol18-en/`; MB's Polish DOCX are in `vol18-PL-
 
 ## 6. Pending — MB
 
-Kept in Cowork's ledger (`SROM/Cowork/srom-cowork/workspace/MB-decisions.md`, answered on the Editorial Desk; `../_handoffs/MB-decisions.md` is only a pointer). A new question goes to Cowork as a K-item headed "needs MB" in `../_handoffs/code-to-cowork.md`. Not repeated here.
+Kept in Cowork's ledger (`../../workspace/MB-decisions.md`, answered on the Editorial Desk; `../_handoffs/MB-decisions.md` is only a pointer). A new question goes to Cowork as a K-item headed "needs MB" in `../_handoffs/code-to-cowork.md`. Not repeated here.
 
 ## 7. Next — Claude, in order
 
@@ -71,7 +71,7 @@ text's code. After MB returns a Word file: the hand-back (skill `references/outp
    Grellmann's edition, is the one real decision).
 3. **Tittel** (leaf 1.5.5): `work/tittel/tittel_robocza.docx`, `tittel_uwagi.md`; MB: TIT-1–TIT-12 (TIT-1, the form
    of "gypsy", blocks delivery); then `tittel_refs_tlum.json` with the Polish editions once MB has the pages.
-4. **West Ohueri** (T23, T24): drafted in Cowork 06.10.2026 (SYS-9 (a): Cowork makes the texts; the drafts in `work/` here are reference copies, no session edits them). WOH-1 (rights) is in Cowork's ledger.
+4. **West Ohueri** (T23, T24): drafted in Cowork 06.10.2026 (SYS-9 (a): Cowork makes the texts; the drafts are in Cowork's `../../workspace/srom-tlumacz/work/`; Code's copies were retired 08.10.2026). WOH-1 (rights) is in Cowork's ledger.
 5. **Termbase:** V19-2, V19-3 decided 06.10.2026 and applied (log in `references/tlumacz-decisions.md`, d0558b9); C-0042 othering waits on V19-100; V19 rows are Cowork's to apply through the desk.
    Training corpus: MB may add Polish texts to `training/` (row in `sources.tsv`, sha256 in the manifest) → CANDIDATE
    rows and the register. Re-run `tlumacz-1.3.2/vol19_terms.py` after each new vol. 19 draft (West Ohueri: add probes

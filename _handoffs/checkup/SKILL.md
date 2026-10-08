@@ -1,6 +1,6 @@
 ---
 name: srom-checkup
-description: Milestone health check (cross-module review) of the SROM tools — srom-produkcja, srom-kanon, srom-tlumacz, _handoffs, and the srom-quant skill's hygiene. Use when MB says "checkup", "perform checkup", "system checkup", "srom checkup", "milestone check" or "health checkup" in a session whose working directory is the root folder "SROM edit and trans" itself (in a cloud session: the repository root). Do NOT use in a session started inside srom-produkcja/ or srom-tlumacz/: there "checkup" means applying that module's section of the newest review (root CLAUDE.md), not running a new one. Do NOT use outside the SROM project.
+description: Milestone health check (cross-module review) of the SROM tools — srom-produkcja, srom-kanon, srom-tlumacz, _handoffs, and the srom-quant skill's hygiene. Use when MB says "checkup", "perform checkup", "system checkup", "srom checkup", "milestone check" or "health checkup" in a session whose working directory is the root folder "SROM edit and trans" itself (the repository root, in SROM/Redakcja). Do NOT use in a session started inside srom-produkcja/ or srom-tlumacz/: there "checkup" means applying that module's section of the newest review (root CLAUDE.md), not running a new one. Do NOT use outside the SROM project.
 ---
 
 # SROM checkup — cross-module review
@@ -15,7 +15,7 @@ a separate request.
 Scope (SYS-9 (a), 04.10.2026): Code builds and tests the skills; Cowork makes the journal. The texts, `STATUS.md` (the
 hand-off log) and MB's question ledger are Cowork's, and Cowork's own checkup (`checkup/COWORK.md`) checks them. This
 checkup checks the tools, their contract and docs, the Kanon, the gates, the channel between the modules and to Cowork,
-and hygiene. Code's copies of the texts in `work/` are reference only.
+and hygiene. Code keeps no copies of the texts (retired 08.10.2026): they are in `../workspace/`, read only.
 
 ## Safety
 - Every build, round trip, mutation test or gate re-run goes on COPIES in your scratchpad, never in the module folders.
@@ -29,8 +29,8 @@ and hygiene. Code's copies of the texts in `work/` are reference only.
 ## Read first
 - `./CLAUDE.md`
 - `_handoffs/README.md` and all of `_handoffs/`: both module files, the Cowork channel files, the newest `review-*.md`
-  and any newer `draft-review-*.md` (`MB-decisions.md` is only a pointer to Cowork's ledger)
-- on the Mac: Cowork's newest review (`/Users/michalbartosz/ARBEIT/Bima/SROM/Cowork/srom-cowork/workspace/reviews/`)
+  (`MB-decisions.md` is only a pointer to Cowork's ledger)
+- Cowork's newest review (`../workspace/reviews/`)
 - both modules' CLAUDE.md and handovers
 - `srom-tlumacz/tlumacz-PLAN.md` (contract, tree, status log)
 - `srom-tlumacz/.claude/skills/srom-tlumacz/SKILL.md` and its `references/outputs.md` (per-article file formats, OUT-*)
@@ -40,12 +40,12 @@ and hygiene. Code's copies of the texts in `work/` are reference only.
 
 ## Check, and measure rather than trust reports
 1. **Tests.** srom-produkcja: `python3 .claude/skills/srom-produkcja/tests/run_all.py` (from srom-produkcja/). srom-tlumacz: the
-   checks in its CLAUDE.md, including `tlumacz-test_handoff.py` and `tlumacz-draft_check.py --all` (in the cloud:
-   `python3` and the scripts under the root `.claude/skills/`). Quote the verdict lines as printed, and name the commit
-   the contract test ran against.
+   checks in its CLAUDE.md, including `tlumacz-test_handoff.py` and `tlumacz-draft_check.py --all` (they read Cowork's
+   `../workspace/srom-tlumacz/` and only copy from it). Quote the verdict lines as printed, and name the commit the
+   contract test ran against.
 2. **Texts** are checked by Cowork's checkup (`checkup/COWORK.md` step 4: hand-off log, frozen copies, pair check,
    builds, Word import, mutation test, take-back). Here: carry into Findings any tool or contract problem that Cowork's
-   newest review reports, and any C-item about one that has no answer. Don't re-check Code's reference copies.
+   newest review reports, and any C-item about one that has no answer.
 3. **Handoffs.**
    - every E<n>/T<n> has a status line from its receiver
    - no duplicate IDs; items cited with their [Author] tag
@@ -71,14 +71,17 @@ and hygiene. Code's copies of the texts in `work/` are reference only.
    - no module acting on an undecided item without saying which choice it assumes
 7. **Stale text.** Statements in the CLAUDE.md files (root and modules), handovers, PLAN, SKILL.md or decisions.md that the
    files or git now contradict (versions, counts, dates, "not yet built", "pending" items that are done).
-8. **Gates** (`srom-produkcja/GATES.md`, `srom-tlumacz/tlumacz-gates-*.md`, `_cloud/GATES.md`).
-   - on copies, re-run the CHECKs of gates closed since the last review
+8. **Gates** (`srom-produkcja/GATES.md`, `srom-tlumacz/tlumacz-gates-*.md`).
+   - on copies, re-run the CHECKs of tool gates closed since the last review. Gates of a text leaf (CHECK runs in
+     `work/<id>/`) are history: the texts left the repository on 08.10.2026, and Cowork's checkup checks them
    - report drift, CHECKs that test files meant to change, and any CHECK that writes a file MB edits
 9. **Ownership and hygiene.**
    - no module wrote outside its folder or `_handoffs/`
    - the repository clean and `main` pushed (`git status`; `git log origin/main..HEAD` empty)
-   - the root `.claude/skills/` links resolve; on the Mac, `~/.claude/skills/srom-*` (srom-quant included) are symlinks
-     into the repository, not copies
+   - the root `.claude/skills/` links resolve; `~/.claude/skills/srom-*` (srom-quant included) and the two WordPress
+     skills are symlinks into the repository, not copies
+   - the one folder's top level holds only MB's four numbered folders, `SROM edit and trans/` and `workspace/` (root
+     CLAUDE.md § The one folder); a backup newer than the last big step (`_handoffs/tools/verify_backup.sh`)
    - `dist/*.skill` are current (they matter only before a claude.ai upload)
 10. **Cowork.** Every C-item in `cowork-to-code.md` has a status line in `code-to-cowork.md`, and every K-item has
     Cowork's answer. Findings for Cowork go into a K-item the root writes after the report (Cowork's own checkup:
@@ -89,13 +92,7 @@ and hygiene. Code's copies of the texts in `work/` are reference only.
 ## Report
 Write `_handoffs/review-<dd.mm.yyyy>.md` (a second review on one day: add `-2`) and commit it:
 `git -C _handoffs add <file> && git -C _handoffs commit -m "review: <date> [general]"`, then push (root CLAUDE.md
-§ Cloud sessions).
-
-**Partial pass.** When a check above cannot run here (a cloud session: no Cowork workspace, InDesign, Word or
-`_widok/`), write `_handoffs/draft-review-<dd.mm.yyyy>-<where>.md` instead (e.g. `-cloud`). The name keeps it out of
-`review-*.md`, so no module applies it. Label each finding "repo-only confirmed" or "may depend on Mac/Cowork state",
-add a section `## Checks not run`, and write no K-item. The next full pass re-checks the labelled rows and writes the
-review from it.
+§ Git).
 
 The file has these sections, with exactly these headings (module sessions look for them):
 - `## Conclusions` — first.

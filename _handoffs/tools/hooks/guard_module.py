@@ -3,8 +3,9 @@
 
 Refuses an edit whose real path lies in the other module's folder (root CLAUDE.md: "Never edit another module's
 folder"; the Kanon lives in srom-produkcja, so srom-tlumacz cannot edit it). Symlinks are resolved, so
-srom-typeset/ and ~/.claude/skills/srom-* count as srom-produkcja. Everything else (own folder, _handoffs/,
-memory, scratchpad) passes. Exit 2 = refuse, with the reason shown to Claude; any other problem lets the edit pass.
+~/.claude/skills/srom-* count as their module. Everything else (own folder, _handoffs/, memory, scratchpad)
+passes. Exit 2 = refuse, with the reason shown to Claude; any other problem lets the edit pass. Wired in each
+module's .claude/settings.json through $CLAUDE_PROJECT_DIR, so it holds wherever the folder lives.
 """
 import json, os, sys
 

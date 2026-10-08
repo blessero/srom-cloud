@@ -1,5 +1,0 @@
-10.1080/00455091.1999.10716832 | Larrimore, Mark | Sublime Waste: Kant on the Destiny of the ‘Races’ | Canadian Journal of Philosophy Supplementary Volume | vol 25 no None | pp 99-125 | print [[1999]] | online [[2020, 1, 1]]
-10.5281/zenodo.1299140 | NOT IN CROSSREF: HTTP Error 404: Not Found
-10.1017/S1369415419000189 | Eberl, Oliver | Kant on Race and Barbarism: Towards a More Complex View on Racism and Anti-Colonialism in Kant | Kantian Review | vol 24 no 3 | pp 385-413 | print [[2019, 9]] | online [[2019, 8, 9]]
-10.1353/jhi.2020.0025 | Gorkom, Joris van | Immanuel Kant on Race Mixing: The Gypsies, the Black Portuguese, and the Jews on St. Thomas | Journal of the History of Ideas | vol 81 no 3 | pp 407-427 | print [[2020]] | online None
-10.5281/zenodo.1299140 (DataCite) | Zhavoronkov, Alexey; Salikov, Alexey | The Concept Of Race In Kant'S Lectures On Anthropology | 2018 | [('10.5281/zenodo.1299139', 'IsVersionOf')] | {}

@@ -9,7 +9,8 @@ SKILL   this skill (its real path, so a link into the repository resolves).
 MODULE  the folder with the per-article state (work/, sources/, training/): $SROM_TLUMACZ, else the nearest
         `srom-tlumacz/` folder with work/ found from the working directory upwards (the folder itself, or a child of
         it: the workspace or repository root holds srom-tlumacz/), else the folder that holds this skill's
-        .claude/skills/ (when it has work/), else the working directory.
+        .claude/skills/ (when it has work/), else Cowork's `workspace/srom-tlumacz/` next to the repository (the one
+        folder, since 08.10.2026: Code keeps no copies of the texts), else the working directory.
 ref(n)  SKILL/references/n — termbase, schema, decision log, register.
 Skills: $SROM_SKILLS_DIR, MODULE/.claude/skills, MODULE/../.claude/skills (the root links), ~/.claude/skills, next to
 this skill, /mnt/skills/plugins, /mnt/skills/user, MODULE/.. (sibling module folder). Data files: MODULE, MODULE/sources, ./, ./sources, /mnt/project.
@@ -32,7 +33,10 @@ def _module():
             break
         d = up
     _up = os.path.dirname(os.path.dirname(os.path.dirname(SKILL)))
-    return _up if os.path.isdir(os.path.join(_up, "work")) else os.getcwd()
+    for c in (_up, os.path.join(os.path.dirname(os.path.dirname(_up)), "workspace", "srom-tlumacz")):
+        if os.path.isdir(os.path.join(c, "work")):
+            return c
+    return os.getcwd()
 
 
 MODULE = _module()

@@ -1,11 +1,9 @@
-# "SROM edit and trans", one repository (blessero/srom-cloud): junk only; data is committed on purpose
+# "SROM edit and trans", one repository (blessero/srom-cloud): the skills, _handoffs and the module records.
+# The texts and volume data are Cowork's, in ../workspace/ (outside the repository, since 08.10.2026). Junk only below.
 .DS_Store
 __pycache__/
 *.pyc
 .venv/
 node_modules/
 ~$*
-_widok/
 srom-produkcja/dist/
-_migracja/build/
-_migracja/*.zip

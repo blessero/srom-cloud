@@ -80,8 +80,9 @@ t("Przypis = 9/10.8, off the grid (a grid-aligned note would get 13.29 pt lines)
 t("Cytat = 9/10.8 on the grid, indent 1 cm", (cy["pointSize"], cy["leading"], cy["gridAlignment"], round(cy["leftIndent"] / 72 * 2.54, 3)) == (9, 10.8, "ALIGN_BASELINE", 1.0), cy)
 g = spec["document"]["grid"]
 t("baseline grid 13.2945 pt from 62.362 pt (kept from 18 volumes)", (round(g["baselineDivision"], 4), round(g["baselineStart"], 3)) == (13.2945, 62.362), g)
-# fidelity: the vol. 18 IDMLs in dump/ — the styles the spec keeps must resolve to the same values
-DUMP = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(ROOT))), "dump")
+# fidelity: the vol. 18 IDMLs in tests/fixtures/idml/ (moved from the module's dump/, 08.10.2026) — the styles the
+# spec keeps must resolve to the same values
+DUMP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures", "idml")
 IDML = {"PointSize": "pointSize", "Leading": "leading", "Tracking": "tracking", "FirstLineIndent": "firstLineIndent", "LeftIndent": "leftIndent",
         "SpaceBefore": "spaceBefore", "SpaceAfter": "spaceAfter", "Justification": "justification", "GridAlignment": "gridAlignment",
         "Capitalization": "capitalization", "Hyphenation": "hyphenation", "FontStyle": "fontStyle", "MinimumWordSpacing": "minimumWordSpacing",
@@ -127,8 +128,8 @@ if os.path.isdir(DUMP):
                 if not (sk == "justification" and new == "Autor") and not (sk == "hyphenation" and new == "Autor") \
                         and not (sk == "spaceBefore" and new == "Śródtytuł"):   # deliberate: Autor one-line name; heading gap (MB 02.10.2026)
                     bad.setdefault(new, []).append((sk, o[ik], n[sk]))
-    t(f"kept styles resolve to the vol. 18 values (dump/*.idml; {compared} values compared)", not bad and compared > 150, (compared, bad))
+    t(f"kept styles resolve to the vol. 18 values (fixtures/idml/*.idml; {compared} values compared)", not bad and compared > 150, (compared, bad))
 else:
-    t("kept styles resolve to the vol. 18 values (dump/ missing: skipped)", True)
+    t("kept styles resolve to the vol. 18 values (fixtures/idml/ missing)", False, DUMP)
 n, ok = len(res), sum(res)
 print(f"STYLES ALL PASS {n}/{n}" if ok == n else f"STYLES FAILED {n - ok}/{n}")
