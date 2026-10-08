@@ -85,12 +85,18 @@ def main():
     if probs:
         return finish(i, probs, 0)
     os.makedirs(out, exist_ok=True)
+    for n in names + ["SHA256SUMS"]:          # a new delivery replaces a sealed (read-only) copy
+        p = os.path.join(out, n)
+        if os.path.exists(p):
+            os.chmod(p, 0o644)
     for n in names:
         shutil.copy2(os.path.join(dl, n), os.path.join(out, n))
         if sha(os.path.join(out, n)) != hashes[n]:
             probs.append(f"copy differs from the delivered file: {n}")
     with open(os.path.join(out, "SHA256SUMS"), "w", encoding="utf-8") as fh:
         fh.writelines(f"{hashes[n]}  {n}\n" for n in names)
+    for n in names + ["SHA256SUMS"]:          # sealed: read-only, so Word opens the copy locked (MB 08.10.2026)
+        os.chmod(os.path.join(out, n), 0o444)
     # 3. the Word master, imported again, must be the delivered SROM-MD
     tmp = tempfile.mkdtemp()
     re_md = os.path.join(tmp, f"{i}_pl.md")

@@ -60,6 +60,9 @@ t("clean delivery: TAKE-BACK OK with all five files", r.returncode == 0 and "TAK
 t("clean delivery: copies identical to the delivered files", all(sha(os.path.join(out, f)) == h for f, h in before.items()))
 sums = open(os.path.join(out, "SHA256SUMS"), encoding="utf-8").read() if os.path.isfile(os.path.join(out, "SHA256SUMS")) else ""
 t("SHA256SUMS written in shasum -c format", all(f"{h}  {f}\n" in sums for f, h in before.items()), sums)
+import stat
+ro = {f: not (os.stat(os.path.join(out, f)).st_mode & 0o222) for f in list(before) + ["SHA256SUMS"]}
+t("the sealed copies are read-only (Word opens them locked; MB 08.10.2026)", all(ro.values()), ro)
 t("the delivery folder is left untouched (read only)", {f: sha(os.path.join(dl, f)) for f in os.listdir(dl)} == before)
 t("the pair check ran with the translation's refs (added citation accepted)", "check.py --pair: CHECK OK" in r.stdout, r.stdout)
 t("the build command is printed with both --refs, --pair-src and --queries",

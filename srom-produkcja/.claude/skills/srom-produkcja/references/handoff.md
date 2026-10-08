@@ -84,7 +84,7 @@ Who does what (practice since the first drafts, now the contract):
 4. **Take-back: srom-produkcja** copies the delivery into `srom-produkcja/work/<id>/pl/` and checks it:
    `take_back.py srom-tlumacz/work/<id> <id> --src-dir srom-produkcja/work/<id> --expect <file>=<sha256> …` (one
    `--expect` per file of the delivery line). It compares the sha256, requires `<id>_pl.md` to equal a fresh import of the Word master,
-   runs `check.py --pair` against the frozen `<id>_src.md` and `refs.json`, and writes `SHA256SUMS`. If `refs.json`
+   runs `check.py --pair` against the frozen `<id>_src.md` and `refs.json`, and writes `SHA256SUMS`; the copies and `SHA256SUMS` are made read-only (sealed: Word opens them locked; MB 08.10.2026). If `refs.json`
    changed after the delivery's value (a later hand-over line), the pair check and build use the current one, and
    the take-back line in the log says so. srom-produkcja **normalises the copy from `work/<id>/pl/` into
    `work/<id>/build/<id>_pl.md`** (`normalize.py`, never in place: `pl/` stays as delivered and `SHA256SUMS`
