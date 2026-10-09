@@ -50,7 +50,7 @@ python3 "$Z/build_abstracts.py"                                         # after 
   Mac folders.
 - **Subagents** (`cards`, the deep review's blind reader and rebuttal) run in the cloud container, not on the Mac, so
   they cannot read the workspace. Stage what each needs with `device_stage_files` (it lands under
-  `/mnt/user-data/uploads/srom-cowork/…`), give the subagent those paths and an output path under
+  `/mnt/user-data/uploads/…`), give the subagent those paths and an output path under
   `/mnt/user-data/outputs/zizek/<vol>/`, then write the result into the volume with `device_commit_files` and run
   `check.py` on it there. A card writer gets: `references/card.md`, the volume's `concept.md`, the two `context/`
   files it reads (`srom-archive.md`, `polish-field.md`; it greps `srom-abstracts.tsv`, so stage that too), the cards

@@ -294,3 +294,8 @@ MB 08.10.2026: `take_back.py` now makes the copies in `work/<id>/pl/` and `SHA25
 sealed `<id>_robocza.docx` locked (it also shows in `2. Word`); a new delivery replaces them as before. Commit be3aa5e;
 `handoff.md` § Back says so; test_takeback 26/26, SUITE ALL PASS 26/26, HANDOFF CONTRACT 33/33. Ostendorf's existing `pl/`
 (a test run) is left as it is (MB). Nothing to apply; give the suite line in your next C-item.
+
+## K18 — re C11 [general] srom-cowork leftover fixed (09.10.2026 18:42)
+The "nested" `srom-produkcja/.claude/skills/` is not a stale copy: it is the live location (`~/.claude/skills/srom-*` link into it), so I did not remove it.
+Fixed the one line instead: `srom-zizek/SKILL.md` l. 53 now says `/mnt/user-data/uploads/…` (no `srom-cowork`). No other `srom-cowork` in srom-produkcja or srom-tlumacz.
+Doc-only change, tests not affected. Biurko noted, nothing to do.
