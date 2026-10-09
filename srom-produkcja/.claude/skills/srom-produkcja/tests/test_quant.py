@@ -152,7 +152,7 @@ def crow(n, **kw):
              pub_date_print="2026-06-30", editorial_period="marzec 2026 – czerwiec 2026")
     r.update(kw); return r
 long_pl, long_en = "Długie zdanie abstraktu o Romach w Polsce. " * 80, "A long sentence of the abstract about Roma. " * 80
-crs = [crow(1), crow(2, abstract_pl=long_pl, abstract_en=long_en), crow(3, abstract_pl="", abstract_en="", keywords_pl="", keywords_en=""),
+crs = [crow(1), crow(2, abstract_pl=long_pl, abstract_en=long_en), crow(3, abstract_pl="", abstract_en="", keywords_pl="", keywords_en="", editorial_period=""),
        crow(4, doi="10.XXXXX/todo0004", pub_date_online="2026-12-TODO", editorial_period=""), crow(5, is_translation="TAK"),
        crow(6, is_translation="TAK", translators_struct="Michał|Bartosz||", original_title="Roma", original_source="„Romani Studies”, 2024",
             original_doi="10.3828/rs.2024.3", license_url="https://creativecommons.org/licenses/by-nc-nd/4.0/")]
@@ -231,9 +231,11 @@ t("cover_page: template 2 — info block left (journal · ISSN · Strony · DOI)
   and cite_y(sp) <= cv.CITE_BOTTOM + 1 and abs(at("Abstrakt").y0 - cv.ABSTRACT_TOP) < 3, (cite_y(sp), at("Abstrakt")))
 r = cvrun("SROM-19-2026-003"); d3 = pymupdf.open(os.path.join(cdir, "SROM-19-2026-003_okladka.pdf")) if r.returncode == 0 else None
 t("cover_page: no abstracts (review) → header alone, one page", d3 and len(d3) == 1 and "Abstrakt" not in d3[0].get_text(), r.stdout + r.stderr)
+t("cover_page: empty editorial_period → built, 'Okres redakcji' left out, dates kept", d3 and "Okres redakcji" not in d3[0].get_text()
+  and "Data publikacji:" in d3[0].get_text() and "Data publikacji online:" in d3[0].get_text(), d3 and d3[0].get_text()[-300:])
 r = cvrun("SROM-19-2026-004")
 t("cover_page: placeholder DOI / date → ABORT, nothing written", r.returncode != 0 and "doi is a placeholder" in r.stderr
-  and "pub_date_online" in r.stderr and "editorial_period empty" in r.stderr and not os.path.exists(os.path.join(cdir, "SROM-19-2026-004_okladka.pdf")), r.stdout + r.stderr)
+  and "pub_date_online" in r.stderr and "editorial_period" not in r.stderr and not os.path.exists(os.path.join(cdir, "SROM-19-2026-004_okladka.pdf")), r.stdout + r.stderr)
 r = cvrun("SROM-19-2026-004", "--proof"); pf = os.path.join(cdir, "SROM-19-2026-004_okladka_proof.pdf")
 t("cover_page --proof: written as *_proof, marked PODGLĄD", os.path.exists(pf) and "PODGLĄD" in pymupdf.open(pf)[0].get_text()
   and "PROOF" in r.stdout, r.stdout + r.stderr)

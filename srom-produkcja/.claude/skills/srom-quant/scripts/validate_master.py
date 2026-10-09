@@ -72,7 +72,7 @@ def main():
         if not DATE_RE.match(d):       E(f"{rid}: pub_date_online '{d}' not YYYY-MM-DD")
         d = r.get('pub_date_print', '')
         if not DATE_RE.match(d):       E(f"{rid}: pub_date_print '{d}' not YYYY-MM-DD")
-        if not (r.get('editorial_period') or '').strip(): E(f"{rid}: editorial_period empty")
+        if not (r.get('editorial_period') or '').strip(): W(f"{rid}: editorial_period empty (allowed; the cover page leaves out 'Okres redakcji')")
 
         # license
         for col in ('license', 'license_url'):

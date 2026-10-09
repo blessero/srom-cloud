@@ -169,8 +169,8 @@ def check(row):
         probs.append(f"doi is a placeholder: {row.get('doi') or 'empty'}")
     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", row.get("pub_date_print", "")):
         probs.append(f"pub_date_print not YYYY-MM-DD: {row.get('pub_date_print') or 'empty'}")
-    if not row.get("editorial_period") or placeholder(row.get("editorial_period")):
-        probs.append("editorial_period empty")
+    if placeholder(row.get("editorial_period")) and (row.get("editorial_period") or "").strip():
+        probs.append(f"editorial_period is a placeholder: {row.get('editorial_period')}")   # empty is allowed (vol. 18, MB 08.10.2026): the line is left out
     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", row.get("pub_date_online", "")):
         probs.append(f"pub_date_online not YYYY-MM-DD: {row.get('pub_date_online') or 'empty'}")
     if not licence(row)[0]:
@@ -282,7 +282,7 @@ def footer(pen, row):
     pen.page.show_pdf_page(pymupdf.Rect(*OA), pymupdf.open(os.path.join(ASSETS, "open_access.pdf")), 0)
     dates = [f"Data publikacji: {date_pl(row.get('pub_date_print'))}",
              f"Data publikacji online: {date_pl(row.get('pub_date_online'))}",
-             f"Okres redakcji: {nbsp(row.get('editorial_period'))}"]
+             f"Okres redakcji: {nbsp(row.get('editorial_period'))}" if (row.get("editorial_period") or "").strip() else ""]
     pen.put(TX, FOOT_DATES, RX, p(6, 8.5, esc(SEP.join(d for d in dates if d)), extra="; letter-spacing:-0.01em"))
     short, name, deed = licence(row)
     body = f'© {esc(row.get("year"))} {esc(", ".join(a[0] for a in authors(row)))}.'

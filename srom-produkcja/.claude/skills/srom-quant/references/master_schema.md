@@ -46,7 +46,7 @@ Legend for **Consumed by**: **X**=Crossref XML · **W**=WordPress via Importer �
 | 38 | `original_doi` | X, W | Original work's DOI → Crossref `isTranslationOf` relation when present. |
 | 39 | `translators_struct` | X | **Optional** (added 27.09.2026). Translator(s) of a translated work, same encoding as `authors_struct`: `Given\|Surname\|Affiliation\|ORCID ;; …`. → Crossref `<person_name contributor_role="translator">`, after the authors. Not imported to WP (the Importer ignores unknown columns) and not bound in Data Merge. `validate_master.py` warns when `is_translation`=`TAK` and it is empty. |
 | 40 | `pub_date_print` | — | Required (07.10.2026). `YYYY-MM-DD`, print publication date; cover page "Data publikacji". |
-| 41 | `editorial_period` | — | Required (07.10.2026). Printed as written, e.g. `marzec 2026 – czerwiec 2026`; cover page "Okres redakcji". |
+| 41 | `editorial_period` | — | Optional (MB 08.10.2026, vol. 18: left empty). Printed as written, e.g. `marzec 2026 – czerwiec 2026`; cover page "Okres redakcji"; when empty the cover page leaves the item out (validate_master warns). |
 
 ## Volume (Tom) sheet — if importing volumes separately
 
