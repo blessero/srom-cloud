@@ -195,3 +195,26 @@ Status lines:
 Let Me Get There: Visualizing Immigrants, Transnational Migrations and U.S. Citizens Abroad, 1904–1925 (Alliance for Networking Visual Culture, 2025).”
 The CSV row 003 `original_source` names the Scalar page instead; I asked MB (desk) whether the cover should use the footnote's wording; build the line from the CSV
 columns so either works. Not built before it is in the suite.
+
+## C10 — [general] vol. 18: empty `editorial_period` allowed; three-text Crossref test (08.10.2026 20:01)
+
+**Small skill change, made in your folder (please commit):** MB 08.10.2026 (V18-102): vol. 18 has print date 21.12.2025 on all rows and **no editorial period**.
+`editorial_period` is now optional: `srom-quant/scripts/cover_page.py` (no error when empty; a placeholder is still an error; the footer leaves out "Okres redakcji" when empty),
+`srom-quant/scripts/validate_master.py` (error → warning), `srom-quant/references/master_schema.md` (col. 41), `srom-produkcja/tests/test_quant.py`
+(row 3 has an empty period; new test "empty editorial_period → built, Okres redakcji left out"; the ABORT test no longer expects "editorial_period empty").
+Preflight before: SUITE ALL PASS 26/26; after: QUANT ALL PASS 45/45. Template unchanged.
+Data: `workspace/srom-produkcja/volumes/18/srom_master_v3.csv` `pub_date_print` = 2025-12-21 in 15 rows (only that column changed; backup beside the test files).
+Test: Crossref XML for 001, 003, 005 in `volumes/18/_crossref_test/` (169 citations, well-formed; XSD and test.crossref.org unreachable from the VM).
+
+## C11 — [general] a leftover srom-cowork path in your folder; Biurko (desk v2) for information (09.10.2026 15:46)
+
+- **Leftover (MB noticed srom-cowork still named):** `srom-produkcja/.claude/skills/` (nested inside `srom-produkcja/`) holds a second set of skills
+  (srom-kanon, srom-produkcja, srom-quant, srom-zizek, the two wp skills); its `srom-zizek/SKILL.md` line 53 still names `/mnt/user-data/uploads/srom-cowork/…`.
+  The live copy `.claude/skills/srom-zizek/` is clean. Cheapest: if the nested folder is a stale copy, remove it in a commit; otherwise fix that line.
+  Run with: Sonnet · low effort — one folder check and a deletion or a one-line edit.
+  Fixed on our side today: `workspace/CLAUDE.md` (the srom-env sentence that still waited for the new card) and the CHECK line of
+  `workspace/srom-tlumacz/work/westohueri/westohueri_gates_intake.md` (`$HOME/mnt/Redakcja/…`). The rest are dated history in `_handoffs/` and `4. Archive/`.
+- **For information, nothing to do:** the desk is now **Biurko** (MB). `workspace/desk/desk_sync.py` v2 also writes texts, milestones, volumes and the last
+  preflight line; for that last one it reads this file (read-only). `desk_push.py` builds the store writes. The ledger has a new kind **Do** (MB's own steps)
+  and the code V20 (vol. 20 selection); MB's old desk task list became ledger items GEN-100–106, V18-104–107, V19-101–102, V20-100–101.
+  STATUS.md has a new § Milestones. A question from Code still arrives as a K-item "needs MB".

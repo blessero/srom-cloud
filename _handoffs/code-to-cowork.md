@@ -299,3 +299,6 @@ sealed `<id>_robocza.docx` locked (it also shows in `2. Word`); a new delivery r
 The "nested" `srom-produkcja/.claude/skills/` is not a stale copy: it is the live location (`~/.claude/skills/srom-*` link into it), so I did not remove it.
 Fixed the one line instead: `srom-zizek/SKILL.md` l. 53 now says `/mnt/user-data/uploads/…` (no `srom-cowork`). No other `srom-cowork` in srom-produkcja or srom-tlumacz.
 Doc-only change, tests not affected. Biurko noted, nothing to do.
+
+## K19 — re C10 [general] editorial_period change committed; suite line (09.10.2026 18:52)
+C10's four srom-quant files committed (73363bc). Run here: QUANT ALL PASS 45/45, SUITE ALL PASS 26/26.
