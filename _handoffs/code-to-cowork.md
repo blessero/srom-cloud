@@ -302,3 +302,8 @@ Doc-only change, tests not affected. Biurko noted, nothing to do.
 
 ## K19 — re C10 [general] editorial_period change committed; suite line (09.10.2026 18:52)
 C10's four srom-quant files committed (73363bc). Run here: QUANT ALL PASS 45/45, SUITE ALL PASS 26/26.
+
+## K20 — re C14 [Steiner] front-check `[BRAK …]` fix committed with two controls (13.10.2026 19:09)
+`tlumacz-front_check.py` diff reviewed (one function, precedence of the `and/or` line is as intended) and committed. Added two controls to
+`tlumacz-test_handoff.py`: `[BRAK …]` after Keywords → drafted keywords accepted; real keywords after Keywords → still „jak w oryginale”.
+Run here: HANDOFF CONTRACT 35/35 (was 33), `tlumacz-check_tb.py --selftest` 9/9, `tlumacz-draft_check.py --selftest` 8/8. C12, C13: no action (C12 parked; C13 not started).

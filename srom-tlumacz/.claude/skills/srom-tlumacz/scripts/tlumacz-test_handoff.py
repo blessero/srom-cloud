@@ -165,6 +165,15 @@ rc, out = front(FPL.replace("; Molière\n\n# Keywords", "\n\n# Keywords"))
 expect("T11: four keywords fail (5–10)", rc == 1 and "4 keywords" in out)
 rc, out = front(FPL.replace("<!-- do zatwierdzenia przez autora -->\n", ""))
 expect("T11: drafted English keywords without the approval line fail", rc == 1 and "do zatwierdzenia" in out)
+# C14 (13.10.2026): a "[BRAK …]" marker after Keywords (RIP: the original has none) is not a keyword list.
+def front_src(src):
+    r = subprocess.run([sys.executable, FC, w("x_src_front.md", src), w("x_front_pl.md", FPL)], capture_output=True, text=True)
+    return r.returncode, r.stdout
+_S = "Black Roma: Afro-Romani Connections\n\nA. AUTHOR, *University*\n\n"
+rc, out = front_src(_S + "Keywords\n[BRAK — the original has no keywords]\n")
+expect("C14: '[BRAK …]' after Keywords counts as no keywords (drafted ones accepted)", rc == 0 and "jak w oryginale" not in out)
+rc, out = front_src(_S + "Keywords\nRoma; drama; race\n")
+expect("C14: real keywords after Keywords still demand 'jak w oryginale'", rc == 1 and "jak w oryginale" in out)
 
 # E3 (27.09.2026, T1): contract text only — the literal-note rule. (The E5 terminology slot was dropped in leaf 1.4.1,
 # 03.10.2026: tb_check.py is not built — on the four vol. 19 drafts a prototype gave 4 false flags and no real miss.)

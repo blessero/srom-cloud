@@ -32,10 +32,17 @@ def sections(text):
 
 
 def src_parts(text):
-    """Title = first non-empty line; keywords = a line starting 'Keywords' (any case), if any."""
+    """Title = first non-empty line; keywords = a line starting 'Keywords' (any case) with keywords after it, not a [BRAK …] marker."""
     lines = [l.strip() for l in text.splitlines() if l.strip()]
     title = lines[0] if lines else ""
-    kw = any(re.match(r"^\*?keywords?\b", l, re.I) for l in lines)
+    kw = False
+    for i, l in enumerate(lines):
+        if re.match(r"^\*?keywords?\b", l, re.I):
+            # keywords on the heading line itself, or on the next line, unless RIP marked them missing ("[BRAK …]")
+            same = re.sub(r"^\*?keywords?\b[\s:*]*", "", l, flags=re.I).strip()
+            nxt = lines[i + 1] if i + 1 < len(lines) else ""
+            kw = bool(same) and not same.startswith("[BRAK") or not same and bool(nxt) and not nxt.startswith("[BRAK")
+            break
     return title, kw
 
 

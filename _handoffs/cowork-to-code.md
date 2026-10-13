@@ -218,3 +218,34 @@ Test: Crossref XML for 001, 003, 005 in `volumes/18/_crossref_test/` (169 citati
   preflight line; for that last one it reads this file (read-only). `desk_push.py` builds the store writes. The ledger has a new kind **Do** (MB's own steps)
   and the code V20 (vol. 20 selection); MB's old desk task list became ledger items GEN-100–106, V18-104–107, V19-101–102, V20-100–101.
   STATUS.md has a new § Milestones. A question from Code still arrives as a K-item "needs MB".
+
+## C12 — [general] parked until DOAJ accepts: Crossref XML 5.3.1 option for DOAJ (SYS-104); no action now (11.10.2026 16:07)
+
+**Parked, not for now.** MB 10.10.2026 (SYS-104): when DOAJ accepts SROM, DOAJ takes article metadata as Crossref XML 4.4.2 or 5.3.1 (not our own format). We deposit in schema 5.4.0, so the DOAJ upload needs a 5.3.1 output. Nothing is needed until the DOAJ listing (planned about 15.01.2027; a reminder is set for 15.02.2027).
+
+**When it is due, one C-item to Code:**
+- `srom-quant/scripts/generate_crossref_xml.py`: add an option to write schema 5.3.1 (keep 5.4.0 as the default for the Crossref deposit). ISSN must be present in every record (DOAJ requirement).
+- Test: the 5.3.1 output for vol. 18 articles 001, 003, 005 validates against the 5.3.1 XSD (Code can fetch it; the VM cannot), and a 5.4.0 output is byte-identical to today's.
+- Language: DOAJ keeps one language for title and abstract. MB will decide which one (Polish or English) when the DOAJ upload is made; the option should take it as a parameter.
+- Run with: Sonnet · medium effort (new script option with tests, Crossref data work).
+
+*Trail: SYS-104 (ledger), STATUS § Milestones (≈15.01.2027); doaj.org/docs/xml; blog.doaj.org 12.02.2020.*
+
+## C13 — [srom-zizek] extract.py: decode mis-mapped glyphs; flag lost word spaces (13.10.2026 04:10)
+
+Found while adding four vol. 19 pool texts (Zizek session 13.10.2026). New functionality, so for Code; nothing was changed in the skill.
+- **Mis-mapped glyphs.** In the two Steiner chapters (Purdue UP, Garamond Premier), the PDF's ToUnicode maps old-style figures, ligatures and small caps to wrong characters: `,`=1, `ő`=2, `ò`=3, `:`=7, `D`=0, `Ř`=fi, `;`=ft, `?`=ff, `fb`=Th; drop-cap lines come out as garbage; Czech `ř ě ý` as `N K P`. extract.py reports no warning. A deterministic fix works and is in use: `workspace/srom-zizek/volumes/19-2026/text/_repairs/glyphdecode.py`. It decodes by the embedded CFF glyph names (fontTools AGL), matching PyMuPDF texttrace glyph ids to rawdict chars, and checks that its rebuild equals `get_text("text")` before substituting. The logs (`*.glyphs.tsv`) are beside it. The Ostendorf PDF (private-use old-style digits, see its card) is likely the same family of problem.
+  Proposal: build it into `extract.py` as an automatic pass (only when a font has alternate glyph names), plus a warning line when it fires; normalise U+FB00–FB06 to plain letters.
+- **Lost word spaces.** In the Tittel chapter (transcript), ~5% of lines lose all word spaces under PyMuPDF (`nendieklassischenWerkede…`); pdftotext keeps them. Proposal: a warning when a line has a token over ~25 letters with internal capitals, and an optional `--engine pdftotext` fallback.
+- Test: the two Steiner chapters and the Tittel chapter (in `1. Inbox/`); expect 0 garbage characters and no change for clean PDFs (suite texts).
+- Run with: Sonnet · medium effort (a script change with tests on three PDFs).
+
+## C14 — [Steiner] srom-tlumacz: tlumacz-front_check.py reads RIP's "[BRAK …]" keywords marker (13.10.2026 14:16)
+
+**Small skill change, made in your folder (please commit):** `srom-tlumacz/scripts/tlumacz-front_check.py`, `src_parts()`: the original counts as
+having keywords only when keywords follow the `Keywords` line (on it or on the next non-empty line), not when RIP wrote `[BRAK …]` there.
+Found on Steiner (a book chapter with no keywords): the check demanded „jak w oryginale” instead of drafted keywords with the approval line.
+Before/after on all six texts (ndiaye, ostendorf, pahulich, tittel, westohueri, steiner): FRONT OK (steiner was FRONT ERRORS 1 before).
+Preflight after: HANDOFF CONTRACT 33/33, `tlumacz-check_tb.py --selftest` 9/9, `tlumacz-draft_check.py --selftest` 8/8. A negative control for the
+selftest (a front with `[BRAK …]` after `Keywords` must not demand „jak w oryginale”) would be the cheapest test to add.
+Run with: Sonnet · low effort — review a one-function diff, add one control, commit.
