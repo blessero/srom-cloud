@@ -18,6 +18,14 @@ read as U+FFFD; the pages render as before, tags kept), and /Lang (the CSV's `la
 ViewerPreferences/DisplayDocTitle are set where the export lacks them (Cowork C6, 06.10.2026). After saving, a
 self-check line reads the written file back: U+FFFD left, pages, tagged, /Lang, DisplayDocTitle, DOI in XMP.
 
+File size (MB, 13.10.2026): the cover adds next to nothing. PyMuPDF embeds IBM Plex Sans anew for every text block (12 full
+copies, 1.2 MB); the cover's fonts are therefore cut down to the glyphs used (subset_fonts, on the cover alone: never on
+the article, whose fonts and text layer are untouched), and the final save merges identical objects (garbage=4) and packs
+the small objects into object streams as InDesign's export does (use_objstms). Checked against the former output on vol. 18
+no. 5 (7.39 → 5.91 MB, the original export 5.99 MB): every page renders pixel-identical, content streams, ToUnicode maps
+and font programs of the article are byte-identical, same text and character positions (MuPDF and poppler), structure tree,
+Info, XMP, links, labels and bookmarks.
+
 Two blocks with fixed edges (MB, 07.10.2026). Header: Polish title at TITLE_Y, citation ending at CITE_BOTTOM; the gaps
 between title, English title, authors, translator + original and citation stretch (up to 2×) or shrink (down to ½) so
 texts with and without translator lines fill the same block. Authors' e-mails come from volumes/autorzy.tsv (`kontakt`),
@@ -318,6 +326,10 @@ def cover(row, proof=False):
     if proof:
         doc[0].insert_text((LX, 120), "PODGLĄD", fontsize=10, color=RED,
                            fontname="plex", fontfile=os.path.join(fdir, FONTS["normal"]))
+    try:
+        doc.subset_fonts()                      # the cover only; the text is read back from its own ToUnicode, so extraction is unchanged
+    except Exception as e:                      # a PyMuPDF without it: the page is the same, only the file is larger
+        print(f"note: cover fonts not subset ({e})", file=sys.stderr)
     return doc, size
 
 
@@ -427,9 +439,10 @@ def main():
                           "producer": f"PyMuPDF {pymupdf.VersionBind}"})
         art.set_xml_metadata(xmp(meta, row))
         path = os.path.join(a.out, re.sub(r"\.pdf$", "", row.get("pdf_file") or a.article_id) + tag + ".pdf")
-        art.save(path, garbage=3, deflate=True)
+        art.save(path, garbage=4, deflate=True, use_objstms=1)
         print(fixed)
         print(selfcheck(path, row.get("doi", "")))
+        print(f"size: {os.path.getsize(path) / 1e6:.2f} MB (the article alone {os.path.getsize(a.article_pdf) / 1e6:.2f} MB)")
     print(f"written {path}"
           + "".join(f"\n!! {x}" for x in probs))
     print("RESULT: PROOF — not for upload" if a.proof else

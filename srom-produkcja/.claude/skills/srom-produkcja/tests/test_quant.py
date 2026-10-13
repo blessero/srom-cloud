@@ -173,6 +173,9 @@ fp = os.path.join(cdir, "SROM_19_2026_Nowak_1.pdf")
 doc = pymupdf.open(fp) if os.path.exists(fp) else None
 flat = lambda pg: " ".join(pg.get_text().replace("\u00a0", " ").split())
 txt = flat(doc[0]) if doc else ""
+ttf = [x for x in range(1, doc.xref_length()) if doc.xref_get_key(x, "Length1")[0] != "null"] if doc else []
+t("cover_page: file size — IBM Plex embedded once per style (not once per text block), as a subset",
+  doc and 1 <= len(ttf) <= 2 and all(len(doc.xref_stream_raw(x)) < 60000 for x in ttf), [(x, len(doc.xref_stream_raw(x))) for x in ttf])
 t("cover_page: cover + article, page labels i, 11…14, bookmark still on the article's page",
   doc and len(doc) == 5 and [doc[i].get_label() for i in range(5)] == ["i", "11", "12", "13", "14"]
   and doc.get_toc() == [[1, "Wstęp", 3]] and "RESULT: OK" in r.stdout, r.stdout + r.stderr)
