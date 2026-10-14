@@ -41,12 +41,15 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
 ## Open access and licences
 
 - **Diamond open access**, print-first, now with an online edition.
-- Licences: authors choose CC BY, BY-NC or BY-NC-ND (default BY-NC); whether to keep the choice is MB's open question
-  GEN-2 (the rule itself: Kanon § 13.2).
+- Licences: **from vol. 19 one licence for the whole journal, CC BY 4.0**; the author no longer chooses a variant (MB,
+  12.10.2026; to be put to the kolegium redakcyjne). Vol. 18 and earlier keep each author's consented licence (CC BY,
+  BY-NC or BY-NC-ND; master CSV `license`), not relabelled CC BY. Kanon § 13.2 and RULES.md still describe the
+  author's choice until Code issues the next Kanon version (Cowork C15, 14.10.2026): this decision prevails.
 - **Non-commercial status (MB, 08.10.2026):** SROM is always funded by a ministerial grant, has no permission to sell
   copies, gives them away free, and pays all open-access processing itself: its distribution is wholly non-commercial.
-  So translating a CC BY-NC source needs no separate consent from author or publisher; the translation note still
-  names the licence (Kanon § 12.2.3 pt 2).
+  So SROM's own use of a CC BY-NC source needs no separate consent. But a translation published from vol. 19 on goes
+  out under CC BY, so a CC BY-NC (or ND, or non-CC) source needs the rights-holder's consent to CC BY or a kolegium
+  exception for that text; the translation note names the licence (Kanon § 12.2.3 pt 2).
 
 ## DOIs and metadata
 
@@ -57,8 +60,8 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
   workspace master CSV; nothing deposited yet (suffixes freeze at the website import). The first deposit is MB's next task.
 - **Metadata infrastructure (03.10.2026):** essentially done (master CSV v3, suffix minting, Crossref XML, PDF
   metadata, Highwire tags and JSON-LD in the mu-plugin `srom-scholarly.php` v2.3 in srom-quant's `assets/`); needs
-  polishing. The live site was enough to pass Crossref's membership review but still needs work, and runs an older
-  plugin version (SYS-1).
+  polishing. The live site was enough to pass Crossref's membership review but still needs work; it runs the
+  plugin v2.3 since 13.10.2026 (vol. 18 article pages live at their DOI addresses).
 - Older back issues have no DOIs; registration starts with the most recent volume.
 - Not on Wikidata yet (checked 30.09.2026; MB's question SYS-2).
 

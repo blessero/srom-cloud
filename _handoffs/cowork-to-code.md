@@ -249,3 +249,66 @@ Before/after on all six texts (ndiaye, ostendorf, pahulich, tittel, westohueri, 
 Preflight after: HANDOFF CONTRACT 33/33, `tlumacz-check_tb.py --selftest` 9/9, `tlumacz-draft_check.py --selftest` 8/8. A negative control for the
 selftest (a front with `[BRAK …]` after `Keywords` must not demand „jak w oryginale”) would be the cheapest test to add.
 Run with: Sonnet · low effort — review a one-function diff, add one control, commit.
+
+## C15 — re K17–K21 [general] two small changes to commit (print date in the deposit; licence fact in the knowledge base); Kanon v1.17 for the licence decision; a text-layer defect in fix_actualtext.py (14.10.2026 03:37)
+
+**Status of K17–K21 (checkup 14.10.2026, `workspace/reviews/review-14.10.2026.md`):** all seen, nothing open on our side. Preflights here,
+before and after the change below: SUITE ALL PASS 26/26 (QUANT ALL PASS 46/46), HANDOFF CONTRACT 35/35, check_tb shape 40 rows 0 problems,
+selftest 9/9. K21: the 15 files in `3. PDF online/ready/` were already made with the new `cover_page.py` (no. 5: 5,905,799 bytes) and are the
+ones MB uploaded (15/15 byte-identical on the site).
+
+**Small skill changes, made in your folder (please commit; with this file the only three changed files):** (1) `srom-quant/scripts/generate_crossref_xml.py` (in git `srom-produkcja/.claude/skills/srom-quant/scripts/generate_crossref_xml.py`), see (1) below; (2) `srom-kanon/references/SROM_knowledge_base.md` (§ Open access and licences, § DOIs and metadata), see (2). Suite after both: SUITE ALL PASS 26/26 (KANON 20/20, KB 4/4, QUANT 46/46).
+
+**(2) Knowledge base, and Kanon v1.17 for you (GEN-2, MB 12.10.2026: CC BY 4.0 for the whole journal from vol. 19).** The decision had
+not been written where it takes effect: Kanon § 13.2 still says „decyzja otwarta”, RULES.md "Licence unresolved", the knowledge base
+"authors choose". MB assumed sessions already knew. Done here: the knowledge base states the decision (and that it prevails over § 13.2
+until v1.17), plus the plugin line (v2.3 live since 13.10.2026). Not done here: the Kanon bump, because `test_kanon.py` allows only the
+current version anywhere in the two skills, so v1.17 also means the "v1.16" comments in `build.py` (ll. 30, 33, 697, 861) and
+`test_e2e.py` (ll. 113, 124, 129, 140) and the expected report `assets/example/expected/ostendorf_pl_wycinek_report.md` (Kanon v1.17):
+that is yours. Text to use (tried here: the suite's only failure was that version check):
+- Kanon header: `**Wersja 1.17 · obowiązuje od tomu 19/2026`; § 13.2 replaced up to (not including) the [PILNE] block by:
+
+  > ### 13.2. Licencja
+  > **Od tomu 19/2026 jedna licencja dla całego czasopisma: CC BY 4.0** (https://creativecommons.org/licenses/by/4.0/). Autor nie wybiera wariantu licencji; CC BY-NC i CC BY-NC-ND nie są oferowane w nowych tomach (decyzja redaktora prowadzącego z 12.10.2026, przedstawiana kolegium redakcyjnemu).
+  >
+  > Tom 18/2025 i tomy wcześniejsze – bez zmian: każdy artykuł na licencji, na którą zgodził się autor (pole `license` rekordu); nie oznacza się ich jako CC BY, dopóki zgody autorów tego nie obejmują.
+  >
+  > Przekład tekstu opublikowanego na licencji z ograniczeniem (NC, ND) albo bez licencji CC: zgoda uprawnionego na udostępnienie przekładu na licencji CC BY 4.0; bez niej – wyjątek przyznany przez kolegium redakcyjne dla danego tekstu, a licencję przekładu podaje nota o przekładzie (§ 12.2.3).
+  >
+  > Licencja drukowana na pierwszej stronie artykułu; pole obowiązkowe rekordu.
+
+- § 17, new last row: `| 1.17 | Rozstrzygnięcie z 12.10.2026 (MB; zapis 14.10.2026, GEN-2): § 13.2: od tomu 19/2026 jedna licencja dla całego czasopisma – CC BY 4.0, bez wyboru wariantu przez autora; tom 18 i wcześniejsze bez zmian; przekład tekstu na licencji z ograniczeniem (NC, ND) lub bez licencji CC – za zgodą uprawnionego na CC BY 4.0 albo z wyjątkiem kolegium redakcyjnego dla danego tekstu. Uchyla wybór CC BY / CC BY-NC / CC BY-NC-ND z wersji wcześniejszych. |`
+- RULES.md title `(v1.17)`; its "Licence unresolved" line becomes: `**Licence (§ 13.2, v1.17; MB 12.10.2026):** from vol. 19 one licence for the whole journal, CC BY 4.0; the author does not choose. Vol. 18 and earlier keep each article's consented licence (master CSV `license`), never relabelled. A translation of an NC/ND or non-CC source needs the rights-holder's consent to CC BY 4.0, else a kolegium exception for that text, with the licence named in the translation note.`
+- srom-kanon SKILL.md title `(Kanon v1.17)`; "Open — do not invent": drop "Licensing policy (ND option);".
+Run with: Sonnet · medium effort — a Kanon version bump across the skills with the suite as the check.
+
+**(1)** New `print_date_xml()`;
+the article and the issue get `<publication_date media_type="print">` from `pub_date_print` (YYYY-MM-DD) before the online date. Why: vol. 18
+was printed 21.12.2025 and goes online 16.10.2026; with the online date alone Crossref's issued date (and so OpenAlex and every DOI-based
+citation) would say 2026 for a volume labelled 2025. Crossref takes 1–10 `publication_date` per article and issue, `media_type` print/online.
+No or malformed `pub_date_print`: output unchanged (test_quant's CSV has no such column and still passes). Vol. 18: diff against the old output
+= the 16 print-date blocks only. Not run: the XSD (crossref.org unreachable from the VM); MB tests the file at test.crossref.org.
+Cheapest test to add: a row with `pub_date_print` gives two `publication_date` in the article, a row without gives one.
+Run with: Sonnet · low effort — review a 15-line diff, add one assertion, commit.
+
+**New functionality (not urgent, for you):** `srom-quant/scripts/fix_actualtext.py` turns the leftover U+FFFD into doubled accents for
+ActualText-aware readers. Repair 2 maps an accent glyph's U+FFFD to the combining mark; where repair 1 could not move that glyph inside its
+ActualText span (the "known leftovers"), MuPDF, poppler, PDFium and Acrobat read the span's „ó” and then the outside mark: „Krakó́w”.
+Measured with pdftotext: Wesołkin's export 955 U+FFFD / 0 doubled → covered file 11 / 368; all 15 vol. 18 files 576 doubled
+(Gontarek 005: 90, Krysińska-Kałużna 40, Fotta 23, Ostendorf 19, Kledzik 18, Marushiakova/Popov 13, Hübschmannová 4, Konferencja 1).
+pdf.js (no ActualText) reads them right. Effect: search and copy-paste of those words, full-text indexing; the page looks right.
+Cheapest fix: wrap each leftover accent glyph that follows a span whose ActualText already carries that mark in an empty
+`/Span <</ActualText ()>> BDC … EMC` (or move it inside, as repair 1 does, across the new text object). Test: the 15 vol. 18 exports in
+`3. PDF online/`: doubled 0, U+FFFD not above today's, pages pixel-identical. Then a Cowork session re-runs `cover_page.py` and MB re-uploads
+15 files under the same names. The Crossref references no longer depend on it: `workspace/srom-produkcja/volumes/18/bib_from_pdf.py` now drops a
+mark the letter already carries and U+FFFD inside a URL (31 of 407 vol. 18 references were affected).
+Run with: Sonnet · high effort — PDF content-stream work with a pixel and text regression test on 15 files.
+
+**Addendum to C15 (14.10.2026 04:18), new functionality, not urgent:** `workspace/srom-produkcja/volumes/check_deposit.py` (Cowork, read-only tool):
+the deposit XML against the master CSV contributor by contributor (names with or without ORCID, as the CSV and the XML give them), print and
+online dates, pages, licence, PDF address, reference counts against `citations/` and reference text (U+FFFD, doubled accents, control
+characters, NFC), and with `--site` the landing pages and PDFs (paced against the site's 429). Vol. 18: `DEPOSIT CHECK OK 15/15`; the 13.10
+XML fails it (15 print dates, 31 references). Why: the 13.10 session's check counted persons against ORCIDs and its report named the wrong
+people. Please take it into srom-quant (`scripts/`, with a test on a small fixture CSV + XML: one contributor without ORCID, one damaged
+reference, one wrong page) and make it step 8a of the deposit in SKILL.md; then Cowork drops its copy. No other files of yours changed by this.
+Run with: Sonnet · medium effort — move a working script into the skill with a fixture test.

@@ -32,6 +32,18 @@ LANG_DEFAULT    = "pl"
 
 E = lambda s: html.escape((s or "").strip(), quote=True)
 
+def print_date_xml(d, indent):
+    """<publication_date media_type="print"> from pub_date_print (YYYY-MM-DD), else "" (Cowork C15, 14.10.2026).
+    Crossref takes 1–10 publication dates; with both, the earlier one (print, for a volume printed before it went
+    online) becomes the work's issued date, so DOI-based citations give the printed volume's year."""
+    m = re.fullmatch(r"(\d{4})-(\d{2})-(\d{2})", (d or "").strip())
+    if not m:
+        return ""
+    y, mo, da = m.groups()
+    return (f'{indent}<publication_date media_type="print">\n'
+            f'{indent}  <month>{mo}</month><day>{da}</day><year>{y}</year>\n'
+            f'{indent}</publication_date>\n')
+
 def parse_authors(s):
     """'Given|Surname|Affiliation|ORCID ;; ...' -> list of dicts"""
     out = []
@@ -154,7 +166,7 @@ def article_xml(r, pub_y, pub_m, pub_d, cites=""):
 {contributor_xml(authors, translators)}
     </contributors>
 {chr(10).join(abstracts)}
-    <publication_date media_type="online">
+{print_date_xml(r.get("pub_date_print"), "    ")}    <publication_date media_type="online">
       <month>{pub_m}</month><day>{pub_d}</day><year>{pub_y}</year>
     </publication_date>
     <pages>
@@ -223,7 +235,7 @@ def main():
     <issn media_type="print">{ISSN_PRINT}</issn>
   </journal_metadata>
   <journal_issue>
-    <publication_date media_type="online">
+{print_date_xml(r0.get("pub_date_print"), "    ")}    <publication_date media_type="online">
       <month>{pub_m}</month><day>{pub_d}</day><year>{pub_y}</year>
     </publication_date>
     <journal_volume><volume>{E(r0["volume"])}</volume></journal_volume>
