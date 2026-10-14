@@ -12,12 +12,12 @@ def t(name, ok, detail=""):
 d = tempfile.mkdtemp()
 vol = os.path.join(d, "volumes", "19"); os.makedirs(os.path.join(vol, "citations"))
 cols = ["article_id", "doi_suffix", "doi", "landing_url", "pdf_url", "volume", "year", "pub_date_online", "title_pl",
-        "authors_struct", "abstract_pl", "abstract_en", "pages_from", "pages_to", "language", "license_url"]
+        "authors_struct", "abstract_pl", "abstract_en", "pages_from", "pages_to", "language", "license_url", "pub_date_print"]
 rows = [dict(zip(cols, ["SROM-19-2026-001", "ab3k9x2q", "10.12345/ab3k9x2q", "https://x.pl/a/", "https://x.pl/a.pdf", "19", "2026",
                         "2026-12-15", "Tytuł", "Anna|Nowak|Wydział Historii, Gonzaga University; Instytut X / Muzeum Y|", "abs", "abs",
-                        "1", "20", "pl", "https://creativecommons.org/licenses/by/4.0/"])),
+                        "1", "20", "pl", "https://creativecommons.org/licenses/by/4.0/", "2026-06-30"])),
         dict(zip(cols, ["SROM-19-2026-002", "cd4m8n1p", "10.12345/cd4m8n1p", "https://x.pl/b/", "https://x.pl/b.pdf", "19", "2026",
-                        "2026-12-15", "Drugi", "Jan|Lis||", "", "", "21", "30", "pl", ""]))]
+                        "2026-12-15", "Drugi", "Jan|Lis||", "", "", "21", "30", "pl", "", ""]))]
 cp = os.path.join(vol, "srom_master_v3.csv")
 with open(cp, "w", encoding="utf-8", newline="") as f:
     w = csv.DictWriter(f, fieldnames=cols); w.writeheader(); w.writerows(rows)
@@ -43,6 +43,11 @@ t("three institutions from 'A; B / C'; ROR ID only for the one in ror.tsv",
   [i.findtext("c:institution_name", namespaces=ns) for i in inst] == ["Wydział Historii, Gonzaga University", "Instytut X", "Muzeum Y"]
   and inst[0].findtext("c:institution_id", namespaces=ns) == "https://ror.org/03ze70h02" and inst[1].find("c:institution_id", ns) is None,
   [etree.tostring(i) for i in inst])
+
+pd = lambda a: [x.get("media_type") for x in a.findall("c:publication_date", ns)]
+t("print date (C15): row with pub_date_print gets print + online publication_date, row without only online",
+  arts and pd(arts[0]) == ["print", "online"] and pd(arts[1]) == ["online"]
+  and arts[0].findtext("c:publication_date/c:year", namespaces=ns) == "2026", [pd(a) for a in arts])
 
 # wikidata_qs.py: QuickStatements for the journal item and for articles with a final DOI (offline)
 WQ = os.path.join(os.path.dirname(GEN), "wikidata_qs.py")

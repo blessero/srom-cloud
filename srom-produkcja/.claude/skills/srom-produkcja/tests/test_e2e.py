@@ -110,7 +110,7 @@ roman = lambda rs, w: any(st == "roman" and w in t for st, t in rs) and not any(
 check("inner title roman in body text (*Tytule _wewnętrznym_ tomu*)", roman(body_r, "wewnętrznym") and any("Tytule" in t and st != "roman" for st, t in body_r), body_r)
 check("inner title roman at the end of an italic title, in the note and the bibliography (no stray **)",
       roman(note_r, "Les Fourberies") and roman(bib_r, "Les Fourberies") and "**" not in zi.read("word/document.xml").decode(), (note_r, bib_r))
-# v1.16: places joined with an en dash (GEN-6), sections in the new order and names, a legacy section name still read (GEN-8)
+# v1.17: places joined with an en dash (GEN-6), sections in the new order and names, a legacy section name still read (GEN-8)
 gb = os.path.join(tempfile.mkdtemp(), "refs.json")
 json.dump([{"id": "luc1996", "type": "book", "author": [{"family": "Lucassen", "given": "Leo"}], "title": "Zigeuner", "publisher": "Böhlau",
             "publisher-place": "Köln/Weimar/Wien", "issued": {"date-parts": [[1996]]}},
@@ -121,12 +121,12 @@ json.dump([{"id": "luc1996", "type": "book", "author": [{"family": "Lucassen", "
 code, out_g, stem_g, rep_g = build(md_text="A[^1] b[^2] c[^3].\n\n[^1]: [@luc1996, s. 1].\n\n[^2]: [@kant1923, s. 2].\n\n[^3]: [@www2020].\n", refs=gb)
 txt_g = open(os.path.join(out_g, stem_g + ".txt"), encoding="utf-8").read()
 secs = [ln for ln in txt_g.split("Bibliografia")[-1].splitlines() if ln.strip() in ("Źródła drukowane", "Opracowania", "Źródła internetowe")]
-check("v1.16: places with an en dash; sections Źródła drukowane · Opracowania · Źródła internetowe in that order",
+check("v1.17: places with an en dash; sections Źródła drukowane · Opracowania · Źródła internetowe in that order",
       "Köln–Weimar–Wien" in txt_g and "Köln/Weimar" not in txt_g and [x.strip() for x in secs] == ["Źródła drukowane", "Opracowania", "Źródła internetowe"], txt_g[-900:])
 code, out_i, stem_i, rep_i = build(md_text="A[^1] b[^2] c[^3] d[^4].\n\n[^1]: [@ficowski1985, s. 1].\n\n[^2]: Zob. [@ficowski1985, s. 2].\n\n"
                                     "[^3]: Zob. też [@ficowski1985, s. 3].\n\n[^4]: [@ficowski1985, s. 4].\n")
 txt_i = open(os.path.join(out_i, stem_i + ".txt"), encoding="utf-8").read()
-check("v1.16 (GEN-7): lower case after a lead-in (zob. ibidem, zob. też ibidem), capital at the start of a note",
+check("v1.17 (GEN-7): lower case after a lead-in (zob. ibidem, zob. też ibidem), capital at the start of a note",
       "Zob. ibidem, s. 2." in txt_i and "Zob. też ibidem, s. 3." in txt_i and "] Ibidem, s. 4." in txt_i, txt_i[-500:])
 # article without DOI (online journal): URL in the bibliography in the DOI's place (Kanon § 9.7); with DOI: DOI only
 ub = os.path.join(tempfile.mkdtemp(), "refs.json")
@@ -137,7 +137,7 @@ json.dump([{"id": "online2019", "type": "article-journal", "author": [{"family":
           open(ub, "w", encoding="utf-8"), ensure_ascii=False)
 code_u, out_u, stem_u, rep_u = build(md_text="A[^1] b[^2].\n\n[^1]: [@online2019].\n\n[^2]: [@doi2009].\n", refs=ub)
 bib_u = open(os.path.join(out_u, stem_u + ".txt"), encoding="utf-8").read().split("Bibliografia")[-1]
-check("article without DOI: year and URL printed in the bibliography; with DOI: neither DOI nor URL (v1.16, GEN-10)",
+check("article without DOI: year and URL printed in the bibliography; with DOI: neither DOI nor URL (v1.17, GEN-10)",
       "2019" in bib_u and "https://example.org/bodies/" in bib_u and "10.4000/x.1" not in bib_u and "https://doi.org" not in bib_u and "DOI:" not in bib_u, bib_u)
 check("uncited work of the author's list printed, reported", "Książka bez wydawcy" in bib_b and "printed though not cited" in rep_b and "nopub1990" in rep_b, rep_b[:800])
 check("early print (1662) without printer: no [BRAK WYDAWCY]; a 1990 book without publisher still has it",

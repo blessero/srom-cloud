@@ -1,6 +1,6 @@
 # STUDIA ROMOLOGICA – KANON EDYTORSKI (DOKUMENT WEWNĘTRZNY)
 
-**Wersja 1.16 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
+**Wersja 1.17 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
 
 > Wersja dla autorów (*Wskazówki dla autorów*) jest skrótem tego dokumentu i nie zawiera § 13–17. W razie rozbieżności rozstrzyga niniejszy tekst.
 
@@ -552,14 +552,14 @@ Cytaty i tytuły dzieł zachowują pisownię źródła (§ 4.1, § 4.3); zasady 
 ### 13.1. Rekord artykułu
 DOI (sufiks nieprzezroczysty, poziom artykułu) · tytuły PL/EN/(RMN) · autorzy + ORCID + afiliacja, **nazwiska bez wersalików** · abstrakty · słowa kluczowe w formie wzorcowej · strony, tom, rok · licencja · bibliografia strukturalna (autor / rok / tytuł / kontener / strony / DOI jako osobne pola).
 
-### 13.2. Licencja – decyzja otwarta
-**Stan obecny:** umowa licencyjna daje autorowi wybór CC BY / CC BY-NC / CC BY-NC-ND; domyślnie CC BY-NC.
+### 13.2. Licencja
+**Od tomu 19/2026 jedna licencja dla całego czasopisma: CC BY 4.0** (https://creativecommons.org/licenses/by/4.0/). Autor nie wybiera wariantu licencji; CC BY-NC i CC BY-NC-ND nie są oferowane w nowych tomach (decyzja redaktora prowadzącego z 12.10.2026, przedstawiana kolegium redakcyjnemu).
 
-Koszty wyboru per artykuł: czasopismo nie może jednoznacznie określić swojej licencji; **opcja ND wyklucza ubieganie się o DOAJ Seal**; zgodność z wymogami grantodawców trzeba badać per artykuł. Praktyka dominująca: jedna licencja dla całego czasopisma.
+Tom 18/2025 i tomy wcześniejsze – bez zmian: każdy artykuł na licencji, na którą zgodził się autor (pole `license` rekordu); nie oznacza się ich jako CC BY, dopóki zgody autorów tego nie obejmują.
 
-> **[DO ROZSTRZYGNIĘCIA – kolegium redakcyjne]** W praktyce: czy wycofać opcję ND.
+Przekład tekstu opublikowanego na licencji z ograniczeniem (NC, ND) albo bez licencji CC: zgoda uprawnionego na udostępnienie przekładu na licencji CC BY 4.0; bez niej – wyjątek przyznany przez kolegium redakcyjne dla danego tekstu, a licencję przekładu podaje nota o przekładzie (§ 12.2.3).
 
-Niezależnie od decyzji: licencja drukowana na pierwszej stronie artykułu; pole obowiązkowe rekordu; zbiór dopuszczonych licencji opublikowany; wybór przy złożeniu tekstu.
+Licencja drukowana na pierwszej stronie artykułu; pole obowiązkowe rekordu.
 
 > **[PILNE – przed ogłoszeniem otwartego dostępu]** *Informacje dla autorów* w tomie 18/2025 stanowią, że autorzy przenoszą prawa autorskie na Redakcję; umowa licencyjna stanowi odwrotnie. Tekst drukowany i na stronie musi zostać zastąpiony, nie uzupełniony.
 
@@ -672,5 +672,6 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.14 | Rozstrzygnięcia z 02.10.2026 (MB, po v1.13): § 3.4: kursywa odwrócona przywrócona w pełnym zakresie – w tytule składanym kursywą pismem prostym zapisuje się tytuł w tytule **oraz** wyraz lub zwrot obcy, formułę łacińską, egzonim (SJP PWN, Poradnia, *Wyróżnienie tytułu w tytule*); uchyla zdanie z wersji 1.13 („wyraz obcy w tytule – kursywą jak tytuł”), które było błędne. Nowe: nazwy serii wydawniczych i konferencji – z dużych liter, pismem prostym, w cudzysłowie; kursywą także tytuły filmów, piosenek i innych utworów muzycznych, obrazów i rzeźb, audycji radiowych i telewizyjnych; nazwy zespołów muzycznych – pismem prostym, wielką literą (wielowyrazowe: wszystkie wyrazy samodzielne znaczeniowo). |
 | 1.15 | Rozstrzygnięcie z 02.10.2026 (MB, po v1.14): § 3.4: w nazwach serii wydawniczych i konferencji wielką literą zapisuje się każdy wyraz (`„Leksykon Polskiej Muzyki Rozrywkowej”`). |
 | 1.16 | Rozstrzygnięcia z 02.10.2026 (MB, ledger 21:30): § 7.2: seria wydawnicza w nawiasie na końcu opisu; kilka miejsc wydania łączone półpauzą; przedruk – rok wydania i w nawiasie kwadratowym rok pierwodruku. § 7.3: po odesłaniu `ibidem` małą literą. § 8.6, § 9.1, § 9.4, § 9.7, § 12.2.3: **DOI nie jest drukowany** (zostaje w danych i w hiperłączach PDF online), także DOI oryginału w nocie o przekładzie. § 9.2: części bibliografii – Wykaz skrótów · Źródła archiwalne · Źródła terenowe · Źródła drukowane · Opracowania · Źródła internetowe (bez „bez DOI”; „Literatura przedmiotu” → „Opracowania”; prawo, prasa i dawne druki w źródłach drukowanych). § 9.4: brakujący wydawca – wyszukiwanie w katalogach, zatwierdzanie pozycja po pozycji. |
+| 1.17 | Rozstrzygnięcie z 12.10.2026 (MB; zapis 14.10.2026, GEN-2): § 13.2: od tomu 19/2026 jedna licencja dla całego czasopisma – CC BY 4.0, bez wyboru wariantu przez autora; tom 18 i wcześniejsze bez zmian; przekład tekstu na licencji z ograniczeniem (NC, ND) lub bez licencji CC – za zgodą uprawnionego na CC BY 4.0 albo z wyjątkiem kolegium redakcyjnego dla danego tekstu. Uchyla wybór CC BY / CC BY-NC / CC BY-NC-ND z wersji wcześniejszych. |
 
 Zmiany wchodzą w życie od kolejnego tomu. Tomy opublikowane nie podlegają retroaktywnemu ujednoliceniu.

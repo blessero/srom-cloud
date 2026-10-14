@@ -1,4 +1,4 @@
-# SROM RULES — English digest of the Kanon (v1.16)
+# SROM RULES — English digest of the Kanon (v1.17)
 
 Normative text: `references/kanon-redakcyjny.md` — *Kanon edytorski Studia Romologica* (Polish, internal), in this skill. This file is its compact English digest; **section numbers are the Kanon's**. If the two differ, the Kanon governs and this file is corrected. New rules go into the Kanon first (with a § 17 entry), then here.
 
@@ -207,7 +207,7 @@ The Rada Języka Polskiego spelling changes in force from 01.01.2026 apply to ev
 ## 13. Metadata and deposit
 
 Record: DOI · titles · authors + ORCID + affiliation (**no capitals in surnames**) · abstracts · keywords (authority form) · pages/volume/year · licence · structured bibliography. Deposit structured fields; source of record is the master CSV.
-**Licence unresolved:** author chooses CC BY / BY-NC / BY-NC-ND (default BY-NC); ND blocks the DOAJ Seal. Do not invent a policy.
+**Licence (§ 13.2, v1.17; MB 12.10.2026):** from vol. 19 one licence for the whole journal, CC BY 4.0; the author does not choose. Vol. 18 and earlier keep each article's consented licence (master CSV `license`), never relabelled. A translation of an NC/ND or non-CC source needs the rights-holder's consent to CC BY 4.0, else a kolegium exception for that text, with the licence named in the translation note.
 **Pending:** vol. 18's printed *Informacje dla autorów* states a copyright transfer, contradicting the licence agreement — to be replaced before any OA announcement.
 
 ## 14. Rationale — settled, do not reopen
