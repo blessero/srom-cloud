@@ -369,7 +369,7 @@ def prepare(path, row):
     except ImportError:
         sys.exit("ABORT: pikepdf missing (the text-layer repair needs it): pip install -r srom-produkcja/requirements.txt")
     pdf, warn = pikepdf.open(path), []
-    spans, maps = repair(pdf)
+    spans, maps, wrapped = repair(pdf)
     lang = (row.get("language") or "pl").strip()
     if "/Lang" not in pdf.Root:
         pdf.Root.Lang = pikepdf.String(lang)
@@ -383,7 +383,7 @@ def prepare(path, row):
     buf = io.BytesIO()
     pdf.save(buf)
     return (pymupdf.open("pdf", buf.getvalue()),
-            f"text layer: {spans} accent glyph(s) moved into their ActualText span, {maps} accent code(s) mapped", warn)
+            f"text layer: {spans} accent glyph(s) moved into their ActualText span, {maps} accent code(s) mapped, {wrapped} doubled accent(s) wrapped", warn)
 
 
 def selfcheck(path, doi):

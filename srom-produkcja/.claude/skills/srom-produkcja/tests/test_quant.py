@@ -1,7 +1,7 @@
 """srom-quant generate_crossref_xml.py (30.09.2026): references from volumes/<vol>/citations/<article_id>.json become
 <citation_list> after <doi_data> (Kanon § 13.1); each institution of an affiliation is its own <institution>, with a
 ROR ID from volumes/ror.tsv. Offline; the output was validated against the Crossref 5.4.0 XSD when this was built."""
-import csv, json, os, re, subprocess, sys, tempfile
+import csv, json, os, re, shutil, subprocess, sys, tempfile
 from lxml import etree
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GEN = os.path.join(os.path.dirname(ROOT), "srom-quant", "scripts", "generate_crossref_xml.py")
@@ -310,8 +310,26 @@ t("text layer: the article's pages render pixel-identical at 150 dpi",
   d7 and all(d7[i + 1].get_pixmap(dpi=150).samples == fx[i].get_pixmap(dpi=150).samples for i in range(3)), "")
 t("text layer: MarkInfo, StructTreeRoot, all 150 MCIDs and the ActualText spans kept",
   d7 and mcids(d7, range(1, 4)) == mcids(fx, range(3)) == 150
-  and sum(d7[i].read_contents().count(b"/ActualText") for i in range(1, 4)) == sum(fx[i].read_contents().count(b"/ActualText") for i in range(3))
+  and sum(d7[i].read_contents().count(b"/ActualText") for i in range(1, 4)) == sum(fx[i].read_contents().count(b"/ActualText") for i in range(3)) + 3
   and d7.xref_get_key(d7.pdf_catalog(), "MarkInfo/Marked")[1] == "true" and d7.xref_get_key(d7.pdf_catalog(), "StructTreeRoot/K/S")[1] == "/Document", "")
+# C15 (14.10.2026): a precomposed letter + a zero-width accent glyph in one TJ read „ć” + a second acute after repair 2
+import unicodedata
+def doubled(d, pages):
+    tx = "".join(d[k].get_text(flags=CLEAN) for k in pages)
+    return sum(1 for i, c in enumerate(tx) if i and unicodedata.combining(c) and c in unicodedata.normalize("NFD", tx[i - 1]))
+sys.path.insert(0, os.path.dirname(GEN)); import fix_actualtext as fa
+nowrap = pikepdf.open(FX); _w = fa.wrap_doubled; fa.wrap_doubled = lambda ins, fonts: (ins, 0)
+try: fa.repair(nowrap)
+finally: fa.wrap_doubled = _w
+nwp = os.path.join(cdir, "nowrap.pdf"); nowrap.save(nwp)
+t("text layer: without the third repair the fixture reads 3 doubled accents; with it 0 (MuPDF and pdftotext)",
+  doubled(pymupdf.open(nwp), range(3)) == 3 and d7 and doubled(d7, range(1, 4)) == 0
+  and "3 doubled accent(s) wrapped" in r.stdout, (doubled(pymupdf.open(nwp), range(3)), r.stdout))
+pt = subprocess.run(["pdftotext", "-enc", "UTF-8", os.path.join(cdir, "SROM_19_2026_Fix_7.pdf"), "-"], capture_output=True, text=True).stdout \
+     if shutil.which("pdftotext") else None
+t("text layer: pdftotext reads no doubled accent in the covered file (skipped without poppler)",
+  pt is None or not any(unicodedata.combining(c) and c in unicodedata.normalize("NFD", pt[i - 1]) for i, c in enumerate(pt) if i), "")
+t("text layer: repair is idempotent (second run: 0 spans, 0 wrapped)", (lambda q: (q.append(fa.repair(pikepdf.open(os.path.join(cdir, "SROM_19_2026_Fix_7.pdf")))) or q[0][0] == 0 and q[0][2] == 0))([]), "")
 t("text layer: repaired file gets its cover (labels i, 29–31, DOI); /Lang pl and DisplayDocTitle set; self-check line",
   d7 and len(d7) == 4 and [d7[i].get_label() for i in range(4)] == ["i", "29", "30", "31"]
   and "https://doi.org/10.12345/ab3k9x27" in d7[0].get_text()
@@ -328,6 +346,48 @@ t("text layer: /Lang of the PDF ≠ the CSV's language → warning, RESULT: CHEC
 r = cvrun("SROM-19-2026-007", variant("leftover", break_spans=True))
 t("text layer: the known leftovers (accent glyph not next after the span) are left as they are and counted, not hidden",
   "text layer: 0 accent glyph(s) moved" in r.stdout and "self-check: U+FFFD 152 ·" in r.stdout, r.stdout + r.stderr)
+
+# check_deposit.py (C15 addendum, 14.10.2026): the deposit XML against the master CSV, contributor by contributor. Fixture: four
+# articles through the real generator; 002 has an author without ORCID (not a fault, but named as such), 003 a reference with
+# U+FFFD, 004 a page range edited in the CSV after the XML was made.
+CD = os.path.join(os.path.dirname(GEN), "check_deposit.py")
+cdd = tempfile.mkdtemp(); cvol = os.path.join(cdd, "volumes", "19"); os.makedirs(os.path.join(cvol, "citations"))
+ccols = cols + ["pdf_file"]
+def drow(n, authors, pf, pt):
+    return dict(zip(ccols, [f"SROM-19-2026-00{n}", f"ef5g6h7{n}", f"10.12345/ef5g6h7{n}", f"https://x.pl/{n}/", f"https://x.pl/{n}.pdf", "19",
+                            "2026", "2026-12-15", f"Tytuł {n}", authors, "", "", pf, pt, "pl", "https://creativecommons.org/licenses/by/4.0/",
+                            "2026-06-30", f"SROM_{n}.pdf"]))
+drows = [drow(1, "Anna|Nowak|Gonzaga University|https://orcid.org/0000-0001-9421-9385", "1", "20"),
+         drow(2, "Jan|Lis||", "21", "30"),
+         drow(3, "Ewa|Kos|Muzeum Y|https://orcid.org/0000-0002-1825-0097", "31", "40"),
+         drow(4, "Piotr|Wolny||", "41", "50")]
+dcp = os.path.join(cvol, "srom_master_v3.csv")
+def dwrite(rs):
+    with open(dcp, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=ccols); w.writeheader(); w.writerows(rs)
+dwrite(drows)
+for n, txt in ((1, "Kowalski, Jan. Tytuł, Kraków 2001."), (3, "Zniszczony � przypis, Kraków 2002.")):
+    json.dump([{"key": "a", "doi": "", "text": txt}], open(os.path.join(cvol, "citations", f"SROM-19-2026-00{n}.json"), "w", encoding="utf-8"),
+              ensure_ascii=False)
+open(os.path.join(cdd, "volumes", "ror.tsv"), "w", encoding="utf-8").write("institution\tror\tror_name\tsource\n")
+dxml = os.path.join(cdd, "dep.xml")
+subprocess.run([sys.executable, GEN, dcp, dxml], capture_output=True, text=True)
+drows[3]["pages_to"] = "55"; dwrite(drows)
+def cdrun(*a): return subprocess.run([sys.executable, CD, dcp, dxml, *a], capture_output=True, text=True)
+r = cdrun()
+t("check_deposit: damaged reference and wrong page are caught, exit 1, last line reports 2 of 4 failing",
+  r.returncode == 1 and r.stdout.strip().splitlines()[-1] == "DEPOSIT CHECK FAILED 2/4"
+  and "references with damaged text" in r.stdout and "U+FFFD" in r.stdout and "pages 41–50 vs CSV 41–55" in r.stdout, r.stdout + r.stderr)
+t("check_deposit: every contributor named with the ORCID the XML carries; the one without says so",
+  "Anna Nowak (0000-0001-9421-9385)" in r.stdout and "Jan Lis (no ORCID)" in r.stdout and "Ewa Kos (0000-0002-1825-0097)" in r.stdout, r.stdout)
+t("check_deposit: the clean articles are marked OK, the faulty ones !!",
+  re.search(r"^OK 001 ", r.stdout, re.M) and re.search(r"^OK 002 ", r.stdout, re.M)
+  and re.search(r"^!! 003 ", r.stdout, re.M) and re.search(r"^!! 004 ", r.stdout, re.M), r.stdout)
+dwrite(drows[:2]); x2 = os.path.join(cdd, "dep2.xml")
+subprocess.run([sys.executable, GEN, dcp, x2], capture_output=True, text=True)
+r = subprocess.run([sys.executable, CD, dcp, x2], capture_output=True, text=True)
+t("check_deposit: a clean volume ends DEPOSIT CHECK OK 2/2, exit 0",
+  r.returncode == 0 and r.stdout.strip().splitlines()[-1] == "DEPOSIT CHECK OK 2/2", r.stdout + r.stderr)
 
 n, ok = len(res), sum(res)
 print(f"QUANT ALL PASS {n}/{n}" if ok == n else f"QUANT FAILED {n - ok}/{n}")

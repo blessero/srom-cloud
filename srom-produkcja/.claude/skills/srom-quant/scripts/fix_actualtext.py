@@ -14,6 +14,13 @@ Two repairs, both invisible:
  2. the accent glyph's ToUnicode entry U+FFFD becomes the combining mark that the spans' ActualText implies
     (ó → o + U+0301), so readers that ignore ActualText (pdf.js) read a decomposed "ó" instead of "o�".
 
+A third repair (C15 addendum, 14.10.2026) covers a case that is not a span at all: a precomposed letter (ć) drawn as one glyph,
+followed in the same text-show operator by a zero-width accent glyph that InDesign adds for the diacritic. After repair 2
+that accent code reads as U+0301, so MuPDF, poppler, PDFium and Acrobat read "ć" and then another acute ("Choć́"). Such a
+glyph is wrapped in an empty marked-content span, /Span <</ActualText ()>> BDC … EMC, so ActualText-aware readers read
+nothing for it; drawing order and positions are unchanged (a split of the TJ array leaves the text matrix as it was).
+ 3. an accent glyph whose mark the preceding letter in the same show already carries is wrapped in an empty ActualText span.
+
 Known leftovers, not repaired (Cowork, vol. 18 of 13.05.2026: 12,005 → 60 U+FFFD): the show operator after the EMC is
 not the next one (it starts in a new text object, after a font change or any operator other than Td), so the accent
 glyph stays outside its span, and its U+FFFD stays unless another span in the same font taught its code a mark.
@@ -77,6 +84,7 @@ class Font:
         self.obj, self.cl = obj, (2 if obj.get("/Subtype") == "/Type0" else 1)
         self.tu, self.width = tounicode(obj), widths(obj)
         self.marks = {}                                  # code -> set of combining chars seen
+        self.mapped = {}                                 # code -> combining char patch_tounicode gave it
 
     def is_bad(self, code):
         return self.tu.get(code, "") in ("", "FFFD", "0000")
@@ -148,6 +156,7 @@ def fonts_of(res, cache):
 def patch_tounicode(pdf, font):
     """U+FFFD → the combining mark the spans imply, when every span agrees on it."""
     ok = {c: next(iter(s)) for c, s in font.marks.items() if len(s) == 1}
+    font.mapped = {}
     if not ok or font.obj.get("/ToUnicode") is None:
         return 0
     data = font.obj.ToUnicode.read_bytes().decode("latin-1")
@@ -156,39 +165,99 @@ def patch_tounicode(pdf, font):
         h = code.hex().upper()
         new, k = re.subn(r"<%s>(\s*)<FFFD>" % h, "<%s>\\1<%04X>" % (h, ord(ch)), data, flags=re.I)
         data, n = new, n + k
+        if k:
+            font.mapped[code] = ch
     font.obj.ToUnicode = pdf.make_stream(data.encode("latin-1"))
     return n
 
 
+def code_text(font, code):
+    """What the (patched) ToUnicode says a code is, as a str; '' when unmapped."""
+    d = font.tu.get(code, "")
+    if d in ("", "FFFD", "0000") or len(d) % 4:
+        return ""
+    return bytes.fromhex(d).decode("utf-16-be", "replace")
+
+
+EMPTY_SPAN = lambda: CSI([Name("/Span"), pikepdf.Dictionary(ActualText=String(b"\xfe\xff"))], BDC)
+
+
+def wrap_doubled(instrs, fonts):
+    """Repair 3: in a show operator, an accent glyph (a code repair 2 mapped to a combining mark) that follows a letter of the
+    same operator already carrying that mark is wrapped in an empty ActualText span. Returns (instructions, wrapped)."""
+    out, wrapped, cur = [], 0, None
+    for ins in instrs:
+        if ins.operator == TF:
+            cur = fonts.get(str(ins.operands[0]))
+        if ins.operator not in (TJ1, TJN) or cur is None or not cur.mapped:
+            out.append(ins); continue
+        cl, prev = cur.cl, ""
+        items = [ins.operands[0]] if ins.operator == TJ1 else list(ins.operands[0])
+        buf, cuts = [], False
+        def flush():
+            if ins.operator == TJN:
+                if any(isinstance(x, pikepdf.String) for x in buf):
+                    out.append(CSI([pikepdf.Array(buf)], TJN))
+            else:
+                out.extend(CSI([x], TJ1) for x in buf)
+            buf.clear()
+        for it in items:
+            if not isinstance(it, pikepdf.String):
+                buf.append(it); continue
+            b, run = bytes(it), b""
+            for k in range(0, len(b) - cl + 1, cl):
+                code = b[k:k + cl]
+                mk = cur.mapped.get(code)
+                if mk and mk in unicodedata.normalize("NFD", prev):
+                    if run:
+                        buf.append(String(run)); run = b""
+                    flush()
+                    out += [EMPTY_SPAN(), CSI([String(code)], TJ1), CSI([], EMC)]
+                    wrapped += 1; cuts = True
+                else:
+                    run += code
+                prev = code_text(cur, code) or prev
+            if run:
+                buf.append(String(run))
+        if not cuts:
+            out.append(ins); continue
+        flush()
+    return out, wrapped
+
+
 def repair(pdf):
-    """Repairs an open pikepdf.Pdf in place; returns (spans fixed, accent glyphs given a Unicode mapping)."""
-    cache, total, seen = {}, 0, set()
-    def run(holder, res):
-        nonlocal total
-        new, fixed = fix_stream(pikepdf.parse_content_stream(holder), fonts_of(res, cache))
-        if fixed:
+    """Repairs an open pikepdf.Pdf in place; returns (spans fixed, accent glyphs given a Unicode mapping, doubled accents wrapped)."""
+    cache = {}
+    def holders():
+        seen = set()
+        for page in pdf.pages:
+            res = page.obj.get("/Resources")
+            yield page, res
+            xo = res.get("/XObject") if res is not None else None
+            for _, x in (xo.items() if xo is not None else []):
+                if x.get("/Subtype") == "/Form" and x.objgen not in seen:
+                    seen.add(x.objgen)
+                    yield x, x.get("/Resources") if x.get("/Resources") is not None else res
+    def run(holder, res, fn):
+        new, n = fn(list(pikepdf.parse_content_stream(holder)), fonts_of(res, cache))
+        if n:
             data = pikepdf.unparse_content_stream(new)
             if isinstance(holder, pikepdf.Page):
                 holder.obj.Contents = pdf.make_stream(data)
             else:
                 holder.write(data)
-            total += fixed
-    for page in pdf.pages:
-        res = page.obj.get("/Resources")
-        run(page, res)
-        xo = res.get("/XObject") if res is not None else None
-        for _, x in (xo.items() if xo is not None else []):
-            if x.get("/Subtype") == "/Form" and x.objgen not in seen:
-                seen.add(x.objgen)
-                run(x, x.get("/Resources") if x.get("/Resources") is not None else res)
-    return total, sum(patch_tounicode(pdf, f) for f in cache.values())
+        return n
+    total = sum(run(h, r, fix_stream) for h, r in holders())
+    maps = sum(patch_tounicode(pdf, f) for f in cache.values())
+    wrapped = sum(run(h, r, wrap_doubled) for h, r in holders()) if maps else 0
+    return total, maps, wrapped
 
 
 def main(src, dst):
     pdf = pikepdf.open(src)
-    total, maps = repair(pdf)
+    total, maps, wrapped = repair(pdf)
     pdf.save(dst)
-    print(f"spans fixed: {total}; accent glyphs given a Unicode mapping: {maps}")
+    print(f"spans fixed: {total}; accent glyphs given a Unicode mapping: {maps}; doubled accents wrapped: {wrapped}")
 
 
 if __name__ == "__main__":
