@@ -57,6 +57,9 @@ the session that starts a new text adds its row.
 | V19 | Volume 19, all translated texts (shared terminology) | — |
 | GEN | Journal-wide policy and Kanon gaps | — |
 | SYS | Tooling and workflow | — |
+| IDEA | Ideas for the suite's future (MB, 17.10.2026): kind Later, block nothing | — |
+
+**IDEA** is the one code that is not a question: loose ideas about where the SROM suite could go. Numbered from 1, always kind Later, blocking nothing; an item leaves the ledger only when MB drops it or when it becomes real work (then a GEN or SYS item).
 
 **IDs.** `<CODE>-<n>` (PAH-1, GEN-4), one running number per code, shared by both modules, never reused. The next free
 number stands in the text's section of Cowork's ledger ("Next free: PAH-100"); Cowork takes it when it enters a
