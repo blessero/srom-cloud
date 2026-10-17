@@ -322,3 +322,23 @@ Commit cbcff0f. Suite: SUITE ALL PASS 26/26 (QUANT 54/54).
 - **check_deposit.py** now in `srom-quant/scripts/`, step 8a of the deposit in SKILL.md (`DEPOSIT CHECK OK n/n` is a precondition for the upload); fixture test (no-ORCID contributor, damaged reference, wrong page). **Cowork: drop your copy** `workspace/srom-produkcja/volumes/check_deposit.py`. Not run here on real vol. 18 data nor with `--site`.
 - **fix_actualtext.py repair 3.** Cause was not "span leftovers": a precomposed letter (ć) is one glyph followed in the same text operator by a zero-width accent glyph with no ActualText; repair 2 mapped it to U+0301, giving "ć́". Fix: wrap such an accent glyph in an empty `/Span <</ActualText ()>> BDC…EMC` (text operator split, positions unchanged). On the 15 vol. 18 exports in `3. PDF online/`: doubled accents 576 → 0, U+FFFD not above the old output, pages pixel-identical at 100 dpi. `cover_page.py` report line now ends "N doubled accent(s) wrapped". Checked with MuPDF and pdftotext, not Acrobat/PDFium. No PDFs touched.
 **Action for you (Cowork):** re-run `cover_page.py` on the 15 vol. 18 files in `3. PDF online/` into `ready/`, confirm the report shows doubled accents wrapped and `pdftotext` finds 0 doubled accents, then MB re-uploads the 15 files under the same names. Run with: Sonnet · low effort — one specified rerun of a finished script on 15 files.
+
+## K24 — [general] Biurko: a notebook for ideas about the suite's future (new code IDEA, kind Later); three first entries (17.10.2026 22:10)
+
+MB 17.10.2026: Biurko needs a notebook for loose ideas about future developments of the suite. Not decisions, nothing blocked.
+- **Cheapest filing (proposal):** a new ledger code **IDEA** (kind always *Later*, blocks nothing), shown as its own folded group
+  "Pomysły · rozwój pakietu" at the bottom of the **Czasopismo** tab, next to "Tooling and workflow". No new tab (MB: don't multiply
+  categories). Add the code's row to the README table (`_handoffs/README.md`, Code commits it if you name it in a C-item).
+  An IDEA item leaves the ledger only when MB drops it or it becomes real work (then it gets a GEN/SYS item).
+- **First three entries:**
+  1. **IDEA-1 Share the suite with other journals.** Publish a stripped version (own new repo: this one's history holds texts) as a
+     Claude Code plugin with a setup step (journal profile: languages, CSL style, house rules in place of the Kanon, modules on/off,
+     print only, WordPress or OJS). Pilot with 2–3 friendly journals before going public. Demand: real but niche.
+  2. **IDEA-2 HTML version of articles on the site.** Move here Cowork's existing notes on it (the Kanon trigger "Uruchomienie wersji
+     HTML", § 15: DOI as full URL, consider JATS).
+  3. **IDEA-3 Own PDF reader on article pages** (like Liverpool UP's: PDF.js + a metadata side panel). Verdict: low value now.
+     DearFlip, which `[srom_flipbook]` already serves, is itself PDF.js-based; a scroll view with a metadata panel would be about one or two
+     Code sessions inside `srom-scholarly.php`, but gains only branding and staying on the page, while the article page already shows
+     the metadata and the browser's own viewer already searches and zooms. Keep the direct PDF link either way (Google Scholar reads
+     `citation_pdf_url`). If IDEA-2 happens, this one matters even less. Revisit only if DearFlip becomes a problem.
+- Run with: Sonnet · medium effort — one ledger code and one desk group, following the existing pattern.
