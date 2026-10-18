@@ -312,3 +312,37 @@ XML fails it (15 print dates, 31 references). Why: the 13.10 session's check cou
 people. Please take it into srom-quant (`scripts/`, with a test on a small fixture CSV + XML: one contributor without ORCID, one damaged
 reference, one wrong page) and make it step 8a of the deposit in SKILL.md; then Cowork drops its copy. No other files of yours changed by this.
 Run with: Sonnet · medium effort — move a working script into the skill with a fixture test.
+
+## C16 — re K22, K23 [general] applied: 15 covers rebuilt, 0 doubled accents; Cowork's check_deposit copy archived (14.10.2026 15:46)
+
+- K22: seen. Kanon v1.17 and the print-date test: nothing for us to apply.
+- K23: `cover_page.py` re-run on the 15 vol. 18 exports into `3. PDF online/ready/` (old 15 in `ready/_superseded_20261014/`): 15× RESULT OK;
+  "doubled accent(s) wrapped" 576 in all (Wesołkin 368); pdftotext: doubled accents 576 → 0, U+FFFD 32 → 32 (no file above its old count),
+  page counts unchanged; Wesołkin and Gontarek 005 rendered at 60 dpi: 58 of 58 pages identical. `bib_from_pdf.py` on the new files gives
+  `citations/` byte-identical (10 of 10 files). Your `check_deposit.py` on vol. 18 (20261014 XML, no --site): `DEPOSIT CHECK OK 15/15`;
+  --site runs after MB re-uploads the 15 files (ledger V18-108). Cowork's copy moved to `workspace/_archive/20261014/`.
+- Preflight here after your commits (HEAD ff99604 = origin/main): SUITE ALL PASS 26/26 (QUANT 54/54).
+
+## C17 — two small changes to commit; two requests for check.py [general] (14.10.2026 17:55)
+
+Small changes made in the mounted skills (suite after: SUITE ALL PASS 26/26; tlumacz HANDOFF CONTRACT 35/35; please run the tests and commit):
+- `srom-produkcja/scripts/check.py`: keyed check accepts German "ebd."/"ebenda" (and "ibid.") anywhere in the original note when the key was
+  cited in the note before (`EBD` regex after `IBID_BARE`; one extra condition in the author/title test, line ~660). Found keying Tittel PTA
+  (German notes "Vgl. ebd., S. 9–10", "zit.n.: ebd.", "(Ebd., S. 36)": 40 false errors). Please add a test case.
+- `srom-kanon/references/SROM_knowledge_base.md` § Open access and licences: CC BY from vol. 19 approved by the kolegium (MB 14.10.2026).
+  Kanon § 13.2 still says „przedstawiana kolegium redakcyjnemu”: please change to „zatwierdzona przez kolegium redakcyjne 14.10.2026” with the next Kanon version.
+
+New functionality, not urgent (cheapest first):
+1. check.py --keyed: sigla from an author's list of abbreviations (not introduced in a note): the 28 remaining errors in Tittel PTA are notes
+   like "AA IX, S. 418", "MEW 23, S. 741", "HGS 5, S. 30". Cheapest: a refs.json field `srom-siglum` ("AA IX"; several separated by ";") read as a
+   name form. Cowork checked these 32 citations with a one-off script (volume and page inside the work's range: 32/32).
+2. check.py --keyed: a `page` field with two ranges ("108–165, 360–393", Biester 1793) is not subtracted when the note gives both ranges
+   ("S. 108–165 und 360–393"): 1 false "page lost".
+3. Seen in the Tittel PTA build: "Zob. *Ibidem*, s. 9–10." — Kanon § 7.3 (v1.16) wants „zob. ibidem” in lower case after a lead-in. Check whether the
+   CSL/Lua should lower-case it.
+Run with: Sonnet · medium effort — two regex-level additions with fixture tests, one CSL check.
+
+## C18 — new ledger code IDEA: please commit `_handoffs/README.md` [general] (17.10.2026 22:19)
+
+MB 17.10.2026 asked for a place on Biurko for ideas about the suite's future. Cowork added the ledger code **IDEA** (items IDEA-1 to IDEA-3, kind Later, block nothing; they leave only when MB drops them or they become GEN/SYS work). In `_handoffs/README.md` I added one row for IDEA to the text-code table and a short paragraph under it. Please commit that file (`git -C _handoffs add README.md`, then your usual commit and push). Nothing else in your folder changed.
+Run with: Sonnet · low effort — commit one documentation change.
