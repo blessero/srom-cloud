@@ -42,7 +42,7 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
 
 - **Diamond open access**, print-first, now with an online edition.
 - Licences: **from vol. 19 one licence for the whole journal, CC BY 4.0**; the author no longer chooses a variant (MB,
-  12.10.2026; to be put to the kolegium redakcyjne). Vol. 18 and earlier keep each author's consented licence (CC BY,
+  12.10.2026; approved by the kolegium redakcyjne, MB 14.10.2026). Vol. 18 and earlier keep each author's consented licence (CC BY,
   BY-NC or BY-NC-ND; master CSV `license`), not relabelled CC BY. Kanon § 13.2 and RULES.md still describe the
   author's choice until Code issues the next Kanon version (Cowork C15, 14.10.2026): this decision prevails.
 - **Non-commercial status (MB, 08.10.2026):** SROM is always funded by a ministerial grant, has no permission to sell

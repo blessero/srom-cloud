@@ -472,6 +472,9 @@ def printed_numbers(src, tgt):
 LOCATOR_NUM = re.compile(r"\b(?:s|k|l|ark|tabl|p|pp|str|S|Sp|szp|Anm|przyp)\.\s?((?:[ivxlc]+,\s?)*\d+[a-z]?(?:\s?[–-]\s?\d+[a-z]?)?(?:,\s?(?:\d+[a-z]?(?:[–-]\d+)?|[ivxlc]+))*)")   # "s. iv, 358"
 IBID = re.compile(r"(?i)^\W*(ibidem|ibid\.?|tamże|tamze|tenże|taż|idem|eadem)\b")
 IBID_BARE = re.compile(r"\bIbidem\b(?!\**\s*,)")   # the rendered note's bare Ibidem (no page after it), wherever it stands
+# German and Latin "ebd."/"ebenda"/"ibid." anywhere in the note ("Vgl. ebd., S. 9", "zit.n.: ebd.", "(Ebd., S. 36)"):
+# a key cited in the note before may stand for it (German notes, Tittel PTA 14.10.2026)
+EBD = re.compile(r"(?i)(?<!\w)(?:ebd|ebenda|ibid)\.?(?!\w)")
 # a siglum the author introduces for a work ("hereafter abbreviated as MEW 23", "dalej: AVPRI", "im Folgenden: KrV"):
 # later notes naming it name that work (Kanon § 7: an abbreviation introduced in a note)
 SIGLUM_DEF = re.compile(r"(?i)\b(?:hereafter(?: abbreviated as| cited as| referred to as)?|henceforth|dalej(?: jako)?:?"
@@ -654,7 +657,7 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
                                      for n in names if n):
                     ttl = fold_txt((r.get("title-short") or r.get("title") or "")[:18].rstrip("…"))
                     sig = any(key in ks and re.search(r"(?<!\w)" + re.escape(sg) + r"(?!\w)", o) for sg, ks in sigla.items())
-                    if not (len(ttl) >= 8 and ttl in fo) and not sig:
+                    if not (len(ttl) >= 8 and ttl in fo) and not sig and not (EBD.search(o) and key in prev_keys):
                         errs.append(f"{lab(i)}: @{key} ({', '.join(names)}) — neither author nor title found in the original note: {o[:120]}")
         # the other way round: a work the original note cites by surname and title must be cited in the keyed note (a
         # work dropped from a note citing several, or its key swapped for another's). Citation shape only — the surname,
