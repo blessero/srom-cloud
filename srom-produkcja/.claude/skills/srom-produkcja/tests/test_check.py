@@ -193,6 +193,14 @@ VL = w("vl_refs.json", json.dumps([{"id": "vanlennep1965", "type": "book", "edit
 r = subprocess.run([sys.executable, CHECK, "--keyed", w("vl_o.md", "A[^1].\n\n[^1]: See Van Lannep, 256.\n"),
                     w("vl_k.md", "A[^1].\n\n[^1]: Zob. [@vanlennep1965, s. 256].\n"), "--refs", VL], capture_output=True, text=True)
 t("keyed: corrected name (Van Lennep) keyed where the author wrote Van Lannep (srom-as-written) -> CHECK OK", r.returncode == 0, r.stdout)
+# German "ebd." inside a note (Cowork C17, Tittel PTA): the work cited in the note before needs no author in this one
+EO = w("ebd_o.md", "A[^1] b[^2] c[^3].\n\n[^1]: Hornback, 35–69.\n\n[^2]: Vgl. ebd., S. 40.\n\n[^3]: zit.n.: ebd.\n")
+c, o = runk(EO, w("ebd_k.md", "A[^1] b[^2] c[^3].\n\n[^1]: [@hornback2018, s. 35–69].\n\n[^2]: Zob. [@hornback2018, s. 40].\n\n"
+                  "[^3]: Cyt. za: [@hornback2018].\n"))
+t("keyed: 'Vgl. ebd., S. 40' / 'zit.n.: ebd.' keyed to the previous note's work -> CHECK OK (C17)", c == 0 and "CHECK OK" in o, o)
+c, o = runk(EO, w("ebd_k2.md", "A[^1] b[^2] c[^3].\n\n[^1]: [@hornback2018, s. 35–69].\n\n[^2]: Zob. [@ndiaye2022, s. 40].\n\n"
+                  "[^3]: Cyt. za: [@hornback2018].\n"))
+t("keyed: 'ebd.' keyed to a work not in the previous note -> ERROR (C17)", c == 1 and "@ndiaye2022" in o, o)
 c, o = runk(SO, w("short_k1.md", SK.replace("s. 214–231", "s. 214–230")))
 t("keyed short form: unlabelled page changed (214–31 keyed as 214–230) -> ERROR", c == 1 and "page/folio numbers lost" in o and "231" in o, o)
 c, o = runk(SO, w("short_k2.md", SK.replace("[@hornback2018, s. 35–69]", "[@hornback2018, s. 35]")))
