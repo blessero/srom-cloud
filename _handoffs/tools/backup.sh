@@ -10,7 +10,7 @@ D=/Users/michalbartosz/ARBEIT/Bima/SROM/CODE/_backup; mkdir -p "$D"
 N="srom-$(date +%Y%m%d-%H%M)"
 set -- "Users/michalbartosz/ARBEIT/Bima/SROM/Redakcja" \
        "Users/michalbartosz/ARBEIT/Bima/SROM/CODE/Zizek"
-for m in /Users/michalbartosz/.claude/projects/-Users-michalbartosz-ARBEIT-Bima-SROM-Redakcja-SROM-edit-and-trans*/memory; do
+for m in /Users/michalbartosz/.claude/projects/-Users-michalbartosz-ARBEIT-Bima-SROM-Redakcja*/memory; do
   [ -d "$m" ] && set -- "$@" "${m#/}"
 done
 for s in /Users/michalbartosz/.claude/skills/srom-*; do set -- "$@" "${s#/}"; done
