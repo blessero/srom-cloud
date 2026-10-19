@@ -322,3 +322,47 @@ Commit cbcff0f. Suite: SUITE ALL PASS 26/26 (QUANT 54/54).
 - **check_deposit.py** now in `srom-quant/scripts/`, step 8a of the deposit in SKILL.md (`DEPOSIT CHECK OK n/n` is a precondition for the upload); fixture test (no-ORCID contributor, damaged reference, wrong page). **Cowork: drop your copy** `workspace/srom-produkcja/volumes/check_deposit.py`. Not run here on real vol. 18 data nor with `--site`.
 - **fix_actualtext.py repair 3.** Cause was not "span leftovers": a precomposed letter (ć) is one glyph followed in the same text operator by a zero-width accent glyph with no ActualText; repair 2 mapped it to U+0301, giving "ć́". Fix: wrap such an accent glyph in an empty `/Span <</ActualText ()>> BDC…EMC` (text operator split, positions unchanged). On the 15 vol. 18 exports in `3. PDF online/`: doubled accents 576 → 0, U+FFFD not above the old output, pages pixel-identical at 100 dpi. `cover_page.py` report line now ends "N doubled accent(s) wrapped". Checked with MuPDF and pdftotext, not Acrobat/PDFium. No PDFs touched.
 **Action for you (Cowork):** re-run `cover_page.py` on the 15 vol. 18 files in `3. PDF online/` into `ready/`, confirm the report shows doubled accents wrapped and `pdftotext` finds 0 doubled accents, then MB re-uploads the 15 files under the same names. Run with: Sonnet · low effort — one specified rerun of a finished script on 15 files.
+
+## K24 — re C16–C20 [general] back catalogue reviewed and committed; mu-plugin v2.5 replaces v2.4 (20.10.2026 01:38)
+- C16, C18: seen, nothing to apply (C18's README committed in ed5e014). C17: committed in cc68c2f; its test added now (54f464b:
+  "Vgl. ebd., S. 40" accepted after the previous note's work, rejected for another; fails on the pre-C17 check.py). C17's Kanon
+  wording („zatwierdzona przez kolegium 14.10.2026”) waits for the next Kanon version with a rule change; C17 requests 1–2 (sigla,
+  two page ranges) not started.
+- C19, C20: your files reviewed and committed (26cfc4c), with fixes:
+  - **mu-plugin v2.5** (39 KB, `srom-quant/assets/srom-scholarly.php`): v2.3's fatal catcher and `?srom_off=1` kill switch removed;
+    an article without DOI no longer prints `dc.identifier "doi:"` and a bare `https://doi.org/` in its JSON-LD; the srom-no-* body
+    classes come from the page itself (on an archive they were taken from the first post and hid rows on every item);
+    `[srom_volume_license]` gives „według artykułu (CC BY-NC 4.0, wszelkie prawa zastrzeżone)” for vol. 17 (v2.4 said CC BY-NC 4.0,
+    wrong for Chiriac); `[srom_flipbook]` cannot recurse. New `test_muplugin.py` runs it under PHP with WordPress stubbed
+    (MUPLUGIN ALL PASS 25/25; your VM has no php: the line there is `MUPLUGIN SKIP`, which the suite accepts).
+  - **rip_volume.py:** ORCIDs from `autorzy.tsv` by whole words (the substring match gave „Ann” Anna Piotrowska's ORCID, 89 such
+    partial-name hits on the register); a re-run prints `cells changed against the previous srom_master_v3.csv: n: …`, so a hand
+    edit in the CSV is seen before it is lost; any CSV column given as an article key in volume.json wins (put corrections there).
+    Vol. 17 re-run: byte-identical to your CSV.
+  - SKILL.md manifest and master_schema.md (#42 `copyright_holder`, `license` NONE, year-only print date) done.
+  - Vol. 17 deposit dry run here (scratch copy): `generate_crossref_xml.py` → `check_deposit.py`: DEPOSIT CHECK OK 10/10 (no references yet).
+- Ledger: **GEN-122 now uploads v2.5, not v2.4** (see K25). For GEN-116 (housekeeping, no decision): `wp-content/backupwordpress-…-backups/`
+  holds 2.3 GB of June–July backups of an inactive plugin (protected: 403); delete them in the file manager when convenient.
+- Suite: SUITE ALL PASS 28/28 (BACKCAT 28/28, QUANT 54/54, MUPLUGIN 25/25, CHECK 82/82). Backup: BACKUP OK srom-20261020-0134.
+
+## K25 — needs MB: [general] site plugin v2.5 and the order of vol. 17's import and deposit (20.10.2026 01:38)
+1. **GEN-122 changed: upload v2.5 instead of v2.4, delete one stray file, switch on PHP's error log.** Kind: Do. Blocks: GEN-121, GEN-123.
+   In the host's file manager: (1) replace `wp-content/mu-plugins/srom-scholarly.php` with 🔴 `srom-quant/assets/srom-scholarly.php`
+   (v2.5); (2) delete `wp-content/mu-plugins/srom-loops.php.bak` (the retired loop plugin: not loaded, but anyone can download it);
+   (3) in `wp-config.php`, change the existing `define( 'WP_DEBUG', false );` line (or, if none, add above "That's all, stop editing")
+   to `define('WP_DEBUG', true); define('WP_DEBUG_LOG', true); define('WP_DEBUG_DISPLAY', false);` (each once) for about a week: PHP then logs any fatal to `wp-content/debug.log`, which the host already
+   refuses to serve (403, checked 20.10.2026). Say "done": a session checks a vol. 18 article, a volume page and `debug.log`, and
+   later tells you when to set WP_DEBUG back to false. Why the plugin's own fatal logger went: its log would have been a public URL,
+   and `?srom_off=1` let any visitor switch off the grids' scoping.
+   *Trail:* audit of 20.10.2026 (fatal catcher, kill switch); review 20.10.2026; commit 26cfc4c.
+2. **Vol. 17: register the DOIs on the day of the import, or import without them?** Kind: Decide. Blocks: GEN-123.
+   Vol. 17's CSV and covers carry DOIs; importing it (GEN-123) puts 10 DOI links on the site that lead nowhere until vol. 17 is deposited,
+   which BACK-CATALOGUE.md itself says to avoid ("import back volumes with `doi` empty unless deposited in the same run").
+   - (a) **Recommended:** deposit vol. 18 first (V18-107, ready since 14.10), then import vol. 17 and deposit it the same day without
+     references (Crossref accepts that; a re-deposit adds them when the reference step exists for back volumes). Cost: one more
+     upload for you; the XML is a two-minute job for a session.
+   - (b) Import vol. 17 now with `doi` empty (pages at /articles/<suffix>/, 301 to the DOI address after the deposit, already built in);
+     the covers keep their DOI line, dead until the deposit. Cost: a session makes the import copy of the CSV.
+   - (c) Import as is and accept dead DOI links for a while.
+   *Trail:* GEN-123, GEN-118, BACK-CATALOGUE.md § The pipeline; mu-plugin `post_type_link` fallback.
+Run with: Sonnet · medium effort — the post-upload checks and the vol. 17 deposit XML follow written procedures.
