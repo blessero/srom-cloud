@@ -346,3 +346,58 @@ Run with: Sonnet · medium effort — two regex-level additions with fixture tes
 
 MB 17.10.2026 asked for a place on Biurko for ideas about the suite's future. Cowork added the ledger code **IDEA** (items IDEA-1 to IDEA-3, kind Later, block nothing; they leave only when MB drops them or they become GEN/SYS work). In `_handoffs/README.md` I added one row for IDEA to the text-code table and a short paragraph under it. Please commit that file (`git -C _handoffs add README.md`, then your usual commit and push). Nothing else in your folder changed.
 Run with: Sonnet · low effort — commit one documentation change.
+
+## C19 — back catalogue (vols ≤ 17): four small tools, cheapest first; one knowledge-base fact [general] (18.10.2026 23:50)
+
+MB 18.10.2026 started the back catalogue: article pages for every back volume, DOIs as far back as GEN-118 decides,
+vol. 17 first. Workflow and measurements: `workspace/srom-produkcja/volumes/BACK-CATALOGUE.md`. The vol. 17 master CSV
+is in `workspace/srom-produkcja/volumes/17/` (made by `rip_v17.py` there, a one-volume script). Nothing in your folder
+changed. Asked, in order of value:
+
+1. **Rip, general** (srom-quant or srom-produkcja, your call): turn `volumes/17/rip_v17.py` into a tool for any back
+   volume: volume PDF + page ranges (+ the volume's contents page) → draft master CSV; abstracts/keywords from the
+   STRESZCZENIE/SUMMARY blocks, bios from „Noty o autorach”, ORCIDs from `autorzy.tsv`, de-hyphenation checked against the
+   volume's own vocabulary with a list of unconfirmed joins, keeps final suffixes on a re-run. Older layouts differ
+   (vols 1–16 not inspected yet): cheapest version = vol. 17's rules + per-volume overrides in a small table.
+2. **Split + cover for archive PDFs:** `cover_page.py` on a page range of the archive volume PDF (or a split step
+   before it, pikepdf), page labels = printed pages. The archive PDFs are clean (25 sampled pages per volume: U+FFFD 0
+   except vol. 6: 2), so `fix_actualtext` will mostly do nothing; keep it in.
+3. **Bookmarks and live links** for PDFs without InDesign: outline from headings (font size/weight; WSTĘP, numbered
+   headings, BIBLIOGRAFIA, STRESZCZENIE, SUMMARY), URI links on URLs and DOIs in notes and bibliography (PyMuPDF). Also
+   useful on vol. 17 exports if MB skips the TOC-style step (GEN-119 item 4).
+4. **Site, one article template for all:** mu-plugin `body_class` on single `srom_article`: `srom-no-doi`,
+   `srom-no-license`, `srom-no-pdf`, `srom-no-abstract` when the field is empty; template 384 rows get CSS classes and
+   hide by them (MB or a session applies the classes). And a derived volume licence: a shortcode (e.g.
+   `[srom_volume_license]`) that reads the licences of the volume's articles: one → its name, several → „według
+   artykułu”, none → empty (row hidden). Replaces the hard-coded „CC BY 4.0” in templates 711/1086 (GEN-121).
+   Also: articles of back volumes are imported with `doi` empty until deposited (permalink `/articles/<suffix>/`,
+   301 to the DOI form later, as the mu-plugin already does); `validate_master.py` needs a way to accept „no licence”
+   for vols ≤ 17 (e.g. `license` = `NONE`, no `license_url`, generator writes free_to_read without license_ref) once
+   GEN-117 is decided.
+5. **Knowledge base, one fact:** § Publisher says the Museum published through vol. 17. Vol. 17's colophon reads
+   „Wydawca ©2024 Komitet Opieki nad Zabytkami Kultury Żydowskiej w Tarnowie” and „©Muzeum Ziemi Tarnowskiej
+   (dawniej Muzeum Okręgowe w Tarnowie)”, and the title page names both: please record vol. 17 as published by both
+   (Komitet as „Wydawca”). Not changed by Cowork.
+
+Run with: Opus · high effort — new tools across srom-quant and the mu-plugin, with tests; the contract (master CSV, slugs, permalinks) must not move.
+
+## C20 — re C19 [general] built in Cowork on MB's word; please review, test and commit (19.10.2026 23:54)
+
+MB 19.10.2026 („get cracking with c19”) had Cowork build C19 instead of Code. Changed in your folder (git status shows them):
+- srom-quant `scripts/`: new `rip_volume.py` (volume.json → master CSV; abstracts/keywords/bios/ORCIDs; keeps minted suffixes),
+  `split_volume.py` (archive volume → one PDF per article, offset from folios), `pdf_enhance.py` (bookmarks from headings, links on
+  URLs/DOIs incl. broken lines; PyMuPDF save as cover_page; copies over the target because `3. PDF online` allows no delete).
+- Changed: `validate_master.py` (pub_date_print YYYY or YYYY-MM-DD; `license` NONE; optional `copyright_holder`; empty authors_struct with a
+  display name = organisation, warning), `generate_crossref_xml.py` (year-only print date; NONE → AccessIndicators free_to_read only;
+  `<organization>` contributor), `pdf_metadata.py` (© holder, a holder may carry its own year; NONE → „Wszelkie prawa zastrzeżone”),
+  `cover_page.py` (the same in the footer; drops blank trailing pages beyond the CSV range). `check_deposit.py` needed nothing (year-only
+  dates and NONE compare correctly).
+- `assets/srom-scholarly.php` v2.4 (§ 8: body classes srom-no-doi/-license/-pdf/-abstract + CSS for rows classed srom-row-*,
+  [srom_license], [srom_volume_license]). No PHP in the VM: checked with php-parser 3.1.5 (PHP PARSE OK; a broken control file caught).
+  Please run `php -l` on it. Not deployed: MB's GEN-122.
+- srom-kanon `references/SROM_knowledge_base.md`: back-volume licence (GEN-117), vol. 17 colophon, DOIs 17–13 (GEN-118). This also does C19 item 5.
+- srom-produkcja `tests/test_backcat.py` (new): BACKCAT ALL PASS 26/26. Suite here: SUITE ALL PASS 27/27 (QUANT 54/54).
+- srom-quant SKILL.md and master_schema.md do not mention the new scripts or `copyright_holder` yet: please add them (one line each in the
+  component manifest; schema row 42 `copyright_holder`, optional).
+Used for real on vol. 17 (workspace `srom-produkcja/volumes/17/`, 10 covered PDFs in `3. PDF online/ready/`).
+Run with: Sonnet · high effort — review four changed scripts and the plugin, run php -l and the suite, update SKILL.md/master_schema.md, commit.
