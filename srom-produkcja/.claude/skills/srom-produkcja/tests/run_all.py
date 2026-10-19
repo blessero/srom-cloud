@@ -11,7 +11,7 @@ def _usable():
 if not _usable() and os.path.exists(VENV) and os.path.realpath(sys.executable) != os.path.realpath(VENV):
     os.execv(VENV, [VENV] + sys.argv)
 here = os.path.dirname(os.path.abspath(__file__))
-ok_rx = re.compile(r"ALL PASS \d+/\d+|LINT 0 ERROR|JSX-DONE|PDF SKIP")
+ok_rx = re.compile(r"ALL PASS \d+/\d+|LINT 0 ERROR|JSX-DONE|PDF SKIP|MUPLUGIN SKIP")
 files = sorted(f for f in os.listdir(here) if f.startswith("test_") and f.endswith(".py"))
 bad = []
 for f in files:

@@ -40,8 +40,13 @@ def build(row):
         cite += f". DOI: {doi}"
     kw = [k.strip() for k in re.split(r"[;,]", row.get("keywords_pl", "")) if k.strip()]
     lic = licence_name(row.get("license_url", ""), row.get("license", ""))
-    notice = f"© {row.get('year', '')} {row.get('authors_display', '')}" + (f". {lic}" if lic else "")
-    if not row.get("license_url"):
+    none = (row.get("license") or "").upper() == "NONE"       # no licence: rights reserved, free to read (C19)
+    if none:
+        lic = "Wszelkie prawa zastrzeżone"
+    holder = (row.get("copyright_holder") or "").strip() or row.get("authors_display", "")
+    year = "" if re.match(r"\d{4}\b", holder) else f"{row.get('year', '')} "     # a holder may carry its own year
+    notice = f"© {year}{holder}" + (f". {lic}" if lic else "")
+    if not row.get("license_url") and not none:
         warn.append("licence URL empty")
     props = [("http://ns.adobe.com/pdf/1.3/", "pdf:Keywords", "; ".join(kw)), (PRISM, "prism:publicationName", row.get("journal_title", "")), (PRISM, "prism:issn", row.get("issn", "")),
              (PRISM, "prism:volume", row.get("volume", "")), (PRISM, "prism:coverDate", row.get("year", "")),

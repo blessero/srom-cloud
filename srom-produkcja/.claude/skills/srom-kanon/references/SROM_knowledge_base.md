@@ -27,7 +27,9 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
 - **Current (from vol. 18 / 2025):** Komitet Opieki nad Zabytkami Kultury Żydowskiej w Tarnowie / The Committee for the
   Preservation of Jewish Cultural Heritage in Tarnów. Also the Crossref registrant.
 - **Past (through vol. 17 / 2024):** Muzeum Ziemi Tarnowskiej / Tarnów Region Museum (formerly Muzeum Okręgowe w
-  Tarnowie / District Museum in Tarnów).
+  Tarnowie / District Museum in Tarnów). Vol. 17's colophon names both: „Wydawca ©2024 Komitet Opieki nad Zabytkami
+  Kultury Żydowskiej w Tarnowie” and „©Muzeum Ziemi Tarnowskiej (dawniej Muzeum Okręgowe w Tarnowie)”; its title page
+  lists both (read 18.10.2026).
 - **Origin:** the journal grew out of work at the Ethnographic Museum in Tarnów (systematic collection of Romani
   artefacts from the 1990s, the permanent Roma history exhibition). Provenance only: never in masthead or application
   metadata.
@@ -43,8 +45,13 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
 - **Diamond open access**, print-first, now with an online edition.
 - Licences: **from vol. 19 one licence for the whole journal, CC BY 4.0**; the author no longer chooses a variant (MB,
   12.10.2026; approved by the kolegium redakcyjne, MB 14.10.2026). Vol. 18 and earlier keep each author's consented licence (CC BY,
-  BY-NC or BY-NC-ND; master CSV `license`), not relabelled CC BY. Kanon § 13.2 and RULES.md still describe the
-  author's choice until Code issues the next Kanon version (Cowork C15, 14.10.2026): this decision prevails.
+  BY-NC or BY-NC-ND; master CSV `license`), not relabelled CC BY.
+- **Back volumes (vols ≤ 17; MB 19.10.2026, GEN-117):** the authors ceded their rights to the publisher (for print;
+  online use probably not named in the old agreements: a known risk, MB's decision). The publisher declares **CC BY-NC
+  4.0** for them; the © line names the publisher(s) of the volume (master CSV `copyright_holder`). Exception: a text
+  whose rights are a third party's stays rights-reserved and free to read (`license` = NONE), e.g. vol. 17 Chiriac,
+  © 2018 Tom Lantos Institute. Kanon § 13.2 (v1.17) carries the CC BY rule for new volumes; this back-volume rule
+  lives here only (the Kanon governs new volumes; its § 17: published volumes are not unified retroactively).
 - **Non-commercial status (MB, 08.10.2026):** SROM is always funded by a ministerial grant, has no permission to sell
   copies, gives them away free, and pays all open-access processing itself: its distribution is wholly non-commercial.
   So SROM's own use of a CC BY-NC source needs no separate consent. But a translation published from vol. 19 on goes
@@ -59,10 +66,13 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
   Kultury Żydowskiej w Tarnowie. **DOI prefix: 10.68100** (MB, 06.10.2026). Vol. 18 suffixes minted 06.10.2026 in the
   workspace master CSV; nothing deposited yet (suffixes freeze at the website import). The first deposit is MB's next task.
 - **Metadata infrastructure (03.10.2026):** essentially done (master CSV v3, suffix minting, Crossref XML, PDF
-  metadata, Highwire tags and JSON-LD in the mu-plugin `srom-scholarly.php` v2.3 in srom-quant's `assets/`); needs
-  polishing. The live site was enough to pass Crossref's membership review but still needs work; it runs the
-  plugin v2.3 since 13.10.2026 (vol. 18 article pages live at their DOI addresses).
-- Older back issues have no DOIs; registration starts with the most recent volume.
+  metadata, Highwire tags and JSON-LD in the mu-plugin `srom-scholarly.php`, v2.5 in srom-quant's `assets/` since
+  20.10.2026); needs polishing. The live site was enough to pass Crossref's membership review but still needs work;
+  it runs the plugin v2.3 since 13.10.2026 (vol. 18 article pages live at their DOI addresses).
+- Older back issues have no DOIs; registration starts with the most recent volume. Back catalogue (GEN-118, MB
+  19.10.2026): DOIs for vols 17 to 13 now, older ones later; article pages for every volume. Vol. 17: suffixes minted
+  18.10.2026, print date the year only („2024”, MB 19.10.2026); workflow in workspace
+  `srom-produkcja/volumes/BACK-CATALOGUE.md`.
 - Not on Wikidata yet (checked 30.09.2026; MB's question SYS-2).
 
 ## Indexing and ranking (confirmed by MB 03.10.2026)

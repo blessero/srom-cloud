@@ -36,6 +36,11 @@ def print_date_xml(d, indent):
     """<publication_date media_type="print"> from pub_date_print (YYYY-MM-DD), else "" (Cowork C15, 14.10.2026).
     Crossref takes 1–10 publication dates; with both, the earlier one (print, for a volume printed before it went
     online) becomes the work's issued date, so DOI-based citations give the printed volume's year."""
+    y_only = re.fullmatch(r"(\d{4})", (d or "").strip())
+    if y_only:                                   # a back volume known by its year only (MB 19.10.2026, C19)
+        return (f'{indent}<publication_date media_type="print">\n'
+                f'{indent}  <year>{y_only.group(1)}</year>\n'
+                f'{indent}</publication_date>\n')
     m = re.fullmatch(r"(\d{4})-(\d{2})-(\d{2})", (d or "").strip())
     if not m:
         return ""
@@ -128,9 +133,20 @@ def contributor_xml(authors, translators=()):
         parts.append('      </person_name>')
     return "\n".join(parts)
 
+def contributors_block(r, authors, translators):
+    # <contributors>: the people; for an unsigned text (empty authors_struct) the display name as an organisation
+    # (C19: vol. 17's conference report); nothing when there is no one at all
+    if authors or translators:
+        return f"    <contributors>\n{contributor_xml(authors, translators)}\n    </contributors>\n"
+    org = (r.get("authors_display") or "").strip()
+    if org:
+        return (f'    <contributors>\n      <organization sequence="first" contributor_role="author">{E(org)}</organization>\n'
+                f'    </contributors>\n')
+    return ""
+
 def article_xml(r, pub_y, pub_m, pub_d, cites=""):
     lang = r.get("language") or LANG_DEFAULT
-    authors = parse_authors(r["authors_struct"])
+    authors = parse_authors(r.get("authors_struct"))
     translators = parse_authors(r.get("translators_struct"))  # optional column; empty/absent -> none
     abstracts = []
     if r.get("abstract_pl"):
@@ -157,15 +173,16 @@ def article_xml(r, pub_y, pub_m, pub_d, cites=""):
             '      <free_to_read/>\n'
             f'      <license_ref applies_to="vor" start_date="{pub_y}-{pub_m}-{pub_d}">{E(r["license_url"])}</license_ref>\n'
             '    </program>\n')
+    elif (r.get("license") or "").upper() == "NONE":      # free to read, no licence (back volumes, C19)
+        lic_xml = ('    <program xmlns="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">\n'
+                   '      <free_to_read/>\n'
+                   '    </program>\n')
 
     return f"""  <journal_article publication_type="full_text" language="{lang}">
     <titles>
       <title>{E(r["title_pl"])}</title>{orig_title_xml}
     </titles>
-    <contributors>
-{contributor_xml(authors, translators)}
-    </contributors>
-{chr(10).join(abstracts)}
+{contributors_block(r, authors, translators)}{chr(10).join(abstracts)}
 {print_date_xml(r.get("pub_date_print"), "    ")}    <publication_date media_type="online">
       <month>{pub_m}</month><day>{pub_d}</day><year>{pub_y}</year>
     </publication_date>

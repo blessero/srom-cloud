@@ -23,9 +23,11 @@ SCHEMA = [
 # Optional columns: accepted when present, never required (older CSVs stay valid).
 OPTIONAL = [
     'translators_struct',   # Given|Surname|Affiliation|ORCID ;; … — translator(s), Kanon § 12.2.3
+    'copyright_holder',     # the © line when the rights are not the authors' (back volumes: the publisher; C19)
 ]
 SUFFIX_RE = re.compile(r'^[a-z0-9]{8}$')
 DATE_RE   = re.compile(r'^\d{4}-\d{2}-\d{2}$')
+PRINT_RE  = re.compile(r'^\d{4}(-\d{2}-\d{2})?$')   # a back volume may know only its year (MB 19.10.2026, C19)
 ORCID_RE  = re.compile(r'^https://orcid\.org/\d{4}-\d{4}-\d{4}-\d{3}[\dX]$')
 DOI_RE    = re.compile(r'^10\.\d{4,9}/[a-z0-9]{8}$')
 
@@ -71,13 +73,17 @@ def main():
         d = r.get('pub_date_online', '')
         if not DATE_RE.match(d):       E(f"{rid}: pub_date_online '{d}' not YYYY-MM-DD")
         d = r.get('pub_date_print', '')
-        if not DATE_RE.match(d):       E(f"{rid}: pub_date_print '{d}' not YYYY-MM-DD")
+        if not PRINT_RE.match(d):      E(f"{rid}: pub_date_print '{d}' not YYYY or YYYY-MM-DD")
         if not (r.get('editorial_period') or '').strip(): W(f"{rid}: editorial_period empty (allowed; the cover page leaves out 'Okres redakcji')")
 
-        # license
-        for col in ('license', 'license_url'):
-            v = r.get(col, '')
-            if not v or v.upper() == 'TODO': E(f"{rid}: {col} unfilled ('{v}')")
+        # license; NONE = no licence, free to read (back volumes, C19)
+        if (r.get('license') or '').upper() == 'NONE':
+            if (r.get('license_url') or '').strip(): E(f"{rid}: license NONE but license_url filled")
+            else: W(f"{rid}: no licence: free to read only (the deposit carries no license_ref)")
+        else:
+            for col in ('license', 'license_url'):
+                v = r.get(col, '')
+                if not v or v.upper() == 'TODO': E(f"{rid}: {col} unfilled ('{v}')")
         lu = r.get('license_url', '')
         if lu and lu.upper() != 'TODO' and not lu.startswith('http'):
             W(f"{rid}: license_url not a URL: '{lu}'")
@@ -95,7 +101,11 @@ def main():
         # authors_struct + ORCIDs
         struct = r.get('authors_struct', '')
         if not struct.strip():
-            E(f"{rid}: authors_struct empty")
+            disp = (r.get('authors_display') or '').strip()
+            if disp and '|' not in disp:      # an unsigned text (a conference report): the editors as an organisation (C19)
+                W(f"{rid}: authors_struct empty: '{disp}' is deposited as an organisation author")
+            else:
+                E(f"{rid}: authors_struct empty")
         else:
             for a in struct.split(';;'):
                 a = a.strip()

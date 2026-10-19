@@ -2,8 +2,27 @@
 /**
  * Plugin Name: SROM Scholarly Infrastructure
  * Description: Full-DOI permalinks, Highwire citation_* meta tags, ScholarlyArticle JSON-LD, display shortcodes. Content model (CPTs, taxonomies, ACF groups) is owned by the SROM Importer plugin — this file registers NO post types.
- * Version: 2.3
+ * Version: 2.5
  * Install: drop into wp-content/mu-plugins/ (create the dir if absent) — loads always, cannot be deactivated by accident.
+ *
+ * v2.5 changes (milestone review, 20.10.2026):
+ *  - Removed the v2.3 fatal catcher (shutdown handler -> wp-content/srom-fatal.log, a public URL) and the
+ *    ?srom_off=1 kill switch (any visitor could unscope every grid). Diagnose fatals with WP_DEBUG_LOG
+ *    (wp-content/debug.log, which the host already refuses to serve). The re-entrancy guard stays.
+ *  - No DOI (back catalogue): no "dc.identifier doi:" stub and no bare "https://doi.org/" in the JSON-LD.
+ *  - Body classes are page-level: read from the main query only, so an archive page whose first post
+ *    lacks a DOI no longer hides the DOI rows of every item in its grid.
+ *  - [srom_volume_license]: a Tom mixing CC-licensed and rights-reserved articles says „według artykułu”
+ *    (was: the CC licence alone, wrong for the rights-reserved text).
+ *  - [srom_flipbook] guarded against a flipbook_shortcode that contains [srom_flipbook];
+ *    [srom_authors] returns '' off-context like every other shortcode.
+ *
+ * v2.4 changes (back catalogue, Cowork C19, 19.10.2026):
+ *  - body classes srom-no-doi / srom-no-license / srom-no-pdf / srom-no-abstract on article pages (and
+ *    srom-no-license on a Tom without CC-licensed articles) + CSS hiding rows classed srom-row-doi,
+ *    srom-row-license, srom-row-pdf, srom-row-abstract: one template serves articles with and without DOIs.
+ *  - [srom_license] (article: licence by name, or „Wszelkie prawa zastrzeżone; dostęp bezpłatny”) and
+ *    [srom_volume_license] (Tom: derived from its articles; replaces the typed-in „CC BY 4.0”).
  *
  * v2.3 changes (fixes the "grid shows nothing / shortcode renders nothing" class of bug):
  *  - ROOT CAUSE: every display shortcode and query filter gated on is_singular().
@@ -58,37 +77,6 @@ define('SROM_DOI_PREFIX', '10.68100');
  *    them here too would double-register and silently fight over
  *    rewrite args — removed in v2.0.
  * --------------------------------------------------------------- */
-/* ---------------------------------------------------------------
- * 0. FATAL CATCHER + KILL SWITCH — TEMPORARY (v2.3), remove once diagnosed.
- *
- * Why: try/catch cannot see a memory exhaustion or a stack overflow (they are
- * E_ERROR, not exceptions), and the host log we could get hold of is the
- * ModSecurity/access log, which never contains PHP errors. A shutdown handler
- * sees every fatal, whatever its kind, so we capture it ourselves into a file
- * we know the path of: wp-content/srom-fatal.log.
- *
- * Kill switch: append ?srom_off=1 to any URL to disable every SROM query
- * filter for that one request — so a broken grid can never lock you out of a
- * page while we debug.
- * --------------------------------------------------------------- */
-define('SROM_FILTERS_OFF', isset($_GET['srom_off']));
-
-register_shutdown_function(function () {
-    $e = error_get_last();
-    if (!$e) return;
-    $fatal = [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR];
-    if (!in_array($e['type'], $fatal, true)) return;
-    $mem = function_exists('size_format') ? size_format(memory_get_peak_usage(true)) : memory_get_peak_usage(true);
-    $log = sprintf(
-        "[%s] FATAL: %s\n    in %s:%d\n    url: %s\n    peak memory: %s (limit %s)\n\n",
-        date('c'), $e['message'], $e['file'], (int) $e['line'],
-        isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : 'cli',
-        $mem, ini_get('memory_limit')
-    );
-    if (defined('WP_CONTENT_DIR')) @file_put_contents(WP_CONTENT_DIR . '/srom-fatal.log', $log, FILE_APPEND);
-    error_log('[SROM] ' . str_replace("\n", ' ', $log));
-});
-
 add_action('init', function () {
     // Full-DOI URLs: /articles/{prefix}/{suffix}/ resolves to the article whose slug == suffix.
     // Targets post_type+name (not the CPT query var) so it works regardless of how
@@ -260,7 +248,7 @@ add_action('wp_head', function () {
     $tag('citation_pdf_url', $m['pdf']);        // MUST resolve directly to the PDF, no redirects
     $tag('citation_abstract_html_url', get_permalink());
     if ($m['kw_pl']) $tag('citation_keywords', $m['kw_pl'] . ($m['kw_en'] ? '; ' . $m['kw_en'] : ''));
-    $tag('dc.identifier', 'doi:' . $m['doi']);
+    if ($m['doi']) $tag('dc.identifier', 'doi:' . $m['doi']);
 
     // ScholarlyArticle JSON-LD
     $authors_ld = array_map(function ($a) {
@@ -279,8 +267,8 @@ add_action('wp_head', function () {
         'inLanguage' => $m['lang'],
         'articleSection' => $m['section'],
         'abstract' => $m['abstract_pl'],
-        'identifier' => 'https://doi.org/' . $m['doi'],
-        'sameAs' => 'https://doi.org/' . $m['doi'],
+        'identifier' => $m['doi'] ? 'https://doi.org/' . $m['doi'] : '',
+        'sameAs' => $m['doi'] ? 'https://doi.org/' . $m['doi'] : '',
         'pageStart' => $m['fp'], 'pageEnd' => $m['lp'],
         'datePublished' => $m['pub_date'] ?: $m['year'],
         'license' => $m['license'],
@@ -380,8 +368,9 @@ add_shortcode('srom_issue_field', $srom_volume_field); // back-compat alias
  * current build is a LAYOUT issue, not this shortcode: set the Shortcode widget's
  * Align Self = Stretch (or the wrapping container's Align Items = Stretch). */
 add_shortcode('srom_flipbook', function ($atts) {
+    static $busy = false; // a flipbook_shortcode holding [srom_flipbook] would recurse until PHP dies
     $id = srom_ctx_id('srom_article');
-    if (!$id) return '';
+    if (!$id || $busy) return '';
     $atts = shortcode_atts(['height' => ''], $atts); // empty for Lite; set only on PRO
     $sc  = trim((string) get_field('flipbook_shortcode', $id));
     if ($sc === '') {
@@ -391,7 +380,10 @@ add_shortcode('srom_flipbook', function ($atts) {
         $h  = $atts['height'] !== '' ? sprintf(' height="%s"', esc_attr($atts['height'])) : '';
         $sc = sprintf('[dflip source="%s" id="srom_df_%d"%s][/dflip]', esc_url($pdf), $id, $h);
     }
-    return '<div class="srom-flipbook" style="width:100%;max-width:100%">' . do_shortcode($sc) . '</div>';
+    $busy = true;
+    $html = do_shortcode($sc);
+    $busy = false;
+    return '<div class="srom-flipbook" style="width:100%;max-width:100%">' . $html . '</div>';
 });
 
 /* [srom_authors] — full author block from authors_raw: one .srom-author per
@@ -400,7 +392,9 @@ add_shortcode('srom_flipbook', function ($atts) {
  * Attributes: links="0" to disable archive links, orcid="0" to hide ORCID. */
 add_shortcode('srom_authors', function ($atts) {
     $atts = shortcode_atts(['links' => '1', 'orcid' => '1'], $atts);
-    $authors = srom_parse_authors(get_field('authors_raw', srom_ctx_id('srom_article')));
+    $id = srom_ctx_id('srom_article');
+    if (!$id) return ''; // get_field(…, 0) would read whatever post ACF guesses
+    $authors = srom_parse_authors(get_field('authors_raw', $id));
     if (!$authors) return '';
     $out = '<div class="srom-authors">';
     foreach ($authors as $a) {
@@ -473,7 +467,6 @@ function srom_resolve_dzial_terms($base) {
  * failure log it and leave the query untouched. */
 function srom_safe_query_cb(callable $fn) {
     return function ($query) use ($fn) {
-        if (SROM_FILTERS_OFF) return;              // ?srom_off=1 escape hatch
         if (!$query instanceof WP_Query) {         // never assume Elementor's arg type
             error_log('[SROM] query filter got ' . (is_object($query) ? get_class($query) : gettype($query)) . ', expected WP_Query');
             return;
@@ -577,7 +570,7 @@ add_shortcode('srom_diag', function () {
     $art  = srom_ctx_id('srom_article');
     $vol  = srom_ctx_id('srom_volume');
     $rows = [
-        'mu-plugin version'      => '2.3',
+        'mu-plugin version'      => '2.5',
         'PHP'                    => PHP_VERSION,
         'main query object'      => $ctx['id'] . ' (' . ($ctx['type'] ?: '—') . ')',
         'get_the_ID()'           => (string) get_the_ID(),
@@ -635,4 +628,92 @@ add_shortcode('srom_diag', function () {
     $out = '<table style="font:12px/1.5 monospace;border-collapse:collapse" border="1" cellpadding="4">';
     foreach ($rows as $k => $v) $out .= '<tr><th align="left">' . esc_html($k) . '</th><td>' . esc_html((string) $v) . '</td></tr>';
     return $out . '</table>';
+});
+
+/* ---------------------------------------------------------------
+ * 8. BACK CATALOGUE (v2.4, Cowork C19, 19.10.2026): one article template for every volume.
+ *    Articles of back volumes may have no DOI yet (page at /articles/<suffix>/), no CC licence
+ *    (a rights-reserved text shown free of charge), or no abstract. Rather than a second
+ *    template, the page says what it lacks in <body class> and the template hides those rows
+ *    (give the row container the class srom-row-doi / srom-row-license / srom-row-pdf /
+ *    srom-row-abstract; the CSS below does the rest). The volume page's licence is derived
+ *    from its articles ([srom_volume_license]) instead of a typed-in „CC BY 4.0”.
+ * --------------------------------------------------------------- */
+
+/** "https://creativecommons.org/licenses/by-nc/4.0/" → "CC BY-NC 4.0"; '' if not a CC licence URL. */
+function srom_licence_name($url) {
+    if (!preg_match('~licenses/([a-z-]+)/(\d\.\d)~', (string) $url, $m)) return '';
+    return 'CC ' . strtoupper($m[1]) . ' ' . $m[2];
+}
+
+/** The page itself (main query), for page-level output: body classes and their CSS. Not srom_ctx_id():
+ *  its get_the_ID() fallback is the FIRST POST of an archive, whose gaps would hide rows on every item. */
+function srom_page_id($post_type) {
+    $ctx = isset($GLOBALS['SROM_CTX']) ? $GLOBALS['SROM_CTX'] : ['id' => 0, 'type' => ''];
+    return ($ctx['id'] && $ctx['type'] === $post_type) ? $ctx['id'] : 0;
+}
+
+add_filter('body_class', function ($classes) {
+    $art = srom_page_id('srom_article');
+    if ($art) {
+        if (!get_field('doi', $art))         $classes[] = 'srom-no-doi';
+        if (!get_field('license_url', $art)) $classes[] = 'srom-no-license';
+        if (!get_field('pdf_file', $art))    $classes[] = 'srom-no-pdf';
+        if (!get_field('abstract_pl', $art) && !get_field('abstract_en', $art)) $classes[] = 'srom-no-abstract';
+        return $classes;
+    }
+    $vol = srom_page_id('srom_volume');
+    if ($vol && array_filter(srom_volume_licences($vol)) === []) $classes[] = 'srom-no-license';
+    return $classes;
+});
+
+add_action('wp_head', function () {
+    if (!srom_page_id('srom_article') && !srom_page_id('srom_volume')) return;
+    echo "<style id=\"srom-backcat\">.srom-no-doi .srom-row-doi,.srom-no-license .srom-row-license,"
+       . ".srom-no-pdf .srom-row-pdf,.srom-no-abstract .srom-row-abstract{display:none!important}</style>\n";
+}, 20);
+
+/** Distinct licences of a volume's published articles, in order found: a CC licence URL, or '' for an
+ *  article without one (rights reserved). [] = the volume has no published articles. */
+function srom_volume_licences($vol_id) {
+    static $cache = [];
+    if (isset($cache[$vol_id])) return $cache[$vol_id];
+    $ids = get_posts(['post_type' => 'srom_article', 'post_status' => 'publish', 'posts_per_page' => -1,
+        'fields' => 'ids', 'no_found_rows' => true, 'suppress_filters' => true,
+        'meta_query' => [['key' => 'volume', 'value' => (string) $vol_id, 'compare' => '=']]]);
+    $out = [];
+    foreach ($ids as $id) {
+        $u = (string) get_post_meta($id, 'license_url', true);
+        if (srom_licence_name($u) === '') $u = '';
+        if (!in_array($u, $out, true)) $out[] = $u;
+    }
+    return $cache[$vol_id] = $out;
+}
+
+/* [srom_license] — on the article template: the licence by name, linked to its deed;
+ * without a licence: „Wszelkie prawa zastrzeżone; dostęp bezpłatny”. */
+add_shortcode('srom_license', function () {
+    $id = srom_ctx_id('srom_article');
+    if (!$id) return '';
+    $url = (string) get_field('license_url', $id);
+    $name = srom_licence_name($url);
+    if ($name === '') return esc_html('Wszelkie prawa zastrzeżone; dostęp bezpłatny');
+    return sprintf('<a href="%s" rel="license">%s</a>', esc_url($url), esc_html($name));
+});
+
+/* [srom_volume_license] — on the Tom template: every article under one CC licence → its name; a mix
+ * (several licences, or CC and rights-reserved texts) → „według artykułu (…)”; no CC licence at all →
+ * '' (the row is hidden by srom-no-license). Also works on an article page (its Tom). */
+add_shortcode('srom_volume_license', function () {
+    $vol = srom_ctx_id('srom_volume');
+    if (!$vol && ($art = srom_ctx_id('srom_article'))) {
+        $vol = get_field('volume', $art);
+        $vol = is_object($vol) ? $vol->ID : $vol;
+    }
+    if (!$vol) return '';
+    $lic = srom_volume_licences($vol);
+    if (!array_filter($lic)) return '';
+    if (count($lic) === 1) return sprintf('<a href="%s" rel="license">%s</a>', esc_url($lic[0]), esc_html(srom_licence_name($lic[0])));
+    $names = array_map(fn($u) => $u === '' ? 'wszelkie prawa zastrzeżone' : srom_licence_name($u), $lic);
+    return esc_html('według artykułu (' . implode(', ', $names) . ')');
 });

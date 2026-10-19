@@ -1,4 +1,4 @@
-# SROM master CSV — column reference (v3, 38 columns + 1 optional)
+# SROM master CSV — column reference (v3, 40 columns + 2 optional)
 
 One row per article. All-English headers (the scripts read columns by header name — a rename means changing them). Encoding UTF-8 with BOM. Consumers: `cover_page.py` (online cover page) · Importer plugin · `generate_crossref_xml.py`.
 
@@ -38,15 +38,16 @@ Legend for **Consumed by**: **X**=Crossref XML · **W**=WordPress via Importer �
 | 30 | `pages_to` | X, W | Last page (machine). |
 | 31 | `pdf_file` | D | Bare PDF filename (cover-page reference). NOTE: the Importer's `pdf_file` ACF field is fed from `pdf_url` (#5), not this column. |
 | 32 | `language` | X, W | Primary language, default `pl`. |
-| 33 | `license` | — | Short license code (`CC-BY`), drives `license_url`. |
+| 33 | `license` | — | Short license code (`CC-BY`), drives `license_url`. `NONE` (back volumes, C19): no licence, free to read — `license_url` stays empty, the deposit carries `free_to_read` without `license_ref`, the cover page and PDF say „Wszelkie prawa zastrzeżone”. |
 | 34 | `license_url` | X, W | Full CC URL → ACF + Crossref AccessIndicators `license_ref`. |
 | 35 | `is_translation` | X, W | `TAK`/`ADAPTACJA`/empty. Translations get `original_language_title`. |
 | 36 | `original_title` | X, W | Original title of a translated work. |
 | 37 | `original_source` | W | Original source citation. |
 | 38 | `original_doi` | X, W | Original work's DOI → Crossref `isTranslationOf` relation when present. |
 | 39 | `translators_struct` | X | **Optional** (added 27.09.2026). Translator(s) of a translated work, same encoding as `authors_struct`: `Given\|Surname\|Affiliation\|ORCID ;; …`. → Crossref `<person_name contributor_role="translator">`, after the authors. Not imported to WP (the Importer ignores unknown columns) and not bound in Data Merge. `validate_master.py` warns when `is_translation`=`TAK` and it is empty. |
-| 40 | `pub_date_print` | — | Required (07.10.2026). `YYYY-MM-DD`, print publication date; cover page "Data publikacji". |
+| 40 | `pub_date_print` | — | Required (07.10.2026). `YYYY-MM-DD`, print publication date; cover page "Data publikacji". A back volume known only by its year: `YYYY` (C19). |
 | 41 | `editorial_period` | — | Optional (MB 08.10.2026, vol. 18: left empty). Printed as written, e.g. `marzec 2026 – czerwiec 2026`; cover page "Okres redakcji"; when empty the cover page leaves the item out (validate_master warns). |
+| 42 | `copyright_holder` | D | **Optional** (C19, 19.10.2026). The © line when the rights are not the authors' (back volumes: the publisher(s)); may open with its own year (`2018 Tom Lantos Institute`), else `year` is put before it. Cover page footer and PDF XMP; empty → the authors. Not imported to WP. |
 
 ## Volume (Tom) sheet — if importing volumes separately
 

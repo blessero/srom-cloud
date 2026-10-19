@@ -36,6 +36,9 @@ Load the artefact, don't re-derive it. When a task touches a surface you don't h
 | Suffix minting | this skill: `scripts/mint_suffixes.py` | — |
 | PDF metadata (title, author, DOI, licence, PRISM) | this skill: `scripts/pdf_metadata.py <master> <article_id> --out <dir>` → `<article_id>_metadane.jsx`, run in InDesign before the PDF export | — |
 | Online cover page (metadata page in front of the article; links, page labels, PDF metadata) | this skill: `scripts/cover_page.py <master> <article_id> <article.pdf> --out <dir>` → `<pdf_file>` ready to upload; `--proof` / no PDF for a look. Abstract blocks flex (7.2 pt → 7.0 pt, English may end at 218 mm; else stop); template `SROM_okladka_szablon_MB2.idml` (srom-produkcja folder; layout: `docs/COVER-PAGE-DESIGN-SPEC.md`). PyMuPDF, no InDesign; assets `assets/cover/` (logo, Open Access mark), font IBM Plex Sans from the Mac. Before the cover goes in, the article's text layer is repaired (`scripts/fix_actualtext.py`, pikepdf: InDesign's accent glyphs read as U+FFFD, and a precomposed letter plus its accent glyph read as a doubled accent, „Krakó́w” – the glyph is wrapped in an empty ActualText span; pages unchanged, tags kept) and /Lang, DisplayDocTitle set where missing; a self-check line follows the save | — |
+| Back volumes (vols ≤ 17, C19): draft master CSV | this skill: `scripts/rip_volume.py <vol>/volume.json` (contents page + colophon typed into volume.json; abstracts, keywords, bios from the PDFs, ORCIDs from `autorzy.tsv` by whole-name match; lists unconfirmed line-end joins and every CSV cell a re-run changes; keeps minted suffixes). Workflow: `workspace/srom-produkcja/volumes/BACK-CATALOGUE.md` | — |
+| Back volumes: one PDF per article from the archive volume | this skill: `scripts/split_volume.py <master> <volume.pdf> --out <dir>` (pikepdf, pages copied unchanged; offset from the folios or `--offset`), then `cover_page.py` | — |
+| Bookmarks + live links for a PDF InDesign did not give them | this skill: `scripts/pdf_enhance.py <pdf> [--dry-run]` (after `cover_page.py`; headings by type, URLs/DOIs incl. broken lines; existing outline kept) | — |
 | **Importer plugin** (CPTs/taxonomies/ACF/CSV import) | bundled source at **`wp-acf-plugin-builder/assets/srom-importer/`** — read `class-srom-imp-setup.php` (model) + `class-srom-imp-runner.php` (upsert/coercion) to confirm any field name before you rely on it | **wp-acf-plugin-builder** |
 | Elementor templates | Theme Builder exports (in the working folder's `elementor-updated/`) | **wp-elementor-builder** |
 
@@ -52,7 +55,7 @@ Before concluding any live bug is in our code, enumerate what is actually deploy
 - Elementor → **Custom Code** snippets, and the theme's `functions.php`.
 - Drop-ins (`object-cache.php`, `advanced-cache.php`).
 
-And instrument rather than guess: the mu-plugin ships a shutdown-handler fatal logger (`wp-content/srom-fatal.log`, catches the non-catchable E_ERROR class), a `?srom_off=1` kill switch for its query filters, and `[srom_diag]`. The host's "error log" is often the ModSecurity/access log and contains **no** PHP errors — get `wp-content/debug.log` or the fatal logger instead.
+And instrument rather than guess: the mu-plugin ships `[srom_diag]` (admin-only). For fatals, switch on `WP_DEBUG` + `WP_DEBUG_LOG` with `WP_DEBUG_DISPLAY` false in `wp-config.php` and read `wp-content/debug.log`: PHP itself logs the non-catchable E_ERROR class (memory exhaustion, PHP 8.3's "Maximum call stack size reached"), and the host refuses to serve that file (403, checked 20.10.2026). The host's "error log" is often the ModSecurity/access log and contains **no** PHP errors. (v2.3's own fatal logger and `?srom_off=1` kill switch were removed in v2.5: the log was a public URL, the switch let any visitor unscope every grid.)
 
 ## The canonical data contract (the coupling point — get this exactly right)
 
@@ -81,7 +84,7 @@ Templates and the mu-plugin bind by exact key. Three kinds of "field" exist and 
 
 **Core WP fields that carry article data:** `post_title` ← `title_pl`; `post_name` ← `doi_suffix` (slug); `post_content` AND `post_excerpt` ← `abstract_pl` (mirrored so WP native search, which never indexes ACF meta, can find articles by abstract); `menu_order` ← `seq`.
 
-## Master CSV schema (v3, 38 columns + optional `translators_struct`)
+## Master CSV schema (v3, 40 columns + optional `translators_struct`, `copyright_holder`)
 
 One row per article. Feeds three consumers from one cell each: `cover_page.py` (online cover pages; formerly planned as InDesign Data Merge) · Importer (WP posts) · Crossref generator (deposit XML). Full field reference: `references/master_schema.md`. Validate any master CSV before deposit with `scripts/validate_master.py`.
 
@@ -123,6 +126,8 @@ Drop into `wp-content/mu-plugins/` (create the dir if absent) — always-on, can
   - `[srom_volume_field name="…" format="…"]` — volume metadata on the article template via the relation. Attribute is `name`; allowed: `volume`, `year`, `signature`, `theme`, `pub_date`. `format="F Y"` localises `pub_date` (→ "grudzień 2025"). Also works placed on the Tom template directly. Alias `[srom_issue_field]` kept for pre-v2.2 references.
   - `[srom_flipbook]` — on-screen PDF reader (DearFlip), served dynamically: uses `flipbook_shortcode` if set, else builds `[dflip source="…"]` from `pdf_file`. DearFlip **Lite** honours `source=` for same-origin PDFs; `height=` is PRO-only. The 0-width-collapse bug is a *layout* issue → set the widget's Align Self = Stretch.
   - `[srom_authors links="1" orcid="1"]` — full author block from `authors_raw`: per author a `.srom-author` with `.srom-author-name` (linked to the `autor` archive when the term exists), `.srom-author-aff`, `.srom-author-orcid`. Returns ONE composed block, not three addressable widgets — this is required for multi-author articles. Per-line styling = style the three CSS classes; do NOT split into per-value Elementor widgets (breaks on multi-author).
+  - `[srom_license]` / `[srom_volume_license]` (v2.4) — article licence by name (none → „Wszelkie prawa zastrzeżone; dostęp bezpłatny”); Tom licence derived from its published articles (one CC licence → its name, a mix → „według artykułu (…)”, none → empty).
+  - Body classes (v2.4; page-level, main query only since v2.5) `srom-no-doi` / `srom-no-license` / `srom-no-pdf` / `srom-no-abstract`: a template row classed `srom-row-doi` / `-license` / `-pdf` / `-abstract` hides itself, so one article template serves volumes with and without DOIs.
   - `[srom_diag]` — **temporary** admin-only diagnostic (context, volume-meta, dzial slugs, hook registration, missing-meta warnings, per-section self-test). Strip once an investigation is closed.
 
 **Context resolution (v2.3):** every shortcode and query filter resolves the "current" post via `srom_ctx_id()`, which latches the real main-query object at `wp` and falls back to the set-up post — NOT bare `is_singular()`. Inside a Loop Grid item, the editor preview, or an admin-ajax widget re-render the global query is not the main query, so an `is_singular()` gate is false and the feature silently renders nothing. Any new reader must use `srom_ctx_id()`.

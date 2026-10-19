@@ -175,13 +175,13 @@ def check(row):
             probs.append(f"{k} empty")
     if placeholder(row.get("doi")):
         probs.append(f"doi is a placeholder: {row.get('doi') or 'empty'}")
-    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", row.get("pub_date_print", "")):
-        probs.append(f"pub_date_print not YYYY-MM-DD: {row.get('pub_date_print') or 'empty'}")
+    if not re.fullmatch(r"\d{4}(-\d{2}-\d{2})?", row.get("pub_date_print", "")):        # year only: back volumes (C19)
+        probs.append(f"pub_date_print not YYYY or YYYY-MM-DD: {row.get('pub_date_print') or 'empty'}")
     if placeholder(row.get("editorial_period")) and (row.get("editorial_period") or "").strip():
         probs.append(f"editorial_period is a placeholder: {row.get('editorial_period')}")   # empty is allowed (vol. 18, MB 08.10.2026): the line is left out
     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", row.get("pub_date_online", "")):
         probs.append(f"pub_date_online not YYYY-MM-DD: {row.get('pub_date_online') or 'empty'}")
-    if not licence(row)[0]:
+    if not licence(row)[0] and (row.get("license") or "").upper() != "NONE":      # NONE: no licence (C19)
         probs.append(f"license_url not a CC licence: {row.get('license_url') or 'empty'}")
     have = [k for k in ("abstract_pl", "abstract_en", "keywords_pl", "keywords_en") if row.get(k)]
     if have and len(have) < 4:
@@ -293,9 +293,13 @@ def footer(pen, row):
              f"Okres redakcji: {nbsp(row.get('editorial_period'))}" if (row.get("editorial_period") or "").strip() else ""]
     pen.put(TX, FOOT_DATES, RX, p(6, 8.5, esc(SEP.join(d for d in dates if d)), extra="; letter-spacing:-0.01em"))
     short, name, deed = licence(row)
-    body = f'© {esc(row.get("year"))} {esc(", ".join(a[0] for a in authors(row)))}.'
+    who = (row.get("copyright_holder") or "").strip() or ", ".join(x[0] for x in authors(row))   # C19: the publisher, or a holder with its own year
+    year = "" if re.match(r"\d{4}\b", who) else esc(row.get("year")) + " "
+    body = f'© {year}{esc(who)}.'
     if short:
         body += f" Artykuł w\u00a0otwartym dostępie na licencji {a(deed, esc(name))}"
+    elif (row.get("license") or "").upper() == "NONE":
+        body += " Wszelkie prawa zastrzeżone; artykuł udostępniony bezpłatnie."
     pen.put(TX, FOOT_LIC, RX, p(6, 8.5, body, extra="; letter-spacing:-0.01em"))
 
 
@@ -427,6 +431,12 @@ def main():
             probs.append(f"article page is {r0.width / MM:.1f} × {r0.height / MM:.1f} mm, not 165 × 235 "
                          "(export without bleed and marks)")
         span = [int(x) for x in (row.get("pages_from"), row.get("pages_to")) if (x or "").isdigit()]
+        dropped = 0                 # C19: an export may end on the blank verso the volume prints; pages_to is the last text page
+        while len(span) == 2 and len(art) > span[1] - span[0] + 1 and not art[-1].get_text().strip() \
+                and not art[-1].get_images() and not art[-1].get_drawings():
+            art.delete_page(-1); dropped += 1
+        if dropped:
+            fixed += f"; {dropped} blank trailing page(s) dropped"
         if len(span) == 2 and len(art) != span[1] - span[0] + 1:
             probs.append(f"article PDF has {len(art)} pages, the CSV says {span[0]}–{span[1]} ({span[1] - span[0] + 1})")
         art.insert_pdf(doc, start_at=0)                    # the article's bookmarks and links keep their pages
