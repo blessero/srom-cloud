@@ -75,12 +75,53 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
   `srom-produkcja/volumes/BACK-CATALOGUE.md`.
 - Not on Wikidata yet (checked 30.09.2026; MB's question SYS-2).
 
-## Indexing and ranking (confirmed by MB 03.10.2026)
+## Indexing and ranking (confirmed by MB 03.10.2026; ministry rules and criteria verified 21.10.2026)
 
-- **Indexed in:** CEJSH, CEEOL.
-- **Targets for re-listing by the ministry (MNiSW/MEiN):** ERIH+, DOAJ, EBSCO-Ultimate, ICI JML; the journal is in none
-  of the four. Points: 20 (July 2023); zero now (delisted when the new regulation took effect; still zero on 03.10.2026). Goal: re-listing
-  within one year, which drives the ERIH+ application and the website/DOI work.
+- **Indexed in:** CEJSH, CEEOL (neither counts for the ministry list).
+- **Targets for re-listing by the ministry (MNiSW):** ERIH+, DOAJ, EBSCO-Ultimate (the regulation names five EBSCO collections), ICI Journals
+  Master List: the four databases through
+  which a journal outside Scopus/WoS can enter the list (Rozporządzenie MNiSW of 30.04.2026, Dz.U. 2026 poz. 630, § 6 ust. 2).
+  The journal is in none of the four. Points: 20 (July 2023); zero now (delisted when the new regulation took effect; still
+  zero on 03.10.2026).
+- **How the list is made now** (the regulation; gov.pl and Forum Akademickie, both 02.06.2026): the list in preparation takes
+  database membership as of **1 July 2026** and is to be published by the end of 2026 and signed early in 2027, so it cannot
+  include SROM. A journal cannot apply: the regulation has no application route and no fixed update cycle; the minister sets
+  each cut-off date (§ 6 ust. 4), and a journal from the four databases is listed only if the Komisja Ewaluacji Nauki selects
+  it (§ 11: national and international renown, influence on its discipline, ethical and scientific standards). So the goal is
+  to be in ERIH+ and DOAJ before the next cut-off, whose date has not been announced; this drives the website and DOI work.
+
+### Indexing criteria (official pages read 21.10.2026; read them again before filing)
+
+**ERIH+** (erihplus.hkdir.no, *Criteria for Inclusion*, last updated 22.09.2026). Judged on the last two years of published
+issues; the journal active for at least two years; ISSN confirmed in the ISSN Portal.
+- Each issue should contain at least 5 research articles. English abstracts for all original articles; affiliations for all authors.
+- The first author of each research article must have a doctorate; authors without one may only be co-authors.
+- Authorship not local: no more than two thirds of the last two years' authors from one institution.
+- Board: at least 3 members, listed on the site with affiliation and academic title; when an institution publishes the
+  journal, at least a third of the board from other institutions.
+- Website: ISSN; board; archive of at least the last two years; aims, theme and audience; the peer review described clearly
+  and in detail (saying that articles are reviewed is not enough); periodicity matching the history; ethics, copyright,
+  plagiarism, open-access and APC policies. Editors must avoid conflicts of interest between authors and reviewers.
+
+**DOAJ** (doaj.org/apply/guide v2.9; *Licensing & copyright* v2.1).
+- At least 5 research articles a year; more than one year of history, or 10 open-access research articles.
+- An open licence on every article (Creative Commons or equivalent; DOAJ names no particular one, so CC BY-NC qualifies),
+  including republished articles and **translations**. All content free at once: no embargo, no registration; a charge
+  for print is allowed. Free-to-read but rights-reserved content may not be scholarly articles. An open-access statement on the site.
+- A journal that turned open access states on the site the date of the change and the access and reuse terms of the
+  earlier archive (DOAJ's rule for "flipped" journals; the closest fit for vols ≤ 17, e.g. vol. 17 Chiriac, rights reserved).
+- Every article reviewed by at least two independent reviewers; **arts and humanities journals may instead use editorial
+  review by at least two editors** (which subjects count is DOAJ's call; not checked for SROM). The process described on the site.
+- Endogeny at most 25 % in either of the latest two issues (MB keeps this check himself, 14.10.2026).
+- Easy to reach from the homepage: open-access policy; aims and scope; board with affiliations (at least five editors
+  recommended); instructions for authors; peer review; licensing; copyright (separate from the website's, never "all rights
+  reserved"); author charges (say there are none); the publisher's name and address, a contact person and the journal's
+  dedicated e-mail address. The journal's name must match issn.org.
+- Strongly recommended: submitted, accepted and published dates on each article.
+- After a rejection, no new application for six months (unless it was for the ISSN, the website or too little content, then fixed).
+
+**Neither says** whether a translation counts as a research article. Plan each volume with at least five original research
+articles in Parts I–II, each with a doctor as first author; translations come on top.
 
 ## Roadmap (not built; context for scoping)
 

@@ -42,7 +42,8 @@ Output: `volumes/<vol>/block.md`.
    Collect here the facts from each card's section 8 and ask MB to go through, at least: rights and fees ·
    length and translation effort, translator capacity · author relations, commitments already made ·
    balance and representation (step 4 facts) · institutional and political sensitivities · funding or
-   evaluation requirements · links to the Tabor conference or other SROM events · MB's own conflicts of interest.
+   evaluation requirements (indexing: the volume's Parts I–II need at least five research articles with a doctor as first
+   author, and whether translations count is unconfirmed: KB § Indexing criteria) · links to the Tabor conference or other SROM events · MB's own conflicts of interest.
    Record MB's decisions here with the date.
 
 7. **Brief for the intro and the translation** — only after MB has chosen. One short section per chosen

@@ -412,3 +412,12 @@ Run with: Sonnet · high effort — review four changed scripts and the plugin, 
 - For your information: GEN-112's second description tag is Hello Elementor's (`hello_elementor_settings_description_meta_tag` false), not the
   mu-plugin: no plugin change needed. `wp-content/srom-fatal.log` (v2.3's logger, 171 KB) is still on the server and answers 200: MB deletes it (GEN-126).
 - No skill file changed. Suite here: SUITE ALL PASS 28/28.
+
+## C22 — knowledge base: indexing criteria (verified); one Zizek clause: please review and commit [general] (21.10.2026 00:16)
+From MB's old srom-journal-ops suite (`1. Inbox`, 05.09.2026), re-read against the official pages on 21.10.2026. Two files changed, no code:
+- srom-kanon `references/SROM_knowledge_base.md`: § Indexing and ranking rewritten (ministry rules: Dz.U. 2026 poz. 630 § 6, § 11; cut-off 1.07.2026;
+  no application route) and a new § Indexing criteria (ERIH+ page updated 22.09.2026, incl. "first author must have a doctorate"; DOAJ guide v2.9 and
+  Licensing & copyright v2.1, incl. the arts-and-humanities two-editor route and "translations must be openly licensed"). EBSCO-Ultimate kept as MB named it.
+- srom-zizek `references/block.md` step 6: one clause under "evaluation requirements" pointing to that section.
+Suite here after the change: SUITE ALL PASS 28/28 (KB ALL PASS 4/4, KANON ALL PASS 20/20); HANDOFF CONTRACT 35/35.
+Run with: Sonnet · medium — two Markdown files (one KB section of about 45 lines, one clause), no code; run the suite and commit; the one risk is a fact you would word differently: the sources are named in the section.
