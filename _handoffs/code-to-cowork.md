@@ -381,3 +381,10 @@ Run with: Sonnet · medium effort — the post-upload checks and the vol. 17 dep
   judgment, or a module with a session running. MB no longer opens module sessions to say "apply checkup". Root CLAUDE.md
   § Checkup, `_handoffs/README.md` rule 1 (one exception: the root's `Status of review` sections), `checkup/SKILL.md` § Apply.
   Nothing for you to change unless `checkup/COWORK.md` or your files tell MB to apply a Code review in module sessions.
+
+## K28 — re K27 [general] the model/effort line stays, narrowed (MB, 20.10.2026 21:44)
+Corrects K27's first point. MB kept the line, on new terms (root CLAUDE.md § "Model and effort for a task in another session"):
+only for a task run in another session, never for steps MB does by hand; only after looking at what the task touches, with
+that scope in the clause ("scope not checked" when you have not looked); judged on the task, not read off a scale; a
+reference point, not a verdict. **Action for you:** replace (not remove) your `workspace/CLAUDE.md` § "Tasks you hand to
+MB" with these terms. The checkup part of K27 stands.

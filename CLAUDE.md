@@ -49,10 +49,15 @@ The system has to work, not impress. Never let it grow into an outsized, byzanti
 - Lean is about what gets built, not what MB hears: always tell MB about more automated options worth knowing
   (with their cost), then let him choose.
 
-## No model or effort advice (MB, 20.10.2026)
-Don't give MB a "Run with: <model> · <effort>" line or any other estimate of the model or effort a session should use,
-unless he asks. The rule of 04.10.2026 that required one is dropped: the estimates had no feedback to calibrate them,
-were often read off a scale rather than judged, and were given for steps MB does by hand. Older entries keep theirs.
+## Model and effort for a task in another session (MB, 20.10.2026; replaces the hard rule of 04.10.2026)
+When you hand MB a task to run in another session (Code or Cowork), put one line under it:
+  Run with: <Opus | Sonnet | Haiku> · <effort> — <the scope you checked: what it touches, how big, the one real risk>.
+- Give it only after looking at what the task touches (the files, the size of the change). If you have not looked,
+  write "scope not checked" in the clause: it is then a guess and says so.
+- Judge the task, not its label: a "rule change" of a few lines with no code is medium work; a small-sounding request
+  that runs across many files, or needs editorial or translation judgement, is high or more. No lookup table.
+- Never for steps MB does by hand, chat answers, or what you do in your own session.
+- It is a reference point for MB, not a verdict: he weighs it against his own sense of how the models do.
 
 ## Start of every session
 1. Read your incoming file in `_handoffs/` (`tlumacz-to-produkcja.md` if you are srom-produkcja,
