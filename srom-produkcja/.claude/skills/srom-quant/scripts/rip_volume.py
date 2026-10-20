@@ -208,7 +208,7 @@ def main():
         for au in authors:
             if au[2] and au[2] not in affs: affs.append(au[2])
         suf = keep.get(aid, f"todo{n:04d}")
-        pdf_file = f"SROM_{C['volume']}_{C['year']}_{art['short']}.pdf"
+        pdf_file = f"Studia_Romologica_{C['volume']}_{C['year']}_{art['short']}.pdf"     # public name: journal title in full (MB 21.10.2026)
         lic = g("license")
         rows.append({
             'article_id': aid, 'doi_suffix': suf, 'doi': f"{PREFIX}/{suf}", 'landing_url': f"{SITE}/articles/{PREFIX}/{suf}/",

@@ -36,7 +36,7 @@ Legend for **Consumed by**: **X**=Crossref XML · **W**=WordPress via Importer �
 | 28 | `pages` | D | Human range `11–50` for cover pages. |
 | 29 | `pages_from` | X, W | First page (machine). |
 | 30 | `pages_to` | X, W | Last page (machine). |
-| 31 | `pdf_file` | D | Bare PDF filename (cover-page reference). NOTE: the Importer's `pdf_file` ACF field is fed from `pdf_url` (#5), not this column. |
+| 31 | `pdf_file` | D | Bare PDF filename (cover-page reference): `Studia_Romologica_{vol}_{year}_{Author_Shorttitle}.pdf`, journal title in full, never `SROM_` (MB 21.10.2026; `validate_master.py` errors otherwise, and when `pdf_url` does not end with it). NOTE: the Importer's `pdf_file` ACF field is fed from `pdf_url` (#5), not this column. |
 | 32 | `language` | X, W | Primary language, default `pl`. |
 | 33 | `license` | — | Short license code (`CC-BY`), drives `license_url`. `NONE` (back volumes, C19): no licence, free to read — `license_url` stays empty, the deposit carries `free_to_read` without `license_ref`, the cover page and PDF say „Wszelkie prawa zastrzeżone”. |
 | 34 | `license_url` | X, W | Full CC URL → ACF + Crossref AccessIndicators `license_ref`. |

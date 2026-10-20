@@ -136,6 +136,20 @@ def vwarn(is_tr):
 t("validate_master: translators_struct on an ADAPTACJA row → no 'not TAK' warning; on a plain row → warning",
   "is_translation is not TAK" not in vwarn("ADAPTACJA") and "is_translation is not TAK" in vwarn(""), vwarn("ADAPTACJA"))
 
+# validate_master.py (21.10.2026): the PDF name carries the journal title in full, and pdf_url ends with it
+def vpdf(fn, url):
+    p = os.path.join(vdir, "m_pdf.csv")
+    with open(p, "w", encoding="utf-8-sig", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["article_id", "volume", "year", "pdf_file", "pdf_url"])
+        w.writeheader(); w.writerow({"article_id": "SROM-18-2025-001", "volume": "18", "year": "2025", "pdf_file": fn, "pdf_url": url})
+    return subprocess.run([sys.executable, VM, p], capture_output=True, text=True).stdout
+U = "https://studiaromologica.pl/wp-content/uploads/archive/18-2025/"
+t("validate_master: SROM_ PDF name and a pdf_url that does not end with pdf_file are errors; the full title passes",
+  "not Studia_Romologica_18_2025_" in vpdf("SROM_18_2025_A_B.pdf", U + "SROM_18_2025_A_B.pdf")
+  and "pdf_url does not end" in vpdf("Studia_Romologica_18_2025_A_B.pdf", U + "SROM_18_2025_A_B.pdf")
+  and "pdf_file" not in vpdf("Studia_Romologica_18_2025_A_B.pdf", U + "Studia_Romologica_18_2025_A_B.pdf"),
+  vpdf("Studia_Romologica_18_2025_A_B.pdf", U + "SROM_18_2025_A_B.pdf"))
+
 # cover_page.py (03.10.2026): the online metadata page from the master row, prepended to the article's PDF
 import pymupdf
 CV = os.path.join(os.path.dirname(GEN), "cover_page.py")
@@ -151,7 +165,7 @@ def crow(n, **kw):
              pub_date_online="2026-07-02", title_pl="Romowie w Polsce i w Europie", title_en="Roma in Poland and in Europe",
              authors_display="Anna Nowak, Jan Lis", authors_struct="Anna|Nowak|Uniwersytet Jagielloński|https://orcid.org/0000-0002-1825-0097 ;; Jan|Lis||",
              abstract_pl="Krótki abstrakt o Romach w Polsce.", abstract_en="A short abstract.", keywords_pl="Romowie, Polska",
-             keywords_en="Roma, Poland", pages="11–14", pages_from="11", pages_to="14", pdf_file=f"SROM_19_2026_Nowak_{n}.pdf",
+             keywords_en="Roma, Poland", pages="11–14", pages_from="11", pages_to="14", pdf_file=f"Studia_Romologica_19_2026_Nowak_{n}.pdf",
              language="pl", license="CC-BY", license_url="https://creativecommons.org/licenses/by/4.0/", is_translation="",
              original_title="", original_source="", original_doi="", translators_struct="",
              pub_date_print="2026-06-30", editorial_period="marzec 2026 – czerwiec 2026")
@@ -174,7 +188,7 @@ art.set_toc([[1, "Wstęp", 2]]); art.save(os.path.join(cdir, "art.pdf"))
 def cvrun(*args):
     return subprocess.run([sys.executable, CV, ccp, *args, "--out", cdir], capture_output=True, text=True)
 r = cvrun("SROM-19-2026-001", os.path.join(cdir, "art.pdf"))
-fp = os.path.join(cdir, "SROM_19_2026_Nowak_1.pdf")
+fp = os.path.join(cdir, "Studia_Romologica_19_2026_Nowak_1.pdf")
 doc = pymupdf.open(fp) if os.path.exists(fp) else None
 flat = lambda pg: " ".join(pg.get_text().replace("\u00a0", " ").split())
 txt = flat(doc[0]) if doc else ""
@@ -296,13 +310,13 @@ fx = pymupdf.open(FX)
 fxt = "".join(fx[i].get_text(flags=CLEAN) for i in range(3))
 t("text layer: the fixture shows the defect (152 U+FFFD, 151 right after the accented letter its span gives: „Romó�”)",
   fffd(fx, range(3)) == 152 and len(re.findall("[óśżńćźáéí]�", fxt)) == 151 and "Romó�" in fxt, fffd(fx, range(3)))
-crs += [crow(7, pages="29–31", pages_from="29", pages_to="31", pdf_file="SROM_19_2026_Fix_7.pdf"),
-        crow(8, pages="29–31", pages_from="29", pages_to="31", pdf_file="SROM_19_2026_Fix_8.pdf"),
-        crow(9, pages="29–31", pages_from="29", pages_to="31", pdf_file="SROM_19_2026_Fix_9.pdf", language="en")]
+crs += [crow(7, pages="29–31", pages_from="29", pages_to="31", pdf_file="Studia_Romologica_19_2026_Fix_7.pdf"),
+        crow(8, pages="29–31", pages_from="29", pages_to="31", pdf_file="Studia_Romologica_19_2026_Fix_8.pdf"),
+        crow(9, pages="29–31", pages_from="29", pages_to="31", pdf_file="Studia_Romologica_19_2026_Fix_9.pdf", language="en")]
 with open(ccp, "w", encoding="utf-8-sig", newline="") as f:
     w = csv.DictWriter(f, fieldnames=ccols); w.writeheader(); w.writerows(crs)
 r = cvrun("SROM-19-2026-007", variant("tagged"))
-d7 = pymupdf.open(os.path.join(cdir, "SROM_19_2026_Fix_7.pdf")) if r.returncode == 0 else None
+d7 = pymupdf.open(os.path.join(cdir, "Studia_Romologica_19_2026_Fix_7.pdf")) if r.returncode == 0 else None
 t("text layer: U+FFFD 152 → 0, for readers with and without ActualText; „Romów” searchable",
   d7 and fffd(d7, range(1, 4)) == 0 and fffd(d7, range(1, 4), CLEAN | pymupdf.TEXT_IGNORE_ACTUALTEXT) == 0
   and d7[1].search_for("Romów") and "text layer: 149 accent glyph(s) moved" in r.stdout, r.stdout + r.stderr)
@@ -325,18 +339,18 @@ nwp = os.path.join(cdir, "nowrap.pdf"); nowrap.save(nwp)
 t("text layer: without the third repair the fixture reads 3 doubled accents; with it 0 (MuPDF and pdftotext)",
   doubled(pymupdf.open(nwp), range(3)) == 3 and d7 and doubled(d7, range(1, 4)) == 0
   and "3 doubled accent(s) wrapped" in r.stdout, (doubled(pymupdf.open(nwp), range(3)), r.stdout))
-pt = subprocess.run(["pdftotext", "-enc", "UTF-8", os.path.join(cdir, "SROM_19_2026_Fix_7.pdf"), "-"], capture_output=True, text=True).stdout \
+pt = subprocess.run(["pdftotext", "-enc", "UTF-8", os.path.join(cdir, "Studia_Romologica_19_2026_Fix_7.pdf"), "-"], capture_output=True, text=True).stdout \
      if shutil.which("pdftotext") else None
 t("text layer: pdftotext reads no doubled accent in the covered file (skipped without poppler)",
   pt is None or not any(unicodedata.combining(c) and c in unicodedata.normalize("NFD", pt[i - 1]) for i, c in enumerate(pt) if i), "")
-t("text layer: repair is idempotent (second run: 0 spans, 0 wrapped)", (lambda q: (q.append(fa.repair(pikepdf.open(os.path.join(cdir, "SROM_19_2026_Fix_7.pdf")))) or q[0][0] == 0 and q[0][2] == 0))([]), "")
+t("text layer: repair is idempotent (second run: 0 spans, 0 wrapped)", (lambda q: (q.append(fa.repair(pikepdf.open(os.path.join(cdir, "Studia_Romologica_19_2026_Fix_7.pdf")))) or q[0][0] == 0 and q[0][2] == 0))([]), "")
 t("text layer: repaired file gets its cover (labels i, 29–31, DOI); /Lang pl and DisplayDocTitle set; self-check line",
   d7 and len(d7) == 4 and [d7[i].get_label() for i in range(4)] == ["i", "29", "30", "31"]
   and "https://doi.org/10.12345/ab3k9x27" in d7[0].get_text()
   and "self-check: U+FFFD 0 · pages 4 · tagged yes · /Lang pl · DisplayDocTitle true · DOI in XMP yes" in r.stdout
   and "RESULT: OK" in r.stdout, r.stdout + r.stderr)
 r = cvrun("SROM-19-2026-008", variant("tagged_lang", lang="pl-PL", vp=pikepdf.Dictionary(HideToolbar=False)))
-p8 = pikepdf.open(os.path.join(cdir, "SROM_19_2026_Fix_8.pdf")) if r.returncode == 0 else None
+p8 = pikepdf.open(os.path.join(cdir, "Studia_Romologica_19_2026_Fix_8.pdf")) if r.returncode == 0 else None
 t("text layer: the export's own /Lang and ViewerPreferences kept, DisplayDocTitle added",
   p8 is not None and str(p8.Root.Lang) == "pl-PL" and p8.Root.ViewerPreferences.HideToolbar is False
   and p8.Root.ViewerPreferences.DisplayDocTitle is True and "RESULT: OK" in r.stdout, r.stdout + r.stderr)
@@ -356,7 +370,7 @@ ccols = cols + ["pdf_file"]
 def drow(n, authors, pf, pt):
     return dict(zip(ccols, [f"SROM-19-2026-00{n}", f"ef5g6h7{n}", f"10.12345/ef5g6h7{n}", f"https://x.pl/{n}/", f"https://x.pl/{n}.pdf", "19",
                             "2026", "2026-12-15", f"Tytuł {n}", authors, "", "", pf, pt, "pl", "https://creativecommons.org/licenses/by/4.0/",
-                            "2026-06-30", f"SROM_{n}.pdf"]))
+                            "2026-06-30", f"Studia_Romologica_{n}.pdf"]))
 drows = [drow(1, "Anna|Nowak|Gonzaga University|https://orcid.org/0000-0001-9421-9385", "1", "20"),
          drow(2, "Jan|Lis||", "21", "30"),
          drow(3, "Ewa|Kos|Muzeum Y|https://orcid.org/0000-0002-1825-0097", "31", "40"),

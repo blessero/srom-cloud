@@ -31,24 +31,26 @@ def lines(p, y, ls, size=10, x=50):
 # ---------------------------------------------------------------- fixtures
 BASE = dict(article_id="SROM-17-2024-001", doi_suffix="t7mv3myq", doi="10.68100/t7mv3myq",
             landing_url="https://studiaromologica.pl/articles/10.68100/t7mv3myq/",
-            pdf_url="https://studiaromologica.pl/wp-content/uploads/archive/17-2024/SROM_17_2024_Test.pdf",
+            pdf_url="https://studiaromologica.pl/wp-content/uploads/archive/17-2024/Studia_Romologica_17_2024_Test.pdf",
             journal_title="Studia Romologica", issn="1689-4758", volume="17", year="2024", issue_signature="SROM·17·2024",
             issue_theme="", publisher="Komitet Opieki nad Zabytkami Kultury Żydowskiej w Tarnowie", pub_date_online="2026-10-20",
             pub_date_print="2024", editorial_period="", section_nr="I", section_label="Część I", seq="1",
             title_pl="Tytuł testowy", title_en="Test title", authors_display="Jan Kowalski",
             authors_struct="Jan|Kowalski|Uniwersytet Testowy|", affiliation_display="Uniwersytet Testowy", orcid_display="",
             abstract_pl="", abstract_en="", keywords_pl="", keywords_en="", bio_note="", pages="3–4", pages_from="3",
-            pages_to="4", pdf_file="SROM_17_2024_Test.pdf", language="pl", license="CC-BY-NC",
+            pages_to="4", pdf_file="Studia_Romologica_17_2024_Test.pdf", language="pl", license="CC-BY-NC",
             license_url="https://creativecommons.org/licenses/by-nc/4.0/", is_translation="", original_title="",
             original_source="", original_doi="", translators_struct="", copyright_holder="Komitet Testowy")
 def row(**kw):
     r = dict(BASE); r.update(kw); return r
 ROWS = [row(),
         row(article_id="SROM-17-2024-002", doi_suffix="mr8hq5bh", doi="10.68100/mr8hq5bh",
-            landing_url="https://studiaromologica.pl/articles/10.68100/mr8hq5bh/", seq="2", pdf_file="SROM_17_2024_Two.pdf",
+            landing_url="https://studiaromologica.pl/articles/10.68100/mr8hq5bh/", seq="2", pdf_file="Studia_Romologica_17_2024_Two.pdf",
+            pdf_url="https://studiaromologica.pl/wp-content/uploads/archive/17-2024/Studia_Romologica_17_2024_Two.pdf",
             license="NONE", license_url="", copyright_holder="2018 Tom Lantos Institute"),
         row(article_id="SROM-17-2024-003", doi_suffix="673ss5jb", doi="10.68100/673ss5jb",
-            landing_url="https://studiaromologica.pl/articles/10.68100/673ss5jb/", seq="3", pdf_file="SROM_17_2024_Three.pdf",
+            landing_url="https://studiaromologica.pl/articles/10.68100/673ss5jb/", seq="3", pdf_file="Studia_Romologica_17_2024_Three.pdf",
+            pdf_url="https://studiaromologica.pl/wp-content/uploads/archive/17-2024/Studia_Romologica_17_2024_Three.pdf",
             authors_display="Redakcja „Studia Romologica”", authors_struct="", affiliation_display="")]
 CSVP = os.path.join(TMP, "vol", "srom_master_v3.csv")
 os.makedirs(os.path.dirname(CSVP))
@@ -111,7 +113,7 @@ c1 = run(os.path.join(S, "cover_page.py"), CSVP, "SROM-17-2024-001", ART, "--out
 c2 = run(os.path.join(S, "cover_page.py"), CSVP, "SROM-17-2024-002", ART, "--out", outd)
 t("cover: CC row OK", "RESULT: OK" in c1.stdout, c1.stdout[-300:] + c1.stderr[-300:])
 t("cover: NONE row OK", "RESULT: OK" in c2.stdout, c2.stdout[-300:] + c2.stderr[-300:])
-f1 = os.path.join(outd, "SROM_17_2024_Test.pdf"); f2 = os.path.join(outd, "SROM_17_2024_Two.pdf")
+f1 = os.path.join(outd, "Studia_Romologica_17_2024_Test.pdf"); f2 = os.path.join(outd, "Studia_Romologica_17_2024_Two.pdf")
 txt1 = pymupdf.open(f1)[0].get_text().replace("\n", " ") if os.path.exists(f1) else ""
 txt2 = pymupdf.open(f2)[0].get_text().replace("\n", " ") if os.path.exists(f2) else ""
 t("cover: footer © publisher, CC BY-NC, print year", "© 2024 Komitet Testowy." in txt1 and "Użycie niekomercyjne" in txt1
@@ -177,6 +179,8 @@ t("rip: keywords (EN joined with ;)", a1.get("keywords_pl") == "Romowie, histori
   f"{a1.get('keywords_pl')!r} / {a1.get('keywords_en')!r}")
 t("rip: bio ends at its contact line, no false split on „Sztuki – La Biennale”",
   (a1.get("bio_note") or "").startswith("Historyk, adiunkt w Uniwersytecie Testowym") and "La Biennale" in (a1.get("bio_note") or ""), a1.get("bio_note"))
+t("rip: PDF named with the journal title in full", a1.get("pdf_file", "").startswith("Studia_Romologica_17_2024_")
+  and a1.get("pdf_url", "").endswith("/archive/17-2024/" + a1.get("pdf_file", "-")), a1.get("pdf_url"))
 t("rip: ORCID from the register", a1.get("authors_struct", "").endswith("|https://orcid.org/0000-0002-1825-0097"))
 t("rip: NONE row has no licence URL, own holder", rows[1].get("license") == "NONE" and rows[1].get("license_url") == ""
   and rows[1].get("copyright_holder") == "2018 Tom Lantos Institute")

@@ -2,8 +2,13 @@
 /**
  * Plugin Name: SROM Scholarly Infrastructure
  * Description: Full-DOI permalinks, Highwire citation_* meta tags, ScholarlyArticle JSON-LD, display shortcodes. Content model (CPTs, taxonomies, ACF groups) is owned by the SROM Importer plugin — this file registers NO post types.
- * Version: 2.6
+ * Version: 2.7
  * Install: drop into wp-content/mu-plugins/ (create the dir if absent) — loads always, cannot be deactivated by accident.
+ *
+ * v2.7 changes (21.10.2026):
+ *  - Article PDFs renamed SROM_{vol}_{year}_*.pdf -> Studia_Romologica_{vol}_{year}_*.pdf (journal
+ *    title in full, before the first deposit). A 404 for the old name 301s to the new one (section 1),
+ *    so links and crawlers that kept the old address still land on the file.
  *
  * v2.6 changes (21.10.2026):
  *  - Volume URLs /tom/{vol}-{year}/ -> /volumes/{vol}-{year}/; archives /tomy/ -> /volumes/,
@@ -140,6 +145,20 @@ add_action('template_redirect', function () {
     $query = parse_url($uri, PHP_URL_QUERY);
     $to    = home_url(user_trailingslashit($map[$m[1]] . ($rest !== '' ? '/' . untrailingslashit($rest) : '')));
     wp_safe_redirect($to . ($query ? '?' . $query : ''), 301);
+    exit;
+}, 1);
+
+/* Renamed PDFs (v2.7): SROM_{vol}_{year}_*.pdf -> Studia_Romologica_{vol}_{year}_*.pdf in the
+ * same folder. WordPress only sees the request once the old file is gone (the server serves a
+ * file that exists), so this answers the 404 left behind by deleting it. */
+add_action('template_redirect', function () {
+    if (!is_404()) return;
+    $path = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+    if (!is_string($path)) return;
+    $base = rtrim((string) parse_url(home_url('/'), PHP_URL_PATH), '/');
+    if ($base !== '' && strpos($path, $base . '/') === 0) $path = substr($path, strlen($base));
+    if (!preg_match('#^(/wp-content/uploads/archive/\d+-\d{4}/)SROM_(\d+_\d{4}_[^/]+\.pdf)$#', $path, $m)) return;
+    wp_safe_redirect(home_url($m[1] . 'Studia_Romologica_' . $m[2]), 301);
     exit;
 }, 1);
 
@@ -594,7 +613,7 @@ add_shortcode('srom_diag', function () {
     $art  = srom_ctx_id('srom_article');
     $vol  = srom_ctx_id('srom_volume');
     $rows = [
-        'mu-plugin version'      => '2.6',
+        'mu-plugin version'      => '2.7',
         'PHP'                    => PHP_VERSION,
         'main query object'      => $ctx['id'] . ' (' . ($ctx['type'] ?: '—') . ')',
         'get_the_ID()'           => (string) get_the_ID(),

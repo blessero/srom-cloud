@@ -95,6 +95,13 @@ def main():
         except (ValueError, KeyError):
             E(f"{rid}: pages_from/pages_to not both integers ('{r.get('pages_from')}'/'{r.get('pages_to')}')")
 
+        # PDF name: the journal title in full, never "SROM" (MB 21.10.2026); pdf_url ends with it
+        fn = r.get('pdf_file', '')
+        if fn and not fn.startswith(f"Studia_Romologica_{r.get('volume', '')}_{r.get('year', '')}_"):
+            E(f"{rid}: pdf_file '{fn}' not Studia_Romologica_{r.get('volume', '')}_{r.get('year', '')}_<Author_Shorttitle>.pdf")
+        pu = r.get('pdf_url', '')
+        if fn and pu and not pu.endswith('/' + fn): E(f"{rid}: pdf_url does not end with pdf_file '{fn}'")
+
         # slug lowercase
         if suf and suf != suf.lower(): E(f"{rid}: doi_suffix must be lowercase")
 

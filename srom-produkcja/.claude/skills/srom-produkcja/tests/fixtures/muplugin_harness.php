@@ -1,5 +1,5 @@
 <?php
-// WordPress stubs that execute srom-scholarly.php (mu-plugin v2.5, review 20.10.2026). Run by test_muplugin.py:
+// WordPress stubs that execute srom-scholarly.php (mu-plugin v2.5, review 20.10.2026; v2.6–2.7 redirects). Run by test_muplugin.py:
 // php muplugin_harness.php <plugin.php>; one "ok"/"FAIL" line per case, last line HARNESS ALL PASS / HARNESS FAILED n.
 define('ABSPATH', '/');
 $H = ['action' => [], 'filter' => [], 'sc' => []];
@@ -24,6 +24,7 @@ function home_url($p = '') { return 'https://x.test/' . ltrim($p, '/'); }
 function user_trailingslashit($p) { return rtrim($p, '/') . '/'; }
 function untrailingslashit($p) { return rtrim($p, '/'); }
 function is_preview() { return false; }
+function is_404() { global $IS404; return !empty($IS404); }
 class Redir extends Exception {}
 function wp_safe_redirect($to, $code = 302) { throw new Redir($code . ' ' . $to); }
 function current_user_can() { return false; }
@@ -115,4 +116,11 @@ t('/tomy/ -> /volumes/', redir('/tomy/') === '301 https://x.test/volumes/', redi
 t('/tomy/page/2/ -> /volumes/page/2/', redir('/tomy/page/2/') === '301 https://x.test/volumes/page/2/', redir('/tomy/page/2/'));
 t('/artykuly/ -> /articles/', redir('/artykuly') === '301 https://x.test/articles/', redir('/artykuly'));
 t('/tomasz/, /volumes/18-2025/ untouched', redir('/tomasz/') === '' && redir('/volumes/18-2025/') === '' && redir('/articles/10.68100/abcdefgh/') === '', redir('/tomasz/'));
+// 8. old PDF names 301 to Studia_Romologica_ once the file is gone (v2.7)
+$IS404 = true;
+$P = '/wp-content/uploads/archive/18-2025/';
+t('404 SROM_ PDF -> Studia_Romologica_ PDF, same folder', redir($P . 'SROM_18_2025_Ostendorf_Historia.pdf') === '301 https://x.test' . $P . 'Studia_Romologica_18_2025_Ostendorf_Historia.pdf', redir($P . 'SROM_18_2025_Ostendorf_Historia.pdf'));
+t('404 on another file, or a new-name PDF, untouched', redir($P . 'Studia_Romologica_18_2025_X.pdf') === '' && redir('/wp-content/uploads/2025/SROM_18_2025_X.pdf') === '' && redir($P . 'SROM_cover.pdf') === '', redir($P . 'Studia_Romologica_18_2025_X.pdf'));
+$IS404 = false;
+t('SROM_ PDF that still exists (no 404): untouched', redir($P . 'SROM_18_2025_Ostendorf_Historia.pdf') === '', redir($P . 'SROM_18_2025_Ostendorf_Historia.pdf'));
 echo $fails ? "HARNESS FAILED $fails\n" : "HARNESS ALL PASS\n";
