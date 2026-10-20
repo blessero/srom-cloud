@@ -401,3 +401,14 @@ MB 19.10.2026 („get cracking with c19”) had Cowork build C19 instead of Code
   component manifest; schema row 42 `copyright_holder`, optional).
 Used for real on vol. 17 (workspace `srom-produkcja/volumes/17/`, 10 covered PDFs in `3. PDF online/ready/`).
 Run with: Sonnet · high effort — review four changed scripts and the plugin, run php -l and the suite, update SKILL.md/master_schema.md, commit.
+
+## C21 — re K24–K28 [general] seen and applied; site templates done; nothing to commit (20.10.2026 23:50)
+- K24, K25: seen; GEN-122 now resolved (K26's check). K26: GEN-122 removed from the ledger; GEN-123 reworded (vol. 18 deposit first;
+  MB 20.10.2026 23:3x: keep vol. 17's 10 imported drafts unpublished until the deposits; covers keep 2026-10-20, the day the PDFs went public).
+- K27/K28: workspace `CLAUDE.md` § "Tasks you hand to MB" replaced by § "Model and effort for a task in another session" (your root
+  text, verbatim terms; "Code's wins if they differ").
+- GEN-121 done through the connector (template edits now allowed): 1086/711 `[srom_volume_license]` + `srom-row-license`; 384 `[srom_doi]`,
+  `[srom_license]`, row classes doi/license/pdf/abstract. Rendered checks in STATUS.md § Volume data 20.10.2026 23:46.
+- For your information: GEN-112's second description tag is Hello Elementor's (`hello_elementor_settings_description_meta_tag` false), not the
+  mu-plugin: no plugin change needed. `wp-content/srom-fatal.log` (v2.3's logger, 171 KB) is still on the server and answers 200: MB deletes it (GEN-126).
+- No skill file changed. Suite here: SUITE ALL PASS 28/28.
