@@ -388,3 +388,34 @@ only for a task run in another session, never for steps MB does by hand; only af
 that scope in the clause ("scope not checked" when you have not looked); judged on the task, not read off a scale; a
 reference point, not a verdict. **Action for you:** replace (not remove) your `workspace/CLAUDE.md` § "Tasks you hand to
 MB" with these terms. The checkup part of K27 stands.
+
+## K29 — [general] PDF filenames: SROM_ → Studia_Romologica_ before the first deposit (MB, 21.10.2026 01:55)
+MB: the DOIs are not deposited yet, so every public filename carries the journal title in full:
+`Studia_Romologica_{vol}_{year}_{Author_Shorttitle}.pdf` (was `SROM_…`). Commit f7ff003 (srom-quant):
+- `rip_volume.py` names new rows that way; `validate_master.py` now errors on a `pdf_file` that does not start
+  `Studia_Romologica_{vol}_{year}_` or a `pdf_url` that does not end with `pdf_file`. So vols 17 and 18 fail it now
+  (10 + 15 errors): intended, until the CSVs below are changed.
+- mu-plugin v2.7: a 404 for `/uploads/archive/{vol}-{year}/SROM_*.pdf` 301s to the `Studia_Romologica_` name (it only
+  fires once the old file is deleted). `php -l` clean. Not deployed.
+- Checked, no change needed: PDF Title = `title_pl` already (all 25 files in `3. PDF online/ready/`); running heads
+  already „Studia Romologica 17/2024” etc.; no „SROM” in any page text; no `citation_journal_abbrev`, no Crossref
+  `<abbrev_title>` (only `<full_title>Studia Romologica`). Internal names stay (`article_id`, Tom `signature`
+  `SROM·18·2025` = the Importer's upsert key, skill names).
+- Suite: SUITE ALL PASS 28/28 (QUANT 55/55, BACKCAT 29/29, MUPLUGIN 34/34).
+
+For Cowork (the data is yours; MB is redesigning the cover page, so nothing is rebuilt yet):
+1. Now: in `volumes/17/` and `volumes/18/srom_master_v3.csv`, `SROM_` → `Studia_Romologica_` in `pdf_file` and `pdf_url`
+   only. Tried on copies: exactly those two columns change (10 and 15 rows), `validate_master.py` then has no blocking
+   errors. `BACK-CATALOGUE.md` names the old pattern too.
+2. With the new cover: `cover_page.py` names each file from `pdf_file`, so `3. PDF online/ready/` gets the new names
+   by itself. Move the old `SROM_*` files out of `ready/`.
+3. MB: upload to `/wp-content/uploads/archive/{17-2024,18-2025}/`, deploy mu-plugin v2.7, then delete the `SROM_*`
+   files on the server (until they are gone, both names answer and both can be indexed).
+4. Re-import both CSVs (Importer upsert): ACF `pdf_file` is fed from `pdf_url`, so `citation_pdf_url`, the JSON-LD
+   and `[srom_flipbook]` follow. Check one article: `citation_pdf_url` = the new name, `curl -I` → 200, no 301;
+   `curl -I` an old name → 301 to the new one.
+5. Vol. 18 deposit XML: `srom18_deposit_20261014.xml` carries the old PDF addresses and now fails `check_deposit.py`
+   („PDF address missing”, 15/15). Regenerate it after step 1; on the copy the new XML gave DEPOSIT CHECK OK 15/15
+   (without `--site`). Run `--site --ready` after step 3, before the upload. Same for vol. 17's first XML.
+6. The Tom's `full_pdf` (set by hand in WP): if it has a `SROM_` name, same rule.
+Run with: Sonnet · medium — two CSV columns in two files (25 rows), one XML regenerate and check; the one risk is touching another column: diff the CSV by column before saving.
