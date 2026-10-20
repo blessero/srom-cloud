@@ -19,8 +19,8 @@ The mu-plugin **registers no post types** — double registration would fight ov
 ## Content model (importer v2.3.0)
 
 **Post types**
-- `srom_article` — "Artykuł", **`/articles/…`** (English base — DOI landing URLs are `/articles/{full-doi}/`, so the CPT must share it), archive `/artykuly/`. ⚠️ On the **live** site the base is a DB-native ACF record: the plugin default only applies to fresh installs — change it once by hand in **ACF → Post Types → Artykuł → URL slug → `articles`**, then Permalinks → Save.
-- `srom_volume` — "Tom", `/tom/…`, archive `/tomy/`. Auto-created volumes get slug `{volume}-{year}` → `/tom/18-2025/` and title **`Tom: {volume}·{year}`** (e.g. "Tom: 18·2025", U+00B7), built from the volume+year columns (falls back to the signature).
+- `srom_article` — "Artykuł", **`/articles/…`** (English base — DOI landing URLs are `/articles/{full-doi}/`, so the CPT must share it), archive `/articles/` (was `/artykuly/`). ⚠️ On the **live** site the base is a DB-native ACF record: the plugin default only applies to fresh installs — change it once by hand in **ACF → Post Types → Artykuł → URL slug → `articles`**, then Permalinks → Save.
+- `srom_volume` — "Tom", `/volumes/…`, archive `/volumes/` (was `/tom/`, `/tomy/` until 21.10.2026; the mu-plugin 301s the old bases; live change by hand in **ACF → Post Types → Tom → URL slug + archive slug → `volumes`**, then Permalinks → Save). Auto-created volumes get slug `{volume}-{year}` → `/volumes/18-2025/` and title **`Tom: {volume}·{year}`** (e.g. "Tom: 18·2025", U+00B7), built from the volume+year columns (falls back to the signature).
 
 **Taxonomies on `srom_article`** (key ≠ URL slug in one case)
 

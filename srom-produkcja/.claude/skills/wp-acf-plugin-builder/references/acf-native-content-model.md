@@ -73,7 +73,7 @@ array(
   'taxonomies'   => array( 'dzial', 'slowa_kluczowe' ),   // ← links taxonomies to this CPT
   'menu_icon'    => 'dashicons-media-document',
   'has_archive'  => true,
-  'has_archive_slug' => 'artykuly',
+  'has_archive_slug' => 'articles',
   'rewrite'      => array(
       'permalink_rewrite' => 'custom_permalink',  // ACF-specific selector; required for a custom slug
       'slug'              => 'artykul',

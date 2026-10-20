@@ -24,6 +24,8 @@ function home_url($p = '') { return 'https://x.test/' . ltrim($p, '/'); }
 function user_trailingslashit($p) { return rtrim($p, '/') . '/'; }
 function untrailingslashit($p) { return rtrim($p, '/'); }
 function is_preview() { return false; }
+class Redir extends Exception {}
+function wp_safe_redirect($to, $code = 302) { throw new Redir($code . ' ' . $to); }
 function current_user_can() { return false; }
 function taxonomy_exists() { return true; }
 function post_type_exists() { return true; }
@@ -104,4 +106,13 @@ t('?srom_off ignored: TOC still scoped', ($q->vars['post_type'] ?? '') === 'srom
 page(new WP_Term(1, 'x'), 0);
 $q = new WP_Query(); do_action('elementor/query/srom_other_articles', $q);
 t('W tym tomie fails closed off-context', ($q->vars['post__in'] ?? null) === [0], json_encode($q->vars));
+// 7. retired bases 301 to /volumes/ and /articles/ (v2.6)
+function redir($uri) { $_SERVER['REQUEST_URI'] = $uri; page(new WP_Term(1, 'x'), 0);
+    try { do_action('template_redirect'); return ''; } catch (Redir $e) { return $e->getMessage(); } }
+t('/tom/18-2025/ -> /volumes/18-2025/', redir('/tom/18-2025/') === '301 https://x.test/volumes/18-2025/', redir('/tom/18-2025/'));
+t('/tom/18-2025 (no slash) + query kept', redir('/tom/18-2025?a=1') === '301 https://x.test/volumes/18-2025/?a=1', redir('/tom/18-2025?a=1'));
+t('/tomy/ -> /volumes/', redir('/tomy/') === '301 https://x.test/volumes/', redir('/tomy/'));
+t('/tomy/page/2/ -> /volumes/page/2/', redir('/tomy/page/2/') === '301 https://x.test/volumes/page/2/', redir('/tomy/page/2/'));
+t('/artykuly/ -> /articles/', redir('/artykuly') === '301 https://x.test/articles/', redir('/artykuly'));
+t('/tomasz/, /volumes/18-2025/ untouched', redir('/tomasz/') === '' && redir('/volumes/18-2025/') === '' && redir('/articles/10.68100/abcdefgh/') === '', redir('/tomasz/'));
 echo $fails ? "HARNESS FAILED $fails\n" : "HARNESS ALL PASS\n";

@@ -101,12 +101,12 @@ CSV headers are all-English by decision. `cover_page.py` and the other scripts r
 - **DOI suffix = opaque random `[a-z0-9]{8}`** (e.g. `ab3k9x2q`), generated separately; from vol. 19 minted without `0 o 1 l i` (K11 (a), MB 08.10.2026; vol. 18's 15 stay). NOT human-readable. The readable `SROM-18-2025-001` string is `article_id`, an internal key only — different column, different job. Lowercase-only forever: DOIs are case-insensitive, URLs are not.
 - **`article_id` format:** `SROM-{vol}-{year}-{NNN}`. Upsert key for the Importer; never appears in a URL or DOI.
 - **Article URL:** `/articles/{full-doi}/` → `/articles/10.xxxxx/ab3k9x2q/`. The mu-plugin builds the permalink from each post's own `doi` field (so a future prefix change can't orphan old articles) and 301-redirects any non-canonical form. Slug = the 8-char suffix, frozen at import.
-- **Volume URL:** `/tom/{vol}-{year}/` (`/tom/18-2025/`). Importer sets the slug explicitly to `{vol}-{year}` so the signature's middle dot (`·`, U+00B7) never percent-encodes into the URL. `/tom/` is deliberately kept distinct from the `rocznik` taxonomy archive at `/rocznik/` — one-letter-apart bases would be a routing footgun.
+- **Volume URL:** `/volumes/{vol}-{year}/` (`/volumes/18-2025/`); archive `/volumes/`. Was `/tom/…` + `/tomy/` until v2.6 (21.10.2026, MB): one English base per CPT, single and archive alike (`/articles/…` + `/articles/`). The mu-plugin 301s `/tom/*`, `/tomy/*`, `/artykuly/*` to the new bases; keep those redirects for good. Volumes carry no DOI, so no deposit points at a volume URL. Importer sets the slug explicitly to `{vol}-{year}` so the signature's middle dot (`·`, U+00B7) never percent-encodes into the URL. Distinct from the `rocznik` taxonomy archive at `/rocznik/`.
 - **PDF path:** `/wp-content/uploads/archive/{vol}-{year}/SROM_{vol}_{year}_{Author_Shorttitle}.pdf`. (`/archive/`, not `/srom/` — "srom" is meaningless as a folder when the whole site is SROM.)
 - **DOIs are article-level only.** The Crossref deposit carries the volume *number* in `<journal_issue><journal_volume>` for citation structure but registers no volume/issue-level DOI. No `volume_doi` field anywhere. (Adding issue-level DOIs later = one plugin field + one generator block; not on the roadmap.)
 - **`section` and `doi_suffix` are not ACF fields.** Section is the `dzial` taxonomy; suffix is the slug. Both were removed after v1/v2.1.
 - **Section terms are generic `Część I–IV`** (slugs `czesc-i`…`czesc-iv`), never theme-suffixed — the theme lives in the volume `theme` field / `issue_theme` column. So the CSV `section_label` is the bare `Część I`, one shared term per section across all volumes, which the mu-plugin's TOC filter can match by slug prefix. A theme-suffixed label would mint a per-volume term and break cross-volume matching (and re-break it on any re-import).
-- **Article CPT rewrite slug = `articles`** (matches the `/articles/{full-doi}/` DOI landing base). On the live site this is a DB-native ACF record — change it by hand in ACF; plugin defaults only reach fresh installs.
+- **Article CPT rewrite slug = `articles`** (matches the `/articles/{full-doi}/` DOI landing base), archive `articles` (was `artykuly`). Volume CPT slug and archive = `volumes`. On the live site these are DB-native ACF records — change them by hand in ACF; plugin defaults only reach fresh installs.
 - **`pdf_file` on the article is a plain-text URL**, not an attachment/file field — it is emitted verbatim as `citation_pdf_url`. Do not assume `wp_get_attachment_url()`.
 - **`landing_url` is never persisted.** Always `get_permalink()`.
 - **Crossref, not DataCite/HCommons.** Deposit schema **5.4.0** (5.3.1 also accepted).
@@ -139,7 +139,7 @@ Drop into `wp-content/mu-plugins/` (create the dir if absent) — always-on, can
 | `srom_contents_part1`…`_part4` | Volume › Spis treści, one per section | current Tom's articles in `dzial` `czesc-i`…`czesc-iv`, ordered by `menu_order` |
 | `srom_other_articles` | Article › "W tym tomie" rail | sibling articles in the same Tom, current excluded |
 | `srom_other_volumes` | Volume › "Inne roczniki" | other volumes, newest-first by `year`, current excluded |
-| `srom_archive` | Volumes archive `/tomy/` | all volumes, newest-first by numeric `volume` meta, 24/page |
+| `srom_archive` | Volumes archive `/volumes/` | all volumes, newest-first by numeric `volume` meta, 24/page |
 
 A grid ordered by a `meta_key` INNER-JOINs postmeta, so a volume missing that meta (`volume` for the archive, `year` for "Inne roczniki") silently drops out — fix the data, not the query; `[srom_diag]` counts them.
 

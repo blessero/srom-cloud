@@ -386,7 +386,7 @@ class SROM_Imp_Setup {
 			'menu_icon'    => 'dashicons-media-document',
 			'menu_position'=> 26,
 			'has_archive'  => true,
-			'has_archive_slug' => 'artykuly',
+			'has_archive_slug' => 'articles',
 			// 'articles' (English) — locked decision: the DOI landing URLs are
 			// /articles/{full-doi}/, and the plain fallback permalink must share
 			// that base. The srom-scholarly mu-plugin still routes the legacy
@@ -419,8 +419,8 @@ class SROM_Imp_Setup {
 			'menu_icon'    => 'dashicons-book',
 			'menu_position'=> 27,
 			'has_archive'  => true,
-			'has_archive_slug' => 'tomy',
-			'rewrite'      => array( 'permalink_rewrite' => 'custom_permalink', 'slug' => 'tom', 'with_front' => false ),
+			'has_archive_slug' => 'volumes',
+			'rewrite'      => array( 'permalink_rewrite' => 'custom_permalink', 'slug' => 'volumes', 'with_front' => false ),
 		);
 	}
 

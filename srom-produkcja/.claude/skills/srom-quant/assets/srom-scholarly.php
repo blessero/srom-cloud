@@ -2,8 +2,13 @@
 /**
  * Plugin Name: SROM Scholarly Infrastructure
  * Description: Full-DOI permalinks, Highwire citation_* meta tags, ScholarlyArticle JSON-LD, display shortcodes. Content model (CPTs, taxonomies, ACF groups) is owned by the SROM Importer plugin — this file registers NO post types.
- * Version: 2.5
+ * Version: 2.6
  * Install: drop into wp-content/mu-plugins/ (create the dir if absent) — loads always, cannot be deactivated by accident.
+ *
+ * v2.6 changes (21.10.2026):
+ *  - Volume URLs /tom/{vol}-{year}/ -> /volumes/{vol}-{year}/; archives /tomy/ -> /volumes/,
+ *    /artykuly/ -> /articles/. 301s from every retired base (section 1). Volumes carry no DOI,
+ *    so nothing deposited at Crossref points at a volume URL.
  *
  * v2.5 changes (milestone review, 20.10.2026):
  *  - Removed the v2.3 fatal catcher (shutdown handler -> wp-content/srom-fatal.log, a public URL) and the
@@ -118,6 +123,25 @@ add_action('template_redirect', function () {
         exit;
     }
 });
+
+/* Retired bases (v2.6): the volume CPT moved /tom/ -> /volumes/ and the two
+ * archives /tomy/ -> /volumes/, /artykuly/ -> /articles/, so single and archive
+ * share one English base. Path-prefix 301s, query string kept. Priority 1: ahead
+ * of redirect_canonical's slug guessing, which would otherwise answer the 404. */
+add_action('template_redirect', function () {
+    $uri  = $_SERVER['REQUEST_URI'] ?? '';
+    $path = parse_url($uri, PHP_URL_PATH);
+    if (!is_string($path)) return;
+    $base = rtrim((string) parse_url(home_url('/'), PHP_URL_PATH), '/');
+    if ($base !== '' && strpos($path, $base . '/') === 0) $path = substr($path, strlen($base));
+    $map = array('tom' => 'volumes', 'tomy' => 'volumes', 'artykuly' => 'articles');
+    if (!preg_match('#^/(tom|tomy|artykuly)(/.*)?$#', $path, $m)) return;
+    $rest  = isset($m[2]) ? ltrim($m[2], '/') : '';
+    $query = parse_url($uri, PHP_URL_QUERY);
+    $to    = home_url(user_trailingslashit($map[$m[1]] . ($rest !== '' ? '/' . untrailingslashit($rest) : '')));
+    wp_safe_redirect($to . ($query ? '?' . $query : ''), 301);
+    exit;
+}, 1);
 
 /* ---------------------------------------------------------------
  * 2. HELPERS
@@ -539,7 +563,7 @@ add_action('elementor/query/srom_other_volumes', srom_safe_query_cb(function ($q
     // is the correct, harmless result (it's a navigation list, not content).
 }));
 
-/* Volumes ARCHIVE grid (/tomy/) — every volume, newest first, 24 per page.
+/* Volumes ARCHIVE grid (/volumes/) — every volume, newest first, 24 per page.
  * INHERITED from the legacy mu-plugin srom-loops.php v3.0, which owned this
  * Query ID and nothing else here replaced. Ordered by the numeric `volume`
  * meta DESC (not post date) so back-issues digitised out of order still sort
@@ -570,7 +594,7 @@ add_shortcode('srom_diag', function () {
     $art  = srom_ctx_id('srom_article');
     $vol  = srom_ctx_id('srom_volume');
     $rows = [
-        'mu-plugin version'      => '2.5',
+        'mu-plugin version'      => '2.6',
         'PHP'                    => PHP_VERSION,
         'main query object'      => $ctx['id'] . ' (' . ($ctx['type'] ?: '—') . ')',
         'get_the_ID()'           => (string) get_the_ID(),
@@ -599,7 +623,7 @@ add_shortcode('srom_diag', function () {
         if (get_post_meta($v, 'year', true)   === '') $miss_year[] = $v;
     }
     $rows['volumes total'] = count($all_vols);
-    $rows['volumes missing `volume`'] = $miss_vol  ? 'DROPS OUT of /tomy/: ' . implode(',', $miss_vol)   : 'none ✓';
+    $rows['volumes missing `volume`'] = $miss_vol  ? 'DROPS OUT of /volumes/: ' . implode(',', $miss_vol)   : 'none ✓';
     $rows['volumes missing `year`']   = $miss_year ? 'DROPS OUT of Inne roczniki: ' . implode(',', $miss_year) : 'none ✓';
     foreach (['srom_other_articles', 'srom_other_volumes', 'srom_archive'] as $qid) {
         $rows['hook ' . $qid] = has_action("elementor/query/$qid") ? 'registered' : 'NOT registered';

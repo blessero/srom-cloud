@@ -18,7 +18,7 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
   abstracts, keywords, titles and contents are also given in English. The journal is not bilingual.
 - **Translator:** unless stated otherwise, Michał Bartosz translates every translated text (MB, 06.10.2026); the
   master CSV's `translators_struct` then reads `Michał|Bartosz||` (no ORCID on record).
-- **Website:** https://studiaromologica.pl (WordPress; article landing pages `/articles/{full DOI}/`, volumes `/tom/{vol}-{year}/`).
+- **Website:** https://studiaromologica.pl (WordPress; article landing pages `/articles/{full DOI}/`, volumes `/volumes/{vol}-{year}/`, until 21.10.2026 `/tom/…`, 301-redirected).
 - **Cadence:** annual, one volume a year, usually published in December. Vol. 18 = 2025 (theme *Romski Atlantyk*);
   vol. 19 = 2026 (in production: the texts in the workspace).
 

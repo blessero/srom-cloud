@@ -30,7 +30,7 @@ Moving from submenu to top-level **changes the parent file**: URLs go from `tool
 
 A title of `SROM·18·2025` (middle dot, U+00B7) becomes the slug:
 ```
-srom%c2%b718%c2%b72025      → /tom/srom%c2%b718%c2%b72025/
+srom%c2%b718%c2%b72025      → /volumes/srom%c2%b718%c2%b72025/
 ```
 It doesn't strip the character; it encodes it. Any auto-created post whose title contains typographic punctuation gets a garbage URL.
 

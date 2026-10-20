@@ -14,8 +14,8 @@ Requires ACF (free tier is enough). Auto-installs on activation, no button to pr
 
 | Post type slug | Label | Slug/archive | Notes |
 |---|---|---|---|
-| `srom_article` | Artykuł | `/artykul/...`, archive `/artykuly/` | `public`, `show_in_rest`, `has_archive`, supports title/editor/thumbnail/custom-fields/revisions/excerpt |
-| `srom_volume` | Tom | `/tom/...`, archive `/tomy/` | same visibility flags. Auto-created volumes get a clean slug `{volume}-{year}` (e.g. `/tom/18-2025/`) — set explicitly so the signature's middle dot isn't percent-encoded into the URL (v2.2.1). |
+| `srom_article` | Artykuł | `/articles/...`, archive `/articles/` (was `/artykul/`, `/artykuly/`; mu-plugin 301s) | `public`, `show_in_rest`, `has_archive`, supports title/editor/thumbnail/custom-fields/revisions/excerpt |
+| `srom_volume` | Tom | `/volumes/...`, archive `/volumes/` (was `/tom/`, `/tomy/` until 21.10.2026; mu-plugin 301s) | same visibility flags. Auto-created volumes get a clean slug `{volume}-{year}` (e.g. `/volumes/18-2025/`) — set explicitly so the signature's middle dot isn't percent-encoded into the URL (v2.2.1). |
 
 Both are `show_in_rest => true` — Gutenberg, REST API, and Elementor dynamic tags all work normally.
 
