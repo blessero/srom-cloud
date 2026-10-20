@@ -8,9 +8,9 @@ description: Milestone health check (cross-module review) of the SROM tools — 
 Guard first: run `pwd`. Unless it is the folder that contains `srom-produkcja/`, `srom-tlumacz/` and `_handoffs/`, stop
 and tell MB: "srom-checkup runs from the root session (SROM edit and trans); in a module session say 'apply checkup'."
 
-You are the reviewer, not a module. Read everything, run everything, and change nothing in srom-produkcja/ or srom-tlumacz/.
-The only file you write is the report (last step), committed in _handoffs. If MB later asks you to fix things, that is
-a separate request.
+Two phases. **Review:** you are the reviewer, not a module. Read everything, run everything, and change nothing in
+srom-produkcja/ or srom-tlumacz/; the only file you write is the report, committed in _handoffs. **Apply:** once the
+report is committed, apply it yourself, in this session (§ Apply, at the end).
 
 Scope (SYS-9 (a), 04.10.2026): Code builds and tests the skills; Cowork makes the journal. The texts, `STATUS.md` (the
 hand-off log) and MB's question ledger are Cowork's, and Cowork's own checkup (`checkup/COWORK.md`) checks them. This
@@ -50,7 +50,7 @@ and hygiene. Code keeps no copies of the texts (retired 08.10.2026): they are in
    - every E<n>/T<n> has a status line from its receiver
    - no duplicate IDs; items cited with their [Author] tag
    - nothing "done" on one side that the other hasn't verified or has contradicted
-   - no one writing in the other side's file
+   - no one writing in the other side's file (the root's `Status of review` sections excepted: root CLAUDE.md § Checkup)
    - every dated entry has its time, and that time is not later than the commit that contains it
 4. **Contract.** `handoff.md` (Out and Back) and `stages.md` (stages 1–3) match what both sides actually do: the scripts'
    behaviour, PLAN § Contract, srom-tlumacz's `references/outputs.md` (including OUT-DELIVERY) and SKILL.md step 6, and
@@ -103,13 +103,23 @@ The file has these sections, with exactly these headings (module sessions look f
 - `## For srom-produkcja` and `## For srom-tlumacz` — numbered, self-contained instructions for that session (file:line,
   what to do, how to verify). Write "Nothing." if there is nothing.
 - `## For MB` — only what needs MB's decision or action (including anything for srom-quant: website, DOI), in the order to
-  decide it. Each step MB takes in a session carries its "Run with:" line (root CLAUDE.md, hard rule).
+  decide it.
 
 In chat, keep it legible and short:
 - the conclusions (5–8 lines)
 - a findings table with one line per finding: finding | severity | who fixes it
 - the "For MB" list
-- one closing line: "To apply: open a session in srom-produkcja/ and in srom-tlumacz/ and say 'apply checkup'.", with
-  its "Run with:" line
+- then go straight on to § Apply; no "apply checkup" step for MB
 
 Say plainly if there is nothing worth fixing. Don't invent problems to fill the report. Don't re-open decisions MB has made.
+
+## Apply
+Follow root CLAUDE.md § Checkup, steps 1–5. In short:
+- Do every item in `## For srom-produkcja` and `## For srom-tlumacz` that needs no decision from MB, with that module's
+  tests, one commit per item or per module, pushed at once. Before each module, `git status --short <module>/`: changes
+  there mean a session is running in it, so leave all its items to that session.
+- Leave to a module session only: Kanon rule changes, translation judgment, and the items of a module with a running
+  session. Items that need MB: one K-item headed "needs MB".
+- Status lines in each module's outgoing file whose section had items, under `## Status of review <date> (root, <time>)
+  [general]`: done (commit) / declined / needs MB (K<n>) / left for srom-<module> (why).
+- Then report in chat in a few lines: what you applied (commits), what you left and for which session, the K-item.

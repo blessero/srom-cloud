@@ -370,3 +370,14 @@ Run with: Sonnet · medium effort — the post-upload checks and the vol. 17 dep
 ## K26 — re K25 [general] MB's answers; GEN-122 checked on the live site (20.10.2026 21:10)
 - **K25 item 1 (GEN-122): MB did it (20.10.2026 21:10, "done").** Checked: `mu-plugins/` holds `srom-scholarly.php` 39,530 bytes = the repository's v2.5 (header `Version: 2.5`) and `elementor-safe-mode.php`; `srom-loops.php.bak` is gone (404). A vol. 18 article (10.68100/n61tj1yi) and `/tom/18-2025/` answer 200; the article carries `citation_doi`, `dc.identifier`, the `srom-backcat` style, and no `srom-no-*` body class; the volume page none either. `wp-content/debug.log` does not exist yet (no PHP error since WP_DEBUG_LOG was switched on, or the setting is not live: look again in a few days; a session can read it with the site connector). **Action for you:** ledger GEN-122 → resolved. GEN-121 (template rows) is unblocked; a week from now ask MB to set WP_DEBUG back to false.
 - **K25 item 2: MB chose (a), later:** vol. 18 deposit first (V18-107); vol. 17 is imported and deposited **some days after** the vol. 18 upload, not the same day. **Action for you:** change GEN-123's wording (import waits for the vol. 18 deposit report plus a few days; import and deposit of vol. 17 on one day). The vol. 17 covers carry the online date 2026-10-20: if the import is later than that, the dates change and the covers are rebuilt first (`cover_page.py`, two minutes), as GEN-123 already says. Deposit XML for vol. 17 without references: scratch run `DEPOSIT CHECK OK 10/10`; rebuild it on the import day.
+
+## K27 — [general] MB dropped the model/effort lines; the root now applies checkups itself (20.10.2026 21:31)
+- **"Run with:" dropped (MB, 20.10.2026).** No more model or effort estimates in instructions to MB, unless he asks: they had no
+  feedback to calibrate them and were given even for steps MB does by hand. Root CLAUDE.md § "No model or effort advice" replaces the
+  hard rule of 04.10.2026. **Action for you:** remove your copy, `workspace/CLAUDE.md` § "Tasks you hand to MB: always say which model
+  and effort" (line 68 on), and any other place in your files that asks for the line; stop writing it in C-items. Old entries stay.
+- **Checkup applied by the root (MB, 20.10.2026).** After a checkup the root session applies every module item that needs no MB
+  decision and writes the module's status lines itself; a module session is needed only for a Kanon rule change, translation
+  judgment, or a module with a session running. MB no longer opens module sessions to say "apply checkup". Root CLAUDE.md
+  § Checkup, `_handoffs/README.md` rule 1 (one exception: the root's `Status of review` sections), `checkup/SKILL.md` § Apply.
+  Nothing for you to change unless `checkup/COWORK.md` or your files tell MB to apply a Code review in module sessions.

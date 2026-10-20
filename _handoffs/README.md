@@ -21,6 +21,9 @@ One file per direction, named `<sender>-to-<receiver>.md`:
 ## Rules
 
 1. **Only the sender writes its file.** The receiver never edits it; it answers in its own outgoing file, citing the item ID.
+   One exception (MB, 20.10.2026): after a checkup, the root session appends the `## Status of review` section to a
+   module's outgoing file for the items it applied for that module (root `CLAUDE.md` § Checkup), and writes nothing
+   else there.
 2. **Append, don't rewrite.** Each entry starts with a heading `## <ID> — [<Author>] <subject> (dd.mm.yyyy HH:MM)`; `[<Author>]` names the text it concerns (`[general]` if none), so MB can follow one article across files. Times from 28.09.2026 16:45 on; older entries keep their date only. IDs: srom-tlumacz uses `E<n>`, srom-produkcja `T<n>`. An answer entry quotes the ID it answers (e.g. `## T3 — re E9: …`).
 3. **Status changes are new lines, not edits:** under the item, `- dd.mm.yyyy HH:MM status: done / declined / needs MB — one line why`.
 4. **Contracts stay where they are.** The binding interface is still `srom-produkcja/.claude/skills/srom-produkcja/references/handoff.md` (and the Kanon in srom-kanon). This folder carries requests and news about them, not the contract itself.
@@ -34,8 +37,8 @@ One file per direction, named `<sender>-to-<receiver>.md`:
 ## Checkup
 
 `checkup/SKILL.md` is the source of the root session's `srom-checkup` skill (symlinked from `../.claude/skills/srom-checkup`;
-versioned here since 28.09.2026, when the root folder was not yet a git repository). Reviews it writes: `review-<dd.mm.yyyy>.md`. How module
-sessions apply them: root `CLAUDE.md` § Checkup. A partial pass (e.g. in the cloud) writes `draft-review-<dd.mm.yyyy>-<where>.md`,
+versioned here since 28.09.2026, when the root folder was not yet a git repository). Reviews it writes: `review-<dd.mm.yyyy>.md`. The root
+session applies them itself, except what it leaves to a module session: root `CLAUDE.md` § Checkup. A partial pass (e.g. in the cloud) writes `draft-review-<dd.mm.yyyy>-<where>.md`,
 which no module applies; the next full pass turns it into a review (no partial passes since the cloud was discontinued).
 Cowork's checkup: `checkup/COWORK.md`.
 

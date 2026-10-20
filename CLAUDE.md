@@ -49,21 +49,10 @@ The system has to work, not impress. Never let it grow into an outsized, byzanti
 - Lean is about what gets built, not what MB hears: always tell MB about more automated options worth knowing
   (with their cost), then let him choose.
 
-## Model and effort for every instruction to MB (MB, 04.10.2026) — hard rule
-HARD RULE (MB, 04.10.2026). Every time you tell MB to do something in a session — in Claude Code or in Cowork: start a
-session, apply or test a patch, run a check, paste a text, take a step on the Mac — you give, together with the
-instructions, your best estimate of the Claude model and effort level that session should run at. An instruction to MB
-without it is incomplete: do not send it. If unsure, say so and still give your best estimate. This includes
-instructions you write for the Cowork session, and each item of a list of steps run in a different session.
-Format, one line directly under the instruction:
-  Run with: <Opus | Sonnet | Haiku> · <low | medium | high | xhigh | max> effort — <one clause: why>.
-(Opus, Sonnet, Haiku = the current version of each.) Rough scale, adjust to the task: Haiku/Sonnet low = one fully
-specified mechanical step; Sonnet medium = apply and test patches, preflights, routine work that follows a written
-procedure; Sonnet/Opus high = debugging or building across several files, difficult RIP/INJECT, CSV/DOI/Crossref work;
-Opus high–xhigh = editorial judgement, translation, referee-grade reviews, Zizek cards and block choice, anything MB
-relies on without checking every line; Opus xhigh–max = system-wide audits, changing rules or skills, reconciling Cowork
-and Code. Does not apply to chat answers or to what you do yourself in the session you are in.
-(Cowork's copy: its `workspace/CLAUDE.md` § "Tasks you hand to MB".)
+## No model or effort advice (MB, 20.10.2026)
+Don't give MB a "Run with: <model> · <effort>" line or any other estimate of the model or effort a session should use,
+unless he asks. The rule of 04.10.2026 that required one is dropped: the estimates had no feedback to calibrate them,
+were often read off a scale rather than judged, and were given for steps MB does by hand. Older entries keep theirs.
 
 ## Start of every session
 1. Read your incoming file in `_handoffs/` (`tlumacz-to-produkcja.md` if you are srom-produkcja,
@@ -94,22 +83,35 @@ and Code. Does not apply to chat answers or to what you do yourself in the sessi
   `git pull --rebase origin main && git push origin HEAD:main`. If other files changed, or a test fails, do not
   commit; tell MB.
 
-## Checkup (cross-module review)
+## Checkup (cross-module review; who applies it: MB, 20.10.2026)
 - In the root session (working directory `SROM edit and trans` itself), "checkup" / "system checkup" / "srom checkup" /
-  "milestone check" / "health checkup" runs the skill `srom-checkup` (source `_handoffs/checkup/SKILL.md`).
-- In a module session (srom-produkcja/, srom-tlumacz/), the same words mean **apply checkup**, never a new review:
-  1. Open the newest `_handoffs/review-*.md` and follow only its `## For srom-produkcja` or `## For srom-tlumacz`
-     section.
-  2. Do the items that need no decision from MB, with your module's usual tests and commits.
-  3. Put items that need MB in a K-item headed "needs MB" (Cowork enters it in its ledger; § Decisions for MB).
-  4. Write one status line per item in your outgoing file, under `## Status of review <dd.mm.yyyy>`
-     (done / declined / needs MB), and commit.
-  5. Report to MB in a few lines.
-- At the start of every module session: if the newest `review-*.md` has no "Status of review" heading in your
-  outgoing file, tell MB.
+  "milestone check" / "health checkup" runs the skill `srom-checkup` (source `_handoffs/checkup/SKILL.md`). **The root
+  session then applies the review itself**, in the same session, without waiting for "apply checkup":
+  1. Every item in `## For srom-produkcja` and `## For srom-tlumacz` that needs no decision from MB, with that
+     module's usual tests (srom-produkcja's `run_all.py`; srom-tlumacz's checks in its CLAUDE.md) and commits named
+     after the module (`produkcja: review <date> #<n> [<text>]`).
+  2. Except these, left to a session in the module (the status line says which and why):
+     - a Kanon rule change (the Kanon is changed only from a srom-produkcja session, § Shared rules);
+     - translation judgment: choosing a Polish term or wording, a termbase or HOUSE row, anything in a translation;
+     - a module with a session running now (MB says so, or `git status --short <module>/` shows uncommitted
+       changes there): all of that module's items.
+  3. Items that need MB: one K-item headed "needs MB" (§ Decisions for MB).
+  4. Status lines, for a module whose section has items (not "Nothing."): in that module's outgoing file, under
+     `## Status of review <dd.mm.yyyy> (root, dd.mm.yyyy HH:MM) [general]`, one line per item: done (commit) /
+     declined / needs MB (K<n>) / left for srom-<module> (why). Commit and push at once (§ Git). This is the one
+     place the root writes in a module's outgoing file (`_handoffs/README.md` rule 1).
+  5. Report to MB in a few lines; name any item left for a module session.
+  A root session asked only for "apply checkup" does steps 1–5 for the newest review's items that have no status line.
+- In a module session (srom-produkcja/, srom-tlumacz/), "checkup" means **apply checkup**, never a new review: do the
+  newest review's items in your section that are marked "left for <your module>" (or that have no status line), with
+  your usual tests and commits; then append, at the end of your outgoing file, `## Status of review <dd.mm.yyyy>,
+  continued (<module>, dd.mm.yyyy HH:MM) [general]` with one line per item, and commit.
+- At the start of every module session: if the newest `review-*.md` lists items for your module and your outgoing
+  file has no status line for one of them, or one is "left for" your module and has no later line, tell MB.
 
 ## Messages between modules
-- Rules: `_handoffs/README.md`. One file per direction; only the sender writes it; append, never rewrite;
+- Rules: `_handoffs/README.md`. One file per direction; only the sender writes it (one exception: the root's
+  review status lines, § Checkup); append, never rewrite;
   answers go in your own outgoing file, citing the item ID (E<n> from srom-tlumacz, T<n> from srom-produkcja).
 - Several sessions of one module may run at once (29.09.2026). Immediately before adding a new ID (E<n>, T<n>, K<n>),
   re-read the end of the file to find the next free number, then commit straight away, so two sessions never
