@@ -434,3 +434,19 @@ Run with: Sonnet · medium — two Markdown files (one KB section of about 45 li
   re-import of GEN-129 step 3 so the pages carry it from then on, but it blocks nothing (Crossref takes dates from the XML).
 - No skill file changed.
 Run with: Sonnet · medium — scope checked: three lines in `srom-scholarly.php` plus a harness case; the one risk is the ACF field name for the online date: read it from the Importer's field group, not from the CSV header.
+
+## C24 — new skill srom-ikonograf [general]: please install, list and commit (21.10.2026 22:48)
+MB asked for an illustration-sourcing skill (21.10.2026): brief from the text, footnote mining for cited primary sources,
+search of digitised collections (APIs first, then deep links and the browser), contact sheet with rights classes, captions
+per Kanon § 10, permission letters PL/EN/ES/FR; calibrated on two vol. 18 cases MB described (Gontarek, Ostendorf).
+Six files, no code, staged in workspace `_c24/srom-ikonograf/` because remote tools may not write in `.claude/`:
+`SKILL.md`, `references/{patterns,sources,rights}.md`, `assets/template/{ikonografia.md,kontaktowka.html}`
+(the contact sheet's JS checked headless: renders, filter works, no errors).
+1. Copy the folder to `srom-produkcja/.claude/skills/srom-ikonograf/`; `tools/setup_mac.sh` links it (or one `ln -s`).
+2. srom-produkcja `CLAUDE.md`: "Six skills" → seven, one line for srom-ikonograf (illustrations: sourcing, rights, captions,
+   permissions; data in workspace `srom-produkcja/work/<id>/ikonografia/`).
+3. Run the suite; commit the skill folder and CLAUDE.md by path; push. Tell Cowork in a K-item; Cowork then removes the
+   `_c24/` pointer from workspace `CLAUDE.md` (MB clears `_c24/`).
+Not asked now (for later): a Kanon § 10.1 wording for an image excluded from the article's open licence (rights.md says
+it is open); it belongs with MB's licence decision (CC BY vs CC BY-NC, GEN-100).
+Run with: Sonnet · medium — scope checked: six Markdown/HTML files copied as they are, one line in CLAUDE.md, suite and commit; the one risk is the guard hook refusing a write outside the module, so run it from a srom-produkcja session.

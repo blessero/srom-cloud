@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kontaktówka</title>
+<style>
+  :root { --bg:#f6f4ef; --card:#fff; --ink:#1d1d1b; --mute:#6b6862; --line:#dedad2;
+          --A:#2f7d4f; --B:#3b6fb0; --C:#8a6d1e; --D:#b0563b; --E:#7a4fa0; --F:#555; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#161614; --card:#21201d; --ink:#ecebe6; --mute:#a19d94; --line:#34322d; } }
+  body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.45 -apple-system, "Helvetica Neue", sans-serif; }
+  header { padding:20px 24px 8px; }
+  h1 { font-size:20px; margin:0 0 4px; } .sub { color:var(--mute); }
+  nav { padding:0 24px 8px; display:flex; gap:8px; flex-wrap:wrap; }
+  nav button { border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:14px; padding:3px 10px; cursor:pointer; }
+  nav button.on { border-color:var(--ink); }
+  section { padding:8px 24px 16px; }
+  h2 { font-size:15px; margin:12px 0 2px; } h2 small { color:var(--mute); font-weight:400; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:14px; margin-top:8px; }
+  .c { background:var(--card); border:1px solid var(--line); border-radius:8px; overflow:hidden; display:flex; flex-direction:column; }
+  .c img { width:100%; height:200px; object-fit:contain; background:#00000010; display:block; }
+  .c .b { padding:8px 10px 10px; display:flex; flex-direction:column; gap:3px; }
+  .id { font-weight:600; } .t { font-style:italic; } .m { color:var(--mute); font-size:12.5px; }
+  .why { font-size:13px; margin-top:3px; }
+  .cls { display:inline-block; color:#fff; border-radius:4px; padding:0 6px; font-size:12px; font-weight:600; margin-right:4px; }
+  a { color:inherit; }
+</style>
+</head>
+<body>
+<header><h1 id="h"></h1><div class="sub" id="s"></div></header>
+<nav id="f"></nav>
+<main id="out"></main>
+<script>
+/* Ikonograf fills only this block. One object per candidate; slot ids match ikonografia.md § 1. */
+const DATA = {
+  text: "[Author], „[short title]” ([vol.])",
+  note: "Kandydaci [dd.mm.yyyy]. Klasa praw: A wolne · B uznanie autorstwa · C NC/ND · D zgoda · E autor nieznany · F płatne.",
+  slots: { "S1": "[idea of slot 1]" },
+  items: [
+    { id:"S1-a", slot:"S1", thumb:"", title:"", date:"", creator:"", holder:"", cls:"A", size:"",
+      page:"", full:"", why:"" }
+  ]
+};
+/* ---- rendering (no edits needed below) ---- */
+const $ = id => document.getElementById(id);
+$("h").textContent = DATA.text; $("s").textContent = DATA.note;
+let only = null;
+function render() {
+  const out = $("out"); out.innerHTML = "";
+  for (const [slot, idea] of Object.entries(DATA.slots)) {
+    const items = DATA.items.filter(i => i.slot === slot && (!only || i.cls === only));
+    if (!items.length) continue;
+    const sec = document.createElement("section");
+    sec.innerHTML = `<h2>${slot} <small>${idea}</small></h2>`;
+    const g = document.createElement("div"); g.className = "grid";
+    for (const i of items) {
+      const c = document.createElement("div"); c.className = "c";
+      c.innerHTML = `${i.thumb ? `<a href="${i.page}" target="_blank"><img loading="lazy" src="${i.thumb}" alt=""></a>` : ""}
+        <div class="b"><div><span class="cls" style="background:var(--${i.cls})">${i.cls}</span><span class="id">${i.id}</span></div>
+        <div class="t">${i.title}</div>
+        <div class="m">${[i.date, i.creator].filter(Boolean).join(" · ")}</div>
+        <div class="m">${i.holder}${i.size ? " · " + i.size : ""}</div>
+        <div class="m">${i.page ? `<a href="${i.page}" target="_blank">strona obiektu</a>` : ""}${i.full ? ` · <a href="${i.full}" target="_blank">pełna rozdzielczość</a>` : ""}</div>
+        ${i.why ? `<div class="why">${i.why}</div>` : ""}</div>`;
+      g.appendChild(c);
+    }
+    sec.appendChild(g); out.appendChild(sec);
+  }
+}
+const f = $("f");
+for (const k of [null, "A", "B", "C", "D", "E", "F"]) {
+  const b = document.createElement("button"); b.textContent = k || "wszystkie"; if (!k) b.className = "on";
+  b.onclick = () => { only = k; [...f.children].forEach(x => x.className = ""); b.className = "on"; render(); };
+  f.appendChild(b);
+}
+render();
+</script>
+</body>
+</html>

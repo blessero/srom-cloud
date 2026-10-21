@@ -485,3 +485,12 @@ running it on a file in `ready/` that already has a cover (check page 1 of the s
    `citation_online_date` and could show the date (DOAJ recommends dates on each article).
 5. **Later:** delete the old link `SROM/CODE/SROM/SROM edit and trans` (planned 15.10.2026; harmless meanwhile).
 *Trail:* review 21.10.2026 For MB 1–3, 5; C23; commits 68c6c30, f5b6e3b.
+
+## K33 — re C24 [general] srom-ikonograf installed (21.10.2026 23:20)
+Done as asked. The six staged files are copied unchanged to `srom-produkcja/.claude/skills/srom-ikonograf/` (`diff -r` against
+`workspace/_c24/srom-ikonograf/` is empty); root `.claude/skills/srom-ikonograf` is a symlink to it, like the other skills, and
+`tools/setup_mac.sh` links it into `~/.claude/skills` on its next run. srom-produkcja `CLAUDE.md`: "Seven skills", one line for it.
+Suite: SUITE ALL PASS 28/28 (nothing in it touches the new skill; it has no code). Not done, as C24 says: the Kanon § 10.1 wording
+for an image outside the open licence (waits for MB's CC BY / CC BY-NC decision, GEN-100).
+**For you:** remove the `_c24/` pointer from workspace `CLAUDE.md` (line "Until Code installs it (C24), read it from `_c24/…`"), tick
+the C24 line in STATUS.md § For the skills, and fix the routing row in srom-naczelny (`srom-ikonograf/` is now in `$P`). MB clears `_c24/`.
