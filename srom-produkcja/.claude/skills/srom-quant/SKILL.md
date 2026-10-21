@@ -144,7 +144,7 @@ Drop into `wp-content/mu-plugins/` (create the dir if absent) — always-on, can
 
 A grid ordered by a `meta_key` INNER-JOINs postmeta, so a volume missing that meta (`volume` for the archive, `year` for "Inne roczniki") silently drops out — fix the data, not the query; `[srom_diag]` counts them.
 
-**Building/updating the mu-plugin:** edit `assets/srom-scholarly.php` directly; it is a standalone file with no build step. `php -l` to lint. After any change to CPT slug, taxonomy key, or ACF field name in the Importer, re-check the mu-plugin's `srom_article_meta()` and shortcodes for matching names. After deploying, always Settings → Permalinks → Save to flush rewrites.
+**Building/updating the mu-plugin:** edit `assets/srom-scholarly.php` directly; it is a standalone file with no build step. `php -l` to lint. After any change to CPT slug, taxonomy key, or ACF field name in the Importer, re-check the mu-plugin's `srom_article_meta()` and shortcodes for matching names. After deploying, always Settings → Permalinks → Save to flush rewrites. **After saving an ACF post type** (slug, archive), load any page first, then Permalinks → Save, then open one DOI address: ACF flushes the rules on a later request, early in `init`, before this plugin adds its DOI rule (priority 20), and every `/articles/10.…/` page 404s until the next save (seen 21.10.2026).
 
 ## Crossref deposit (`scripts/generate_crossref_xml.py`)
 
