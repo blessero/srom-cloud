@@ -2,8 +2,12 @@
 /**
  * Plugin Name: SROM Scholarly Infrastructure
  * Description: Full-DOI permalinks, Highwire citation_* meta tags, ScholarlyArticle JSON-LD, display shortcodes. Content model (CPTs, taxonomies, ACF groups) is owned by the SROM Importer plugin — this file registers NO post types.
- * Version: 2.8
+ * Version: 2.9
  * Install: drop into wp-content/mu-plugins/ (create the dir if absent) — loads always, cannot be deactivated by accident.
+ *
+ * v2.9 changes (review 21.10.2026, Cowork C23):
+ *  - No citation_online_date: it repeated the print date (the Tom's pub_date, or the year), and no field on the
+ *    site holds an article's online date. citation_publication_date and JSON-LD datePublished stay print.
  *
  * v2.8 changes (21.10.2026):
  *  - DOI and legacy /artykul/ rewrite rules injected via rewrite_rules_array (survive a flush at any
@@ -264,7 +268,7 @@ function srom_article_meta($post_id) {
         'license'    => get_field('license_url', $post_id),
         'volume'     => $vol_id ? get_field('volume', $vol_id) : '',
         'year'       => $vol_id ? get_field('year', $vol_id) : '',
-        'pub_date'   => $vol_id ? get_field('pub_date', $vol_id) : '', // Y-m-d or Y/m/d
+        'pub_date'   => $vol_id ? get_field('pub_date', $vol_id) : '', // print date, Y-m-d or Y/m/d
     ];
 }
 
@@ -290,10 +294,10 @@ add_action('wp_head', function () {
         $tag('citation_author_institution', $a['aff']);
         if ($a['orcid']) $tag('citation_author_orcid', $a['orcid']);
     }
-    // Scholar wants YYYY/MM/DD
+    // Scholar wants YYYY/MM/DD. The Tom's pub_date is the PRINT date (Crossref's issued date too); no
+    // citation_online_date until the site stores an online date (v2.9: it was a copy of this one).
     $pd = $m['pub_date'] ? str_replace('-', '/', $m['pub_date']) : $m['year'];
     $tag('citation_publication_date', $pd);
-    $tag('citation_online_date', $pd);
     $tag('citation_volume', $m['volume']);
     $tag('citation_firstpage', $m['fp']);
     $tag('citation_lastpage', $m['lp']);
@@ -624,7 +628,7 @@ add_shortcode('srom_diag', function () {
     $art  = srom_ctx_id('srom_article');
     $vol  = srom_ctx_id('srom_volume');
     $rows = [
-        'mu-plugin version'      => '2.8',
+        'mu-plugin version'      => '2.9',
         'PHP'                    => PHP_VERSION,
         'main query object'      => $ctx['id'] . ' (' . ($ctx['type'] ?: '—') . ')',
         'get_the_ID()'           => (string) get_the_ID(),

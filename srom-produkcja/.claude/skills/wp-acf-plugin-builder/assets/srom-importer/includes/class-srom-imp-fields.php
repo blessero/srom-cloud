@@ -247,7 +247,9 @@ class SROM_Imp_Fields {
 			// srom_volume (also used when auto-creating volumes from article rows)
 			'signature'      => array( 'issue_signature', null, false ),
 			'theme'          => array( 'issue_theme', null, false ),
-			'pub_date'       => array( 'pub_date_online', null, false ),
+			// pub_date is the PRINT date (mu-plugin citation_publication_date, Crossref's issued date);
+			// it was fed from pub_date_online until 2.3.1 (review 21.10.2026).
+			'pub_date'       => array( 'pub_date_print', null, false ),
 		);
 	}
 

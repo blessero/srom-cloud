@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       SROM Importer
  * Description:       Reliable spreadsheet importer (CSV / TSV / XLSX) for ACF-powered custom post types. Registers the Studia Romologica post types, taxonomies and field groups as native, editable ACF records; works with any ACF field group. Dry-run preview, upsert by key, taxonomy mapping, batched processing.
- * Version:           2.3.0
+ * Version:           2.3.1
  * Author:            Studia Romologica
  * Requires PHP:      7.4
  * Requires at least: 5.8
@@ -14,8 +14,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SROM_IMP_VERSION', '2.3.0' );
+define( 'SROM_IMP_VERSION', '2.3.1' );
 /*
+ * 2.3.1 (2026-10-21, review 21.10.2026):
+ *  - A volume's pub_date (the print date: citation_publication_date, „grudzień 2025”) comes from
+ *    pub_date_print, no longer from pub_date_online: an auto-created Tom 19 would have dated its
+ *    articles by the day they went online. A year-only print date (back volumes) is skipped as not
+ *    a date, so the mu-plugin falls back to the year.
+ *  - Defaults for fresh installs: article archive /articles/, volume slug and archive /volumes/
+ *    (on the live site the post types are DB-native ACF records, edited in the ACF UI; mu-plugin
+ *    v2.6 301s the old bases).
+ *
  * 2.3.0 (2026-07-23):
  *  - Article CPT default rewrite slug: artykul -> articles (locked decision; DOI
  *    landing URLs are /articles/{full-doi}/). NB: on an install where the post

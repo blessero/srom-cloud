@@ -150,6 +150,19 @@ t("validate_master: SROM_ PDF name and a pdf_url that does not end with pdf_file
   and "pdf_file" not in vpdf("Studia_Romologica_18_2025_A_B.pdf", U + "Studia_Romologica_18_2025_A_B.pdf"),
   vpdf("Studia_Romologica_18_2025_A_B.pdf", U + "SROM_18_2025_A_B.pdf"))
 
+# validate_master.py (review 21.10.2026): landing_url is the deposited <resource>, so exactly /articles/{doi}/ on the site
+def vland(url):
+    p = os.path.join(vdir, "m_land.csv")
+    with open(p, "w", encoding="utf-8-sig", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["article_id", "doi", "landing_url"])
+        w.writeheader(); w.writerow({"article_id": "SROM-18-2025-001", "doi": "10.68100/n61tj1yi", "landing_url": url})
+    return subprocess.run([sys.executable, VM, p], capture_output=True, text=True).stdout
+L = "https://studiaromologica.pl/"
+t("validate_master: landing_url other than https://studiaromologica.pl/articles/{doi}/ is an error (old base, no slash, www); exact form passes",
+  all("landing_url" in vland(u) for u in (L + "artykul/n61tj1yi/", L + "articles/10.68100/n61tj1yi",
+                                         "https://www.studiaromologica.pl/articles/10.68100/n61tj1yi/"))
+  and "landing_url" not in vland(L + "articles/10.68100/n61tj1yi/"), vland(L + "artykul/n61tj1yi/"))
+
 # cover_page.py (03.10.2026): the online metadata page from the master row, prepended to the article's PDF
 import pymupdf
 CV = os.path.join(os.path.dirname(GEN), "cover_page.py")
@@ -448,6 +461,28 @@ subprocess.run([sys.executable, GEN, dcp, x2], capture_output=True, text=True)
 r = subprocess.run([sys.executable, CD, dcp, x2], capture_output=True, text=True)
 t("check_deposit: a clean volume ends DEPOSIT CHECK OK 2/2, exit 0",
   r.returncode == 0 and r.stdout.strip().splitlines()[-1] == "DEPOSIT CHECK OK 2/2", r.stdout + r.stderr)
+
+# check_deposit.py --site (review 21.10.2026): a deposited address that 301s is a fault and is not followed; a page that
+# answers 200 itself with the right citation_doi passes. Local server, no network.
+import http.server, threading
+class Site(http.server.BaseHTTPRequestHandler):
+    def log_message(self, *a): pass
+    def do_GET(self):
+        if self.path.startswith("/moved/"):
+            self.send_response(301); self.send_header("Location", "/p/1/"); self.end_headers(); return
+        body = b"%PDF-1.4 x" if self.path.endswith(".pdf") else b'<meta name="citation_doi" content="10.12345/ef5g6h71">'
+        self.send_response(200); self.send_header("Content-Length", str(len(body))); self.end_headers(); self.wfile.write(body)
+srv = http.server.HTTPServer(("127.0.0.1", 0), Site); threading.Thread(target=srv.serve_forever, daemon=True).start()
+base = f"http://127.0.0.1:{srv.server_port}"
+def siterun(landing):
+    row = dict(drows[0], landing_url=base + landing, pdf_url=base + "/1.pdf"); dwrite([row])
+    x = os.path.join(cdd, "dep_site.xml"); subprocess.run([sys.executable, GEN, dcp, x], capture_output=True, text=True)
+    return subprocess.run([sys.executable, CD, dcp, x, "--site"], capture_output=True, text=True, env=dict(os.environ, SROM_PACE="0"))
+r1, r2 = siterun("/moved/1/"), siterun("/p/1/")
+srv.shutdown()
+t("check_deposit --site: a landing page that 301s fails (redirect named, not followed); one answering 200 itself passes",
+  r1.returncode == 1 and f"landing page 301 → /p/1/" in r1.stdout and r2.returncode == 0
+  and r2.stdout.strip().splitlines()[-1] == "DEPOSIT CHECK OK 1/1", r1.stdout + r2.stdout + r2.stderr)
 
 n, ok = len(res), sum(res)
 print(f"QUANT ALL PASS {n}/{n}" if ok == n else f"QUANT FAILED {n - ok}/{n}")

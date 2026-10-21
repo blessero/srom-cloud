@@ -673,7 +673,7 @@ class SROM_Imp_Runner {
 			'volume'    => array( 'volume' ),
 			'year'      => array( 'year' ),
 			'theme'     => array( 'issue_theme', 'theme' ),
-			'pub_date'  => array( 'pub_date_online', 'pub_date' ),
+			'pub_date'  => array( 'pub_date_print', 'pub_date' ), // print date (2.3.1; was pub_date_online)
 		);
 		foreach ( $sources as $field_name => $columns ) {
 			if ( ! isset( $fields[ $field_name ] ) ) {

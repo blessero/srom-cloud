@@ -9,7 +9,8 @@ This prints every contributor BY NAME with the ORCID the CSV gives and the one t
 Per article: DOI, landing and PDF address, pages, print and online dates, licence, contributors (authors, then translators)
 with ORCID, references (count = citations/<article_id>.json) and their text (no U+FFFD, no doubled accent, no control
 character). --site: each landing page answers 200 with the right citation_doi, each PDF answers 200 (and, with --ready, is
-byte-identical to the covered PDF there); paced, because the site blocks bursts (429). Read-only.
+byte-identical to the covered PDF there); a redirect is a fault, since the deposited address must be the page itself, not a
+301 to it (review 21.10.2026). Paced (PACE seconds per request), because the site blocks bursts (429, and Wordfence). Read-only.
 Last line: DEPOSIT CHECK OK n/n, or DEPOSIT CHECK FAILED k/n. Owner: srom-quant (taken over from Cowork, C15 addendum).
 """
 import csv, hashlib, json, os, re, sys, time, unicodedata, urllib.request, urllib.error
@@ -46,13 +47,19 @@ def textflaws(s):
     if unicodedata.normalize("NFC", s) != s: bad.append("not NFC")
     return bad
 
+PACE = float(os.environ.get("SROM_PACE", 5))   # seconds between site requests (was 1.5; 21.10.2026 MB's IP was blocked for a while, host or Wordfence)
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, *a, **k): return None   # 3xx surfaces as HTTPError: reported, never followed
+OPEN = urllib.request.build_opener(NoRedirect).open
+
 def get(url):
     for attempt in range(3):
         req = urllib.request.Request(url, headers={"User-Agent": "SROM check_deposit"})
         try:
-            with urllib.request.urlopen(req, timeout=40) as r: return r.status, r.read()
+            with OPEN(req, timeout=40) as r: return r.status, r.read()
         except urllib.error.HTTPError as e:
             if e.code == 429: time.sleep(20 * (attempt + 1)); continue
+            if 300 <= e.code < 400: return f"{e.code} → {e.headers.get('Location', '?')}", b""
             return e.code, b""
         except Exception as e:
             return f"error {e.__class__.__name__}", b""
@@ -94,10 +101,10 @@ for a in arts:
     for el in a.iter():
         if el.text and el.tag.split('}')[-1] in ("title", "p") and textflaws(el.text): probs.append(f"damaged text in {el.tag.split('}')[-1]}"); break
     if SITE:
-        st, body = get(r["landing_url"]); time.sleep(1.5)
+        st, body = get(r["landing_url"]); time.sleep(PACE)
         if st != 200 or f'name="citation_doi" content="{r["doi"]}"' not in body.decode("utf-8", "replace"):
             probs.append(f"landing page {st}, citation_doi {'ok' if body and r['doi'] in body.decode('utf-8','replace') else 'missing'}")
-        st, pdf = get(r["pdf_url"]); time.sleep(1.5)
+        st, pdf = get(r["pdf_url"]); time.sleep(PACE)
         if st != 200: probs.append(f"PDF {st}")
         elif READY:
             lp = os.path.join(READY, r["pdf_file"])

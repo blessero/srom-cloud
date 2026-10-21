@@ -86,6 +86,13 @@ t('DOI: dc.identifier present', strpos($h, 'content="doi:10.68100/abcdefgh"') !=
 t('DOI: JSON-LD identifier', strpos($h, '"identifier":"https://doi.org/10.68100/abcdefgh"') !== false, $h);
 t('DOI: no body classes', apply_filters('body_class', []) === [], json_encode(apply_filters('body_class', [])));
 t('license by name', strpos(sc('srom_license'), 'CC BY-NC 4.0') !== false, sc('srom_license'));
+t('dates: Tom without pub_date -> publication date = year', strpos($h, 'name="citation_publication_date" content="2024"') !== false, $h);
+// 2b. dates (v2.9): publication date = the Tom's print date; no citation_online_date (it only repeated that date)
+$DB[20]['pub_date'] = '2025-12-21';
+page(new WP_Post(21, 'srom_article'), 21);
+$h = head();
+t('dates: publication date = Tom print date, no citation_online_date', strpos($h, 'name="citation_publication_date" content="2025/12/21"') !== false && strpos($h, 'citation_online_date') === false && strpos($h, '"datePublished":"2025-12-21"') !== false, $h);
+unset($DB[20]['pub_date']);
 // 3. archive page (main query object = term), current post = first article without DOI
 page(new WP_Term(5, 'autor-x'), 12);
 t('archive: no body classes leak', apply_filters('body_class', []) === [], json_encode(apply_filters('body_class', [])));

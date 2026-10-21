@@ -102,7 +102,7 @@ This is the importer's built-in auto-mapping preset — useful if another tool n
 | `year` | taxonomy `rocznik` | one term per year |
 | `abstract_pl` | ACF `abstract_pl` **and** `post_content` **and** `post_excerpt` | one column feeds all three (search indexing) |
 | `keywords_en` | ACF `keywords_en` | normalized to `; `-separated |
-| `signature`, `theme`, `pub_date_online` | volume fields `signature`/`theme`/`pub_date` | when importing a separate volume (Tom) sheet |
+| `signature`, `theme`, `pub_date_print` | volume fields `signature`/`theme`/`pub_date` (the print date; `pub_date_online` until 2.3.1) | when importing a separate volume (Tom) sheet |
 | everything else (e.g. `journal_title`, `issn`, `landing_url`) | ignored | not mapped unless user maps manually |
 
 Import keys (upsert match, never duplicates on re-run): `article_id` for articles, `signature` for volumes.

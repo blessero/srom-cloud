@@ -30,6 +30,7 @@ DATE_RE   = re.compile(r'^\d{4}-\d{2}-\d{2}$')
 PRINT_RE  = re.compile(r'^\d{4}(-\d{2}-\d{2})?$')   # a back volume may know only its year (MB 19.10.2026, C19)
 ORCID_RE  = re.compile(r'^https://orcid\.org/\d{4}-\d{4}-\d{4}-\d{3}[\dX]$')
 DOI_RE    = re.compile(r'^10\.\d{4,9}/[a-z0-9]{8}$')
+SITE      = 'https://studiaromologica.pl'   # knowledge base § Where these facts are also hard-coded
 
 def main():
     path = sys.argv[1] if len(sys.argv) > 1 else 'srom_master_v3.csv'
@@ -64,6 +65,11 @@ def main():
         else:                         seen_suffix[suf] = rid
         if doi and 'XXXXX' not in doi and not DOI_RE.match(doi):
             W(f"{rid}: doi '{doi}' doesn't match 10.<prefix>/<8-char suffix>")
+        # landing_url is deposited as the DOI's <resource>: exactly the mu-plugin's permalink, never a form that 301s
+        # (the URL bases moved twice: /artykul/ -> /articles/, /tom/ -> /volumes/; review 21.10.2026)
+        land = r.get('landing_url', '')
+        if DOI_RE.match(doi) and land != f"{SITE}/articles/{doi}/":
+            E(f"{rid}: landing_url '{land}' is not {SITE}/articles/{doi}/")
 
         # article_id uniqueness
         if rid in seen_id: E(f"duplicate article_id '{rid}'")
