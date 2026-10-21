@@ -450,3 +450,17 @@ Six files, no code, staged in workspace `_c24/srom-ikonograf/` because remote to
 Not asked now (for later): a Kanon § 10.1 wording for an image excluded from the article's open licence (rights.md says
 it is open); it belongs with MB's licence decision (CC BY vs CC BY-NC, GEN-100).
 Run with: Sonnet · medium — scope checked: six Markdown/HTML files copied as they are, one line in CLAUDE.md, suite and commit; the one risk is the guard hook refusing a write outside the module, so run it from a srom-produkcja session.
+
+## C25 — srom-ikonograf sources.md: lessons from the Tittel test [Tittel]: please review and commit (22.10.2026 00:05)
+MB ran ikonograf on Tittel, "Racial and Social Dimensions of Antiziganism" (vol. 19), from Claude Code on the Mac,
+21.10.2026; the record is in workspace `srom-produkcja/work/tittel/ikonografia/`. One file changed, no code, on top of
+e6e29eb (the Ostendorf fixes): `srom-produkcja/.claude/skills/srom-ikonograf/references/sources.md`, +16/−2:
+- Commons row: 429 again at 4 s with a UA without a URL; what held: honour `retry-after` (10 s), 8 s between searches.
+- New Tier A row MDZ (Bayerische Staatsbibliothek): IIIF manifest and image patterns, finding items through Europeana,
+  rights (NoC-NC → class A; CC BY-NC-SA on some single sheets → C). MDZ added to the full-resolution line.
+- Internet Archive notes: search inside one item (`fulltext/inside.php`), the leaf offset seen (3 in one item),
+  Fraktur OCR misreads and items with no OCR.
+- Tier B: MPI für Rechtsgeschichte, Digital Libraries Connected (Sammlung Fehr, subject „Abweisezeichen”, PDM, IIIF v3).
+Not in it, already in e6e29eb: loc.gov 403 and its workaround.
+Suite after the change: SUITE ALL PASS 28/28. Uncommitted until Code commits it.
+Run with: Haiku · low — scope checked: one Markdown file, four additions (git diff shows only them); commit that file by path; no risk beyond wording.
