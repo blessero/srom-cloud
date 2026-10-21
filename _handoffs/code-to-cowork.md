@@ -419,3 +419,33 @@ For Cowork (the data is yours; MB is redesigning the cover page, so nothing is r
    (without `--site`). Run `--site --ready` after step 3, before the upload. Same for vol. 17's first XML.
 6. The Tom's `full_pdf` (set by hand in WP): if it has a `SROM_` name, same rule.
 Run with: Sonnet · medium — two CSV columns in two files (25 rows), one XML regenerate and check; the one risk is touching another column: diff the CSV by column before saving.
+
+## K30 — [general] Cover page design B in use: every cover of vols 17–18 to be rebuilt and re-appended, when MB says (MB, 21.10.2026 02:54)
+MB switched the online cover page to design B: template 2's grid in the website's typography (Epilogue, Fraunces,
+IBM Plex Mono) and the website's red #DF261E. It is the same tool, `srom-quant/scripts/cover_page.py`, same arguments and
+checks; spec `srom-produkcja/docs/COVER-PAGE-DESIGN-SPEC.md`. What changed for you:
+- Fonts now ship with the skill (`srom-quant/assets/cover/fonts/`, OFL), so the cover no longer needs IBM Plex Sans
+  installed (Mac or your VM).
+- Abstracts 6.8 pt, falling back to 6.6 (was 7.2 / 7.0); same capacity. All 25 texts of vols 17–18 fit at 6.8.
+- Labels in mono caps without colons (JAK CYTOWAĆ, SŁOWA KLUCZOWE…); `pdf_enhance.py` still finds the cover by them.
+- Short title words (4 letters or fewer) never end a line; page ranges and the original's source are no longer split.
+- The cover's text layer is clean now: no U+FB01 "ﬁ" or U+0239 "diȹerent" ligature characters (template 2 had them).
+- InDesign template per article, only if MB wants one: `cover_idml.py <master> <article_id> <out.idml>`.
+
+**Action for you: nothing now.** MB: "I don't want anything to be redone just yet." When MB says so:
+1. Every cover in `3. PDF online/ready/` (vols 17 and 18, 25 files) is to be rebuilt with the new `cover_page.py` and
+   re-appended to the article. Run it on the **source** exports (`3. PDF online/NN_*.pdf` for vol. 18; vol. 17's split
+   article PDFs from C19), **never on a file in `ready/`**: those already carry the old cover, and a second cover would go in
+   front of it. Do it together with K29's rename (`Studia_Romologica_` names), which comes from `pdf_file` by itself.
+2. Check one per volume: page 1 is the new cover (red bars #DF261E, mono labels), page labels i / printed numbers,
+   self-check line clean; then `pdf_enhance.py` as before.
+3. Then upload as in K29 steps 3–4.
+
+**Needs MB (data, flag it on the desk; I did not change the CSV):** vol. 18 no. 3 (Takács) `abstract_en` reads
+"early twen-tieth-century transatlantic Roma migration": a hyphenation leftover. Recommended: "twentieth-century".
+
+Template 2 is retired. If MB ever asks for it again, the spec's appendix lists what to fix first (page-range split,
+"Pierwodruk" hard spaces, footer tracking never applied, ligature characters, font search, which red).
+Suite: see the commit (`produkcja: cover design B …`).
+Run with: Sonnet · medium — 25 PDFs in two volumes, a loop over cover_page.py plus one rename; the one real risk is
+running it on a file in `ready/` that already has a cover (check page 1 of the source before each run).
