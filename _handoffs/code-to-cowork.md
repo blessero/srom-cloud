@@ -449,3 +449,39 @@ Template 2 is retired. If MB ever asks for it again, the spec's appendix lists w
 Suite: see the commit (`produkcja: cover design B …`).
 Run with: Sonnet · medium — 25 PDFs in two volumes, a loop over cover_page.py plus one rename; the one real risk is
 running it on a file in `ready/` that already has a cover (check page 1 of the source before each run).
+
+## K31 — re C21–C23 [general] status lines; C23 fixed (mu-plugin v2.9) with its twin in the Importer (2.3.1); landing and redirect checks; the host (21.10.2026 03:47)
+- C21: seen, nothing to apply (no skill file changed).
+- C22: committed in 6f9d915 (KB § Indexing and ranking, § Indexing criteria; srom-zizek `block.md` step 6). Read; not re-checked
+  against the sources (named in the section, which says to re-read them before filing).
+- C23: **done, 68c6c30.** No article field holds an online date: the CSV's `pub_date_online` reached only a newly created Tom's
+  `pub_date`. So v2.9 drops `citation_online_date` (it repeated the print date); `citation_publication_date` and JSON-LD
+  `datePublished` stay print. Twin bug: the Importer filled that Tom `pub_date`, read everywhere as the print date, from
+  `pub_date_online`; 2.3.1 takes `pub_date_print`. Vol. 17 is unaffected (Tom 699 existed); an auto-created Tom 19 would have
+  dated its articles by their online day. Uploads: K32.
+- New checks (68c6c30): `validate_master.py` errors when `landing_url` ≠ `https://studiaromologica.pl/articles/{doi}/` (the
+  deposited `<resource>`; vols 17 and 18: no blocking errors). `check_deposit.py --site` reports a redirect with its target instead
+  of following it, and waits 5 s between requests (vol. 18 with `--site`: about 2.5 minutes).
+- **The host** (MB, 21.10.2026): studiaromologica.pl is hosted at **seohost.pl**; Hostinger only held a staging copy. Now in the
+  KB § Identity with the pacing rule (MB's IP was blocked for a while tonight: a handful of requests, ≥ 5 s apart). **Action for
+  you:** your GEN-113 draft (`gen/GEN-113_polityka_prywatnosci.html` and site page 3) says „Dzienniki przechowuje dostawca hostingu,
+  Hostinger”: change it to seohost.pl, with the company name MB gives (K32 item 3). Check your own files for "Hostinger" as host.
+- Review 21.10.2026 (`_handoffs/review-21.10.2026.md`): live, 15/15 published articles have slug = DOI suffix and permalink = the
+  CSV's `landing_url`; the DOI page answers 200 itself. Suite: SUITE ALL PASS 28/28 (MUPLUGIN 43/43, QUANT 64/64). Backup:
+  BACKUP OK srom-20261021-0342.
+
+## K32 — needs MB: [general] two uploads, the host's name, an optional online date (21.10.2026 03:47)
+1. **Upload mu-plugin v2.9 with GEN-129 step 3** (same trip). Kind: Do. Blocks: nothing. In seohost's file manager replace
+   `wp-content/mu-plugins/srom-scholarly.php` with 🔴 `srom-quant/assets/srom-scholarly.php` (v2.9): it stops printing a wrong online
+   date. Then a session checks one article page (one request): no `citation_online_date`, the other tags unchanged.
+   Run with: Sonnet · low — scope checked: one page fetch and three meta tags compared; the one risk is hammering the site (one request).
+2. **SROM Importer 2.3.1 before vol. 19's first import.** Kind: Do (later). Blocks: vol. 19 import. Replace `srom-importer.php`,
+   `includes/class-srom-imp-fields.php`, `includes/class-srom-imp-runner.php` (from `wp-acf-plugin-builder/assets/srom-importer/`).
+   Why: 2.3.0 dates a newly created Tom by the day its articles went online instead of the print date.
+3. **GEN-113: the hosting company's name.** Kind: Look up. The privacy draft names Hostinger; the live host is seohost.pl. Give
+   the name as it should appear in the policy (as on seohost's invoice); Cowork corrects the draft.
+4. **An online date on article pages?** Kind: Decide. (a) **Recommended: nothing now** (v2.9 simply leaves the tag out).
+   (b) One date field on the Tom, added by hand in ACF (a minute), one Importer line, one mu-plugin line, tests: pages then carry
+   `citation_online_date` and could show the date (DOAJ recommends dates on each article).
+5. **Later:** delete the old link `SROM/CODE/SROM/SROM edit and trans` (planned 15.10.2026; harmless meanwhile).
+*Trail:* review 21.10.2026 For MB 1–3, 5; C23; commits 68c6c30, f5b6e3b.
