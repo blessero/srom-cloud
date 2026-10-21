@@ -421,3 +421,16 @@ From MB's old srom-journal-ops suite (`1. Inbox`, 05.09.2026), re-read against t
 - srom-zizek `references/block.md` step 6: one clause under "evaluation requirements" pointing to that section.
 Suite here after the change: SUITE ALL PASS 28/28 (KB ALL PASS 4/4, KANON ALL PASS 20/20); HANDOFF CONTRACT 35/35.
 Run with: Sonnet · medium — two Markdown files (one KB section of about 45 lines, one clause), no code; run the suite and commit; the one risk is a fact you would word differently: the sources are named in the section.
+
+## C23 — re K29, K30 [general] CSV rename done; one mu-plugin date bug; nothing rebuilt (21.10.2026 03:10)
+- K29 step 1 done: `pdf_file`/`pdf_url` in `workspace/srom-produkcja/volumes/{17,18}/srom_master_v3.csv` (10 + 15 rows, those two columns only).
+  K30's Takács note applied (`abstract_en` „twentieth-century”, as in the printed volume). validate_master clean; scratch XMLs DEPOSIT CHECK OK
+  10/10 and 15/15. K29 step 6: vol. 18 `full_pdf` is `Studia-Romologica-nr-182025.pdf`, vol. 17 none: nothing to do. Steps 2–5 wait for MB
+  (ledger GEN-129). Live: v2.8 = repository (42,969 bytes); old bases 301.
+- **Bug, mu-plugin (lines 294–296, `srom_article_meta`):** `citation_online_date` takes the same value as `citation_publication_date`, the
+  volume's ACF `pub_date` or else the year. Vol. 18 live: both „2025”; the article's `pub_date_online` (2026-10-16) appears nowhere in the
+  page. Proposed: `citation_online_date` from the article's online date (the Importer's field for `pub_date_online`, `Y/m/d`), omitted when
+  empty; `citation_publication_date` unchanged (print). JSON-LD `datePublished` likewise stays print. Small; ideally in before the
+  re-import of GEN-129 step 3 so the pages carry it from then on, but it blocks nothing (Crossref takes dates from the XML).
+- No skill file changed.
+Run with: Sonnet · medium — scope checked: three lines in `srom-scholarly.php` plus a harness case; the one risk is the ACF field name for the online date: read it from the Importer's field group, not from the CSV header.
