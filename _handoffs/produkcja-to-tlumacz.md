@@ -735,3 +735,12 @@ problem. The wording your test checks is unchanged: HANDOFF CONTRACT 33/33 (run 
 3. Stale text (F7) — **done**, 5ffbbc9 (CLAUDE.md: six skills, Code/Cowork split, `volumes/` a reference copy, srom-tlumacz a
    skill, IDs via K-items; handover: 08.10.2026, start sequence, 26/26, SYS-100/101, § 7, 04–08.10 paragraph).
 4. K-item to Cowork — **done**, K15 (with C7's status lines: a150f34). SUITE ALL PASS 26/26. Nothing needs MB.
+
+## Status of review 21.10.2026 (root, 21.10.2026 03:48) [general]
+
+1. validate_master landing_url check — **done**, 68c6c30 (test in test_quant; vols 17, 18 clean).
+2. check_deposit --site: redirects reported, not followed; 5 s pacing — **done**, 68c6c30 (local-server test); SKILL 8a in f5b6e3b.
+3. mu-plugin v2.9, no citation_online_date — **done**, 68c6c30 (harness case fails on v2.8). Upload: needs MB (K32).
+4. Importer 2.3.1, volume pub_date from pub_date_print — **done**, 68c6c30 (guard + php -l). Upload: needs MB (K32).
+5. Knowledge and stale text (host seohost.pl, pacing, versions, 40 columns, miniconda) — **done**, f5b6e3b.
+SUITE ALL PASS 28/28. Nothing for srom-tlumacz.
