@@ -16,6 +16,9 @@ function do_shortcode($s) { global $H; return preg_replace_callback('/\[(\w+)([^
     if (!isset($H['sc'][$m[1]])) return '{' . $m[1] . '}'; return $H['sc'][$m[1]]([]); }, $s); }
 function shortcode_atts($d, $a) { return array_merge($d, (array) $a); }
 function add_rewrite_rule() {}
+$OPT = []; $FLUSHES = 0;
+function get_option($k, $d = false) { global $OPT; return $OPT[$k] ?? $d; }
+function flush_rewrite_rules($hard = true) { global $OPT, $FLUSHES; $FLUSHES++; $OPT['rewrite_rules'] = apply_filters('rewrite_rules_array', ['articles/([^/]+)/?$' => 'index.php?srom_article=$matches[1]']); }
 function esc_attr($s) { return htmlspecialchars((string) $s, ENT_QUOTES); }
 function esc_html($s) { return htmlspecialchars((string) $s, ENT_QUOTES); }
 function esc_url($s) { return (string) $s; }
@@ -123,4 +126,14 @@ t('404 SROM_ PDF -> Studia_Romologica_ PDF, same folder', redir($P . 'SROM_18_20
 t('404 on another file, or a new-name PDF, untouched', redir($P . 'Studia_Romologica_18_2025_X.pdf') === '' && redir('/wp-content/uploads/2025/SROM_18_2025_X.pdf') === '' && redir($P . 'SROM_cover.pdf') === '', redir($P . 'Studia_Romologica_18_2025_X.pdf'));
 $IS404 = false;
 t('SROM_ PDF that still exists (no 404): untouched', redir($P . 'SROM_18_2025_Ostendorf_Historia.pdf') === '', redir($P . 'SROM_18_2025_Ostendorf_Historia.pdf'));
+// 8. DOI rewrite rule survives any rebuild (v2.8)
+$r = apply_filters('rewrite_rules_array', ['articles/([^/]+)/?$' => 'x', 'articles/[^/]+/([^/]+)/?$' => 'attachment']);
+t('DOI rule first in rebuilt rules', array_key_first($r) === 'articles/10\\.[0-9]+/([a-z0-9-]+)/?$', array_key_first($r));
+t('legacy /artykul/ rule present, CPT rules kept', isset($r['artykul/([a-z0-9-]+)/?$']) && isset($r['articles/([^/]+)/?$']) && count($r) === 4, json_encode(array_keys($r)));
+$OPT['rewrite_rules'] = ['articles/([^/]+)/?$' => 'x']; $FLUSHES = 0; do_action('wp_loaded');
+t('self-check rebuilds once when DOI rule missing', $FLUSHES === 1 && isset($OPT['rewrite_rules']['articles/10\\.[0-9]+/([a-z0-9-]+)/?$']), "flushes=$FLUSHES");
+do_action('wp_loaded');
+t('self-check idle when rules present', $FLUSHES === 1, "flushes=$FLUSHES");
+$OPT['rewrite_rules'] = ''; do_action('wp_loaded');
+t('self-check idle on plain permalinks / pending rebuild', $FLUSHES === 1, "flushes=$FLUSHES");
 echo $fails ? "HARNESS FAILED $fails\n" : "HARNESS ALL PASS\n";

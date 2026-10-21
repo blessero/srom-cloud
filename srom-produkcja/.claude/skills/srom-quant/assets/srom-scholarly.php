@@ -2,8 +2,13 @@
 /**
  * Plugin Name: SROM Scholarly Infrastructure
  * Description: Full-DOI permalinks, Highwire citation_* meta tags, ScholarlyArticle JSON-LD, display shortcodes. Content model (CPTs, taxonomies, ACF groups) is owned by the SROM Importer plugin — this file registers NO post types.
- * Version: 2.7
+ * Version: 2.8
  * Install: drop into wp-content/mu-plugins/ (create the dir if absent) — loads always, cannot be deactivated by accident.
+ *
+ * v2.8 changes (21.10.2026):
+ *  - DOI and legacy /artykul/ rewrite rules injected via rewrite_rules_array (survive a flush at any
+ *    point, e.g. ACF's after a post-type save, which had 404'd every DOI page), plus a wp_loaded
+ *    self-check that rebuilds the rules once if the stored set lacks them. No manual flush needed.
  *
  * v2.7 changes (21.10.2026):
  *  - Article PDFs renamed SROM_{vol}_{year}_*.pdf -> Studia_Romologica_{vol}_{year}_*.pdf (journal
@@ -87,25 +92,31 @@ define('SROM_DOI_PREFIX', '10.68100');
  *    them here too would double-register and silently fight over
  *    rewrite args — removed in v2.0.
  * --------------------------------------------------------------- */
-add_action('init', function () {
-    // Full-DOI URLs: /articles/{prefix}/{suffix}/ resolves to the article whose slug == suffix.
-    // Targets post_type+name (not the CPT query var) so it works regardless of how
-    // the importer plugin configures query_var.
-    add_rewrite_rule(
-        'articles/10\.[0-9]+/([a-z0-9-]+)/?$',
-        'index.php?post_type=srom_article&name=$matches[1]',
-        'top'
+/* Full-DOI URLs: /articles/{prefix}/{suffix}/ resolves to the article whose slug == suffix.
+ * Targets post_type+name (not the CPT query var) so it works regardless of how the importer
+ * configures query_var. Legacy /artykul/{slug}/ (the CPT base before /articles/) is routed too,
+ * so template_redirect can 301 it to canonical.
+ * v2.8: injected through rewrite_rules_array, which runs at every rule rebuild, whenever it
+ * happens. add_rewrite_rule() at init 20 lost them when ACF flushed earlier in init after a
+ * post-type save: every DOI page 404'd (21.10.2026). */
+function srom_rewrite_rules() {
+    return array(
+        'articles/10\.[0-9]+/([a-z0-9-]+)/?$' => 'index.php?post_type=srom_article&name=$matches[1]',
+        'artykul/([a-z0-9-]+)/?$'             => 'index.php?post_type=srom_article&name=$matches[1]',
     );
-    // Legacy base: the CPT slug was /artykul/ before the /articles/ decision.
-    // Route old URLs to the post so template_redirect can 301 them to canonical
-    // (without this they would 404 the moment the CPT slug changes).
-    add_rewrite_rule(
-        'artykul/([a-z0-9-]+)/?$',
-        'index.php?post_type=srom_article&name=$matches[1]',
-        'top'
-    );
-}, 20); // after the importer's registrations
-// After first activation: Settings -> Permalinks -> Save (flush rewrite rules).
+}
+add_filter('rewrite_rules_array', function ($rules) {
+    return srom_rewrite_rules() + (array) $rules; // ours first = 'top'
+});
+// Self-check: rules stored before this version (or by a flush that bypassed the filter) lack
+// ours -> rebuild once. Costs one get_option per request; the rebuild only when they are missing.
+add_action('wp_loaded', function () {
+    $stored = get_option('rewrite_rules');
+    if (!is_array($stored) || !$stored) return; // plain permalinks, or a rebuild already pending
+    foreach (array_keys(srom_rewrite_rules()) as $re) {
+        if (!isset($stored[$re])) { flush_rewrite_rules(false); return; }
+    }
+});
 
 /* Permalinks carry the full DOI (per-post `doi` meta, so a future prefix change
  * cannot orphan old articles). Fallback /articles/{slug}/ until DOI assigned. */
@@ -613,7 +624,7 @@ add_shortcode('srom_diag', function () {
     $art  = srom_ctx_id('srom_article');
     $vol  = srom_ctx_id('srom_volume');
     $rows = [
-        'mu-plugin version'      => '2.7',
+        'mu-plugin version'      => '2.8',
         'PHP'                    => PHP_VERSION,
         'main query object'      => $ctx['id'] . ' (' . ($ctx['type'] ?: '—') . ')',
         'get_the_ID()'           => (string) get_the_ID(),

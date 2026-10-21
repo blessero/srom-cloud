@@ -116,7 +116,7 @@ CSV headers are all-English by decision. `cover_page.py` and the other scripts r
 Drop into `wp-content/mu-plugins/` (create the dir if absent) — always-on, cannot be accidentally deactivated. Requires the Importer plugin active (it registers the model). Registers no post types. Contents:
 
 - **`SROM_DOI_PREFIX`** constant — set once to the real Crossref prefix after membership.
-- **Rewrite rule** `articles/10\.[0-9]+/([a-z0-9-]+)/?$` → `post_type=srom_article&name=$1`, priority 20 (after the Importer). Targets post_type+name, not the CPT query var, so it is independent of the Importer's query-var config.
+- **Rewrite rule** `articles/10\.[0-9]+/([a-z0-9-]+)/?$` → `post_type=srom_article&name=$1`, prepended via `rewrite_rules_array` (v2.8; was `add_rewrite_rule` at init 20) + `wp_loaded` self-check. Targets post_type+name, not the CPT query var, so it is independent of the Importer's query-var config.
 - **`post_type_link` filter** — builds the full-DOI permalink from the post's `doi`; falls back to `/articles/{slug}/` until a DOI is assigned.
 - **`template_redirect`** — 301s any non-canonical article URL to the canonical.
 - **`wp_head` @ priority 1** — Highwire `citation_*` tags + `ScholarlyArticle` JSON-LD, single-article pages only. Section sourced from the `dzial` taxonomy and surfaced as `articleSection`. `citation_pdf_url` MUST resolve directly to the PDF (HTTP 200, no redirect).
@@ -144,7 +144,7 @@ Drop into `wp-content/mu-plugins/` (create the dir if absent) — always-on, can
 
 A grid ordered by a `meta_key` INNER-JOINs postmeta, so a volume missing that meta (`volume` for the archive, `year` for "Inne roczniki") silently drops out — fix the data, not the query; `[srom_diag]` counts them.
 
-**Building/updating the mu-plugin:** edit `assets/srom-scholarly.php` directly; it is a standalone file with no build step. `php -l` to lint. After any change to CPT slug, taxonomy key, or ACF field name in the Importer, re-check the mu-plugin's `srom_article_meta()` and shortcodes for matching names. After deploying, always Settings → Permalinks → Save to flush rewrites. **After saving an ACF post type** (slug, archive), load any page first, then Permalinks → Save, then open one DOI address: ACF flushes the rules on a later request, early in `init`, before this plugin adds its DOI rule (priority 20), and every `/articles/10.…/` page 404s until the next save (seen 21.10.2026).
+**Building/updating the mu-plugin:** edit `assets/srom-scholarly.php` directly; it is a standalone file with no build step. `php -l` to lint. After any change to CPT slug, taxonomy key, or ACF field name in the Importer, re-check the mu-plugin's `srom_article_meta()` and shortcodes for matching names. After deploying, always Settings → Permalinks → Save to flush rewrites. ACF flushes the rules on a later request after a post-type save, early in `init`; before v2.8 that dropped the DOI rule (added at init 20) and every `/articles/10.…/` page 404'd (21.10.2026). Since v2.8 the rules go in through `rewrite_rules_array` (present at every rebuild) and a `wp_loaded` self-check rebuilds once if the stored set lacks them; still open one DOI address after any slug change.
 
 ## Crossref deposit (`scripts/generate_crossref_xml.py`)
 
