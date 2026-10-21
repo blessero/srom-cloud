@@ -8,8 +8,16 @@ cover_page.py — the online edition's metadata page, put in front of the articl
         → <dir>/<article_id>_okladka.pdf   the cover page alone, to look at
 
 One source: the master CSV row (master_schema.md). No InDesign: PyMuPDF draws the page at the journal's trim size
-(165 × 235 mm) after MB's template (SROM_okladka_szablon_MB2.idml, 07.10.2026: IBM Plex Sans, SROM red, all other
-type 88 % black = RGB 66 66 65), so it reads as a digital add-on, not a printed page. The final PDF also gets links (DOI, ORCID, licence,
+(165 × 235 mm) on MB's template 2 grid (SROM_okladka_szablon_MB2.idml, 07.10.2026) in design B (MB 21.10.2026): the
+website's typography and red, all other type 88 % black = RGB 66 66 65, so it reads as a digital add-on, not a printed
+page. Faces by role, as on studiaromologica.pl (spec: srom-produkcja docs/COVER-PAGE-DESIGN-SPEC.md):
+  Epilogue Regular/SemiBold — titles, names, all running text; Fraunces 9pt Regular/Italic — the English title and titles
+  of works (italic, Kanon); IBM Plex Mono Medium — labels in caps tracked .14 em, and the identifier block.
+The fonts are in assets/cover/fonts (OFL). MuPDF ignores CSS letter-spacing, so the tracked labels use SROMLabelMono-Medium
+(Plex Mono Medium + 140 units per advance, renamed for the OFL); the Fraunces cuts have their rvrn forms in the cmap, or
+the PDF text layer of every Fraunces line is garbled; and the four Epilogue/Fraunces cuts have no 'liga' feature, as MuPDF
+writes ligature glyphs into the text layer wrongly (fi → U+FB01, ff → U+0239 „diȹerent”; template 2 had the same). Short words (4 letters or fewer) never end a line of a title.
+The final PDF also gets links (DOI, ORCID, licence,
 the original's DOI, the journal's site), page labels (cover i; the article keeps its printed page numbers) and the
 metadata of pdf_metadata.py (Info dictionary + XMP with PRISM).
 
@@ -18,7 +26,7 @@ read as U+FFFD; the pages render as before, tags kept), and /Lang (the CSV's `la
 ViewerPreferences/DisplayDocTitle are set where the export lacks them (Cowork C6, 06.10.2026). After saving, a
 self-check line reads the written file back: U+FFFD left, pages, tagged, /Lang, DisplayDocTitle, DOI in XMP.
 
-File size (MB, 13.10.2026): the cover adds next to nothing. PyMuPDF embeds IBM Plex Sans anew for every text block (12 full
+File size (MB, 13.10.2026): the cover adds next to nothing. PyMuPDF embeds the fonts anew for every text block (12 full
 copies, 1.2 MB); the cover's fonts are therefore cut down to the glyphs used (subset_fonts, on the cover alone: never on
 the article, whose fonts and text layer are untouched), and the final save merges identical objects (garbage=4) and packs
 the small objects into object streams as InDesign's export does (use_objstms). Checked against the former output on vol. 18
@@ -33,8 +41,8 @@ matched by ORCID, else by name.
 One page, strictly (MB, 04.10.2026): the two abstract blocks (Polish, then English, each with its keywords) are not
 frames of a fixed height. The Polish one starts at ABSTRACT_TOP, the English one follows it at the template's gap,
 and the English one may grow down to ABSTRACT_BOTTOM (218 mm from the top; the footer starts below it). The keywords stand 14 pt (baseline to baseline) under the last line. The type is
-7.2 pt in both; only if the text still does not fit, both go down to 7 pt (never below, never one without the other).
-If it does not fit at 7 pt, the run stops and names the overflow. The header, footer and leading never change.
+6.8 pt in both (design B; template 2 had 7.2); only if the text still does not fit, both go down to 6.6 pt (never below, never one
+without the other). If it does not fit at 6.6 pt, the run stops and names the overflow. The header, footer and leading never change.
 Texts without abstracts (reviews, chronicles) get the header alone.
 
 A printed field holding a placeholder (10.XXXXX, todo…, TODO) or left empty stops the run, so a page with a fake DOI
@@ -59,19 +67,28 @@ BAR = 4.25                                     # red bars at both edges, full he
 GAP = {"title_en": 14, "author": 8.3, "author2": 6, "translator": 9, "cite": 10.1,
        "abstract": 13.6, "abstract_en": 13.4}  # least gap, frame to frame; header gaps stretch up to 2×
 ABSTRACT_BOTTOM = 218 * MM                     # the English abstract may grow down to here (MB, 04.10.2026)
-ABSTRACT_LEAD, KEYWORDS_GAP = 10, 4           # pt: leading of the abstracts; extra space above the keywords line
-ABSTRACT_SIZES = (7.2, 7.0)                    # pt, both abstracts; 7.0 only when 7.2 does not fit
-RED = (227 / 255, 0, 11 / 255)                 # "SROM red", RGB 227 0 11
+ABSTRACT_LEAD, KEYWORDS_GAP = 9.6, 4          # pt: leading of the abstracts; extra space above the keywords line
+ABSTRACT_SIZES = (6.8, 6.6)                    # pt, both abstracts; 6.6 only when 6.8 does not fit. Epilogue 6.8 = template 2's
+                                               # Plex Sans 7.2 in x-height and set width, so the page holds the same text
+RED = (223 / 255, 38 / 255, 30 / 255)          # the website's red #DF261E (MB 21.10.2026; template 2 had RGB 227 0 11)
 INK = "#424241"                                # 88 % black (CMYK 0 0 0 88 → RGB 66 66 65, InDesign's conversion)
 ASSETS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "cover")
-FONT_DIRS = [d for d in (os.environ.get("SROM_FONT_DIR"),                       # any folder holding the two .ttf files
-                         os.path.expanduser("~/Library/Fonts/FontBase"), os.path.expanduser("~/Library/Fonts"), "/Library/Fonts",
-                         os.path.expanduser("~/.local/share/fonts"), os.path.expanduser("~/.fonts"),   # Linux (Cowork's VM)
-                         "/usr/share/fonts/truetype/ibm-plex", "/usr/share/fonts/truetype") if d]
-FONTS = {"normal": "IBMPlexSans-Regular.ttf", "italic": "IBMPlexSans-Italic.ttf"}
+FONT_DIRS = [d for d in (os.environ.get("SROM_FONT_DIR"), os.path.join(ASSETS, "fonts")) if d]
+FONTS = {"normal": "Epilogue-Regular.ttf", "semi": "Epilogue-SemiBold.ttf", "serif": "Fraunces9pt-Regular.ttf",
+         "serif_it": "Fraunces9pt-Italic.ttf", "mono": "IBMPlexMono-Medium.ttf", "label": "SROMLabelMono-Medium.ttf"}
 SITE = "https://studiaromologica.pl"
 SEP = "\u00a0\u00a0\u00a0|\u00a0\u00a0 "          # "   |   " as in the template; breaks only after the bar
 EMAILS = {}                                    # ORCID or name → e-mail, from volumes/autorzy.tsv (main() loads it)
+# type scale, pt (size, leading); design B (MB 21.10.2026)
+INFO = (7.5, 10.5)            # Plex Mono Medium: journal · ISSN · pages · DOI
+TITLE = (15, 17.5)            # Epilogue SemiBold, red
+TITLE_EN = (12, 15)           # Fraunces 9pt Regular
+AUTHOR = (11.5, 15)           # name Epilogue SemiBold, red; ORCID and e-mail 7.5 Epilogue
+META = (8, 10.5)              # Epilogue: affiliation, translator, original, citation
+LABEL, LABEL_IN = 7, 6        # column labels ABSTRAKT / ABSTRACT; inline labels JAK CYTOWAĆ, SŁOWA KLUCZOWE …
+ITAL = 1.05                   # Fraunces Italic inside Epilogue (x-height 0.470 vs 0.531 em)
+FOOT = (6, 8.5)               # Epilogue
+SHORT = 4                     # a title word of this many letters or fewer never ends a line (MB 21.10.2026)
 
 # Polish names of the CC 4.0 licences (official Polish translation).
 CC_PL = {"by": "Uznanie autorstwa", "by-sa": "Uznanie autorstwa – Na tych samych warunkach",
@@ -80,11 +97,18 @@ CC_PL = {"by": "Uznanie autorstwa", "by-sa": "Uznanie autorstwa – Na tych samy
          "by-nc-nd": "Uznanie autorstwa – Użycie niekomercyjne – Bez utworów zależnych"}
 
 CSS = """
-@font-face {font-family: plex; src: url(%(normal)s);}
-@font-face {font-family: plex; font-style: italic; src: url(%(italic)s);}
-* {font-family: plex; margin: 0; padding: 0; color: #424241;}
+@font-face {font-family: epi; src: url(%(normal)s);}
+@font-face {font-family: epi6; src: url(%(semi)s);}
+@font-face {font-family: fra; src: url(%(serif)s);}
+@font-face {font-family: frai; src: url(%(serif_it)s);}
+@font-face {font-family: mono; src: url(%(mono)s);}
+@font-face {font-family: lab; src: url(%(label)s);}
+* {margin: 0; padding: 0; color: #424241;}
+body, p {font-family: epi;}
 p {margin: 0;}
-.red {color: #e3000b;}
+.nw {white-space: nowrap;}
+.red {color: #df261e;}
+.n {font-family: epi6;} .s {font-family: fra;} .i {font-family: frai;} .m {font-family: mono;} .l {font-family: lab;}
 """
 
 
@@ -108,7 +132,7 @@ def font_dir():
     for d in FONT_DIRS:
         if all(os.path.exists(os.path.join(d, f)) for f in FONTS.values()):
             return d
-    sys.exit(f"ABORT: IBM Plex Sans ({', '.join(FONTS.values())}) not found in {', '.join(FONT_DIRS)}.")
+    sys.exit(f"ABORT: cover fonts ({', '.join(FONTS.values())}) not found in {', '.join(FONT_DIRS)}.")
 
 
 def load_emails(path):
@@ -219,6 +243,27 @@ def p(size, lead, body, cls="", extra=""):
     return f'<p{f" class={chr(34)}{cls}{chr(34)}" if cls else ""} style="font-size:{size}pt; line-height:{lead}pt{extra}">{body}</p>'
 
 
+def lab(text, red=True, size=LABEL_IN):
+    """An inline label in caps (the tracking is in the font), then a word space; never a colon."""
+    return f'<span class="l{" red" if red else ""}" style="font-size:{size}pt">{esc(text.upper()).replace(" ", chr(0xA0))}</span>\u00a0 '
+
+
+def ital(text):
+    return f'<span class="i" style="font-size:{ITAL}em">{text}</span>'
+
+
+def title_words(s):
+    """Titles (MB 21.10.2026): a word of SHORT letters or fewer is tied to the next word, so it never ends a line;
+    the last word has no next word, so it is never left alone on the last line. Punctuation-only tokens (a dash) are
+    not words. Applied after nbsp(), on the title in the header only."""
+    toks = re.split(r"( )", s or "")
+    for k in range(0, len(toks) - 2, 2):
+        n = len(re.sub(r"\W", "", toks[k].split("\u00a0")[-1]))   # the last word of a group already tied by nbsp()
+        if 0 < n <= SHORT:
+            toks[k + 1] = "\u00a0"
+    return "".join(toks)
+
+
 def band(pen, row):
     """Red bars, the info block at the left and the logo at the right."""
     for x in (0, W - BAR):
@@ -229,41 +274,42 @@ def band(pen, row):
     doi_url = f"https://doi.org/{row.get('doi', '')}"
     land = row.get("landing_url", "")      # the text stays the DOI URL (Crossref display rule); the link goes to our stable page
     info = [f'{esc(row.get("journal_title") or "Studia Romologica")} {esc(row.get("volume"))}/{esc(row.get("year"))}',
-            f'ISSN: {esc(row.get("issn") or "1689-4758")}',
-            f'Strony: {esc(row.get("pages"))}' if row.get("pages") else "",
+            f'ISSN {esc(row.get("issn") or "1689-4758")}',
+            f'Strony {esc(row.get("pages"))}' if row.get("pages") else "",
             a(land if land.startswith("http") and not placeholder(land) else doi_url, esc(doi_url))]
-    pen.put(TX, INFO_Y, LOGO[0] - 6, "".join(p(8, 10.5, s) for s in info if s))
+    pen.put(TX, INFO_Y, LOGO[0] - 6, "".join(p(*INFO, s, "m") for s in info if s))
 
 
 def header(pen, row):
     """Titles, authors, translator + original, citation between TITLE_Y and CITE_BOTTOM; returns the y below."""
     au = authors(row)
-    blocks = [(0, p(15, 18, pl(row.get("title_pl")), "red")), (GAP["title_en"], p(12, 16, esc(row.get("title_en"))))]
+    blocks = [(0, p(*TITLE, esc(title_words(nbsp(row.get("title_pl")))), "n red")),
+              (GAP["title_en"], p(*TITLE_EN, esc(title_words(row.get("title_en"))), "s"))]
     for i, (name, aff, orcid, mail) in enumerate(au):
         ids = [x for x in (a(orcid, esc(orcid)) if orcid else "", a(f"mailto:{mail}", esc(mail)) if mail else "") if x]
-        line = lambda ids: p(12, 15, f'<span class="red">{esc(name)}</span><span style="font-size:8pt">{"".join(SEP + x for x in ids)}</span>')
+        line = lambda ids: p(*AUTHOR, f'<span class="n red">{esc(name)}</span><span style="font-size:7.5pt">{"".join(SEP + x for x in ids)}</span>')
         body = line(ids)
-        if len(ids) == 2 and pen.height(TX, RX, body) > 16:      # too long for one line: the e-mail goes under it
-            body = line(ids[:1]) + p(8, 10.5, ids[1])
+        if len(ids) == 2 and pen.height(TX, RX, body) > AUTHOR[1] + 1:      # too long for one line: the e-mail goes under it
+            body = line(ids[:1]) + p(7.5, META[1], ids[1])
         if aff:
-            body += p(8, 10.5, pl(aff))
+            body += p(*META, pl(aff))
         blocks.append((GAP["author"] if i == 0 else GAP["author2"], body))
     extra = ""
     tr = translators(row)
     if tr:
-        extra += p(8, 10.5, f"Tłumaczenie: {esc(', '.join(tr))}")
+        extra += p(*META, lab("Tłumaczenie", red=False) + esc(", ".join(tr)))
     if row.get("is_translation") == "TAK" and (row.get("original_title") or row.get("original_source")):
         od = row.get("original_doi", "")
         od = f"https://doi.org/{od}" if od and not placeholder(od) else ""
-        orig = ", ".join(x for x in (f'<i>{esc(row.get("original_title"))}</i>' if row.get("original_title") else "",
-                                     esc(row.get("original_source")), a(od, esc(od)) if od else "") if x)
-        extra += p(8, 10.5, f"Pierwodruk: {orig}")
+        orig = ", ".join(x for x in (ital(esc(row.get("original_title"))) if row.get("original_title") else "",
+                                     pl(row.get("original_source")), a(od, esc(od)) if od else "") if x)   # Kanon § 3.3 here too
+        extra += p(*META, lab("Pierwodruk", red=False) + orig)
     if extra:
         blocks.append((GAP["translator"], extra))
-    cite = (f'<span class="red">Jak cytować:</span> {esc(", ".join(a[0] for a in au))}, <i>{pl(row.get("title_pl"))}</i>, '
+    cite = (lab("Jak cytować") + f'{esc(", ".join(x[0] for x in au))}, {ital(pl(row.get("title_pl")))}, '
             f'„{esc(row.get("journal_title") or "Studia Romologica")}”, {esc(row.get("year"))}, t.\u00a0{esc(row.get("volume"))}'
-            + (f", s.\u00a0{esc(row.get('pages'))}" if row.get("pages") else "") + ".")
-    blocks.append((GAP["cite"], p(8, 10.5, cite)))
+            + (f', <span class="nw">s.\u00a0{esc(row.get("pages"))}.</span>' if row.get("pages") else "."))   # a range never splits at its dash
+    blocks.append((GAP["cite"], p(*META, cite)))
     gaps = [g for g, _ in blocks]
     slack = CITE_BOTTOM - TITLE_Y - sum(pen.height(TX, RX, b) for _, b in blocks) - sum(gaps)
     k = max(0.5, min(2, 1 + slack / sum(gaps)))     # stretch to fill the block, up to 2×; shrink to ½, then run over
@@ -276,13 +322,12 @@ def header(pen, row):
 def abstract(pen, row, key, y, size):
     """Label in the left column, abstract and keywords in the text column; the block is as tall as its text
     (down to ABSTRACT_BOTTOM at most); returns the y below."""
-    label, kw = {"pl": ("Abstrakt", "Słowa kluczowe:"), "en": ("Abstract", "Keywords:")}[key]
+    label, kw = {"pl": ("Abstrakt", "Słowa kluczowe"), "en": ("Abstract", "Keywords")}[key]
     text = pl if key == "pl" else esc
-    lead = ABSTRACT_LEAD
-    pen.put(LX, y, TX - 4, p(9.5, 11.5, label, "red"))
-    body = (p(size, lead, text(row.get("abstract_" + key)), extra="; text-align:justify")
-            + p(size, lead, f'<span class="red">{kw}</span> {text(keywords(row.get("keywords_" + key)))}',
-                extra=f"; text-align:justify; margin-top:{KEYWORDS_GAP}pt"))
+    pen.put(LX, y + 0.2, TX - 4, p(LABEL, ABSTRACT_LEAD, esc(label.upper()), "l red"))   # baseline on the abstract's first
+    body = (p(size, ABSTRACT_LEAD, text(row.get("abstract_" + key)), extra="; text-align:justify")
+            + p(size, ABSTRACT_LEAD, lab(kw) + text(keywords(row.get("keywords_" + key))),
+                extra=f"; margin-top:{KEYWORDS_GAP}pt"))      # flush left: justified keyword lines gape in Epilogue
     return pen.put(TX, y, RX, body, bottom=ABSTRACT_BOTTOM)
 
 
@@ -291,7 +336,7 @@ def footer(pen, row):
     dates = [f"Data publikacji: {date_pl(row.get('pub_date_print'))}",
              f"Data publikacji online: {date_pl(row.get('pub_date_online'))}",
              f"Okres redakcji: {nbsp(row.get('editorial_period'))}" if (row.get("editorial_period") or "").strip() else ""]
-    pen.put(TX, FOOT_DATES, RX, p(6, 8.5, esc(SEP.join(d for d in dates if d)), extra="; letter-spacing:-0.01em"))
+    pen.put(TX, FOOT_DATES, RX, p(*FOOT, esc(SEP.join(d for d in dates if d))))
     short, name, deed = licence(row)
     who = (row.get("copyright_holder") or "").strip() or ", ".join(x[0] for x in authors(row))   # C19: the publisher, or a holder with its own year
     year = "" if re.match(r"\d{4}\b", who) else esc(row.get("year")) + " "
@@ -300,7 +345,7 @@ def footer(pen, row):
         body += f" Artykuł w\u00a0otwartym dostępie na licencji {a(deed, esc(name))}"
     elif (row.get("license") or "").upper() == "NONE":
         body += " Wszelkie prawa zastrzeżone; artykuł udostępniony bezpłatnie."
-    pen.put(TX, FOOT_LIC, RX, p(6, 8.5, body, extra="; letter-spacing:-0.01em"))
+    pen.put(TX, FOOT_LIC, RX, p(*FOOT, body))
 
 
 def page(row, size, fdir):
@@ -315,7 +360,7 @@ def page(row, size, fdir):
 
 
 def cover(row, proof=False):
-    """The cover as a one-page PyMuPDF document; the abstracts take 7.2 pt, then 7 pt, then the run stops."""
+    """The cover as a one-page PyMuPDF document; the abstracts take 6.8 pt, then 6.6 pt, then the run stops."""
     fdir = font_dir()
     for size in ABSTRACT_SIZES:
         try:

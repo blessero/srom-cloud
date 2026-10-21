@@ -250,6 +250,13 @@ G12) after.
    (`pub_date_print`, `pub_date_online`, `editorial_period`, new required CSV columns, empty in vol. 18 until MB fills them) and © + licence linked to the CC deed (deed.pl);
    Open Access mark in ink grey;
    publisher line and CC BY clause dropped. Vol. 18 proofs: `_okladki_v18_v2/`. Spec: `docs/COVER-PAGE-DESIGN-SPEC.md`.
+   **Design B (MB 21.10.2026 02:53, replaces template 2):** the website's typography and red (#DF261E) on template 2's grid:
+   Epilogue, Fraunces, IBM Plex Mono, cut for MuPDF and shipped in srom-quant `assets/cover/fonts/` (rvrn forms in the cmap,
+   no `liga`: the text layer was garbled otherwise); abstracts 6.8 → 6.6 pt; labels in tracked mono caps; short title words
+   (≤ 4 letters) never end a line; page range and the original's source kept whole. `cover_idml.py` writes the InDesign
+   template per article (checked line for line against the PDF in InDesign 2026). All covers of vols 17–18 are to be rebuilt
+   and re-appended by Cowork when MB says (K30). Spec: `docs/COVER-PAGE-DESIGN-SPEC.md` (template 2 in its appendix, with
+   what to fix first if it is ever used again). Proposal sample: `_okladki_v18_v3_web/`.
    **DOI links in the online PDF (SYS-5, built 02.10.2026, root session at MB's request):** `build.py` writes `<stem>_doi.jsx`
    (citation texts per note, cut apart by a marked CSL copy; bibliography entries; URLs percent-encoded); the script makes
    invisible InDesign hyperlinks, export with Hyperlinks ticked (`references/indesign.md`). Chosen over adding links to the

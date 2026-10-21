@@ -9,7 +9,7 @@ Run it on the finished file (after cover_page.py): it only adds an outline and l
 streams, fonts, the text layer, tags, page labels, Info and XMP are not touched; the file is saved the way
 cover_page.py saves it (PyMuPDF, garbage=4, object streams). Without --out the input is replaced.
 
-Bookmarks. Level 1: „Strona metadanych” for the cover page (when page 1 carries „Jak cytować:”), then the article's
+Bookmarks. Level 1: „Strona metadanych” for the cover page (when page 1 carries „Jak cytować:” or „JAK CYTOWAĆ”), then the article's
 title (the PDF title, else the first heading) on its first page. Level 2: the headings, found by type: a line set
 larger than the body text (≥ 1.08 ×), or a short bold line, or one of the house section words in capitals
 (WSTĘP, WPROWADZENIE, ZAKOŃCZENIE, PODSUMOWANIE, BIBLIOGRAFIA, STRESZCZENIE, SUMMARY …). Running heads (top margin),
@@ -61,7 +61,8 @@ def body_size(doc, first):
 
 
 def is_cover(page):
-    return "Jak cytować:" in page.get_text()
+    """Our metadata page: „Jak cytować:” (template 2) or the label „JAK CYTOWAĆ” (design B, 21.10.2026)."""
+    return bool(re.search(r"Jak cytować:|JAK\s+CYTOWAĆ", page.get_text()))
 
 
 def headings(doc, first, body):

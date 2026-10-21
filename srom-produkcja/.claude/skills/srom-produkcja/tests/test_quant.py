@@ -193,8 +193,8 @@ doc = pymupdf.open(fp) if os.path.exists(fp) else None
 flat = lambda pg: " ".join(pg.get_text().replace("\u00a0", " ").split())
 txt = flat(doc[0]) if doc else ""
 ttf = [x for x in range(1, doc.xref_length()) if doc.xref_get_key(x, "Length1")[0] != "null"] if doc else []
-t("cover_page: file size — IBM Plex embedded once per style (not once per text block), as a subset",
-  doc and 1 <= len(ttf) <= 2 and all(len(doc.xref_stream_raw(x)) < 60000 for x in ttf), [(x, len(doc.xref_stream_raw(x))) for x in ttf])
+t("cover_page: file size — each face embedded once (not once per text block), as a subset",
+  doc and 1 <= len(ttf) <= len(cv.FONTS) and all(len(doc.xref_stream_raw(x)) < 60000 for x in ttf), [(x, len(doc.xref_stream_raw(x))) for x in ttf])
 t("cover_page: cover + article, page labels i, 11…14, bookmark still on the article's page",
   doc and len(doc) == 5 and [doc[i].get_label() for i in range(5)] == ["i", "11", "12", "13", "14"]
   and doc.get_toc() == [[1, "Wstęp", 3]] and "RESULT: OK" in r.stdout, r.stdout + r.stderr)
@@ -219,11 +219,12 @@ t("cover_page: Kanon § 3.3 hard spaces (one-letter words, t., initials)",
 r = cvrun("SROM-19-2026-002")
 t("cover_page: one page strictly — abstracts too long → ABORT, nothing written", r.returncode != 0 and "does not fit on one page" in r.stderr
   and not os.path.exists(os.path.join(cdir, "SROM-19-2026-002_okladka.pdf")), r.stdout + r.stderr)
-t("cover_page: MB's template — 88 % black ink, red edge bars, justified abstracts",
-  cv.INK == "#424241" and "text-align:justify" in cv.p(7.5, 11.52, "x", extra="; text-align:justify")
-  and doc is not None and len([d for d in doc[0].get_drawings() if d.get("fill") and abs(d["fill"][0] - 227 / 255) < .01 and d["rect"].height > 600]) == 2, "")
-# MB's template 1.2 (04.10.2026): abstract blocks flex between the citation and 218 mm; 7.2 pt, then 7 pt, then stop
-RNG = (250, 284)                                 # 7.2 pt up to ~262 words each, 7 pt to ~274 (template 2)
+t("cover_page: design B — 88 % black ink, the website's red #DF261E on the edge bars, justified abstracts",
+  cv.INK == "#424241" and "#df261e" in cv.CSS and "text-align:justify" in cv.p(7.5, 11.52, "x", extra="; text-align:justify")
+  and doc is not None and len([d for d in doc[0].get_drawings() if d.get("fill") and abs(d["fill"][0] - 223 / 255) < .01
+                               and abs(d["fill"][1] - 38 / 255) < .01 and d["rect"].height > 600]) == 2, "")
+# MB's template 1.2 (04.10.2026): abstract blocks flex between the citation and 218 mm; 6.8 pt, then 6.6 pt, then stop
+RNG = (250, 284)                                 # design B: 6.8 pt up to ~264 words each, 6.6 pt to ~272 (template 2: 262 / 274)
 def cover_size(n):
     ws = ["Romowie", "w", "Polsce"]; ew = ["Roma", "in", "Poland"]
     row = crow(1, abstract_pl=" ".join((ws * n)[:n]), abstract_en=" ".join((ew * n)[:n]))
@@ -233,31 +234,76 @@ def cover_size(n):
         return None, None
     return d, size
 seq = [cover_size(n)[1] for n in range(*RNG)]
-t("cover_page: abstracts 7.2 pt while they fit, then 7 pt, then stop — never anything else",
-  seq[0] == 7.2 and seq[-1] is None and set(seq) == {7.2, 7.0, None}
+t("cover_page: abstracts 6.8 pt while they fit, then 6.6 pt, then stop — never anything else",
+  seq[0] == 6.8 and seq[-1] is None and set(seq) == {6.8, 6.6, None}
   and seq == sorted(seq, key=lambda v: (v is None, -(v or 0))), seq)
-last = max(n for n in range(*RNG) if cover_size(n)[1] == 7.0)
+last = max(n for n in range(*RNG) if cover_size(n)[1] == 6.6)
 dl, szl = cover_size(last)
 words = dl[0].get_text("words")
-kw_bottom = max(w[3] for w in words if w[4] == "Keywords:")
-lab = {w[4]: w[0] for w in words if w[4] in ("Abstrakt", "Abstract")}
+kw_bottom = max(w[3] for w in words if w[4] == "KEYWORDS")
+lab = {w[4]: w[0] for w in words if w[4] in ("ABSTRAKT", "ABSTRACT")}
 t("cover_page: the longest abstracts that fit end above 218 mm; labels Abstrakt / Abstract share one left edge",
-  szl == 7.0 and 0 < kw_bottom <= cv.ABSTRACT_BOTTOM and len(lab) == 2 and abs(lab["Abstrakt"] - lab["Abstract"]) < .5,
+  szl == 6.6 and 0 < kw_bottom <= cv.ABSTRACT_BOTTOM and len(lab) == 2 and abs(lab["ABSTRAKT"] - lab["ABSTRACT"]) < .5,
   (szl, kw_bottom, cv.ABSTRACT_BOTTOM, lab))
 sp = cover_size(1)[0][0]
 at = lambda s: sp.search_for(s)[0]
 cite_y = lambda pg: max(w[3] for w in pg.get_text("words") if w[4] == "Romologica”,")
 t("cover_page: template 2 — info block left (journal · ISSN · Strony · DOI), logo right, citation within the block",
-  abs(at("Studia Romologica 19/2026").x0 - cv.TX) < 2 and at("Studia Romologica 19/2026").y0 < at("ISSN: 1689-4758").y0
-  < at("Strony: 11–14").y0 < at("https://doi.org/10.12345/ab3k9x21").y0 < cv.TITLE_Y and at("Romowie w").y0 >= cv.TITLE_Y - 1
-  and cite_y(sp) <= cv.CITE_BOTTOM + 1 and abs(at("Abstrakt").y0 - cv.ABSTRACT_TOP) < 3, (cite_y(sp), at("Abstrakt")))
+  abs(at("Studia Romologica 19/2026").x0 - cv.TX) < 2 and at("Studia Romologica 19/2026").y0 < at("ISSN 1689-4758").y0
+  < at("Strony 11–14").y0 < at("https://doi.org/10.12345/ab3k9x21").y0 < cv.TITLE_Y and at("Romowie w").y0 >= cv.TITLE_Y - 1
+  and cite_y(sp) <= cv.CITE_BOTTOM + 1 and abs(at("ABSTRAKT").y0 - cv.ABSTRACT_TOP) < 3, (cite_y(sp), at("ABSTRAKT")))
 r = cvrun("SROM-19-2026-003"); d3 = pymupdf.open(os.path.join(cdir, "SROM-19-2026-003_okladka.pdf")) if r.returncode == 0 else None
-t("cover_page: no abstracts (review) → header alone, one page", d3 and len(d3) == 1 and "Abstrakt" not in d3[0].get_text(), r.stdout + r.stderr)
+t("cover_page: no abstracts (review) → header alone, one page", d3 and len(d3) == 1 and "ABSTRAKT" not in d3[0].get_text(), r.stdout + r.stderr)
 t("cover_page: empty editorial_period → built, 'Okres redakcji' left out, dates kept", d3 and "Okres redakcji" not in d3[0].get_text()
   and "Data publikacji:" in d3[0].get_text() and "Data publikacji online:" in d3[0].get_text(), d3 and d3[0].get_text()[-300:])
 r = cvrun("SROM-19-2026-004")
 t("cover_page: placeholder DOI / date → ABORT, nothing written", r.returncode != 0 and "doi is a placeholder" in r.stderr
   and "pub_date_online" in r.stderr and "editorial_period" not in r.stderr and not os.path.exists(os.path.join(cdir, "SROM-19-2026-004_okladka.pdf")), r.stdout + r.stderr)
+# design B (MB 21.10.2026): website typography, short title words, ranges and the original's source kept whole
+t("cover_page: design B — fonts from assets/cover/fonts only (Epilogue, Fraunces, Plex Mono, label mono), text layer clean",
+  doc and {re.sub(r"^[A-Z]{6}\+", "", f[3]).split()[0] for f in doc[0].get_fonts()} <= {"Epilogue", "Fraunces", "IBM", "SROM"}
+  and "Roma in Poland and in Europe" in txt and "JAK CYTOWAĆ" in txt and "SŁOWA KLUCZOWE" in txt and "\ufffd" not in txt,
+  (sorted({f[3] for f in doc[0].get_fonts()}) if doc else None, txt[:400]))
+t("cover_page: title rule — a word of 4 letters or fewer is tied to the next; the last word stays free; dashes are not words",
+  cv.title_words("Romowie w splecionej matrycy urasowienia. Jak w Brazylii oskarżono Ciganos")
+  == "Romowie w\u00a0splecionej matrycy urasowienia. Jak\u00a0w\u00a0Brazylii oskarżono Ciganos"
+  and cv.title_words("Porque gitano soy – romskie historie z Ameryki") == "Porque gitano soy\u00a0– romskie historie z\u00a0Ameryki"
+  and cv.title_words("Roma in Europe and") == "Roma\u00a0in\u00a0Europe and"
+  and cv.title_words(cv.nbsp("Romowie w Polsce")) == "Romowie w\u00a0Polsce",
+  cv.title_words("Porque gitano soy – romskie historie z Ameryki"))
+def page_lines(row):
+    d, _ = cv.cover(row)
+    return [" ".join(l.replace("\u00a0", " ").split()) for l in d[0].get_text().splitlines()]
+tl = page_lines(crow(1, title_pl="Długi tytuł o Romach " * 6 + "w Polsce i na świecie oraz o tym, co z tego wynika dla nas",
+                     title_en="A long title about the Roma " * 5 + "in Poland and in the World and what it all means for us"))
+short_end = [l for l in tl[4:12] if l and len(re.sub(r"\W", "", l.split()[-1])) <= cv.SHORT and l.split()[-1] not in ("nas", "us")]
+t("cover_page: title rule on the page — no title line ends on a short word", tl and not short_end, short_end or tl[4:12])
+cl = page_lines(crow(1, title_pl="Romowie " * 9 + "x", pages="1011–1014"))
+cite = " ".join(cl[[i for i, l in enumerate(cl) if l.startswith("JAK CYTOWAĆ")][0]:][:4])
+t("cover_page: the page range of the citation never splits at its dash", "s. 1011–1014." in cite
+  and not any(l.endswith("1011–") for l in cl), cl)
+lig = page_lines(crow(1, abstract_en="Different official offices fly fluffy flags.", title_en="Different official offices"))
+t("cover_page: no ligature glyphs in the text layer (ff, fi, fl read as letters)",
+  "Different official offices fly fluffy flags." in " ".join(lig) and not any(c in "".join(lig) for c in "\ufb00\ufb01\ufb02\u0239"),
+  [l for l in lig if "ffer" in l or "ly" in l])
+# cover_idml.py (21.10.2026): the same page as an InDesign template, frames where cover_page.py puts each block
+CI = os.path.join(os.path.dirname(GEN), "cover_idml.py")
+tpl = os.path.normpath(os.path.join(os.path.dirname(GEN), *[".."] * 4, "SROM_okladka_szablon_MB2.idml"))
+if os.path.exists(tpl):
+    ip = os.path.join(cdir, "c6.idml")
+    r = subprocess.run([sys.executable, CI, ccp, "SROM-19-2026-006", ip], capture_output=True, text=True)
+    import zipfile
+    z = zipfile.ZipFile(ip) if os.path.exists(ip) else None
+    okxml = z and all(etree.fromstring(z.read(n)) is not None for n in z.namelist() if n.endswith(".xml"))
+    stories = "".join(z.read(n).decode() for n in z.namelist() if n.startswith("Stories/")) if z else ""
+    styles = z.read("Resources/Styles.xml").decode() if z else ""
+    t("cover_idml: well-formed IDML, design B styles, website red swatch, one frame per author, title rule in the story",
+      okxml and z.namelist()[0] == "mimetype" and 'Name="Okladka web:Tytul EN"' in styles and 'Ligatures="false"' in styles
+      and 'ColorValue="223 38 30"' in z.read("Resources/Graphic.xml").decode() and "Jan Lis" in stories and "Anna Nowak" in stories
+      and "Roma\u00a0in\u00a0Poland and\u00a0in\u00a0Europe" in stories
+      and len([n for n in z.namelist() if n.startswith("Stories/")]) == 13, r.stdout + r.stderr)
+t("cover_page: the original's source gets Kanon § 3.3 hard spaces (t. 34)",
+  "t.\u00a034" in cv.pl("„Romani Studies”, 2024, t. 34, nr 1"), cv.pl("„Romani Studies”, 2024, t. 34, nr 1"))
 r = cvrun("SROM-19-2026-004", "--proof"); pf = os.path.join(cdir, "SROM-19-2026-004_okladka_proof.pdf")
 t("cover_page --proof: written as *_proof, marked PODGLĄD", os.path.exists(pf) and "PODGLĄD" in pymupdf.open(pf)[0].get_text()
   and "PROOF" in r.stdout, r.stdout + r.stderr)
@@ -266,7 +312,7 @@ t("cover_page: translation without translators_struct → ABORT (Kanon § 12.2.3
 r = cvrun("SROM-19-2026-006"); d6 = pymupdf.open(os.path.join(cdir, "SROM-19-2026-006_okladka.pdf")) if r.returncode == 0 else None
 t6 = flat(d6[0]) if d6 else ""
 t("cover_page: translation → translator, Pierwodruk linked to the original's DOI; CC BY-NC-ND named in Polish",
-  all(x in t6 for x in ("Tłumaczenie: Michał Bartosz", "Pierwodruk: Roma, „Romani Studies”, 2024, https://doi.org/10.3828/rs.2024.3",
+  all(x in t6 for x in ("TŁUMACZENIE Michał Bartosz", "PIERWODRUK Roma, „Romani Studies”, 2024, https://doi.org/10.3828/rs.2024.3",
                         "Użycie niekomercyjne – Bez utworów zależnych 4.0 (CC BY-NC-ND 4.0)"))
   and {"https://doi.org/10.3828/rs.2024.3", "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.pl"} <= {l.get("uri") for l in d6[0].get_links()}
   and cite_y(d6[0]) <= cv.CITE_BOTTOM + 1, r.stdout + r.stderr + t6[:800])
