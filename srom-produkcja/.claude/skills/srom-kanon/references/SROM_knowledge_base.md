@@ -19,6 +19,10 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
 - **Translator:** unless stated otherwise, Michał Bartosz translates every translated text (MB, 06.10.2026); the
   master CSV's `translators_struct` then reads `Michał|Bartosz||` (no ORCID on record).
 - **Website:** https://studiaromologica.pl (WordPress; article landing pages `/articles/{full DOI}/`, volumes `/volumes/{vol}-{year}/`, until 21.10.2026 `/tom/…`, 301-redirected).
+  **Host: seohost.pl** (LiteSpeed server; file manager, `wp-config.php` and PHP settings in its panel). Hostinger only ever held a
+  staging copy, never the live site: never ask MB for Hostinger access for studiaromologica.pl (MB, 21.10.2026). The site blocks
+  bursts (host 429, Wordfence; MB's IP was blocked for a while on 21.10.2026): a handful of requests per check, at least 5 s apart,
+  one REST listing rather than many page loads.
 - **Cadence:** annual, one volume a year, usually published in December. Vol. 18 = 2025 (theme *Romski Atlantyk*);
   vol. 19 = 2026 (in production: the texts in the workspace).
 
@@ -66,9 +70,9 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
   Kultury Żydowskiej w Tarnowie. **DOI prefix: 10.68100** (MB, 06.10.2026). Vol. 18 suffixes minted 06.10.2026 in the
   workspace master CSV; nothing deposited yet (suffixes freeze at the website import). The first deposit is MB's next task.
 - **Metadata infrastructure (03.10.2026):** essentially done (master CSV v3, suffix minting, Crossref XML, PDF
-  metadata, Highwire tags and JSON-LD in the mu-plugin `srom-scholarly.php`, v2.5 in srom-quant's `assets/` since
-  20.10.2026); needs polishing. The live site was enough to pass Crossref's membership review but still needs work;
-  it runs the plugin v2.3 since 13.10.2026 (vol. 18 article pages live at their DOI addresses).
+  metadata, Highwire tags and JSON-LD in the mu-plugin `srom-scholarly.php`, v2.9 in srom-quant's `assets/` since
+  21.10.2026); needs polishing. The live site was enough to pass Crossref's membership review but still needs work;
+  it runs the plugin v2.8 since 21.10.2026 (vol. 18 article pages live at their DOI addresses).
 - Older back issues have no DOIs; registration starts with the most recent volume. Back catalogue (GEN-118, MB
   19.10.2026): DOIs for vols 17 to 13 now, older ones later; article pages for every volume. Vol. 17: suffixes minted
   18.10.2026, print date the year only („2024”, MB 19.10.2026); workflow in workspace
@@ -134,4 +138,5 @@ separate from the journal's core infrastructure.
 
 - `srom-quant/scripts/generate_crossref_xml.py` CONFIG: depositor and registrant (publisher), journal title, ISSN.
 - `srom-quant/scripts/wikidata_qs.py`: title, ISSN.
+- The website address `https://studiaromologica.pl`: `rip_volume.py`, `cover_page.py`, `validate_master.py` (`SITE`), `wikidata_qs.py`.
 - The master CSV repeats title, ISSN and publisher in every row (columns `journal_title`, `issn`, `publisher`).
