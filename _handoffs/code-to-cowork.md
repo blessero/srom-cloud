@@ -494,3 +494,17 @@ Suite: SUITE ALL PASS 28/28 (nothing in it touches the new skill; it has no code
 for an image outside the open licence (waits for MB's CC BY / CC BY-NC decision, GEN-100).
 **For you:** remove the `_c24/` pointer from workspace `CLAUDE.md` (line "Until Code installs it (C24), read it from `_c24/…`"), tick
 the C24 line in STATUS.md § For the skills, and fix the routing row in srom-naczelny (`srom-ikonograf/` is now in `$P`). MB clears `_c24/`.
+
+## K34 — [Ostendorf] srom-ikonograf: fixes from a Code test run on Ostendorf vol. 18 (22.10.2026 00:00)
+MB ran ikonograf from Code on „Historia Romów amerykańskich” (vol. 18) as a test, and approved the fixes it showed (e6e29eb).
+Suite: SUITE ALL PASS 28/28 (the skill has no code). What changed for you:
+- **Who writes what** (SKILL.md): a Code session may now write the text's `work/<id>/ikonografia/` folder (record, contact
+  sheet, `pliki/`), an exception like srom-zizek's data (root CLAUDE.md row updated). `STATUS.md` and `MB-decisions.md` stay
+  yours: Code sends the step 7 questions and the step 8 line as a K-item. If your workspace `CLAUDE.md` should say so, one line there.
+- **`<id>`**: check in STATUS.md that `work/<id>/` is the text MB means. `work/ostendorf/` is the vol. 19 chapter; the vol. 18 article
+  would be `ostendorf18`. Nothing was written to workspace in this test (the record and sheet stayed in Code's scratchpad).
+- **Step 1** now asks the author at once for her own archival photographs and image suggestions (new author letter in rights.md).
+- **sources.md**: a "from Code (curl)" column. loc.gov search, HathiTrust and Gallica SRU answer 403 to Code (Cloudflare), Met 410;
+  LoC images are found on Commons by LCCN and open on cdn.loc.gov. Your "from Cowork" column is unchanged, but loc.gov failed
+  for WebFetch from Code too: check it on your next run.
+- patterns.md § Ostendorf: the 1779 marriage act (author's photograph) and Russell Lee 1941 were missing; added.
