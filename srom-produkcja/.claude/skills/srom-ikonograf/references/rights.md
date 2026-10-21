@@ -43,6 +43,18 @@ Fill the brackets; one letter per holder listing all its items (title as catalog
 best file and the preferred credit line. Send from MB's address; record the date in § 4. MB's title in the PL/ES/FR letters (sekretarz redakcji / secretario de redacción /
 secrétaire de rédaction) is a draft for "managing editor": MB corrects it once, here.
 
+**Author (EN; in Polish to a Polish author)** — at the brief stage (SKILL.md step 1)
+> Subject: Images for your article in *Studia Romologica* [vol.]
+>
+> Dear [name],
+>
+> We illustrate the articles in *Studia Romologica* with period sources and photographs. For "[title]", do you have
+> your own photographs of the archival documents you cite (e.g. [one or two from the notes]), field photographs, or
+> images you would suggest? For each, please say where it comes from and whether we may reproduce it in print and in
+> the online PDF. We will credit them as you wish.
+>
+> With kind regards, Michał Bartosz, Managing Editor, *Studia Romologica*
+
 **EN**
 > Subject: Permission request — *Studia Romologica* [vol.], non-commercial academic use
 >

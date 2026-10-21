@@ -20,18 +20,31 @@ captions placed in InDesign by MB).
 | what | where |
 |---|---|
 | MB's way of illustrating: principles and worked cases (**read before every brief**) | `references/patterns.md` |
-| where to search: repositories by tier, query templates, what was tested from Cowork | `references/sources.md` |
+| where to search: repositories by tier, query templates, what was tested from Cowork and from Code | `references/sources.md` |
 | rights classes, credits, permission letters (PL/EN/ES/FR) | `references/rights.md` |
 | per-text record and contact sheet (templates) | `assets/template/ikonografia.md`, `assets/template/kontaktowka.html` |
 | one text's work | workspace `srom-produkcja/work/<id>/ikonografia/`: `ikonografia.md`, `kontaktowka.html`, `pliki/` |
 
-A text with no work folder (a Polish original that skipped RIP): create `work/<id>/ikonografia/` with the author's
-surname as `<id>`.
+`<id>` is the text's work folder. Check in `STATUS.md` that `work/<id>/` holds the text MB means: one author can have
+texts in two volumes (Ostendorf: the vol. 18 article, and the vol. 19 chapter in `work/ostendorf/`). A text with no
+work folder of its own (a Polish original that skipped RIP, or a second text by an author who already has one): create
+`work/<id>/ikonografia/` with the author's surname as `<id>`, plus the volume when the surname is taken
+(`ostendorf18`); the record's heading names the text by title and volume.
+
+**Who writes what.** The record, the contact sheet and `pliki/` are written by whichever session runs the skill:
+Cowork, or Claude Code on the Mac (an exception to "Code never writes `workspace/`", like srom-zizek's data, and only
+in `work/<id>/ikonografia/`). `STATUS.md` and `MB-decisions.md` stay Cowork's: a Code session sends the step 7
+questions and the step 8 line as a K-item in `_handoffs/code-to-cowork.md` (headed "needs MB" when it carries a
+question), and Cowork enters them.
 
 ## The steps
 
 1. **Read.** The text (`work/<id>/<id>_src.md`, or the PDF/DOCX MB names), its `refs.json` if RIP made one, and
    any images the author supplied (count them; note their state and rights). Read `references/patterns.md`.
+   Ask the author (Tier C) at once, in one short e-mail sent by MB (rights.md § Letters, Author): the author's own
+   photographs of the archival documents cited, field photographs, and any images the author would suggest.
+   Archival historians often hold the only usable copy (Ostendorf's photograph of the 1779 marriage record, vol. 18);
+   record the date in § 4 and treat the answer as a slot's first candidates.
 2. **Brief** (`ikonografia.md` § 1). Slots, each tied to a passage (page or heading + a few words): type (cited
    source, place/map, building, person, event, document/archive, ethnographic image, comparative addition), the idea
    in one line, the angle (documentary / immersive / argument / extension), search terms. Size: about **8 images for an
@@ -57,12 +70,13 @@ surname as `<id>`.
 6. **MB chooses.** For each chosen image (`ikonografia.md` § 3): `Il. n`, file name `<id>_il<nn>_<slug>.<ext>` in
    `pliki/`, a draft caption in Polish per Kanon § 10.1–10.2 (dry; date and place as they really are, patterns § 3),
    the credit, the rights class, the permission state. Files: from Claude Code on the Mac, `curl -L -o` the
-   full-resolution URLs into `pliki/`; from Cowork the VM shell reaches none of the repositories, so give MB the list
-   of full-resolution links to save into `pliki/` (one click each).
+   full-resolution URLs into `pliki/` (the Commons User-Agent from sources.md; a few seconds apart); from Cowork the
+   VM shell reaches none of the repositories, so give MB the list of full-resolution links to save into `pliki/`
+   (one click each).
 7. **Permissions** (rights.md): for class D, a letter in the holder's language from the templates, the date sent and
    the answer in § 4 of the record; for class E, the due-diligence record. Anything that needs MB (a fee, a risky
    orphan, a crop of an ND image) is one question in `MB-decisions.md` under the text's code.
-8. **Close.** One line in the text's section of `STATUS.md`: `Ikonografia: <chosen>/<target>, <k> permissions
+8. **Close.** One line in the text's section of `STATUS.md` (from Code: in the K-item, § Who writes what): `Ikonografia: <chosen>/<target>, <k> permissions
    pending (<holders>)`. When MB explains a choice or a rejection worth keeping, add it to `patterns.md` § Cases
    (a small skill change: C-item for Code to commit).
 
@@ -76,11 +90,17 @@ surname as `<id>`.
 | **zgody** <text> | step 7 for the chosen images: letters, due diligence, the state of each |
 | **podpisy** <text> | captions for the chosen images (Kanon § 10), credits checked against the item pages |
 
-## Limits (tested 21.10.2026 from Cowork)
+## Limits (tested 21.10.2026 from Cowork and from Claude Code)
 
 - The VM shell on MB's Mac reaches none of the repositories; Cowork searches with the session's web fetch tools.
   Working: Europeana, loc.gov `fo=json`, Wellcome, Internet Archive (web fetch), Wikimedia Commons API (Exa fetch).
-  Not reachable that way: Gallica SRU, Smithsonian, Openverse — use their sites in the browser, or run those
-  searches from Claude Code on the Mac, which has an open network (sources.md gives the curl forms).
+  Not reachable that way: Gallica SRU, Smithsonian, Openverse.
+- Claude Code on the Mac (curl): Europeana, Wellcome, Internet Archive, Commons (with a named User-Agent),
+  Smithsonian (demo key), Openverse work; loc.gov search, HathiTrust and Gallica SRU answer 403 (Cloudflare), the Met
+  API 410. Neither route reaches every source: the table in sources.md says which to use, and the browser covers the
+  rest.
+- Contact sheet in the browser pane: a `file://` page cannot be driven; serve the folder (`python3 -m http.server`
+  on 127.0.0.1) and open it by URL to look at the thumbnails.
 - Alamy's API is for partners only: links for MB, no automation.
 - Taste is calibrated on two cases so far (vol. 18: Gontarek, Ostendorf); expect misses until patterns.md has more.
+  A test run on a text already in § Cases is not blind: the case lists the answers. Test on a text that is not there.

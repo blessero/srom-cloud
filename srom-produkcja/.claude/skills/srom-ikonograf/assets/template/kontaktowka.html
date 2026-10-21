@@ -55,7 +55,7 @@ function render() {
     const g = document.createElement("div"); g.className = "grid";
     for (const i of items) {
       const c = document.createElement("div"); c.className = "c";
-      c.innerHTML = `${i.thumb ? `<a href="${i.page}" target="_blank"><img loading="lazy" src="${i.thumb}" alt=""></a>` : ""}
+      c.innerHTML = `${i.thumb ? `<a href="${i.page}" target="_blank"><img src="${i.thumb}" alt=""></a>` : ""}
         <div class="b"><div><span class="cls" style="background:var(--${i.cls})">${i.cls}</span><span class="id">${i.id}</span></div>
         <div class="t">${i.title}</div>
         <div class="m">${[i.date, i.creator].filter(Boolean).join(" · ")}</div>

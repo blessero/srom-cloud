@@ -18,7 +18,8 @@ plus one or two he would not have thought of.
    never caption an image as what it is not.
 4. **Show the source itself.** When the text names a document, law, periodical, register, print or court record,
    show it: the *Congressional Globe* of 30 May 1866, the *Code noir*, a passenger list to the colonies, an
-   interrogation record. Mine the footnotes for these first.
+   interrogation record. Mine the footnotes for these first, and ask the author: an archival historian may hold the
+   only usable photograph of a record (Ostendorf's of the 1779 marriage act).
 5. **Abstract ideas, documentary images.** In theoretical papers, or papers with important theory, an abstract idea
    can occasionally be depicted, but only through an image with documentary value of its own: the real archive of a
    celebrated institution (NYPL) for Ostendorf's *u-nieobecnianie*, the silence of archives and historians; never a
@@ -67,11 +68,15 @@ insurgent shots, some from Śródmieście (principle 3). Sources used: Wikimedia
 Author suggested many images; many used, many more sourced. Most are historical sources tied to the text
 (principle 4): the *Congressional Globe*, 30 May 1866 (HathiTrust); the *Code noir* (ANOM, Colonies AC) and its 1742
 edition (Musée d'histoire de Nantes, via Commons; the code is not in the text: context toward the race theme); passenger
-lists from France to the colonies 1716–1830 (ANOM F5B 44, Dunkirk, *Le Tilleul*, 20–21 May 1720); the French Superior
+lists from France to the colonies 1716–1830 (ANOM F5B 44, Dunkirk, *Le Tilleul*, 20–21 May 1720: the *Bohémiennes*
+heading, among them Marie Jacqueline Gaspart, later in the colony's first sanctioned mixed marriage); the 1 May 1779
+marriage act of María Andrea, *Gitana*, New Orleans (Archdiocese of New Orleans Archive; the author's own photograph:
+principle 4, ask the author); the French Superior
 Council's interrogation of Jean Chevallier dit Lachaum (Louisiana Colonial Judicial Records). An archive view from the
 New York Public Library for the argument about the production of history (principle 5). Rizzuto's Bowery photograph,
-1950, Library of Congress (principle 6). Lassus's view of New Orleans, 1726, ANOM DFC Louisiane 71-6A, as an immersive
-spread (principle 7). Pages 32 and 35: the race extension (principle 8) — Clapera's *pintura de castas* (Denver Art
+1950, Library of Congress, and Russell Lee's Romani women on Chicago's South Side, 1941, Library of Congress, on the
+last page (principle 6: documentary street photography, not folklore). Lassus's view of New Orleans, 1726, ANOM DFC
+Louisiane 71-6A, as an immersive spread (principle 7). Pages 32 and 35: the race extension (principle 8) — Clapera's *pintura de castas* (Denver Art
 Museum, photo Steven Zucker, Flickr); *Rosa, Charley, Rebecca* (Charles Paxson, 1863, Library of Congress); Laughlin's
 pigmentation chart (Harry H. Laughlin Papers, Truman State University, Lantern Slides, Brown Box 807); the Nuremberg
 chart (Commons); Hosemann, *Das allegrösste Bilder ABC* (title as MB gave it; check before reuse), 1828 (Library of Congress); La Tour (Met), Hals (Louvre),
