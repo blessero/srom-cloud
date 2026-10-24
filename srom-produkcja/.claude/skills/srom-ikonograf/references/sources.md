@@ -15,7 +15,8 @@ documentation, to be confirmed on first use and marked here.
 | Library of Congress | photos, prints, drawings, maps, FSA/OWI, newspapers | `https://www.loc.gov/photos/?q=<q>&fo=json&c=50` (also `/maps/`, `/collections/…/`) | tested, web fetch (not `/pictures/`: robots); field `rights` | **403** (Cloudflare challenge; WebFetch from Code too). Workaround: LoC images are mirrored on Commons with the LCCN in the file name (search Commons, read `Credit` for the LoC record); image files themselves open on `cdn.loc.gov` and `tile.loc.gov` |
 | Wellcome Collection | medicine, anthropology, race science, anthropometry, prints | `https://api.wellcomecollection.org/catalogue/v2/images?query=<q>&pageSize=50` | tested, web fetch; licence id per image (pdm, cc-by …) | tested |
 | Internet Archive | scanned books and periodicals (cited sources), Gypsy Lore Society journals | `https://archive.org/advancedsearch.php?q=title:(<q>)+AND+mediatype:texts&fl[]=identifier&fl[]=title&fl[]=date&rows=50&output=json` | tested, web fetch (titles sometimes dropped: re-query by identifier) | tested; see the IA notes below |
-| Wikimedia Commons | everything, uneven; the licence template is on each file page | `https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=<q>&srnamespace=6&srlimit=50&format=json`; file details (up to 50 files per call, `titles=File:A\|File:B`): `action=query&titles=File:<name>&prop=imageinfo&iiprop=url\|size\|extmetadata&iiurlwidth=400&format=json` | tested, Exa fetch only | tested; **429** after ~10 calls a minute with a bare User-Agent: send `-A "SROM-ikonograf/0.1 (https://studiaromologica.pl; non-commercial journal research)"`, ≥ 2 s apart, batch the file details |
+| Wikimedia Commons | everything, uneven; the licence template is on each file page | `https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=<q>&srnamespace=6&srlimit=50&format=json`; file details (up to 50 files per call, `titles=File:A\|File:B`): `action=query&titles=File:<name>&prop=imageinfo&iiprop=url\|size\|extmetadata&iiurlwidth=400&format=json` | tested, Exa fetch only | tested; **429** after ~10 calls a minute with a bare User-Agent: send `-A "SROM-ikonograf/0.1 (https://studiaromologica.pl; non-commercial journal research)"`, ≥ 2 s apart, batch the file details. Tittel run (21.10.2026): 429 again at 4 s with a UA that had no URL; what held: honour the `retry-after` header (10 s) and wait 8 s between searches |
+| MDZ (Bayerische Staatsbibliothek) | German prints and periodicals (*Berlinische Monatsschrift*), early modern edicts and single-sheet mandates (*Einblattdrucke*): the surest source for German cited sources | find the item through Europeana (`dataProvider` Bavarian State Library; `edmIsShownAt` holds the `bsb…` id) or the URN in refs.json; manifest `https://api.digitale-sammlungen.de/iiif/presentation/v2/<bsb-id>/manifest` (canvas labels = printed page numbers; metadata „Call number” = shelfmark); viewer `https://www.digitale-sammlungen.de/view/<bsb-id>?page=<n>` | untested | tested (Tittel); rights NoC-NC on books (class A for a public-domain work), CC BY-NC-SA on some single sheets (class C) |
 | Gallica (BnF) | French prints, press, maps, colonial material | SRU: `https://gallica.bnf.fr/SRU?operation=searchRetrieve&version=1.2&query=gallica%20all%20%22<q>%22&maximumRecords=50` | failed both fetch tools | **403**: the site in the browser; much of Gallica is on Commons and Europeana (search there by `btv1b…`/ark) |
 | Smithsonian Open Access | CC0 objects and photos, NMAAHC, anthropology archives | `https://api.si.edu/openaccess/api/v1.0/search?q=<q>&rows=50&api_key=<api.data.gov key>` | failed | tested with `api_key=DEMO_KEY` (low hourly limit); mostly library records: archives (NMAH Archives Center, NAA) are on sova.si.edu, Tier B |
 | Openverse | CC/PD aggregator (Commons, Flickr, museums) | `https://api.openverse.org/v1/images/?q=<q>&page_size=50` | failed | tested; thin for historical material (mostly recent Flickr, often NC-ND) |
@@ -27,10 +28,18 @@ Internet Archive notes (tested from Code): a periodical volume is found by its `
 `https://archive.org/download/<id>/page/n<k>.jpg` (`_w400` for a thumbnail), and `n<k>` can be off by one from the
 `leafNum` in `<id>_page_numbers.json`: open the page and read its printed number before citing it; the OCR text
 (`<id>_djvu.txt`) finds the passage. Covers: `https://archive.org/services/img/<id>`.
+Search inside one item (tested, Tittel run): `https://<server>/fulltext/inside.php?item_id=<id>&doc=<doc>&path=<dir>&q=<word>`
+(`server` and `dir` from `https://archive.org/metadata/<id>`, `doc` = the name of its `_djvu.xml` file without that
+ending) returns the matching leaves with a snippet: the fastest way to the page a footnote cites. The leaf it gives
+was 3 off from `n<k>` in `daskapitalkritik67marx` (exact in `berlinischemona06unkngoog`): look before listing.
+Fraktur OCR is poor (`Zigeuner` read as `Bigeuner`: search a neighbouring word, e.g. `Abstamme`), and some items have
+no OCR at all (*Teutscher Merkur* 1788: no matches; find the page by its number).
 
 Full-resolution files (IIIF, where offered): Library of Congress — the `image_url` with `pct:50.0` replaced by `full`
 (`…/full/full/0/default.jpg`); Wellcome — `https://iiif.wellcomecollection.org/image/<id>/full/max/0/default.jpg`;
-Gallica — `https://gallica.bnf.fr/iiif/ark:/12148/<ark>/f<page>/full/full/0/native.jpg`; Commons — `imageinfo.url`.
+Gallica — `https://gallica.bnf.fr/iiif/ark:/12148/<ark>/f<page>/full/full/0/native.jpg`; MDZ —
+`https://api.digitale-sammlungen.de/iiif/image/v2/<bsb-id>_<nnnnn>/full/full/0/default.jpg` (`<nnnnn>` = canvas,
+5 digits); Commons — `imageinfo.url`.
 Check that the file opens before listing it for MB.
 
 ## Tier B — search pages, browser
@@ -51,6 +60,11 @@ Check that the file opens before listing it for MB.
 - zbioryspoleczne.pl (social archives), Muzeum Budownictwa Ludowego w Sanoku (Reinfuss), Fortepan (fortepan.hu:
   Hungarian photographs, CC BY-SA, credit "Fortepan / <donor>"), Deutsche Digitale Bibliothek, Bundesarchiv (much of it
   on Commons as `Bundesarchiv Bild …`, CC BY-SA 3.0 DE).
+- Law, police, edicts: Max-Planck-Institut für Rechtsgeschichte und Rechtstheorie, Digital Libraries Connected
+  (dlc.mpg.de; reached through Europeana): the Sammlung Fehr photographs of legal monuments, subject „Abweisezeichen”
+  (warning posts such as a „Zigeunerstock”), Public Domain Mark; IIIF v3 manifest
+  `https://dlc.mpg.de/api/v2/records/<id>/manifest/`, image `…/files/images/<file>.tif/full/full/0/default.jpg`
+  (tested, Tittel run). Search the subject, not „Zigeunerwarntafel” (no hits anywhere).
 - Romani and persecution: RomArchive (romarchive.eu), USHMM collections (collections.ushmm.org), Arolsen Archives
   (collections.arolsen-archives.org).
 - Romani Americans (found 21.10.2026, Ostendorf test): NMAH Archives Center, Carlos de Wendler-Funaro Gypsy Research
