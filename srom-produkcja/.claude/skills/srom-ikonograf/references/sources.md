@@ -11,11 +11,11 @@ documentation, to be confirmed on first use and marked here.
 
 | source | strong for | query (replace `<q>`) | from Cowork | from Code (curl) |
 |---|---|---|---|---|
-| Europeana | aggregator of thousands of European institutions (incl. Hispana/BNE, part of Gallica, many national and regional archives); rights URI per item | `https://api.europeana.eu/record/v2/search.json?query=<q>&qf=TYPE:IMAGE&rows=50&wskey=api2demo` (add `&qf=YEAR:[1700 TO 1900]`, `&reusability=open`) | tested, web fetch; `edmIsShownAt` = holder's page; `api2demo` is a shared demo key: a free personal key (pro.europeana.eu) if it throttles | tested |
+| Europeana | aggregator of thousands of European institutions (incl. Hispana/BNE, part of Gallica, many national and regional archives; also BSB, ÖNB, MPI Legal History, Memòria Digital de Catalunya, Romania's culturalia.ro); rights URI per item | `https://api.europeana.eu/record/v2/search.json?query=<q>&qf=TYPE:IMAGE&rows=50&wskey=api2demo` (add `&qf=YEAR:[1700 TO 1900]`, `&reusability=open`; `&profile=rich` adds `edmIsShownBy`, often a direct full-size IIIF image) | tested, web fetch; `edmIsShownAt` = holder's page; `api2demo` is a shared demo key: a free personal key (pro.europeana.eu) if it throttles | tested. Drop `TYPE:IMAGE` for books, laws and dissertations (they are `TEXT`). A law is found by the title of the printed collection it appeared in, not by its own name (Pahulich run: `bulas y pragmáticas` found the Castilian *Pragmáticas*, `pragmática 1499 gitanos` nothing). The thumbnail API returns a grey placeholder for Polona and MBC items: open those in the browser |
 | Library of Congress | photos, prints, drawings, maps, FSA/OWI, newspapers | `https://www.loc.gov/photos/?q=<q>&fo=json&c=50` (also `/maps/`, `/collections/…/`) | tested, web fetch (not `/pictures/`: robots); field `rights` | **403** (Cloudflare challenge; WebFetch from Code too). Workaround: LoC images are mirrored on Commons with the LCCN in the file name (search Commons, read `Credit` for the LoC record); image files themselves open on `cdn.loc.gov` and `tile.loc.gov` |
 | Wellcome Collection | medicine, anthropology, race science, anthropometry, prints | `https://api.wellcomecollection.org/catalogue/v2/images?query=<q>&pageSize=50` | tested, web fetch; licence id per image (pdm, cc-by …) | tested |
 | Internet Archive | scanned books and periodicals (cited sources), Gypsy Lore Society journals | `https://archive.org/advancedsearch.php?q=title:(<q>)+AND+mediatype:texts&fl[]=identifier&fl[]=title&fl[]=date&rows=50&output=json` | tested, web fetch (titles sometimes dropped: re-query by identifier) | tested; see the IA notes below |
-| Wikimedia Commons | everything, uneven; the licence template is on each file page | `https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=<q>&srnamespace=6&srlimit=50&format=json`; file details (up to 50 files per call, `titles=File:A\|File:B`): `action=query&titles=File:<name>&prop=imageinfo&iiprop=url\|size\|extmetadata&iiurlwidth=400&format=json` | tested, Exa fetch only | tested; **429** after ~10 calls a minute with a bare User-Agent: send `-A "SROM-ikonograf/0.1 (https://studiaromologica.pl; non-commercial journal research)"`, ≥ 2 s apart, batch the file details. Tittel run (21.10.2026): 429 again at 4 s with a UA that had no URL; what held: honour the `retry-after` header (10 s) and wait 8 s between searches |
+| Wikimedia Commons | everything, uneven; the licence template is on each file page | `https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=<q>&srnamespace=6&srlimit=50&format=json`; file details (up to 50 files per call, `titles=File:A\|File:B`): `action=query&titles=File:<name>&prop=imageinfo&iiprop=url\|size\|extmetadata&iiurlwidth=400&format=json` | tested, Exa fetch only | tested; **429** after ~10 calls a minute with a bare User-Agent: send `-A "SROM-ikonograf/0.1 (https://studiaromologica.pl; non-commercial journal research)"`, ≥ 2 s apart, batch the file details. Tittel run (21.10.2026): 429 again at 4 s with a UA that had no URL; what held: honour the `retry-after` header (10 s) and wait 8 s between searches. Search matches file titles and descriptions, not subjects: plain English phrases and `intitle:` work better than catalogue terms (Pahulich run: `Roma slavery Romania poster` and `intitle:Münster Gypsies` hit, `Zigeuner Münster` and `robi țigani vânzare` did not). Many files are scans out of modern books or 19th-c. facsimiles (the 1852 slave poster from Hancock 1987, Münster's woodcut via Lacroix): read `Credit`, trace the original, and flag it in § 6 until then |
 | MDZ (Bayerische Staatsbibliothek) | German prints and periodicals (*Berlinische Monatsschrift*), early modern edicts and single-sheet mandates (*Einblattdrucke*): the surest source for German cited sources | find the item through Europeana (`dataProvider` Bavarian State Library; `edmIsShownAt` holds the `bsb…` id) or the URN in refs.json; manifest `https://api.digitale-sammlungen.de/iiif/presentation/v2/<bsb-id>/manifest` (canvas labels = printed page numbers; metadata „Call number” = shelfmark); viewer `https://www.digitale-sammlungen.de/view/<bsb-id>?page=<n>` | untested | tested (Tittel); rights NoC-NC on books (class A for a public-domain work), CC BY-NC-SA on some single sheets (class C) |
 | Gallica (BnF) | French prints, press, maps, colonial material | SRU: `https://gallica.bnf.fr/SRU?operation=searchRetrieve&version=1.2&query=gallica%20all%20%22<q>%22&maximumRecords=50` | failed both fetch tools | **403**: the site in the browser; much of Gallica is on Commons and Europeana (search there by `btv1b…`/ark) |
 | Smithsonian Open Access | CC0 objects and photos, NMAAHC, anthropology archives | `https://api.si.edu/openaccess/api/v1.0/search?q=<q>&rows=50&api_key=<api.data.gov key>` | failed | tested with `api_key=DEMO_KEY` (low hourly limit); mostly library records: archives (NMAH Archives Center, NAA) are on sova.si.edu, Tier B |
@@ -33,7 +33,11 @@ Search inside one item (tested, Tittel run): `https://<server>/fulltext/inside.p
 ending) returns the matching leaves with a snippet: the fastest way to the page a footnote cites. The leaf it gives
 was 3 off from `n<k>` in `daskapitalkritik67marx` (exact in `berlinischemona06unkngoog`): look before listing.
 Fraktur OCR is poor (`Zigeuner` read as `Bigeuner`: search a neighbouring word, e.g. `Abstamme`), and some items have
-no OCR at all (*Teutscher Merkur* 1788: no matches; find the page by its number).
+no OCR at all (*Teutscher Merkur* 1788: no matches; find the page by its number). Early modern English has the long s
+(`Gipſies` OCRs as `Gipfies`): try both, then a neighbouring plain word. A phrase not found in two copies of the cited
+edition is a § 6 doubt, not proof it is absent (Pahulich run: Browne 1646 „artificial Negroes”). Google scans on IA
+are about 800 px wide and ignore `_w400`: too small for a full page in print, so look for a library's own scan
+(HathiTrust, the holder); the Wellcome copies (`b3…` ids) are full size.
 
 Full-resolution files (IIIF, where offered): Library of Congress — the `image_url` with `pct:50.0` replaced by `full`
 (`…/full/full/0/default.jpg`); Wellcome — `https://iiif.wellcomecollection.org/image/<id>/full/max/0/default.jpg`;
@@ -64,7 +68,15 @@ Check that the file opens before listing it for MB.
   (dlc.mpg.de; reached through Europeana): the Sammlung Fehr photographs of legal monuments, subject „Abweisezeichen”
   (warning posts such as a „Zigeunerstock”), Public Domain Mark; IIIF v3 manifest
   `https://dlc.mpg.de/api/v2/records/<id>/manifest/`, image `…/files/images/<file>.tif/full/full/0/default.jpg`
-  (tested, Tittel run). Search the subject, not „Zigeunerwarntafel” (no hits anywhere).
+  (tested, Tittel run). Search the subject, not „Zigeunerwarntafel” (no hits anywhere). The same library holds early
+  modern dissertations and law books (Thomasius, *De Cingaris*, 1671 print, PDM; Pahulich run).
+- Romanian lands, Roma slavery: culturalia.ro (national heritage aggregator, via Europeana; Muzeul Național al
+  Bucovinei's deeds and lists of „robi țigani”, CC BY-SA 4.0: class B), Biblioteca Academiei Române (charters, *hrisov*,
+  on slaves: InC, class D; via Europeana).
+- Spanish and Catalan prints: Memòria Digital de Catalunya (mdc.csuc.cat, IIIF `…/iiif/2/<collection>:<id>/full/full/0/default.jpg`,
+  PD mark; tested, Pahulich run), Biblioteca Digital Hispánica (above).
+- Swiss illuminated chronicles (Schilling: Spiezer, Luzerner, Berner): e-codices (e-codices.unifr.ch, CC BY-NC: class C);
+  no answer to curl on 22.10.2026, the browser. Commons copies are small.
 - Romani and persecution: RomArchive (romarchive.eu), USHMM collections (collections.ushmm.org), Arolsen Archives
   (collections.arolsen-archives.org).
 - Romani Americans (found 21.10.2026, Ostendorf test): NMAH Archives Center, Carlos de Wendler-Funaro Gypsy Research
@@ -106,4 +118,5 @@ Alamy (alamy.com): editorial licences; API for partners only, so MB searches by 
 For an image known only from a weak copy (Pinterest, a blog, a small Commons file): reverse image search (Google Lens,
 TinEye, Yandex: in the browser, or MB by hand); search the catalogued title or the artist and date in Tier A; read the
 `source`/`author` fields of the Commons page and the `dataProvider` of a Europeana record; go to the holder's own
-page, then its IIIF or download. Record the chain in the record's § 3 (credit = the holder, not the aggregator).
+page, then its IIIF or download. Record the chain in the record's § 3 (credit = the holder, not the aggregator);
+a chain that ends before the holder stays a doubt in § 6.

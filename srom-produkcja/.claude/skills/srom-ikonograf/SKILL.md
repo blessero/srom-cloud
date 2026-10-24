@@ -11,9 +11,16 @@ skill's job is to widen his options and do the slow parts: footnote mining, mult
 files, credits, permission letters. Journal facts (publisher, ISSN, licences): srom-kanon
 `references/SROM_knowledge_base.md`. Caption structure and register: Kanon § 10 (cite it; never restate it here).
 
-**Place in the pipeline:** any time after a text is chosen (srom-zizek) — the earlier the better, because permissions
-take weeks and Kanon § 10.1 wants them gathered before the text is accepted. Its output feeds INJECT (files and
-captions placed in InDesign by MB).
+**Place in the pipeline:** whenever MB asks, whatever the text's state (a pool candidate, chosen, translated or not)
+— the earlier the better, because permissions take weeks and Kanon § 10.1 wants them gathered before the text is
+accepted. Its output feeds INJECT (files and captions placed in InDesign by MB).
+
+**Every run is meticulous** (MB, 24.10.2026). The text's state, its place in the queue or the volume never lowers the
+effort and is not commented on. MB would rather look at many candidates and discard most of them, hoping for a rare find
+or an angle he had not thought of, than get a lean set: give him the surplus (secondary slots, more candidates per
+slot, finds seen in passing). The limit is relevance, not count: every slot and every candidate is tied to a passage, a
+cited source or the volume's axis, and says why in one line; nothing is added to fill a number. A slot that yields
+nothing good says so in § 5 instead of being padded.
 
 ## Files
 
@@ -45,28 +52,46 @@ question), and Cowork enters them.
    photographs of the archival documents cited, field photographs, and any images the author would suggest.
    Archival historians often hold the only usable copy (Ostendorf's photograph of the 1779 marriage record, vol. 18);
    record the date in § 4 and treat the answer as a slot's first candidates.
+   Read the other texts of the same volume that have an `ikonografia/` record (`ls work/*/ikonografia/`): vol. 19's
+   texts share sources (Grellmann in four of them, the *Zigeunerstock* in two). Reuse their finds and searches, name the
+   overlap in the brief (one image should not appear twice in a volume unless MB wants a cross-reference), and log
+   nothing they already logged as failed.
 2. **Brief** (`ikonografia.md` § 1). Slots, each tied to a passage (page or heading + a few words): type (cited
    source, place/map, building, person, event, document/archive, ethnographic image, comparative addition), the idea
-   in one line, the angle (documentary / immersive / argument / extension), search terms. Size: about **8 images for an
-   average-length article**, more for long ones; about **4** when they supplement what the author supplied. Propose
-   ~1.5× the target so MB can drop slots. Mark extensions beyond the text (patterns § 8) as such, and only where the
-   author implies them here or in related work, or where the volume's axis calls for them (srom-zizek's
-   `volumes/<vol>/concept.md`). Show MB the brief before searching more than the cited-source slots, unless he
-   said to go straight on.
-3. **Cited sources first.** From the footnotes and bibliography, list primary sources (prints, edicts, periodicals,
-   archival files, maps, early travel and ethnographic books) and look for digitised copies: title page, plate,
-   frontispiece, the page with the quoted passage. These are the surest hits (sources.md § Books and periodicals).
-4. **Search.** Per slot, a term ladder: the subject in the archive's language; period ethnonyms and exonyms
-   (Cyganie, Zigeuner, Bohémiens, Égyptiens, Gitanos, Egyptians, Gypsies, Cigány, Țigani …), historic place names
-   (Lemberg/Lwów/Lviv, Nouvelle-Orléans, Warschau), catalogue subject headings; date ranges. Order: Tier A APIs →
-   Tier B deep links (and the browser for the one or two most promising) → Tier C asks → paid. Stop a slot at 2–4
-   good candidates, at least one of them needing no permission (patterns § 12). Log searches that found nothing
-   (§ 5 of the record), so nobody repeats them.
+   in one line, the angle (documentary / immersive / argument / extension), search terms. Size: the **printed target**
+   stays about **8 images for an average-length article**, more for long ones, about **4** when they supplement what
+   the author supplied (patterns § 1). What is proposed is about **twice the target**: core slots (≈1.5× the target)
+   plus **secondary slots**, marked ², for less obvious angles, comparative material and images that might inspire a
+   choice MB had not planned. Mark extensions beyond the text (patterns § 8) as such, and only where the author
+   implies them here or in related work, or where the volume's axis calls for them (srom-zizek's
+   `volumes/<vol>/concept.md`). Flag permission-needed slots with holder and lead time (patterns § 12).
+3. **Cited sources first.** From the footnotes and bibliography, list every primary source (prints, edicts, laws,
+   periodicals, archival files, maps, dissertations, early travel and ethnographic books) and look for digitised
+   copies of each, not only the ones a slot names: title page, plate, frontispiece, and **the page with the quoted
+   passage** (sources.md: search inside the scan; read the printed page number by eye). These are the surest hits
+   (sources.md § Books and periodicals). A source cited second-hand ("cyt. za") is looked up in the original too.
+4. **Search** every slot, core and secondary. Per slot, a term ladder: the subject in the archive's language; period
+   ethnonyms and exonyms (Cyganie, Zigeuner, Bohémiens, Égyptiens, Gitanos, Egyptians, Gypsies, Cigány, Țigani, robi …),
+   historic place names (Lemberg/Lwów/Lviv, Nouvelle-Orléans, Warschau), catalogue subject headings, the title of the
+   printed collection a law or decree appeared in; date ranges. Order: Tier A APIs → Tier B deep links (and the browser
+   for the most promising) → Tier C asks → paid. Aim at **3–6 candidates a slot**, at least one needing no permission
+   (patterns § 12); more when they are good. Finds seen in passing that fit another slot, or no slot yet but the text,
+   go in too (marked "seen in passing"). Trace every weak copy to its holder (sources.md § Tracing). Log searches that
+   found nothing (§ 5 of the record), so nobody repeats them.
+   **Doubts** (§ 6 of the record): anything that does not square is flagged there, never silently corrected or left
+   out (root CLAUDE.md § Doubts in the material): a quoted phrase not found in the cited edition (full-text search,
+   then by eye); an image on Commons or in a book that is a later facsimile or copy, not the original; a known image
+   whose original holder cannot be traced; dates or editions that differ between the article, the catalogue and the
+   aggregator; an aggregator's description (a Commons title) that is not the holder's catalogue title. Each doubt says
+   what was checked and what would settle it. MB finds these among the most useful parts of a record.
 5. **Contact sheet.** Fill `kontaktowka.html` (copy the template; edit only the `DATA` block): per candidate the
    thumbnail URL, title as catalogued, date, creator, holder and shelfmark, rights class (rights.md), largest size
    available, the item page and the full-resolution URL, one line on why it fits. Tell MB to open it from Finder.
    Look at the thumbnails yourself when a browser tool is available (open the sheet, screenshot); otherwise say the
-   triage was by metadata only.
+   triage was by metadata only. Also count the broken ones (in the browser pane:
+   `[...document.images].filter(i => !i.naturalWidth).length` after a few seconds) and fix or drop each. Open the key
+   pages (a cited source's title page, the quoted page) at size, in a montage of thumbnails if there are many, to see
+   that each shows what its row says: a scan's first leaf is often a cover or a blank.
 6. **MB chooses.** For each chosen image (`ikonografia.md` § 3): `Il. n`, file name `<id>_il<nn>_<slug>.<ext>` in
    `pliki/`, a draft caption in Polish per Kanon § 10.1–10.2 (dry; date and place as they really are, patterns § 3),
    the credit, the rights class, the permission state. Files: from Claude Code on the Mac, `curl -L -o` the
@@ -84,8 +109,9 @@ question), and Cowork enters them.
 
 | MB says | Ikonograf does |
 |---|---|
-| **ikonograf** <text> / brief | steps 1–3: brief plus cited-source hits |
-| **szukaj** / search <text or slot> | step 4–5 for the brief's open slots (or the one slot named) |
+| **ikonograf** <text> | steps 1–5 in full: brief, every cited source, every slot searched, contact sheet; MB cuts on the sheet |
+| **brief** <text> | steps 1–3 only: brief plus cited-source hits, when MB wants to cut slots before the search |
+| **szukaj** / search <text or slot> | steps 4–5 for the brief's open slots (or the one slot named) |
 | **lepsza kopia** <image or link> | trace the original holder and the largest copy of a known image (sources.md § Tracing) |
 | **zgody** <text> | step 7 for the chosen images: letters, due diligence, the state of each |
 | **podpisy** <text> | captions for the chosen images (Kanon § 10), credits checked against the item pages |
@@ -99,8 +125,9 @@ question), and Cowork enters them.
   Smithsonian (demo key), Openverse work; loc.gov search, HathiTrust and Gallica SRU answer 403 (Cloudflare), the Met
   API 410. Neither route reaches every source: the table in sources.md says which to use, and the browser covers the
   rest.
-- Contact sheet in the browser pane: a `file://` page cannot be driven; serve the folder (`python3 -m http.server`
-  on 127.0.0.1) and open it by URL to look at the thumbnails.
+- Contact sheet in the browser pane: a `file://` page opens as a static snapshot (screenshots and the broken-image
+  count above work; clicks do not); to click through, serve the folder (`python3 -m http.server` on 127.0.0.1).
 - Alamy's API is for partners only: links for MB, no automation.
 - Taste is calibrated on two cases so far (vol. 18: Gontarek, Ostendorf); expect misses until patterns.md has more.
+  The vol. 19 test runs (Tittel, Pahulich, 21–22.10.2026) become cases once MB has chosen from them.
   A test run on a text already in § Cases is not blind: the case lists the answers. Test on a text that is not there.
