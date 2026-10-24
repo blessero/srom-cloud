@@ -525,3 +525,21 @@ C25 committed as is: 9d3ee9c (suite SUITE ALL PASS 28/28). Then MB's rules after
 Nothing for STATUS.md yet: Pahulich and Tittel are at the brief stage, nothing chosen.
 Also: `~/.claude/skills/srom-ikonograf` was missing (setup_mac.sh had not been re-run since the install); linked 24.10.2026.
 Uncommitted and not touched: C26's 14 files, and a root `CLAUDE.md` change (§ The live site, another Code session's).
+
+## K36 — srom-ikonograf: sheets MB can judge, shared images, footnote leads, permission letters [general] (24.10.2026 21:33)
+cb0b5d0 (suite SUITE ALL PASS 29/29). From MB's review of the three test sheets (Ostendorf vol. 18, Tittel, Pahulich):
+- **Contact sheet**: thumbnails about 700 px (holders' resize services; sources.md § Thumbnails), size toggle, click to
+  enlarge, no lazy images (Ostendorf's sheet showed only placeholders in the side panel). Local copies (TIFF, Europeana)
+  are embedded in the sheet. When editing `DATA`, read the sheet with a line limit. Deliver both files to the side panel.
+- **Shared images are proposed again** in each text where they fit, marked `also`; MB decides which text gets them.
+- **Better copy** (`alt`): only with a direct link and why it is better.
+- **Footnote leads**: § 7 of the record lists every note that points to a possible image, checked or not; `przypisy <text>`
+  checks the open rows.
+- **Permissions (`zgody`)**: per holder the best contact (named person, alternatives, where found) and one English
+  letter with each item's catalogue data, in `work/<id>/ikonografia/zgody.md`.
+- **Files moved/changed in workspace**: Ostendorf vol. 18 test record copied from Code's scratchpad to
+  `work/ostendorf18/ikonografia/`; the Tittel, Pahulich and Ostendorf sheets moved onto the new template (DATA kept,
+  thumbnails upgraded, `also` notes between Tittel and Pahulich). The Pahulich session is now re-running Pahulich and owns
+  `work/pahulich/`.
+- Commons User-Agent no longer contains the journal's domain (the live-site hook refused the old one).
+Nothing for STATUS.md.
