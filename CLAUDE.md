@@ -152,12 +152,13 @@ When you hand MB a task to run in another session (Code or Cowork), put one line
 - In any file MB reads, a file MB has to open (a notes sheet, a Word copy to edit, a list to send to an author) is
   written `` 🔴 `path` ``. Chat text cannot be coloured: in replies the marker is the ⭕ described below.
 - **End every reply with one line** listing the files MB needs to open for what the reply is about, or
-  `Files to open: none`. Only files MB must act on, not every file you touched. Each file is its name as a link
-  (path relative to your working directory: opens in the app) followed by ⭕ as a second link to the same file as an
-  absolute `file://` URL (opens in its Mac app or the browser; spaces as `%20`), e.g.
-  `Files to open: [pahulich_robocza.docx](../workspace/srom-tlumacz/work/pahulich/pahulich_robocza.docx) [⭕](file:///Users/michalbartosz/ARBEIT/Bima/SROM/Redakcja/workspace/srom-tlumacz/work/pahulich/pahulich_robocza.docx)`
-- **Side panel by default:** before that line, send the Markdown, HTML or PDF files listed in it with SendUserFile
-  (display: render), so they open in the app's side panel without a click. Word copies and CSV lists are only linked.
+  `Files to open: none`. Only files MB must act on, not every file you touched. Each file is its name, a word saying
+  which text it belongs to, and its absolute path in backticks (MB copies it), e.g.
+  `` Files to open: kontaktowka.html (Tittel) — `/Users/michalbartosz/ARBEIT/Bima/SROM/Redakcja/workspace/srom-produkcja/work/tittel/ikonografia/kontaktowka.html` ``
+  No ⭕ or `file://` links: they did not open in the app (MB, 24.10.2026).
+- **The button is the SendUserFile card** (MB, 24.10.2026: it opens the file reliably). Send every Markdown, HTML or
+  PDF file in that line with SendUserFile (display: render) as the **last tool call** of the turn, so the card sits
+  right above the closing reply; Word copies and CSV lists get the path only.
 - MB's questions: he reads and answers them on the Editorial Desk (`https://claude.ai/artifact/9w8QwRuni5c3fAPVtmRb61`);
   link the desk, not the ledger file. Only Cowork reads the answers (srom-naczelny § The desk).
 - The rendered views (`_widok/`, `mb_view.py`) were retired 08.10.2026: they showed Code's pointer file and outdated

@@ -102,8 +102,8 @@ question), and Cowork enters them.
    § Thumbnails), title as catalogued, date, creator, holder and shelfmark, rights class (rights.md), largest size
    available, the item page and the full-resolution URL, one line on why it fits; `alt` and `also` where they apply.
    **Deliver** as the root CLAUDE.md § Files MB must open says: send `kontaktowka.html` and `ikonografia.md` with
-   SendUserFile (display render), so both open in the side panel, then end the reply with the `Files to open:` line
-   (each file a link plus ⭕; 🔴 is for files, never for chat). From Cowork, name them for Finder.
+   SendUserFile (display render) as the turn's last tool call: the card is MB's button. End the reply with the
+   `Files to open:` line (name, text, absolute path; 🔴 is for files, never for chat).
    Look at the thumbnails yourself when a browser tool is available (open the sheet, screenshot); otherwise say the
    triage was by metadata only. Also count the broken ones (in the browser pane:
    `[...document.images].filter(i => !i.naturalWidth).length` after a few seconds) and fix or drop each. Open the key
