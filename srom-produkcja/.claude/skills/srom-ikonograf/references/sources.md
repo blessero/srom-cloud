@@ -16,7 +16,7 @@ documentation, to be confirmed on first use and marked here.
 | Wellcome Collection | medicine, anthropology, race science, anthropometry, prints | `https://api.wellcomecollection.org/catalogue/v2/images?query=<q>&pageSize=50` | tested, web fetch; licence id per image (pdm, cc-by …) | tested |
 | Internet Archive | scanned books and periodicals (cited sources), Gypsy Lore Society journals | `https://archive.org/advancedsearch.php?q=title:(<q>)+AND+mediatype:texts&fl[]=identifier&fl[]=title&fl[]=date&rows=50&output=json` | tested, web fetch (titles sometimes dropped: re-query by identifier) | tested; see the IA notes below |
 | Wikimedia Commons | everything, uneven; the licence template is on each file page | `https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=<q>&srnamespace=6&srlimit=50&format=json`; file details (up to 50 files per call, `titles=File:A\|File:B`): `action=query&titles=File:<name>&prop=imageinfo&iiprop=url\|size\|extmetadata&iiurlwidth=400&format=json` | tested, Exa fetch only | tested; **429** after ~10 calls a minute with a bare User-Agent: send `-A "SROM-ikonograf/0.2 (Studia Romologica, non-commercial journal research; https://github.com/blessero)"` (no journal domain: the live-site hook would count the call as one to the site, 24.10.2026), ≥ 2 s apart, batch the file details. Tittel run (21.10.2026): 429 again at 4 s with a UA that had no URL; what held: honour the `retry-after` header (10 s) and wait 8 s between searches. Search matches file titles and descriptions, not subjects: plain English phrases and `intitle:` work better than catalogue terms (Pahulich run: `Roma slavery Romania poster` and `intitle:Münster Gypsies` hit, `Zigeuner Münster` and `robi țigani vânzare` did not). Many files are scans out of modern books or 19th-c. facsimiles (the 1852 slave poster from Hancock 1987, Münster's woodcut via Lacroix): read `Credit`, trace the original, and flag it in § 6 until then |
-| MDZ (Bayerische Staatsbibliothek) | German prints and periodicals (*Berlinische Monatsschrift*), early modern edicts and single-sheet mandates (*Einblattdrucke*): the surest source for German cited sources | find the item through Europeana (`dataProvider` Bavarian State Library; `edmIsShownAt` holds the `bsb…` id) or the URN in refs.json; manifest `https://api.digitale-sammlungen.de/iiif/presentation/v2/<bsb-id>/manifest` (canvas labels = printed page numbers; metadata „Call number” = shelfmark); viewer `https://www.digitale-sammlungen.de/view/<bsb-id>?page=<n>` | untested | tested (Tittel); rights NoC-NC on books (class A for a public-domain work), CC BY-NC-SA on some single sheets (class C) |
+| MDZ (Bayerische Staatsbibliothek) | German prints and periodicals (*Berlinische Monatsschrift*), early modern edicts and single-sheet mandates (*Einblattdrucke*): the surest source for German cited sources | find the item through Europeana (`dataProvider` Bavarian State Library; `edmIsShownAt` holds the `bsb…` id) or the URN in refs.json; manifest `https://api.digitale-sammlungen.de/iiif/presentation/v2/<bsb-id>/manifest` (canvas labels = printed page numbers; metadata „Call number” = shelfmark); viewer `https://www.digitale-sammlungen.de/view/<bsb-id>?page=<n>`; full-text search inside a book `https://api.digitale-sammlungen.de/iiif/services/search/v1/<bsb-id>?q=<word>` (returns canvases; Fraktur OCR is poor: use the book's own index or register, e.g. Münster 1578 „Züginer oder Heiden ccclxxxv”, then the canvas whose label carries that folio, „CCCLXXXV (0525)”; Pahulich run, 24.10.2026) | untested | tested (Tittel); rights NoC-NC on books (class A for a public-domain work), CC BY-NC-SA on some single sheets (class C) |
 | Gallica (BnF) | French prints, press, maps, colonial material | SRU: `https://gallica.bnf.fr/SRU?operation=searchRetrieve&version=1.2&query=gallica%20all%20%22<q>%22&maximumRecords=50` | failed both fetch tools | **403**: the site in the browser; much of Gallica is on Commons and Europeana (search there by `btv1b…`/ark) |
 | Smithsonian Open Access | CC0 objects and photos, NMAAHC, anthropology archives | `https://api.si.edu/openaccess/api/v1.0/search?q=<q>&rows=50&api_key=<api.data.gov key>` | failed | tested with `api_key=DEMO_KEY` (low hourly limit); mostly library records: archives (NMAH Archives Center, NAA) are on sova.si.edu, Tier B |
 | Openverse | CC/PD aggregator (Commons, Flickr, museums) | `https://api.openverse.org/v1/images/?q=<q>&page_size=50` | failed | tested; thin for historical material (mostly recent Flickr, often NC-ND) |
@@ -25,9 +25,10 @@ documentation, to be confirmed on first use and marked here.
 
 Internet Archive notes (tested from Code): a periodical volume is found by its `volume` field, not by title and date
 (`q=title:(congressional globe) AND volume:(39th Congress)`); page images are
-`https://archive.org/download/<id>/page/n<k>.jpg` (`_w400` for a thumbnail), and `n<k>` can be off by one from the
+`https://archive.org/download/<id>/page/n<k>.jpg` (`_w700` for a thumbnail; these redirect: `curl -L`, or the file is empty), and `n<k>` can be off by one from the
 `leafNum` in `<id>_page_numbers.json`: open the page and read its printed number before citing it; the OCR text
-(`<id>_djvu.txt`) finds the passage. Covers: `https://archive.org/services/img/<id>`.
+(`<id>_djvu.txt`) finds the passage. Covers: `https://archive.org/services/img/<id>`. Lending-library items (`…0000…`
+ids) answer 403 to search-inside: check a cited monograph's list of plates in the browser.
 Search inside one item (tested, Tittel run): `https://<server>/fulltext/inside.php?item_id=<id>&doc=<doc>&path=<dir>&q=<word>`
 (`server` and `dir` from `https://archive.org/metadata/<id>`, `doc` = the name of its `_djvu.xml` file without that
 ending) returns the matching leaves with a snippet: the fastest way to the page a footnote cites. The leaf it gives
@@ -43,7 +44,7 @@ Full-resolution files (IIIF, where offered): Library of Congress — the `image_
 (`…/full/full/0/default.jpg`); Wellcome — `https://iiif.wellcomecollection.org/image/<id>/full/max/0/default.jpg`;
 Gallica — `https://gallica.bnf.fr/iiif/ark:/12148/<ark>/f<page>/full/full/0/native.jpg`; MDZ —
 `https://api.digitale-sammlungen.de/iiif/image/v2/<bsb-id>_<nnnnn>/full/full/0/default.jpg` (`<nnnnn>` = canvas,
-5 digits); Commons — `imageinfo.url`.
+5 digits); MPI dlc (IIIF v3) — `…/full/max/0/default.jpg` (`full/full` answers 400); Commons — `imageinfo.url`.
 Check that the file opens before listing it for MB.
 
 ## Tier B — search pages, browser
@@ -67,12 +68,18 @@ Check that the file opens before listing it for MB.
 - Law, police, edicts: Max-Planck-Institut für Rechtsgeschichte und Rechtstheorie, Digital Libraries Connected
   (dlc.mpg.de; reached through Europeana): the Sammlung Fehr photographs of legal monuments, subject „Abweisezeichen”
   (warning posts such as a „Zigeunerstock”), Public Domain Mark; IIIF v3 manifest
-  `https://dlc.mpg.de/api/v2/records/<id>/manifest/`, image `…/files/images/<file>.tif/full/full/0/default.jpg`
-  (tested, Tittel run). Search the subject, not „Zigeunerwarntafel” (no hits anywhere). The same library holds early
+  `https://dlc.mpg.de/api/v2/records/<id>/manifest/`, image `…/files/images/<file>.tif/full/max/0/default.jpg`
+  (v3: `full/full` answers 400; Pahulich run, 24.10.2026). Search the subject, not „Zigeunerwarntafel” (no hits anywhere). The same library holds early
   modern dissertations and law books (Thomasius, *De Cingaris*, 1671 print, PDM; Pahulich run).
 - Romanian lands, Roma slavery: culturalia.ro (national heritage aggregator, via Europeana; Muzeul Național al
   Bucovinei's deeds and lists of „robi țigani”, CC BY-SA 4.0: class B), Biblioteca Academiei Române (charters, *hrisov*,
-  on slaves: InC, class D; via Europeana).
+  on slaves: InC, class D; via Europeana). culturalia.ro also holds Szathmari's watercolours; BCU Cluj dspace (PD).
+- Spanish royal decrees on „gitanos”, 1520–1734: Biblioteca Universidad de Sevilla on Internet Archive (PDM). BNE scans
+  re-uploaded to IA by private users: credit BNE and give the BNE copy (bdh.bne.es) as `alt`.
+- Costume books and early prints of „Ziegeuner”: Göttingen University collections (sammlungen.uni-goettingen.de, IIIF,
+  CC BY-SA; Jost Amman 1577 „Ziegeunerin”); HAB Wolfenbüttel (Boissard, *Habitus* 1581; diglib.hab.de does not answer
+  curl: reach it through Europeana, whose `w400` thumbnail proxy works for it); internetculturale.it (Biblioteca
+  Marciana's Raffet lithographs). All Pahulich run, 24.10.2026.
 - Spanish and Catalan prints: Memòria Digital de Catalunya (mdc.csuc.cat, IIIF `…/iiif/2/<collection>:<id>/full/full/0/default.jpg`,
   PD mark; tested, Pahulich run), Biblioteca Digital Hispánica (above).
 - Swiss illuminated chronicles (Schilling: Spiezer, Luzerner, Berner): e-codices (e-codices.unifr.ch, CC BY-NC: class C);
@@ -131,9 +138,9 @@ holder's own resize service for it; nothing is downloaded and no tokens are spen
 |---|---|
 | IIIF (BSB, MPG dlc, MDC, ÖNB `iiif.onb.ac.at/images/ABO/<id>/<page>/…`, Wellcome, e-codices, Gallica) | `…/full/700,/0/default.jpg` (ÖNB: `native.jpg`); `!800,800` for tall pages |
 | Internet Archive page | `https://archive.org/download/<id>/page/n<k>_w700.jpg` (`services/img/<id>` is a small cover: use a page) |
-| Wikimedia Commons | `…/commons/thumb/<a>/<ab>/<file>/960px-<file>`: Commons serves only standard widths (500 and 960 work; 700 is refused and 330 is too small, tested 24.10.2026); a file narrower than 960 px: the original URL |
+| Wikimedia Commons | `https://commons.wikimedia.org/wiki/Special:FilePath/<file>?width=960` (resolves by name and redirects to the standard thumbnail: no hand-built hash path, which is easy to get wrong), or `…/commons/thumb/<a>/<ab>/<file>/960px-<file>`: Commons serves only standard widths (500 and 960 work; 700 is refused and 330 is too small, tested 24.10.2026); a file narrower than 960 px: the original URL |
 | loc.gov | `…v.jpg` (about 1024 px), not `…t.jpg` or `_150px` |
-| Europeana | the thumbnail API stops at `w400`: use the provider's own image (`edmIsShownBy`) as below |
+| Europeana | the thumbnail API stops at `w400`: use the provider's own image (`edmIsShownBy`) as below. A thumbnail of exactly 293×293 px is Europeana's placeholder, not the image (Polona and some culturalia items): blank it |
 
 No resize service, or only a TIFF or a very large file: download it and make a local copy,
 `curl -sL -o <tmp>/<id>.src <url> && sips -Z 800 -s format jpeg -s formatOptions 70 <tmp>/<id>.src --out miniatury/<id>.jpg`

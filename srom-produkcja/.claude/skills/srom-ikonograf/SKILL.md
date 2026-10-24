@@ -93,7 +93,10 @@ question), and Cowork enters them.
    found nothing (§ 5 of the record), so nobody repeats them.
    **Doubts** (§ 6 of the record): anything that does not square is flagged there, never silently corrected or left
    out (root CLAUDE.md § Doubts in the material): a quoted phrase not found in the cited edition (full-text search,
-   then by eye); an image on Commons or in a book that is a later facsimile or copy, not the original; a known image
+   then by eye; then the later editions' full text, since a phrase can enter in a later edition: Browne's „Artificial
+   Negroes, or Gypsies” is in 1658 and 1672, not in the 1646 Pahulich cites); an image on Commons or in a book that is a later facsimile or copy, not the original, or a
+   modern re-typeset text passed off as a document (a Commons „sale of 200 Gypsy families”, typeset from Hancock 2002:
+   the thumbnail check by eye catches it); a known image
    whose original holder cannot be traced; dates or editions that differ between the article, the catalogue and the
    aggregator; an aggregator's description (a Commons title) that is not the holder's catalogue title. Each doubt says
    what was checked and what would settle it. MB finds these among the most useful parts of a record.
