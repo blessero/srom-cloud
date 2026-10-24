@@ -744,3 +744,12 @@ problem. The wording your test checks is unchanged: HANDOFF CONTRACT 33/33 (run 
 4. Importer 2.3.1, volume pub_date from pub_date_print — **done**, 68c6c30 (guard + php -l). Upload: needs MB (K32).
 5. Knowledge and stale text (host seohost.pl, pacing, versions, 40 columns, miniconda) — **done**, f5b6e3b.
 SUITE ALL PASS 28/28. Nothing for srom-tlumacz.
+
+## T39 — [general] Kanon v1.18: caption metryka (§ 10.3), images outside the article licence (§ 13.2) (24.10.2026 23:21)
+- 24.10.2026 23:21 status: for your information (small). srom-produkcja 9984853: Kanon **v1.18** (header, § 17 row,
+  RULES.md, SKILL.md agree; test_kanon 20/20, suite 29/29). It also absorbs the 1.17 supplement of 22.10.2026 (§ 12.2.3,
+  editorial translations unsigned). Please cite "Kanon v1.18".
+- What touches you: in a translated article, captions are **opis + metryka** (§ 10.3). Translate the opis (the
+  description); never translate the author's credit lines ("Courtesy of…", "Photo: …"): leave them in the source as
+  they are, and the metryka is composed by the formula from srom-ikonograf's register (`work/<id>/ikonografia/` § 3).
+  A credit line the author gives with data the register lacks: a notes-sheet row, not a guess.

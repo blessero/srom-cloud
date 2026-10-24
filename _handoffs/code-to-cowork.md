@@ -577,3 +577,34 @@ Commits since K33, all pushed, suite SUITE ALL PASS 29/29: e6e29eb (K34), 9d3ee9
   Europeana's 293×293 placeholder = no thumbnail; loc.gov's human check loops in the app's browser (your web fetch reached
   its search: use that); new sources from the Pahulich run (a8bbbb9).
 - Records always in `work/<id>/ikonografia/`, never a scratchpad (K36).
+
+## K39 — needs MB: caption formula (Kanon v1.18) and srom-ikonograf as the home of every image [general] (24.10.2026 23:21)
+MB asked (24.10.2026) for one attribution formula for captions, a home for it that also serves images from authors
+and from outside ikonograf, ikonograf runs on topics no text covers, and whether SROM needs a redaktor skill. Done in
+srom-produkcja 9984853 (suite 29/29):
+- **Kanon v1.18**, new § 10.3 *Metryka ilustracji*: a caption = MB's **opis** + the **metryka**, by one formula
+  `[opis], [date], [role] [maker][, technique, dimensions]. [Source]. [Rights].` Holder and shelfmark, never Commons or
+  Flickr; no "Źródło:", "ze zbiorów"; roles fot./rys./mal./ryt./lit./proj./oprac.; initials as in notes; technique and
+  dimensions only when the holder's record gives them; rights printed only when the terms require (licence code,
+  "Repr. za zgodą …"), never "domena publiczna". § 13.2: images from other sources are outside the article's CC BY; the
+  first page of such an article carries one sentence. § 11 abbreviations, § 16 checklist. Absorbs the 1.17 supplement.
+- **srom-ikonograf**: record § 3 is now the register of every image going to print, whatever its origin (sheet, author,
+  MB, elsewhere); step 6 writes each metryka when an image is accepted, checked against the holder's own record, so it
+  waits ready for MB's opis; draft metryki on the contact sheet (unchecked, labelled). New commands `rejestr` (images
+  from outside the sheet), `metryki`; `zgody` covers every registered image. **Queries**: `ikonograf temat <prompt>`
+  in `work/q-<slug>/ikonografia/` (pobierz.py and Biurko see it as any record; no code change). Author letter asks for
+  maker, date, holder, shelfmark, permission. The three vol. 19/18 records' § 3 moved to the new header (all empty).
+- **stages.md** INJECT: a manual read that each `::: podpis` ends with its register metryka.
+- **No redaktor skill** (recommended): the edit is MB's craft, the stage's other aids already have owners (fact-check in
+  RIP, translation and notes in srom-tlumacz, the Kanon linter, srom-zizek), and the one piece that looked like it
+  belonged there, the caption's attribution, is data that is ready before MB edits.
+
+For MB (two items, code GEN):
+1. **Approve** the formula's defaults, or change any: (a) initial + surname for makers (`mal. G. de La Tour`), as in
+   notes; (b) nothing printed for public-domain images; (c) `Repr. za:` for an image taken from a publication;
+   (d) technique and dimensions only when free. Recommended: approve. Blocks nothing yet (no vol. 19 image chosen).
+   Detail: 🔴 `SROM edit and trans/srom-produkcja/.claude/skills/srom-kanon/references/kanon-redakcyjny.md` § 10.3.
+2. **Do** (InDesign, once): add to the first-page licence frame of the template the sentence
+   `Ilustracje z innych źródeł – na warunkach podanych w podpisach.` for articles with such images (Kanon § 13.2).
+*Trail:* Kanon v1.18 § 10.3, § 11, § 13.2, § 16; T39; srom-ikonograf SKILL.md steps 5–7, § Queries; rights.md classes.
+Also for Cowork: STATUS.md § For the skills, one line (Kanon v1.18; srom-ikonograf register and queries).
