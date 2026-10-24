@@ -59,6 +59,23 @@ When you hand MB a task to run in another session (Code or Cowork), put one line
 - Never for steps MB does by hand, chat answers, or what you do in your own session.
 - It is a reference point for MB, not a verdict: he weighs it against his own sense of how the models do.
 
+## The live site: pacing (MB, 22.10.2026) — hard rule, every model
+seohost.pl blocked MB's IP on 21.10 and again on 22.10.2026 after sessions worked on studiaromologica.pl. The block lands
+on MB's own connection (he lost the site and had to switch to mobile data), and it depends on how many requests go out
+in what time, not on the model. So:
+- **Code: a hook enforces it** (`~/.claude/hooks/srom-throttle.py`, registered in `~/.claude/settings.json`; every
+  session and subagent). It spaces site calls (curl/wget/urllib/ssh, WebFetch, browser navigate and clicks on the site,
+  the site connector) at least 5 s apart (writes 10 s, browser 15 s), queues parallel ones, caps 150 a
+  hour, refuses a loop or several URLs in one command, and **trips a breaker** on a 403/429/503, Wordfence, rate-limit or
+  connection-timeout answer: after that every site call is refused until MB says the block is over (`--status`,
+  `--clear`). When it trips or refuses: stop, tell MB in one line, never route around it (another tool, a script,
+  another host name) and never clear it yourself.
+- It does not see a script that makes its own requests without naming the host on the command line: such a script
+  paces itself (≥ 5 s, `check_deposit.py --site` does) and the session counts the requests before running it.
+- Fewer calls beat paced calls: one REST listing (`/wp-json/wp/v2/srom_article?per_page=100&_fields=id,slug,link`)
+  instead of a page per article; batch site edits into as few calls as the work allows; check local files first.
+- Cowork has no hook: the same limits by hand (one request per command, ≥ 5 s apart, stop at the first 403/429/503).
+
 ## Start of every session
 1. Read your incoming file in `_handoffs/` (`tlumacz-to-produkcja.md` if you are srom-produkcja,
    `produkcja-to-tlumacz.md` if you are srom-tlumacz) and Cowork's `../workspace/MB-decisions.md` (§ Cowork). Both modules also read
