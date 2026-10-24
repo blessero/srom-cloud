@@ -1,6 +1,6 @@
 # STUDIA ROMOLOGICA – KANON EDYTORSKI (DOKUMENT WEWNĘTRZNY)
 
-**Wersja 1.17 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
+**Wersja 1.18 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
 
 > Wersja dla autorów (*Wskazówki dla autorów*) jest skrótem tego dokumentu i nie zawiera § 13–17. W razie rozbieżności rozstrzyga niniejszy tekst.
 
@@ -410,7 +410,7 @@ Ta sama osoba występuje w dwóch formach: w tekście `Biessonow`, w przypisie `
 ## 10. Ilustracje, tabele, wykresy
 
 ### 10.1. Struktura
-Numeracja ciągła, osobna: `Il. 1`, `Tab. 1`, `Wykr. 1`. Podpis pod obiektem: numer, opis, datowanie, autor/wykonawca, źródło i sygnatura, prawa. Tabele: tytuł nad, źródło pod. Odwołanie w tekście obowiązkowe; obiekt bez odwołania nie jest publikowany. Wymogi techniczne plików (rozdzielczość itd.) – zob. *Wskazówki dla autorów*. Zgody gromadzi redakcja przed przyjęciem tekstu.
+Numeracja ciągła, osobna: `Il. 1`, `Tab. 1`, `Wykr. 1`. Podpis pod obiektem: numer, opis, datowanie, autor/wykonawca, źródło i sygnatura, prawa (wzór elementów po opisie – § 10.3). Tabele: tytuł nad, źródło pod. Odwołanie w tekście obowiązkowe; obiekt bez odwołania nie jest publikowany. Wymogi techniczne plików (rozdzielczość itd.) – zob. *Wskazówki dla autorów*. Zgody gromadzi redakcja przed przyjęciem tekstu.
 
 > Il. 3. Tabor Kelderaszów w okolicach Nowego Sącza, 1957 r., fot. J. Ficowski. Archiwum Muzeum Etnograficznego w Tarnowie, sygn. AT/F/1203. Repr. za zgodą MET.
 
@@ -422,6 +422,40 @@ Numeracja ciągła, osobna: `Il. 1`, `Tab. 1`, `Wykr. 1`. Podpis pod obiektem: n
 > **Źle:** Gipsowe odlewy twarzy mieszkańców… stanowią dziś ponury relikt wczesnej antropologii fizycznej. Dokumentują one epokę, w której nauka – zdominowana przez zachodnią obsesję…
 >
 > **Dobrze:** Gipsowe odlewy twarzy mieszkańców indonezyjskiej wyspy Nias, sporządzone w 1910 r. przez holenderskiego antropologa J.P. Kleiwega de Zwaana dla wsparcia europejskich teorii rasowych.
+
+### 10.3. Metryka ilustracji
+Podpis ma dwie części: **opis** – co ilustracja przedstawia (redakcja; rejestr § 10.2) – i **metrykę**: kiedy i przez kogo obiekt wykonano, gdzie się znajduje, na jakich warunkach jest reprodukowany. Metrykę sporządza się z danych, według jednego wzoru, bez względu na pochodzenie ilustracji (kwerenda redakcji, materiał autora, inne źródło), także w artykułach tłumaczonych (metryki oryginału się nie przekłada, lecz sporządza według wzoru). Elementu podanego już w opisie metryka nie powtarza.
+
+**Wzór:** `[opis], [datowanie], [rola] [twórca][, technika, wymiary]. [Źródło]. [Prawa].`
+
+1. **Datowanie** – data powstania obiektu (zdjęcia, rysunku, druku, dokumentu), nie reprodukcji ani publikacji, w zapisie aparatu (§ 3.5): `1957 r.`, `12.03.1943`, `ok. 1630 r.`, `po 1785 r.`, `XVIII w.`, `lata 20. XX w.` Datowanie według katalogu właściciela; rozbieżności między źródłami rozstrzyga redakcja, podpis ich nie omawia. Daty nieustalonej się nie podaje (bez `b.d.`).
+2. **Twórca z rolą** – `fot.` (fotografia), `rys.` (rysunek), `mal.` (obraz), `ryt.` (drzeworyt, miedzioryt, akwaforta, staloryt), `lit.` (litografia), `proj.` (plakat, druk ulotny), `oprac.` (mapa, wykres, schemat sporządzone dla artykułu); autor projektu i wykonawca odrębnie: `rys. A. Kowalski, ryt. B. Nowak`. Nazwisko jak w przypisie (§ 7.2): inicjał imienia i nazwisko, w porządku naturalnym, nie katalogowym (`fot. R. Lee`, nie `Lee, Russell`); przydomek, pseudonim, pracownia, agencja – w brzmieniu przyjętym. Fotograf lub rysownik nieznany: `fot. autor nieznany`, `rys. autor nieznany`. Przy druku anonimowym i dokumencie twórcy się nie podaje (wystawcę podaje opis). Instytucja przechowująca nie jest twórcą: `fot. Narodowe Archiwum Cyfrowe` – błąd.
+3. **Technika, wymiary** – tylko dzieła sztuki i przedmioty (obraz, rysunek, grafika, rzeźba, przedmiot) i tylko wtedy, gdy podaje je karta obiektu u właściciela; osobno się ich nie poszukuje. Technika po polsku (`olej na płótnie`, `akwarela`, `miedzioryt`), wymiary w centymetrach, wysokość × szerokość (`92 × 73 cm`). Przy fotografiach i drukach – nie.
+4. **Źródło** – jedno zdanie, bez formuł `Źródło:`, `ze zbiorów`, `w zbiorach`, w jednej z trzech postaci:
+   a) **obiekt w zbiorach** – właściciel (nazwa w brzmieniu oryginalnym, § 4.3), jednostka (dział, zespół, kolekcja) – gdy bez niej sygnatura nie wskazuje obiektu – i sygnatura: `sygn.` (archiwa, biblioteki), `nr inw.` (muzea). Archiwalia – w zapisie § 8.1, bez wprowadzania skrótów; zbiory prywatne – § 8.1; materiał autora artykułu – `Archiwum autora` / `Archiwum autorki`;
+   b) **druk jako przedmiot ilustracji** (strona tytułowa, karta, tablica, strona z cytowanym fragmentem książki, czasopisma, druku ulotnego, aktu prawnego) – opis bibliograficzny jak w pierwszym przywołaniu (§ 7.2) z lokalizacją (`s. 12`, `s. tyt.`, `tabl. 3`); datowania i twórcy osobno się wtedy nie podaje (zawiera je opis bibliograficzny), wyjątek – twórca ryciny (`tabl. 3, ryt. J. Callot`). Gdy reprodukcja pochodzi ze skanu udostępnionego przez instytucję, po opisie bibliograficznym – właściciel egzemplarza i sygnatura, jak w a);
+   c) **reprodukcja za publikacją** (ilustracja przejęta z książki lub czasopisma, które nie są jej przedmiotem) – `Repr. za:` i opis jak w pierwszym przywołaniu (§ 7.2), ze stroną. Gdy znany jest właściciel obiektu, podaje się właściciela (a), nie publikację.
+
+   Pośrednika (Wikimedia Commons, Europeana, Flickr, Google Arts & Culture) się nie podaje: źródłem jest właściciel, do którego prowadzi rekord. Gdy właściciela ustalić się nie da, pośrednik z identyfikatorem rekordu – wyłącznie za decyzją redakcji.
+5. **Prawa** – zdanie końcowe, tylko gdy warunki reprodukcji tego wymagają:
+   - obiekt wolny od praw (domena publiczna, CC0, brak znanych ograniczeń) – bez zdania o prawach; podpis nie orzeka o domenie publicznej;
+   - licencja otwarta – jej oznaczenie z wersją (`CC BY-SA 4.0.`); gdy licencjodawcą jest kto inny niż twórca obiektu (fotograf reprodukcji dzieła), także on: `Fot. A. Kowalski, CC BY 2.0.` W PDF online oznaczenie licencji jest hiperłączem do jej tekstu;
+   - zgoda uprawnionego – `Repr. za zgodą [uprawniony].` albo brzmienie wskazane przez uprawnionego (w przekładzie polskim, chyba że zastrzeże brzmienie oryginalne); przy źródle w postaci c) – `Za zgodą [uprawniony].`;
+   - materiał płatny – formuła wymagana przez dostawcę;
+   - materiał autora artykułu (jego fotografie, jego zbiory) i utwór osierocony (autor nieznany po starannych poszukiwaniach, udokumentowanych przez redakcję) – bez zdania o prawach.
+
+**Zestawienia.** Kilka obiektów na jednej ilustracji – jeden numer, jeden podpis; części wprowadzają formuły `Po lewej:`, `Po prawej:`, `Od lewej:`, `Od góry:`, każda z pełną metryką. Wspólne źródło lub prawa można podać raz, na końcu (`Obie: Library of Congress.`). **Fragment** obiektu (wycinek obrazu, mapy, strony) zaznacza opis (`Fragment…`).
+
+Przykłady (dane schematyczne; w nawiasach kwadratowych – elementy, których wzór nie przesądza):
+> Il. 2. Romki na South Side w Chicago, 1941 r., fot. R. Lee. Library of Congress, Prints and Photographs Division, sygn. [nr].
+>
+> Il. 4. Strona tytułowa. H.M.G. Grellmann, *Die Zigeuner*, [miejsce rok], s. tyt. Bayerische Staatsbibliothek, sygn. [nr].
+>
+> Il. 5. Kobieta romska z dzieckiem, ok. 1630 r., mal. [twórca], olej na płótnie, [wymiary]. [Muzeum], nr inw. [nr]. Fot. [fotograf reprodukcji], CC BY-SA 4.0.
+>
+> Il. 7. Wesele w Woli Michowej, lata 30. XX w., fot. autor nieznany. Zbiory prywatne [nazwisko], [miejscowość].
+>
+> Il. 8. Ruiny Admiralicji, 1939 r., fot. [twórca]. Repr. za: [opis publikacji jak w przypisie], s. [x]. Za zgodą [wydawca].
 
 ---
 
@@ -438,6 +472,7 @@ Numeracja ciągła, osobna: `Il. 1`, `Tab. 1`, `Wykr. 1`. Podpis pod obiektem: n
 | `w:` | w (tomie, serwisie) | bez nawiasów |
 | `b.m.`, `b.r.` | bez miejsca / roku | |
 | `sygn.`, `zesp.`, `k.` | sygnatura, zespół, karta | |
+| `fot.`, `rys.`, `mal.`, `ryt.`, `lit.`, `proj.`, `repr.`, `nr inw.`, `s. tyt.`, `tabl.` | fotografia, rysunek, obraz, rycina, litografia, projekt, reprodukcja, numer inwentarzowy, strona tytułowa, tablica | metryka ilustracji (§ 10.3) |
 | `f.`, `op.`, `d.`, `spr.`, `l.`, `ark.`, `ob.`, `zv.` | archiwa postsowieckie | § 8.1 B |
 | `zob.`, `por.` | zobacz, porównaj | |
 | `i in.` | i inni | tylko w przypisach |
@@ -564,6 +599,8 @@ Przekład tekstu opublikowanego na licencji z ograniczeniem (NC, ND) albo bez li
 
 Licencja drukowana na pierwszej stronie artykułu; pole obowiązkowe rekordu.
 
+**Ilustracje.** Licencja artykułu obejmuje tekst i materiał autora; ilustracje z innych źródeł zachowują własne warunki, które podaje ich metryka (§ 10.3, pkt 5). W artykule z takimi ilustracjami przy licencji na pierwszej stronie (druk i PDF online) stoi zdanie: `Ilustracje z innych źródeł – na warunkach podanych w podpisach.`
+
 > **[PILNE – przed ogłoszeniem otwartego dostępu]** *Informacje dla autorów* w tomie 18/2025 stanowią, że autorzy przenoszą prawa autorskie na Redakcję; umowa licencyjna stanowi odwrotnie. Tekst drukowany i na stronie musi zostać zastąpiony, nie uzupełniony.
 
 ### 13.3. Deponowanie
@@ -641,7 +678,8 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 - [ ] Cyrylica: tekst – transkrypcja PWN/KSNG; aparat – ALA-LC bez ligatur; `ʹ ʺ` zamiast `' "`
 - [ ] Kody rozmówców, metryczki bez danych identyfikujących
 - [ ] Etykiety aparatu po polsku
-- [ ] Podpisy ilustracji: struktura § 10.1, rejestr § 10.2
+- [ ] Podpisy ilustracji: struktura § 10.1, rejestr § 10.2, metryka według wzoru § 10.3 (właściciel, nie pośrednik; prawa)
+- [ ] Ilustracje z innych źródeł: zdanie przy licencji na pierwszej stronie (§ 13.2)
 - [ ] **W CSV nazwiska bez wersalików**
 
 **Po złamaniu**
@@ -677,5 +715,6 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.16 | Rozstrzygnięcia z 02.10.2026 (MB, ledger 21:30): § 7.2: seria wydawnicza w nawiasie na końcu opisu; kilka miejsc wydania łączone półpauzą; przedruk – rok wydania i w nawiasie kwadratowym rok pierwodruku. § 7.3: po odesłaniu `ibidem` małą literą. § 8.6, § 9.1, § 9.4, § 9.7, § 12.2.3: **DOI nie jest drukowany** (zostaje w danych i w hiperłączach PDF online), także DOI oryginału w nocie o przekładzie. § 9.2: części bibliografii – Wykaz skrótów · Źródła archiwalne · Źródła terenowe · Źródła drukowane · Opracowania · Źródła internetowe (bez „bez DOI”; „Literatura przedmiotu” → „Opracowania”; prawo, prasa i dawne druki w źródłach drukowanych). § 9.4: brakujący wydawca – wyszukiwanie w katalogach, zatwierdzanie pozycja po pozycji. |
 | 1.17 | Rozstrzygnięcie z 12.10.2026 (MB; zapis 14.10.2026, GEN-2): § 13.2: od tomu 19/2026 jedna licencja dla całego czasopisma – CC BY 4.0, bez wyboru wariantu przez autora; tom 18 i wcześniejsze bez zmian; przekład tekstu na licencji z ograniczeniem (NC, ND) lub bez licencji CC – za zgodą uprawnionego na CC BY 4.0 albo z wyjątkiem kolegium redakcyjnego dla danego tekstu. Uchyla wybór CC BY / CC BY-NC / CC BY-NC-ND z wersji wcześniejszych. |
 | 1.17, uzup. 22.10.2026 | Rozstrzygnięcie z 22.10.2026 (MB): § 12.2.3: przekład redakcyjny nie jest podpisywany – bez nazwiska tłumacza w nagłówku artykułu, w nocie o przekładzie, na stronie tytułowej wersji online i w metadanych deponowanych (`translators_struct` puste); tłumacz spoza redakcji – jak dotąd, chyba że zastrzeże anonimowość. Obowiązuje od tomu 19/2026; strony tytułowe wersji online i depozyt Crossref tomów 17–18 – od ich przebudowy przed pierwszym depozytem. Do włączenia w wersję 1.18. |
+| 1.18 | Włącza uzupełnienie wersji 1.17 z 22.10.2026 (§ 12.2.3). Nowe, opracowane na zlecenie MB z 24.10.2026 (ujednolicenie podpisów po tomie 18): § 10.3 Metryka ilustracji – podpis jako opis i metryka; wzór `[opis], [datowanie], [rola] [twórca][, technika, wymiary]. [Źródło]. [Prawa].`; role `fot.`, `rys.`, `mal.`, `ryt.`, `lit.`, `proj.`, `oprac.`; inicjał i nazwisko jak w przypisie; technika i wymiary tylko z karty obiektu; źródło w trzech postaciach (obiekt w zbiorach, druk jako przedmiot ilustracji, `Repr. za:`), bez formuł `Źródło:`, `ze zbiorów`, bez pośredników; prawa tylko, gdy warunki tego wymagają; zestawienia, fragment; metryka sporządzana, nie przekładana, także w przekładach. § 10.1: odesłanie do § 10.3. § 13.2: licencja artykułu nie obejmuje ilustracji z innych źródeł; zdanie przy licencji na pierwszej stronie. § 11: skróty metryki ilustracji. § 16: dwie pozycje listy. |
 
 Zmiany wchodzą w życie od kolejnego tomu. Tomy opublikowane nie podlegają retroaktywnemu ujednoliceniu.

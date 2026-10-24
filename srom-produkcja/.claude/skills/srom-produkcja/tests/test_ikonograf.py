@@ -1,5 +1,5 @@
 """srom-ikonograf files: the contact-sheet template renders in the side panel (no lazy images, local thumbnails
-embedded, render after the MINI block), carries alt/also; the record template has the footnote-leads section; no
+embedded, render after the MINI block), carries alt/also; the record template has the footnote-leads section and the image register; queries have their folder; no
 User-Agent or command in the skill names the journal's domain (the live-site hook would block it)."""
 import os, re
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -19,6 +19,14 @@ t("template: better copy (alt) and also-in fields rendered", "Lepsza kopia:" in 
 t("template: size toggle and enlarged view", '"duże"' in html and 'id="lb"' in html)
 t("record template: § 7 footnote leads and the zgody.md pointer",
   "## 7. Footnote leads" in rd("assets", "template", "ikonografia.md") and "zgody.md" in rd("assets", "template", "ikonografia.md"))
+rec = rd("assets", "template", "ikonografia.md")
+t("record template: § 3 is the register of every image (origin, metryka per Kanon § 10.3)",
+  "## 3. Register" in rec and "| Il. | origin |" in rec and "Kanon § 10.3" in rec)
+t("template: draft metryka field rendered, labelled as a draft", 'metryka:""' in html and "Metryka (szkic):" in html)
+sk = rd("SKILL.md")
+t("skill: queries kept in work/q-<slug>/ikonografia/ (seen by pobierz.py and Biurko like any record)",
+  "## Queries" in sk and "work/q-<slug>/ikonografia/" in sk)
+t("skill description within the 1024-character limit", len(re.search(r"^description: (.*)$", sk, re.M)[1]) <= 1024)
 bad = [(f, m) for f in ("SKILL.md", "references/sources.md", "references/rights.md")
        for m in re.findall(r"-A\s+\"[^\"]*studiaromologica[^\"]*\"", rd(*f.split("/")))]
 t("no User-Agent naming the journal's domain", not bad, bad)

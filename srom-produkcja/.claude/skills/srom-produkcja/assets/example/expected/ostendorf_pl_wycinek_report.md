@@ -3,7 +3,7 @@
 **RESULT: PASS — ready for InDesign**
 
 - footnotes: 7 · citation keys used: 16 · bibliography sections: {'VI': 16}
-- pandoc 3.8.3 · CSL srom.csl · config styles.json · linter <skills>/srom-kanon/scripts/lint_srom.py (Kanon v1.17)
+- pandoc 3.8.3 · CSL srom.csl · config styles.json · linter <skills>/srom-kanon/scripts/lint_srom.py (Kanon v1.18)
 - Ibidem notes to check after layout: 0 (run ostendorf_pl_wycinek_ibidem.jsx)
 - DOI links (online PDF, not printed): 4 citations in notes, 4 bibliography entries, 4 works with a DOI (run ostendorf_pl_wycinek_doi.jsx last, before the PDF export)
 

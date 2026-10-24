@@ -1,4 +1,4 @@
-# SROM RULES — English digest of the Kanon (v1.17)
+# SROM RULES — English digest of the Kanon (v1.18)
 
 Normative text: `references/kanon-redakcyjny.md` — *Kanon edytorski Studia Romologica* (Polish, internal), in this skill. This file is its compact English digest; **section numbers are the Kanon's**. If the two differ, the Kanon governs and this file is corrected. New rules go into the Kanon first (with a § 17 entry), then here.
 
@@ -174,6 +174,16 @@ Polish transcription, body-text sanity only: е after consonant → `ie` (Бес
 
 Structure: number, description, date, author/maker, source and signature, rights. `Il.`/`Tab.`/`Wykr.` numbered separately; table titles above, source below; every object referenced in text; apparatus date register; file requirements in the author guidelines (§ 10.1).
 
+**Metryka (§ 10.3, v1.18):** a caption = **opis** (the editor's description, register below) + **metryka** (data, one formula for every image, whatever its origin; in translations composed by the formula, never translated; nothing the opis already says is repeated):
+`[opis], [date], [role] [maker][, technique, dimensions]. [Source]. [Rights].`
+- Date: of the object (not of the reproduction or publication), apparatus form (§ 3.5): `1957 r.`, `ok. 1630 r.`, `XVIII w.`; the holder's dating; no date → omitted (no `b.d.`).
+- Role + maker: `fot.` `rys.` `mal.` `ryt.` `lit.` `proj.` `oprac.`; designer and engraver apart (`rys. A. Kowalski, ryt. B. Nowak`); initial + surname, natural order (`fot. R. Lee`, never `Lee, Russell`); `fot. autor nieznany`; no maker for anonymous prints and documents; the holder is never the maker (`fot. Narodowe Archiwum Cyfrowe` is wrong).
+- Technique, dimensions: artworks and objects only, only when the holder's object record gives them (`olej na płótnie, 92 × 73 cm`); never researched separately.
+- Source, one sentence, no `Źródło:` / `ze zbiorów`: (a) object in a collection: holder in its original name, unit only if needed, `sygn.` (archives, libraries) / `nr inw.` (museums); archival items as § 8.1 without `dalej:`; private collections § 8.1; the article author's own: `Archiwum autora/autorki`. (b) a print shown as itself (title page, plate, quoted page): first-citation description (§ 7.2) + `s. 12` / `s. tyt.` / `tabl. 3` (+ `ryt. X` for a plate), then the copy's holder and shelfmark when the scan is an institution's. (c) taken from a publication that is not its subject: `Repr. za:` + first-citation description + page; if the object's holder is known, the holder instead. Never an aggregator (Commons, Europeana, Flickr, Google Arts & Culture); one only when no holder can be traced, by editorial decision.
+- Rights, last, only when the terms require: free/PD/CC0/no known restrictions → nothing (the caption never asserts public domain); open licence → code + version (`CC BY-SA 4.0.`), plus the licensor when not the maker (`Fot. A. Kowalski, CC BY 2.0.`), hyperlinked in the online PDF; permission → `Repr. za zgodą X.` or the holder's wording (after `Repr. za:` → `Za zgodą X.`); paid → the supplier's line; the author's own material and orphan works → nothing.
+- Sets: one number, `Po lewej:` / `Po prawej:` / `Od lewej:` / `Od góry:`, a full metryka each; a shared source or rights once at the end (`Obie: …`). A detail is said in the opis (`Fragment…`).
+- Licence (§ 13.2): the article licence covers the text and the author's material; images from other sources keep their own terms; with such images the first page carries `Ilustracje z innych źródeł – na warunkach podanych w podpisach.`
+
 **Register:** extreme synthesis, dry, **no evaluative adjectives**; gravity emerges from facts. **Contextual resonance:** keep only what aligns with the article's axis; incidental attributes only if needed for rhythm or if they are the article's own territory. Unknown article → ask (§ 10.2).
 
 Calibration (Polish, verbatim):
@@ -182,7 +192,7 @@ Calibration (Polish, verbatim):
 
 ## 11. Abbreviations
 
-Allowed: `s.` `t.` `z.` `nr` `cz.` `r.` `w.` `red.` `tłum.` `oprac.` `wyd.` `w:` `b.m.` `b.r.` `sygn.` `zesp.` `k.` post-Soviet `f. op. d. spr. l. ark. ob. zv.` `zob.` `por.` `i in.` (notes only) `W FN N K` `Ibidem` (italic) `przyp. tłum.` `przyp. red.` (formula closing a non-author note).
+Allowed: `s.` `t.` `z.` `nr` `cz.` `r.` `w.` `red.` `tłum.` `oprac.` `wyd.` `w:` `b.m.` `b.r.` `sygn.` `zesp.` `k.` caption metryka (§ 10.3) `fot.` `rys.` `mal.` `ryt.` `lit.` `proj.` `repr.` `nr inw.` `s. tyt.` `tabl.` post-Soviet `f. op. d. spr. l. ark. ob. zv.` `zob.` `por.` `i in.` (notes only) `W FN N K` `Ibidem` (italic) `przyp. tłum.` `przyp. red.` (formula closing a non-author note).
 Never: `str.` `przeł.` `[w:]` `op. cit.` `dz. cyt.` `idem` `eadem` `tenże` `taż` `tamże` `loc. cit.` `vide` `cf.` `Hrsg.` `éd.` `под ред.`; roman numerals for editions, volumes, months.
 
 ## 12. Language
@@ -207,7 +217,7 @@ The Rada Języka Polskiego spelling changes in force from 01.01.2026 apply to ev
 ## 13. Metadata and deposit
 
 Record: DOI · titles · authors + ORCID + affiliation (**no capitals in surnames**) · abstracts · keywords (authority form) · pages/volume/year · licence · structured bibliography. Deposit structured fields; source of record is the master CSV.
-**Licence (§ 13.2, v1.17; MB 12.10.2026):** from vol. 19 one licence for the whole journal, CC BY 4.0; the author does not choose. Vol. 18 and earlier keep each article's consented licence (master CSV `license`), never relabelled. A translation of an NC/ND or non-CC source needs the rights-holder's consent to CC BY 4.0, else a kolegium exception for that text, with the licence named in the translation note.
+**Licence (§ 13.2; MB 12.10.2026):** from vol. 19 one licence for the whole journal, CC BY 4.0; the author does not choose. Vol. 18 and earlier keep each article's consented licence (master CSV `license`), never relabelled. A translation of an NC/ND or non-CC source needs the rights-holder's consent to CC BY 4.0, else a kolegium exception for that text, with the licence named in the translation note.
 **Pending:** vol. 18's printed *Informacje dla autorów* states a copyright transfer, contradicting the licence agreement — to be replaced before any OA announcement.
 
 ## 14. Rationale — settled, do not reopen
@@ -237,7 +247,7 @@ Record: DOI · titles · authors + ORCID + affiliation (**no capitals in surname
 10. Cyrillic: body transcribed per PWN/KSNG; apparatus ALA-LC; `ʹ ʺ` not `' "`; Cyrillic institutions transcribed in body, not translated.
 11. Imprint places match the title page.
 12. Legal acts and rulings in official wording.
-13. Captions: structure complete, register dry, only axis-relevant attributes.
+13. Captions: structure complete, register dry, only axis-relevant attributes; metryka by the § 10.3 formula (holder, not aggregator; rights only when required).
 14. CSV: surnames not capitalised, all authors present, DOIs resolve, ranges complete.
 15. Page-less citations: a quotation without a page is a query; a whole-work reference is confirmed by the editor.
 16. Non-author notes: every `– przyp. tłum./red.` note is in the asterisk series, not numbered; the title note takes the first `*` on page one.

@@ -27,7 +27,7 @@ ASTERISK_TPL = os.path.join(ROOT, "indesign", "srom_gwiazdki.jsx.tpl")
 DOI_TPL = os.path.join(ROOT, "indesign", "srom_doi.jsx.tpl")
 FROM = ("markdown-smart-superscript-subscript-strikeout-raw_html-raw_tex-tex_math_dollars"
         "-implicit_figures-fancy_lists-example_lists-task_lists-auto_identifiers")
-# Kanon § 9.2 (v1.17, GEN-8): the keys stay (srom-section "V" = web, "VI" = Opracowania); the print order is the dict's
+# Kanon § 9.2 (GEN-8): the keys stay (srom-section "V" = web, "VI" = Opracowania); the print order is the dict's
 SECTIONS = OrderedDict([("I", "Wykaz skrótów"), ("II", "Źródła archiwalne"), ("III", "Źródła terenowe"),
                         ("IV", "Źródła drukowane"), ("VI", "Opracowania"), ("V", "Źródła internetowe")])
 SECTION_ALIASES = {"zrodla drukowane i prawne": "IV", "literatura przedmiotu": "VI"}      # names before the GEN-8 rename
@@ -694,7 +694,7 @@ def _lower_first_ibidem(inls):
 
 
 def lower_ibidem_after_lead_in(x):
-    """Kanon § 7.3 (v1.17, GEN-7): after a lead-in (zob., zob. też, por., np.) "Ibidem" is lower case. Done on the finished
+    """Kanon § 7.3 (GEN-7): after a lead-in (zob., zob. też, por., np.) "Ibidem" is lower case. Done on the finished
     AST, after every check that looks for "Ibidem"; the InDesign Ibidem check finds it either way."""
     if isinstance(x, list):
         for i, e in enumerate(x):
@@ -858,7 +858,7 @@ def main():
         yr = ((r.get("issued") or {}).get("date-parts") or [[None]])[0][0]
         if not r.get("publisher") and isinstance(yr, int) and yr <= 1800:
             r["srom-early-print"] = "1"
-    # Kanon § 7.2 (v1.17, GEN-6): several places of publication joined with an en dash ("Köln–Weimar–Wien");
+    # Kanon § 7.2 (GEN-6): several places of publication joined with an en dash ("Köln–Weimar–Wien");
     # the data may separate them with "/" or ";"
     for r in refs_list:
         if r.get("publisher-place"):

@@ -6,7 +6,7 @@ ISSN 1689-4758); formerly srom-typeset (renamed 30.09.2026, MB). Seven skills in
 - **srom-produkcja** — manuscript → SROM-MD → DOCX → InDesign; citations via CSL; checks; Word working copies.
 - **srom-quant** — metadata, DOI/Crossref, website (formerly srom-scholarly-curator; no session of its own, used here).
 - **srom-zizek** — selection and critical review of papers for a volume (the stage before RIP).
-- **srom-ikonograf** — illustrations for an article: sourcing in digitised collections, rights, captions, permission letters (data in workspace `srom-produkcja/work/<id>/ikonografia/`).
+- **srom-ikonograf** — illustrations: sourcing in digitised collections (for a text or a topic query), and the register of every image a text carries, whatever its origin: rights, metryka (Kanon § 10.3), permission letters (data in workspace `srom-produkcja/work/<id>/ikonografia/`, queries in `work/q-<slug>/`).
 - **wp-acf-plugin-builder**, **wp-elementor-builder** — the website's WordPress plugins and Elementor templates.
 
 Code is the workshop: it builds and tests the skills. The texts, the volume data and MB's questions are Cowork's (root

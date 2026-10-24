@@ -59,6 +59,9 @@ every line in its **Pass** row is printed (and the manual reads are done), and f
 - **Pass:** `take_back.py … --expect <file>=<sha256> …` (one per logged file) → `TAKE-BACK OK <id>` · `normalize.py` of
   the copy into `build/` with no flag left · `build.py` on that file without `--draft` → `PASS` (no `[BRAK …]`, linter 0 ERROR, DOCX verified) · the CSV row: `validate_master.py` without blocking
   errors before any deposit (srom-quant).
+  Manual read: every caption (`::: podpis`) is MB's opis followed by the metryka from the text's image register
+  (`work/<id>/ikonografia/ikonografia.md` § 3, srom-ikonograf; Kanon § 10.3), word for word; an image with no register
+  row gets one before the build.
 - **Fail:** the report (or a normaliser flag) lists every error; note it in the notes sheet and fix it in the Word
   master (or refs.json, with a new hand-off line), never in the md or the DOCX; deliver and take back again.
 

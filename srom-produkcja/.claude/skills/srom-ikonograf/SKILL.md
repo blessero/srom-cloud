@@ -1,6 +1,6 @@
 ---
 name: srom-ikonograf
-description: Sourcing illustrations for Studia Romologica (SROM) articles. Reads a text, proposes an illustration brief (slots tied to passages, angles, search terms in period and catalogue vocabulary), searches digitised collections (APIs first, then deep links and the browser), builds a contact sheet with rights classes, and after MB's choice records files, draft captions, credits and permission requests. Use for "ikonograf", ilustracje, ryciny, zdjęcia do artykułu, "find images/illustrations for", sourcing visuals, prawa do ilustracji, zgody na ilustracje, permission letters for images, "where is a better copy of this image". Not for caption rules themselves (srom-kanon § 10), placing images in InDesign (srom-produkcja, INJECT) or the article licence (srom-kanon knowledge base).
+description: Illustrations for Studia Romologica (SROM) articles, and every image an article carries. Sourcing: reads a text, or MB's topic prompt tied to no text, proposes a brief, searches digitised collections, builds a contact sheet with rights classes. Image register: for every image going to print, whatever its origin (found here, sent by the author, brought by MB), the file, the metryka (date, maker, holder, shelfmark, rights, by the Kanon formula), the permission state and letters. Use for "ikonograf", ilustracje, ryciny, zdjęcia do artykułu, "find images for", a visual inquiry on a topic ("ikonograf temat", "zapytanie"), metryka, atrybucja, credit line, images from the author, prawa do ilustracji, zgody na ilustracje, permission letters, "a better copy of this image". Not for the caption rules themselves (srom-kanon § 10), placing images in InDesign (srom-produkcja, INJECT) or the article licence (srom-kanon knowledge base).
 ---
 
 # srom-ikonograf — illustrations for SROM articles
@@ -8,12 +8,19 @@ description: Sourcing illustrations for Studia Romologica (SROM) articles. Reads
 Many texts reach SROM with no or too few visuals. Ikonograf proposes what an article could show and finds it in
 digitised collections that a Google search does not reach. MB decides; the angle on each article is his, and the
 skill's job is to widen his options and do the slow parts: footnote mining, multilingual searching, rights triage,
-files, credits, permission letters. Journal facts (publisher, ISSN, licences): srom-kanon
+files, credits, permission letters. It has two halves: **sourcing** (steps 1–5, when MB wants images found) and
+the **image register** (steps 6–8), which serves every image the text will carry, whatever its origin: found here,
+sent by the author, brought by MB or found elsewhere. Journal facts (publisher, ISSN, licences): srom-kanon
 `references/SROM_knowledge_base.md`. Caption structure and register: Kanon § 10 (cite it; never restate it here).
 
 **Place in the pipeline:** whenever MB asks, whatever the text's state (a pool candidate, chosen, translated or not)
 — the earlier the better, because permissions take weeks and Kanon § 10.1 wants them gathered before the text is
 accepted. Its output feeds INJECT (files and captions placed in InDesign by MB).
+**A caption is two parts** (Kanon § 10.3): the **opis**, MB's, written when he edits the text or lays it out (often at
+the last minute); and the **metryka** (date, maker, holder and shelfmark, rights), which is data: ikonograf writes it,
+by the Kanon formula, as soon as an image is accepted for print, so it waits ready in the register (§ 3 of the record)
+and MB only places it after his opis. Permissions (step 7) belong to the early, production side of the work and start
+the moment an image is chosen.
 
 **Every run is meticulous** (MB, 24.10.2026). The text's state, its place in the queue or the volume never lowers the
 effort and is not commented on. MB would rather look at many candidates and discard most of them, hoping for a rare find
@@ -31,7 +38,9 @@ nothing good says so in § 5 instead of being padded.
 | rights classes, credits, finding the contact, permission letters (EN; PL/ES/FR on request) | `references/rights.md` |
 | downloads for Cowork runs, done on the Mac (§ Where it runs) | `scripts/pobierz.py`, `scripts/pl.srom.ikonograf-pobierz.plist` |
 | per-text record and contact sheet (templates) | `assets/template/ikonografia.md`, `assets/template/kontaktowka.html` |
-| one text's work | workspace `srom-produkcja/work/<id>/ikonografia/`: `ikonografia.md`, `kontaktowka.html`, `zgody.md` (letters, step 7), `pliki/` (chosen files), `miniatury/` (local thumbnails, step 5) |
+| caption formula (metryka): the rule, never restated here | srom-kanon `references/kanon-redakcyjny.md` § 10.3 |
+| one text's work | workspace `srom-produkcja/work/<id>/ikonografia/`: `ikonografia.md` (§ 3 = the image register), `kontaktowka.html`, `zgody.md` (letters, step 7), `pliki/` (files going to print), `miniatury/` (local thumbnails, step 5) |
+| a query (§ Queries) | workspace `srom-produkcja/work/q-<slug>/ikonografia/`, same files |
 
 `<id>` is the text's work folder. Check in `STATUS.md` that `work/<id>/` holds the text MB means: one author can have
 texts in two volumes (Ostendorf: the vol. 18 article, and the vol. 19 chapter in `work/ostendorf/`). A text with no
@@ -57,6 +66,23 @@ if it is not installed) and logs each request in `pobierz.log`. Cowork reads the
 file is there, `FAIL` gives the reason (a different URL, or the item goes to MB as a link). MB does nothing.
 Code-only searches (Smithsonian, Openverse) are skipped from Cowork; a thin slot can be searched from Code on request.
 A Code session can still run the whole skill (as in the Ostendorf, Tittel and Pahulich tests) with the same files.
+
+## Queries (not tied to a text, or one aspect of it)
+
+MB may want images on a subject no text in the workshop covers, or a deep inquiry into one aspect a text barely
+touches (the 1904 St. Louis World's Fair, a line in Takács), usually with a fuller prompt. The steps are the same;
+only these differ:
+- **Record:** `work/q-<slug>/ikonografia/` (`q-stlouis1904`), so the Mac downloads and Biurko see it as any other
+  record. Heading: `# Ikonografia — Zapytanie <short subject>, „<prompt in a few words>”`, plus `(vol. 19)` when it serves
+  a volume. A query for a text: the text's record gets one line in § 1 pointing to it; the query's record names the text.
+- **Step 1** reads MB's prompt (and the text's passage, if any) instead of a whole text; no author e-mail unless the
+  query serves a text and the author is likely to hold images.
+- **Brief:** slots are tied to the aspects of the prompt (the `passage` column says `prompt: <aspect>`), not to pages;
+  no printed target, unless MB gives one: the prompt sets the scope, and the run is as meticulous as any other.
+- **Step 3** has no footnotes: its place is taken by the **literature leads** (§ 7 of the record): the standard works,
+  exhibition catalogues and illustrated contemporary accounts of the subject, found with the literature tools and
+  catalogues, each checked through its list of illustrations, as footnote leads are.
+- Images MB picks from a query go into the register (§ 3) of the text they will illustrate, with origin `q-<slug> S<n>-x`.
 
 ## The steps
 
@@ -120,17 +146,27 @@ A Code session can still run the whole skill (as in the Ostendorf, Tittel and Pa
    **Deliver** as the root CLAUDE.md § Files MB must open says: send `kontaktowka.html` and `ikonografia.md` with
    SendUserFile (display render) as the turn's last tool call: the card is MB's button. End the reply with the
    `Files to open:` line (name, text, absolute path; 🔴 is for files, never for chat).
+   **Metryka draft** per candidate (`metryka` field), by Kanon § 10.3 from the data already on the row (no extra
+   lookups): it shows MB what the caption would carry and catches a missing holder or shelfmark early. It is a draft,
+   unchecked; the sheet labels it so.
    Look at the thumbnails yourself when a browser tool is available (open the sheet, screenshot); otherwise say the
    triage was by metadata only. Also count the broken ones (in the browser pane:
    `[...document.images].filter(i => !i.naturalWidth).length` after a few seconds) and fix or drop each. Open the key
    pages (a cited source's title page, the quoted page) at size, in a montage of thumbnails if there are many, to see
    that each shows what its row says: a scan's first leaf is often a cover or a blank.
-6. **MB chooses.** For each chosen image (`ikonografia.md` § 3): `Il. n`, file name `<id>_il<nn>_<slug>.<ext>` in
-   `pliki/`, a draft caption in Polish per Kanon § 10.1–10.2 (dry; date and place as they really are, patterns § 3),
-   the credit, the rights class, the permission state. Files: from Cowork, a `plik` row per file in `pobierz.tsv`
+6. **The register** (`ikonografia.md` § 3): one row for every image going to print, whatever its origin: an image MB
+   chose from the sheet, one the author sent, one MB brought, one found elsewhere (origin column). Per image: `Il. n`
+   (once the order is known), file name `<id>_il<nn>_<slug>.<ext>` in `pliki/`, the rights class, the permission
+   state, and the **metryka** by Kanon § 10.3, written now and checked against the holder's own object record (open
+   it: title, date, maker, shelfmark, licence or terms, the credit line the holder asks for; technique and dimensions
+   when the record gives them); the date of that check goes in the row. An image whose data is not to be had (an
+   author's file with no provenance): what is missing goes to § 6 and, when only the author knows, into the letter to
+   the author (rights.md § Letters, Author). An opis draft only when MB asks (dry, patterns § 3; the opis is his).
+   Author images: count and look at them, trace each to its holder like any find (sources.md § Tracing): an author's
+   scan of a museum print is the museum's, an author's photograph of an archival record needs the archive's terms. Files: from Cowork, a `plik` row per file in `pobierz.tsv`
    (§ Where it runs), then check `pobierz.log`; from Claude Code on the Mac, `curl -L -o` the full-resolution URLs
    into `pliki/` (the Commons User-Agent from sources.md; a few seconds apart), or run `scripts/pobierz.py`.
-7. **Permissions** (rights.md), for the chosen images only. Per holder: find the best contact (rights.md § Finding
+7. **Permissions** (rights.md), for every image in the register that needs one, whatever its origin. Per holder: find the best contact (rights.md § Finding
    the contact: a named person and e-mail where one can be found, alternatives when unsure, each with where it was
    found), then draft one English letter listing all that holder's items with their catalogue data, into `zgody.md`,
    ready for MB to send (`🔴 zgody.md` in the record's § 4). MB sends; the date and the answer go in § 4. For class E,
@@ -148,9 +184,11 @@ A Code session can still run the whole skill (as in the Ostendorf, Tittel and Pa
 | **brief** <text> | steps 1–3 only: brief plus cited-source hits, when MB wants to cut slots before the search |
 | **szukaj** / search <text or slot> | steps 4–5 for the brief's open slots (or the one slot named) |
 | **lepsza kopia** <image or link> | trace the original holder and the largest copy of a known image (sources.md § Tracing) |
-| **zgody** <text> | step 7 for the chosen images: contacts, letters in `zgody.md`, due diligence, the state of each |
+| **ikonograf temat** / **zapytanie** <prompt> | steps 1–5 as a query (§ Queries), in `work/q-<slug>/ikonografia/` |
+| **rejestr** <text> <files or where they are> | step 6 for images from outside the sheet (author, MB, elsewhere): register, trace, metryka; a record with only §§ 3–6 when the text has none |
+| **zgody** <text> | step 7 for every image in the register: contacts, letters in `zgody.md`, due diligence, the state of each |
 | **przypisy** <text> | the open rows of § 7 (footnote leads): check each, add what they yield to the sheet |
-| **podpisy** <text> | captions for the chosen images (Kanon § 10), credits checked against the item pages |
+| **metryki** / **podpisy** <text> | the metryka of every image in the register (Kanon § 10.3), checked against the holder's object record; a paste list `Il. n – metryka` for MB; opis drafts only if asked |
 
 ## Limits (tested 21.10.2026 from Cowork and from Claude Code)
 

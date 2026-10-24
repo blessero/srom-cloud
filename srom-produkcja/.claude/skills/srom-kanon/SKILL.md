@@ -3,7 +3,7 @@ name: srom-kanon
 description: House style enforcement for Studia Romologica, the Polish-language Romani studies annual. Use when checking, correcting, copyediting or typesetting any article for this journal, or when asked about SRom citation format, footnotes, bibliography, dates, Cyrillic transcription/transliteration, archival citation, interview coding, captions, or Romani-name capitalisation. Also use when preparing SRom bibliography data for the master CSV or Crossref deposit, and when an article arrives in the wrong style and needs normalising. Triggers on "Studia Romologica", "SRom", "kanon edytorski", or a Polish humanities article that must follow the journal's footnote system. Not for running the conversion and build tools (srom-produkcja), translating (srom-tlumacz) or metadata, DOI and website work (srom-quant): those skills apply these rules.
 ---
 
-# Studia Romologica — house style (Kanon v1.17)
+# Studia Romologica — house style (Kanon v1.18)
 
 Polish-language journal. Footnotes + full end bibliography; **never author-date.** English appears only in metadata (title, abstract, keywords).
 
@@ -55,6 +55,8 @@ Missing year, page or publisher, or an illegible/ambiguous element → **do not 
 ## Captions
 
 Dry, no evaluative adjectives; keep only what resonates with the article's axis. Calibration sample in RULES.md § 10. Unknown article → ask first.
+
+A caption is the editor's **opis** plus the **metryka** (date, maker with role, source, rights), built by one formula for every image whatever its origin: Kanon § 10.3 (digest in RULES.md § 10). The holder, never an aggregator; nothing printed about rights unless the terms require it; images from other sources are outside the article licence (§ 13.2). Gathering the data and writing the metryka for a text's images: srom-ikonograf.
 
 ## Open — do not invent
 

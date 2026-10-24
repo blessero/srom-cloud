@@ -2,19 +2,23 @@
 
 SROM is wholly non-commercial (grant-funded, copies given away free, open access paid by the publisher) and an
 academic journal: most holders grant permission readily, often free. Journal facts for letters (publisher, ISSN,
-licence of the articles): srom-kanon `references/SROM_knowledge_base.md`, never from memory. The caption's rights
-element follows Kanon § 10.1.
+licence of the articles): srom-kanon `references/SROM_knowledge_base.md`, never from memory. What the caption prints
+for each class (the metryka's rights element): Kanon § 10.3, point 5; this file decides the class, the Kanon the words.
 
 ## Classes (one per candidate, on the contact sheet and in the record)
 
-| class | what | use | caption/credit |
+| class | what | use | rights element (Kanon § 10.3, 5) |
 |---|---|---|---|
-| **A** free | public domain, PDM, CC0, "No known restrictions" (LoC) | use | holder and shelfmark anyway (Kanon § 10.1) |
-| **B** attribution | CC BY, CC BY-SA, Fortepan, Bundesarchiv on Commons | use; credit as the licence asks | creator, holder, licence (`CC BY-SA 4.0`) |
+| **A** free | public domain, PDM, CC0, "No known restrictions" (LoC) | use | none; holder and shelfmark still in the source |
+| **B** attribution | CC BY, CC BY-SA, Fortepan, Bundesarchiv on Commons | use; credit as the licence asks | licence code + version; the licensor when not the maker |
 | **C** non-commercial / no-derivatives | CC BY-NC(-SA), CC BY-NC-ND (David Rumsey, many regional archives on Europeana) | NC: fits SROM. **ND: no crop, detail or retouch** — MB often cuts maps and details, so flag ND before he plans a crop | as B |
 | **D** ask | in copyright or reuse reserved, holder known (IPN, museums, agencies, living photographers, authors' archives) | letter (below); usable once granted | `Repr. za zgodą <holder>.` or the holder's wording |
-| **E** unknown | author and holder unknown or unreachable (user uploads on fotopolska.eu and similar) | MB decides per image, after due diligence | `Fot. autor nieznany.` + where found |
+| **E** unknown | author and holder unknown or unreachable (user uploads on fotopolska.eu and similar) | MB decides per image, after due diligence | none (`fot. autor nieznany` is the maker element); the due diligence stays in the record |
 | **F** paid | Alamy, Look and Learn, agencies | last resort, MB approves the fee | the agency's credit line |
+
+The author's own photographs and collections: the article licence covers them unless the author says otherwise; no
+rights element. An author's photograph of someone else's object (an archival record, a museum piece) is two things:
+the photograph is the author's, the object's holder may still set terms for publishing it (ask, rights.md § Letters).
 
 Notes:
 - **Reproductions of public-domain art.** Under art. 14 of the EU DSM directive (in force in Poland and Spain), a faithful
@@ -23,10 +27,9 @@ Notes:
   as photographs: treat them by the photographer's terms.
 - **"pdus" (HathiTrust) and US-only public domain** (US works before 1930, US federal works): fine for a US holder's
   scan of a pre-1900 item; for 20th-century items check the author's death date (EU: 70 years).
-- **The article's licence vs the image's.** The image keeps its own terms; the article's open licence does not
-  extend to it. Where the article licence is broader than the image's (a CC BY article with an NC or D image), the
-  caption should say the image is excluded from it. The wording is a Kanon matter: not yet in Kanon § 10 (open
-  question, C-item of 21.10.2026). Until then, record the class and leave the clause to MB.
+- **The article's licence vs the image's.** The image keeps its own terms; the article's CC BY does not extend to
+  it. Settled in Kanon § 13.2 (v1.18): the metryka states the terms, and the first page of an article with such images
+  carries one sentence next to the licence. Nothing more per caption.
 - **Lead times.** Museums and archives: 1–4 weeks, longer in summer; IPN and ministries: longer. Ask at the brief
   stage, not after layout.
 
@@ -76,8 +79,10 @@ base; the letter does without it unless a holder asks.
 >
 > We illustrate the articles in *Studia Romologica* with period sources and photographs. For "[title]", do you have
 > your own photographs of the archival documents you cite (e.g. [one or two from the notes]), field photographs, or
-> images you would suggest? For each, please say where it comes from and whether we may reproduce it in print and in
-> the online PDF. We will credit them as you wish.
+> images you would suggest? For each image, please tell us who made it and when, where the original is kept (the
+> archive, library or museum, and its call number or inventory number), and whether we may reproduce it in print and
+> in the online PDF; for a photograph you took of a document, also whether the archive allowed publication. We will
+> credit each as you wish.
 >
 > With kind regards, Michał Bartosz, Managing Editor, *Studia Romologica*
 
