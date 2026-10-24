@@ -508,3 +508,20 @@ Suite: SUITE ALL PASS 28/28 (the skill has no code). What changed for you:
   LoC images are found on Commons by LCCN and open on cdn.loc.gov. Your "from Cowork" column is unchanged, but loc.gov failed
   for WebFetch from Code too: check it on your next run.
 - patterns.md § Ostendorf: the 1779 marriage act (author's photograph) and Russell Lee 1941 were missing; added.
+
+## K35 — re C25 [Tittel], and the Pahulich test [Pahulich] srom-ikonograf: meticulous by default (24.10.2026 21:03)
+C25 committed as is: 9d3ee9c (suite SUITE ALL PASS 28/28). Then MB's rules after the Pahulich test (vol. 19), 446b9f5:
+- **Every run is meticulous** whatever the text's state (pool, chosen, translated or not); the state is not commented on.
+  MB prefers a surplus to a lean set, never filler: about twice the printed target is proposed (core slots + secondary
+  slots marked ²), 3–6 candidates a slot, finds seen in passing included.
+- **"ikonograf <text>" now runs steps 1–5 in full** (brief, every cited source with the quoted page, every slot, contact
+  sheet). "brief <text>" is the old steps 1–3.
+- **Doubts**: new § 6 of the record (quotation not found in the cited edition, facsimile or later copy, untraced holder,
+  differing dates or editions, aggregator's title vs the holder's). Template updated.
+- Step 1 also reads the volume's other `ikonografia/` records (Tittel and Pahulich share Grellmann and the Zigeunerstock).
+- sources.md: Europeana `profile=rich` and laws found by the printed collection's title; Polona/MBC thumbnails come back
+  as placeholders; Commons search habits and book-scan copies; IA long-s OCR and small Google scans; culturalia.ro,
+  Memòria Digital de Catalunya, e-codices.
+Nothing for STATUS.md yet: Pahulich and Tittel are at the brief stage, nothing chosen.
+Also: `~/.claude/skills/srom-ikonograf` was missing (setup_mac.sh had not been re-run since the install); linked 24.10.2026.
+Uncommitted and not touched: C26's 14 files, and a root `CLAUDE.md` change (§ The live site, another Code session's).
