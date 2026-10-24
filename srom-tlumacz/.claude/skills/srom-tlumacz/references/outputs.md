@@ -28,8 +28,10 @@ hand-off log line. A later line with a new `refs.json`: copy it in, update the m
 
 **OUT-TEXT `<id>_pl.md`.** SROM-MD (srom-produkcja `references/srom-md.md`) translated from `<id>_src.md` paragraph for
 paragraph; tokens, markers, locators and block lines copied unchanged.
-- YAML front matter at the top: `tlumaczenie: "Imię Nazwisko"` (a list for several). Never a body paragraph; not
-  printed; the build reports it as `translators_struct` for the CSV; empty = build error.
+- YAML front matter at the top, only for a translator from outside the editorial team (Kanon § 12.2.3: editorial
+  translations, MB's by default, are unsigned: no front matter, no „Tłumaczenie:” in the title note; MB 22.10.2026):
+  `tlumaczenie: "Imię Nazwisko"` (a list for several). Never a body paragraph; not printed; the build reports it as
+  `translators_struct` for the CSV; empty = build error.
 - One `::: przypis-tytulowy` block per article: the translation note first (Kanon § 12.2.3, its order and formula),
   the author's own title note as a further paragraph (§ 7.1).
 - Translator's notes `[^t<n>]`, ending `– przyp. tłum.`; supplements inside an author's note in `[… – przyp. tłum.]`

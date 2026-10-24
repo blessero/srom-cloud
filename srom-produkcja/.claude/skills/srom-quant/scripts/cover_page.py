@@ -210,8 +210,7 @@ def check(row):
     have = [k for k in ("abstract_pl", "abstract_en", "keywords_pl", "keywords_en") if row.get(k)]
     if have and len(have) < 4:
         probs.append("missing: " + ", ".join(sorted({"abstract_pl", "abstract_en", "keywords_pl", "keywords_en"} - set(have))))
-    if row.get("is_translation") == "TAK" and not translators(row):
-        probs.append("translation without translators_struct (Kanon § 12.2.3)")
+    # a translation without translators_struct is normal: editorial translations are unsigned (Kanon § 12.2.3, MB 22.10.2026)
     return probs
 
 

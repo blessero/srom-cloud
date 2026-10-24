@@ -37,7 +37,8 @@ run through `normalize.py`: Polish typography is applied to the translation, aft
   verified ISBN). That marking is the declaration — it survives the Word round trip, unlike comments;
   `<!-- DODANO: @key -->` in the note is still accepted. `cite_map.py audit` skips these entries when
   matching the author's list and fails any without `srom-source`.
-- Translator in the article header (Kanon § 12.2.3, E10): YAML front matter at the very top of `<id>_pl.md`,
+- Translator in the article header (E10), for a translator from outside the editorial team only (Kanon § 12.2.3: editorial
+  translations are unsigned, so they carry no front matter and no name in the title note; MB 22.10.2026): YAML front matter at the very top of `<id>_pl.md`,
   `tlumaczenie: "Imię Nazwisko"` (a YAML list if several). Never a body paragraph: SROM-MD has no header, and
   the header block is set in InDesign from the master CSV. The build does not print it; it lists it in
   `_report.md` under "Header data" with the `translators_struct` value for the CSV. It survives the Word working

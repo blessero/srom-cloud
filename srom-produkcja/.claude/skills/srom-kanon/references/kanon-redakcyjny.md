@@ -475,16 +475,19 @@ Paragraf dotyczy artykułów publikowanych w przekładzie na język polski z ory
 
 #### 12.2.3. Nota o przekładzie i wskazanie tłumacza
 
-- Tłumacz – w nagłówku artykułu, pod afiliacją autora: `Tłumaczenie: Imię Nazwisko`; ponadto w nocie o przekładzie.
+- **Przekład redakcyjny nie jest podpisywany.** Przekład wykonany w redakcji (domyślnie każdy przekład w czasopiśmie) ukazuje się bez nazwiska tłumacza: nie podaje się go w nagłówku artykułu, w nocie o przekładzie, na stronie tytułowej wersji online ani w metadanych deponowanych (pole `translators_struct` pozostaje puste); za przekład odpowiada redakcja (*Zasady recenzowania*). Podstawa: prawo twórcy opracowania do udostępniania go anonimowo (art. 16 pkt 2 ustawy o prawie autorskim i prawach pokrewnych); obowiązkowe pozostaje wymienienie twórcy i tytułu utworu pierwotnego (art. 2 ust. 5) – w nocie o przekładzie.
+- Tłumacz spoza redakcji – w nagłówku artykułu, pod afiliacją autora: `Tłumaczenie: Imię Nazwisko`; ponadto w nocie o przekładzie, na stronie tytułowej wersji online i w metadanych deponowanych, chyba że zastrzeże anonimowość.
 - **Nota o przekładzie jest obowiązkowa**: jawność pierwodruku wyklucza zarzut publikacji zdublowanej. Przypis do tytułu, oznaczony gwiazdką (§ 7.1). Zawiera, w tej kolejności:
   1. opis pierwodruku według § 7.2 (bez DOI, § 9.7);
   2. licencję pierwodruku z adresem jej tekstu albo podstawę zgody na przekład; przy licencjach Creative Commons – wskazanie, że przekład stanowi zmianę utworu, oraz nota o prawach autorskich pierwodruku, jeżeli ją zawiera (wymogi licencji);
-  3. tłumacza;
+  3. tłumacza – wyłącznie spoza redakcji;
   4. zakres ingerencji (§ 12.2.8), jeżeli wystąpiły;
   5. formułę o cytatach (§ 12.2.4 c, d).
 
-Wzór:
-> \* Pierwodruk: I. Nazwisko, *Tytuł oryginału*, „Czasopismo”, rrrr, t. nn, nr nn, s. aa–bb. © I. Nazwisko. Tekst opublikowany na licencji CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); niniejszy przekład stanowi zmianę utworu w rozumieniu licencji. Tłumaczenie: Imię Nazwisko. Cytaty ze źródeł obcojęzycznych, o ile nie wskazano inaczej, w przekładzie tłumacza artykułu.
+Wzór (przekład redakcyjny):
+> \* Pierwodruk: I. Nazwisko, *Tytuł oryginału*, „Czasopismo”, rrrr, t. nn, nr nn, s. aa–bb. © I. Nazwisko. Tekst opublikowany na licencji CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); niniejszy przekład stanowi zmianę utworu w rozumieniu licencji. Cytaty ze źródeł obcojęzycznych, o ile nie wskazano inaczej, w przekładzie tłumacza artykułu.
+
+Tłumacz spoza redakcji: po wskazaniu licencji (pkt 2) – `Tłumaczenie: Imię Nazwisko.`
 
 #### 12.2.4. Cytaty
 
@@ -673,5 +676,6 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.15 | Rozstrzygnięcie z 02.10.2026 (MB, po v1.14): § 3.4: w nazwach serii wydawniczych i konferencji wielką literą zapisuje się każdy wyraz (`„Leksykon Polskiej Muzyki Rozrywkowej”`). |
 | 1.16 | Rozstrzygnięcia z 02.10.2026 (MB, ledger 21:30): § 7.2: seria wydawnicza w nawiasie na końcu opisu; kilka miejsc wydania łączone półpauzą; przedruk – rok wydania i w nawiasie kwadratowym rok pierwodruku. § 7.3: po odesłaniu `ibidem` małą literą. § 8.6, § 9.1, § 9.4, § 9.7, § 12.2.3: **DOI nie jest drukowany** (zostaje w danych i w hiperłączach PDF online), także DOI oryginału w nocie o przekładzie. § 9.2: części bibliografii – Wykaz skrótów · Źródła archiwalne · Źródła terenowe · Źródła drukowane · Opracowania · Źródła internetowe (bez „bez DOI”; „Literatura przedmiotu” → „Opracowania”; prawo, prasa i dawne druki w źródłach drukowanych). § 9.4: brakujący wydawca – wyszukiwanie w katalogach, zatwierdzanie pozycja po pozycji. |
 | 1.17 | Rozstrzygnięcie z 12.10.2026 (MB; zapis 14.10.2026, GEN-2): § 13.2: od tomu 19/2026 jedna licencja dla całego czasopisma – CC BY 4.0, bez wyboru wariantu przez autora; tom 18 i wcześniejsze bez zmian; przekład tekstu na licencji z ograniczeniem (NC, ND) lub bez licencji CC – za zgodą uprawnionego na CC BY 4.0 albo z wyjątkiem kolegium redakcyjnego dla danego tekstu. Uchyla wybór CC BY / CC BY-NC / CC BY-NC-ND z wersji wcześniejszych. |
+| 1.17, uzup. 22.10.2026 | Rozstrzygnięcie z 22.10.2026 (MB): § 12.2.3: przekład redakcyjny nie jest podpisywany – bez nazwiska tłumacza w nagłówku artykułu, w nocie o przekładzie, na stronie tytułowej wersji online i w metadanych deponowanych (`translators_struct` puste); tłumacz spoza redakcji – jak dotąd, chyba że zastrzeże anonimowość. Obowiązuje od tomu 19/2026; strony tytułowe wersji online i depozyt Crossref tomów 17–18 – od ich przebudowy przed pierwszym depozytem. Do włączenia w wersję 1.18. |
 
 Zmiany wchodzą w życie od kolejnego tomu. Tomy opublikowane nie podlegają retroaktywnemu ujednoliceniu.

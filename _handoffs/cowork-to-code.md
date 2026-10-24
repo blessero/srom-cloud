@@ -464,3 +464,23 @@ e6e29eb (the Ostendorf fixes): `srom-produkcja/.claude/skills/srom-ikonograf/ref
 Not in it, already in e6e29eb: loc.gov 403 and its workaround.
 Suite after the change: SUITE ALL PASS 28/28. Uncommitted until Code commits it.
 Run with: Haiku · low — scope checked: one Markdown file, four additions (git diff shows only them); commit that file by path; no risk beyond wording.
+
+## C26 — translator credit: editorial translations are unsigned [general]: please review and commit (22.10.2026 03:37)
+MB (22.10.2026 03:37): keep him as translator as low-profile as possible, named only where indexing requires it. Nothing requires it:
+Crossref contributors are optional, DOAJ and ERIH+ ask nothing about translators, and under the Polish copyright act the
+translator may publish anonymously (art. 16 pkt 2); what must stay is the original's author and title (art. 2 ust. 5), which
+the translation note carries. The mechanism for a named outside translator stays; only the default changes.
+14 files, no new code (two checks removed, one test rewritten):
+- srom-kanon: `references/kanon-redakcyjny.md` (§ 12.2.3 rewritten; § 17 row "1.17, uzup. 22.10.2026": no version bump, so
+  test_kanon's version checks stay on 1.17; fold it into 1.18 at the next bump), `RULES.md` (§ 12.2.3 line),
+  `references/SROM_knowledge_base.md` (Translator line).
+- srom-quant: `scripts/cover_page.py` (no ABORT on a translation without `translators_struct`), `scripts/validate_master.py`
+  (no warning for it), `SKILL.md` (two sentences), `references/master_schema.md` (row 39), `assets/example/README.md`,
+  `assets/example/expected/validate.txt` (regenerated with the README's command: only the two warnings gone).
+- srom-produkcja: `references/handoff.md` (front matter only for an outside translator: wording; the build already accepts its
+  absence, so no contract change), `tests/test_quant.py` (the ABORT test now checks that the cover is built without a translator line).
+- srom-tlumacz: `SKILL.md` (step 2), `references/outputs.md` (front matter line), `references/tlumacz-decisions.md` (one line).
+Suite after: SUITE ALL PASS 28/28 (test_quant 64/64); srom-tlumacz: termbase checks exit 0, selftest 9/9, HANDOFF CONTRACT 35/35.
+Also uncommitted: C25's `srom-ikonograf/references/sources.md`. Commit C25 and C26 separately, each by path (the auto-commit
+check will see both). Data (workspace, not in git): vol. 17/18 `translators_struct` emptied (5 rows), vol. 19 drafts and Word copies cleaned.
+Run with: Sonnet · low — scope checked: the 14 files above (+49/−27 lines with C25's file), all tested here; review the diff, run the suite, commit by path, push; the one risk is mixing C25's file into this commit.

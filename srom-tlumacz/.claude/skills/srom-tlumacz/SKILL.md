@@ -72,7 +72,8 @@ later": then collect his decisions, never wait for them, and say which choice th
 
 **2. Draft** — `<id>_pl.md`, `<id>_front_pl.md`, `<id>_refs_tlum.json`, `<id>_pytania_tlum.csv`, `<id>_quotes.tsv`,
 `<id>_uwagi.md`; formats in `references/outputs.md`. Paragraph for paragraph; tokens and markers untouched;
-`tlumaczenie:` in the YAML front matter; one title-note block; every open point a `DO SPRAWDZENIA: S<n>` comment and the
+`tlumaczenie:` in the YAML front matter only for a translator from outside the editorial team (Kanon § 12.2.3: editorial
+translations, MB's by default, are unsigned: no front matter, no name in the title note); one title-note block; every open point a `DO SPRAWDZENIA: S<n>` comment and the
 same `S<n>` line in the notes sheet (comments never block and vanish after Word).
 
 **3. Checks** (from `work/<id>/`)

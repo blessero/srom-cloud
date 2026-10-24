@@ -16,8 +16,12 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
   welcome. The test of an article's or a translation's fit.
 - **Language:** exclusively Polish: every article, translated ones included, is published in Polish. Only the
   abstracts, keywords, titles and contents are also given in English. The journal is not bilingual.
-- **Translator:** unless stated otherwise, Michał Bartosz translates every translated text (MB, 06.10.2026); the
-  master CSV's `translators_struct` then reads `Michał|Bartosz||` (no ORCID on record).
+- **Translator:** unless stated otherwise, Michał Bartosz translates every translated text (MB, 06.10.2026). He is
+  not named as translator anywhere public (MB, 22.10.2026; Kanon § 12.2.3, editorial translations are unsigned): no
+  `tlumaczenie` front matter, no „Tłumaczenie:” in the title note or the article header, no line on the online cover,
+  `translators_struct` empty (so no translator in the Crossref deposit); the site's Redakcja page and the masthead
+  (from vol. 19) list him without „tłumaczenia”. The translation note itself stays (original, licence or permission).
+  A translator from outside the editorial team is named as before, unless they ask for anonymity.
 - **Website:** https://studiaromologica.pl (WordPress; article landing pages `/articles/{full DOI}/`, volumes `/volumes/{vol}-{year}/`, until 21.10.2026 `/tom/…`, 301-redirected).
   **Host: seohost.pl** (LiteSpeed server; file manager, `wp-config.php` and PHP settings in its panel). Hostinger only ever held a
   staging copy, never the live site: never ask MB for Hostinger access for studiaromologica.pl (MB, 21.10.2026). The site blocks

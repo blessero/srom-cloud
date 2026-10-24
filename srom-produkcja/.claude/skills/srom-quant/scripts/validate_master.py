@@ -140,8 +140,7 @@ def main():
         # translators (optional column translators_struct -> Crossref contributor_role="translator")
         tstruct = r.get('translators_struct') or ''
         is_tr = r.get('is_translation', '').upper() == 'TAK'
-        if is_tr and not tstruct.strip():
-            W(f"{rid}: is_translation=TAK but translators_struct empty or absent (no translator in the deposit)")
+        # empty on a translation is normal: editorial translations are unsigned (Kanon § 12.2.3, MB 22.10.2026)
         if tstruct.strip() and not is_tr and r.get('is_translation', '').upper() != 'ADAPTACJA':   # adapted and translated (C7)
             W(f"{rid}: translators_struct filled but is_translation is not TAK")
         for t in tstruct.split(';;'):

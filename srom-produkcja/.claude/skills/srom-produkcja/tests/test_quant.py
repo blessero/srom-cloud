@@ -320,8 +320,9 @@ t("cover_page: the original's source gets Kanon § 3.3 hard spaces (t. 34)",
 r = cvrun("SROM-19-2026-004", "--proof"); pf = os.path.join(cdir, "SROM-19-2026-004_okladka_proof.pdf")
 t("cover_page --proof: written as *_proof, marked PODGLĄD", os.path.exists(pf) and "PODGLĄD" in pymupdf.open(pf)[0].get_text()
   and "PROOF" in r.stdout, r.stdout + r.stderr)
-r = cvrun("SROM-19-2026-005")
-t("cover_page: translation without translators_struct → ABORT (Kanon § 12.2.3)", r.returncode != 0 and "translators_struct" in r.stderr, r.stdout + r.stderr)
+r = cvrun("SROM-19-2026-005"); d5 = pymupdf.open(os.path.join(cdir, "SROM-19-2026-005_okladka.pdf")) if r.returncode == 0 else None
+t("cover_page: translation without translators_struct (editorial, unsigned: Kanon § 12.2.3) → built, no translator line",
+  d5 is not None and "TŁUMACZENIE" not in flat(d5[0]), r.stdout + r.stderr)
 r = cvrun("SROM-19-2026-006"); d6 = pymupdf.open(os.path.join(cdir, "SROM-19-2026-006_okladka.pdf")) if r.returncode == 0 else None
 t6 = flat(d6[0]) if d6 else ""
 t("cover_page: translation → translator, Pierwodruk linked to the original's DOI; CC BY-NC-ND named in Polish",
