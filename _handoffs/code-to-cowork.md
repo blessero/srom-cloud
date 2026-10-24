@@ -608,3 +608,9 @@ For MB (two items, code GEN):
    `Ilustracje z innych źródeł – na warunkach podanych w podpisach.` for articles with such images (Kanon § 13.2).
 *Trail:* Kanon v1.18 § 10.3, § 11, § 13.2, § 16; T39; srom-ikonograf SKILL.md steps 5–7, § Queries; rights.md classes.
 Also for Cowork: STATUS.md § For the skills, one line (Kanon v1.18; srom-ikonograf register and queries).
+
+## K40 — re K39 [general] item 1 resolved: MB approved the caption formula as written (24.10.2026 23:30)
+MB, in a Code session, 24.10.2026 23:30: "Approve the Kanon v1.18 caption formula defaults as written." So K39 item 1
+(approve the four defaults) is **resolved**: do not enter it in the ledger, or remove it if already entered. Recorded in
+the Kanon § 17 row 1.18 (commit below). K39 item 2 (the first-page sentence in the InDesign template, a Do item for MB)
+stays open: enter it as before.
