@@ -37,11 +37,37 @@ Notes:
    not know the author and made no claim).
 3. Record date, whom you asked, the answer; then the question to MB: use with `Fot. autor nieznany`, or drop.
 
+## Finding the contact (step 7, chosen images only)
+
+The aim is a person who can say yes, not a general inbox. Per holder, in this order, and stop when one is good:
+1. The holder's own **reproduction / rights / image licensing** page (often "Reproductions", "Image requests",
+   "Rights and reproductions", "Bildrechte", "Droits de reproduction", "Udostępnianie zbiorów"): a named officer, an
+   address, or a request form. A form counts: give MB its URL and the fields to fill instead of a letter.
+2. The department that holds the item (prints and drawings, photographs, manuscripts, the archive's photo collection):
+   its curator or head on the staff page, with e-mail.
+3. The item page itself: a "contact us about this item" link, the photographer's or donor's name for a living
+   photographer, the agency for an agency photo.
+4. A general address (info@, archive@) as the fallback, said so.
+Give **one recommended contact and up to two alternatives** when unsure (a curator and the reproductions office,
+say), each with name, role, e-mail and the page where it was found, so MB can check it. Never guess an address from a
+pattern (firstname.lastname@): mark one not seen on a page as "not found". For a living photographer or an author,
+the person; for a Commons file, the holder or photographer it came from, not the uploader (unless the uploader is the
+photographer). A holder already asked for another text or image in the volume: one letter, or a note in the earlier one.
+
+## `zgody.md` (one per text, in `work/<id>/ikonografia/`)
+
+One block per holder, ready to send: **To** (recommended contact; alternatives below it), **Subject**, the letter
+(EN template below, all brackets filled), then for the record: where each contact was found, the holder's stated
+terms or fee if published, and the lead time. The record's § 4 points to it (`🔴 zgody.md`) and keeps the state.
+
 ## Letters
 
-Fill the brackets; one letter per holder listing all its items (title as catalogued, shelfmark or URL). Ask for the
-best file and the preferred credit line. Send from MB's address; record the date in § 4. MB's title in the PL/ES/FR letters (sekretarz redakcji / secretario de redacción /
-secrétaire de rédaction) is a draft for "managing editor": MB corrects it once, here.
+Fill the brackets; one letter per holder listing all its items. **English by default** (MB, 24.10.2026); PL/ES/FR
+only when MB asks. Per item: title as catalogued, creator, date, holder's shelfmark or inventory number, the item
+URL, and the intended use (print, about [⅓/½/full] page, [b/w or colour]; the online PDF). Ask for the best file and
+the preferred credit line. Send from MB's address; record the date in § 4. MB's title in the PL/ES/FR letters (sekretarz redakcji / secretario de redacción /
+secrétaire de rédaction) is a draft for "managing editor": MB corrects it once, here. Print run: not in the knowledge
+base; the letter does without it unless a holder asks.
 
 **Author (EN; in Polish to a Polish author)** — at the brief stage (SKILL.md step 1)
 > Subject: Images for your article in *Studia Romologica* [vol.]
@@ -60,13 +86,17 @@ secrétaire de rédaction) is a draft for "managing editor": MB corrects it once
 >
 > Dear [name / Sir or Madam],
 >
-> I am the managing editor of *Studia Romologica* [ISSN], a peer-reviewed annual of Romani studies published by
-> [publisher] with public grant funding. The journal is wholly non-commercial: printed copies are distributed free of
-> charge and the articles are published in open access.
+> I am the managing editor of *Studia Romologica* (ISSN [ISSN]), a peer-reviewed Polish annual of Romani studies
+> founded in [year], published by [publisher] with public grant funding. The journal is wholly non-commercial: printed
+> copies are distributed free of charge and the articles are published in diamond open access.
 >
 > We would like to reproduce the following item(s) from your collection to illustrate the article "[title]" by
-> [author] in vol. [n] ([year]), in print and in the online PDF: [item, shelfmark/URL]. Each would be credited as you
-> prefer; the image would not be covered by the article's open licence.
+> [author] (in Polish translation) in vol. [n] ([year]), in print and in the online PDF:
+>
+> 1. [title as catalogued], [creator], [date]. [Holder], [shelfmark / inventory no.]. [item URL]
+>    Use: about [⅓ / ½ / full] page, [black and white / colour], with the caption "[draft caption, short]".
+>
+> Each would be credited as you prefer; the image would not be covered by the article's open licence.
 >
 > Could you grant a one-time, non-exclusive permission for this use, and let us know your preferred credit line and
 > whether a higher-resolution file is available? I would be glad to send a copy of the volume.

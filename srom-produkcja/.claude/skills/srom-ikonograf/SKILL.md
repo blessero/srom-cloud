@@ -28,15 +28,16 @@ nothing good says so in § 5 instead of being padded.
 |---|---|
 | MB's way of illustrating: principles and worked cases (**read before every brief**) | `references/patterns.md` |
 | where to search: repositories by tier, query templates, what was tested from Cowork and from Code | `references/sources.md` |
-| rights classes, credits, permission letters (PL/EN/ES/FR) | `references/rights.md` |
+| rights classes, credits, finding the contact, permission letters (EN; PL/ES/FR on request) | `references/rights.md` |
 | per-text record and contact sheet (templates) | `assets/template/ikonografia.md`, `assets/template/kontaktowka.html` |
-| one text's work | workspace `srom-produkcja/work/<id>/ikonografia/`: `ikonografia.md`, `kontaktowka.html`, `pliki/` |
+| one text's work | workspace `srom-produkcja/work/<id>/ikonografia/`: `ikonografia.md`, `kontaktowka.html`, `zgody.md` (letters, step 7), `pliki/` (chosen files), `miniatury/` (local thumbnails, step 5) |
 
 `<id>` is the text's work folder. Check in `STATUS.md` that `work/<id>/` holds the text MB means: one author can have
 texts in two volumes (Ostendorf: the vol. 18 article, and the vol. 19 chapter in `work/ostendorf/`). A text with no
 work folder of its own (a Polish original that skipped RIP, or a second text by an author who already has one): create
 `work/<id>/ikonografia/` with the author's surname as `<id>`, plus the volume when the surname is taken
-(`ostendorf18`); the record's heading names the text by title and volume.
+(`ostendorf18`); the record's heading names the text by title and volume. Always there, never in a scratchpad, test
+runs included: a scratchpad is wiped and the volume's next run cannot read it.
 
 **Who writes what.** The record, the contact sheet and `pliki/` are written by whichever session runs the skill:
 Cowork, or Claude Code on the Mac (an exception to "Code never writes `workspace/`", like srom-zizek's data, and only
@@ -53,9 +54,11 @@ question), and Cowork enters them.
    Archival historians often hold the only usable copy (Ostendorf's photograph of the 1779 marriage record, vol. 18);
    record the date in § 4 and treat the answer as a slot's first candidates.
    Read the other texts of the same volume that have an `ikonografia/` record (`ls work/*/ikonografia/`): vol. 19's
-   texts share sources (Grellmann in four of them, the *Zigeunerstock* in two). Reuse their finds and searches, name the
-   overlap in the brief (one image should not appear twice in a volume unless MB wants a cross-reference), and log
-   nothing they already logged as failed.
+   texts share sources (Grellmann in four of them, the *Zigeunerstock* in two). Reuse their finds and searches, and log
+   nothing they already logged as failed. An image another text already proposes is **proposed again** where it fits
+   this text, with `also` on the contact sheet ("Tittel S1-a"; another edition or page of the same work too, saying
+   so) and the same note added to the other sheet: MB decides which text it serves better (MB, 24.10.2026). Once he
+   has chosen it for one text, the other sheet's row says so.
 2. **Brief** (`ikonografia.md` § 1). Slots, each tied to a passage (page or heading + a few words): type (cited
    source, place/map, building, person, event, document/archive, ethnographic image, comparative addition), the idea
    in one line, the angle (documentary / immersive / argument / extension), search terms. Size: the **printed target**
@@ -70,13 +73,23 @@ question), and Cowork enters them.
    copies of each, not only the ones a slot names: title page, plate, frontispiece, and **the page with the quoted
    passage** (sources.md: search inside the scan; read the printed page number by eye). These are the surest hits
    (sources.md § Books and periodicals). A source cited second-hand ("cyt. za") is looked up in the original too.
+   **Footnote leads** (`ikonografia.md` § 7). The notes also point to images the main text never names: an illustrated
+   monograph, travel book or exhibition catalogue, an article with figures, a photo collection, an image the note
+   describes. Read every note once; each note that carries a lead gets a row (note, cited work, what it may hold),
+   whether or not it is checked now. Check cheaply: open the cited work's list of illustrations, plates or figures
+   (digitised copy, publisher page), not its text; a lead that opens a new one gets its own row. Most leads give
+   nothing: record that in one word, so the table shows what was looked at and nobody looks again. Unchecked rows stay
+   open for **przypisy** (below). Every lead is fair game, including secondary literature MB would not reach from the text.
 4. **Search** every slot, core and secondary. Per slot, a term ladder: the subject in the archive's language; period
    ethnonyms and exonyms (Cyganie, Zigeuner, Bohémiens, Égyptiens, Gitanos, Egyptians, Gypsies, Cigány, Țigani, robi …),
    historic place names (Lemberg/Lwów/Lviv, Nouvelle-Orléans, Warschau), catalogue subject headings, the title of the
    printed collection a law or decree appeared in; date ranges. Order: Tier A APIs → Tier B deep links (and the browser
    for the most promising) → Tier C asks → paid. Aim at **3–6 candidates a slot**, at least one needing no permission
    (patterns § 12); more when they are good. Finds seen in passing that fit another slot, or no slot yet but the text,
-   go in too (marked "seen in passing"). Trace every weak copy to its holder (sources.md § Tracing). Log searches that
+   go in too (marked "seen in passing"). Trace every weak copy to its holder (sources.md § Tracing). A better copy found
+   (larger scan, the original's holder rather than an aggregator, colour, a freer licence) goes on the sheet as
+   `alt`: a direct link (to the item or page itself where it can be found, else the collection, saying so) and why it is
+   better in a few words; never "better holder" without the link and the reason. Log searches that
    found nothing (§ 5 of the record), so nobody repeats them.
    **Doubts** (§ 6 of the record): anything that does not square is flagged there, never silently corrected or left
    out (root CLAUDE.md § Doubts in the material): a quoted phrase not found in the cited edition (full-text search,
@@ -85,8 +98,12 @@ question), and Cowork enters them.
    aggregator; an aggregator's description (a Commons title) that is not the holder's catalogue title. Each doubt says
    what was checked and what would settle it. MB finds these among the most useful parts of a record.
 5. **Contact sheet.** Fill `kontaktowka.html` (copy the template; edit only the `DATA` block): per candidate the
-   thumbnail URL, title as catalogued, date, creator, holder and shelfmark, rights class (rights.md), largest size
-   available, the item page and the full-resolution URL, one line on why it fits. Tell MB to open it from Finder.
+   thumbnail URL (about **700 px wide**, enough to judge a photograph without opening the holder's page: sources.md
+   § Thumbnails), title as catalogued, date, creator, holder and shelfmark, rights class (rights.md), largest size
+   available, the item page and the full-resolution URL, one line on why it fits; `alt` and `also` where they apply.
+   **Deliver** as the root CLAUDE.md § Files MB must open says: send `kontaktowka.html` and `ikonografia.md` with
+   SendUserFile (display render), so both open in the side panel, then end the reply with the `Files to open:` line
+   (each file a link plus ⭕; 🔴 is for files, never for chat). From Cowork, name them for Finder.
    Look at the thumbnails yourself when a browser tool is available (open the sheet, screenshot); otherwise say the
    triage was by metadata only. Also count the broken ones (in the browser pane:
    `[...document.images].filter(i => !i.naturalWidth).length` after a few seconds) and fix or drop each. Open the key
@@ -98,8 +115,11 @@ question), and Cowork enters them.
    full-resolution URLs into `pliki/` (the Commons User-Agent from sources.md; a few seconds apart); from Cowork the
    VM shell reaches none of the repositories, so give MB the list of full-resolution links to save into `pliki/`
    (one click each).
-7. **Permissions** (rights.md): for class D, a letter in the holder's language from the templates, the date sent and
-   the answer in § 4 of the record; for class E, the due-diligence record. Anything that needs MB (a fee, a risky
+7. **Permissions** (rights.md), for the chosen images only. Per holder: find the best contact (rights.md § Finding
+   the contact: a named person and e-mail where one can be found, alternatives when unsure, each with where it was
+   found), then draft one English letter listing all that holder's items with their catalogue data, into `zgody.md`,
+   ready for MB to send (`🔴 zgody.md` in the record's § 4). MB sends; the date and the answer go in § 4. For class E,
+   the due-diligence record. Anything that needs MB (a fee, a risky
    orphan, a crop of an ND image) is one question in `MB-decisions.md` under the text's code.
 8. **Close.** One line in the text's section of `STATUS.md` (from Code: in the K-item, § Who writes what): `Ikonografia: <chosen>/<target>, <k> permissions
    pending (<holders>)`. When MB explains a choice or a rejection worth keeping, add it to `patterns.md` § Cases
@@ -113,7 +133,8 @@ question), and Cowork enters them.
 | **brief** <text> | steps 1–3 only: brief plus cited-source hits, when MB wants to cut slots before the search |
 | **szukaj** / search <text or slot> | steps 4–5 for the brief's open slots (or the one slot named) |
 | **lepsza kopia** <image or link> | trace the original holder and the largest copy of a known image (sources.md § Tracing) |
-| **zgody** <text> | step 7 for the chosen images: letters, due diligence, the state of each |
+| **zgody** <text> | step 7 for the chosen images: contacts, letters in `zgody.md`, due diligence, the state of each |
+| **przypisy** <text> | the open rows of § 7 (footnote leads): check each, add what they yield to the sheet |
 | **podpisy** <text> | captions for the chosen images (Kanon § 10), credits checked against the item pages |
 
 ## Limits (tested 21.10.2026 from Cowork and from Claude Code)
@@ -125,8 +146,13 @@ question), and Cowork enters them.
   Smithsonian (demo key), Openverse work; loc.gov search, HathiTrust and Gallica SRU answer 403 (Cloudflare), the Met
   API 410. Neither route reaches every source: the table in sources.md says which to use, and the browser covers the
   rest.
-- Contact sheet in the browser pane: a `file://` page opens as a static snapshot (screenshots and the broken-image
-  count above work; clicks do not); to click through, serve the folder (`python3 -m http.server` on 127.0.0.1).
+- Contact sheet in the browser pane: a `file://` page opens as a static `data:` snapshot (screenshots and the
+  broken-image count above work; clicks do not; relative paths do not load, hence the embedded local thumbnails);
+  to click through, serve the folder (`python3 -m http.server` on 127.0.0.1). The app's side panel renders the sheet
+  with remote thumbnails (Pahulich, 22.10.2026); Ostendorf's sheet, the one with `loading="lazy"`, showed only
+  placeholders there (the likely cause, not proven): the template has no lazy images.
+- The live-site hook (`~/.claude/hooks/srom-throttle.py`) treats any curl naming the journal's domain as a call to the
+  site, User-Agent included: never put the domain in a User-Agent or a query (sources.md gives one without it).
 - Alamy's API is for partners only: links for MB, no automation.
 - Taste is calibrated on two cases so far (vol. 18: Gontarek, Ostendorf); expect misses until patterns.md has more.
   The vol. 19 test runs (Tittel, Pahulich, 21–22.10.2026) become cases once MB has chosen from them.

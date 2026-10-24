@@ -15,7 +15,7 @@ documentation, to be confirmed on first use and marked here.
 | Library of Congress | photos, prints, drawings, maps, FSA/OWI, newspapers | `https://www.loc.gov/photos/?q=<q>&fo=json&c=50` (also `/maps/`, `/collections/…/`) | tested, web fetch (not `/pictures/`: robots); field `rights` | **403** (Cloudflare challenge; WebFetch from Code too). Workaround: LoC images are mirrored on Commons with the LCCN in the file name (search Commons, read `Credit` for the LoC record); image files themselves open on `cdn.loc.gov` and `tile.loc.gov` |
 | Wellcome Collection | medicine, anthropology, race science, anthropometry, prints | `https://api.wellcomecollection.org/catalogue/v2/images?query=<q>&pageSize=50` | tested, web fetch; licence id per image (pdm, cc-by …) | tested |
 | Internet Archive | scanned books and periodicals (cited sources), Gypsy Lore Society journals | `https://archive.org/advancedsearch.php?q=title:(<q>)+AND+mediatype:texts&fl[]=identifier&fl[]=title&fl[]=date&rows=50&output=json` | tested, web fetch (titles sometimes dropped: re-query by identifier) | tested; see the IA notes below |
-| Wikimedia Commons | everything, uneven; the licence template is on each file page | `https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=<q>&srnamespace=6&srlimit=50&format=json`; file details (up to 50 files per call, `titles=File:A\|File:B`): `action=query&titles=File:<name>&prop=imageinfo&iiprop=url\|size\|extmetadata&iiurlwidth=400&format=json` | tested, Exa fetch only | tested; **429** after ~10 calls a minute with a bare User-Agent: send `-A "SROM-ikonograf/0.1 (https://studiaromologica.pl; non-commercial journal research)"`, ≥ 2 s apart, batch the file details. Tittel run (21.10.2026): 429 again at 4 s with a UA that had no URL; what held: honour the `retry-after` header (10 s) and wait 8 s between searches. Search matches file titles and descriptions, not subjects: plain English phrases and `intitle:` work better than catalogue terms (Pahulich run: `Roma slavery Romania poster` and `intitle:Münster Gypsies` hit, `Zigeuner Münster` and `robi țigani vânzare` did not). Many files are scans out of modern books or 19th-c. facsimiles (the 1852 slave poster from Hancock 1987, Münster's woodcut via Lacroix): read `Credit`, trace the original, and flag it in § 6 until then |
+| Wikimedia Commons | everything, uneven; the licence template is on each file page | `https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=<q>&srnamespace=6&srlimit=50&format=json`; file details (up to 50 files per call, `titles=File:A\|File:B`): `action=query&titles=File:<name>&prop=imageinfo&iiprop=url\|size\|extmetadata&iiurlwidth=400&format=json` | tested, Exa fetch only | tested; **429** after ~10 calls a minute with a bare User-Agent: send `-A "SROM-ikonograf/0.2 (Studia Romologica, non-commercial journal research; https://github.com/blessero)"` (no journal domain: the live-site hook would count the call as one to the site, 24.10.2026), ≥ 2 s apart, batch the file details. Tittel run (21.10.2026): 429 again at 4 s with a UA that had no URL; what held: honour the `retry-after` header (10 s) and wait 8 s between searches. Search matches file titles and descriptions, not subjects: plain English phrases and `intitle:` work better than catalogue terms (Pahulich run: `Roma slavery Romania poster` and `intitle:Münster Gypsies` hit, `Zigeuner Münster` and `robi țigani vânzare` did not). Many files are scans out of modern books or 19th-c. facsimiles (the 1852 slave poster from Hancock 1987, Münster's woodcut via Lacroix): read `Credit`, trace the original, and flag it in § 6 until then |
 | MDZ (Bayerische Staatsbibliothek) | German prints and periodicals (*Berlinische Monatsschrift*), early modern edicts and single-sheet mandates (*Einblattdrucke*): the surest source for German cited sources | find the item through Europeana (`dataProvider` Bavarian State Library; `edmIsShownAt` holds the `bsb…` id) or the URN in refs.json; manifest `https://api.digitale-sammlungen.de/iiif/presentation/v2/<bsb-id>/manifest` (canvas labels = printed page numbers; metadata „Call number” = shelfmark); viewer `https://www.digitale-sammlungen.de/view/<bsb-id>?page=<n>` | untested | tested (Tittel); rights NoC-NC on books (class A for a public-domain work), CC BY-NC-SA on some single sheets (class C) |
 | Gallica (BnF) | French prints, press, maps, colonial material | SRU: `https://gallica.bnf.fr/SRU?operation=searchRetrieve&version=1.2&query=gallica%20all%20%22<q>%22&maximumRecords=50` | failed both fetch tools | **403**: the site in the browser; much of Gallica is on Commons and Europeana (search there by `btv1b…`/ark) |
 | Smithsonian Open Access | CC0 objects and photos, NMAAHC, anthropology archives | `https://api.si.edu/openaccess/api/v1.0/search?q=<q>&rows=50&api_key=<api.data.gov key>` | failed | tested with `api_key=DEMO_KEY` (low hourly limit); mostly library records: archives (NMAH Archives Center, NAA) are on sova.si.edu, Tier B |
@@ -120,3 +120,36 @@ TinEye, Yandex: in the browser, or MB by hand); search the catalogued title or t
 `source`/`author` fields of the Commons page and the `dataProvider` of a Europeana record; go to the holder's own
 page, then its IIIF or download. Record the chain in the record's § 3 (credit = the holder, not the aggregator);
 a chain that ends before the holder stays a doubt in § 6.
+A better copy found this way goes on the contact sheet as `alt` (link + why it is better; SKILL.md step 4).
+
+## Thumbnails
+
+The sheet's thumbnail is about **700 px wide** (MB, 24.10.2026: at 300–400 px a photograph cannot be judged). Ask the
+holder's own resize service for it; nothing is downloaded and no tokens are spent:
+
+| source | thumbnail URL |
+|---|---|
+| IIIF (BSB, MPG dlc, MDC, ÖNB `iiif.onb.ac.at/images/ABO/<id>/<page>/…`, Wellcome, e-codices, Gallica) | `…/full/700,/0/default.jpg` (ÖNB: `native.jpg`); `!800,800` for tall pages |
+| Internet Archive page | `https://archive.org/download/<id>/page/n<k>_w700.jpg` (`services/img/<id>` is a small cover: use a page) |
+| Wikimedia Commons | `…/commons/thumb/<a>/<ab>/<file>/960px-<file>`: Commons serves only standard widths (500 and 960 work; 700 is refused and 330 is too small, tested 24.10.2026); a file narrower than 960 px: the original URL |
+| loc.gov | `…v.jpg` (about 1024 px), not `…t.jpg` or `_150px` |
+| Europeana | the thumbnail API stops at `w400`: use the provider's own image (`edmIsShownBy`) as below |
+
+No resize service, or only a TIFF or a very large file: download it and make a local copy,
+`curl -sL -o <tmp>/<id>.src <url> && sips -Z 800 -s format jpeg -s formatOptions 70 <tmp>/<id>.src --out miniatury/<id>.jpg`
+(about 100 KB; JPEG is enough, WebP saves little at this size), set `thumb:"miniatury/<id>.jpg"`, then embed the
+local copies in the sheet, so that the side panel and the browser pane show them (neither loads a relative path):
+
+```sh
+python3 - work/<id>/ikonografia <<'E'
+import sys, base64, pathlib, re
+d = pathlib.Path(sys.argv[1]); p = d / "kontaktowka.html"; s = p.read_text(encoding="utf-8")
+s = re.sub(r'<script>MINI\[.*?</script>\n', '', s)
+add = "".join(f'<script>MINI["miniatury/{f.name}"]="data:image/jpeg;base64,{base64.b64encode(f.read_bytes()).decode()}";</script>\n'
+              for f in sorted((d / "miniatury").glob("*.jpg")))
+p.write_text(s.replace("</body>", add + "</body>", 1), encoding="utf-8")
+E
+```
+
+Run it again after adding a copy (it replaces the old lines). The lines sit after the renderer, at the end of the
+file: when editing the `DATA` block, read the file with a line limit, never whole.

@@ -18,7 +18,7 @@ fallback). States: open, found, chosen, dropped (why).
 ## 2. Candidates
 
 Per slot: `S<n>-<letter>` · title as catalogued · date · creator · holder, shelfmark · class (A–F) · size · item page ·
-full-res URL · why. The same rows feed `kontaktowka.html`.
+full-res URL · why · better copy (link + why) · also in (another text's slot). The same rows feed `kontaktowka.html`.
 
 ## 3. Chosen
 
@@ -26,6 +26,8 @@ full-res URL · why. The same rows feed `kontaktowka.html`.
 |---|---|---|---|---|---|---|
 
 ## 4. Permissions and due diligence
+
+Letters ready to send: 🔴 `zgody.md` (one block per holder; contacts and where they were found).
 
 | item | holder | contact | sent | answer | terms |
 |---|---|---|---|---|---|
@@ -38,3 +40,12 @@ full-res URL · why. The same rows feed `kontaktowka.html`.
 
 - [what does not square: a quotation not found in the cited edition, a facsimile or later copy, an untraced holder,
   dates or editions that differ, an aggregator's title vs the holder's] — [what was checked] — [what would settle it]
+
+## 7. Footnote leads
+
+Every note that points to a possible image (an illustrated work, an article with figures, a photo collection, an image
+the note describes), checked or not. Checked: the cited work's list of illustrations, plates or figures, not its text.
+
+| note | cited work | lead (what it may hold) | checked (date, where) | result |
+|---|---|---|---|---|
+| [n] | [short ref] | [plates of …] | [dd.mm, IA scan, list of plates] / not yet | [S<n>-x] / nothing |

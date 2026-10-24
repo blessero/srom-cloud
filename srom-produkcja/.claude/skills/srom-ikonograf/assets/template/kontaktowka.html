@@ -5,46 +5,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kontaktówka</title>
 <style>
-  :root { --bg:#f6f4ef; --card:#fff; --ink:#1d1d1b; --mute:#6b6862; --line:#dedad2;
-          --A:#2f7d4f; --B:#3b6fb0; --C:#8a6d1e; --D:#b0563b; --E:#7a4fa0; --F:#555; }
-  @media (prefers-color-scheme: dark) { :root { --bg:#161614; --card:#21201d; --ink:#ecebe6; --mute:#a19d94; --line:#34322d; } }
+  :root { --bg:#f6f4ef; --card:#fff; --ink:#1d1d1b; --mute:#6b6862; --line:#dedad2; --hl:#fff4c2;
+          --A:#2f7d4f; --B:#3b6fb0; --C:#8a6d1e; --D:#b0563b; --E:#7a4fa0; --F:#555;
+          --col:420px; --imgh:440px; }
+  :root.L { --col:640px; --imgh:680px; }
+  :root.S { --col:260px; --imgh:240px; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#161614; --card:#21201d; --ink:#ecebe6; --mute:#a19d94; --line:#34322d; --hl:#3a3420; } }
   body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.45 -apple-system, "Helvetica Neue", sans-serif; }
   header { padding:20px 24px 8px; }
   h1 { font-size:20px; margin:0 0 4px; } .sub { color:var(--mute); }
-  nav { padding:0 24px 8px; display:flex; gap:8px; flex-wrap:wrap; }
+  nav { padding:0 24px 8px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
   nav button { border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:14px; padding:3px 10px; cursor:pointer; }
-  nav button.on { border-color:var(--ink); }
+  nav button.on { border-color:var(--ink); } nav .gap { width:14px; }
   section { padding:8px 24px 16px; }
   h2 { font-size:15px; margin:12px 0 2px; } h2 small { color:var(--mute); font-weight:400; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:14px; margin-top:8px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(min(var(--col), 100%), 1fr)); gap:16px; margin-top:8px; }
   .c { background:var(--card); border:1px solid var(--line); border-radius:8px; overflow:hidden; display:flex; flex-direction:column; }
-  .c img { width:100%; height:200px; object-fit:contain; background:#00000010; display:block; }
+  .c img { width:100%; height:var(--imgh); object-fit:contain; background:#00000010; display:block; cursor:zoom-in; }
   .c .b { padding:8px 10px 10px; display:flex; flex-direction:column; gap:3px; }
   .id { font-weight:600; } .t { font-style:italic; } .m { color:var(--mute); font-size:12.5px; }
   .why { font-size:13px; margin-top:3px; }
+  .alt, .also { font-size:12.5px; background:var(--hl); border-radius:4px; padding:2px 6px; margin-top:3px; }
   .cls { display:inline-block; color:#fff; border-radius:4px; padding:0 6px; font-size:12px; font-weight:600; margin-right:4px; }
   a { color:inherit; }
+  #lb { position:fixed; inset:0; background:#000d; display:none; flex-direction:column; align-items:center; justify-content:center; gap:8px; cursor:zoom-out; z-index:9; }
+  #lb.on { display:flex; } #lb img { max-width:96vw; max-height:88vh; object-fit:contain; background:#fff; }
+  #lb div { color:#eee; font-size:13px; } #lb a { color:#fff; }
 </style>
 </head>
 <body>
 <header><h1 id="h"></h1><div class="sub" id="s"></div></header>
 <nav id="f"></nav>
 <main id="out"></main>
+<div id="lb"></div>
 <script>
-/* Ikonograf fills only this block. One object per candidate; slot ids match ikonografia.md § 1. */
+/* Ikonograf fills only this block. One object per candidate; slot ids match ikonografia.md § 1.
+   thumb: about 700 px wide (SKILL.md step 5, sources.md § Thumbnails); a local copy is "miniatury/<id>.jpg",
+   embedded at the end of this file (sources.md § Thumbnails).
+   alt (optional): better copies, each {label, url, why}: why in a few words (larger scan, the original's holder
+   rather than an aggregator, colour, a freer licence).
+   also (optional): where else in the volume this image is proposed, e.g. "Tittel S3-a". */
 const DATA = {
   text: "[Author], „[short title]” ([vol.])",
   note: "Kandydaci [dd.mm.yyyy]. Klasa praw: A wolne · B uznanie autorstwa · C NC/ND · D zgoda · E autor nieznany · F płatne.",
   slots: { "S1": "[idea of slot 1]" },
   items: [
     { id:"S1-a", slot:"S1", thumb:"", title:"", date:"", creator:"", holder:"", cls:"A", size:"",
-      page:"", full:"", why:"" }
+      page:"", full:"", why:"", alt:[], also:"" }
   ]
 };
-/* ---- rendering (no edits needed below) ---- */
+/* ---- rendering (no edits needed below; no loading="lazy": the app's side panel never loads lazy images) ---- */
 const $ = id => document.getElementById(id);
 $("h").textContent = DATA.text; $("s").textContent = DATA.note;
 let only = null;
+const src = i => (window.MINI || {})[i.thumb] || i.thumb;
+const link = (u, t) => u ? `<a href="${u}" target="_blank">${t}</a>` : "";
 function render() {
   const out = $("out"); out.innerHTML = "";
   for (const [slot, idea] of Object.entries(DATA.slots)) {
@@ -55,25 +70,42 @@ function render() {
     const g = document.createElement("div"); g.className = "grid";
     for (const i of items) {
       const c = document.createElement("div"); c.className = "c";
-      c.innerHTML = `${i.thumb ? `<a href="${i.page}" target="_blank"><img src="${i.thumb}" alt=""></a>` : ""}
+      const alts = (i.alt || []).map(a => `<div class="alt">Lepsza kopia: ${link(a.url, a.label)}${a.why ? " — " + a.why : ""}</div>`).join("");
+      c.innerHTML = `${i.thumb ? `<img src="${src(i)}" alt="" data-id="${i.id}">` : ""}
         <div class="b"><div><span class="cls" style="background:var(--${i.cls})">${i.cls}</span><span class="id">${i.id}</span></div>
-        <div class="t">${i.title}</div>
+        <div class="t">${i.page ? link(i.page, i.title) : i.title}</div>
         <div class="m">${[i.date, i.creator].filter(Boolean).join(" · ")}</div>
         <div class="m">${i.holder}${i.size ? " · " + i.size : ""}</div>
-        <div class="m">${i.page ? `<a href="${i.page}" target="_blank">strona obiektu</a>` : ""}${i.full ? ` · <a href="${i.full}" target="_blank">pełna rozdzielczość</a>` : ""}</div>
-        ${i.why ? `<div class="why">${i.why}</div>` : ""}</div>`;
+        <div class="m">${link(i.page, "strona obiektu")}${i.full ? " · " + link(i.full, "pełna rozdzielczość") : ""}</div>
+        ${i.why ? `<div class="why">${i.why}</div>` : ""}${alts}
+        ${i.also ? `<div class="also">Też w: ${i.also}</div>` : ""}</div>`;
       g.appendChild(c);
     }
     sec.appendChild(g); out.appendChild(sec);
   }
 }
+$("out").onclick = e => {
+  const id = e.target.dataset && e.target.dataset.id; if (!id) return;
+  const i = DATA.items.find(x => x.id === id);
+  $("lb").innerHTML = `<img src="${src(i)}" alt=""><div>${i.id} · ${link(i.page, "strona obiektu")}${i.full ? " · " + link(i.full, "pełna rozdzielczość") : ""}</div>`;
+  $("lb").className = "on";
+};
+$("lb").onclick = e => { if (e.target.tagName !== "A") $("lb").className = ""; };
+document.onkeydown = e => { if (e.key === "Escape") $("lb").className = ""; };
 const f = $("f");
 for (const k of [null, "A", "B", "C", "D", "E", "F"]) {
   const b = document.createElement("button"); b.textContent = k || "wszystkie"; if (!k) b.className = "on";
-  b.onclick = () => { only = k; [...f.children].forEach(x => x.className = ""); b.className = "on"; render(); };
+  b.onclick = () => { only = k; [...f.querySelectorAll(".k")].forEach(x => x.classList.remove("on")); b.classList.add("on"); render(); };
+  b.classList.add("k"); f.appendChild(b);
+}
+f.appendChild(Object.assign(document.createElement("span"), { className: "gap" }));
+for (const [k, label] of [["S", "małe"], ["", "średnie"], ["L", "duże"]]) {
+  const b = document.createElement("button"); b.textContent = label; b.classList.add("z"); if (!k) b.classList.add("on");
+  b.onclick = () => { document.documentElement.className = k; [...f.querySelectorAll(".z")].forEach(x => x.classList.remove("on")); b.classList.add("on"); };
   f.appendChild(b);
 }
-render();
+document.addEventListener("DOMContentLoaded", render);
 </script>
+<script>/* miniatury: local copies as data URIs, appended by the step in sources.md § Thumbnails; never read or edit by hand */ var MINI = {};</script>
 </body>
 </html>
