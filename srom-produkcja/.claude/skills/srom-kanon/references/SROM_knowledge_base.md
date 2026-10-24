@@ -140,3 +140,9 @@ separate from the journal's core infrastructure.
 - `srom-quant/scripts/wikidata_qs.py`: title, ISSN.
 - The website address `https://studiaromologica.pl`: `rip_volume.py`, `cover_page.py`, `validate_master.py` (`SITE`), `wikidata_qs.py`.
 - The master CSV repeats title, ISSN and publisher in every row (columns `journal_title`, `issn`, `publisher`).
+
+## Installed on MB's Mac (pointer, 24.10.2026)
+
+What the suite has put on the machine outside the repository (the launchd agent `pl.srom.ikonograf-pobierz`, the
+live-site hook `srom-throttle`, skill and InDesign symlinks, the `~/.venvs/srom` packages, pandoc/node/LibreOffice) and how
+to remove each: srom-produkcja `references/machine-installs.md`. Keep that register current with any new install.
