@@ -28,8 +28,7 @@ Notes:
 - **"pdus" (HathiTrust) and US-only public domain** (US works before 1930, US federal works): fine for a US holder's
   scan of a pre-1900 item; for 20th-century items check the author's death date (EU: 70 years).
 - **The article's licence vs the image's.** The image keeps its own terms; the article's CC BY does not extend to
-  it. Settled in Kanon § 13.2 (v1.18): the metryka states the terms, and the first page of an article with such images
-  carries one sentence next to the licence. Nothing more per caption.
+  it. Settled in Kanon § 13.2 (v1.18): the metryka states the terms; nothing more, per caption or on the first page.
 - **Lead times.** Museums and archives: 1–4 weeks, longer in summer; IPN and ministries: longer. Ask at the brief
   stage, not after layout.
 

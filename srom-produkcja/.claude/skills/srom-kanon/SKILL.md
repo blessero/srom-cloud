@@ -56,7 +56,7 @@ Missing year, page or publisher, or an illegible/ambiguous element → **do not 
 
 Dry, no evaluative adjectives; keep only what resonates with the article's axis. Calibration sample in RULES.md § 10. Unknown article → ask first.
 
-A caption is the editor's **opis** plus the **metryka** (date, maker with role, source, rights), built by one formula for every image whatever its origin: Kanon § 10.3 (digest in RULES.md § 10). The holder, never an aggregator; nothing printed about rights unless the terms require it; images from other sources are outside the article licence (§ 13.2). Gathering the data and writing the metryka for a text's images: srom-ikonograf.
+A caption is the editor's **opis** plus the **metryka** (date, maker with role, source, rights), built by one formula for every image whatever its origin: Kanon § 10.3 (digest in RULES.md § 10). The holder, never an aggregator; nothing printed about rights unless the terms require it; images from other sources are outside the article licence, their metryka gives the terms (§ 13.2). Gathering the data and writing the metryka for a text's images: srom-ikonograf.
 
 ## Open — do not invent
 

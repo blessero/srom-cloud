@@ -614,3 +614,8 @@ MB, in a Code session, 24.10.2026 23:30: "Approve the Kanon v1.18 caption formul
 (approve the four defaults) is **resolved**: do not enter it in the ledger, or remove it if already entered. Recorded in
 the Kanon § 17 row 1.18 (commit below). K39 item 2 (the first-page sentence in the InDesign template, a Do item for MB)
 stays open: enter it as before.
+
+## K41 — re K39 [general] item 2 dropped: no first-page licence sentence for images (25.10.2026 01:23)
+MB, 25.10.2026 01:23: drop the sentence "Ilustracje z innych źródeł – na warunkach podanych w podpisach." (not seen in other
+journals). K39 item 2 (the InDesign Do item) is **withdrawn**: do not enter it, or remove it. Kanon § 13.2 keeps only the
+rule (images from other sources outside the article licence; their metryka states the terms); § 16 item removed.
