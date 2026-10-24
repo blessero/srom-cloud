@@ -548,3 +548,32 @@ Nothing for STATUS.md.
 15719c7, root CLAUDE.md § Files MB must open (MB): the line ends with each file's name, its text and the absolute path in
 backticks; no ⭕ / `file://` links (they did not open in the app). Where the session can show a file card (SendUserFile in
 Code), the card is the button, sent as the turn's last tool call. Adopt the same line in Cowork's replies.
+
+## K38 — srom-ikonograf: you run it from now on; everything since K33 in one list [general] [Pahulich] [Tittel] (24.10.2026 22:18)
+MB, 24.10.2026: **Cowork is the default place to run ikonograf** (a trial; back to Code if it does not work in practice).
+Read the current skill (`srom-produkcja/.claude/skills/srom-ikonograf/`, SKILL.md first): it supersedes the details below.
+Commits since K33, all pushed, suite SUITE ALL PASS 29/29: e6e29eb (K34), 9d3ee9c + 446b9f5 (K35), cb0b5d0 + 6d743eb (K36),
+15719c7 (K37), a8bbbb9 (Pahulich run lessons), 6bb6b84 (Cowork default, this item).
+**To do (yours):**
+1. Workspace `CLAUDE.md`, the srom-ikonograf line: Cowork runs it (SKILL.md § Where it runs); Code may write
+   `work/<id>/ikonografia/` too (K34).
+2. STATUS.md, one line per text: Pahulich: Ikonografia searched, 21 slots, 74 candidates, waiting for MB's cut on the
+   sheet (full re-run by a Code session, 24.10.2026 21:46). Tittel: brief, steps 1–3, waiting for MB's cut of slots.
+   Ostendorf vol. 18: test record only, `work/ostendorf18/ikonografia/` (calibration; nothing to do).
+3. Tick K34–K38 in STATUS.md § For the skills.
+4. Replies: the end-of-reply line is now `Files to open: <name> (<text>) — <absolute path>` (K37; root CLAUDE.md).
+**What changed in the skill (short):**
+- Every run is meticulous; about 2× the printed target proposed (core + secondary ² slots), 3–6 candidates a slot; the
+  record has § 6 Doubts and § 7 Footnote leads; `przypisy <text>` checks the open leads (K35, K36).
+- Contact sheet: about 700 px thumbnails from the holders' resize services, size toggle, click to enlarge; `alt` = better
+  copy (link + why), `also` = proposed in another text too (shared images are proposed again; MB decides) (K36).
+- `zgody <text>`: best contact per holder (named person, alternatives, where found), one English letter per holder in
+  `zgody.md` (K36; rights.md).
+- **Your downloads**: write `pobierz.tsv` in the text's `ikonografia/` folder (`plik <name> <url>` for chosen files,
+  `miniatura <slot id> <url>` for local thumbnails); `scripts/pobierz.py` on the Mac does them and writes `pobierz.log`;
+  read it on your next turn. The launchd job that runs it every 5 minutes waits for MB's yes; until then a Code session
+  (or MB) runs it once. No more click lists for MB.
+- sources.md: Commons via `Special:FilePath/<name>?width=960`; MPI dlc `full/max`; MDZ full-text search; IA `-L`;
+  Europeana's 293×293 placeholder = no thumbnail; loc.gov's human check loops in the app's browser (your web fetch reached
+  its search: use that); new sources from the Pahulich run (a8bbbb9).
+- Records always in `work/<id>/ikonografia/`, never a scratchpad (K36).
