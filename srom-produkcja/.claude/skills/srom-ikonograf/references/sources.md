@@ -142,7 +142,8 @@ holder's own resize service for it; nothing is downloaded and no tokens are spen
 | loc.gov | `…v.jpg` (about 1024 px), not `…t.jpg` or `_150px` |
 | Europeana | the thumbnail API stops at `w400`: use the provider's own image (`edmIsShownBy`) as below. A thumbnail of exactly 293×293 px is Europeana's placeholder, not the image (Polona and some culturalia items): blank it |
 
-No resize service, or only a TIFF or a very large file: download it and make a local copy,
+No resize service, or only a TIFF or a very large file: from Cowork, a `miniatura` row in `pobierz.tsv`
+(SKILL.md § Where it runs) does all of the following on the Mac. From Code: download it and make a local copy,
 `curl -sL -o <tmp>/<id>.src <url> && sips -Z 800 -s format jpeg -s formatOptions 70 <tmp>/<id>.src --out miniatury/<id>.jpg`
 (about 100 KB; JPEG is enough, WebP saves little at this size), set `thumb:"miniatury/<id>.jpg"`, then embed the
 local copies in the sheet, so that the side panel and the browser pane show them (neither loads a relative path):

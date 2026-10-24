@@ -29,6 +29,7 @@ nothing good says so in § 5 instead of being padded.
 | MB's way of illustrating: principles and worked cases (**read before every brief**) | `references/patterns.md` |
 | where to search: repositories by tier, query templates, what was tested from Cowork and from Code | `references/sources.md` |
 | rights classes, credits, finding the contact, permission letters (EN; PL/ES/FR on request) | `references/rights.md` |
+| downloads for Cowork runs, done on the Mac (§ Where it runs) | `scripts/pobierz.py`, `scripts/pl.srom.ikonograf-pobierz.plist` |
 | per-text record and contact sheet (templates) | `assets/template/ikonografia.md`, `assets/template/kontaktowka.html` |
 | one text's work | workspace `srom-produkcja/work/<id>/ikonografia/`: `ikonografia.md`, `kontaktowka.html`, `zgody.md` (letters, step 7), `pliki/` (chosen files), `miniatury/` (local thumbnails, step 5) |
 
@@ -44,6 +45,18 @@ Cowork, or Claude Code on the Mac (an exception to "Code never writes `workspace
 in `work/<id>/ikonografia/`). `STATUS.md` and `MB-decisions.md` stay Cowork's: a Code session sends the step 7
 questions and the step 8 line as a K-item in `_handoffs/code-to-cowork.md` (headed "needs MB" when it carries a
 question), and Cowork enters them.
+
+## Where it runs (MB, 24.10.2026: Cowork by default, on trial; back to Code if it does not work in practice)
+
+**Cowork runs ikonograf**, and MB sees the results there. It searches with its web tools; those reach loc.gov's search,
+which Code cannot. What its VM cannot reach (downloads, local thumbnails) goes through **`pobierz.tsv`** in the text's
+`ikonografia/` folder: one request a line, `plik <name> <url>` (a chosen file, into `pliki/`) or `miniatura <slot id>
+<url>` (an 800 px local thumbnail, embedded in the sheet); format in `scripts/pobierz.py`. On the Mac,
+`scripts/pobierz.py` does the list every 5 minutes (launchd, `scripts/pl.srom.ikonograf-pobierz.plist`; once by hand
+if it is not installed) and logs each request in `pobierz.log`. Cowork reads the log on its next turn: `ok` means the
+file is there, `FAIL` gives the reason (a different URL, or the item goes to MB as a link). MB does nothing.
+Code-only searches (Smithsonian, Openverse) are skipped from Cowork; a thin slot can be searched from Code on request.
+A Code session can still run the whole skill (as in the Ostendorf, Tittel and Pahulich tests) with the same files.
 
 ## The steps
 
@@ -114,10 +127,9 @@ question), and Cowork enters them.
    that each shows what its row says: a scan's first leaf is often a cover or a blank.
 6. **MB chooses.** For each chosen image (`ikonografia.md` § 3): `Il. n`, file name `<id>_il<nn>_<slug>.<ext>` in
    `pliki/`, a draft caption in Polish per Kanon § 10.1–10.2 (dry; date and place as they really are, patterns § 3),
-   the credit, the rights class, the permission state. Files: from Claude Code on the Mac, `curl -L -o` the
-   full-resolution URLs into `pliki/` (the Commons User-Agent from sources.md; a few seconds apart); from Cowork the
-   VM shell reaches none of the repositories, so give MB the list of full-resolution links to save into `pliki/`
-   (one click each).
+   the credit, the rights class, the permission state. Files: from Cowork, a `plik` row per file in `pobierz.tsv`
+   (§ Where it runs), then check `pobierz.log`; from Claude Code on the Mac, `curl -L -o` the full-resolution URLs
+   into `pliki/` (the Commons User-Agent from sources.md; a few seconds apart), or run `scripts/pobierz.py`.
 7. **Permissions** (rights.md), for the chosen images only. Per holder: find the best contact (rights.md § Finding
    the contact: a named person and e-mail where one can be found, alternatives when unsure, each with where it was
    found), then draft one English letter listing all that holder's items with their catalogue data, into `zgody.md`,

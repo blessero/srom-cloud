@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Runs pobierz.py every 5 minutes (SKILL.md § Where it runs). Install: copy to ~/Library/LaunchAgents/ and
+     `launchctl load ~/Library/LaunchAgents/pl.srom.ikonograf-pobierz.plist`; remove: `launchctl unload …` and delete. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>pl.srom.ikonograf-pobierz</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/python3</string>
+    <string>/Users/michalbartosz/.claude/skills/srom-ikonograf/scripts/pobierz.py</string>
+  </array>
+  <key>StartInterval</key><integer>300</integer>
+  <key>RunAtLoad</key><true/>
+  <key>StandardErrorPath</key><string>/Users/michalbartosz/Library/Logs/srom-ikonograf-pobierz.log</string>
+</dict>
+</plist>
