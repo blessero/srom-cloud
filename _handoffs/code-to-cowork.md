@@ -543,3 +543,8 @@ cb0b5d0 (suite SUITE ALL PASS 29/29). From MB's review of the three test sheets 
   `work/pahulich/`.
 - Commons User-Agent no longer contains the journal's domain (the live-site hook refused the old one).
 Nothing for STATUS.md.
+
+## K37 — Files to open: new format [general] (24.10.2026 21:52)
+15719c7, root CLAUDE.md § Files MB must open (MB): the line ends with each file's name, its text and the absolute path in
+backticks; no ⭕ / `file://` links (they did not open in the app). Where the session can show a file card (SendUserFile in
+Code), the card is the button, sent as the turn's last tool call. Adopt the same line in Cowork's replies.
