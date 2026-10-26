@@ -693,3 +693,26 @@ K43 addendum 3 (26.10.2026): fourth pass done (Smithsonian NMAAHC/NPG, Getty, Lo
 K43 addendum 4 (26.10.2026): skill changes, uncommitted: `srom-ikonograf/SKILL.md` (§ Method that worked), `references/sources.md` (routes, DPLA/Smithsonian rows, shell traps); new `_handoffs/ikonograf-tooling-handoff.md` (new scripts, for a higher model). C-item for Code to commit and run the preflight. DPLA key stored at `~/.config/srom/dpla_api_key` (never in a repo).
 
 K43 addendum 5 (27.10.2026): fifth pass done (DPLA, Chrome, built-in browser, Northwestern API): sheet now 179 candidates in 16 slots; STATUS line may read `Ikonografia: query q-slavery19c, 179 candidates in 16 slots, no image chosen, 0 permissions pending`. Open for MB: pass the Cloudflare check on loc.gov (and acervos.ims.com.br) once in Chrome so the loc.gov JSON search can run; skill notes in `sources.md` § Routes (IHOI URL, Northwestern API, Chrome/HathiTrust) still to add: C-item for Code.
+
+## K46 — [general] Review 26.10.2026: sheets at hand in `Claude outputs/`; C27–C30 status; date corrections; needs MB (two items) (26.10.2026 15:32)
+Review: 🔴 `SROM edit and trans/_handoffs/review-26.10.2026.md` (062f407); applied in f2a7af2 and abed435. Suite SUITE ALL PASS 29/29.
+**New behaviour (MB, 26.10.2026):** every record's contact sheet now has a copy at hand, `Redakcja/Claude outputs/Kontaktowka - <Name>.html`
+(`Pahulich`, `Tittel`, `Ostendorf18`, `Zapytanie slavery19c`, `Zapytanie stlouis1904`), made by `pobierz.py` on each Mac run (every
+5 minutes) whenever a sheet is new or changed; `pobierz.py --mirror` does it at once. Copies only: never edit them, never read them
+back; the record stays in `work/<id>/ikonografia/`. Root CLAUDE.md § The one folder has the row; in Files-to-open lines give the copy's
+path for a sheet. The two copies there before (24.10 23:11) were stale; all five are current now. Cowork: one line under STATUS.md
+§ For the skills; if Biurko or the workspace CLAUDE.md names sheet paths, the copy is the one to point MB to.
+**Status of C27–C30:** C27 (`sips` tests skip) done, folded into ff782ff; C28 seen; C29 done, 554f8fb; C30 done, 959ecfe (its § 17 row
+„1.18, uzup.” is appended to an already announced version: folded into v1.19 at the next Kanon change, review item 5).
+**Corrections to K43–K45 (append-only, so here):** (1) addendum 5 says the sources.md § Routes notes (IHOI URL, Northwestern API,
+Chrome/HathiTrust) are still to write: they were committed in ff782ff (26.10 15:09) and are now folded into the tables (f2a7af2);
+nothing is open there. (2) Addenda 5 and 6 are dated 27.10.2026: both were written on 26.10.2026, before 15:30; the q-slavery19c record
+had the same three dates, now 26.10.2026. (3) The skill changes K43 (addenda 3, 4), K44 and K45 call uncommitted are all in ff782ff.
+(4) Addendum 6's sources.md paragraph (loc.gov through Chrome) is still uncommitted, with addendum 6 itself (For MB 3 below).
+**For MB (code GEN; enter in the ledger):**
+1. **Decide, optional:** the ikonograf tooling hand-off (`_handoffs/ikonograf-tooling-handoff.md`). Recommended: nothing now; before the
+   next large query, its item 1 (a sheet builder that embeds the thumbnails on every build) with its test; item 4 is MB's minute (a free
+   api.data.gov key into `~/.config/srom/`). Blocks nothing. Detail: review-26.10.2026.md, For MB 2.
+2. **Decide:** commit the slavery session's uncommitted sources.md paragraph and K43 addendum 6 from a Code session (recommended: yes, as
+   written; it is a tested recipe), or leave them to that session. Blocks nothing.
+*Trail:* review 26.10.2026 findings 1–12; For srom-produkcja 1–5; For srom-tlumacz 1 (T39 status line).

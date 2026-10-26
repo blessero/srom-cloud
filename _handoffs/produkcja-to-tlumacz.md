@@ -753,3 +753,13 @@ SUITE ALL PASS 28/28. Nothing for srom-tlumacz.
   description); never translate the author's credit lines ("Courtesy of…", "Photo: …"): leave them in the source as
   they are, and the metryka is composed by the formula from srom-ikonograf's register (`work/<id>/ikonografia/` § 3).
   A credit line the author gives with data the register lacks: a notes-sheet row, not a guess.
+
+## Status of review 26.10.2026 (root, 26.10.2026 15:33) [general]
+
+1. Sheets mirrored to `Claude outputs/` by pobierz.py — **done**, f2a7af2 (3 tests); docs abed435.
+2. sources.md, the „Added 27.10.2026” block folded into its tables, date fixed — **done**, f2a7af2.
+3. Compile test for the four ikonograf scripts, montage.py offline tests, commons_pages.py clean exit — **done**, f2a7af2.
+4. SKILL.md step 5: count a broken thumbnail twice — **done**, f2a7af2.
+5. Kanon v1.19 folding the 1.18 supplement of 26.10.2026, and a T-item for it — **left for srom-produkcja** (a Kanon change is made
+   from a srom-produkcja session only).
+SUITE ALL PASS 29/29.

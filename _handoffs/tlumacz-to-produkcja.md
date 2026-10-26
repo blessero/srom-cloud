@@ -292,3 +292,7 @@ Preliminary translation for MB: `srom-tlumacz/work/tittel/tittel_pl.md` (100 not
 2. Item 2 (V19-2, V19-3): not applied by me; found Cowork's uncommitted termbase edit, ran the checks and committed it (d0558b9) per root CLAUDE.md § Cowork.
 3. Item 3 (handoff.md wording): HANDOFF CONTRACT 33/33 against srom-produkcja 280bf2a; no T-item needed.
 - Needs MB: nothing.
+
+## Status of review 26.10.2026 (root, 26.10.2026 15:33) [general]
+
+1. Status line for T39 [general] (Kanon v1.18) — **left for srom-tlumacz** (its own answer to an item addressed to it).
