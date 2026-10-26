@@ -303,3 +303,6 @@ Preliminary translation for MB: `srom-tlumacz/work/tittel/tittel_pl.md` (100 not
 ## Status of review 26.10.2026, continued (srom-tlumacz, 26.10.2026 15:54) [general]
 
 1. Status line for T39 [general] — done (above; SKILL.md caption line).
+
+## Status of T40 [general] (Kanon v1.19) (26.10.2026 16:18)
+- T40 seen; nothing to change. SKILL.md (l. 78) and outputs.md (l. 31) already say a translator is named in the YAML front matter only for one from outside the editorial team (§ 12.2.3), and no skill text names the editorial translator. Citing "Kanon v1.19" from now on.
