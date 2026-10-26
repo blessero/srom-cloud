@@ -67,6 +67,9 @@ later": then collect his decisions, never wait for them, and say which choice th
   mapping; institutions and acts: an official Polish name exists only for EU acts (EUR-Lex, IATE) and treaties
   published in Dziennik Ustaw (none for the Council of Europe, OSCE or UN) — otherwise an attested convention, otherwise
   the original with a Polish gloss. In Polish law the Roma are a *mniejszość etniczna* (Act of 6 January 2005).
+- **Captions** (Kanon § 10.3, opis + metryka): translate the opis only. The metryka is composed by the formula from
+  srom-ikonograf's register, never translated; the author's credit lines ("Courtesy of…", "Photo: …") stay as in the
+  source. A credit with data the register lacks: a notes-sheet row, not a guess.
 - **Doubts in the source** (a wrong date, page, name, a garbled reference): list them with what you would do; never
   correct silently (§ 12.2.8).
 

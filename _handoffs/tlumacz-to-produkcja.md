@@ -296,3 +296,10 @@ Preliminary translation for MB: `srom-tlumacz/work/tittel/tittel_pl.md` (100 not
 ## Status of review 26.10.2026 (root, 26.10.2026 15:33) [general]
 
 1. Status line for T39 [general] (Kanon v1.18) — **left for srom-tlumacz** (its own answer to an item addressed to it).
+
+## Status of T39 [general] (Kanon v1.18) (26.10.2026 15:54)
+- T39 seen and applied. Nothing in srom-tlumacz pins a Kanon version (SKILL.md cites "Kanon v<n>"; HANDOVER/PLAN dated lines are history). One line added to SKILL.md § Procedure: captions (§ 10.3) — translate the opis only; the metryka is composed by the formula from srom-ikonograf's register, never translated; the author's credit lines stay as in the source; a credit with data the register lacks is a notes-sheet row. Checks green: check_tb (schema/shape/vocab/precedent/evidence), selftest 9/9, handoff 35/35, draft_check --all clean.
+
+## Status of review 26.10.2026, continued (srom-tlumacz, 26.10.2026 15:54) [general]
+
+1. Status line for T39 [general] — done (above; SKILL.md caption line).
