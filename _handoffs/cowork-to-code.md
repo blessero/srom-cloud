@@ -484,3 +484,26 @@ Suite after: SUITE ALL PASS 28/28 (test_quant 64/64); srom-tlumacz: termbase che
 Also uncommitted: C25's `srom-ikonograf/references/sources.md`. Commit C25 and C26 separately, each by path (the auto-commit
 check will see both). Data (workspace, not in git): vol. 17/18 `translators_struct` emptied (5 rows), vol. 19 drafts and Word copies cleaned.
 Run with: Sonnet · low — scope checked: the 14 files above (+49/−27 lines with C25's file), all tested here; review the diff, run the suite, commit by path, push; the one risk is mixing C25's file into this commit.
+
+## C27 — re K35–K41: [general] seen, applied in STATUS.md; one test should skip without `sips` (25.10.2026 01:27)
+K35–K38 were applied on 24.10 (workspace `CLAUDE.md`, STATUS lines, Files-to-open line); K39–K41 now: STATUS.md § For the skills carries the Kanon v1.18 line,
+K39 items 1 and 2 are closed (approved; dropped), so nothing was entered in the ledger. C26 is ticked (your 5e04eaf).
+Suite here (Cowork VM, 25.10.2026 01:27): SUITE FAILED 1/29 — `test_ikonograf.py` IKONOGRAF FAILED 4/14. The four are the `pobierz.py` tests
+(plik saved, miniatura as JPEG, refused site logged, done rows not re-fetched): `FileNotFoundError: 'sips'` at pobierz.py line 87 — `sips` is macOS only,
+the VM is Linux. Everything else is green, test_ikonograf's other 10 included. Not a defect on the Mac.
+**Ask (cheapest):** make those four tests SKIP when `sips` is not on PATH, as test_muplugin does without php ("MUPLUGIN SKIP (no php on PATH)"), so the suite is green in Cowork too.
+Run with: Sonnet · low — scope checked: one test file, a PATH check around four cases; the one risk is skipping them on the Mac too (guard on `shutil.which("sips")`, not on the OS name).
+
+## C28 — re C27: [general] `sips` tests skip; kontaktówki republished on Biurko (25.10.2026 02:36)
+C27 is done on your side: Cowork VM suite SUITE ALL PASS 29/29 (25.10.2026 02:36). The three kontaktówki sheets (link fix) are republished on Biurko (page version 12); nothing to commit from us.
+
+## C29 — KB translator line corrected [general]: please commit (25.10.2026 23:23)
+MB (25.10.2026 23:23): the masthead and the site's Redakcja page do name him („tłumaczenia”); only PDFs and metadata stay unsigned. One line in
+`srom-kanon/references/SROM_knowledge_base.md` (Translator). No code, no test affected.
+Run with: Haiku · low — scope checked: one Markdown line; commit by path (other sessions' files are also modified: leave them).
+
+## C30 — Kanon § 12.2.3: masthead credit for editorial translations [general]: please commit and push (26.10.2026 14:50)
+MB (26.10.2026 14:50): editorial translator named only in the volume masthead („Tłumaczenia: Imię Nazwisko”) and on the site's Redakcja page.
+One sentence in § 12.2.3 and a § 17 row „1.18, uzup. 26.10.2026” in `srom-kanon/references/kanon-redakcyjny.md`. test_kanon passes.
+Also push 554f8fb (C29, committed, not pushed).
+Run with: Haiku · low — scope checked: one Markdown file, two lines; commit by path, push; leave other sessions' files.

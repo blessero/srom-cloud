@@ -619,3 +619,77 @@ stays open: enter it as before.
 MB, 25.10.2026 01:23: drop the sentence "Ilustracje z innych źródeł – na warunkach podanych w podpisach." (not seen in other
 journals). K39 item 2 (the InDesign Do item) is **withdrawn**: do not enter it, or remove it. Kanon § 13.2 keeps only the
 rule (images from other sources outside the article licence; their metryka states the terms); § 16 item removed.
+
+## K42 — [general] Ikonograf query: trace of the Wendler-Funaro photo "Gypsies as Consumers" (25.10.2026 21:50)
+MB asked, in a Code session, to trace the photo on p. 225 of Butler Wakeley-Smith's 2022 Michigan dissertation (Photographs 16).
+Record: 🔴 `srom-produkcja/work/q-wendlerfunaro-consumers/ikonografia/ikonografia.md` (written from Code; no sheet, one image).
+Result: the print is in the NMAH Archives Center, Carlos de Wendler-Funaro Gypsy Research Collection, NMAH.AC.0161, box 5,
+folder 21 (ref208); **not digitised**; the picture in the dissertation is the author's own snapshot of the print; class D;
+contact archivescenter@si.edu. Open doubts in § 6 of the record: maker (Funaro or Alland?), date (the author's "c. 1938" is
+not in the catalogue), that this print is in folder 21.
+Cowork: STATUS.md one line `Ikonografia: query q-wendlerfunaro-consumers, Q1-a traced to NMAH (class D), no image chosen, 0 permissions pending`.
+No question for MB's ledger yet (nothing chosen). Uncommitted: only the record, no skill change.
+
+## K43 — [general] Ikonograf query: photographs of slavery 1850–1899 (25.10.2026 22:22)
+MB asked, in a Code session, for as many photographs as possible of enslaved people or directly tied to slavery, as early as possible (third quarter of the 19th century to 1899; samples: NEH *Gross Injustice*, LoC 2018670634, High Museum slave pens, Commons Daphne/Wilson Chinn/Gordon).
+Record: 🔴 `srom-produkcja/work/q-slavery19c/ikonografia/ikonografia.md`; sheet: 🔴 `srom-produkcja/work/q-slavery19c/ikonografia/kontaktowka.html` (121 candidates, 15 slots; earliest ca. 1845; written from Code).
+Result: LoC 2018670634 = Alexandria slave pen interior LC-B811-2299. Open doubts in § 6 (Gordon/NARA file is the verso; LC-B811-2300 is not 1315 Duke Street; Zealy plates now at the IAAM; RMG record shots watermarked). loc.gov unreachable from Code (403), Claude in Chrome not connected; a LoC pass in MB's browser is open (§ 5).
+Cowork: STATUS.md one line `Ikonografia: query q-slavery19c, 121 candidates in 15 slots, no image chosen, 0 permissions pending`.
+No question for MB's ledger yet (nothing chosen). Uncommitted: only the record and sheet, no skill change.
+
+K43 addendum (25.10.2026 23:05): second pass done (NYPL, DPLA, HathiTrust, Gallica, Slavery Images, IHOI, Smithsonian NMAAHC): sheet now 138 candidates; STATUS line may read `Ikonografia: query q-slavery19c, 138 candidates in 15 slots, no image chosen, 0 permissions pending`. Open: loc.gov, HathiTrust, Gallica SRU stay 403 from Code.
+
+## K44 — [general] srom-ikonograf: three small additions from the Wendler-Funaro trace; one run for a higher model (26.10.2026 00:38)
+Done from Code, uncommitted (Code commits; no test touches these files): `sources.md` (new block „Smithsonian archives”:
+403 to curl/WebFetch, read through the Exa tools; new paragraph „From a printed page or a PDF” in § Tracing),
+`rights.md` (paragraph „Standing licence”). Nothing for Cowork to apply; add one line under STATUS.md § For the skills.
+**For a higher model (not done; scope: reads a 355-page PDF, no code):** 1. Read the whole Wakeley-Smith dissertation
+(open access: `https://deepblue.lib.umich.edu/bitstream/handle/2027.42/174327/dcbutler_1.pdf`; MB must allow the
+download, or read through the Exa fetch) and write, for each of its 25 „Photographs”, 7 „Illustrations” and 5 „Maps”
+(list on pp. viii–xi), the holder, call number and date the author gives: a ready lead list for Ostendorf S9/S10 and
+any American-Roma text; trace the NMAH ones (Photographs 14 Mineola Fair, 15 Airing Bedding) to digitised items.
+2. Read NMAH's fee list and permission form (linked from `americanhistory.si.edu/collections/about/rights-and-reproductions`)
+and replace the „not yet read” in rights.md with the figures. 3. Optional script: `pdfimages -list` plus a render of the
+page into the record's folder as evidence (the 6-line step in sources.md, by hand today; build only if a second trace needs it).
+Run with: Sonnet · high — scope checked only for p. 225 and the front matter; the real risk is a partial read of 355 pages (log what was read).
+
+## K45 — [general] Ikonograf query q-stlouis1904 (the Pike Gypsies photo found); srom-ikonograf: a known-item method and three scripts; one run for a higher model (26.10.2026)
+From Code, at MB's request (25–26.10.2026). MB asked for a photo of „Gypsies” on the Pike of the 1904 St. Louis World's Fair
+(not the Seville fountain portraits; shot over spectators' shoulders, poor scan of a book on the whole fair).
+**Answer:** *Spanish Gypsies on the Pike*, plate in C. S. Jackson, *Jackson's famous photographs of the Louisiana purchase
+exposition* (Chicago 1904), LoC copy on Internet Archive `jacksonsfamousph01jack`, leaf 142 (`n141`), class A. Differs from
+MB's memory in one point: the caption says walking to the camp, not performing (stated to MB first). Open doubts in § 6:
+who the fair's „Gypsies” were (Seville and Cairo concession staff; no source found says Romani), photographer unknown,
+the LoC record not opened (Cloudflare).
+Record: 🔴 `srom-produkcja/work/q-stlouis1904/ikonografia/ikonografia.md`; sheet: 🔴 `…/kontaktowka.html` (7 rows in 3 slots, 6
+thumbnails, 0 broken). Cowork: STATUS.md one line `Ikonografia: query q-stlouis1904, S1-a Jackson 1904 (class A) found, no image chosen, 0 permissions pending`.
+No question for MB's ledger.
+**Skill changes, done from Code, uncommitted (Code commits; add one line under STATUS.md § For the skills):**
+`SKILL.md` (new § Known-item search, one row in „What MB can ask for”, one in the Files table), `references/sources.md` (block
+„Learnt in the q-stlouis1904 run”: CONTENTdm API, whole-fair publications on IA, MHS albums on Commons, Hyku, Commons search
+limits, tools that failed), `references/patterns.md` (one case), `scripts/ia_find.py` (OCR grep → leaf index → page image;
+tested on Jackson), `scripts/commons_pages.py` (bulk Commons thumbnails, resumable; tested), `scripts/montage.py` (20-page contact
+sheets; Pillow). All three run under Python 3.9 (`montage.py` needs Pillow, present in the miniconda python3; the system
+python3 lacks it: use `/opt/miniconda3/bin/python3` or install Pillow).
+**For a higher model (not done; none needs code beyond what exists):**
+1. **Is there a performing shot?** Only vols 10–11 of the MHS album (158 pp.) and Jackson's book were looked at. Vols 1–9 (709 pp.)
+   are on Commons; run `commons_pages.py` on vols 2, 8, 9 first (Pike pages sit in vols 2 and 8), then view the montages
+   (about 36 images) or run a vision pass over the handwritten captions. Log the vols covered in § 5 of the record.
+2. **Archive.org full-text search** (`https://archive.org/services/search/beta/page_production/?service_backend=fts&user_query=…`):
+   untried. If it works from curl, it replaces the list-and-grep of step 3 of the new section and should become step 3.
+   Test with the Jackson hit as the control (`„Spanish Gypsies on the Pike”` must return `jacksonsfamousph01jack`).
+3. **Original print behind Jackson's halftone**: LoC Prints & Photographs (browser, `loc.gov/item/…`; the app's browser loops on
+   Cloudflare, so via Commons mirrors by LCCN) and MHS (`collections.mohistory.org` 403 to fetch). Also open the LoC record
+   of the book itself (LCCN tmp92001438, OCLC 1047491275) for the call number the metryka needs.
+4. **Who they were**: Rydell's and Parezo–Fowler's literature on the fair; 1904 newspapers (Chronicling America, via the Exa
+   fetch tools) on the Seville concession (Mattie McCall Travis, the „Gypsy Lane of Barcelona”). Goal: one sentence in § 6
+   that either supports or drops „Romani”. Risk: inventing identity from costume; log only what a source says.
+Run with: Sonnet · high for 1–3; item 4 · Opus (a reading task, risk is over-reading a thin source).
+
+K43 addendum 2 (26.10.2026): third pass done (IMS, Biblioteca Nacional / Brasiliana, Cuba, Internet Archive): sheet now 155 candidates; STATUS line may read `Ikonografia: query q-slavery19c, 155 candidates in 15 slots, no image chosen, 0 permissions pending`. Still 403 from Code: loc.gov, HathiTrust, DPLA, BN Brasil (read through Exa).
+
+K43 addendum 3 (26.10.2026): fourth pass done (Smithsonian NMAAHC/NPG, Getty, LoC image server, Suriname, Georgia, Orientalist): sheet now 168 candidates in 16 slots; STATUS line may read `Ikonografia: query q-slavery19c, 168 candidates in 16 slots, no image chosen, 0 permissions pending`. Skill change, uncommitted: one sentence in `srom-ikonograf/references/sources.md` (loc.gov row: the image server tile.loc.gov answers from Code). C-item for Code to commit.
+
+K43 addendum 4 (26.10.2026): skill changes, uncommitted: `srom-ikonograf/SKILL.md` (§ Method that worked), `references/sources.md` (routes, DPLA/Smithsonian rows, shell traps); new `_handoffs/ikonograf-tooling-handoff.md` (new scripts, for a higher model). C-item for Code to commit and run the preflight. DPLA key stored at `~/.config/srom/dpla_api_key` (never in a repo).
+
+K43 addendum 5 (27.10.2026): fifth pass done (DPLA, Chrome, built-in browser, Northwestern API): sheet now 179 candidates in 16 slots; STATUS line may read `Ikonografia: query q-slavery19c, 179 candidates in 16 slots, no image chosen, 0 permissions pending`. Open for MB: pass the Cloudflare check on loc.gov (and acervos.ims.com.br) once in Chrome so the loc.gov JSON search can run; skill notes in `sources.md` § Routes (IHOI URL, Northwestern API, Chrome/HathiTrust) still to add: C-item for Code.
