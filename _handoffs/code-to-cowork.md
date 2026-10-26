@@ -720,3 +720,28 @@ had the same three dates, now 26.10.2026. (3) The skill changes K43 (addenda 3, 
 *Trail:* review 26.10.2026 findings 1–12; For srom-produkcja 1–5; For srom-tlumacz 1 (T39 status line).
 
 K43 addendum 7 (26.10.2026): seventh pass (Yale Beinecke Land of Zenj; second loc.gov sweep): sheet now 232 candidates in 16 slots; STATUS line may read `Ikonografia: query q-slavery19c, 232 candidates in 16 slots, no image chosen, 0 permissions pending`. Skill change, uncommitted: `references/sources.md` (Yale digital collections route; loc.gov rate limit). C-item for Code to commit.
+
+## K47 — [general] srom-ikonograf: contact sheets now built from `kontaktowka.json`; the slavery session's notes committed; review items 5 and For-srom-tlumacz done (26.10.2026 16:04)
+MB, 26.10.2026: commit the slavery session's work, apply the module items, build the sheet builder from the tooling hand-off.
+**New way of working (every ikonograf run, Cowork included):** a record's candidates live in `work/<id>/ikonografia/kontaktowka.json`
+(the sheet's DATA: text, note, slots, items). **Edit that file, never `kontaktowka.html`.** The sheet is built from it by
+`scripts/kontaktowka_build.py <record dir>`; on the Mac, `pobierz.py` (every 5 minutes) rebuilds any record whose rows file is
+newer than its sheet, so Cowork only edits the JSON and reads the sheet a few minutes later. Every build takes the current
+template, re-embeds all of `miniatury/` (a rebuild can no longer drop the local thumbnails) and refreshes MB's copy in
+`Claude outputs/`. A row's `src` (`commons:<file>`, `loc:<coll>-<n>`, `si:`, `ia:<id>/n<k>`, `iiif:`, `getty:`) fills the
+URLs; a field given in the row wins. A row that needs a local thumbnail from Cowork: a `miniatura` line in `pobierz.tsv` as before,
+and the row's `thumb: "miniatury/<id>.jpg"`. SKILL.md step 5 and the script's header have the details. Commit 8bf6caa; suite 29/29.
+All five records were ported (Ostendorf18 21, Pahulich 74, q-slavery19c 232, q-stlouis1904 7, Tittel 21 rows): DATA identical to the old
+sheets, every local thumbnail still embedded, 0 broken thumbnails in the browser except q-slavery19c S8-af (Yale's server takes over 60 s
+to render it; the image exists). The older sheets now have the current renderer (copy-link buttons, the metryka line).
+`q-slavery19c/ikonografia/_tools/items.py` and `build.py` are superseded (no longer runnable: their size files were not kept, and
+passes 6–7 were written into the sheet directly); the other `_tools` scripts stay as a record of that run. Cowork: one line under
+STATUS.md § For the skills; if Biurko republishes sheets, take them from `Claude outputs/` or the records (both current).
+**Also done:** the slavery session's sources.md notes (loc.gov through Chrome, Yale, loc.gov rate limit) and K43 addenda 6–7 committed,
+7ff84b5 (the Yale note's date set to 26.10.2026); STATUS line per addendum 7: `Ikonografia: query q-slavery19c, 232 candidates in 16 slots,
+no image chosen, 0 permissions pending`. Review 26.10.2026 item 5 done by a srom-produkcja session: Kanon **v1.19** (folds the 1.18
+supplement; no rule change), T40, d6707e8. srom-tlumacz answered T39 (89f9d44; one SKILL.md line on captions); T40 came after it and
+still awaits its status line.
+**For MB (code SYS; enter in the ledger):** **Do, optional (a minute):** a free api.data.gov key into `~/.config/srom/` (as for DPLA) before
+Smithsonian is searched again; DEMO_KEY allows about four searches an hour. Blocks nothing.
+*Trail:* ikonograf-tooling-handoff.md § Status (items 1–6); review 26.10.2026 For MB 2–3; K46.
