@@ -528,3 +528,33 @@ Source: MB's manchesterhive PDF (`work/Peripheral whiteness …pdf`), Chicago en
   EXPECT: /DOI ALL PASS/
   EVIDENCE: live in InDesign 2026, tools/indesign_check/doi_check.py: Ostendorf INJECT build 36/36 links (19 note citations,
   17 bibliography entries, 17 DOIs), SICI + "#?" DOIs 6/6, border 0, URLs encoded in the PDF — INDESIGN DOI CHECK ALL PASS 7/7 both
+
+## Milestone check 26.10.2026 (root, MB's /unlazy request): ikonograf at hand in `Claude outputs/`, sources.md routes, review
+- [x] M1: pobierz.py mirrors every record's kontaktowka.html into `Redakcja/Claude outputs/Kontaktowka - <Name>.html` (new or newer only; `--mirror` alone does just that); tested
+  CHECK: ~/.venvs/srom/bin/python .claude/skills/srom-produkcja/tests/test_ikonograf.py | grep -c "^PASS pobierz: sheet"
+  EXPECT: /^[3-9]\s*$/
+  EVIDENCE: 3
+- [x] M2: live: every record's sheet has a byte-identical copy in `Claude outputs/` after one run of the Mac job
+  CHECK: cd ../../workspace/srom-produkcja/work && n=0; for f in */ikonografia/kontaktowka.html; do id=${f%%/*}; case $id in q-*) nm="Zapytanie ${id#q-}";; *) nm="$(echo ${id:0:1} | tr a-z A-Z)${id:1}";; esac; cmp -s "$f" "../../../Claude outputs/Kontaktowka - $nm.html" || { echo "DIFF $id"; n=$((n+1)); }; done; echo "differ=$n"
+  EXPECT: /differ=0/
+  EVIDENCE: differ=0
+- [x] M3: the rule is written where sessions read it: srom-ikonograf SKILL.md (Files, step 5), root CLAUDE.md § The one folder, checkup § 9
+  CHECK: grep -c "Claude outputs" .claude/skills/srom-ikonograf/SKILL.md ../CLAUDE.md ../_handoffs/checkup/SKILL.md
+  EXPECT: /SKILL.md:[1-9][\s\S]*CLAUDE.md:[1-9][\s\S]*SKILL.md:[1-9]/
+  EVIDENCE: ../CLAUDE.md:3 | ../_handoffs/checkup/SKILL.md:1
+- [x] M4: sources.md: the q-slavery19c notes (Northwestern API, IHOI URL, Chrome/HathiTrust, DPLA dates) folded into their tables, no future date
+  CHECK: f=.claude/skills/srom-ikonograf/references/sources.md; grep -c "27\.10\.2026\|^\*\*Added" $f; grep -c "^| Northwestern" $f; grep -c "ihoi.org/searchBM" $f; grep -c "Claude in Chrome" $f
+  EXPECT: /^0\n1\n[1-9]\n[1-9]\s*$/
+  EVIDENCE: 1 | 2
+- [x] M5: suite green after the changes
+  CHECK: python3 .claude/skills/srom-produkcja/tests/run_all.py < /dev/null 2>&1 | tail -1
+  EXPECT: /SUITE ALL PASS/
+  EVIDENCE: SUITE ALL PASS 29/29
+- [x] M6: review-26.10.2026.md with the six headings, committed
+  CHECK: f=../_handoffs/review-26.10.2026.md; grep -c "^## Conclusions\|^## Verdict lines as printed\|^## Findings\|^## Last review's findings\|^## For srom-produkcja\|^## For srom-tlumacz\|^## For MB" $f; git log --format=%s | grep -c "^review: 26.10.2026"
+  EXPECT: /^7\n[1-9]\s*$/
+  EVIDENCE: 7 | 1
+- [x] M7: K-item to Cowork (status of C27–C30, K43 add. 5 corrected, the mirror) committed and pushed; nothing of mine unpushed
+  CHECK: git log --format=%s | grep -c "K4[6-9].*\[general\]"; git log origin/main..HEAD --oneline | wc -l
+  EXPECT: /^[1-9]\n\s*0\s*$/
+  EVIDENCE: 1 | 0
