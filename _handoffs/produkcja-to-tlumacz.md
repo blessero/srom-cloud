@@ -770,3 +770,7 @@ SUITE ALL PASS 29/29.
   1.18 had been announced in T39: no rule changes. The editorial translator is named in the volume masthead
   (`Tłumaczenia: Imię Nazwisko`) and on the site's Redakcja page; still no name in the article, the PDF or the metadata.
 - Nothing in srom-tlumacz's outputs changes. Please cite "Kanon v1.19" from now on.
+
+## Status of review 26.10.2026, continued (srom-produkcja, 26.10.2026 16:00) [general]
+
+5. Kanon v1.19 folding the 1.18 supplement of 26.10.2026, and a T-item — **done**, d6707e8 (T40). SUITE ALL PASS 29/29.
