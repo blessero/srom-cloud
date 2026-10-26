@@ -21,7 +21,7 @@ modules work together; everything else is in each module's own files.
 ## The one folder (MB, 08.10.2026; review 07.10.2026, For MB 5)
 Everything lives in `SROM/Redakcja/` (Mac: `/Users/michalbartosz/ARBEIT/Bima/SROM/Redakcja`). MB starts Cowork on this
 folder (no "+"), and it is his Finder favourite. The four numbered folders are MB's; sessions keep their own files out
-of the top level.
+of the top level (`Claude outputs/` holds only copies for MB, below).
 
 | folder | what it holds | rule |
 |---|---|---|
@@ -31,6 +31,7 @@ of the top level.
 | `4. Archive/` | old material (Cowork's bundle and dump, old cover templates and proofs, Code's dump) | no session reads it unless MB asks |
 | `SROM edit and trans/` | this repository: the skills, `_handoffs/`, the module records | Code sessions start here or in a module folder |
 | `workspace/` | Cowork's: the texts, the volume data, `STATUS.md`, `MB-decisions.md`, the desk, srom-zizek's data | not in git; Code reads it (`../workspace/` from here) but never writes it, except srom-zizek's data and srom-ikonograf's `work/<id>/ikonografia/` folders, as those skills say |
+| `Claude outputs/` | MB's copies at hand (MB, 26.10.2026): every contact sheet as `Kontaktowka - <Name>.html`, kept current by srom-ikonograf's `pobierz.py` (Mac job, every 5 min) | copies only: never edited, never read as a source; the master stays in `work/<id>/ikonografia/` |
 
 The old Code path `SROM/CODE/SROM/SROM edit and trans` is a link to this repository until MB deletes it (planned
 15.10.2026), so sessions started there still open; start new sessions from `SROM/Redakcja/`. Code keeps no copies of
@@ -171,7 +172,7 @@ in what time, not on the model. So:
 - **End every reply with one line** listing the files MB needs to open for what the reply is about, or
   `Files to open: none`. Only files MB must act on, not every file you touched. Each file is its name, a word saying
   which text it belongs to, and its absolute path in backticks (MB copies it), e.g.
-  `` Files to open: kontaktowka.html (Tittel) — `/Users/michalbartosz/ARBEIT/Bima/SROM/Redakcja/workspace/srom-produkcja/work/tittel/ikonografia/kontaktowka.html` ``
+  `` Files to open: Kontaktowka - Tittel.html (Tittel) — `/Users/michalbartosz/ARBEIT/Bima/SROM/Redakcja/Claude outputs/Kontaktowka - Tittel.html` ``
   No ⭕ or `file://` links: they did not open in the app (MB, 24.10.2026).
 - **The button is the SendUserFile card** (MB, 24.10.2026: it opens the file reliably). Send every Markdown, HTML or
   PDF file in that line with SendUserFile (display: render) as the **last tool call** of the turn, so the card sits

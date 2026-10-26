@@ -80,7 +80,7 @@ and hygiene. Code keeps no copies of the texts (retired 08.10.2026): they are in
    - the repository clean and `main` pushed (`git status`; `git log origin/main..HEAD` empty)
    - the root `.claude/skills/` links resolve; `~/.claude/skills/srom-*` (srom-quant included) and the two WordPress
      skills are symlinks into the repository, not copies
-   - the one folder's top level holds only MB's four numbered folders, `SROM edit and trans/` and `workspace/` (root
+   - the one folder's top level holds only MB's four numbered folders, `SROM edit and trans/`, `workspace/` and `Claude outputs/` (root
      CLAUDE.md § The one folder); a backup newer than the last big step (`_handoffs/tools/verify_backup.sh`)
    - `dist/*.skill` are current (they matter only before a claude.ai upload)
 10. **Cowork.** Every C-item in `cowork-to-code.md` has a status line in `code-to-cowork.md`, and every K-item has
