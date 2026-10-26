@@ -1,6 +1,6 @@
 # STUDIA ROMOLOGICA – KANON EDYTORSKI (DOKUMENT WEWNĘTRZNY)
 
-**Wersja 1.18 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
+**Wersja 1.19 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
 
 > Wersja dla autorów (*Wskazówki dla autorów*) jest skrótem tego dokumentu i nie zawiera § 13–17. W razie rozbieżności rozstrzyga niniejszy tekst.
 
@@ -715,6 +715,6 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.17 | Rozstrzygnięcie z 12.10.2026 (MB; zapis 14.10.2026, GEN-2): § 13.2: od tomu 19/2026 jedna licencja dla całego czasopisma – CC BY 4.0, bez wyboru wariantu przez autora; tom 18 i wcześniejsze bez zmian; przekład tekstu na licencji z ograniczeniem (NC, ND) lub bez licencji CC – za zgodą uprawnionego na CC BY 4.0 albo z wyjątkiem kolegium redakcyjnego dla danego tekstu. Uchyla wybór CC BY / CC BY-NC / CC BY-NC-ND z wersji wcześniejszych. |
 | 1.17, uzup. 22.10.2026 | Rozstrzygnięcie z 22.10.2026 (MB): § 12.2.3: przekład redakcyjny nie jest podpisywany – bez nazwiska tłumacza w nagłówku artykułu, w nocie o przekładzie, na stronie tytułowej wersji online i w metadanych deponowanych (`translators_struct` puste); tłumacz spoza redakcji – jak dotąd, chyba że zastrzeże anonimowość. Obowiązuje od tomu 19/2026; strony tytułowe wersji online i depozyt Crossref tomów 17–18 – od ich przebudowy przed pierwszym depozytem. Do włączenia w wersję 1.18. |
 | 1.18 | Włącza uzupełnienie wersji 1.17 z 22.10.2026 (§ 12.2.3). Nowe, opracowane na zlecenie MB z 24.10.2026 (ujednolicenie podpisów po tomie 18) i zatwierdzone przez MB tego samego dnia bez zmian: § 10.3 Metryka ilustracji – podpis jako opis i metryka; wzór `[opis], [datowanie], [rola] [twórca][, technika, wymiary]. [Źródło]. [Prawa].`; role `fot.`, `rys.`, `mal.`, `ryt.`, `lit.`, `proj.`, `oprac.`; inicjał i nazwisko jak w przypisie; technika i wymiary tylko z karty obiektu; źródło w trzech postaciach (obiekt w zbiorach, druk jako przedmiot ilustracji, `Repr. za:`), bez formuł `Źródło:`, `ze zbiorów`, bez pośredników; prawa tylko, gdy warunki tego wymagają; zestawienia, fragment; metryka sporządzana, nie przekładana, także w przekładach. § 10.1: odesłanie do § 10.3. § 13.2: licencja artykułu nie obejmuje ilustracji z innych źródeł (ich warunki podaje metryka; bez osobnej formuły przy licencji – MB, 25.10.2026). § 11: skróty metryki ilustracji. § 16: pozycja listy. |
-| 1.18, uzup. 26.10.2026 | Rozstrzygnięcie z 26.10.2026 (MB): § 12.2.3: tłumacz przekładów redakcyjnych – w stopce redakcyjnej tomu (`Tłumaczenia: Imię Nazwisko`) i na stronie *Redakcja*; nadal bez nazwiska w artykule, w PDF i w metadanych. |
+| 1.19 | Włącza uzupełnienie wersji 1.18 z 26.10.2026 (§ 12.2.3). Rozstrzygnięcie z 26.10.2026 (MB): § 12.2.3: tłumacz przekładów redakcyjnych – w stopce redakcyjnej tomu (`Tłumaczenia: Imię Nazwisko`) i na stronie *Redakcja*; nadal bez nazwiska w artykule, w PDF i w metadanych. |
 
 Zmiany wchodzą w życie od kolejnego tomu. Tomy opublikowane nie podlegają retroaktywnemu ujednoliceniu.

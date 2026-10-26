@@ -763,3 +763,10 @@ SUITE ALL PASS 28/28. Nothing for srom-tlumacz.
 5. Kanon v1.19 folding the 1.18 supplement of 26.10.2026, and a T-item for it — **left for srom-produkcja** (a Kanon change is made
    from a srom-produkcja session only).
 SUITE ALL PASS 29/29.
+
+## T40 — [general] Kanon v1.19: § 12.2.3 translator credit in the masthead (for information) (26.10.2026 16:00)
+- 26.10.2026 16:00 status: for your information (small). srom-produkcja: Kanon **v1.19** (header, § 17 row, RULES.md, SKILL.md agree;
+  test_kanon 20/20, suite 29/29). It only folds the 1.18 supplement of 26.10.2026 (§ 12.2.3) into a new version row, since
+  1.18 had been announced in T39: no rule changes. The editorial translator is named in the volume masthead
+  (`Tłumaczenia: Imię Nazwisko`) and on the site's Redakcja page; still no name in the article, the PDF or the metadata.
+- Nothing in srom-tlumacz's outputs changes. Please cite "Kanon v1.19" from now on.

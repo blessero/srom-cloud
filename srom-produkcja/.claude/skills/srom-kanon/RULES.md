@@ -1,4 +1,4 @@
-# SROM RULES — English digest of the Kanon (v1.18)
+# SROM RULES — English digest of the Kanon (v1.19)
 
 Normative text: `references/kanon-redakcyjny.md` — *Kanon edytorski Studia Romologica* (Polish, internal), in this skill. This file is its compact English digest; **section numbers are the Kanon's**. If the two differ, the Kanon governs and this file is corrected. New rules go into the Kanon first (with a § 17 entry), then here.
 
@@ -174,7 +174,7 @@ Polish transcription, body-text sanity only: е after consonant → `ie` (Бес
 
 Structure: number, description, date, author/maker, source and signature, rights. `Il.`/`Tab.`/`Wykr.` numbered separately; table titles above, source below; every object referenced in text; apparatus date register; file requirements in the author guidelines (§ 10.1).
 
-**Metryka (§ 10.3, v1.18):** a caption = **opis** (the editor's description, register below) + **metryka** (data, one formula for every image, whatever its origin; in translations composed by the formula, never translated; nothing the opis already says is repeated):
+**Metryka (§ 10.3):** a caption = **opis** (the editor's description, register below) + **metryka** (data, one formula for every image, whatever its origin; in translations composed by the formula, never translated; nothing the opis already says is repeated):
 `[opis], [date], [role] [maker][, technique, dimensions]. [Source]. [Rights].`
 - Date: of the object (not of the reproduction or publication), apparatus form (§ 3.5): `1957 r.`, `ok. 1630 r.`, `XVIII w.`; the holder's dating; no date → omitted (no `b.d.`).
 - Role + maker: `fot.` `rys.` `mal.` `ryt.` `lit.` `proj.` `oprac.`; designer and engraver apart (`rys. A. Kowalski, ryt. B. Nowak`); initial + surname, natural order (`fot. R. Lee`, never `Lee, Russell`); `fot. autor nieznany`; no maker for anonymous prints and documents; the holder is never the maker (`fot. Narodowe Archiwum Cyfrowe` is wrong).
