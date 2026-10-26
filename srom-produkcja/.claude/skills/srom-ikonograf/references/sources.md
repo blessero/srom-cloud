@@ -12,15 +12,15 @@ documentation, to be confirmed on first use and marked here.
 | source | strong for | query (replace `<q>`) | from Cowork | from Code (curl) |
 |---|---|---|---|---|
 | Europeana | aggregator of thousands of European institutions (incl. Hispana/BNE, part of Gallica, many national and regional archives; also BSB, ÖNB, MPI Legal History, Memòria Digital de Catalunya, Romania's culturalia.ro); rights URI per item | `https://api.europeana.eu/record/v2/search.json?query=<q>&qf=TYPE:IMAGE&rows=50&wskey=api2demo` (add `&qf=YEAR:[1700 TO 1900]`, `&reusability=open`; `&profile=rich` adds `edmIsShownBy`, often a direct full-size IIIF image) | tested, web fetch; `edmIsShownAt` = holder's page; `api2demo` is a shared demo key: a free personal key (pro.europeana.eu) if it throttles | tested. Drop `TYPE:IMAGE` for books, laws and dissertations (they are `TEXT`). A law is found by the title of the printed collection it appeared in, not by its own name (Pahulich run: `bulas y pragmáticas` found the Castilian *Pragmáticas*, `pragmática 1499 gitanos` nothing). The thumbnail API returns a grey placeholder for Polona and MBC items: open those in the browser |
-| Library of Congress | photos, prints, drawings, maps, FSA/OWI, newspapers | `https://www.loc.gov/photos/?q=<q>&fo=json&c=50` (also `/maps/`, `/collections/…/`) | tested, web fetch (not `/pictures/`: robots); field `rights` | **403** (Cloudflare challenge; WebFetch from Code too; the app's built-in browser loops on the "verify you are human" page even when MB clicks it, 24.10.2026: never try to pass it). Workaround: LoC images are mirrored on Commons with the LCCN in the file name (search Commons, read `Credit` for the LoC record); image files themselves open on `cdn.loc.gov` and `tile.loc.gov` |
+| Library of Congress | photos, prints, drawings, maps, FSA/OWI, newspapers | `https://www.loc.gov/photos/?q=<q>&fo=json&c=50` (also `/maps/`, `/collections/…/`) | tested, web fetch (not `/pictures/`: robots); field `rights` | **403** (Cloudflare challenge; WebFetch from Code too; the app's built-in browser loops on the "verify you are human" page even when MB clicks it, 24.10.2026: never try to pass it). The image server answers (26.10.2026): `https://tile.loc.gov/storage-services/service/pnp/ppmsca/<NN>00/<digital id>v.jpg` (about 1000 px; `cwpb`, `cph`, `ds` have their own folders), so sheet thumbnails need no Commons. Workaround for the records: LoC images are mirrored on Commons with the LCCN in the file name (search Commons, read `Credit` for the LoC record); image files themselves open on `cdn.loc.gov` and `tile.loc.gov` |
 | Wellcome Collection | medicine, anthropology, race science, anthropometry, prints | `https://api.wellcomecollection.org/catalogue/v2/images?query=<q>&pageSize=50` | tested, web fetch; licence id per image (pdm, cc-by …) | tested |
 | Internet Archive | scanned books and periodicals (cited sources), Gypsy Lore Society journals | `https://archive.org/advancedsearch.php?q=title:(<q>)+AND+mediatype:texts&fl[]=identifier&fl[]=title&fl[]=date&rows=50&output=json` | tested, web fetch (titles sometimes dropped: re-query by identifier) | tested; see the IA notes below |
 | Wikimedia Commons | everything, uneven; the licence template is on each file page | `https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=<q>&srnamespace=6&srlimit=50&format=json`; file details (up to 50 files per call, `titles=File:A\|File:B`): `action=query&titles=File:<name>&prop=imageinfo&iiprop=url\|size\|extmetadata&iiurlwidth=400&format=json` | tested, Exa fetch only | tested; **429** after ~10 calls a minute with a bare User-Agent: send `-A "SROM-ikonograf/0.2 (Studia Romologica, non-commercial journal research; https://github.com/blessero)"` (no journal domain: the live-site hook would count the call as one to the site, 24.10.2026), ≥ 2 s apart, batch the file details. Tittel run (21.10.2026): 429 again at 4 s with a UA that had no URL; what held: honour the `retry-after` header (10 s) and wait 8 s between searches. Search matches file titles and descriptions, not subjects: plain English phrases and `intitle:` work better than catalogue terms (Pahulich run: `Roma slavery Romania poster` and `intitle:Münster Gypsies` hit, `Zigeuner Münster` and `robi țigani vânzare` did not). Many files are scans out of modern books or 19th-c. facsimiles (the 1852 slave poster from Hancock 1987, Münster's woodcut via Lacroix): read `Credit`, trace the original, and flag it in § 6 until then |
 | MDZ (Bayerische Staatsbibliothek) | German prints and periodicals (*Berlinische Monatsschrift*), early modern edicts and single-sheet mandates (*Einblattdrucke*): the surest source for German cited sources | find the item through Europeana (`dataProvider` Bavarian State Library; `edmIsShownAt` holds the `bsb…` id) or the URN in refs.json; manifest `https://api.digitale-sammlungen.de/iiif/presentation/v2/<bsb-id>/manifest` (canvas labels = printed page numbers; metadata „Call number” = shelfmark); viewer `https://www.digitale-sammlungen.de/view/<bsb-id>?page=<n>`; full-text search inside a book `https://api.digitale-sammlungen.de/iiif/services/search/v1/<bsb-id>?q=<word>` (returns canvases; Fraktur OCR is poor: use the book's own index or register, e.g. Münster 1578 „Züginer oder Heiden ccclxxxv”, then the canvas whose label carries that folio, „CCCLXXXV (0525)”; Pahulich run, 24.10.2026) | untested | tested (Tittel); rights NoC-NC on books (class A for a public-domain work), CC BY-NC-SA on some single sheets (class C) |
 | Gallica (BnF) | French prints, press, maps, colonial material | SRU: `https://gallica.bnf.fr/SRU?operation=searchRetrieve&version=1.2&query=gallica%20all%20%22<q>%22&maximumRecords=50` | failed both fetch tools | **403**: the site in the browser; much of Gallica is on Commons and Europeana (search there by `btv1b…`/ark) |
-| Smithsonian Open Access | CC0 objects and photos, NMAAHC, anthropology archives | `https://api.si.edu/openaccess/api/v1.0/search?q=<q>&rows=50&api_key=<api.data.gov key>` | failed | tested with `api_key=DEMO_KEY` (low hourly limit); mostly library records: archives (NMAH Archives Center, NAA) are on sova.si.edu, Tier B |
+| Smithsonian Open Access | CC0 objects and photos, **NMAAHC (slavery and freedom photographs), NPG**, anthropology archives | `https://api.si.edu/openaccess/api/v1.0/search?q=<q>&rows=50&api_key=<api.data.gov key>` | failed | tested with `api_key=DEMO_KEY` (about 3–4 searches plus a few record reads an hour, then 429; a free personal key from api.data.gov lifts it). `/search` returns title, date and the image id; `/content/<id>` the full note (verso inscriptions, names): read it before writing a caption. Image: `https://ids.si.edu/ids/deliveryService?id=<idno with . → _>_001&max_w=900` (the `_001` suffix is part of the id for most NMAAHC items; NPG ids end `_inex`); it hotlinks fine. Library records: archives (NMAH Archives Center, NAA) are on sova.si.edu, Tier B |
 | Openverse | CC/PD aggregator (Commons, Flickr, museums) | `https://api.openverse.org/v1/images/?q=<q>&page_size=50` | failed | tested; thin for historical material (mostly recent Flickr, often NC-ND) |
-| DPLA | US libraries, archives, historical societies | `https://api.dp.la/v2/items?q=<q>&sourceResource.type=image&api_key=<key>` (free key by e-mail) | untested; site dp.la meanwhile | untested |
+| DPLA | US libraries, archives, historical societies | `https://api.dp.la/v2/items?q=<q>&sourceResource.type=image&page_size=50&api_key=$(cat ~/.config/srom/dpla_api_key)` | untested | tested 26.10.2026 (key in `~/.config/srom/dpla_api_key`, mode 600, outside every repo; MB's key: if absent, `curl -X POST https://api.dp.la/v2/api_key/<e-mail>` and use a Hotmail-type address: a custom domain's mail did not arrive) |
 | Metropolitan Museum | paintings, prints; CC0 for public-domain works | `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=<q>` | untested | **410** to curl: the site in the browser |
 
 Internet Archive notes (tested from Code): a periodical volume is found by its `volume` field, not by title and date
@@ -46,6 +46,14 @@ Gallica — `https://gallica.bnf.fr/iiif/ark:/12148/<ark>/f<page>/full/full/0/na
 `https://api.digitale-sammlungen.de/iiif/image/v2/<bsb-id>_<nnnnn>/full/full/0/default.jpg` (`<nnnnn>` = canvas,
 5 digits); MPI dlc (IIIF v3) — `…/full/max/0/default.jpg` (`full/full` answers 400); Commons — `imageinfo.url`.
 Check that the file opens before listing it for MB.
+
+**Smithsonian archives (SOVA, NMAH, `si.edu/object/archives`)**, learnt 25.10.2026 (Wendler-Funaro trace): every
+Smithsonian page answers curl and WebFetch with 403 („temporarily unavailable” / „request verification”: never try to
+pass it). The **Exa tools read them** (`web_search_exa`: describe the item in plain words and the folder or item record
+comes back; `web_fetch_exa` on `americanhistory.si.edu/collections/archival-item/sova-<collection>-ref<n>`). A search
+result for a series page (`sova.si.edu/record/<coll>/ref<n>`) carries the whole container list (box, folder, date,
+extent, scope notes) in one go. The Open Access API above does not hold archival components. A record without the
+„Click to open image viewer” line is **not digitised**.
 
 ## Tier B — search pages, browser
 
@@ -129,6 +137,16 @@ page, then its IIIF or download. Record the chain in the record's § 3 (credit =
 a chain that ends before the holder stays a doubt in § 6.
 A better copy found this way goes on the contact sheet as `alt` (link + why it is better; SKILL.md step 4).
 
+**From a printed page or a PDF** (a thesis, an article; the only clue is a caption). Order that worked
+(25.10.2026): (1) `pdftotext -layout` the page for the caption and credit; `pdfimages -list` for the embedded image's
+size, then render it and look: **is it a scan, a publisher's reproduction or the author's snapshot** (paper edge, glare,
+damage, uneven light = a snapshot, unfit for print; say so). (2) The caption names a collection or holder: open the
+holder's finding aid, not a search engine first. (3) Match by **subject and title words** against folder and item
+records; the title in the thesis is often the archivist's folder title cut short, not a caption on the object: say so in
+§ 6 and state how sure the match is. (4) Read the open-access thesis itself (repository handle) for its list of
+figures and sources: it names the holder of every picture, which is a lead list for the volume. (5) Date and maker:
+the holder's catalogue decides; an author's „circa” is their inference (Kanon § 10.3, 1). (6) Then rights and contact.
+
 ## Thumbnails
 
 The sheet's thumbnail is about **700 px wide** (MB, 24.10.2026: at 300–400 px a photograph cannot be judged). Ask the
@@ -161,3 +179,55 @@ E
 
 Run it again after adding a copy (it replaces the old lines). The lines sit after the renderer, at the end of the
 file: when editing the `DATA` block, read the file with a line limit, never whole.
+
+## Learnt in the q-stlouis1904 run (25.10.2026)
+
+**CONTENTdm libraries (Saint Louis Public Library `cdm17210.contentdm.oclc.org`; the same API serves other CONTENTdm
+sites).** All tested from Code with `curl` / WebFetch, no key: collections `…/digital/api/collections` (aliases for the
+1904 fair: `lpe` glass plates, 6,700; `beals` Jessie Tarbox Beals; `lpephotos` three scrapbooks; `fair` ephemera);
+search `…/digital/api/search/collection/<alias>/searchterm/<word>/order/nosort/page/1/maxRecords/100` (one word, plain;
+returns titles and ids); metadata `…/digital/api/collections/<alias>/items/<id>/false` (title, description, call number,
+rights statement, filename); image `…/digital/api/singleitem/image/<alias>/<id>/default.jpg` and IIIF
+`…/digital/iiif/<alias>/<id>/full/700,/0/default.jpg` (the bare `…/iiif/<alias>/…` path answers 404). SLPL titles are
+cataloguer's, not captions: „Chief of the Gypsies from the Streets of Cairo” is the library's wording.
+
+**Whole-fair period publications on Internet Archive** (1904 St. Louis; the same pattern fits any exposition): list
+them with `advancedsearch` (`title:` or `subject:` + `date:[1903-01-01 TO 1906-12-31]`), then grep each `_djvu.txt` for
+the period's name for the people (`scripts/ia_find.py`). Halftone books carry their captions in the text layer.
+Worked: *Jackson's famous photographs* (`jacksonsfamousph01jack`, the LoC copy: one hit, the target). OCR hits that
+were only context: *On the Pike* (booklet of concessions), *Greatest of Expositions* („singing gypsies” of Cairo),
+*World's fair manual* („Gypsy Lane of Barcelona”). Several good books have no `_djvu.txt` hit because the caption is
+in the image only (the Missouri Historical Society albums).
+
+**Missouri Historical Society albums, 11 volumes, 867 pages, on Commons** (`File:Louisiana Purchase Exposition- St.
+Louis World's Fair Album <n> - DPLA - <hash> (page <k>).jpg`; MHS Open Access, NKC). List them with
+`list=allpages&apnamespace=6&apprefix=Louisiana Purchase Exposition- St. Louis World's Fair Album`; a thumbnail at any
+width with `prop=imageinfo&iiurlwidth=500` (30 titles per call). Vol. 10–11 = the Pike and the native peoples; the
+handwritten caption is under each print (no OCR): look at them (`scripts/montage.py --grid`). Pages are good prints,
+not the „bad quality” a user may remember.
+
+**Hyku / university photograph archives** (University of Louisville `digital.library.louisville.edu`, Ford albums):
+the catalogue search page works through the Exa fetch tool, not through WebFetch (503). Item pages carry the
+rightsstatement.org URI and the handwritten caption in the description.
+
+**Commons search.** `list=search&srnamespace=6` matches file titles and some wikitext, but returned 0 for phrases
+that sit in the description of the album pages: enumerate the category or prefix instead. Category names: take them from
+a `list=search&srnamespace=14` query on the subject (e.g. „… at the Louisiana Purchase Exposition”).
+
+**Tools that did not work here:** LoC `loc.gov` search (403, as above); `collections.mohistory.org` (403);
+`dp.la` search page (empty); Europeana `api2demo` for 1904-fair queries (0); Adam Matthew *World's Fairs* (subscription:
+catalogue descriptions only, which name the subjects of a volume, useful for choosing the album volume).
+
+
+## Routes found 25–26.10.2026 (slavery query q-slavery19c); read before searching
+
+**Pages and records that curl cannot reach, but Exa can.** loc.gov, Brasiliana Fotográfica, Gallica, NMAAHC pages answer 403 to curl and WebFetch. `web_search_exa` returns cached copies of their record pages (title, call number, rights, verso notes) and `web_fetch_exa` reads a given URL (it times out on loc.gov, works on Brasiliana). Use it to read records and to find which items exist; the picture then comes from the image server, never from the page.
+**Image servers that answer when the pages do not:** LoC `https://tile.loc.gov/storage-services/service/pnp/ppmsca/<NN>00/<digital id>v.jpg` (the id is the LC-DIG-ppmsca number; `cph`, `cwpb`, `ds` have their own folders); Getty `https://media.getty.edu/iiif/image/<uuid>/full/!700,700/0/default.jpg` (uuid from the object page's og:image); Smithsonian `ids.si.edu` (above); Commons `Special:FilePath/<file>?width=960`.
+**Commons by category, not by search.** `list=categorymembers` on `Category:Photographs of slaves in <Brazil|Cuba|Zanzibar|Iran|Palestine|the United States>`, `Photographs of former slaves`, `Category:Photographs by <photographer>` returns whole sets with accurate file names (a title search found a third of them). Then `prop=imageinfo&iiprop=url|size|extmetadata` for 25 titles a call; read `Credit` for the holder and the LCCN/NAID. Several files are covers, verso scans or cropped details of a book plate: look at every thumbnail.
+**Curated lists are the best seeds.** National Humanities Center *African Americans in Slavery, Photographs 1847–1863* (13 images with holders), LoC reference aids (`loc.gov/rr/print/list/…`, web.archive copies), the Center for Civil War Photography (*Battlefield Photographer*), Slavery Images' item sets, exhibition pages, and the scholarship an item is cited in (Skolnik on the Alexandria pens). A sample the user gives is traced first (its holder and neighbours: LoC 2018670634 → LC-B811-2299 → the sibling frames).
+**Collections with an API:** University of Miami Cuban Heritage Collection (CONTENTdm): `…/digital/bl/dmwebservices/index.php?q=dmQuery/<alias>/subject^<term>^any^and/title/title/100/1/0/0/0/0/json`, items `dmGetItemInfo/<alias>/<pointer>/json`, images `…/digital/iiif/<alias>/<pointer>/full/700,/0/default.jpg`; **curl gets a grey placeholder (identical bytes for every item) and the browser refuses to hotlink: fetch with Python `urllib` and a browser-like User-Agent, save to `miniatury/` and embed**. Slavery Images: `…/database/search-result.php?ad_search=Y&row_si=Field20&row_cnd=6&row_st=<term>&page_n=<n>` (the paging parameter is `page_n`; a wrong one loops forever: cap the pages). Most of its 1,200 items are engravings reproduced from books; check `Source` on the item page. Internet Archive: `<id>_djvu.txt` for the list of illustrations, `_page_numbers.json` for leaf numbers (a Google scan often omits the plates).
+**Brazil:** IMS (`acervos.ims.com.br`) is a JavaScript app; IMS releases about 10,000 public-domain images for download (page `ims.com.br/por-dentro-acervo/ims-disponibiliza-download-imagens-dominio-publico/`); the National Library's Brasiliana Fotográfica holds Christiano Júnior (handles `20.500.12156.1/6502–6504`, `5528`) and the Museu Histórico Nacional's 1865 album. **Cuba:** BNJM does not answer; Dumont and Mestre (1865–66) are in a UNAM thesis (Kitlinski) and the Montané Museum. **Indian Ocean:** RMG Graham-Stewart slavery collection (the Commons copies are watermarked record shots with the ZBA inventory number visible), TNA CO 1069/FO 84, Seychelles register B 85 (IHOI exhibit `ihoi.org/app/photopro.sk/ihoi_expo/publi?docid=91003`).
+
+**Shell and tool traps met (macOS, zsh):** `timeout` does not exist; `sed -i ''` needs the empty suffix; `set -- $p` does not word-split in zsh (it wrote files named `S11-c 1497.jpg`: use Python or `read`); `python3 -u` or `print(flush=True)` when output goes through `head`, or a stuck loop shows nothing; Commons answers 429 to a 12-image montage built in one go (sleep 6 s between files); a browser tab may be replaced after a long idle (`tab-1 shows a local file`): navigate again in the tab the tool names.
+
+**Added 27.10.2026.** Northwestern Digital Collections: `https://api.dc.library.northwestern.edu/api/v2/search/works?query=<q>&size=100` answers curl (JSON: title, collection, rights_statement, thumbnail, iiif_manifest); a work's manifest `…/works/<id>?as=iiif` lists canvases with their captions; image `https://iiif.dc.library.northwestern.edu/iiif/3/<file-set id>/full/!700,700/0/default.jpg`. The Winterton Collection holds Grant's 1860 scrapbook (the originals of the Zanzibar slave-market photographs: better than the watermarked RMG copies). IHOI: `https://www.ihoi.org/searchBM?query=<term>` in the built-in browser (a canvas app: use `get_page_text` for titles, a region `zoom` screenshot for a thumbnail). HathiTrust opens in the Chrome extension (not to curl); Cloudflare's 'Verify you are human' box on loc.gov and acervos.ims.com.br appears in MB's Chrome as well: MB passes it by hand, never the model. DPLA: `sourceResource.type=image&sourceResource.date.after=1839&sourceResource.date.before=1900`, detail `…/v2/items/<id1>,<id2>?api_key=…`.

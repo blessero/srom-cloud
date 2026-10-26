@@ -28,6 +28,7 @@
   .mt { font-size:12.5px; margin-top:3px; color:var(--mute); }
   .alt, .also { font-size:12.5px; background:var(--hl); border-radius:4px; padding:2px 6px; margin-top:3px; }
   .cls { display:inline-block; color:#fff; border-radius:4px; padding:0 6px; font-size:12px; font-weight:600; margin-right:4px; }
+  .cp { border:0; background:none; color:var(--mute); cursor:pointer; padding:0 3px; font-size:12px; }
   a { color:inherit; }
   #lb { position:fixed; inset:0; background:#000d; display:none; flex-direction:column; align-items:center; justify-content:center; gap:8px; cursor:zoom-out; z-index:9; }
   #lb.on { display:flex; } #lb img { max-width:96vw; max-height:88vh; object-fit:contain; background:#fff; }
@@ -60,7 +61,7 @@ const $ = id => document.getElementById(id);
 $("h").textContent = DATA.text; $("s").textContent = DATA.note;
 let only = null;
 const src = i => (window.MINI || {})[i.thumb] || i.thumb;
-const link = (u, t) => u ? `<a href="${u}" target="_blank">${t}</a>` : "";
+const link = (u, t) => u ? `<a href="${u}" target="_blank" rel="noopener noreferrer" title="${u}">${t}</a><button class="cp" data-u="${u}" title="Kopiuj adres">⧉</button>` : "";
 function render() {
   const out = $("out"); out.innerHTML = "";
   for (const [slot, idea] of Object.entries(DATA.slots)) {
@@ -85,6 +86,27 @@ function render() {
     sec.appendChild(g); out.appendChild(sec);
   }
 }
+/* Links: a sandboxed preview (Biurko, chat panel) blocks target=_blank silently. Try a normal open; if blocked, copy the URL and say so. */
+function toast(m) {
+  let n = $("toast"); if (!n) { n = document.createElement("div"); n.id = "toast";
+    n.style.cssText = "position:fixed;left:50%;bottom:16px;transform:translateX(-50%);background:#222;color:#fff;padding:8px 14px;border-radius:8px;font:13px sans-serif;max-width:90vw;word-break:break-all;z-index:99";
+    document.body.appendChild(n); }
+  n.textContent = m; n.style.display = "block";
+  clearTimeout(n.t); n.t = setTimeout(() => n.style.display = "none", 6000);
+}
+document.addEventListener("click", e => {
+  const cp = e.target.closest && e.target.closest("button.cp");
+  if (cp) { e.stopPropagation(); const u = cp.dataset.u; let ok = false;
+    try { const x = document.createElement("textarea"); x.value = u; document.body.appendChild(x); x.select(); ok = document.execCommand("copy"); x.remove(); } catch (x) {}
+    if (!ok) try { navigator.clipboard.writeText(u); ok = true; } catch (x) {}
+    toast(ok ? "Adres skopiowany: " + u : "Nie udało się skopiować; adres: " + u); return; }
+  const a = e.target.closest && e.target.closest("a[href^='http']"); if (!a) return;
+  e.preventDefault(); e.stopPropagation();
+  let w = null; try { w = window.open(a.href, "_blank", "noopener,noreferrer"); } catch (x) {}
+  if (w) return;
+  try { navigator.clipboard.writeText(a.href); } catch (x) {}
+  toast("Podgląd blokuje otwieranie linków. Adres skopiowany: " + a.href);
+}, true);
 $("out").onclick = e => {
   const id = e.target.dataset && e.target.dataset.id; if (!id) return;
   const i = DATA.items.find(x => x.id === id);

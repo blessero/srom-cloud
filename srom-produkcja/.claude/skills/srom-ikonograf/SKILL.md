@@ -37,6 +37,7 @@ nothing good says so in § 5 instead of being padded.
 | where to search: repositories by tier, query templates, what was tested from Cowork and from Code | `references/sources.md` |
 | rights classes, credits, finding the contact, permission letters (EN; PL/ES/FR on request) | `references/rights.md` |
 | downloads for Cowork runs, done on the Mac (§ Where it runs) | `scripts/pobierz.py`, `scripts/pl.srom.ikonograf-pobierz.plist` |
+| triage and known-item tools (§ Known-item search): OCR page finder for Internet Archive books; bulk Commons thumbnails; contact montages | `scripts/ia_find.py`, `scripts/commons_pages.py`, `scripts/montage.py` (Pillow) |
 | per-text record and contact sheet (templates) | `assets/template/ikonografia.md`, `assets/template/kontaktowka.html` |
 | caption formula (metryka): the rule, never restated here | srom-kanon `references/kanon-redakcyjny.md` § 10.3 |
 | one text's work | workspace `srom-produkcja/work/<id>/ikonografia/`: `ikonografia.md` (§ 3 = the image register), `kontaktowka.html`, `zgody.md` (letters, step 7), `pliki/` (files going to print), `miniatury/` (local thumbnails, step 5) |
@@ -83,6 +84,37 @@ only these differ:
   exhibition catalogues and illustrated contemporary accounts of the subject, found with the literature tools and
   catalogues, each checked through its list of illustrations, as footnote leads are.
 - Images MB picks from a query go into the register (§ 3) of the text they will illustrate, with origin `q-<slug> S<n>-x`.
+
+## Known-item search („znajdź to zdjęcie”: MB has seen one image and describes it)
+
+Learnt 25.10.2026 (q-stlouis1904). It was found late: the albums, catalogues and web searches (steps 4 and 6) came first and found only the excluded portraits; the OCR grep (step 3) found the target at once.
+The task differs from a brief: there is one target, MB's memory is the only spec, and a wrong candidate costs him more
+than a missing one. The order that worked, and what failed:
+1. **Fix the negative first.** MB names what he does *not* want (here: the Seville fountain portraits). Find those
+   images first and keep them as a „seen, excluded” group on the sheet (S3²): it proves the search understood him and
+   lets him say „no, the other one”.
+2. **Translate his words into the period's.** His term is modern („Gypsies/Romani”); the target's caption is the
+   fair's („Spanish Gypsies”, „singing gypsies”, concession names: Streets of Seville, Streets of Cairo). Take the
+   concession list from the period guides' OCR (`grep -i` the ethnonym in their `_djvu.txt`), not from a search engine.
+3. **If he says „a scan of a publication of the whole show”, the answer is likely in the book's OCR text, not in an
+   image index.** List every period publication (IA `advancedsearch`, date range, subject; Commons category „Books
+   about …”), run `scripts/ia_find.py <out> '<ethnonym regex>' <ids…>`: it greps the OCR, gives the leaf index from
+   `_djvu.xml` and saves the page. Poor halftones carry their caption in the text layer: the hit was one line in a
+   208-page album (*Jackson's famous photographs*, 1904). Do this *before* paging through albums by eye.
+4. **Albums of original prints (Missouri Historical Society, 867 pages on Commons) have handwritten captions: no OCR,
+   so triage by eye.** `scripts/commons_pages.py <dir> --prefix … [--filter …]` downloads them (resumable; `nohup` in
+   the background while other searches run; stop when found), `scripts/montage.py --grid <dir> a10_` makes 20 pages
+   per image: 158 pages = 8 images.
+5. **Check the match against his description, not only the caption**, and say where they differ: here MB said
+   „performing”, the caption says walking to the encampment. Put it in § 6 (doubts) and in the reply's first lines.
+6. **Search tools, by what each is good at:** the Exa tools (`web_search_exa`: describe the page wanted; load with
+   ToolSearch) surfaced item pages that `WebSearch` did not (University of Louisville's Ford albums, a 1904
+   newspaper page); `WebSearch` is good for context (concession names). Commons search matches file *titles*,
+   rarely descriptions (0 hits for words that were in them): enumerate categories instead
+   (`list=categorymembers`, `list=allpages&apprefix=`). Library catalogues on CONTENTdm have a JSON API
+   (sources.md). Never conclude „not there” from one engine: log each in § 5.
+7. **Report in this order:** the answer and why it fits; where it differs from his description; the file link; the
+   alternatives he excluded; what was searched. Record and sheet as for any query, but short.
 
 ## The steps
 
@@ -176,6 +208,16 @@ only these differ:
    pending (<holders>)`. When MB explains a choice or a rejection worth keeping, add it to `patterns.md` § Cases
    (a small skill change: C-item for Code to commit).
 
+## Method that worked (query q-slavery19c, 25–26.10.2026: 168 candidates, 16 slots, five passes)
+
+- **Passes, each ending with a deliverable.** Pass 1 Commons categories + the user's samples; pass 2 the sources "not reached"; pass 3 national holders (Brazil, Cuba, Internet Archive); pass 4 museum APIs and image servers. After each pass: update the sheet, the record (§ 2, § 4–7), a K-item addendum, and say what is still closed. The record's § 5 lists every source with how it failed, so the next session starts from it.
+- **Trace the samples first**, then their neighbours (same series, other holders' copies of the same negative). Settle each sample's identity from a second source (an archaeologist's report settled which frame LoC 2018670634 is).
+- **Every thumbnail is looked at.** After each build: a browser-pane montage (JS overlay with 10–60 thumbnails), the broken-image count, and a second look at anything suspect. This caught a verso scan filed as a recto (NARA 533232), watermarked record shots (RMG), a book page filed as a photograph, and a catalogue date that contradicted the picture. A thumbnail that fails in the browser but opens in Python is an embed job (sources.md § Thumbnails).
+- **Read the record, not only the title.** The `/content/<id>` note or the verso inscription settled "Sandy" (former slave), Gordon's date (27 April, Baton Rouge), "Rebecca Huger". Where the record was not read, the row says so (§ 6).
+- **Exa for reading, the image server for pictures, Commons for the file's credit.** Never trust a Commons title or date for the object: it carries the uploader's reading (a "Brady" credit was the carte's imprint; "1892" was an upload error for 1862).
+- **A new slot for each aspect of the prompt** (earliest, household, flight, marked bodies, trade, regions); leads without thumbnails are rows too (class D, holder, link), so MB sees what exists and what only needs a letter.
+- **Tool scripts of this run** (Commons search/category/imageinfo, Smithsonian, Slavery Images, Europeana, sheet builder) are in `work/q-slavery19c/ikonografia/_tools/`; the consolidation into `scripts/` is the hand-off `_handoffs/ikonograf-tooling-handoff.md`.
+
 ## What MB can ask for
 
 | MB says | Ikonograf does |
@@ -184,6 +226,7 @@ only these differ:
 | **brief** <text> | steps 1–3 only: brief plus cited-source hits, when MB wants to cut slots before the search |
 | **szukaj** / search <text or slot> | steps 4–5 for the brief's open slots (or the one slot named) |
 | **lepsza kopia** <image or link> | trace the original holder and the largest copy of a known image (sources.md § Tracing) |
+| **znajdź zdjęcie** / find this photo <his description> | known-item search (§ Known-item search), recorded as a query |
 | **ikonograf temat** / **zapytanie** <prompt> | steps 1–5 as a query (§ Queries), in `work/q-<slug>/ikonografia/` |
 | **rejestr** <text> <files or where they are> | step 6 for images from outside the sheet (author, MB, elsewhere): register, trace, metryka; a record with only §§ 3–6 when the text has none |
 | **zgody** <text> | step 7 for every image in the register: contacts, letters in `zgody.md`, due diligence, the state of each |

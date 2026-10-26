@@ -81,3 +81,11 @@ Museum, photo Steven Zucker, Flickr); *Rosa, Charley, Rebecca* (Charles Paxson, 
 pigmentation chart (Harry H. Laughlin Papers, Truman State University, Lantern Slides, Brown Box 807); the Nuremberg
 chart (Commons); Hosemann, *Das allegrösste Bilder ABC* (title as MB gave it; check before reuse), 1828 (Library of Congress); La Tour (Met), Hals (Louvre),
 Rousseau (Met). Similar extensions in Fotta and Takács, vol. 18.
+
+### Query q-stlouis1904: „Gypsies on the Pike, performing, over spectators' shoulders” (25.10.2026; a known-item search)
+MB had seen the image once, in a poor scan of a book on the whole fair, and excluded the Seville / Court of Lions
+portraits. Answer: *Spanish Gypsies on the Pike*, plate in C. S. Jackson, *Jackson's famous photographs of the
+Louisiana purchase exposition* (Chicago 1904), LoC copy on Internet Archive, leaf 142 (class A). Found by OCR grep of the
+period books, after the Missouri Historical Society albums and the library catalogues had yielded only the excluded
+portraits. Note for taste: MB's memory said „performing”; the caption says walking to the camp, so the answer was
+reported with that difference first. The fair's „Gypsies” were the people of two concessions (Spanish, Streets of Seville; Egyptian, Streets of Cairo); no source found says they were Romani, and the albums call the Seville dancers „Spanish actors”: say so in any caption (Kanon § 10.1) and keep the open question in § 6.

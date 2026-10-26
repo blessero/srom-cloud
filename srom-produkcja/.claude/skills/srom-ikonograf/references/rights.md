@@ -56,6 +56,14 @@ pattern (firstname.lastname@): mark one not seen on a page as "not found". For a
 the person; for a Commons file, the holder or photographer it came from, not the uploader (unless the uploader is the
 photographer). A holder already asked for another text or image in the volume: one letter, or a note in the earlier one.
 
+**Standing licence** (MB asked 25.10.2026; for an in-copyright archival print). Holders license per use (one image, one
+publication, print run, format) as the default; a standing licence („non-exclusive, worldwide, perpetual, all
+non-commercial print and online editions of SROM and the Komitet”) is not on offer by default but can be asked in the
+same letter, with the fee list; grant-funded, free-distribution, scholarly use is the strong case. A private person
+publishing for sale needs commercial terms; the licence follows the use, not the buyer. The holder can license only what
+it owns: settle the maker first (a second rights holder, an estate, may stand behind it). No fee figure goes to MB
+until the holder's own list is read (NMAH's is linked from its Rights and Reproductions page, not yet read).
+
 ## `zgody.md` (one per text, in `work/<id>/ikonografia/`)
 
 One block per holder, ready to send: **To** (recommended contact; alternatives below it), **Subject**, the letter

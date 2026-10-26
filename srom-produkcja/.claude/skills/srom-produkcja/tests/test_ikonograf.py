@@ -33,25 +33,28 @@ t("no User-Agent naming the journal's domain", not bad, bad)
 
 # pobierz.py: Cowork's download list, done on the Mac (file:// URLs, no network)
 import random, shutil, struct, subprocess, sys, tempfile, zlib
-def png(path, w=120, h=90):
-    raw = b"".join(b"\0" + bytes(random.randrange(256) for _ in range(w * 3)) for _ in range(h))
-    ch = lambda t, d: struct.pack(">I", len(d)) + t + d + struct.pack(">I", zlib.crc32(t + d) & 0xffffffff)
-    open(path, "wb").write(b"\x89PNG\r\n\x1a\n" + ch(b"IHDR", struct.pack(">IIBBBBB", w, h, 8, 2, 0, 0, 0))
-                           + ch(b"IDAT", zlib.compress(raw)) + ch(b"IEND", b""))
-w = tempfile.mkdtemp(); d = os.path.join(w, "x", "ikonografia"); os.makedirs(d)
-shutil.copy(os.path.join(IK, "assets", "template", "kontaktowka.html"), d)
-src = os.path.join(w, "src.png"); png(src)
-journal = "https://" + "studiaromologica" + ".pl/x.jpg"
-open(os.path.join(d, "pobierz.tsv"), "w").write(
-    f"# kind\tname\turl\nplik\tx_il01_test.png\tfile://{src}\nminiatura\tS1-a\tfile://{src}\nplik\tbad.jpg\t{journal}\n")
-run = lambda: subprocess.run([sys.executable, os.path.join(IK, "scripts", "pobierz.py"), "--root", w, "--allow-file"],
-                             capture_output=True, text=True)
-r = run(); log = open(os.path.join(d, "pobierz.log")).read().splitlines()
-t("pobierz: plik saved to pliki/ as served", r.returncode == 0 and open(os.path.join(d, "pliki", "x_il01_test.png"), "rb").read() == open(src, "rb").read(), r.stderr + "\n".join(log))
-t("pobierz: miniatura made as JPEG and embedded in the sheet",
-  os.path.exists(os.path.join(d, "miniatury", "S1-a.jpg")) and 'MINI["miniatury/S1-a.jpg"]="data:image/jpeg;base64,' in open(os.path.join(d, "kontaktowka.html")).read(), log)
-t("pobierz: the journal's own site refused, logged as FAIL", any("\tFAIL\tbad.jpg\trefused" in l for l in log), log)
-run(); log2 = open(os.path.join(d, "pobierz.log")).read().splitlines()
-t("pobierz: done rows are not fetched again (only the refused row is retried)",
-  sum("\tok\t" in l for l in log2) == 2 and sum("\tFAIL\t" in l for l in log2) == 2, log2)
+if shutil.which("sips") is None:  # pobierz.py makes thumbnails with macOS sips
+    print("SKIP pobierz: 4 tests (sips not found; macOS only)")
+else:
+    def png(path, w=120, h=90):
+        raw = b"".join(b"\0" + bytes(random.randrange(256) for _ in range(w * 3)) for _ in range(h))
+        ch = lambda t, d: struct.pack(">I", len(d)) + t + d + struct.pack(">I", zlib.crc32(t + d) & 0xffffffff)
+        open(path, "wb").write(b"\x89PNG\r\n\x1a\n" + ch(b"IHDR", struct.pack(">IIBBBBB", w, h, 8, 2, 0, 0, 0))
+                               + ch(b"IDAT", zlib.compress(raw)) + ch(b"IEND", b""))
+    w = tempfile.mkdtemp(); d = os.path.join(w, "x", "ikonografia"); os.makedirs(d)
+    shutil.copy(os.path.join(IK, "assets", "template", "kontaktowka.html"), d)
+    src = os.path.join(w, "src.png"); png(src)
+    journal = "https://" + "studiaromologica" + ".pl/x.jpg"
+    open(os.path.join(d, "pobierz.tsv"), "w").write(
+        f"# kind\tname\turl\nplik\tx_il01_test.png\tfile://{src}\nminiatura\tS1-a\tfile://{src}\nplik\tbad.jpg\t{journal}\n")
+    run = lambda: subprocess.run([sys.executable, os.path.join(IK, "scripts", "pobierz.py"), "--root", w, "--allow-file"],
+                                 capture_output=True, text=True)
+    r = run(); log = open(os.path.join(d, "pobierz.log")).read().splitlines()
+    t("pobierz: plik saved to pliki/ as served", r.returncode == 0 and open(os.path.join(d, "pliki", "x_il01_test.png"), "rb").read() == open(src, "rb").read(), r.stderr + "\n".join(log))
+    t("pobierz: miniatura made as JPEG and embedded in the sheet",
+      os.path.exists(os.path.join(d, "miniatury", "S1-a.jpg")) and 'MINI["miniatury/S1-a.jpg"]="data:image/jpeg;base64,' in open(os.path.join(d, "kontaktowka.html")).read(), log)
+    t("pobierz: the journal's own site refused, logged as FAIL", any("\tFAIL\tbad.jpg\trefused" in l for l in log), log)
+    run(); log2 = open(os.path.join(d, "pobierz.log")).read().splitlines()
+    t("pobierz: done rows are not fetched again (only the refused row is retried)",
+      sum("\tok\t" in l for l in log2) == 2 and sum("\tFAIL\t" in l for l in log2) == 2, log2)
 print(f"IKONOGRAF ALL PASS {sum(res)}/{len(res)}" if all(res) else f"IKONOGRAF FAILED {res.count(False)}/{len(res)}")
