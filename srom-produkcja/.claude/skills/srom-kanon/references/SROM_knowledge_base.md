@@ -19,8 +19,7 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
 - **Translator:** unless stated otherwise, Michał Bartosz translates every translated text (MB, 06.10.2026). He is
   not named as translator anywhere public (MB, 22.10.2026; Kanon § 12.2.3, editorial translations are unsigned): no
   `tlumaczenie` front matter, no „Tłumaczenie:” in the title note or the article header, no line on the online cover,
-  `translators_struct` empty (so no translator in the Crossref deposit); the site's Redakcja page and the masthead
-  (from vol. 19) list him without „tłumaczenia”. The translation note itself stays (original, licence or permission).
+  `translators_struct` empty (so no translator in the Crossref deposit); the masthead and the site's Redakcja page do name him („tłumaczenia”; MB 25.10.2026). The translation note itself stays (original, licence or permission).
   A translator from outside the editorial team is named as before, unless they ask for anonymity.
 - **Website:** https://studiaromologica.pl (WordPress; article landing pages `/articles/{full DOI}/`, volumes `/volumes/{vol}-{year}/`, until 21.10.2026 `/tom/…`, 301-redirected).
   **Host: seohost.pl** (LiteSpeed server; file manager, `wp-config.php` and PHP settings in its panel). Hostinger only ever held a
