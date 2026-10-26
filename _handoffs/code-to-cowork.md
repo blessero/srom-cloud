@@ -694,6 +694,8 @@ K43 addendum 4 (26.10.2026): skill changes, uncommitted: `srom-ikonograf/SKILL.m
 
 K43 addendum 5 (27.10.2026): fifth pass done (DPLA, Chrome, built-in browser, Northwestern API): sheet now 179 candidates in 16 slots; STATUS line may read `Ikonografia: query q-slavery19c, 179 candidates in 16 slots, no image chosen, 0 permissions pending`. Open for MB: pass the Cloudflare check on loc.gov (and acervos.ims.com.br) once in Chrome so the loc.gov JSON search can run; skill notes in `sources.md` § Routes (IHOI URL, Northwestern API, Chrome/HathiTrust) still to add: C-item for Code.
 
+K43 addendum 6 (27.10.2026): sixth pass: loc.gov searched through MB's Chrome (MB passed the check); sheet now 214 candidates in 16 slots; STATUS line may read `Ikonografia: query q-slavery19c, 214 candidates in 16 slots, no image chosen, 0 permissions pending`. Skill change, uncommitted: `references/sources.md` (loc.gov via Chrome recipe). C-item for Code to commit.
+
 ## K46 — [general] Review 26.10.2026: sheets at hand in `Claude outputs/`; C27–C30 status; date corrections; needs MB (two items) (26.10.2026 15:32)
 Review: 🔴 `SROM edit and trans/_handoffs/review-26.10.2026.md` (062f407); applied in f2a7af2 and abed435. Suite SUITE ALL PASS 29/29.
 **New behaviour (MB, 26.10.2026):** every record's contact sheet now has a copy at hand, `Redakcja/Claude outputs/Kontaktowka - <Name>.html`
@@ -716,3 +718,5 @@ had the same three dates, now 26.10.2026. (3) The skill changes K43 (addenda 3, 
 2. **Decide:** commit the slavery session's uncommitted sources.md paragraph and K43 addendum 6 from a Code session (recommended: yes, as
    written; it is a tested recipe), or leave them to that session. Blocks nothing.
 *Trail:* review 26.10.2026 findings 1–12; For srom-produkcja 1–5; For srom-tlumacz 1 (T39 status line).
+
+K43 addendum 7 (26.10.2026): seventh pass (Yale Beinecke Land of Zenj; second loc.gov sweep): sheet now 232 candidates in 16 slots; STATUS line may read `Ikonografia: query q-slavery19c, 232 candidates in 16 slots, no image chosen, 0 permissions pending`. Skill change, uncommitted: `references/sources.md` (Yale digital collections route; loc.gov rate limit). C-item for Code to commit.
