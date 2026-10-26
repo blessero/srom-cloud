@@ -42,6 +42,7 @@ nothing good says so in § 5 instead of being padded.
 | caption formula (metryka): the rule, never restated here | srom-kanon `references/kanon-redakcyjny.md` § 10.3 |
 | one text's work | workspace `srom-produkcja/work/<id>/ikonografia/`: `ikonografia.md` (§ 3 = the image register), `kontaktowka.html`, `zgody.md` (letters, step 7), `pliki/` (files going to print), `miniatury/` (local thumbnails, step 5) |
 | a query (§ Queries) | workspace `srom-produkcja/work/q-<slug>/ikonografia/`, same files |
+| MB's copy of each sheet, at hand (MB, 26.10.2026) | `Redakcja/Claude outputs/Kontaktowka - <Name>.html` (`Pahulich`, `Ostendorf18`, `Zapytanie slavery19c`): made by `scripts/pobierz.py` on every run, so within 5 minutes of a build; a copy, never edited or read back |
 
 `<id>` is the text's work folder. Check in `STATUS.md` that `work/<id>/` holds the text MB means: one author can have
 texts in two volumes (Ostendorf: the vol. 18 article, and the vol. 19 chapter in `work/ostendorf/`). A text with no
@@ -177,13 +178,17 @@ than a missing one. The order that worked, and what failed:
    available, the item page and the full-resolution URL, one line on why it fits; `alt` and `also` where they apply.
    **Deliver** as the root CLAUDE.md § Files MB must open says: send `kontaktowka.html` and `ikonografia.md` with
    SendUserFile (display render) as the turn's last tool call: the card is MB's button. End the reply with the
-   `Files to open:` line (name, text, absolute path; 🔴 is for files, never for chat).
+   `Files to open:` line (name, text, absolute path; 🔴 is for files, never for chat), giving for the sheet the copy
+   in `Claude outputs/` (§ Files), MB's place to find it later. From Code, run `scripts/pobierz.py --mirror` after
+   the last build so that copy is current at once; from Cowork the Mac job makes it within 5 minutes.
    **Metryka draft** per candidate (`metryka` field), by Kanon § 10.3 from the data already on the row (no extra
    lookups): it shows MB what the caption would carry and catches a missing holder or shelfmark early. It is a draft,
    unchecked; the sheet labels it so.
    Look at the thumbnails yourself when a browser tool is available (open the sheet, screenshot); otherwise say the
    triage was by metadata only. Also count the broken ones (in the browser pane:
-   `[...document.images].filter(i => !i.naturalWidth).length` after a few seconds) and fix or drop each. Open the key
+   `[...document.images].filter(i => !i.naturalWidth).length` after a few seconds) and fix or drop each. Count a
+   broken one twice before dropping it: Internet Archive renders page images on demand and can take over 5 s
+   (q-stlouis1904's S1-a counted as broken once and loaded on the second count, 26.10.2026). Open the key
    pages (a cited source's title page, the quoted page) at size, in a montage of thumbnails if there are many, to see
    that each shows what its row says: a scan's first leaf is often a cover or a blank.
 6. **The register** (`ikonografia.md` § 3): one row for every image going to print, whatever its origin: an image MB

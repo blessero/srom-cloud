@@ -7,12 +7,16 @@ This script (run on the Mac every few minutes by launchd, or by hand) does each 
 `pobierz.log` next to the list: `dd.mm.yyyy HH:MM <tab> ok|FAIL <tab> name <tab> detail <tab> url`. A row is done when
 the log has `ok` for the same name and URL; a FAIL is retried on the next run, up to three times.
 Never the journal's own site: the live-site hook does not see this script, so it refuses those hosts itself.
-Usage: pobierz.py [--root <workspace work dir>] [--allow-file]
+Each run then copies every record's `kontaktowka.html` that is new or changed to `Redakcja/Claude outputs/` as
+`Kontaktowka - <Name>.html` (`Pahulich`, `Ostendorf18`, `Zapytanie slavery19c`): MB's copy at hand (SKILL.md § Files),
+never edited; the record stays the master. `--mirror` does only that (after a build, so the copy is current at once).
+Usage: pobierz.py [--root <workspace work dir> [--outputs <dir>]] [--allow-file] [--mirror]
 """
-import base64, datetime, os, pathlib, re, subprocess, sys, tempfile, time
+import base64, datetime, os, pathlib, re, shutil, subprocess, sys, tempfile, time
 
 HERE = pathlib.Path(__file__).resolve()
 WORK = HERE.parents[6] / "workspace" / "srom-produkcja" / "work"
+OUTPUTS = HERE.parents[6] / "Claude outputs"
 UA = "SROM-ikonograf/0.2 (Studia Romologica, non-commercial journal research; https://github.com/blessero)"
 REFUSED = ("studiaromologica", "seohost")
 MAX_PER_RUN, PAUSE, TRIES = 40, 3, 3
@@ -33,6 +37,29 @@ def embed(d):
     p.write_text(s.replace("</body>", add + "</body>", 1), encoding="utf-8")
 
 
+def label(rec_id):
+    """`pahulich` -> `Pahulich`, `q-slavery19c` -> `Zapytanie slavery19c` (the copy's name in Claude outputs)."""
+    return "Zapytanie " + rec_id[2:] if rec_id.startswith("q-") else rec_id[:1].upper() + rec_id[1:]
+
+
+def mirror(work, outputs):
+    """Copy each record's sheet to `outputs` when the copy is missing or differs in time or size."""
+    for src in sorted(work.glob("*/ikonografia/kontaktowka.html")):
+        dst = outputs / f"Kontaktowka - {label(src.parent.parent.name)}.html"
+        tmp = dst.with_name("." + dst.name + ".tmp")
+        try:
+            a = src.stat()
+            if dst.exists() and dst.stat().st_mtime_ns == a.st_mtime_ns and dst.stat().st_size == a.st_size:
+                continue
+            outputs.mkdir(exist_ok=True)
+            shutil.copy2(src, tmp)
+            os.replace(tmp, dst)  # whole file or nothing, if MB opens it mid-copy
+        except OSError as e:
+            print(f"mirror {src}: {e}", file=sys.stderr)
+            if tmp.exists():
+                tmp.unlink()
+
+
 def fetch(url, out):
     r = subprocess.run(["curl", "-sSL", "--fail", "--max-time", "300", "-A", UA, "-o", str(out), url],
                        capture_output=True, text=True)
@@ -45,6 +72,12 @@ def fetch(url, out):
 
 def main(argv):
     work = pathlib.Path(argv[argv.index("--root") + 1]) if "--root" in argv else WORK
+    outputs = (pathlib.Path(argv[argv.index("--outputs") + 1]) if "--outputs" in argv
+               else None if "--root" in argv else OUTPUTS)  # a test root never writes MB's folder
+    if "--mirror" in argv:
+        if outputs:
+            mirror(work, outputs)
+        return 0
     schemes = ("http://", "https://", "file://") if "--allow-file" in argv else ("http://", "https://")
     done_n = 0
     for lst in sorted(work.glob("*/ikonografia/pobierz.tsv")):
@@ -94,6 +127,8 @@ def main(argv):
                 fh.write("\t".join([now(), "FAIL" if res else "ok", name, res or detail, url]) + "\n")
         if new_thumb:
             embed(d)
+    if outputs:
+        mirror(work, outputs)
     return 0
 
 

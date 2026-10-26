@@ -21,7 +21,10 @@ def get(url, tries=4):
     return None
 def api(**p):
     p["format"] = "json"
-    return json.loads(get("https://commons.wikimedia.org/w/api.php?" + urllib.parse.urlencode(p)))
+    raw = get("https://commons.wikimedia.org/w/api.php?" + urllib.parse.urlencode(p))
+    if raw is None:  # four tries failed (429s, timeouts): stop cleanly; a rerun skips the files already saved
+        sys.exit("Commons API did not answer after 4 tries: run again later (saved files are kept)")
+    return json.loads(raw)
 
 ap = argparse.ArgumentParser()
 ap.add_argument("out"); ap.add_argument("--prefix"); ap.add_argument("--category")

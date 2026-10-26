@@ -57,4 +57,50 @@ else:
     run(); log2 = open(os.path.join(d, "pobierz.log")).read().splitlines()
     t("pobierz: done rows are not fetched again (only the refused row is retried)",
       sum("\tok\t" in l for l in log2) == 2 and sum("\tFAIL\t" in l for l in log2) == 2, log2)
+# pobierz.py: MB's copies of the sheets in Claude outputs (no network, no sips)
+w2 = tempfile.mkdtemp(); out = os.path.join(w2, "outputs"); work2 = os.path.join(w2, "work")
+for rid in ("pahulich", "q-test1"):
+    os.makedirs(os.path.join(work2, rid, "ikonografia"))
+    open(os.path.join(work2, rid, "ikonografia", "kontaktowka.html"), "w").write(f"<html>{rid}</html>")
+mir = lambda *a: subprocess.run([sys.executable, os.path.join(IK, "scripts", "pobierz.py"), "--root", work2, *a],
+                                capture_output=True, text=True)
+r = mir("--outputs", out, "--mirror")
+cp = lambda n: os.path.join(out, f"Kontaktowka - {n}.html")
+t("pobierz: sheet mirrored to Claude outputs as Kontaktowka - <Name>.html (text, query)",
+  r.returncode == 0 and sorted(os.listdir(out)) == ["Kontaktowka - Pahulich.html", "Kontaktowka - Zapytanie test1.html"]
+  and open(cp("Pahulich")).read() == "<html>pahulich</html>", (r.stderr, os.listdir(out) if os.path.isdir(out) else None))
+ino = os.stat(cp("Pahulich")).st_ino; mir("--outputs", out, "--mirror"); same = os.stat(cp("Pahulich")).st_ino == ino
+srcp = os.path.join(work2, "pahulich", "ikonografia", "kontaktowka.html")
+open(srcp, "w").write("<html>rebuilt</html>"); os.utime(srcp, (os.stat(srcp).st_atime, os.stat(srcp).st_mtime + 10))
+mir("--outputs", out)  # a normal run (no list to do) mirrors too
+t("pobierz: sheet copy left alone when unchanged, refreshed after a rebuild",
+  same and open(cp("Pahulich")).read() == "<html>rebuilt</html>" and not [f for f in os.listdir(out) if f.startswith(".")])
+mir("--mirror")
+t("pobierz: sheet copies never written from a test root without --outputs",
+  not os.path.exists(os.path.join(w2, "Claude outputs")) and sorted(os.listdir(w2)) == ["outputs", "work"])
+# the triage scripts (known-item search): all compile; montage.py offline, if Pillow is there
+import py_compile
+bad = []
+for f in sorted(os.listdir(os.path.join(IK, "scripts"))):
+    if f.endswith(".py"):
+        try: py_compile.compile(os.path.join(IK, "scripts", f), cfile=os.path.join(tempfile.mkdtemp(), "x.pyc"), doraise=True)
+        except py_compile.PyCompileError as e: bad.append((f, str(e)[:200]))
+t("scripts: every srom-ikonograf script compiles under this interpreter", not bad, bad)
+try:
+    from PIL import Image
+except ImportError:
+    print("SKIP montage: 2 tests (no Pillow)")
+else:
+    m = tempfile.mkdtemp(); g = os.path.join(m, "pages"); os.makedirs(g)
+    for k in range(23):
+        Image.new("RGB", (60 + k, 90), (k * 10, 80, 160)).save(os.path.join(g, f"a10_p{k:03d}.jpg"))
+    mt = lambda *a: subprocess.run([sys.executable, os.path.join(IK, "scripts", "montage.py"), *a], capture_output=True, text=True)
+    r = mt("--grid", g, "a10_")
+    outs = sorted(f for f in os.listdir(m) if f.startswith("mont_"))
+    t("montage: --grid makes 20 pages a sheet (23 pages = 2 sheets, 5 columns of 300 px)",
+      r.returncode == 0 and outs == ["mont_a10__0.jpg", "mont_a10__1.jpg"]
+      and Image.open(os.path.join(m, outs[0])).size == (1500, 1320), (r.stderr[-300:], outs))
+    one = os.path.join(m, "one.jpg"); r = mt(one, *[os.path.join(g, f"a10_p{k:03d}.jpg") for k in range(4)])
+    t("montage: a list of images makes one sheet, 3 columns of 400 px",
+      r.returncode == 0 and Image.open(one).size == (1200, 832), r.stderr[-300:])
 print(f"IKONOGRAF ALL PASS {sum(res)}/{len(res)}" if all(res) else f"IKONOGRAF FAILED {res.count(False)}/{len(res)}")
