@@ -103,4 +103,70 @@ else:
     one = os.path.join(m, "one.jpg"); r = mt(one, *[os.path.join(g, f"a10_p{k:03d}.jpg") for k in range(4)])
     t("montage: a list of images makes one sheet, 3 columns of 400 px",
       r.returncode == 0 and Image.open(one).size == (1200, 832), r.stderr[-300:])
+# kontaktowka_build.py: the sheet built from kontaktowka.json (no network: no commons-info, mini from file://)
+import json as _json
+KB = os.path.join(IK, "scripts", "kontaktowka_build.py")
+def kb(*a):
+    return subprocess.run([sys.executable, KB, *a], capture_output=True, text=True)
+def sheet_data(p):
+    s = open(p, encoding="utf-8").read()
+    return _json.loads(s[s.index("const DATA = ") + 13:s.index(";\n/* ---- rendering")])
+w3 = tempfile.mkdtemp(); rec = os.path.join(w3, "work", "x1", "ikonografia"); os.makedirs(rec); o3 = os.path.join(w3, "out")
+rows = {"text": "Test", "note": "n", "slots": {"S1": "one", "S2": "two"}, "items": [
+    {"id": "S1-a", "slot": "S1", "src": "commons:Renty, Daguerreotype, by JT Zealy, 1850.jpg", "cls": "A", "why": "a </script> b", "metryka": "m"},
+    {"id": "S1-b", "slot": "S1", "src": "loc:ppmsca-11146", "cls": "A", "holder": "LoC"},
+    {"id": "S1-c", "slot": "S1", "src": "si:NMAAHC-2011_34", "cls": "A"},
+    {"id": "S2-a", "slot": "S2", "src": "ia:jacksonsfamousph01jack/n141", "cls": "A"},
+    {"id": "S2-b", "slot": "S2", "src": "iiif:https://collections.library.yale.edu/iiif/2/32500151", "cls": "B"},
+    {"id": "S2-c", "slot": "S2", "src": "getty:abc-123", "cls": "D"},
+    {"id": "S2-d", "slot": "S2", "src": "loc:ppmsca-80097", "thumb": "https://example.org/given.jpg", "cls": "E"}]}
+open(os.path.join(rec, "kontaktowka.json"), "w", encoding="utf-8").write(_json.dumps(rows, ensure_ascii=False))
+r = kb(rec, "--outputs", o3); h = os.path.join(rec, "kontaktowka.html")
+D = sheet_data(h) if r.returncode == 0 else {"items": []}; by = {i["id"]: i for i in D["items"]}
+t("build: sheet written from the rows file with the current template", r.returncode == 0 and len(D["items"]) == 7
+  and 'addEventListener("DOMContentLoaded", render)' in open(h, encoding="utf-8").read(), r.stderr + r.stdout)
+t("build: src kinds resolved (commons, loc, si, ia, iiif, getty); a field given in the row wins",
+  by.get("S1-a", {}).get("thumb") == "https://commons.wikimedia.org/wiki/Special:FilePath/Renty%2C_Daguerreotype%2C_by_JT_Zealy%2C_1850.jpg?width=960"
+  and by["S1-a"]["page"] == "https://commons.wikimedia.org/wiki/File:Renty,_Daguerreotype,_by_JT_Zealy,_1850.jpg"
+  and by["S1-b"]["thumb"] == "https://tile.loc.gov/storage-services/service/pnp/ppmsca/11100/11146v.jpg"
+  and by["S1-c"]["thumb"] == "https://ids.si.edu/ids/deliveryService?max_w=900&id=NMAAHC-2011_34"
+  and by["S2-a"]["thumb"] == "https://archive.org/download/jacksonsfamousph01jack/page/n141_w700.jpg"
+  and by["S2-b"]["thumb"] == "https://collections.library.yale.edu/iiif/2/32500151/full/!700,700/0/default.jpg"
+  and by["S2-c"]["thumb"].startswith("https://media.getty.edu/iiif/image/abc-123/full/!700,700")
+  and by["S2-d"]["thumb"] == "https://example.org/given.jpg" and by["S2-d"]["full"].endswith("ppmsca/80000/80097v.jpg"),
+  {k: v.get("thumb") for k, v in by.items()})
+t("build: no string can close the script element (</ escaped)", "a </script> b" not in open(h, encoding="utf-8").read()
+  and by.get("S1-a", {}).get("why") == "a </script> b")
+os.makedirs(os.path.join(rec, "miniatury")); open(os.path.join(rec, "miniatury", "S1-a.jpg"), "wb").write(b"\xff\xd8" + b"x" * 2000)
+kb(rec, "--outputs", o3); r = kb(rec, "--outputs", o3); s3 = open(h, encoding="utf-8").read()
+t("build: every rebuild embeds miniatury/*.jpg, once each (a rebuild can no longer drop them)",
+  r.returncode == 0 and s3.count('MINI["miniatury/S1-a.jpg"]') == 1, r.stderr)
+t("build: MB's copy refreshed in Claude outputs (--outputs)",
+  open(os.path.join(o3, "Kontaktowka - X1.html"), encoding="utf-8").read() == s3)
+before = open(h, encoding="utf-8").read()
+for bad in ({"id": "S1-a", "slot": "S1", "cls": "A"}, {"id": "S9-a", "slot": "S9", "cls": "A"},
+            {"id": "S1-z", "slot": "S1", "cls": "Q"}, {"id": "S1-y", "slot": "S1", "cls": "A", "src": "flickr:1"}):
+    bad_rows = dict(rows, items=rows["items"] + [bad])
+    open(os.path.join(rec, "kontaktowka.json"), "w", encoding="utf-8").write(_json.dumps(bad_rows))
+    r = kb(rec, "--no-mirror")
+    t(f"build: refused, sheet unchanged ({r.stderr.strip().splitlines()[0][6:60] if r.stderr.strip() else 'no error'})",
+      r.returncode == 1 and open(h, encoding="utf-8").read() == before, r.stdout + r.stderr)
+open(os.path.join(rec, "kontaktowka.json"), "w", encoding="utf-8").write(_json.dumps(rows, ensure_ascii=False))
+st = os.stat(h); rows2 = dict(rows, text="Rebuilt by pobierz"); open(os.path.join(rec, "kontaktowka.json"), "w", encoding="utf-8").write(_json.dumps(rows2))
+os.utime(os.path.join(rec, "kontaktowka.json"), (st.st_atime, st.st_mtime + 5))
+r = subprocess.run([sys.executable, os.path.join(IK, "scripts", "pobierz.py"), "--root", os.path.join(w3, "work"), "--outputs", o3],
+                   capture_output=True, text=True)
+t("pobierz: a rows file newer than its sheet is rebuilt, then mirrored",
+  r.returncode == 0 and sheet_data(h)["text"] == "Rebuilt by pobierz"
+  and sheet_data(os.path.join(o3, "Kontaktowka - X1.html"))["text"] == "Rebuilt by pobierz", r.stderr)
+if shutil.which("node") is None:
+    print("SKIP from-html: 1 test (no node)")
+else:
+    shutil.copy(os.path.join(IK, "assets", "template", "kontaktowka.html"), os.path.join(w3, "old.html"))
+    old = os.path.join(w3, "old", "ikonografia"); os.makedirs(old); shutil.copy(os.path.join(w3, "old.html"), os.path.join(old, "kontaktowka.html"))
+    r1 = kb(old, "--from-html"); j = _json.load(open(os.path.join(old, "kontaktowka.json"), encoding="utf-8"))
+    r2 = kb(old, "--from-html")
+    t("from-html: an old sheet's JavaScript DATA becomes kontaktowka.json; never overwritten without --force",
+      r1.returncode == 0 and j["slots"] == {"S1": "[idea of slot 1]"} and j["items"][0]["id"] == "S1-a" and r2.returncode == 1,
+      r1.stderr + r2.stderr)
 print(f"IKONOGRAF ALL PASS {sum(res)}/{len(res)}" if all(res) else f"IKONOGRAF FAILED {res.count(False)}/{len(res)}")

@@ -38,9 +38,10 @@ nothing good says so in § 5 instead of being padded.
 | rights classes, credits, finding the contact, permission letters (EN; PL/ES/FR on request) | `references/rights.md` |
 | downloads for Cowork runs, done on the Mac (§ Where it runs) | `scripts/pobierz.py`, `scripts/pl.srom.ikonograf-pobierz.plist` |
 | triage and known-item tools (§ Known-item search): OCR page finder for Internet Archive books; bulk Commons thumbnails; contact montages | `scripts/ia_find.py`, `scripts/commons_pages.py`, `scripts/montage.py` (Pillow) |
-| per-text record and contact sheet (templates) | `assets/template/ikonografia.md`, `assets/template/kontaktowka.html` |
+| per-text record and contact sheet (templates) | `assets/template/ikonografia.md`, `assets/template/kontaktowka.html` (the renderer; never copied by hand) |
+| the contact sheet, built from its rows file (step 5) | `scripts/kontaktowka_build.py` |
 | caption formula (metryka): the rule, never restated here | srom-kanon `references/kanon-redakcyjny.md` § 10.3 |
-| one text's work | workspace `srom-produkcja/work/<id>/ikonografia/`: `ikonografia.md` (§ 3 = the image register), `kontaktowka.html`, `zgody.md` (letters, step 7), `pliki/` (files going to print), `miniatury/` (local thumbnails, step 5) |
+| one text's work | workspace `srom-produkcja/work/<id>/ikonografia/`: `ikonografia.md` (§ 3 = the image register), `kontaktowka.json` (the sheet's rows: edit this) and `kontaktowka.html` (built from it), `zgody.md` (letters, step 7), `pliki/` (files going to print), `miniatury/` (local thumbnails, step 5) |
 | a query (§ Queries) | workspace `srom-produkcja/work/q-<slug>/ikonografia/`, same files |
 | MB's copy of each sheet, at hand (MB, 26.10.2026) | `Redakcja/Claude outputs/Kontaktowka - <Name>.html` (`Pahulich`, `Ostendorf18`, `Zapytanie slavery19c`): made by `scripts/pobierz.py` on every run, so within 5 minutes of a build; a copy, never edited or read back |
 
@@ -172,7 +173,13 @@ than a missing one. The order that worked, and what failed:
    whose original holder cannot be traced; dates or editions that differ between the article, the catalogue and the
    aggregator; an aggregator's description (a Commons title) that is not the holder's catalogue title. Each doubt says
    what was checked and what would settle it. MB finds these among the most useful parts of a record.
-5. **Contact sheet.** Fill `kontaktowka.html` (copy the template; edit only the `DATA` block): per candidate the
+5. **Contact sheet.** Write the rows into `kontaktowka.json` and build the sheet with
+   `scripts/kontaktowka_build.py <record dir>` (never edit `kontaktowka.html`: every build replaces it, re-embeds
+   `miniatury/`, takes the current template and refreshes MB's copy; on the Mac, `pobierz.py` rebuilds any record whose
+   rows file is newer, so from Cowork editing the JSON is enough). A row's `src` (`commons:<file>`, `loc:<coll>-<n>`,
+   `si:`, `ia:<id>/n<k>`, `iiif:`, `getty:`, `mini:<url>`; the script's header) fills the URLs; `--commons-info` adds
+   Commons sizes. The build stops on a duplicate id, an unknown slot or class, and lists rows with no thumbnail, holder
+   or metryka. An old sheet with no rows file: `--from-html` once. Per candidate the
    thumbnail URL (about **700 px wide**, enough to judge a photograph without opening the holder's page: sources.md
    § Thumbnails), title as catalogued, date, creator, holder and shelfmark, rights class (rights.md), largest size
    available, the item page and the full-resolution URL, one line on why it fits; `alt` and `also` where they apply.
@@ -221,7 +228,7 @@ than a missing one. The order that worked, and what failed:
 - **Read the record, not only the title.** The `/content/<id>` note or the verso inscription settled "Sandy" (former slave), Gordon's date (27 April, Baton Rouge), "Rebecca Huger". Where the record was not read, the row says so (§ 6).
 - **Exa for reading, the image server for pictures, Commons for the file's credit.** Never trust a Commons title or date for the object: it carries the uploader's reading (a "Brady" credit was the carte's imprint; "1892" was an upload error for 1862).
 - **A new slot for each aspect of the prompt** (earliest, household, flight, marked bodies, trade, regions); leads without thumbnails are rows too (class D, holder, link), so MB sees what exists and what only needs a letter.
-- **Tool scripts of this run** (Commons search/category/imageinfo, Smithsonian, Slavery Images, Europeana, sheet builder) are in `work/q-slavery19c/ikonografia/_tools/`; the consolidation into `scripts/` is the hand-off `_handoffs/ikonograf-tooling-handoff.md`.
+- **Tool scripts of this run** (Commons search/category/imageinfo, Smithsonian, Slavery Images, Europeana) are in `work/q-slavery19c/ikonografia/_tools/`; its sheet builder (`items.py`, `build.py`) is superseded by `scripts/kontaktowka_build.py` (26.10.2026; the sheet's rows are now `kontaktowka.json`).
 
 ## What MB can ask for
 

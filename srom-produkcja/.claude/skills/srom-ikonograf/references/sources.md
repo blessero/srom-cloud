@@ -164,22 +164,10 @@ holder's own resize service for it; nothing is downloaded and no tokens are spen
 No resize service, or only a TIFF or a very large file: from Cowork, a `miniatura` row in `pobierz.tsv`
 (SKILL.md § Where it runs) does all of the following on the Mac. From Code: download it and make a local copy,
 `curl -sL -o <tmp>/<id>.src <url> && sips -Z 800 -s format jpeg -s formatOptions 70 <tmp>/<id>.src --out miniatury/<id>.jpg`
-(about 100 KB; JPEG is enough, WebP saves little at this size), set `thumb:"miniatury/<id>.jpg"`, then embed the
-local copies in the sheet, so that the side panel and the browser pane show them (neither loads a relative path):
-
-```sh
-python3 - work/<id>/ikonografia <<'E'
-import sys, base64, pathlib, re
-d = pathlib.Path(sys.argv[1]); p = d / "kontaktowka.html"; s = p.read_text(encoding="utf-8")
-s = re.sub(r'<script>MINI\[.*?</script>\n', '', s)
-add = "".join(f'<script>MINI["miniatury/{f.name}"]="data:image/jpeg;base64,{base64.b64encode(f.read_bytes()).decode()}";</script>\n'
-              for f in sorted((d / "miniatury").glob("*.jpg")))
-p.write_text(s.replace("</body>", add + "</body>", 1), encoding="utf-8")
-E
-```
-
-Run it again after adding a copy (it replaces the old lines). The lines sit after the renderer, at the end of the
-file: when editing the `DATA` block, read the file with a line limit, never whole.
+(about 100 KB; JPEG is enough, WebP saves little at this size), and give the row `thumb: "miniatury/<id>.jpg"`, or
+give it `src: "mini:<url>"` and let `scripts/kontaktowka_build.py` download it (with a browser User-Agent, for
+servers that send curl a placeholder). Every build embeds all of `miniatury/` in the sheet, so that the side panel
+and the browser pane show them (neither loads a relative path): there is no separate embed step to forget.
 
 ## Learnt in the q-stlouis1904 run (25.10.2026)
 

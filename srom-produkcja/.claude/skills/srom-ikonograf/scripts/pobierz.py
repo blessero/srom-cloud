@@ -10,6 +10,7 @@ Never the journal's own site: the live-site hook does not see this script, so it
 Each run then copies every record's `kontaktowka.html` that is new or changed to `Redakcja/Claude outputs/` as
 `Kontaktowka - <Name>.html` (`Pahulich`, `Ostendorf18`, `Zapytanie slavery19c`): MB's copy at hand (SKILL.md § Files),
 never edited; the record stays the master. `--mirror` does only that (after a build, so the copy is current at once).
+A record whose `kontaktowka.json` is newer than its sheet is rebuilt first (kontaktowka_build.py).
 Usage: pobierz.py [--root <workspace work dir> [--outputs <dir>]] [--allow-file] [--mirror]
 """
 import base64, datetime, os, pathlib, re, shutil, subprocess, sys, tempfile, time
@@ -127,9 +128,21 @@ def main(argv):
                 fh.write("\t".join([now(), "FAIL" if res else "ok", name, res or detail, url]) + "\n")
         if new_thumb:
             embed(d)
+    for js in sorted(work.glob("*/ikonografia/kontaktowka.json")):  # a rows file edited since the last build
+        html = js.with_name("kontaktowka.html")
+        if not html.exists() or js.stat().st_mtime > html.stat().st_mtime:
+            rebuild(js.parent)
     if outputs:
         mirror(work, outputs)
     return 0
+
+
+def rebuild(d):
+    """Build the sheet from kontaktowka.json (kontaktowka_build.py); errors to stderr, the old sheet stays."""
+    sys.path.insert(0, str(HERE.parent))
+    import kontaktowka_build
+    for e in kontaktowka_build.build(d, quiet=True):
+        print(f"rebuild {d}: {e}", file=sys.stderr)
 
 
 if __name__ == "__main__":
