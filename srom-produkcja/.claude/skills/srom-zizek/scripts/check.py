@@ -110,7 +110,7 @@ def check_card(text: str):
     body = "\n".join(l for l in body.splitlines() if not l.startswith("|"))
     body = body.split("## 1. Claim", 1)[-1]
     n = len(WORD.findall(body))
-    note = "" if 600 <= n <= 1300 else "  <- outside 600-1,300: trim, or move depth to a deep review"
+    note = "" if 800 <= n <= 1800 else "  <- outside 800-1,800 (MB 27.10.2026): trim, or move depth to a deep review"
     return probs, f"length {n} words (sections 1-8, tables excluded){note}"
 
 

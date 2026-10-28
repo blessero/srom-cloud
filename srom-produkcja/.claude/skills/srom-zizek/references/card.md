@@ -4,8 +4,9 @@ The card is the unit of Zizek. It trades depth for comparability: every paper ge
 sections and the same score rubric, so twelve cards can be laid side by side. Anything that needs more
 depth goes to `deep-review.md` — only for finalists or doubtful cases.
 
-**Length:** 600–1,000 words, not counting the header table and Sources; up to about 1,300 when the paper needs it
-(MB, 03.10.2026: completeness beats brevity here). Past that, the extra belongs in a deep review, not in the card.
+**Length:** 800–1,400 words, not counting the header table and Sources; up to about 1,800 when the paper needs it
+(MB, 03.10.2026: completeness beats brevity here; 27.10.2026: § 2 was squeezed to fit the old limit, so it gets the
+room first). Past that, the extra belongs in a deep review, not in the card.
 **Output:** `volumes/<vol>/cards/<slug>.md` (slug = the text file's name). Update the row in `pool.md`.
 
 ## Before writing
@@ -37,23 +38,42 @@ The thesis in 2–3 sentences in the author's terms.
 Anchor: "5–10 verbatim words" (§ heading)
 
 ## 2. How it argues
-3–5 lines: the moves, the evidence base (what corpus, how much, from where), the key interlocutors.
+An argument map, about 200–400 words, from which MB can recall the paper without rereading it and see how its
+concepts relate (MB 27.10.2026: the pilot's one-line chain of detours served neither):
+**Concepts:** each key term glossed in a phrase, as the author uses it.
+**Steps:** numbered, in the paper's order; for each, what it is meant to establish (which part of the thesis), the
+evidence (what corpus, how much, from where) and the interlocutor it leans on.
+**What reaches the conclusion:** which parts of the thesis the steps carry, and which are only announced or dropped.
+Never a bare chain of names.
 
 ## 3. Three axes — kept apart
 Steelman: the strongest reading of the paper, in 1–2 sentences, before any criticism.
 
 **A. Internal coherence** — sound / strained / broken
-Does it hold on its own terms (premises and sources assumed true)? 1–3 findings, each:
+Does it hold on its own terms (premises and sources assumed true)? 1–4 findings, each:
 [L|M|m] what — "anchor" (§) — why it is internal, not a disagreement.
+Before calling two passages inconsistent, check that they use the term in the same sense (pilot, MB 27.10.2026:
+modernity hiding the *order of oppression* and Roma becoming *more visible as a group* are two visibilities, not a
+contradiction). An argument that thins as it goes (limbs of the thesis announced and dropped, detours that never
+return to it, a conclusion that restates rather than draws) is an internal finding: say which parts reach the end.
 
 **B. Method & evidence** — fit / stretched / unfit
 Does the method carry the size of the claim? Overreach (quantify: "3 court cases → claim about the
 Commonwealth"). Unstated assumptions. [FLAG-EXTERNAL] + the precise question, where a specialist is needed.
+**Freewheeling** is MB's first concern in humanities papers (MB 27.10.2026): an interpretive leap presented as a
+finding — an identification or attribution (who a figure is, a group membership read from iconography or a
+memoir), an intention read into an author or a character, an absence claimed from the author's own search, a few
+artists' or writers' view taken for society's. Name each, say what rests on it and rate it by that: [L] if the
+thesis or a main section's conclusion needs it, [M] if one step does. Never leave one unrated.
 
 **C. Field standing** — advances / consolidates / derivative / contested / outdated
 Grounded in retrieved sources only: reception (citations and their trajectory, reviews, rebuttals),
 what it adds to the literature, consequential omissions (with evidence the omitted work is recognised).
 Sparse field → say sparse.
+Reception is an indicator, not the verdict: merit decides, and a solid, little-cited text (a niche venue, another
+field) is a find (MB 27.10.2026). A low count weighs only together with a weak read, and then mildly. Who wrote the
+paper (Romani or not), and whether newer work is Romani-authored or agency-centred, is no criterion: never a minus,
+never a reason to prefer another text. An omission is consequential only if it changes the argument.
 
 ## 4. Fit with the concept
 Which strand of `concept.md` it serves; what only this paper brings; which other candidates it talks to,
@@ -62,7 +82,8 @@ duplicates or contradicts (by slug).
 ## 5. For the Polish reader
 - New in Polish? (author/argument already available in Polish, incl. SROM — grep `context/srom-abstracts.tsv` for the
   author, key terms and Polish/EN equivalents; cite vol. + title, or a search hit)
-- Hooks and frictions from `polish-field.md` §4 that apply (only those that apply)
+- Hooks and frictions from `polish-field.md` §4 that apply (only those that apply), each named in words with one
+  line on what it means for this text, never by its number alone (MB 27.10.2026: "1; 3" could not be followed)
 - Terms that will need a decision in translation
 
 ## 6. Scores (rubric below — one line of justification each)
@@ -71,7 +92,8 @@ duplicates or contradicts (by slug).
 | n | n | n |
 
 ## 7. Verdict
-CORE / STRONG / CONDITIONAL (on what) / OUT — and why, in 2–3 lines.
+CORE / STRONG / CONDITIONAL (on what) / OUT — and why, in 2–3 lines. An alternative named here is weighed on
+merit, never on its author's background or on being newer.
 
 ## 8. Facts for the non-scholarly discussion (record, do not weigh)
 Length and translation effort; rights holder and licence (CC BY? publisher permission?); author reachable /
@@ -107,7 +129,14 @@ When MB agrees with a card's scores, or corrects them, record it in the card's s
 `MB <date>: agrees` / `MB <date>: Quality 3→4 — <reason>`, and list the card here. Card-writing subagents
 read the cards listed here before scoring, so the rubric is anchored in MB's judgements, not only in words.
 If MB's corrections keep pointing the same way, change the rubric above, not just the scores.
-- (none confirmed yet — the pilot `19-2026/cards/black-bodies-white-bodies-gypsy-images-i` awaits MB's view)
+- `19-2026/cards/black-bodies-white-bodies-gypsy-images-i` (Kovács, the pilot), MB 27.10.2026: no correction to the
+  scores; agrees with the reading and the CONDITIONAL verdict, and finds the text weaker the further it goes (messy,
+  meandering) — weaker coherence than the card gave. Zizek re-checked the scores the same day: Fit 4→3 (the 13.10
+  fit lens), Value 3→4 (the Polish overlap is thematic only). MB's corrections are the rules above: § 2 as an argument
+  map; 3A same-sense check and the thinning argument; 3B freewheeling rated by what rests on it; 3C reception
+  secondary to merit, authorship and agency-centred readings no criterion; frictions in words.
+- `19-2026/cards/noemie-ndiaye-black-roma`, MB 27.10.2026 (in his comments on the pilot): the Scapin-as-Rom reading
+  is load-bearing, far more than Kovács's identifications: [M]→[L], Quality 4→3.
 
 ## Rules that bite most often
 - Anchors are verbatim, in the original language, 5–10 words + nearest heading. Never paraphrase inside quotes.
