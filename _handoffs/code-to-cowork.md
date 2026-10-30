@@ -745,3 +745,8 @@ still awaits its status line.
 **For MB (code SYS; enter in the ledger):** **Do, optional (a minute):** a free api.data.gov key into `~/.config/srom/` (as for DPLA) before
 Smithsonian is searched again; DEMO_KEY allows about four searches an hour. Blocks nothing.
 *Trail:* ikonograf-tooling-handoff.md § Status (items 1–6); review 26.10.2026 For MB 2–3; K46.
+
+## K48 — [general] C31 done: `check_deposit.py --only`, importer 2.3.2 `post_date` ← `pub_date_online` (30.10.2026 02:51)
+- `check_deposit.py … --only 1-5` (or `--only 3`): checks only the articles at those positions in the XML; the "in the CSV, not in the XML" check is skipped then; last line counts the checked articles. Test added in test_quant.py. Run vol. 18/17 `--site` in parts of 5.
+- SROM Importer 2.3.2: core preset maps `post_date` ← `pub_date_online`, so a re-import keeps the online date instead of the import time. A row with no valid date leaves the post's date alone. Needs the plugin re-uploaded to the live site (MB) before the next import; until then set the date by hand (GEN-123). Caveat: a future online date on a `publish` import would schedule the post.
+- Suite 29/29.

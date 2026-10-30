@@ -485,6 +485,11 @@ t("check_deposit --site: a landing page that 301s fails (redirect named, not fol
   r1.returncode == 1 and f"landing page 301 → /p/1/" in r1.stdout and r2.returncode == 0
   and r2.stdout.strip().splitlines()[-1] == "DEPOSIT CHECK OK 1/1", r1.stdout + r2.stdout + r2.stderr)
 
+dwrite(drows[:2])
+r = subprocess.run([sys.executable, CD, dcp, x2, "--only", "2"], capture_output=True, text=True)
+t("check_deposit --only 2: checks just the second article, ends DEPOSIT CHECK OK 1/1",
+  r.returncode == 0 and " 002 " in r.stdout and " 001 " not in r.stdout and r.stdout.strip().splitlines()[-1] == "DEPOSIT CHECK OK 1/1", r.stdout + r.stderr)
+
 n, ok = len(res), sum(res)
 print(f"QUANT ALL PASS {n}/{n}" if ok == n else f"QUANT FAILED {n - ok}/{n}")
 sys.exit(0 if ok == n else 1)

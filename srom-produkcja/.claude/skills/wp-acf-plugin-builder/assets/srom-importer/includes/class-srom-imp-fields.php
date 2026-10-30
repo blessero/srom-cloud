@@ -261,6 +261,8 @@ class SROM_Imp_Fields {
 			'post_title' => array( 'title_pl', null, false ),
 			'post_name'  => array( 'doi_suffix', null, false ),
 			'menu_order' => array( 'seq', null, false ),
+			// The post date is the online date (C31, 30.10.2026): a re-import must not reset it to the import time.
+			'post_date'  => array( 'pub_date_online', null, false ),
 			// WordPress' native search indexes post_title/post_content/post_excerpt but
 			// never ACF meta, so the abstract is mirrored into the core fields to make
 			// articles findable by their abstract. The ACF `abstract_pl` field stays the

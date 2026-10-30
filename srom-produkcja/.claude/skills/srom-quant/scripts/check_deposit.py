@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """check_deposit.py — the check before a Crossref upload: the deposit XML against the master CSV, contributor by contributor.
 
-    python3 check_deposit.py <master CSV> <deposit XML> [--site] [--ready <folder of the covered PDFs>]
+    python3 check_deposit.py <master CSV> <deposit XML> [--site] [--ready <folder of the covered PDFs>] [--only 1-5]
 
 Written 14.10.2026 (Cowork) after the vol. 18 deposit of 13.10.2026 went out with 31 damaged references and a session report
 that named two authors as having no ORCID when one had it: that check only counted, and the report named people from memory.
@@ -11,7 +11,8 @@ with ORCID, references (count = citations/<article_id>.json) and their text (no 
 character). --site: each landing page answers 200 with the right citation_doi, each PDF answers 200 (and, with --ready, is
 byte-identical to the covered PDF there); a redirect is a fault, since the deposited address must be the page itself, not a
 301 to it (review 21.10.2026). Paced (PACE seconds per request), because the site blocks bursts (429, and Wordfence). Read-only.
-Last line: DEPOSIT CHECK OK n/n, or DEPOSIT CHECK FAILED k/n. Owner: srom-quant (taken over from Cowork, C15 addendum).
+--only a-b (or n): only articles at those positions in the XML (1-based), so a long --site run fits in parts
+(C31, 30.10.2026); the CSV-only-rows check is skipped then. Last line: DEPOSIT CHECK OK n/n, or DEPOSIT CHECK FAILED k/n. Owner: srom-quant (taken over from Cowork, C15 addendum).
 """
 import csv, hashlib, json, os, re, sys, time, unicodedata, urllib.request, urllib.error
 import xml.etree.ElementTree as ET
@@ -20,6 +21,12 @@ args = [a for a in sys.argv[1:] if not a.startswith("--")]
 SITE = "--site" in sys.argv
 READY = sys.argv[sys.argv.index("--ready") + 1] if "--ready" in sys.argv else None
 if READY in args: args.remove(READY)
+ONLY = sys.argv[sys.argv.index("--only") + 1] if "--only" in sys.argv else None
+if ONLY in args: args.remove(ONLY)
+if ONLY:
+    m = re.fullmatch(r"(\d+)(?:-(\d+))?", ONLY)
+    if not m: sys.exit("--only takes n or a-b")
+    LO, HI = int(m[1]), int(m[2] or m[1])
 if len(args) != 2: sys.exit(__doc__)
 csvp, xmlp = args
 rows = {r["doi"].strip().lower(): r for r in csv.DictReader(open(csvp, encoding="utf-8-sig"))}
@@ -67,7 +74,8 @@ def get(url):
 
 arts = root.findall(".//c:journal_article", NS)
 failed, seen = 0, set()
-for a in arts:
+for pos, a in enumerate(arts, 1):
+    if ONLY and not LO <= pos <= HI: continue
     doi = T(a.find("c:doi_data/c:doi", NS)).lower(); seen.add(doi)
     r = rows.get(doi); probs = []
     if r is None:
@@ -113,7 +121,7 @@ for a in arts:
     print(f"{'OK' if not probs else '!!'} {aid} {doi} pp. {pages[0]}–{pages[1]} · {dates} · refs {len(cits)} · {names}")
     for p in probs: print(f"     - {p}")
     failed += bool(probs)
-for d in sorted(set(rows) - seen): print(f"!! {rows[d]['article_id']} {d}: in the CSV, not in the XML"); failed += 1
-n = len(set(rows) | seen)
+for d in ([] if ONLY else sorted(set(rows) - seen)): print(f"!! {rows[d]['article_id']} {d}: in the CSV, not in the XML"); failed += 1
+n = len(seen) if ONLY else len(set(rows) | seen)
 print(f"DEPOSIT CHECK OK {n}/{n}" if not failed else f"DEPOSIT CHECK FAILED {failed}/{n}")
 sys.exit(1 if failed else 0)
