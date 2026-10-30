@@ -71,7 +71,8 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
   article-level DOIs only, no volume DOIs; deposit schema 5.4.0. Locked decisions: srom-quant.
 - **Crossref membership:** obtained, with full access (MB, 03.10.2026). Member name: Komitet Opieki nad Zabytkami
   Kultury Żydowskiej w Tarnowie. **DOI prefix: 10.68100** (MB, 06.10.2026). Vol. 18 suffixes minted 06.10.2026 in the
-  workspace master CSV; nothing deposited yet (suffixes freeze at the website import). The first deposit is MB's next task.
+  workspace master CSV (suffixes freeze at the website import). Deposited: vol. 18 (15 articles, 26.10.2026) and vol. 17
+  (10 articles, 30.10.2026), at test and production; the DOIs resolve to the article pages (checked 30.10.2026).
 - **Metadata infrastructure (03.10.2026):** essentially done (master CSV v3, suffix minting, Crossref XML, PDF
   metadata, Highwire tags and JSON-LD in the mu-plugin `srom-scholarly.php`, v2.9 in srom-quant's `assets/` since
   21.10.2026); needs polishing. The live site was enough to pass Crossref's membership review but still needs work;

@@ -4,9 +4,10 @@ The card is the unit of Zizek. It trades depth for comparability: every paper ge
 sections and the same score rubric, so twelve cards can be laid side by side. Anything that needs more
 depth goes to `deep-review.md` — only for finalists or doubtful cases.
 
-**Length:** 800–1,400 words, not counting the header table and Sources; up to about 1,800 when the paper needs it
-(MB, 03.10.2026: completeness beats brevity here; 27.10.2026: § 2 was squeezed to fit the old limit, so it gets the
-room first). Past that, the extra belongs in a deep review, not in the card.
+**Length:** as long as the paper needs, up to about 2,000 words, not counting the header table and Sources (MB
+29.10.2026: enough to understand and discuss the paper, short enough to read a dozen side by side). § 2 takes the
+room first (up to ~400). Over 2,000, trim repetition before anything else; what still does not fit belongs in a deep
+review.
 **Output:** `volumes/<vol>/cards/<slug>.md` (slug = the text file's name). Update the row in `pool.md`.
 
 ## Before writing
@@ -54,7 +55,8 @@ Does it hold on its own terms (premises and sources assumed true)? 1–4 finding
 [L|M|m] what — "anchor" (§) — why it is internal, not a disagreement.
 Before calling two passages inconsistent, check that they use the term in the same sense (pilot, MB 27.10.2026:
 modernity hiding the *order of oppression* and Roma becoming *more visible as a group* are two visibilities, not a
-contradiction). An argument that thins as it goes (limbs of the thesis announced and dropped, detours that never
+contradiction). This guards against misreading; it excuses nothing: when the author's own slide between two senses
+does the work, the slide is the finding (MB 29.10.2026: the point is to read the text inside out, critically). An argument that thins as it goes (limbs of the thesis announced and dropped, detours that never
 return to it, a conclusion that restates rather than draws) is an internal finding: say which parts reach the end.
 
 **B. Method & evidence** — fit / stretched / unfit
@@ -70,8 +72,9 @@ thesis or a main section's conclusion needs it, [M] if one step does. Never leav
 Grounded in retrieved sources only: reception (citations and their trajectory, reviews, rebuttals),
 what it adds to the literature, consequential omissions (with evidence the omitted work is recognised).
 Sparse field → say sparse.
-Reception is an indicator, not the verdict: merit decides, and a solid, little-cited text (a niche venue, another
-field) is a find (MB 27.10.2026). A low count weighs only together with a weak read, and then mildly. Who wrote the
+Reception counts, second to merit (MB 29.10.2026): citations, their trajectory, reviews and rebuttals are a real
+part of the Quality judgement, never above the read itself; a solid, little-cited text (a niche venue, another field,
+a recent one) is still a find (MB 27.10.2026). Say how much the count weighs here, given the paper's age and venue. Who wrote the
 paper (Romani or not), and whether newer work is Romani-authored or agency-centred, is no criterion: never a minus,
 never a reason to prefer another text. An omission is consequential only if it changes the argument.
 
