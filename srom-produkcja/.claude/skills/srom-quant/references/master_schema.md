@@ -48,6 +48,7 @@ Legend for **Consumed by**: **X**=Crossref XML · **W**=WordPress via Importer �
 | 40 | `pub_date_print` | — | Required (07.10.2026). `YYYY-MM-DD`, print publication date; cover page "Data publikacji". A back volume known only by its year: `YYYY` (C19). |
 | 41 | `editorial_period` | — | Optional (MB 08.10.2026, vol. 18: left empty). Printed as written, e.g. `marzec 2026 – czerwiec 2026`; cover page "Okres redakcji"; when empty the cover page leaves the item out (validate_master warns). |
 | 42 | `copyright_holder` | D | **Optional** (C19, 19.10.2026). The © line when the rights are not the authors' (back volumes: the publisher(s)); may open with its own year (`2018 Tom Lantos Institute`), else `year` is put before it. Cover page footer and PDF XMP; empty → the authors. Not imported to WP. |
+| 43 | `reviewed_work` | D | **Optional** (C36, 31.10.2026). Reviews, from vol. 19: the full bibliographic entry of the work reviewed, in Polish, copied from the review's first page at INJECT; titles of works between `*…*` (printed in italics). Cover page: a „Recenzja” line after „Pierwodruk”. Empty = no line. `validate_master.py` warns when it is empty in section III from vol. 19. Appended at the end; the Importer and Data Merge ignore it. |
 
 ## Volume (Tom) sheet — if importing volumes separately
 

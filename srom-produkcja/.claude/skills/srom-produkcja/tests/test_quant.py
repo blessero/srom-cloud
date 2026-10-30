@@ -171,7 +171,7 @@ cdir = tempfile.mkdtemp()
 ccols = ["article_id", "doi", "landing_url", "journal_title", "issn", "volume", "year", "publisher", "pub_date_online", "title_pl", "title_en",
          "authors_display", "authors_struct", "abstract_pl", "abstract_en", "keywords_pl", "keywords_en", "pages", "pages_from",
          "pages_to", "pdf_file", "language", "license", "license_url", "is_translation", "original_title", "original_source",
-         "original_doi", "translators_struct", "pub_date_print", "editorial_period"]
+         "original_doi", "translators_struct", "pub_date_print", "editorial_period", "reviewed_work"]
 def crow(n, **kw):
     r = dict(article_id=f"SROM-19-2026-00{n}", doi=f"10.12345/ab3k9x2{n}", landing_url=f"https://x.pl/articles/10.12345/ab3k9x2{n}/", journal_title="Studia Romologica", issn="1689-4758",
              volume="19", year="2026", publisher="Komitet Opieki nad Zabytkami Kultury Żydowskiej w Tarnowie",
@@ -330,6 +330,18 @@ t("cover_page: translation → translator, Pierwodruk linked to the original's D
                         "Użycie niekomercyjne – Bez utworów zależnych 4.0 (CC BY-NC-ND 4.0)"))
   and {"https://doi.org/10.3828/rs.2024.3", "https://creativecommons.org/licenses/by-nc-nd/4.0/deed.pl"} <= {l.get("uri") for l in d6[0].get_links()}
   and cite_y(d6[0]) <= cv.CITE_BOTTOM + 1, r.stdout + r.stderr + t6[:800])
+rwk = "Jan Kowalski, *Romowie w Polsce. Studium przypadku*, t. 1–3, red. A. Nowak, Warszawa: Wydawnictwo Naukowe, 2025, s. 412. " * 2
+crs += [crow(10, reviewed_work="Jan Kowalski, *Romowie*, Kraków 2025, s. 200."), crow(11, reviewed_work=rwk)]
+with open(ccp, "w", encoding="utf-8-sig", newline="") as f:
+    w = csv.DictWriter(f, fieldnames=ccols); w.writeheader(); w.writerows(crs)
+cvrun("SROM-19-2026-0010"); cvrun("SROM-19-2026-0011")
+d10, d11 = (pymupdf.open(os.path.join(cdir, f"SROM-19-2026-00{n}_okladka.pdf")) for n in (10, 11))
+t10 = flat(d10[0])
+t("cover_page: reviewed_work → „RECENZJA” + the entry, title in italics; no line when empty (C36)",
+  "RECENZJA Jan Kowalski, Romowie, Kraków 2025, s. 200." in t10 and "RECENZJA" not in flat(pymupdf.open(os.path.join(cdir, "SROM-19-2026-005_okladka.pdf"))[0])
+  and any("Italic" in sp["font"] or "Ital" in sp["font"] for b in d10[0].get_text("dict")["blocks"] for l in b.get("lines", []) for sp in l["spans"] if sp["text"].strip() == "Romowie"),
+  t10[:600])
+t("cover_page: a long reviewed_work keeps the citation above CITE_BOTTOM (C36)", "RECENZJA" in flat(d11[0]) and cite_y(d11[0]) <= cv.CITE_BOTTOM + 1, cite_y(d11[0]))
 r = cvrun("SROM-19-2026-001", os.path.join(cdir, "art.pdf"))
 t("cover_page: article PDF page count = CSV range → no warning", "article PDF has" not in r.stdout
   and "RESULT: OK" in r.stdout, r.stdout)

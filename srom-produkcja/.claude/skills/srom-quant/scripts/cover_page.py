@@ -303,6 +303,9 @@ def header(pen, row):
         orig = ", ".join(x for x in (ital(esc(row.get("original_title"))) if row.get("original_title") else "",
                                      pl(row.get("original_source")), a(od, esc(od)) if od else "") if x)   # Kanon § 3.3 here too
         extra += p(*META, lab("Pierwodruk", red=False) + orig)
+    rw = (row.get("reviewed_work") or "").strip()      # C36: a review names the work it reviews, as printed on its first page
+    if rw:
+        extra += p(*META, lab("Recenzja", red=False) + re.sub(r"\*([^*]+)\*", lambda m: ital(m.group(1)), pl(rw)))
     if extra:
         blocks.append((GAP["translator"], extra))
     cite = (lab("Jak cytować") + f'{esc(", ".join(x[0] for x in au))}, {ital(pl(row.get("title_pl")))}, '

@@ -23,6 +23,7 @@ SCHEMA = [
 # Optional columns: accepted when present, never required (older CSVs stay valid).
 OPTIONAL = [
     'translators_struct',   # Given|Surname|Affiliation|ORCID ;; … — translator(s), Kanon § 12.2.3
+    'reviewed_work',        # reviews from vol. 19: the full entry of the work reviewed, titles between *…* (C36)
     'copyright_holder',     # the © line when the rights are not the authors' (back volumes: the publisher; C19)
 ]
 SUFFIX_RE = re.compile(r'^[a-z0-9]{8}$')
@@ -136,6 +137,11 @@ def main():
             W(f"{rid}: is_translation=TAK but original_title empty (Crossref original_language_title will be omitted)")
         if r.get('original_doi', '').strip() and not r['original_doi'].startswith('10.'):
             W(f"{rid}: original_doi doesn't look like a DOI: '{r['original_doi']}'")
+
+        # reviews (section III) from vol. 19 name the work reviewed on the cover page (C36)
+        if r.get('section_nr', '').strip() == 'III' and r.get('volume', '').isdigit() and int(r['volume']) >= 19 \
+                and not (r.get('reviewed_work') or '').strip():
+            W(f"{rid}: review (section III) without reviewed_work (cover page 'Recenzja' line, from vol. 19)")
 
         # translators (optional column translators_struct -> Crossref contributor_role="translator")
         tstruct = r.get('translators_struct') or ''

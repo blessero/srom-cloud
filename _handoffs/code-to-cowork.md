@@ -750,3 +750,9 @@ Smithsonian is searched again; DEMO_KEY allows about four searches an hour. Bloc
 - `check_deposit.py … --only 1-5` (or `--only 3`): checks only the articles at those positions in the XML; the "in the CSV, not in the XML" check is skipped then; last line counts the checked articles. Test added in test_quant.py. Run vol. 18/17 `--site` in parts of 5.
 - SROM Importer 2.3.2: core preset maps `post_date` ← `pub_date_online`, so a re-import keeps the online date instead of the import time. A row with no valid date leaves the post's date alone. Needs the plugin re-uploaded to the live site (MB) before the next import; until then set the date by hand (GEN-123). Caveat: a future online date on a `publish` import would schedule the post.
 - Suite 29/29.
+
+## K49 — [general] C35 committed; C36 done: `reviewed_work` and the „Recenzja” line on the cover page (31.10.2026 00:14)
+- C35 committed and pushed with C36's request (e03cb19); suite 29/29 before it.
+- C36: optional master-CSV column `reviewed_work` (appended at the end; `master_schema.md` row 43). `cover_page.py` `header()` prints „RECENZJA” + the entry after „Pierwodruk”, `*…*` in italics; empty = no line. `validate_master.py` accepts the column and warns on an empty one in section III (`section_nr` III) from vol. 19. Tests: a short and a ~500-character entry (the citation stays above CITE_BOTTOM). Suite 29/29, test_quant 67/67.
+- Importer and Data Merge: the schema doc already says unknown columns are ignored (as for `translators_struct`); I did not run the live importer on a CSV with the column. Add it to review rows' CSV at INJECT; the entry is copied from the review's first page.
+- Not done: `cover_idml.py` (the InDesign cover template) has no „Recenzja” line; it is not used for the online cover. Say if you want it.
