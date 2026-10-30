@@ -67,6 +67,15 @@ finding — an identification or attribution (who a figure is, a group membershi
 memoir), an intention read into an author or a character, an absence claimed from the author's own search, a few
 artists' or writers' view taken for society's. Name each, say what rests on it and rate it by that: [L] if the
 thesis or a main section's conclusion needs it, [M] if one step does. Never leave one unrated.
+**Four tests for claims of othering, gaze or racialisation** (MB 30.10.2026, on Máté & Raatzsch's Mueller essay, dropped):
+- *Baseline:* is the group treated differently from the author's or artist's unmarked subjects? A trait found across the
+  whole oeuvre or corpus (stylisation, nudity, sexualisation of all women) is no evidence of othering this group.
+- *Falsifiability:* what would count against the thesis? If marking the group is othering and not marking it is erasure,
+  no evidence can, and the claim is a stance, not a finding.
+- *Period vocabulary:* a term judged by today's norms needs the alternatives the period offered; with none, its use
+  shows the period's language, not the author's intent.
+- *Stance vs evidence:* an advocacy or reparative stance is legitimate and not a flaw; its empirical claims still need
+  sources. Weigh the evidence density (a few footnotes behind sweeping accusations is freewheeling, rated as above).
 
 **C. Field standing** — advances / consolidates / derivative / contested / outdated
 Grounded in retrieved sources only: reception (citations and their trajectory, reviews, rebuttals),
@@ -150,3 +159,5 @@ If MB's corrections keep pointing the same way, change the rubric above, not jus
   where to look; it is never the evidence. Mark any unverified recollection [MK].
 - Manuscripts (SUBMISSION) are confidential: search with short conceptual queries, never with passages.
 - Say where the paper is sound. A card that only lists faults is a bad card.
+- When `concept.md` says the volume has no editorial introduction, a weakness "the intro can frame" is not fixed: name
+  the editor's or translator's note that would fix it, or let it count.

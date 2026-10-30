@@ -46,7 +46,7 @@ Output: `volumes/<vol>/block.md`.
    author, and whether translations count is unconfirmed: KB § Indexing criteria) · links to the Tabor conference or other SROM events · MB's own conflicts of interest.
    Record MB's decisions here with the date.
 
-7. **Brief for the intro and the translation** — only after MB has chosen. One short section per chosen
+7. **Brief for the intro (if the volume has one: `concept.md`) and the translation** — only after MB has chosen. One short section per chosen
    paper, collected from its card (§ 5, § 8) and deep review (Pass 5), not written anew: what the editorial
    intro must supply (Polish material, framing of a known weakness); editor's or translator's notes the
    paper needs; the version to translate; terms that need a decision; anything the author must be asked.

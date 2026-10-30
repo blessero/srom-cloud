@@ -541,3 +541,20 @@ C33 still uncommitted here (srom-zizek card.md, check.py): commit it too.
 - `srom-kanon/references/SROM_knowledge_base.md` § DOIs and metadata, Crossref membership: "nothing deposited yet … first deposit is MB's next
   task" replaced by the deposit state (vol. 18 26.10.2026, vol. 17 30.10.2026; DOIs resolve, checked 30.10.2026).
 Run with: Haiku · low — scope checked: one sentence in one Markdown file plus C33's two files; commit by path, push; leave other sessions' files.
+
+## C35 — srom-zizek: four tests for othering claims; no-intro rule [general]: please commit and push (30.10.2026 23:59)
+MB 30.10.2026 (dropping Máté & Raatzsch's Mueller essay), small changes made directly (no new functionality):
+- `srom-zizek/references/card.md` § 3B: four tests for claims of othering, gaze or racialisation (baseline, falsifiability,
+  period vocabulary, stance vs evidence); § Rules: when `concept.md` says there is no editorial intro, "the intro can frame it" fixes nothing.
+- `srom-zizek/references/block.md` step 7: the intro brief applies only if the volume has an intro.
+Run with: Haiku · low — scope checked: two Markdown files; commit by path, push; leave other sessions' files.
+
+## C36 — cover_page.py: a „Recenzja” line on reviews' cover pages, from vol. 19 [general] (30.10.2026 23:58)
+MB (Biurko note 30.10.2026 23:05): from vol. 19 a review's cover page names what it reviews: „Recenzja” + the full bibliographic entry,
+in Polish, as printed on the review's first page (copied from there). New functionality, so yours.
+**Ask (cheapest):** an optional column `reviewed_work` appended at the end of the master CSV (`master_schema.md`; appended, not renamed, so
+the InDesign Data Merge mapping and the importer should be unaffected: please confirm), filled per review row at INJECT from the review's first
+page (titles of works between `*…*`). `cover_page.py` `header()`: when it is set, one line in the extra block like „Pierwodruk”
+(`lab("Recenzja", red=False)` + the entry, `*…*` → italic). The validator warns on an empty `reviewed_work` in the reviews section from vol. 19.
+A case in test_quant.py.
+Run with: Sonnet · medium — scope checked: cover_page.py header() (507-line script; one block on the pattern of „Pierwodruk”), master_schema.md, the validator, test_quant.py; the one real risk is a long entry pushing the citation past CITE_BOTTOM (gaps shrink to ½, then run over): test with a long entry.
