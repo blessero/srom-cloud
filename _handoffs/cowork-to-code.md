@@ -507,3 +507,37 @@ MB (26.10.2026 14:50): editorial translator named only in the volume masthead (�
 One sentence in § 12.2.3 and a § 17 row „1.18, uzup. 26.10.2026” in `srom-kanon/references/kanon-redakcyjny.md`. test_kanon passes.
 Also push 554f8fb (C29, committed, not pushed).
 Run with: Haiku · low — scope checked: one Markdown file, two lines; commit by path, push; leave other sessions' files.
+
+## C31 — two findings from the first deposit [general] (26.10.2026 23:50)
+1. **check_deposit.py `--site` does not fit one Cowork VM call** (≈ 80 s per 5 articles; a call stops at 180 s and background processes die with it).
+   Vol. 18 was checked in three runs on CSV/XML subsets (`citations/` symlinked). Cheapest fix: an option `--only 1-5` (article positions) so a session
+   runs it in parts; nothing else changes. Same need for every back volume.
+2. **SROM Importer: re-importing drafts resets their post date to the import time** (vol. 17 drafts: 26.10 23:12; their online date is 20.10). The
+   mapping has „Publish date post_date” unmapped. Cheapest fix: preset `pub_date_online` → `post_date` for srom_article (both volumes' CSVs carry it).
+   Until then a session sets the date by hand before publishing (GEN-123). Also: „Import now” asks `confirm()`, which the built-in browser suppresses
+   (a session overrides `window.confirm`); no change needed.
+Run with: Sonnet · medium — scope checked: one option in a 119-line script plus its test in test_quant.py; one mapping preset in the importer and its README line; the real risk is the importer's date handling on published posts (map only for drafts, or keep the date when the post exists).
+
+## C32 — srom-zizek: calibration from MB's view of the Kovács pilot [general]: please commit and push (27.10.2026 04:10)
+MB answered V20-100. Small changes made directly (no new functionality); the cards in `workspace/srom-zizek/` are Cowork's data.
+- `srom-zizek/references/card.md`: length 800–1,400 words, up to 1,800; § 2 is an argument map (concepts / steps / what reaches
+  the conclusion); 3A same-sense check and the thinning argument; 3B "freewheeling" rated by what rests on it; 3C reception
+  secondary to merit, authorship and agency-centred readings no criterion; frictions named in words; § 7 alternatives on
+  merit; § Calibration anchors lists the Kovács pilot and Ndiaye.
+- `srom-zizek/scripts/check.py` line 113: the length note now 800–1,800 (a note, not a problem).
+check.py run on all vol. 19 cards after the change (see STATUS § Selection 27.10.2026).
+Run with: Haiku · low — scope checked: one Markdown file and one line of a script; commit by path, push; leave other sessions' files.
+
+## C33 — srom-zizek: MB's follow-up on the calibration [general]: please commit and push (29.10.2026 01:00)
+C32 seen (f361823). MB 29.10.2026, small changes made directly:
+- `srom-zizek/references/card.md`: length "as long as the paper needs, up to about 2,000" (§ 2 first, up to ~400); 3A same-sense
+  check "guards against misreading; it excuses nothing: when the author's own slide between two senses does the work, the
+  slide is the finding"; 3C "reception counts, second to merit", with how much it weighs said per paper.
+- `srom-zizek/scripts/check.py` line 113: length note 800–2,000.
+Run with: Haiku · low — scope checked: one Markdown file and one line of a script; commit by path, push; leave other sessions' files.
+
+## C34 — KB: Crossref deposit state [general]: please commit and push (30.10.2026 02:45)
+C33 still uncommitted here (srom-zizek card.md, check.py): commit it too.
+- `srom-kanon/references/SROM_knowledge_base.md` § DOIs and metadata, Crossref membership: "nothing deposited yet … first deposit is MB's next
+  task" replaced by the deposit state (vol. 18 26.10.2026, vol. 17 30.10.2026; DOIs resolve, checked 30.10.2026).
+Run with: Haiku · low — scope checked: one sentence in one Markdown file plus C33's two files; commit by path, push; leave other sessions' files.
