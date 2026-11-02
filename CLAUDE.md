@@ -207,7 +207,16 @@ in what time, not on the model. So:
 This repository (`SROM edit and trans/`) is one git repository, remote `blessero/srom-cloud` (GitHub, private): history
 and the off-Mac backup. **No SROM sessions in the cloud** (MB 07.10.2026): work on the Mac (Code) and in Cowork only.
 - **Every session.** Work on `main`, not on a session branch: `git pull --rebase origin main` first and before taking
-  a new ID; after each commit, at once, `git pull --rebase origin main && git push origin HEAD:main`. The module
+  a new ID; after each commit, at once, `git pull --rebase origin main && git push origin HEAD:main`. **Check that the
+  push went through** (`git log --oneline origin/main..HEAD` empty) and, if it did not, say so in the reply instead of
+  reporting the commit as backed up: the backup then lags until MB pushes. The known failure (02.11.2026, found by the
+  checkup: the push had not run since 31.10 and two commits sat on the Mac) is
+  `could not read Username for 'https://github.com': Device not configured` — the remote is HTTPS,
+  `credential.helper` is `osxkeychain`, and macOS does not let it be unlocked where there is no terminal. MB's own push
+  in Terminal clears it (it grants the helper access), after which sessions push again; the command for him is
+  `cd "/Users/michalbartosz/ARBEIT/Bima/SROM/Redakcja/SROM edit and trans" && git push origin HEAD:main`.
+  `gh` is installed (2.103.3, 02.11.2026) but not signed in: `gh auth login` is the fallback if the keychain stops
+  answering. The module
   folders are plain folders of the one repository: `git -C _handoffs add <files> && git -C _handoffs commit …` works;
   add only your own files, never `git add -A` at the root. Never rewrite pushed history. Hashes cited in handoff items
   resolve (`git show <hash>`); a module's log before the move: `git log <its head>` (the heads are in the first
