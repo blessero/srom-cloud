@@ -133,6 +133,11 @@ better text to translate; anything else MB will want at the table.
 5 opens a debate absent from Polish scholarship  ·  4 new argument in a debate Poles know
 3 partly available (other works, other languages Polish readers use)  ·  2 largely known in Polish
 1 already in Polish / already in SROM
+*Availability* (MB 02.11.2026): an open-access English text in the field's own venues (*Critical Romani Studies*, *Romani
+Studies*, open-access volumes such as *The Romani Atlantic*) is within easy reach of Polish romologists: Value at most 3.
+Say so in the Value line. An exceptional fit is weighed in Fit and in `block.md`, not here. The test is discoverability,
+not language: English in a venue outside the field (another discipline, a regional or national journal) is not capped,
+and nothing is raised for being closed or non-English beyond what the scale above already gives.
 
 *Dialogue with other papers is not scored on the card — it depends on the others. It is judged in `block.md`.*
 
@@ -149,6 +154,8 @@ If MB's corrections keep pointing the same way, change the rubric above, not jus
   secondary to merit, authorship and agency-centred readings no criterion; frictions in words.
 - `19-2026/cards/noemie-ndiaye-black-roma`, MB 27.10.2026 (in his comments on the pilot): the Scapin-as-Rom reading
   is load-bearing, far more than Kovács's identifications: [M]→[L], Quality 4→3.
+- `19-2026/cards/pahulich` and `19-2026/cards/11-3-pp-86-108-familiar-outsiders-abroad` (Ostendorf), MB 02.11.2026:
+  Value 4→3 under the availability rule (open access in *Critical Romani Studies* and *The Romani Atlantic*); verdicts kept.
 
 ## Rules that bite most often
 - Anchors are verbatim, in the original language, 5–10 words + nearest heading. Never paraphrase inside quotes.

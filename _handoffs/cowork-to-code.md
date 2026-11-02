@@ -558,3 +558,10 @@ page (titles of works between `*…*`). `cover_page.py` `header()`: when it is s
 (`lab("Recenzja", red=False)` + the entry, `*…*` → italic). The validator warns on an empty `reviewed_work` in the reviews section from vol. 19.
 A case in test_quant.py.
 Run with: Sonnet · medium — scope checked: cover_page.py header() (507-line script; one block on the pattern of „Pierwodruk”), master_schema.md, the validator, test_quant.py; the one real risk is a long entry pushing the citation past CITE_BOTTOM (gaps shrink to ½, then run over): test with a long entry.
+
+## C37 — srom-zizek: availability rule for Value [general]: please commit and push (02.11.2026 21:53)
+MB 02.11.2026, small change made directly (no new functionality; produkcja suite 29/29 before the change):
+- `srom-zizek/references/card.md` § Score rubric, Value for Polish readers: *Availability*: an open-access English text in the field's own
+  venues (CRS, Romani Studies, OA volumes such as *The Romani Atlantic*) gets Value at most 3; discoverability, not language. § Calibration
+  anchors: Pahulich and Ostendorf, Value 4→3 (02.11.2026).
+Run with: Haiku · low — scope checked: one Markdown file; commit by path, push; leave other sessions' files.
