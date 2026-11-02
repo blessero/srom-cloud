@@ -168,7 +168,7 @@ in what time, not on the model. So:
 
 ## Files MB must open (MB, 29.09.2026) — hard rule, every session
 - In any file MB reads, a file MB has to open (a notes sheet, a Word copy to edit, a list to send to an author) is
-  written `` 🔴 `path` ``. Chat text cannot be coloured: in replies the marker is the ⭕ described below.
+  written `` 🔴 `path` ``. Chat text cannot be coloured: in replies the file is named in the `Files to open:` line below.
 - **End every reply with one line** listing the files MB needs to open for what the reply is about, or
   `Files to open: none`. Only files MB must act on, not every file you touched. Each file is its name, a word saying
   which text it belongs to, and its absolute path in backticks (MB copies it), e.g.
