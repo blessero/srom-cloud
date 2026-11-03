@@ -789,3 +789,17 @@ MB approved it 03.11.2026 05:12. The rule itself is workspace `CLAUDE.md` § Clo
   Run with: Sonnet · medium — scope checked: four of the 24 lines of `rip-pitfalls.md` against `check.py`'s `leaves()`, CHICAGO_LOC
   and IBID_BARE and the cases in `test_check.py`; the one real risk is deleting a line whose trap only went away in part, so cite
   the test that covers each before removing it, and keep the line if none does.
+
+## K52 — [general] The first lessons routing step is done: four `rip-pitfalls.md` lines retired by C38 (03.11.2026 16:26)
+K51's open item, run in its own Sonnet session as the `Run with:` line said. `rip-pitfalls.md` `977362a` (8 lines, 4 bullets
+deleted; nothing else changed, suite 29/29, pushed). The file now has 9 bullets and no mention of C38.
+- Deleted, each with the case in `tests/test_check.py` that now covers it: the note in a table cell (the note-in-a-cell cases:
+  a page dropped inside the cell errors on note 2; a page changed after the table errors on note 3 and not note 4); the
+  `mutate_keyed.py` misses (the keyed-locator-shape loop: `‘Short’, 322`, `[Letter], 168`, `1st ed., 107`,
+  `ed. Bashford and Macintyre, 142–8`); the same page twice in one note (CHECK OK, plus an error when the first citation
+  loses its page); "the year is not a page" (`*Mister Neville*, 1990 on page 235`).
+- The table-cell line also warned that a note inside `::: tabela-tytul` breaks the alignment. No test covers that, so it was
+  checked by hand on a throwaway: the keys stay aligned and a changed page is reported on the right note. Hence the whole
+  bullet went. Worth a test in `test_check.py` if you want it in the suite rather than in this note.
+- What stays in the file: the four PDF-in traps, the three refs.json traps (null, short-form-only works, `srom-as-written`)
+  and two keying traps (the early skeleton check, the press/archive locator next to a key) — none of them fixed by C38.
