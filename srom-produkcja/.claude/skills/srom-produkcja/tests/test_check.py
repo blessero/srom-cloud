@@ -537,6 +537,23 @@ c, o = runt(TBK.replace("Zob. [@jacobs1990, s. 235]", "Zob. [@jacobs1990, s. 236
 t("keyed: 1990 after '*Mister Neville*,' is a year, not a page; the page 'on page 235' is not compared (CHECK OK both ways)",
   c == 0, o)
 
+# K52 (03.11.2026): the same, with the note in a `::: tabela-tytul` div above the table instead of in a cell (the Div
+# case of leaves()); verified by hand when the pitfall line was retired, pinned here
+TABLE = "| Year | Note |\n|---|---|\n| 1780 | 9861[^2] |\n| 1781 | 11,649 |\n\n"
+TITLED = "::: tabela-tytul\nTab. 1. Konskrypcja[^2]\n:::\n\n| Year | Note |\n|---|---|\n| 1780 | 9861 |\n| 1781 | 11,649 |\n\n"
+TTO = w("tt_o.md", open(TBO, encoding="utf-8").read().replace(TABLE, TITLED))
+TTK = TBK.replace(TABLE, TITLED)
+def runtt(k):
+    r = subprocess.run([sys.executable, CHECK, "--keyed", TTO, w("tt_k.md", k), "--refs", TBREFS], capture_output=True, text=True)
+    return r.returncode, r.stdout + r.stderr
+c, o = runtt(TTK)
+t("keyed: a note inside ::: tabela-tytul above the table -> CHECK OK (the keys are not shifted)", c == 0 and "CHECK OK" in o, o)
+c, o = runtt(TTK.replace("[@firpo2018, s. 540]", "[@firpo2018, s. 541]"))
+t("keyed: page changed in the note after a table titled by a ::: tabela-tytul div with a note -> ERROR named note 3",
+  c == 1 and "note 3: page/folio" in o and "540" in o and "note 4" not in o, o)
+c, o = runtt(TTK.replace("[@swartner1798, s. 107]", "[@swartner1798]"))
+t("keyed: page dropped from the note inside ::: tabela-tytul -> ERROR named note 2", c == 1 and "note 2: page/folio" in o and "107" in o, o)
+
 # C39 (Davis RIP): refs.json lint shared by build.py, check.py, cite_map.py ("refs.json: <id>.<field> is null" instead of
 # pandoc's keyless "expected String or Number, but encountered Null"); scripts/refs_helpers.py never emits a null
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
