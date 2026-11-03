@@ -651,6 +651,12 @@ def main():
     ap.add_argument("--renumber", action="store_true",
                     help="with --apply: notes labelled 1…N in the order of their markers (a frozen source's labels = the printed numbers)")
     a = ap.parse_args()
+    from refs_helpers import lint_files
+    nulls = lint_files(a.refs)
+    if nulls:                               # pandoc would stop on a null with no key
+        for n in nulls: print("PROBLEM " + n)
+        print(f"CITEMAP FAIL {len(nulls)}")
+        sys.exit(1)
     if a.cmd == "audit":
         probs = audit(a.refs, a.bib)
         for p in probs:

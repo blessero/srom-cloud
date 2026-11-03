@@ -755,6 +755,12 @@ def main():
     ap.add_argument("--refs", action="append", help="CSL-JSON; repeat for srom-tlumacz's <id>_refs_tlum.json")
     a = ap.parse_args()
     errs, warns = [], []
+    from refs_helpers import lint_files
+    nulls = lint_files(a.refs)
+    if nulls:                               # pandoc would stop on a null with no key
+        for e in nulls: print("ERROR " + e)
+        print(f"CHECK FAIL {len(nulls)} error(s)")
+        sys.exit(1)
     refs = load_refs(a.refs, errs) if a.refs else None
     if a.keyed:
         if not a.refs:

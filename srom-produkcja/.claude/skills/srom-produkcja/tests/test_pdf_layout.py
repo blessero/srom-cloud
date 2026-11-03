@@ -213,5 +213,81 @@ lost0, _ = P.wordcheck(pg, [md, front] + bib)
 t("word check in the report; a word removed from the text shows up as lost",
   wc is not None and lost.get("mill", 0) == lost0.get("mill", 0) + 1, (wc and wc.group(0), lost))
 
+# ---- C39 (Davis RIP, 03.11.2026): the publisher's page-foot block, tables as stubs
+# page 1: a paragraph running to the page's last line; at the foot the publisher's block (CONTACT, ©, licence; 8 and 7 pt);
+# page 2 goes on in lower case, a prose paragraph full of numbers (no table), then "Table 1." with its cells (8 pt, rows
+# of figures; a note marker raised in the caption) and the paragraph resumes; page 3 is a table set sideways (rotated);
+# text with marker 2 follows on page 4 (the table's note 1 comes first in the numbering)
+d3 = pymupdf.open()
+def pg3():
+    q = d3.new_page(width=W, height=H)
+    for k, f in FB.items():
+        q.insert_font(fontname=k, fontbuffer=f.buffer)
+    return q
+def para(q, y, words, n_lines):
+    """n_lines full lines of the measure from words (cycled); returns the next baseline"""
+    i = 0
+    for ln in range(n_lines):
+        cur = ""
+        while True:
+            w = words[i % len(words)]
+            cand = (cur + " " + w).strip()
+            if FB["rg"].text_length(cand, fontsize=BS) > RM - LM:
+                break
+            cur = cand; i += 1
+        q.insert_text((LM, y), cur, fontname="rg", fontsize=BS)
+        y += 13
+    return y
+filler = "the removal of children from their families was justified by officials as a form of rescue and reform".split()
+q1 = pg3()
+y = para(q1, 80, filler, 39)          # the last line of the page is a full one: the paragraph goes on overleaf
+q1.insert_text((LM, 600), "CONTACT  Sacha Davis sacha@example.edu School of Humanities, University of Newcastle,", fontname="rg", fontsize=8)
+q1.insert_text((LM, 609), "Callaghan, NSW 2308, Australia", fontname="rg", fontsize=8)
+q1.insert_text((LM, 626), "© 2026 The Author(s). Published by Informa UK Limited, trading as Taylor & Francis Group", fontname="rg", fontsize=7)
+q1.insert_text((LM, 634), "This is an Open Access article distributed under the terms of the Creative Commons Attribution License", fontname="rg", fontsize=7)
+q2 = pg3()
+y = para(q2, 80, "children into useful members of society while the census counted 9861 houses and 1073 huts in 1780 and 11649 in 1781".split(), 12)
+q2.insert_text((LM, y), "and the paragraph was cut by the table so that it", fontname="rg", fontsize=BS)
+y += 30
+q2.insert_text((LM, y), "Table 1. Counts by year.", fontname="rg", fontsize=9.5)
+q2.insert_text((LM + FB["rg"].text_length("Table 1. Counts by year.", fontsize=9.5) + 1, y - 4), "1", fontname="rg", fontsize=6)
+for k, row in enumerate(["Year Boys Girls Total Children", "1780 2249 2067 4316 22,560", "1781 2816 2777 5593 25,964",
+                         "1782 3151 3058 6209 29,996", "1783 2105 2174 4279 22,050"]):
+    q2.insert_text((LM, y + 14 + 10 * k), row, fontname="rg", fontsize=8)
+y += 14 + 50 + 24
+y = para(q2, y, filler, 4)
+q2.insert_text((LM, 575), "1 Source: the census, vol. 3.", fontname="rg", fontsize=NS)
+q2.draw_line((LM, 565), (LM + 80, 565))
+q3 = pg3()
+q3.insert_text((LM, 60), "Table 2. Sideways table.", fontname="rg", fontsize=9.5)
+for k, col in enumerate(["Remaining at home boys 4856 4126 301", "Attending school boys 6782 6453 631", "Taken from parents girls 3784 2783 480",
+                         "Servants male maidservants 2254 2391 2351", "Total removed 8388 6059 5053 3515"]):
+    q3.insert_text((100 + 14 * k, 300 + 20 * k), col, fontname="rg", fontsize=8, rotate=90)
+q4 = pg3()
+y = para(q4, 80, filler, 6)
+q4.insert_text((LM, y), "the last sentence of the text", fontname="rg", fontsize=BS)
+x = LM + FB["rg"].text_length("the last sentence of the text", fontsize=BS) + 2
+q4.insert_text((x, y - 4), "2", fontname="rg", fontsize=6.5)
+q4.insert_text((LM, 575), "2 Last note.", fontname="rg", fontsize=NS)
+q4.draw_line((LM, 565), (LM + 80, 565))
+pdf3 = os.path.join(tempfile.mkdtemp(), "tbl.pdf")
+d3.save(pdf3)
+out3 = pdf3[:-4] + ".md"
+r3 = subprocess.run([sys.executable, EX, pdf3, "-o", out3], capture_output=True, text=True)
+md3 = open(out3, encoding="utf-8").read()
+rep3 = open(out3[:-3] + "_extract.md", encoding="utf-8").read()
+t("publisher's page-foot block (CONTACT, ©, licence) cut out; the paragraph runs on over the page break",
+  "CONTACT" not in md3 and "Open Access" not in md3 and "children into useful members" in md3 and "\n\nchildren into" not in md3
+  and "publisher's page-foot block" in rep3, md3[:300] + rep3)
+t("a table (caption + rows of figures) becomes one <!-- TABLE p. 2 --> stub after its caption; no cell survives",
+  md3.count("<!-- TABLE p. 2 -->") == 1 and "2249" not in md3 and "Year Boys" not in md3
+  and bool(re.search(r"::: tabela-tytul\nTable 1\. Counts by year\.\[\^1\]\n:::\n\n\[\^1\]: Source: the census[^\n]*\n\n<!-- TABLE p. 2 -->", md3)), md3)
+t("a sideways table page becomes a <!-- TABLE p. 3 --> stub", md3.count("<!-- TABLE p. 3 -->") == 1 and "4856" not in md3, md3)
+t("prose with numbers (a census paragraph with years and counts) is not a table", md3.count("<!-- TABLE") == 2
+  and "counted 9861 houses and 1073 huts" in md3, md3)
+t("the paragraph the table interrupted is one paragraph; the table's note stays out of the marker-order check",
+  "the paragraph was cut by the table so that it the removal of children" in md3 and r3.returncode == 0
+  and "EXTRACT OK" in r3.stdout and "marker sequence" not in rep3 and "without a marker" not in rep3, r3.stdout + rep3)
+
 n, ok = len(res), sum(res)
 print(f"PDF-LAYOUT ALL PASS {n}/{n}" if ok == n else f"PDF-LAYOUT FAILED {n - ok}/{n}")

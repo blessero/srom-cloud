@@ -537,5 +537,44 @@ c, o = runt(TBK.replace("Zob. [@jacobs1990, s. 235]", "Zob. [@jacobs1990, s. 236
 t("keyed: 1990 after '*Mister Neville*,' is a year, not a page; the page 'on page 235' is not compared (CHECK OK both ways)",
   c == 0, o)
 
+# C39 (Davis RIP): refs.json lint shared by build.py, check.py, cite_map.py ("refs.json: <id>.<field> is null" instead of
+# pandoc's keyless "expected String or Number, but encountered Null"); scripts/refs_helpers.py never emits a null
+sys.path.insert(0, os.path.join(ROOT, "scripts"))
+import refs_helpers as rh
+def has_null(x):
+    return x is None or (isinstance(x, dict) and any(has_null(v) for v in x.values())) or \
+        (isinstance(x, list) and any(has_null(v) for v in x))
+helpers = [rh.P("Wolfe", None), rh.P("Wolfe", "P.", **{"non-dropping-particle": None}), rh.Y(2016, None),
+           rh.book("b1", None, "T", None, None, None), rh.book("b2", [rh.P("A")], "T", "Verso", "London", 2016, ed=None, **{"title-short": None}),
+           rh.chap("c1", [rh.P("A")], "T", "Cont", None, None, None, None, page=None, URL=None),
+           rh.art("a1", [rh.P("A")], "T", None, None, None, page=None, issue=None, DOI=None)]
+t("refs_helpers: P, Y, book, chap, art never emit a null (None args and kwargs dropped)", not any(has_null(h) for h in helpers),
+  json.dumps(helpers, ensure_ascii=False))
+t("refs_helpers: a book with a year gets issued, one without does not; Y(2016, None) keeps only the year",
+  rh.book("b", None, "T", None, None, 2016)["issued"] == {"date-parts": [[2016]]} and "issued" not in helpers[3] and rh.Y(2016, None) == {"date-parts": [[2016]]})
+try:
+    rh.Y(None)
+    y_raises = False
+except ValueError:
+    y_raises = True
+t("refs_helpers: Y(None) raises instead of returning a null date", y_raises)
+NREFS = w("null_refs.json", json.dumps([
+    {"id": "a2020", "type": "book", "title": "T", "publisher": None, "author": [{"family": "A", "given": None}],
+     "issued": {"date-parts": [[None]]}}, {"id": "b2021", "type": "book", "title": "U", "issued": {"date-parts": [[2021]]}}]))
+lint = rh.lint_refs(json.load(open(NREFS, encoding="utf-8")))
+t("refs lint: every null named as 'refs.json: <id>.<field> is null' (nested ones with their path)",
+  lint == ["refs.json: a2020.publisher is null", "refs.json: a2020.author[0].given is null",
+           "refs.json: a2020.issued.date-parts[0][0] is null"], lint)
+r = subprocess.run([sys.executable, CHECK, w("nl.md", "Text.[^1]\n\n[^1]: [@a2020, s. 1].\n"), "--refs", NREFS], capture_output=True, text=True)
+t("check.py: a null in refs.json -> named errors and CHECK FAIL, no pandoc crash",
+  r.returncode == 1 and "null_refs.json: a2020.publisher is null" in r.stdout and "CHECK FAIL 3" in r.stdout and "Null" not in r.stderr, r.stdout + r.stderr)
+CM = os.path.join(ROOT, "scripts", "cite_map.py")
+r = subprocess.run([sys.executable, CM, "scan", w("nl2.md", "Text (A 2020).\n"), "--refs", NREFS], capture_output=True, text=True)
+t("cite_map.py: a null in refs.json -> PROBLEM lines and CITEMAP FAIL", r.returncode == 1 and "a2020.author[0].given is null" in r.stdout and "CITEMAP FAIL 3" in r.stdout, r.stdout + r.stderr)
+BUILD = os.path.join(ROOT, "scripts", "build.py")
+r = subprocess.run([sys.executable, BUILD, w("nl3.md", "Text.[^1]\n\n[^1]: [@b2021, s. 1].\n"), "--refs", NREFS, "--out", os.path.join(d, "nb")],
+                   capture_output=True, text=True)
+t("build.py: a null in refs.json -> named errors, exit 1, before pandoc", r.returncode == 1 and "a2020.publisher is null" in r.stderr + r.stdout, r.stdout + r.stderr)
+
 n, ok = len(results), sum(results)
 print(f"CHECK ALL PASS {n}/{n}" if ok == n else f"CHECK FAILED {n - ok}/{n}")

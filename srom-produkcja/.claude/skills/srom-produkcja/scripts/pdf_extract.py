@@ -51,6 +51,14 @@ What it recovers, and how:
                      line in <out>_bib.txt; taken out of the text (decision 19); a repeated-author dash (typed, or
                      drawn as a rule) takes the author of the entry above (listed)
   headers/footers    page numbers and lines repeating across pages             -> dropped (listed)
+  publisher's foot   a block at the foot of a text page opening with CONTACT / © / "This is an Open Access article"
+                     (Taylor & Francis: after the last body line, before the next page's text) is cut out like the
+                     other foot blocks (listed) and the paragraph runs on across the page break
+  tables             a "Table N." caption followed by small or numeric lines (>= 2 rows of figures), a run of >= 3
+                     numeric lines, or a page set rotated: the cells are not extracted; one `<!-- TABLE p. N -->`
+                     stub stands in their place (after the caption), with the definitions of the notes the table calls
+                     (their markers are not part of the marker-order check); a paragraph the table interrupted is
+                     rejoined; the cells' words count as read in the word check (listed)
   line-end hyphens   joined ("Ro-/mani" -> "Romani"); the document decides where it can (the joined or the
                      hyphenated word found inside a line elsewhere), else kept after prefixes such as
                      self-/non-/post- and flagged, or when the text has another compound on the same second element
@@ -64,7 +72,7 @@ What it recovers, and how:
 Report: <out>_extract.md with note/marker contiguity, joins, dropped lines, warnings.
 Last line: EXTRACT OK / EXTRACT CHECK n issue(s)   (issues = broken note sequence, unmatched
 markers/notes, multi-column pages, non-digit superscripts — fix before translating).
-Limits: single-column text flow; scanned PDFs need OCR first; tables/figures are not rebuilt.
+Limits: single-column text flow; scanned PDFs need OCR first; tables/figures are not rebuilt (tables: a stub, rebuilt by hand).
 """
 import argparse, re, sys, unicodedata
 from collections import Counter, defaultdict
@@ -80,6 +88,67 @@ KEEP_HYPHEN_PREFIXES = {"self", "non", "anti", "post", "pre", "co", "well", "cro
                         "pro", "ex", "inter", "intra", "multi", "trans", "ultra", "counter", "mid", "socio",
                         "post", "euro", "afro", "indo", "anglo", "franco", "polish", "roma", "sinti"}
 CAPTION_RX = re.compile(r"^\**(?:(Figure|Fig\.|Plate|Illustration|Rycina|Ryc\.|Ilustracja|Fot\.|Abb\.|Abbildung)|(Table|Tabela|Tab\.|Tabelle))\**\s*\d+[.:]")
+# the publisher's block at a page's foot (Taylor & Francis open access: CONTACT, ©, licence), set smaller than the text
+PUBFOOT_RX = re.compile(r"(?i)^\s*(?:CONTACT\b|©|\(c\)\s*\d{4}|This is an Open Access|This article is distributed under)")
+NUMTOK_RX = re.compile(r"^[+−–-]?[\d½¼¾⅛⅜⅝⅞][\d.,%½¼¾⅛⅜⅝⅞–−-]*$")
+
+
+def num_row(L):
+    """a line of figures: the numeric tokens of a table row ("1780 9861 1073 1 32 47") and their share of the line"""
+    toks = L.text.split()
+    n = sum(1 for t in toks if NUMTOK_RX.match(t))
+    return n, (n / len(toks) if toks else 0)
+
+
+def find_tables(ls, B, rotated):
+    """the lines of each table on a page (body-zone lines only), each with its caption line (or None), as (lines, caption). A table is: a page set rotated (most lines
+    run sideways: x-width far below the text's length); a "Table N." caption with small or numeric lines right after
+    (or, with a caption below, right before) it, >= 2 of them rows of figures; or >= 3 consecutive rows of figures
+    (>= 4 numbers, 70 % of the line). The caption itself is not part of the table (it stays a caption), except on
+    a rotated page, where its text is sideways like the cells."""
+    body = [L for L in ls if L.zone == "body"]
+    if rotated:
+        return [(body, None)] if body else []
+    numeric = lambda L: num_row(L)[0] >= 3 and num_row(L)[1] >= 0.5
+    near = lambda a, b: 0 < abs(b.y - a.y) <= 2.2 * 1.25 * max(a.size, b.size)
+    out, used = [], set()
+    for i, L in enumerate(body):
+        m = CAPTION_RX.match(L.text.strip())
+        if not (m and m.group(2)):
+            continue
+        for step in (1, -1):                   # caption above the cells, else below them
+            reg, j = [], i + step
+            while 0 <= j < len(body) and near(body[j - step], body[j]) and id(body[j]) not in used \
+                    and not CAPTION_RX.match(body[j].text.strip()) and (body[j].size < 0.95 * B or numeric(body[j])):
+                reg.append(body[j])
+                j += step
+            nums = [X for X in reg if numeric(X)]
+            if len(nums) < 2:
+                continue
+            # the cells are set in one size; a larger line (a block quotation at 9 pt beside the table's 8 pt) ends the
+            # table, and so does a long line after the last row of figures (not a header or a "Source: …" line)
+            cell = max(X.size for X in nums)
+            k = next((n for n, X in enumerate(reg) if X.size > cell + 0.3 and not numeric(X)), len(reg))
+            reg = reg[:k]
+            last = max(n for n, X in enumerate(reg) if numeric(X))
+            while len(reg) > last + 1 and len(reg[-1].text.strip()) > 60:
+                reg.pop()
+            reg.sort(key=lambda X: (X.y, X.x0))
+            out.append((reg, L))
+            used.update(id(X) for X in reg)
+            break
+    run = []
+    for L in body + [None]:
+        row = L is not None and id(L) not in used and num_row(L)[0] >= 4 and num_row(L)[1] >= 0.7
+        if run and not (row and near(run[-1], L)):
+            if len(run) >= 3:
+                out.append((run, None))
+            run = []
+        if row:
+            run.append(L)
+    return out
+
+
 LINKS = set()       # URI targets of the PDF's link annotations: what a click opens, the authority for URL text
 VOCAB = set()       # words (lowercase, hyphenated ones too) that occur inside lines of the document being read
 URLDOC = set()      # URLs written whole inside a line of the document (not running to a line end): evidence for breaks
@@ -484,16 +553,23 @@ def join_lines(texts, joins):
     return out.replace("\u00ad", "")      # soft hyphens left inside lines (discretionary breaks not taken)
 
 
-def wordcheck(pages, outputs):
+def wordcheck(pages, outputs, skip=()):
     """Word tokens of the PDF pages (plain get_text, private-use glyphs decoded) vs the extraction's outputs.
     A hyphen between letters is dropped on both sides ("Anglo-\nAtlantic" = "Anglo-Atlantic", "anti-\nsocial" =
     "antisocial"); note labels count as the PDF's numbers; a download stamp ("Downloaded from … use, available at …",
-    Cambridge Core) is not text. (Promoted from the per-article
+    Cambridge Core) is not text; the words inside a table's box (`skip`) are left out, the table being a stub. (Promoted from the per-article
     work/<id>/wordcheck.py of Ostendorf, Scheffknecht, Tittel, West Ohueri, 30.09.2026.)"""
     def toks(t):
         t = re.sub(r"(?<=[^\W\d_])[-­‐‑]\s*(?:\n\s*)?(?=[^\W\d_])", "", unicodedata.normalize("NFKC", t))
         return Counter(w.lower() for w in re.findall(r"[^\W\d_]+|\d+", t.replace("­", "")))
-    src = "\n".join(pg.get_text() for pg in pages).translate(PUA)
+    def page_text(pg):
+        boxes = [pymupdf.Rect(b) for n, b in skip if n == pg.number + 1]
+        if not boxes:
+            return pg.get_text()
+        # a table is not extracted (a stub stands for it): its words are left out on this side as well
+        return "\n".join(w[4] for w in pg.get_text("words") if not any(b.contains(pymupdf.Point((w[0] + w[2]) / 2, (w[1] + w[3]) / 2))
+                                                                         for b in boxes))
+    src = "\n".join(page_text(pg) for pg in pages).translate(PUA)
     stamp = r"(?m)^.*(?:Downloaded from|use, available at).*$"      # a publisher's download stamp: not text
     src = re.sub(stamp, "", src)
     out = re.sub(stamp, "", "\n".join(outputs))
@@ -545,6 +621,7 @@ def main():
             if L.y < 0.09 * H or L.y > 0.92 * H:
                 rep[re.sub(r"\d+", "#", L.text.strip())] += 1
     n_pages = len(all_lines)
+    edge_digits = defaultdict(list)       # small numbers dropped at a page's edge: a sideways table's note marker may be one
     for pno, ls in all_lines.items():
         H = doc[pno - 1].rect.height
         keep = []
@@ -553,6 +630,8 @@ def main():
             edge = L.y < 0.09 * H or L.y > 0.92 * H
             if edge and (re.fullmatch(r"[#\s–-]*", key) or (n_pages > 2 and rep[key] >= max(2, 0.4 * n_pages))):
                 dropped.append(f"p{pno}: {L.text.strip()[:60]}")
+                if L.text.strip().isdigit() and L.size < 0.7 * B:
+                    edge_digits[pno].append(L)
                 continue
             keep.append(L)
         all_lines[pno] = keep
@@ -648,6 +727,19 @@ def main():
         if last and not re.search(r"[.!?][”\"’)\]]*\s*$", last[-1].text):
             open_note = last[-1]
 
+    # the publisher's block at the foot of a text page (CONTACT / © / licence), left in the body zone: cut out like the
+    # other foot blocks, so that the paragraph runs on over the page break
+    for pno, ls in all_lines.items():
+        H = doc[pno - 1].rect.height
+        j = next((j for j, L in enumerate(ls) if L.zone == "body" and L.y > 0.75 * H and PUBFOOT_RX.match(L.text)), None)
+        if j is not None:
+            cut_ = [L for L in ls[j:] if L.zone == "body"]
+            for L in cut_:
+                L.zone = "foot"
+                L.pubfoot = True
+            warns.append(f"page {pno}: publisher's page-foot block ({len(cut_)} line(s), from {cut_[0].text.strip()[:30]!r}) "
+                         "cut out of the text")
+
     # column sanity (reported once the front matter is known: columns there are read in column order)
     col_pages = []
     for pno, ls in all_lines.items():
@@ -733,7 +825,28 @@ def main():
 
     foot = [L for pno in all_lines for L in all_lines[pno] if L.zone == "foot"]
     for L in foot:
-        dropped.append(f"p{L.page}: {L.text.strip()[:60]} (set apart below the notes)")
+        dropped.append(f"p{L.page}: {L.text.strip() if getattr(L, 'pubfoot', False) else L.text.strip()[:60]} (set apart below the notes)")
+
+    # ---------- tables: the cells are not extracted; the first line of each table stays in the flow as its stub
+    table_clips = []                 # (page, box) of each table: its words are left out of the word check
+    for pno, ls in all_lines.items():
+        side_ = [L for L in ls if L.zone == "body" and len(L.text.strip()) >= 12]
+        rotated = len(side_) >= 4 and sum(1 for L in side_ if L.x1 - L.x0 < 0.3 * L.size * len(L.text.strip())) >= 0.6 * len(side_)
+        for reg, cap in find_tables(ls, B, rotated):
+            if cap is not None:
+                cap.tcap = True     # a caption of its own, never a line of the paragraph the page break ran it into
+            marks = [n for L in reg for n in span_md(L.spans)[1]]
+            if rotated:             # a sideways marker is a line of its own: a small number that is a note's
+                marks += [int(L.text) for L in reg + edge_digits[pno] if L.text.strip().isdigit() and L.size < 0.7 * B
+                          and int(L.text) in notes]
+            for L in reg:
+                L.zone = "table"
+            table_clips.append((pno, (min(L.x0 for L in reg), min(L.y - L.size for L in reg),
+                                      max(L.x1 for L in reg), max(L.y for L in reg) + 2)))
+            reg[0].zone = "body"
+            reg[0].tstub = sorted(set(marks))
+            warns.append(f"page {pno}: table ({len(reg)} lines{', set sideways' if rotated else ''}) not extracted -> "
+                         f"<!-- TABLE p. {pno} --> (rebuild it from the PDF by hand)")
 
     # ---------- body paragraphs
     body_lines = [L for pno in all_lines for L in all_lines[pno] if L.zone == "body"]
@@ -894,6 +1007,12 @@ def main():
     for L in body_lines:
         Lm = margin.get(L.page, L.x0)
         Rm = max(rights[L.page]) if rights[L.page] else L.x1
+        if getattr(L, "tstub", None) is not None:
+            paras.append({"kind": "tabstub", "texts": [f"<!-- TABLE p. {L.page} -->"], "mks": list(L.tstub), "x0": L.x0,
+                          "ind": 0, "bib": False, "geo": [(L.x0, L.x1, Lm, Rm, L.size)], "page": L.page,
+                          "ys": [(L.page, L.y - L.size, L.y)], "gap": True, "bibhead": False})
+            prev = None
+            continue
         if L.head:
             if L.size > B * 1.1:
                 # largest heading size -> level 1; any other larger size -> level 2 (verify)
@@ -936,6 +1055,11 @@ def main():
                     indented = prev_short = False   # block indented >= 2 em (same-size quotation): continuation
                 # a line opening with a typed tab after a short line starts a paragraph (text from Word: tab indents)
                 new = indented or prev_short or big_gap or (L.tab and short)
+        if paras and getattr(L, "tcap", False):
+            new = True
+        elif paras and prev is not None and getattr(prev, "tcap", False) \
+                and (abs(L.size - prev.size) > 0.3 or L.page != prev.page or L.y - prev.y > 1.3 * 1.25 * L.size):
+            new = True                       # the line after a table caption that is not the caption's second line
         spans = L.spans
         if new and kind == "p" and not L.bib:
             # opening words in capitals set smaller than the line (small caps: "THIS ESSAY ORIGINATES in …")
@@ -1012,8 +1136,15 @@ def main():
     # last line before the caption full, first line after it not indented -> rejoin, caption after the paragraph
     j = 0
     while j + 2 < len(paras):
-        A, C, D = paras[j], paras[j + 1], paras[j + 2]
-        if A["kind"] == "p" == D["kind"] and C["kind"] in ("podpis", "tabela-tytul") and not A["bib"] and not D["bib"]:
+        e = j + 1
+        while e < len(paras) and paras[e]["kind"] in ("podpis", "tabela-tytul", "tabstub"):
+            e += 1                      # a caption, a table stub, or both (caption, then the stub of its table)
+        # (as before: one caption between; more than one only when a table stub is among them)
+        if e >= len(paras) or e == j + 1 or (e > j + 2 and not any(paras[x]["kind"] == "tabstub" for x in range(j + 1, e))):
+            j += 1
+            continue
+        A, C, D = paras[j], paras[j + 1], paras[e]
+        if A["kind"] == "p" == D["kind"] and not A["bib"] and not D["bib"]:
             ax0, ax1, alm, arm, asz = A["geo"][-1]
             dx0, dx1, dlm, drm, dsz = D["geo"][0]
             # full last line (meaningless when the text is set ragged), no sentence end, or the text after the
@@ -1025,7 +1156,7 @@ def main():
                 A["texts"] += D["texts"]; A["mks"] += D["mks"]; A["geo"] += D["geo"]; A["ys"] += D["ys"]
                 warns.append(f"paragraph continued across a caption: “…{A['texts'][-len(D['texts']) - 1][-30:]}” | "
                              f"“{D['texts'][0][:30]}…” (caption placed after the paragraph)")
-                del paras[j + 2]
+                del paras[e]
                 continue
         j += 1
     # verse: >= 3 one-line quotation paragraphs in a row, same indent from the page's margin, no gap between -> one quotation, line breaks kept
@@ -1048,6 +1179,7 @@ def main():
 
     # ---------- assemble
     out, seen_markers = [], []
+    table_marks = set()      # notes a table calls (in its cells or its caption): not part of the marker-order check
     bib_entries = []
     if title_md is not None:
         out += ["::: przypis-tytulowy", title_md, ":::", ""]
@@ -1088,11 +1220,16 @@ def main():
                 out.append("> " + t)
             elif kind in ("podpis", "tabela-tytul"):
                 out += [f"::: {kind}", t, ":::"]
+            elif kind == "tabstub":
+                out.append(t)
             else:
                 out.append(t)
         out.append("")
         for n in mks:
-            seen_markers.append(n)
+            if kind in ("tabela-tytul", "tabstub"):
+                table_marks.add(n)
+            else:
+                seen_markers.append(n)
             if n in notes:
                 out += [f"[^{n}]: " + join_lines(notes[n], joins), ""]
     md = "\n".join(out).rstrip() + "\n"
@@ -1152,7 +1289,7 @@ def main():
     if seen_markers != sorted(seen_markers) or len(set(seen_markers)) != len(seen_markers):
         issues.append(f"marker sequence out of order / duplicated: {seen_markers}")
     miss_def = sorted(set(seen_markers) - set(notes))
-    miss_mark = sorted(set(notes) - set(seen_markers))
+    miss_mark = sorted(set(notes) - set(seen_markers) - table_marks)
     if miss_def:
         issues.append(f"markers without a footnote: {miss_def}")
     if miss_mark:
@@ -1187,7 +1324,7 @@ def main():
     rep += ["", "## Warnings"] + ([f"- {x}" for x in warns] or ["- none"])
     rep += ["", "## Line-end hyphen joins (proofread)"] + ([f"- {x}" for x in joins] or ["- none"])
     rep += ["", "## Dropped running heads / page numbers"] + ([f"- {x}" for x in dropped] or ["- none"])
-    lost, extra = wordcheck(pages, [md] + bib_entries + front_md + dropped)
+    lost, extra = wordcheck(pages, [md] + bib_entries + front_md + dropped, skip=table_clips)
     rep += ["", f"## Word check: lost {sum(lost.values())} · extra {sum(extra.values())} (every word and number of the PDF "
             "pages, read independently of the line assembly, against text + bibliography + front matter + dropped lines; "
             "read every lost word against the PDF)",

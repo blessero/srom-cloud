@@ -850,6 +850,10 @@ def main():
     BIB_NUMBERS[0] = bool(cfg.get("bibliography", {}).get("section_numbers", False))
     report = {"errors": [], "warnings": [], "flags": []}
 
+    from refs_helpers import lint_files
+    nulls = lint_files(a.refs)
+    if nulls:                               # pandoc would stop on a null with no key
+        sys.exit("\n".join(nulls))
     refs_list = []
     for rp in a.refs or []:
         refs_list += json.load(open(rp, encoding="utf-8"))
