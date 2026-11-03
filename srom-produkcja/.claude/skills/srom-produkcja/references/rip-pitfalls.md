@@ -26,16 +26,8 @@ here (they go to a C-item), only what to do meanwhile; a line ending `(C<n>)` is
   refs.json fails it ("cited but not keyed"). Enter it, key the note, put the missing data in the queries. Never complete it from memory.
 - **The author's slips stay as written** (`srom-as-written` for the form the original note uses: a misspelt surname, a shortened title), flagged in
   the notes sheet; otherwise the keyed check cannot find the author in the original note.
-- **The year is not a page.** "*Title*, 1990 on page 235" makes the check count 1990 as a page: leave such a note literal and say so.
 
 ## Keying (step 4b)
 - **Run `check.py --keyed` on a skeleton early** (every note literal, 5 notes keyed), then widen: 25 errors at once hide which are real.
-- **Notes in table cells**: the check does not walk tables (C38), so any note in a cell shifts the pairing of all later notes. Put a table's note in
-  `::: tabela-zrodlo` when it is the table's source (Kanon § 10); a note inside `::: tabela-tytul` breaks the alignment too. If a cell note must stay,
-  gate on a throwaway copy of `scripts/` patched as in C38 and say so in the notes sheet; never edit `$P` for it in a rip.
 - **A press/archive locator next to a key** ("*PZ* (31 May 1780): 5; [@x, s. 210]"): the check reads the colon page only when a key is present and
   then finds it lost. Write "…, s. 5" and flag the normalisation, or key the whole note.
-- **`mutate_keyed.py` misses** on "Name, ‘Title’, 322", "*Short,* 1st ed., 107", "[Letter], 168": the check does not see those locators (C38). Verify by
-  hand with the check's "other numbers not in rendering" warnings: whatever remains must be an edition, volume, month or year.
-- **Same page twice in one note** (two "cited in Robinson, 104"): citeproc prints the second as Ibidem without the page; the check flags a lost page.
-  Expected; confirm both are the same work and page.
