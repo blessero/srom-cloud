@@ -558,6 +558,19 @@ try:
 except ValueError:
     y_raises = True
 t("refs_helpers: Y(None) raises instead of returning a null date", y_raises)
+sh = [rh.short("kaps", [rh.P("Kaps")], "Differences", type="article-journal", page=None, DOI=None), rh.short("sch", None, "Zigeuner", URL=None)]
+t("refs_helpers: short() = author, title, title-short only (no issued/publisher/place), never a null; au=None drops author",
+  not any(has_null(h) for h in sh) and sh[0]["title-short"] == "Differences" and sh[0]["type"] == "article-journal"
+  and sh[1]["type"] == "book" and not ({"issued", "publisher", "publisher-place", "author"} & set(sh[1]))
+  and not ({"issued", "publisher", "publisher-place"} & set(sh[0])), json.dumps(sh, ensure_ascii=False))
+wr = rh.written(rh.book("lannep", [rh.P("Van Lennep")], "T", None, None, None), editor="Van Lannep", author=None, title="")
+wr = rh.written(wr, author="Wan Lennep")
+t("refs_helpers: written() keeps the author's form next to the corrected field, drops None/empty, extends an existing one",
+  wr["srom-as-written"] == {"editor": "Van Lannep", "author": "Wan Lennep"} and not has_null(wr)
+  and "srom-as-written" not in rh.written(rh.short("x", None, "T"), author=None), json.dumps(wr, ensure_ascii=False))
+SHR = w("short_refs.json", json.dumps([sh[0], rh.short("sch", [rh.P("Schwicker")], "Zigeuner")]))
+r = subprocess.run([sys.executable, CHECK, w("sr.md", "Text.[^1]\n\n[^1]: [@kaps, s. 1].\n"), "--refs", SHR], capture_output=True, text=True)
+t("check.py: a short() record loads (no null error, no pandoc crash)", "is null" not in r.stdout and "Null" not in r.stderr, r.stdout + r.stderr)
 NREFS = w("null_refs.json", json.dumps([
     {"id": "a2020", "type": "book", "title": "T", "publisher": None, "author": [{"family": "A", "given": None}],
      "issued": {"date-parts": [[None]]}}, {"id": "b2021", "type": "book", "title": "U", "issued": {"date-parts": [[2021]]}}]))

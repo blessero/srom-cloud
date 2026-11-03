@@ -3,8 +3,10 @@
 check.py and cite_map.py (the lint). A helper never puts a null (None) into a record: pandoc stops on one with
 "expected String or Number, but encountered Null" and no key.
 
-    sys.path.insert(0, "<...>/srom-produkcja/scripts"); from refs_helpers import P, Y, book, chap, art
+    sys.path.insert(0, "<...>/srom-produkcja/scripts"); from refs_helpers import P, Y, book, chap, art, short, written
     book("wolfe2016", [P("Wolfe", "Patrick")], "Traces of History", "Verso", "London", 2016)
+    short("kaps", [P("Kaps")], "Differences", type="article-journal")      # short form only -> [BRAK …] placeholders
+    written(book(...), editor="Van Lannep")                                  # srom-as-written next to the corrected field
 
     python3 refs_helpers.py refs.json [more.json]     # the lint alone: `refs.json: <id>.<field> is null`, exit 1 on any
 """
@@ -44,6 +46,26 @@ def art(id, au, title, journal, vol, year, page=None, issue=None, **kw):
     return clean({"id": id, "type": "article-journal", "title": title, "container-title": journal or None,
                   "issued": Y(year) if year else None, "author": au or None, "volume": vol or None, "issue": issue or None,
                   "page": page or None, **kw})
+
+
+def short(id, au, title, type="book", **kw):
+    """a work the author cites by a short form only (no place, publisher, year given): the record carries the author,
+    the title and `title-short` and leaves those fields out, so the build prints [BRAK MIEJSCA], [BRAK WYDAWCY] and
+    [BRAK ROKU] and puts the work into the query sheet. Nothing is guessed. type "article-journal" for a journal item."""
+    kw.setdefault("title-short", title)
+    return clean({"id": id, "type": type, "title": title, "author": au or None, **kw})
+
+
+def written(rec, **forms):
+    """the form the author's note used for a field that refs.json corrects, kept next to the corrected field:
+    written(book(...), author="Wolf", title="Traces")  ->  rec["srom-as-written"] == {"author": "Wolf", "title": "Traces"}.
+    author / editor hold family names only, several separated by ';' (srom-md.md). None and empty forms are dropped;
+    an existing srom-as-written is extended, not replaced. Returns rec."""
+    aw = dict(rec.get("srom-as-written") or {})
+    aw.update({k: v for k, v in forms.items() if v})
+    if aw:
+        rec["srom-as-written"] = aw
+    return rec
 
 
 def lint_refs(items, name="refs.json"):
