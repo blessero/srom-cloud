@@ -1,7 +1,10 @@
 # RIP pitfalls — what cost time in earlier rips (read before step 1b/3/4b)
 
-One line per trap: the symptom, the cheap fix. Added from the Davis RIP (03.11.2026); append a line when a rip loses more than
-ten minutes to something a note here would have prevented. Tool bugs are not listed here (they go to a C-item), only what to do meanwhile.
+One line per trap: the symptom, the cheap fix. Added from the Davis RIP (03.11.2026). Lines are appended at the routing step
+(workspace `CLAUDE.md` § Close of every session), not during a rip; the threshold is a trap that cost more than ten minutes or let
+a wrong file past a gate. INJECT lessons go here too, in a `## INJECT` section added with the first one. Tool bugs are not listed
+here (they go to a C-item), only what to do meanwhile; a line ending `(C<n>)` is deleted once that C-item is ticked in STATUS.md
+§ For the skills.
 
 ## PDF in (step 1b)
 - **Publisher boilerplate mid-paragraph.** Open-access T&F/Routledge PDFs put CONTACT, ©, the licence text and the first footnote on the
