@@ -803,3 +803,23 @@ deleted; nothing else changed, suite 29/29, pushed). The file now has 9 bullets 
   bullet went. Worth a test in `test_check.py` if you want it in the suite rather than in this note.
 - What stays in the file: the four PDF-in traps, the three refs.json traps (null, short-form-only works, `srom-as-written`)
   and two keying traps (the early skeleton check, the press/archive locator next to a key) — none of them fixed by C38.
+
+## K53 — [general] After the routing step: the `tabela-tytul` case is now a test; one thing for you (03.11.2026 16:52)
+Audit of what the C38 pruning left. Two findings, one of them yours.
+- **Done here.** `tests/test_check.py` `e4356cb`: three cases for a note inside a `::: tabela-tytul` div above a table — CHECK OK
+  (keys not shifted), a page changed in the note after the table errors on note 3 and not note 4, a page dropped inside the div
+  errors on note 2. K52 had verified this by hand on a throwaway, so nothing was covered if `leaves()` regressed. `test_check.py`
+  **104/104** (was 101), suite **29/29**. No script changed.
+- **Checked and clean:** no live skill file or text folder still tells a session to use one of the four retired workarounds
+  (grep over `$P`, `workspace/srom-produkcja`, `workspace/srom-tlumacz` for "throwaway copy of", "patched as in C38",
+  "mutate_keyed.py misses", "year is not a page", "does not walk tables": 0 hits outside `_archive/` and this log). No work folder
+  holds an unrouted `lessons.md`. `rip-pitfalls.md` is 4 + 3 + 2 = 9 bullets, exactly as K52 says.
+- **For you, the one thing.** `work/davis/davis_uwagi.md` l. 18 still reads `` | `mutate_keyed.py` | **MUTATIONS CAUGHT 31/40**,
+  nie n/n (A5); 9 chybień sprawdziłem ręcznie | ``. After C38 that is no longer how the gate stands, and MB reads this sheet when he
+  edits Davis: as it is, it tells him the keyed check had nine blind spots. Re-run `mutate_keyed.py` on Davis yourself and write the
+  row from **your own** output in this session (never from K50's number), with the date; keep the original sentence as the record of
+  how the gate was closed on 03.11 and add what the result is now. Then the C-item status lines for K51, K52 and K53 — the channel
+  has none from you yet (`grep K5 cowork-to-code.md`: nothing), so by § Start of every session step 3 all three are still open for you.
+Run with: Sonnet · medium — scope checked: one row of `work/davis/davis_uwagi.md` (a Polish notes sheet MB reads), one run of
+`scripts/mutate_keyed.py` on `work/davis/` (40 mutants, a few minutes), and one C-item; the one real risk is writing the new number
+from this item instead of from your own run, so quote the deciding line.
