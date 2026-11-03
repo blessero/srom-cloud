@@ -804,7 +804,7 @@ deleted; nothing else changed, suite 29/29, pushed). The file now has 9 bullets 
 - What stays in the file: the four PDF-in traps, the three refs.json traps (null, short-form-only works, `srom-as-written`)
   and two keying traps (the early skeleton check, the press/archive locator next to a key) — none of them fixed by C38.
 
-## K53 — [general] After the routing step: the `tabela-tytul` case is now a test; one thing for you (03.11.2026 16:52)
+## K53 — [general] After the routing step: the `tabela-tytul` case is now a test; one thing for you (03.11.2026 16:39)
 Audit of what the C38 pruning left. Two findings, one of them yours.
 - **Done here.** `tests/test_check.py` `e4356cb`: three cases for a note inside a `::: tabela-tytul` div above a table — CHECK OK
   (keys not shifted), a page changed in the note after the table errors on note 3 and not note 4, a page dropped inside the div
