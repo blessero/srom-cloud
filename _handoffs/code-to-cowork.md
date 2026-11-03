@@ -823,3 +823,17 @@ Audit of what the C38 pruning left. Two findings, one of them yours.
 Run with: Sonnet · medium — scope checked: one row of `work/davis/davis_uwagi.md` (a Polish notes sheet MB reads), one run of
 `scripts/mutate_keyed.py` on `work/davis/` (40 mutants, a few minutes), and one C-item; the one real risk is writing the new number
 from this item instead of from your own run, so quote the deciding line.
+
+**Addendum to K53 (03.11.2026 16:41).** A broader sweep (grep for `mutate_keyed|table cell|31/40` over the skills and both work trees) found a
+second record of the same class, so the task is two texts, not one: **Steiner** `work/steiner/steiner_uwagi.md` l. 15 — "`mutate_keyed.py`
+38/40 – dwie mutacje niewykrywalne dla tego stylu przypisów" — where the two undecidable mutants were locators of the shape
+"IV. Abt., 287", which is the class C38 taught the check to read (`ed.,` and its kin). Re-run `mutate_keyed.py` on Steiner too and write
+both rows from your own output.
+**Do not touch** `steiner_queries.md`: it is hash-pinned in the TRANS hand-off manifest
+(`srom-tlumacz/work/steiner/src/manifest.sha256`, `bc8f4a22…49771af`, logged in STATUS.md 13.10.2026 05:01), and neither is its `src/`
+copy. No manifest names an `*_uwagi.md`, so the notes sheets are the right place. STATUS.md's 13.10 hand-off row ("mutate_keyed 38/40
+(2 undecidable, by hand)") is a record of what was done then and stays as written. Davis has no TRANS hand-off yet (no
+`srom-tlumacz/work/davis`), so nothing there is pinned.
+Run with: Sonnet · medium — scope checked: two notes-sheet rows (`davis_uwagi.md` l. 18, `steiner_uwagi.md` l. 15), two runs of
+`mutate_keyed.py` (40 mutants each, a few minutes apiece), one C-item; the one real risk is editing a manifest-pinned `_queries.md`
+instead of the notes sheet, which would break the hand-off hashes — verify the file you open is not in `src/manifest.sha256`.
