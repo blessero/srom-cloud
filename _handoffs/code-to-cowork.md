@@ -765,3 +765,27 @@ Smithsonian is searched again; DEMO_KEY allows about four searches an hour. Bloc
 - C39.2 `scripts/refs_helpers.py`: P, Y, book, chap, art with the Davis/Steiner signatures, no null ever emitted (`Y(None)` raises). New rips import it; the eight `refs.py` are untouched. Not done: the `[BRAK …]` and `srom-as-written` helpers (the request's pasted text listed only P, Y, book, chap, art) — say if you want them.
 - C39.3 `pdf_extract.py`: (a) a publisher's block at a page's foot (CONTACT / © / "This is an Open Access article") is cut like the other foot blocks and the paragraph runs on over the page break; (b) a table (a "Table N." caption with ≥ 2 rows of figures after or before it, ≥ 3 numeric lines in a row, or a page set sideways) is one `<!-- TABLE p. N -->` stub after its caption, followed by the definitions of the notes its cells and caption call; a paragraph the table interrupted is rejoined; the table's words are left out of the word check on both sides; (c) those notes are out of the marker-order check. No page-image reference in the stub (the page number names it). **Davis: EXTRACT OK** (was CHECK 2), word check lost 68 → 19, extra 31 → 10. **The six frozen texts and six other PDFs under `work/`: the extraction is byte-identical** (no table fired on prose). Tests in `test_pdf_layout.py` (a 4-page PDF: foot block, a caption table, a sideways table, a prose paragraph with numbers). Davis's `prep.py` remains the worked example for the hand-rebuilt tables; the stub does not rebuild cells.
 - Limits: the foot cut needs the block to start with one of those words and to lie in the lower quarter of the page; a note zone and the publisher's block on one page (T&F page 1 with a footnote) was not tested (no such PDF here).
+
+## K51 — [general] Lessons routing: capture in the task session, route in its own step (03.11.2026 05:13)
+MB approved it 03.11.2026 05:12. The rule itself is workspace `CLAUDE.md` § Close of every session **item 4** (new; the old item 4,
+"never hand MB a session's own bookkeeping", is now item 5) — `workspace/` is not in git, so read it there.
+- **Capture** (every session that ran a stage or a skill's tools, in the session that learned it, before the reply): one line per
+  trap in `srom-produkcja/work/<id>/lessons.md`, for anything that cost more than ten minutes or let a wrong file past a gate —
+  `- dd.mm.yyyy HH:MM <RIP|TRANS|INJECT> | <symptom, one clause> | <what I did instead> | <minutes> | route: doc|tool|rule|?`.
+  Five a session; `route:` is a guess, not a decision; no narrative and no state in the file. The text's STATUS.md line carries
+  `lessons: <n> unrouted`, and the reply's last line offers the routing step with its `Run with:` line.
+- **Route**, as its own step, never inside a rip, a translation or a build: `doc` → one line in the stage's pitfalls file
+  (`srom-produkcja/references/rip-pitfalls.md` for RIP and INJECT, `srom-tlumacz/references/trans-pitfalls.md` for TRANS, created
+  with its first line), one STATUS § For the skills line and one C-item for all of a step's appends; `tool` → a C-item, cheapest
+  version first, with the workaround as a `doc` line ending `(C<n>)`; `rule` → one ledger item under its code. Caps: grep the
+  pitfalls file, the C-items and the ledger before every append (an existing line is sharpened, never doubled), thirty lines to a
+  section, three C-items and one ledger item to a step.
+- Done here (Code, so committed, not a C-item): `rip-pitfalls.md` header `7df19de` — appends happen at the routing step and not
+  during a rip; the threshold; INJECT lessons go here too, in a `## INJECT` section added with the first one; a line ending
+  `(C<n>)` is deleted once that C-item is ticked in STATUS.md § For the skills. Suite 29/29 after. No script changed, no new file.
+- **For the first routing step** (not done here): by that last rule four lines of `rip-pitfalls.md` are now retired by C38
+  (`ca59166`, K50) and should go after a read of the committed `check.py` — the note in a table cell, the `mutate_keyed.py` misses,
+  the same page twice in one note, and "the year is not a page".
+  Run with: Sonnet · medium — scope checked: four of the 24 lines of `rip-pitfalls.md` against `check.py`'s `leaves()`, CHICAGO_LOC
+  and IBID_BARE and the cases in `test_check.py`; the one real risk is deleting a line whose trap only went away in part, so cite
+  the test that covers each before removing it, and keep the line if none does.
