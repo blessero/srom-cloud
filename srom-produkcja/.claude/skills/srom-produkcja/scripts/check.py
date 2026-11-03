@@ -86,6 +86,12 @@ def leaves(blocks, kind="p"):
             items = b["c"] if t == "BulletList" else b["c"][1]
             for it in items:
                 out += leaves(it, "li")
+        elif t == "Table":          # notes in cells count (build.notes_text walks them): head, body and foot rows
+            c = b["c"]
+            rows = list(c[3][1]) + [r for body in c[4] for r in list(body[2]) + list(body[3])] + list(c[5][1])
+            for row in rows:
+                for cell in row[1]:
+                    out += leaves(cell[4], "td")
         elif t == "Div":
             if b["c"][0][0] in ("refs",) or "przypis-tytulowy" in b["c"][0][1]:
                 continue          # the translation note on the title (kanon § 12.2.3) has no source counterpart
@@ -551,7 +557,9 @@ _CL_ONE = r"(?:(?:[IVX]+|\d+):\s?)?(?:\d+|[ivxlc]+)(?:n\d+)?(?:\s?[–-]\s?\d+)?
 # Not a page either (Manchester UP, Chicago as used in British books): "*Journal*, 40:3 (2021)" (volume:issue before the
 # year), "*Title*, 2nd ed." (an edition), "*Site*, 26 May 2020" (a date)
 _MONTHS = "January|February|March|April|May|June|July|August|September|October|November|December"
-CHICAGO_LOC = re.compile(r"(?:\)\s?[,:]|\*,|,”)\s?(" + _CL_ONE + r"(?:(?:,\s?|,?\s(?:and|&)\s)" + _CL_ONE + r")*)(?![\d/.]\d)(?!\d)"
+# More openers: "Name, ‘Short title’, 322" (a single closing quote), "[Letter], 168" (a bracketed title), "Short, 1st ed., 107"
+# (an edition) and "in *Australia*, ed. Bashford and Macintyre, 142–8" (the editors named before the page)
+CHICAGO_LOC = re.compile(r"(?:\)\s?[,:]|\*,|,”|’,|\],|\bed\.,|\beds?\.\s[^,;()\d]{2,60}?,)\s?(" + _CL_ONE + r"(?:(?:,\s?|,?\s(?:and|&)\s)" + _CL_ONE + r")*)(?![\d/.]\d)(?!\d)"
                          r"(?!\s?\(\d{4}\))"        # "*Journal*, 7 (2018)": a volume before the year, not a page
                          r"(?!:\s?\d+\s?\(\d{4}\))"  # "40:3 (2021)"
                          r"(?!st\b|nd\b|rd\b|th\b)"    # "2nd ed.", "10th ed."
@@ -560,7 +568,11 @@ CHICAGO_LOC = re.compile(r"(?:\)\s?[,:]|\*,|,”)\s?(" + _CL_ONE + r"(?:(?:,\s?|
 
 def chicago_numbers(text):
     c = Counter()
-    for m in CHICAGO_LOC.finditer(text.replace("\u00a0", " ")):
+    text = text.replace("\u00a0", " ")
+    for m in CHICAGO_LOC.finditer(text):
+        # a year after the title is not a page: "*Mister Neville*, 1990 on page 235" (the page follows in words)
+        if re.fullmatch(r"(?:1[5-9]\d\d|20\d\d)", m.group(1)) and re.match(r"\s+[a-z]{2,}", text[m.end(1):]):
+            continue
         for n in re.findall(r"\d+", re.sub(r"(?:[IVX]+|\d+):\s?", "", m.group(1))):
             c[int(n)] += 1
     return c
@@ -612,6 +624,17 @@ def check_keyed(orig, keyed, refs_path, errs, warns):
             rng = numbers(expand_ranges((refs.get(key) or {}).get("page", "")))
             if rng and not (rng - lost):
                 lost -= rng
+        # one note citing the same work and page twice: citeproc prints the second as a bare Ibidem, so the page is in
+        # the rendering once but in the original twice (Davis n. 139)
+        nib = len(IBID_BARE.findall(k)) if lost else 0
+        if nib:
+            k_loc = locator_numbers(expand_ranges(k)) | chicago_numbers(expand_ranges(k)) | shortform_numbers(k, refs, keys, sigla)
+            for n_ in list(lost):
+                if k_loc[n_]:
+                    take = min(lost[n_], nib)
+                    lost[n_] -= take
+                    nib -= take
+            lost = +lost
         if lost and IBID_BARE.search(k) and (keys == prev_keys or keys[:1] == prev_keys[-1:]) \
                 and not (lost - prev_loc):
             lost = Counter()             # same work, same page as the note before: a bare Ibidem is right (also

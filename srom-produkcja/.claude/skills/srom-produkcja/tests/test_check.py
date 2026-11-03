@@ -484,5 +484,58 @@ c0, o0 = run("--pair", es, w("len_pl0.md", "\n\n".join(PL) + "\n"))
 t("--pair: a paragraph missing sentences -> WARN on that block (not an error); the full translation: no warning",
   c == 0 and "block 4: length" in o and "missing" in o and "length" not in o0, o + o0)
 
+# C38 (Davis RIP, 03.11.2026): a note in a table cell must not shift the later notes' keys (leaves() walks tables);
+# locators after "’,", "],", "ed.," and "ed. A and B,"; a year after the title is not a page; one note citing the same
+# work and page twice prints the second as a bare Ibidem
+TBREFS = w("tb_refs.json", json.dumps([
+    {"id": "firpo2018", "type": "article-journal", "author": [{"family": "Firpo", "given": "Martin"}], "title": "Taking",
+     "title-short": "Taking", "container-title": "JX", "volume": "3", "issued": {"date-parts": [[2018]]}},
+    {"id": "swartner1798", "type": "book", "author": [{"family": "Swartner", "given": "Martin"}], "title": "Statistik des Koenigsreichs",
+     "title-short": "Statistik", "publisher": "Trattner", "publisher-place": "Pest", "edition": "1", "issued": {"date-parts": [[1798]]}},
+    {"id": "anon1776", "type": "manuscript", "author": [{"family": "Anon"}], "title": "Letter to the council",
+     "title-short": "Letter", "issued": {"date-parts": [[1776]]}},
+    {"id": "ford2013", "type": "chapter", "author": [{"family": "Ford", "given": "Lisa"}], "title": "Expansion", "title-short": "Expansion",
+     "container-title": "Australia", "editor": [{"family": "Bashford", "given": "Alison"}], "publisher": "CUP",
+     "publisher-place": "Cambridge", "issued": {"date-parts": [[2013]]}},
+    {"id": "jacobs1990", "type": "book", "author": [{"family": "Jacobs", "given": "Pat"}], "title": "Mister Neville",
+     "title-short": "Mister Neville", "publisher": "Hodder", "publisher-place": "Sydney", "issued": {"date-parts": [[1990]]}},
+    {"id": "robinson2015", "type": "article-journal", "author": [{"family": "Robinson", "given": "Shirleene"}],
+     "title": "Always a Good Demand", "title-short": "Good Demand", "container-title": "JY", "volume": "4", "issued": {"date-parts": [[2015]]}},
+    ], ensure_ascii=False))
+TBO = w("tb_o.md", "Intro text.[^1]\n\n| Year | Note |\n|---|---|\n| 1780 | 9861[^2] |\n| 1781 | 11,649 |\n\nAfter the table.[^3] More[^4] and[^5] more[^6] and[^7] more[^8] and[^9].\n\n"
+        "[^1]: Firpo, ‘Taking’, 535–7.\n\n[^2]: Swartner, *Statistik,* 1st ed., 107.\n\n"
+        "[^3]: Firpo, ‘Taking’, 540.\n\n[^4]: Anon, [Letter], 168.\n\n"
+        "[^5]: Lisa Ford, ‘Expansion, 1820–50’, in *Australia*, ed. Bashford and Macintyre, 142–8.\n\n"
+        "[^6]: See Jacobs, *Mister Neville*, 1990 on page 235.\n\n"
+        "[^7]: ‘The Age’, 5 March 1910, 45 cited in Robinson, ‘Always a Good Demand’, 104; ‘The Sun’, 17 October 1925, 11 cited in Robinson, ‘Always a Good Demand’, 104.\n\n"
+        "[^8]: Swartner, *Statistik,* 1st ed., 108.\n\n[^9]: Firpo, ‘Taking’, 541.\n")
+TBK = ("Intro text.[^1]\n\n| Year | Note |\n|---|---|\n| 1780 | 9861[^2] |\n| 1781 | 11,649 |\n\nAfter the table.[^3] More[^4] and[^5] more[^6] and[^7] more[^8] and[^9].\n\n"
+       "[^1]: [@firpo2018, s. 535–537].\n\n[^2]: [@swartner1798, s. 107].\n\n[^3]: [@firpo2018, s. 540].\n\n"
+       "[^4]: [@anon1776, s. 168].\n\n[^5]: [@ford2013, s. 142–148].\n\n[^6]: Zob. [@jacobs1990, s. 235].\n\n"
+       "[^7]: ‘The Age’, 5 March 1910, 45 cited in [@robinson2015, s. 104]; ‘The Sun’, 17 October 1925, 11 cited in [@robinson2015, s. 104].\n\n"
+       "[^8]: [@swartner1798, s. 108].\n\n[^9]: [@firpo2018, s. 541].\n")
+def runt(k):
+    r = subprocess.run([sys.executable, CHECK, "--keyed", TBO, w("tb_k.md", k), "--refs", TBREFS], capture_output=True, text=True)
+    return r.returncode, r.stdout + r.stderr
+c, o = runt(TBK)
+t("keyed: a note in a table cell, ‘Short’, 535–7 / 1st ed., 107 / [Letter], 168 / ed. A and B, 142–8, a year after the title, "
+  "the same work and page twice in one note (bare Ibidem) -> CHECK OK", c == 0 and "CHECK OK" in o, o)
+c, o = runt(TBK.replace("[@firpo2018, s. 540]", "[@firpo2018, s. 541]"))
+t("keyed: page changed in the note after a table with a note in a cell -> ERROR named note 3 (the keys are not shifted)",
+  c == 1 and "note 3: page/folio" in o and "540" in o and "note 4" not in o, o)
+c, o = runt(TBK.replace("[@swartner1798, s. 107]", "[@swartner1798]"))
+t("keyed: page dropped from the note inside the table cell -> ERROR", c == 1 and "note 2: page/folio" in o and "107" in o, o)
+for nm, a, b, pat in (("‘Short’, 322 (a single closing quote)", "[@firpo2018, s. 535–537]", "[@firpo2018, s. 536–537]", "535"),
+                      ("[Letter], 168", "[@anon1776, s. 168]", "[@anon1776, s. 169]", "168"),
+                      ("1st ed., 107 (an edition)", "[@swartner1798, s. 108]", "[@swartner1798]", "108"),
+                      ("ed. Bashford and Macintyre, 142–8", "[@ford2013, s. 142–148]", "[@ford2013]", "142")):
+    c, o = runt(TBK.replace(a, b))
+    t(f"keyed locator shape {nm}: page changed or dropped -> ERROR", c == 1 and "page/folio numbers lost" in o and pat in o, o)
+c, o = runt(TBK.replace("cited in [@robinson2015, s. 104]; ‘The Sun’", "cited in [@robinson2015]; ‘The Sun’"))
+t("keyed: the first of two citations in one note loses its page (the second then prints it) -> ERROR", c == 1 and "104" in o, o)
+c, o = runt(TBK.replace("Zob. [@jacobs1990, s. 235]", "Zob. [@jacobs1990, s. 236]"))
+t("keyed: 1990 after '*Mister Neville*,' is a year, not a page; the page 'on page 235' is not compared (CHECK OK both ways)",
+  c == 0, o)
+
 n, ok = len(results), sum(results)
 print(f"CHECK ALL PASS {n}/{n}" if ok == n else f"CHECK FAILED {n - ok}/{n}")
