@@ -537,6 +537,24 @@ c, o = runt(TBK.replace("Zob. [@jacobs1990, s. 235]", "Zob. [@jacobs1990, s. 236
 t("keyed: 1990 after '*Mister Neville*,' is a year, not a page; the page 'on page 235' is not compared (CHECK OK both ways)",
   c == 0, o)
 
+# C40 (Steiner note 46): a locator after a volume designator ("IV. Abt., 287"), keyed inside braces
+# "[@mylius1740, {IV. Abt., s. 287}]", must not lose its page unseen
+BRREFS = w("br_refs.json", json.dumps([
+    {"id": "mylius1740", "type": "book", "author": [{"family": "Mylius", "given": "Christian"}], "title": "Corpus Constitutionum",
+     "title-short": "Theil", "publisher": "Gleditsch", "publisher-place": "Berlin", "issued": {"date-parts": [[1740]]}},
+    ], ensure_ascii=False))
+BRO = w("br_o.md", "Text.[^1] More.[^2]\n\n[^1]: Mylius, *Theil*, IV. Abt., 287.\n\n[^2]: Mylius, *Theil*, V. Abt., 12.\n")
+BRK = "Text.[^1] More.[^2]\n\n[^1]: [@mylius1740, {IV. Abt., s. 287}].\n\n[^2]: [@mylius1740, {V. Abt., s. 12}].\n"
+def runbr(k):
+    r = subprocess.run([sys.executable, CHECK, "--keyed", BRO, w("br_k.md", k), "--refs", BRREFS], capture_output=True, text=True)
+    return r.returncode, r.stdout + r.stderr
+c, o = runbr(BRK)
+t("keyed: brace-wrapped locator {IV. Abt., s. 287} kept -> CHECK OK", c == 0 and "CHECK OK" in o, o)
+c, o = runbr(BRK.replace("{IV. Abt., s. 287}", "{IV. Abt.}"))
+t("keyed: {IV. Abt., s. 287} loses its page -> ERROR naming 287", c == 1 and "note 1: page/folio" in o and "287" in o, o)
+c, o = runbr(BRK.replace("{V. Abt., s. 12}", "{V. Abt., s. 13}"))
+t("keyed: {V. Abt., s. 12} page changed -> ERROR naming 12", c == 1 and "note 2: page/folio" in o and "12" in o, o)
+
 # K52 (03.11.2026): the same, with the note in a `::: tabela-tytul` div above the table instead of in a cell (the Div
 # case of leaves()); verified by hand when the pitfall line was retired, pinned here
 TABLE = "| Year | Note |\n|---|---|\n| 1780 | 9861[^2] |\n| 1781 | 11,649 |\n\n"

@@ -837,3 +837,10 @@ copy. No manifest names an `*_uwagi.md`, so the notes sheets are the right place
 Run with: Sonnet · medium — scope checked: two notes-sheet rows (`davis_uwagi.md` l. 18, `steiner_uwagi.md` l. 15), two runs of
 `mutate_keyed.py` (40 mutants each, a few minutes apiece), one C-item; the one real risk is editing a manifest-pinned `_queries.md`
 instead of the notes sheet, which would break the hand-off hashes — verify the file you open is not in `src/manifest.sha256`.
+
+## K54 — [Steiner/general] C40 done: brace-wrapped locators after a volume designator are read; Steiner 39/40; one row for you (03.11.2026 17:30)
+- `check.py` `CHICAGO_LOC`: `Abt.,` `Bd.,` `Th.,` `Hft.,` `Vol.,` `Bk.,` `Pt.,` are now locator openers, so "Mylius, *Theil*, IV. Abt., 287" gives 287 as a page. Cause of note 46: the original's page sat after "IV. Abt.," and no opener matched it, so the keyed `{IV. Abt., s. 287}` losing its page was not compared. C38 never covered this shape (it added `’,` `],` `ed.,`); the K53 addendum's reading of it as C38's class was wrong.
+- `tests/test_check.py`: three cases (`{IV. Abt., s. 287}` kept; page dropped; `{V. Abt., s. 12}` changed), failing before the fix. Suite 29/29, `test_check.py` 107/107.
+- `mutate_keyed.py` after the fix: **Steiner `MUTATIONS CAUGHT 39/40`**, note 46 caught; the one miss is note 62 `[drop]` (Hanzala's works by title only), undecidable. Davis, Ostendorf, Pahulich, Scheffknecht, Tittel, Westohueri: 40/40 each. `check.py --keyed` unchanged on all seven (Pahulich's 10 errors are identical with and without the change, it is not fully keyed).
+- **For you:** `work/steiner/steiner_uwagi.md` l. 15 still says 38/40. Rewrite it from the line above, with the date: 39/40, only note 62 undecidable; keep "note 46 checked by hand" as the record of how it stood before. Do not touch `steiner_queries.md` or `src/`. Nothing else open from C40.
+Run with: Haiku · low — scope checked: one row of `steiner_uwagi.md` (not manifest-pinned); quote the 39/40 line from K54, or re-run `mutate_keyed.py` on Steiner (about 1 min).

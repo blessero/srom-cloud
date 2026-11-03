@@ -559,7 +559,8 @@ _CL_ONE = r"(?:(?:[IVX]+|\d+):\s?)?(?:\d+|[ivxlc]+)(?:n\d+)?(?:\s?[–-]\s?\d+)?
 _MONTHS = "January|February|March|April|May|June|July|August|September|October|November|December"
 # More openers: "Name, ‘Short title’, 322" (a single closing quote), "[Letter], 168" (a bracketed title), "Short, 1st ed., 107"
 # (an edition) and "in *Australia*, ed. Bashford and Macintyre, 142–8" (the editors named before the page)
-CHICAGO_LOC = re.compile(r"(?:\)\s?[,:]|\*,|,”|’,|\],|\bed\.,|\beds?\.\s[^,;()\d]{2,60}?,)\s?(" + _CL_ONE + r"(?:(?:,\s?|,?\s(?:and|&)\s)" + _CL_ONE + r")*)(?![\d/.]\d)(?!\d)"
+# and a volume designator before it ("Mylius, *Theil*, IV. Abt., 287": Abt., Bd., Th., Hft., Vol., Bk., Pt.)
+CHICAGO_LOC = re.compile(r"(?:\)\s?[,:]|\*,|,”|’,|\],|\bed\.,|\b(?:Abt|Bd|Th|Hft|Vol|Bk|Pt)\.,|\beds?\.\s[^,;()\d]{2,60}?,)\s?(" + _CL_ONE + r"(?:(?:,\s?|,?\s(?:and|&)\s)" + _CL_ONE + r")*)(?![\d/.]\d)(?!\d)"
                          r"(?!\s?\(\d{4}\))"        # "*Journal*, 7 (2018)": a volume before the year, not a page
                          r"(?!:\s?\d+\s?\(\d{4}\))"  # "40:3 (2021)"
                          r"(?!st\b|nd\b|rd\b|th\b)"    # "2nd ed.", "10th ed."
