@@ -95,6 +95,9 @@ in what time, not on the model. So:
   `code-to-cowork.md` (any Code session writes, K<n>). An item about a skill is answered by the module that owns it,
   with the commit hash. A Code change Cowork must know about (new or changed behaviour, a test count, a path) is a
   K-item with the commit. A question for MB is a K-item headed "needs MB".
+  A workspace file named in a K-item or C-item is written from `workspace/` down (`srom-produkcja/work/<id>/…`), never
+  `work/<id>/…`: both modules have a `work/<id>/` with the same file names (03.11.2026: K54's bare
+  `work/steiner/steiner_uwagi.md` sent Cowork to the srom-tlumacz sheet, and the row went unwritten).
   Cowork does not commit. `cowork-to-code.md` itself: a Mac session that finds it changed commits and pushes it
   (`git -C _handoffs add cowork-to-code.md && git -C _handoffs commit -m "cowork: <IDs>"`, then push: § Git).
   Skill files changed by Cowork: "Auto-commit" below.
