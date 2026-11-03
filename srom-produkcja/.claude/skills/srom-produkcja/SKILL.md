@@ -44,6 +44,7 @@ the DOCX reader; the tests are what proves the toolchain still does what this fi
 | 7 InDesign | start from `SROM_szablon_v3.idml`; place DOCX with preset "SROM – pandoc", run `_postimport.jsx`, after layout `_ibidem.jsx` (and `_gwiazdki.jsx` if written), then `srom_final_pass.jsx`; right before the PDF export `srom_zakladki.jsx` and `_doi.jsx` (if written: invisible DOI links, export with Hyperlinks ticked) | `RESULT: OK` | per `references/indesign.md` |
 | 8 volume lists | `python3 $S/volume_lists.py noty volumes/<vol>/srom_master_v3.csv --authors volumes/autorzy.tsv -o noty.docx` ("Noty o autorach"; placed like an article) | `NOTY OK/CHECK n` + report |
 
+Before steps 1b, 3 and 4b read `references/rip-pitfalls.md` (traps that cost earlier rips time).
 Re-run step 2 after 4a/5 (normalize is idempotent). `check.py art.md --refs refs.json` can be run
 at any time; `build.py` runs it itself.
 

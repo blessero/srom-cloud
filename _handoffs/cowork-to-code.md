@@ -565,3 +565,30 @@ MB 02.11.2026, small change made directly (no new functionality; produkcja suite
   venues (CRS, Romani Studies, OA volumes such as *The Romani Atlantic*) gets Value at most 3; discoverability, not language. § Calibration
   anchors: Pahulich and Ostendorf, Value 4→3 (02.11.2026).
 Run with: Haiku · low — scope checked: one Markdown file; commit by path, push; leave other sessions' files.
+
+## C38 — check.py --keyed: notes in table cells misalign the keys; blind spots in locators and the mutation test [general] (03.11.2026 03:58)
+Found at the Davis RIP (work/davis/; 3 tables, 3 notes in cells). New functionality / bug in a script, so yours; nothing in `$P` was changed.
+1. **Table cells.** `leaves()` (check.py l. 74) does not descend into `Table` blocks, while `build.notes_text()` walks everything. In `check_keyed()` `kraw` (l. 595) therefore lacks
+   the notes in cells, `kkeys` is one (or more) short, and every later note is paired with the next note's keys (25 false errors from note 191 on). Tested fix, a branch in `leaves()` before the
+   `Div` case (header, body and foot rows, cell blocks at `cell[4]`, kind `td`):
+   `elif t == "Table": c = b["c"]; rows = list(c[3][1]) + [r for body in c[4] for r in list(body[2]) + list(body[3])] + list(c[5][1]); for row in rows: for cell in row[1]: out += leaves(cell[4], "td")`
+   With it `check.py --keyed davis_pre.md davis_src.md` → CHECK OK (without it: CHECK FAIL, 25). Please check `leaves()`' other callers (l. 220, 350) and add a test with a note in a table cell.
+2. **Locators the check does not see** (`chicago_numbers()`, CHICAGO_LOC l. 554, and `shortform_numbers()`): "Name, ‘Short title’, 322" (single curly quote before the comma), "*Statistik,* 1st ed., 107",
+   "[Letter], 168", "in *Australia*, ed. Bashford and Macintyre, 142–8". A page changed in the keyed note is then not an error. `mutate_keyed.py` on Davis: **31/40**; the 9 missed (notes 18, 30, 60, 72, 109, 152, 157, 163, 195)
+   are exactly these. Adding `’,`, `\],` and `ed\.,` as openers should catch them (the mutation test was not re-run with it) but then flags note 139 (seen), where the same work and page are cited twice in one note and citeproc prints the second as Ibidem without the page
+   (the rule `IBID_BARE` only covers the previous note). The Davis gate was closed by hand: every original number not in the rendering is edition, volume, month or year (the "other numbers" warnings).
+3. `check.py` year as page: "*Mister Neville*, 1990 on page 235" → 1990 counted as a page (CHICAGO_LOC after `*,`); the note was left literal.
+Run with: Sonnet · medium — scope checked: check.py leaves()/check_keyed()/chicago_numbers(), mutate_keyed.py, tests/ for the keyed check; the risk is a change in `leaves()` altering the paragraph comparison of check_single (l. 220, 350) on texts with tables: run the whole suite (29/29) and the six frozen texts' `check.py`.
+
+## C39 — srom-produkcja: rip-pitfalls.md (new, done directly) and three tool requests from the Davis RIP [general] (03.11.2026 04:02)
+Small doc change made directly (no code; produkcja suite 29/29 after): `srom-produkcja/references/rip-pitfalls.md` (new) + one pointer line in `SKILL.md` above "Re-run step 2".
+Tool requests (yours, new functionality; the doc names each as a meanwhile-workaround):
+1. **refs.json lint before pandoc** (build.py / check.py / cite_map.py, one shared function): list every `null` and every empty required field as `refs.json: <id>.<field> is null`. Today pandoc stops with
+   "expected String or Number, but encountered Null" and no key (cost a debugging round at Davis).
+2. **Shared refs helpers**: eight `work/*/refs.py` each carry their own copy of P, Y, book, chap, art. Move them to `scripts/refs_helpers.py` (drop `None` values; `[BRAK …]` helper for short-form-only works,
+   `srom-as-written` helper) and make new rips import it. A test that a helper never emits null.
+3. **pdf_extract.py**: (a) cut a publisher's page-foot block (CONTACT / © / licence line / first footnote) that lands mid-paragraph and rejoin the paragraph (T&F open access, Davis p. 2); (b) detect a table
+   (a run of short numeric lines, a "Table N." caption) and emit a `<!-- TABLE p. N -->` stub with the page image reference instead of shredded cells and a split paragraph; (c) do not report the marker-order CHECK for
+   notes that belong to a table. Davis needed a 156-line `prep.py` for exactly these three; keep prep.py as a worked example in `references/` if you prefer a recipe to code.
+(C38 above covers check.py's table cells and locator blind spots.)
+Run with: Sonnet · high — scope checked: build.py/check.py/cite_map.py refs loading, pdf_extract.py's block cleanup and check, a new scripts/refs_helpers.py and tests; the risk is pdf_extract.py's table detection firing on prose with numbers: run it on the six frozen texts and diff.
