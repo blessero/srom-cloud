@@ -850,3 +850,37 @@ Run with: Haiku · low — scope checked: one row of `steiner_uwagi.md` (not man
 - **Done here.** Re-run 03.11.2026 18:30 in `workspace/srom-produkcja/work/steiner/`: `check.py --keyed steiner_pre.md steiner_src.md --refs refs.json` → `CHECK OK`; `mutate_keyed.py … --refs refs.json` → `MISSED note 62 [drop]`, **`MUTATIONS CAUGHT 39/40`**. `srom-produkcja/work/steiner/steiner_uwagi.md` l. 15 now ends with that run, dated, after the 13.10 and 16:51 records (kept). `srom-tlumacz/work/steiner/src/manifest.sha256`: `shasum -c` all four OK; `steiner_queries.md` and STATUS.md's 13.10 hand-off row not touched.
 - **Rule from now** (root `CLAUDE.md` § Cowork, Channel): a workspace file in a K- or C-item is written from `workspace/` down, never `work/<id>/…`.
 - For you: one status line for K54 and K55 in `cowork-to-code.md` ("seen, nothing to apply"). No `Run with:` line: no task.
+
+## K56 — [Ostendorf] needs MB: ikonograf run on the vol. 19 chapter done, nothing chosen (04.11.2026 23:30)
+- Record: `workspace/srom-produkcja/work/ostendorf/ikonografia/` (`ikonografia.md`, `kontaktowka.json`, `kontaktowka.html`). 125 candidates in 35 slots; 90 thumbnails looked at, 0 broken.
+- STATUS line for § Ostendorf: `Ikonografia: 0/8–10 chosen, 125 candidates in 35 slots, 0 permissions pending`.
+- For the ledger, under OST, kind **Do**, one item: MB opens by hand the pages that refuse scripts (Georgia Historic Newspapers, Cherokee Phoenix 24.09.1828; Chronicling America, newspapers of n. 49–53; WLB Stuttgart, Schmidl, n. 14) and saves what he wants. Blocks: nothing, S28-b is the free fallback.
+- For the ledger, under OST, kind **Do**, one item: send the author the image e-mail in `ikonografia.md` § 4, together with OST-4. Blocks: the Louisiana documents (S17-b, S18).
+- For OST-4 (add to the author's queries; detail in § 6): the second „ciganos” in Elvas; the *Family Magazine* Biloxi passage and „Yansers”; „natural lives” against „seven-year”; the Hofland title. For OST-1: the Duke copy of Beretario is Lyon, Cardon (lacks a title page).
+- Sources: append `workspace/srom-produkcja/work/ostendorf/ikonografia/zrodla-do-rejestru.md` to `workspace/sources-register.md`, then archive that file. Code does not write the register.
+- Biurko: sync, for the `ikonograf` collection.
+Run with: Sonnet · low — scope checked: one STATUS line, two ledger items, four query lines, one register append, one Biurko sync; the one real risk is drift in `desk_sync.py`, so end on `problems=0`.
+
+## K57 — [Davis] needs MB: ikonograf run on Davis & Perheentupa done, nothing chosen (ikonograf, 06.11.2026 03:31)
+- Record: `workspace/srom-produkcja/work/davis/ikonografia/` (`ikonografia.md`, `kontaktowka.json`, `kontaktowka.html`). 101 rows in 26 slots, 19 of them leads without a thumbnail; 82 thumbnails, 0 broken, counted twice.
+- Also marked `also` and rebuilt: `workspace/srom-produkcja/work/pahulich/ikonografia/`, `workspace/srom-produkcja/work/tittel/ikonografia/`, `workspace/srom-produkcja/work/ostendorf/ikonografia/`.
+- STATUS line for § Davis & Perheentupa: `Ikonografia: 0/10 chosen, 101 candidates in 26 slots, 0 permissions pending`.
+- For the ledger, under DAV, kind **Decide**, one item: how to treat photographs of identifiable Aboriginal children (record § 6, item 1). Blocks: S20-a, S20-b, S20-c, S20-h, S21-a.
+- For the ledger, under DAV, kind **Do**, one item: send the authors the image e-mail in the record's § 4, with DAV-100 and DAV-101.
+- For DAV-101 (add to the authors' queries; detail in the record's § 6): 9 or 29 October 1783; the appeal in s. 13A of the 1915 Act; g.v.I. as a noblewoman's letter; which Sarkad; the Griselini reference; Ungarn (6) or (7) in *Wort und Bild*.
+- For the ledger, under DAV, kind **Do**, one item: MB opens ANNO by hand (Turnstile, never passed by a session) for *Wienerisches Diarium* 2.03.1774 and August 1783.
+- Sources: append `workspace/srom-produkcja/work/davis/ikonografia/zrodla-do-rejestru.md` to `workspace/sources-register.md`, then archive that file. Code does not write the register.
+- For sources.md (a doc line, when a Code session next commits skills): DiFMOE's Kramerius API holds the Preßburger Zeitung with OCR, ALTO and whole-corpus search; ÖNB ABO books have IIIF manifests at `iiif.onb.ac.at/presentation/ABO/%2BZ<nr>/manifest`.
+- Biurko: sync, for the `ikonograf` collection.
+Run with: Sonnet · low — scope checked: one STATUS line, three ledger items, six query lines, one register append, one Biurko sync; the one real risk is drift in `desk_sync.py`, so end on `problems=0`.
+
+## K58 — [Davis] needs MB: addendum to K57: footnote leads done, two letters drafted, Biurko is yours (ikonograf, 07.11.2026 18:59)
+Do K57 and K58 in one go; the counts here replace K57's. MB opens the sheet on Biurko, so the push is the point.
+- Record: `workspace/srom-produkcja/work/davis/ikonografia/`: 115 rows in 30 slots, 23 of them leads without a thumbnail. New: `listy-do-autorow.md`.
+- STATUS line for § Davis & Perheentupa: `Ikonografia: 0/10 chosen, 115 candidates in 30 slots, 0 permissions pending`.
+- **DAV-100:** MB's order (chat 07.11.2026): the permission letter goes first, alone. The draft is letter 1 in `workspace/srom-produkcja/work/davis/ikonografia/listy-do-autorow.md`. Replace K57's "send the image e-mail with DAV-100 and DAV-101": letter 2 (finds, images, checks) and the DAV-101 queries wait for the authors' yes. DAV-100 can point to letter 1.
+- **The Decide item in K57 stands**; letter 2 asks Perheentupa, so the item waits on her answer.
+- **For DAV-101, add to K57's list:** the 1781 petition against "silent about child removal" and the Conclusion; ages 2–12 and 4–10; n. 96 quotation is Isdell's, not Gale's; 12 or 22 February 1773 (record § 6, items 15–19).
+- **For MB to check against the record:** the letter calls the text a fit for the block; `block.md` and `pool.md` still have it as a candidate, not chosen. No state changes on this.
+- **Biurko:** `desk_sync.py`, then `cp workspace/srom-produkcja/work/davis/ikonografia/kontaktowka.html workspace/desk/kontaktowki/davis.html`, stage it, publish `biurko_page.html` with `files={"kontaktowki/davis.html": ...}`, then the store push (`desk_push.py` header). The `ikonograf` collection gets a Davis row; `listy-do-autorow.md` is not among the files `desk_sync.py` lists (`IK_RX`), so name it in DAV-100's red path.
+Run with: Sonnet · medium — scope checked: K57 + K58 together: one STATUS line, four ledger changes, ten query lines, one register append, one Biurko sync and page publish with a sheet of about 11 MB; the real risks are drift in `desk_sync.py` and a stale version pin in `versions.txt`, so end on `problems=0`. K57's "low" was too low for the publish.

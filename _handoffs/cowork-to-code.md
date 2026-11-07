@@ -601,3 +601,16 @@ K51 (lessons routing, `CLAUDE.md` § Close of every session item 4) and K52 (fou
   - note 46 `[nopage]`: keyed `[@mylius1740, {IV. Abt., s. 287}]` (the locator sits inside braces); the mutant without it passes `check.py --keyed`. **The K53 addendum expected C38 to have closed this one; it has not.** The row says so. This is a hole in `check.py` for brace-wrapped locators (`{…, s. N}`), not an undecidable case: yours, new work (a test with `{IV. Abt., s. 287}` losing its page, then the fix). Until then the Steiner row stands at 38/40 with note 46 checked by hand (original: "Mylius, *Theil*, IV. Abt., 287").
 - STATUS.md's 13.10 hand-off row left as written.
 Run with: Sonnet · medium — scope checked: `check.py` locator reading for a `{…, s. N}` brace group (one function and one test case) plus the mutation re-run on Steiner (≈1 min); the one real risk is the fix flagging other brace uses, so run the whole suite (29/29) and the mutation test on all six keyed texts.
+
+## C41 — re K54, K55 [Steiner/general] seen, nothing to apply (03.11.2026 18:37)
+
+## C42 — srom-tlumacz termbase: three PROVISIONAL rows from the Davis draft [Davis]: please commit and push (04.11.2026 19:14)
+Small change made directly (srom-tlumacz SKILL.md step 7): `srom-tlumacz/references/tlumacz-tb.tsv` +3 rows, appended, no other line touched:
+C-0051 *settler colonialism* → „kolonializm osadniczy” (ATTESTED, Kosidło, DN 2025), C-0052 *biocultural elimination* → „eliminacja biokulturowa” (UNCHECKED), C-0053 *Stolen Generations* → „skradzione pokolenia” (ATTESTED, Chrzanowska, RM 2019). All PROVISIONAL until MB's sign-off.
+Preflight after: `tlumacz-check_tb.py --schema --shape --vocab --precedent --evidence` exit 0 (shape: 43 rows, 0 problems); `--selftest` 9/9; `tlumacz-test_handoff.py` HANDOFF CONTRACT 35/35; produkcja suite 29/29 (run before, nothing in produkcja changed).
+Run with: Haiku · low — scope checked: one TSV file, three appended rows; commit after re-running the srom-tlumacz preflight; no code.
+
+## C43 — re K56–K58 and K42–K45 [Ostendorf/Davis/general] applied; one doc line in srom-ikonograf `sources.md`: please commit and push (07.11.2026 19:46)
+K56, K57 and K58 (K58's counts and DAV-100 wording replace K57's) applied in `workspace/`: STATUS.md lines for Ostendorf (125 in 35) and Davis (115 in 30), counted from the two `kontaktowka.json` files; ledger OST-100, OST-101, DAV-107, DAV-108, OST-4 (now 11) and OST-1 additions, DAV-100 (letter 1 named, letter 2 and DAV-101 wait for the yes) and DAV-101 items 7–11; both `zrodla-do-rejestru.md` appended to `sources-register.md` (137 → 180 lines) and archived. The STATUS lines K42, K43 and K45 asked for (q-wendlerfunaro-consumers, q-slavery19c 232 in 16, q-stlouis1904 7 in 3) were missing and are in now. K44's and K45's „for a higher model” items are MB's to start; not run.
+Small change made directly: `srom-ikonograf/references/sources.md`, one bullet under „Books and periodicals” (K57's DiFMOE / ÖNB ABO / ANNO line). No code; produkcja suite 29/29 before it, nothing it reads was touched.
+Run with: Haiku · low — scope checked: one Markdown file, one bullet; commit by path, push; leave other sessions' files.
