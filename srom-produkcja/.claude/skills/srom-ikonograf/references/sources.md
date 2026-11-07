@@ -66,6 +66,7 @@ extent, scope notes) in one go. The Open Access API above does not hold archival
 - Google Books, Internet Archive (above), Polona (polona.pl: Polish prints, press, ephemera; filter public domain),
   Biblioteca Digital Hispánica (bdh.bne.es), Gallica, "Internet Archive Book Images" on Flickr (illustrations cut out of
   scanned books, searchable by caption text).
+- DiFMOE (`difmoe.eu`): the *Preßburger Zeitung* is free with OCR, ALTO and whole-corpus search through its Kramerius API (`kramerius.difmoe.eu/search/api/client/v7.0`, `text_ocr:` queries); ÖNB Austrian Books Online volumes have IIIF manifests at `iiif.onb.ac.at/presentation/ABO/%2BZ<nr>/manifest` (Davis run, 06–07.11.2026). ANNO (`anno.onb.ac.at`) sits behind a Turnstile check: MB opens it by hand.
 
 **Photographs and archives — Poland and Central Europe**
 - Narodowe Archiwum Cyfrowe (audiovis.nac.gov.pl, szukajwarchiwach.gov.pl): interwar and wartime Poland; reuse terms on
