@@ -103,6 +103,14 @@ than a missing one. The order that worked, and what failed:
    about …”), run `scripts/ia_find.py <out> '<ethnonym regex>' <ids…>`: it greps the OCR, gives the leaf index from
    `_djvu.xml` and saves the page. Poor halftones carry their caption in the text layer: the hit was one line in a
    208-page album (*Jackson's famous photographs*, 1904). Do this *before* paging through albums by eye.
+   **Full-text search over all Internet Archive books at once** (tested 07.11.2026): fetch
+   `https://archive.org/services/search/beta/page_production/?service_backend=fts&user_query="<exact phrase>"` with the Exa
+   fetch tool; it returns JSON (`identifier`, `page_num`, a highlighted snippet per hit). Control: `"Spanish Gypsies on the Pike"`
+   returns `jacksonsfamousph01jack` and `jacksonsfamousph00jack` (two LoC copies of the book). It finds exact phrases in the OCR
+   only, so use it as a pre-filter once step 2 has given the period's phrase; `ia_find.py` still gives the leaf and saves the
+   page. Not reachable by curl from Cowork's shells (archive.org is off the allowlist there); from Code on the Mac: untried.
+   An item's catalogue data (LCCN, OCLC, copyright note, IA's `call_number` field, a bare number such as `6315092`, which
+   is not a classification mark: the library's own record has the call number) is at `https://archive.org/metadata/<id>/metadata`, also by the Exa fetch tool.
 4. **Albums of original prints (Missouri Historical Society, 867 pages on Commons) have handwritten captions: no OCR,
    so triage by eye.** `scripts/commons_pages.py <dir> --prefix … [--filter …]` downloads them (resumable; `nohup` in
    the background while other searches run; stop when found), `scripts/montage.py --grid <dir> a10_` makes 20 pages

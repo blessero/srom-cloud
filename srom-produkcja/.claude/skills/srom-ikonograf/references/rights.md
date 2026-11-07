@@ -62,7 +62,21 @@ non-commercial print and online editions of SROM and the Komitet”) is not on o
 same letter, with the fee list; grant-funded, free-distribution, scholarly use is the strong case. A private person
 publishing for sale needs commercial terms; the licence follows the use, not the buyer. The holder can license only what
 it owns: settle the maker first (a second rights holder, an estate, may stand behind it). No fee figure goes to MB
-until the holder's own list is read (NMAH's is linked from its Rights and Reproductions page, not yet read).
+until the holder's own list is read.
+*NMAH (list read 07.11.2026):* the only copy that loaded is the cost-recovery price list dated 1.10.2018
+(`https://amhistory.si.edu/archives/NMAH_pricelist.pdf`); the „Fees and services" and „Permission form" links on the
+current Rights and Reproductions page did not load, so the figures may be out of date and the form was read only in a
+third-party copy of the Numismatic Collection's version (docest.com/doc/110513, same $100 / $200 tiers): quote them
+as „2018 list", never as current. **Scans:** $35 per image up to 600 dpi, $50 above 600 dpi or oversized, $15 for an
+image already scanned at 300 dpi or less ($25 oversized), $20 handling per order; 10 business days, rush = double;
+shipping by post free. **Usage fee** (separate from the scan; „patrons may request waivers for educational,
+non-commercial or scholarly use"): one-time editorial $100 per image, one-time non-editorial (a cover) $200, multiple
+media $250. Form terms: one-time, non-exclusive use in the project described; no cropping or alteration unless
+approved; non-profits may ask a waiver; re-use in another project needs new approval and fee; the user clears
+third-party rights; credit „from the collection of the National Museum of American History, Smithsonian Institution".
+So SROM's case (free-distribution scholarly journal) is a waiver request, and a standing licence is not on NMAH's form:
+ask for it in the letter. Digitised items marked CC0 are Open Access and need no permission (the page says so), but
+items carry „CC0 · Usage Conditions Apply" together; read the item's own terms first (§ Classes above).
 
 ## `zgody.md` (one per text, in `work/<id>/ikonografia/`)
 
