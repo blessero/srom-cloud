@@ -66,7 +66,8 @@ on MB's own connection (he lost the site and had to switch to mobile data), and 
 in what time, not on the model. So:
 - **Code: a hook enforces it** (`~/.claude/hooks/srom-throttle.py`, registered in `~/.claude/settings.json`; every
   session and subagent). It spaces site calls (curl/wget/urllib/ssh, WebFetch, browser navigate and clicks on the site,
-  the site connector) at least 5 s apart (writes 10 s, browser 15 s), queues parallel ones, caps 150 a
+  a SROM site connector listed in the hook's `connector_prefixes` — none today; other clients' connectors never count)
+  at least 5 s apart (writes 10 s, browser 15 s), queues parallel ones, caps 150 a
   hour, refuses a loop or several URLs in one command, and **trips a breaker** on a 403/429/503, Wordfence, rate-limit or
   connection-timeout answer: after that every site call is refused until MB says the block is over (`--status`,
   `--clear`). When it trips or refuses: stop, tell MB in one line, never route around it (another tool, a script,

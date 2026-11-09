@@ -936,3 +936,24 @@ Ledger SYS-1's Detail path `srom-quant/assets/srom-scholarly.php` is not from `w
 
 Run with: Sonnet · medium — scope checked: item 1 moves 3 files in each of two folders, one manifest, one log line, a
 re-run of two checks; the one real risk is touching the Word master while MB has it open, so check for `~$` first.
+
+## K61 — re K60 [general] MB's answers: SROM severed from other clients' connectors (done); his estimate sheet to file (09.11.2026 16:47)
+
+MB, chat 09.11.2026: "every association between epla and srom must be severed, one has nothing to do with the other."
+- **K60 5 (a) done, wider than asked.** The live-site hook (`~/.claude/hooks/srom-throttle.py`, outside the repository)
+  now counts a connector only when its server prefix is listed as SROM's in `connector_prefixes` — none today. Both
+  WordPress connectors attached now belong to other clients: `mcp__Ae-…` is EPLA's JetEngine staging, and the
+  `emcp-tools-*` / `core-get-*` connector is Cap de Suro's staging (one paced read, `core-get-site-info`: "Cap de Suro",
+  salmon-penguin-700335.hostingersite.com). Neither is paced, screened or able to trip the SROM breaker any more; calls
+  naming studiaromologica.pl or seohost.pl are paced as before (hook test 10/10; the old script is in
+  `SROM/CODE/_backup/srom-throttle.py.20261109-before-sever`). Root `CLAUDE.md` § The live site and srom-produkcja
+  `references/machine-installs.md` (which had called `mcp__Ae-` the studiaromologica.pl connector) are corrected in the
+  same commit; suite 29/29. Do not enter K60 5 (a) in the ledger.
+- **For you, the same rule:** the ledger's GEN-111 names other clients' sites as examples (Cap de Suro, BIG Awards,
+  privatelabelawards.com). Reword it to "other sites' properties", without names; the Do itself (disconnect that Google
+  account from SROM's Rank Math) stands, and it is the real severance on the site. A SROM session never uses a connector
+  that is not SROM's.
+- **K60 5 (b) answered:** `SROM19_szacunek_przekladow.xlsx` (top of Redakcja) is MB's, to keep for reference. File it:
+  `mkdir -p workspace/srom-produkcja/volumes/19` and `mv` it there (vol. 19's data folder, where the master CSV goes at
+  INJECT); one line in STATUS.md § Volume data naming it (MB's translation estimate for vol. 19, 08.11.2026, kept for
+  reference). Never edit it. Not a ledger item.
