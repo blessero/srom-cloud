@@ -527,6 +527,7 @@ MB answered V20-100. Small changes made directly (no new functionality); the car
 - `srom-zizek/scripts/check.py` line 113: the length note now 800–1,800 (a note, not a problem).
 check.py run on all vol. 19 cards after the change (see STATUS § Selection 27.10.2026).
 Run with: Haiku · low — scope checked: one Markdown file and one line of a script; commit by path, push; leave other sessions' files.
+- 09.11.2026 16:56 status: done (f361823) — noted here from K60 item 2 (read from git; Code had written no status line)
 
 ## C33 — srom-zizek: MB's follow-up on the calibration [general]: please commit and push (29.10.2026 01:00)
 C32 seen (f361823). MB 29.10.2026, small changes made directly:
@@ -535,12 +536,14 @@ C32 seen (f361823). MB 29.10.2026, small changes made directly:
   slide is the finding"; 3C "reception counts, second to merit", with how much it weighs said per paper.
 - `srom-zizek/scripts/check.py` line 113: length note 800–2,000.
 Run with: Haiku · low — scope checked: one Markdown file and one line of a script; commit by path, push; leave other sessions' files.
+- 09.11.2026 16:56 status: done (c0ca62a, de662b7) — noted here from K60 item 2 (read from git; Code had written no status line)
 
 ## C34 — KB: Crossref deposit state [general]: please commit and push (30.10.2026 02:45)
 C33 still uncommitted here (srom-zizek card.md, check.py): commit it too.
 - `srom-kanon/references/SROM_knowledge_base.md` § DOIs and metadata, Crossref membership: "nothing deposited yet … first deposit is MB's next
   task" replaced by the deposit state (vol. 18 26.10.2026, vol. 17 30.10.2026; DOIs resolve, checked 30.10.2026).
 Run with: Haiku · low — scope checked: one sentence in one Markdown file plus C33's two files; commit by path, push; leave other sessions' files.
+- 09.11.2026 16:56 status: done (c0ca62a, de662b7) — noted here from K60 item 2 (read from git; Code had written no status line)
 
 ## C35 — srom-zizek: four tests for othering claims; no-intro rule [general]: please commit and push (30.10.2026 23:59)
 MB 30.10.2026 (dropping Máté & Raatzsch's Mueller essay), small changes made directly (no new functionality):
@@ -603,19 +606,33 @@ K51 (lessons routing, `CLAUDE.md` § Close of every session item 4) and K52 (fou
 Run with: Sonnet · medium — scope checked: `check.py` locator reading for a `{…, s. N}` brace group (one function and one test case) plus the mutation re-run on Steiner (≈1 min); the one real risk is the fix flagging other brace uses, so run the whole suite (29/29) and the mutation test on all six keyed texts.
 
 ## C41 — re K54, K55 [Steiner/general] seen, nothing to apply (03.11.2026 18:37)
+- 09.11.2026 16:56 status: seen, nothing to do — noted here from K60 item 2 (read from git; Code had written no status line)
 
 ## C42 — srom-tlumacz termbase: three PROVISIONAL rows from the Davis draft [Davis]: please commit and push (04.11.2026 19:14)
 Small change made directly (srom-tlumacz SKILL.md step 7): `srom-tlumacz/references/tlumacz-tb.tsv` +3 rows, appended, no other line touched:
 C-0051 *settler colonialism* → „kolonializm osadniczy” (ATTESTED, Kosidło, DN 2025), C-0052 *biocultural elimination* → „eliminacja biokulturowa” (UNCHECKED), C-0053 *Stolen Generations* → „skradzione pokolenia” (ATTESTED, Chrzanowska, RM 2019). All PROVISIONAL until MB's sign-off.
 Preflight after: `tlumacz-check_tb.py --schema --shape --vocab --precedent --evidence` exit 0 (shape: 43 rows, 0 problems); `--selftest` 9/9; `tlumacz-test_handoff.py` HANDOFF CONTRACT 35/35; produkcja suite 29/29 (run before, nothing in produkcja changed).
 Run with: Haiku · low — scope checked: one TSV file, three appended rows; commit after re-running the srom-tlumacz preflight; no code.
+- 09.11.2026 16:56 status: done (e1d98e5; termbase C-0051–C-0053) — noted here from K60 item 2 (read from git; Code had written no status line)
 
 ## C43 — re K56–K58 and K42–K45 [Ostendorf/Davis/general] applied; one doc line in srom-ikonograf `sources.md`: please commit and push (07.11.2026 19:46)
 K56, K57 and K58 (K58's counts and DAV-100 wording replace K57's) applied in `workspace/`: STATUS.md lines for Ostendorf (125 in 35) and Davis (115 in 30), counted from the two `kontaktowka.json` files; ledger OST-100, OST-101, DAV-107, DAV-108, OST-4 (now 11) and OST-1 additions, DAV-100 (letter 1 named, letter 2 and DAV-101 wait for the yes) and DAV-101 items 7–11; both `zrodla-do-rejestru.md` appended to `sources-register.md` (137 → 180 lines) and archived. The STATUS lines K42, K43 and K45 asked for (q-wendlerfunaro-consumers, q-slavery19c 232 in 16, q-stlouis1904 7 in 3) were missing and are in now. K44's and K45's „for a higher model” items are MB's to start; not run.
 Small change made directly: `srom-ikonograf/references/sources.md`, one bullet under „Books and periodicals” (K57's DiFMOE / ÖNB ABO / ANNO line). No code; produkcja suite 29/29 before it, nothing it reads was touched.
 Run with: Haiku · low — scope checked: one Markdown file, one bullet; commit by path, push; leave other sessions' files.
+- 09.11.2026 16:56 status: done (0f62a4f) — noted here from K60 item 2 (read from git; Code had written no status line)
 
 ## C44 — re K44, K45 [general] srom-ikonograf: two doc changes (NMAH fees; archive.org full-text search): please commit and push (07.11.2026 22:41)
 Small changes made directly, Markdown only, no code: `srom-ikonograf/references/rights.md` (the standing-licence paragraph: the „not yet read" for NMAH's list replaced by the figures of the 1.10.2018 price list, the permission-form terms, and the caveat that the current „Fees and services" and „Permission form" pages did not load) and `srom-ikonograf/SKILL.md` § Known-item search step 3 (archive.org full-text search works through the Exa fetch tool, control passed; not by curl from Cowork's shells; `archive.org/metadata/<id>/metadata`). Not touched: `sources.md`, `tlumacz-tb.tsv`.
 K44.3 (script) not built: no second trace has needed it. K45.1 (MHS album vols 2, 8, 9) not done: no image access from either shell; K45.3 not reached (loc.gov). Details: `work/q-stlouis1904/ikonografia/ikonografia.md` § 5–6 and `work/q-wendlerfunaro-consumers/ikonografia/ikonografia.md` § 8.
 Run with: Haiku · low — scope checked: two Markdown files, two paragraphs; commit by path, push; leave other sessions' files.
+- 09.11.2026 16:56 status: done (f993111; our entry committed 7c38fc0) — noted here from K60 item 2 (read from git; Code had written no status line)
+
+## C45 — re K49, K50, K59, K60, K61 [general/Tittel PTA] K59 and K61 done, K60 done except item 1 (Word copy open); please commit this file (09.11.2026 17:03)
+- **K49** seen, nothing to apply on our side (`reviewed_work` goes into the review rows' CSV at INJECT).
+- **K50** seen, nothing to apply (the offers for `[BRAK…]` / srom-as-written helpers and a required-field lint stay open).
+- **K59** done: STATUS.md § Tittel PTA line for the ikonografia (0/8 chosen, 69 candidates in 17 slots, 0 permissions pending); the Kant „Parias” note as **TPA-116** (Decide, blocks nothing; notes sheet section + S57 for the 1424 chronicle, no ledger item for that); sources-register lines; Biurko synced, four contact sheets re-hosted. Count to check on your side: K59 says 60 class A, `kontaktowka.json` has 61; I used the counts I verified (69 / 17 / target 8).
+- **K60** item 1 NOT done: `srom-tlumacz/work/tittelpta/` holds `~$ttelpta_robocza.docx` (owner Michal Bartosz, 06:20), so MB has the Word copy open; stopped as instructed. Items 2–4 done: status lines for C32–C44 above (hashes read from git), housekeeping (`_chk_tmp/`, `_c19/`, `_to_delete/`, `_tmp_nonexistent/` archived to `workspace/_archive/20261109/`; `tittelpta/src/pl/` → `pl_editions/`, named in STATUS.md; byte counts equal), SYS-1 Detail path fixed, `1. Inbox/come-aloft-jack-little-ape.txt` left in place for MB. Item 5(a) is Code's.
+- **K61** done: GEN-111 reworded (no other clients' site names); MB's `SROM19_szacunek_przekladow.xlsx` filed in `srom-produkcja/volumes/19/` (sha256 equal before and after, not edited), one STATUS.md line.
+- `desk_sync.py` ends `problems=0` (17:02). Please commit this file; Cowork does not.
+Run with: Sonnet · low — scope checked: K60.1 only (3 files moved in each of two folders, one manifest, one log line, three checks); the one risk is the Word copy being open, so check for `~$` first, and start only after MB says Word is closed.
+- 09.11.2026 17:14 status: K60 item 1 done (MB closed the Word copy 17:08): whole `tittelpta_src.md`, `tittelpta_pl.md`, `tittelpta_front_pl.md` in `workspace/_archive/20261109/tittelpta_whole/`, the `_cut` files renamed in both modules and `src/`; `src/manifest.sha256` rewritten, `sha256sum -c` OK, hand-off log row in STATUS.md; `tlumacz-draft_check.py tittelpta` leftover 0, marks 43=43, quotes 6/6; `check.py --pair` CHECK OK on the draft and on the Word copy's import (non-author notes 7 3); `tittelpta_robocza.docx` untouched. Note for `take_back.py` (nothing to change before delivery): its step 3 (`docx_in` without `--typed-notes` must equal `tittelpta_pl.md`) FAILS on the undelivered draft, because `tittelpta_pl.md` carries typed note ids (`[^t1]`) and `DO SPRAWDZENIA` comments that a Word import cannot return; it passes only after MB's edit, when `_pl.md` is re-imported from the Word master. Your K60 measurement of TAKE-BACK OK on copies was most likely made that way. Also: `tittelpta_gates_cut.md` still records its run under the `_cut` names (left as a record).
