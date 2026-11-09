@@ -9,7 +9,7 @@ Leaves closed (ALL MET): 1.1 contracts, 1.2 blind baseline, 1.3.1 vol. 18 preced
 | Where | What |
 |---|---|
 | skill `SKILL.md` | the procedure (intake, draft, checks, re-read, MB items, delivery, termbase upkeep), terminology rule, hard rules |
-| skill `references/` | `tlumacz-tb.tsv` termbase (40 rows, 08.10.2026: 24 HOUSE, 4 PROVISIONAL — C-0042 othering (V19-100), C-0046, C-0047, C-0050 —, 12 CANDIDATE), `tlumacz-tb-schema.md`, `tlumacz-decisions.md` (MB's log), `tlumacz-rasa.md` (race register; only for texts on race), `outputs.md` (per-article file formats, delivery, skeletons) |
+| skill `references/` | `tlumacz-tb.tsv` termbase (43 rows, 09.11.2026: 24 HOUSE, 7 PROVISIONAL — C-0042 othering (V19-100), C-0046, C-0047, C-0050, C-0051–C-0053 from the Davis draft (C42) —, 12 CANDIDATE), `tlumacz-tb-schema.md`, `tlumacz-decisions.md` (MB's log), `tlumacz-rasa.md` (race register; only for texts on race), `outputs.md` (per-article file formats, delivery, skeletons) |
 | skill `scripts/` | `tlumacz-check_tb.py`, `tlumacz-draft_check.py`, `tlumacz-front_check.py`, `tlumacz-test_handoff.py`, `tlumacz_paths.py` |
 | `work/<id>/` | per-article work: `src/` (srom-produkcja's frozen hand-off + sha256), intake, `<id>_pl.md`, `<id>_front_pl.md`, queries, quotes, notes sheet `<id>_uwagi.md`, Word working copy, `research/` |
 | `tlumacz-PLAN.md`, `tlumacz-gates-*.md` | tree, contract, status log; acceptance gates of each leaf (closed gates cite pre-1.4.1 paths: the scripts and the termbase moved into the skill, the per-article checker copies were deleted; see gates 1.4.1) |
