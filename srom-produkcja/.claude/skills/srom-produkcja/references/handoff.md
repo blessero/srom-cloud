@@ -74,7 +74,7 @@ Who does what (practice since the first drafts, now the contract):
    | file | required | what |
    |---|---|---|
    | `<id>_robocza.docx` | yes | the editor's Word file, the master |
-   | `<id>_pl.md` | yes | its import by `docx_in.py`, byte for byte |
+   | `<id>_pl.md` | yes | its import by `docx_in.py`, byte for byte (so re-imported from the Word master after the editor's edit; a draft `_pl.md` with typed ids / DO SPRAWDZENIA comments fails `take_back.py` step 3 by design) |
    | `<id>_front_pl.md` | yes | Polish title, abstract, keywords (below) |
    | `<id>_refs_tlum.json` | if the translation adds citations | declared additions (`srom-added`) |
    | `<id>_pytania_tlum.csv` | if there are query rows | the translator's query sheet |

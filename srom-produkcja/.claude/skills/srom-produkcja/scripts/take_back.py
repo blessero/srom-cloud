@@ -12,7 +12,9 @@ Steps:
      hand-off log, "3b060a87…1f3d5366"); with --expect, every file taken needs one
   2. copied to --out (default <src-dir>/pl); SHA256SUMS written there (shasum -a 256 -c format)
   3. the Word master is imported again (docx_in.py) and must equal the delivered `<id>_pl.md` byte for byte, so
-     that what is built is what the editor approved
+     that what is built is what the editor approved. This holds only after the editor's edit, when srom-tlumacz has
+   re-imported `<id>_pl.md` from the Word master: an undelivered draft's `_pl.md` carries typed note ids and
+   DO SPRAWDZENIA comments that Word cannot return, so step 3 FAILS on it by design (MB/Cowork, 09.11.2026)
   4. check.py --pair <src-dir>/<id>_src.md against the copy, with <src-dir>/refs.json (+ the refs_tlum copy)
 Then normalise the copy into <src-dir>/build/ and build from there (both commands are printed; review 07.10.2026 F3):
 normalize.py writes outside pl/, so the copies are never edited and SHA256SUMS still verifies. A normaliser flag or
