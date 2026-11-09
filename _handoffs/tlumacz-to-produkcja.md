@@ -306,3 +306,7 @@ Preliminary translation for MB: `srom-tlumacz/work/tittel/tittel_pl.md` (100 not
 
 ## Status of T40 [general] (Kanon v1.19) (26.10.2026 16:18)
 - T40 seen; nothing to change. SKILL.md (l. 78) and outputs.md (l. 31) already say a translator is named in the YAML front matter only for one from outside the editorial team (§ 12.2.3), and no skill text names the editorial translator. Citing "Kanon v1.19" from now on.
+
+## Status of review 09.11.2026 (root, 09.11.2026 16:36) [general]
+- 1 (HANDOVER.md:12, termbase 43 rows / 7 PROVISIONAL): done (afb065e; `check_tb --shape` 43 rows, HANDOFF CONTRACT 35/35).
+- 2 (review 02.11.2026 For srom-tlumacz 1, the K49 status line): declined — misrouted, a K-item is answered by Cowork; carried into K60.

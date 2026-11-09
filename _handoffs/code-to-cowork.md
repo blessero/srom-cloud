@@ -893,3 +893,46 @@ Run with: Sonnet · medium — scope checked: K57 + K58 together: one STATUS lin
 - **For MB in editing (no ledger item; record § 6, item 6):** the 1424 chronicle (n. 20) says the people *themselves* said they were exiled in memory of the flight into Egypt („dicebatque”), not that it was „allgemein angenommen”; the point of the passage stands.
 - Biurko: sync, for the `ikonograf` collection (a Tittel PTA row; the sheet as `workspace/desk/kontaktowki/tittelpta.html` if the page carries sheets).
 Run with: Sonnet · low — scope checked: one STATUS line, one ledger item, one Biurko sync (sheet about 170 KB, remote thumbnails); the one real risk is drift in `desk_sync.py`, so end on `problems=0`.
+
+## K60 — needs MB: [general] [Tittel PTA] Review 09.11.2026: the Tittel PTA cut into the canonical names; C status lines; housekeeping; two questions for MB (09.11.2026 16:36)
+
+From the root session's checkup (`_handoffs/review-09.11.2026.md`). Everything else measured green (suite 29/29,
+HANDOFF CONTRACT 35/35, all manifests, all drafts' pair/build/round trip, `desk_sync.py` problems=0, Biurko = ledger, 85).
+
+**1. Tittel PTA: give the cut the canonical names (blocks the hand-back).** `take_back.py` reads `<id>_src.md`,
+`<id>_pl.md`, `<id>_front_pl.md`; they still hold the whole chapter while `refs.json` and the sheets are the cut's.
+Measured on copies: the Word master as delivered against `workspace/srom-produkcja/work/tittelpta/` → `CHECK FAIL 24`,
+`TAKE-BACK FAILED`; with `tittelpta_src_cut.md` as `tittelpta_src.md` → `TAKE-BACK OK tittelpta (5 files)`.
+`tlumacz-draft_check.py --all` is red for the same reason (marks 46≠43, quotes 6/10), and `check.py --keyed` on the
+recorded pair gives 86, not the 32 that were read (21 keys gone from `refs.json`). No tool change: in
+`workspace/srom-produkcja/work/tittelpta/` and `workspace/srom-tlumacz/work/tittelpta/` (+ `src/`), move the whole
+`tittelpta_src.md`, `tittelpta_pl.md`, `tittelpta_front_pl.md` into `workspace/_archive/20261109/tittelpta_whole/`
+(beside the whole `refs.json` already there) and rename the `_cut` files to those names; rewrite
+`src/manifest.sha256`, add a hand-off log line (stage-1 correction), `sha256sum -c` and `draft_check tittelpta` →
+marks 43=43. Leave `tittelpta_robocza.docx` alone: MB had it open (`~$ttelpta_robocza.docx`, 06:20). `tittelpta_src_literal.md`
+stays whole (keying history). A status line here when done.
+
+**2. C-items Code did and never answered here** (status lines, read from git): C32 done (f361823); C33, C34 done
+(c0ca62a, de662b7); C41 seen, nothing to do; C42 done (e1d98e5, termbase C-0051–C-0053); C43 done (0f62a4f); C44
+done (f993111; your entry committed 7c38fc0).
+
+**3. Yours to answer:** K49 (31.10) and K50 (03.11) have no status line in `cowork-to-code.md`; K59 (today) is open.
+
+**4. Housekeeping** (srom-naczelny § Housekeeping; archive, never delete): `workspace/srom-tlumacz/_chk_tmp/` (15 page
+renders, 04.11), `workspace/_c19/` (empty), `workspace/_to_delete/` (2 PNG, 21.10), `_tmp_nonexistent/` at the top of
+Redakcja (empty, 03.11). `workspace/srom-tlumacz/work/tittelpta/src/pl/` (four Polish-edition PDFs, 167 MB, and `txt/`)
+sits inside the frozen `src/` and is in no record: move it beside the text (e.g. `work/tittelpta/pl_editions/`) and
+name it in STATUS.md. `1. Inbox/come-aloft-jack-little-ape.txt` is an `extract.py` output: list it for MB.
+Ledger SYS-1's Detail path `srom-quant/assets/srom-scholarly.php` is not from `workspace/`: write it as the skills path.
+
+**5. For MB (into the ledger):**
+- (a) **The live-site hook counts EPLA's staging connector as the SROM site.** `~/.claude/hooks/srom-throttle.py` paces
+  `mcp__Ae-*`, which is JetEngine on darkblue-seal-673630.hostingersite.com (EPLA's staging). A 403 there would trip
+  the SROM breaker. Fix: `~/.claude/srom-throttle/config.json` with `"connector_prefixes": []`; SROM's WordPress MCP
+  and every call naming studiaromologica.pl / seohost.pl stay paced. Kind Approve, blocks nothing. Recommended: yes.
+- (b) `SROM19_szacunek_przekladow.xlsx` at the top of Redakcja (08.11 22:06), in no record: MB's, or a session's to
+  file? Kind Look up, blocks nothing.
+(The two milestones without a date and `git gc` are already with MB from the 02.11 review.)
+
+Run with: Sonnet · medium — scope checked: item 1 moves 3 files in each of two folders, one manifest, one log line, a
+re-run of two checks; the one real risk is touching the Word master while MB has it open, so check for `~$` first.
