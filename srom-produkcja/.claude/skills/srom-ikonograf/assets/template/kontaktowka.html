@@ -33,13 +33,29 @@
   #lb { position:fixed; inset:0; background:#000d; display:none; flex-direction:column; align-items:center; justify-content:center; gap:8px; cursor:zoom-out; z-index:9; }
   #lb.on { display:flex; } #lb img { max-width:96vw; max-height:88vh; object-fit:contain; background:#fff; }
   #lb div { color:#eee; font-size:13px; } #lb a { color:#fff; }
+  /* rights flag, key, hints, § notes, jumps (MB 09.11.2026) */
+  .rflag { display:inline-block; font-size:11.5px; font-weight:600; border:1px solid currentColor; border-radius:4px; padding:0 5px; margin-left:6px; color:var(--D); }
+  .rflag.E { color:var(--E); } .rflag.F { color:var(--F); } .rflag.C { color:var(--C); }
+  .c.need { box-shadow:inset 4px 0 0 var(--D); } .c.need.E { box-shadow:inset 4px 0 0 var(--E); } .c.need.F { box-shadow:inset 4px 0 0 var(--F); } .c.need.C { box-shadow:inset 4px 0 0 var(--C); }
+  nav button .cls { margin-right:5px; } nav button small { color:var(--mute); margin-left:3px; }
+  #key { padding:0 24px 6px; color:var(--mute); font-size:12.5px; }
+  .hint { font-size:12.5px; border-left:3px solid var(--line); padding:1px 0 1px 7px; margin-top:4px; }
+  button.sec, a.jump { border:0; background:none; padding:0; font:inherit; color:var(--B); cursor:pointer; text-decoration:underline dotted; }
+  .c.flash { outline:3px solid var(--B); outline-offset:2px; }
+  #np { position:fixed; inset:0; background:#0009; display:none; align-items:center; justify-content:center; z-index:10; }
+  #np.on { display:flex; }
+  #np .box { background:var(--card); color:var(--ink); width:min(760px, 94vw); max-height:84vh; overflow:auto; border-radius:8px; padding:12px 18px 16px; font-size:13.5px; }
+  #np ul { padding-left:18px; margin:6px 0; } #np li { margin:5px 0; } #np li.hit { background:var(--hl); border-radius:4px; padding:2px 5px; list-style-position:inside; }
+  #np summary { cursor:pointer; color:var(--mute); margin-top:8px; }
 </style>
 </head>
 <body>
 <header><h1 id="h"></h1><div class="sub" id="s"></div></header>
 <nav id="f"></nav>
+<div id="key"></div>
 <main id="out"></main>
 <div id="lb"></div>
+<div id="np"><div class="box"></div></div>
 <script>
 /* Built by scripts/kontaktowka_build.py from kontaktowka.json (edit that file, then build; never this block by hand).
    One object per candidate; slot ids match ikonografia.md § 1.
@@ -47,20 +63,42 @@
    embedded at the end of this file (sources.md § Thumbnails).
    alt (optional): better copies, each {label, url, why}: why in a few words (larger scan, the original's holder
    rather than an aggregator, colour, a freer licence).
-   also (optional): where else in the volume this image is proposed, e.g. "Tittel S3-a". */
+   also (optional): where else in the volume this image is proposed, e.g. "Tittel S3-a".
+   hint (optional): for MB, in plain words, what `why` points at: the quoted passage or footnote, or where on a page of
+   text it stands (column, paragraph, line), when that is not obvious from the thumbnail (SKILL.md step 5).
+   notes: § 5 and § 6 of ikonografia.md, put in by the build (never in the rows file); "§ 5" / "§ 6" in a `why` opens them. */
 const DATA = {
   text: "[Author], „[short title]” ([vol.])",
   note: "Kandydaci [dd.mm.yyyy]. Klasa praw: A wolne · B uznanie autorstwa · C NC/ND · D zgoda · E autor nieznany · F płatne.",
   slots: { "S1": "[idea of slot 1]" },
+  notes: {},
   items: [
     { id:"S1-a", slot:"S1", thumb:"", title:"", date:"", creator:"", holder:"", cls:"A", size:"",
-      page:"", full:"", why:"", metryka:"", alt:[], also:"" }
+      page:"", full:"", why:"", hint:"", metryka:"", alt:[], also:"" }
   ]
 };
 /* ---- rendering (no edits needed below; no loading="lazy": the app's side panel never loads lazy images) ---- */
 const $ = id => document.getElementById(id);
-$("h").textContent = DATA.text; $("s").textContent = DATA.note;
+$("h").textContent = DATA.text; $("s").textContent = (DATA.note || "").replace(/\s*(?:Klasa praw|Klasy|Prawa):\s*A wolne.*?płatne\.?/, "");
 let only = null;
+const CLS_LABEL = { A:"wolne", B:"uznanie autorstwa", C:"NC / ND", D:"zgoda", E:"autor nieznany", F:"płatne" };
+const RFLAG = { D:"wymaga zgody", E:"prawa nieznane", F:"płatne" };
+const NOTES = DATA.notes || {};
+const IDS = new Set(DATA.items.map(i => i.id));
+const escH = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+/* rights flag: D, E, F always; C only when no-derivatives (no crop or detail) */
+function rflag(i) {
+  if (RFLAG[i.cls]) return `<span class="rflag ${i.cls}" title="Klasa ${i.cls}: ${CLS_LABEL[i.cls]}">● ${RFLAG[i.cls]}</span>`;
+  if (i.cls === "C" && /(?<!bez |no |without )\bND\b|NoDeriv|-ND\b/.test([i.metryka, i.why, i.holder].join(" "))) return `<span class="rflag C" title="Bez utworów zależnych: nie kadrować">● ND: bez kadrowania</span>`;
+  return "";
+}
+const needs = i => !!rflag(i);
+/* "§ 5" / "§ 6" open the record's section; a candidate id on this sheet jumps to it (not one after another author's name) */
+function deco(s, i) {
+  return String(s || "")
+    .replace(/§\s*([56])(?![.\d])/g, (m, n) => NOTES[n] ? `<button class="sec" data-n="${n}" data-id="${i.id}" title="ikonografia.md § ${n}: ${escH(NOTES[n].h || "")}">${m}</button>` : m)
+    .replace(/(?<!\p{Lu}\p{Ll}+\s|\)\s)\b([SX]\d+²?-[a-z]{1,2})(?![\p{L}\d])/gu, (m, id) => IDS.has(id) && id !== i.id ? `<a class="jump" href="#" data-j="${id}">${m}</a>` : m);
+}
 const src = i => (window.MINI || {})[i.thumb] || i.thumb;
 const link = (u, t) => u ? `<a href="${u}" target="_blank" rel="noopener noreferrer" title="${u}">${t}</a><button class="cp" data-u="${u}" title="Kopiuj adres">⧉</button>` : "";
 function render() {
@@ -72,15 +110,15 @@ function render() {
     sec.innerHTML = `<h2>${slot} <small>${idea}</small></h2>`;
     const g = document.createElement("div"); g.className = "grid";
     for (const i of items) {
-      const c = document.createElement("div"); c.className = "c";
+      const c = document.createElement("div"); c.className = "c" + (needs(i) ? " need " + i.cls : ""); c.id = "c-" + i.id;
       const alts = (i.alt || []).map(a => `<div class="alt">Lepsza kopia: ${link(a.url, a.label)}${a.why ? " — " + a.why : ""}</div>`).join("");
       c.innerHTML = `${i.thumb ? `<img src="${src(i)}" alt="" data-id="${i.id}">` : ""}
-        <div class="b"><div><span class="cls" style="background:var(--${i.cls})">${i.cls}</span><span class="id">${i.id}</span></div>
+        <div class="b"><div><span class="cls" style="background:var(--${i.cls})" title="${CLS_LABEL[i.cls] || ""}">${i.cls}</span><span class="id">${i.id}</span>${rflag(i)}</div>
         <div class="t">${i.page ? link(i.page, i.title) : i.title}</div>
         <div class="m">${[i.date, i.creator].filter(Boolean).join(" · ")}</div>
         <div class="m">${i.holder}${i.size ? " · " + i.size : ""}</div>
         <div class="m">${link(i.page, "strona obiektu")}${i.full ? " · " + link(i.full, "pełna rozdzielczość") : ""}</div>
-        ${i.why ? `<div class="why">${i.why}</div>` : ""}${i.metryka ? `<div class="mt">Metryka (szkic): ${i.metryka}</div>` : ""}${alts}
+        ${i.why ? `<div class="why">${deco(i.why, i)}</div>` : ""}${i.hint ? `<div class="hint">${deco(i.hint, i)}</div>` : ""}${i.metryka ? `<div class="mt">Metryka (szkic): ${i.metryka}</div>` : ""}${alts}
         ${i.also ? `<div class="also">Też w: ${i.also}</div>` : ""}</div>`;
       g.appendChild(c);
     }
@@ -115,10 +153,53 @@ $("out").onclick = e => {
   $("lb").className = "on";
 };
 $("lb").onclick = e => { if (e.target.tagName !== "A") $("lb").className = ""; };
-document.onkeydown = e => { if (e.key === "Escape") $("lb").className = ""; };
+document.onkeydown = e => { if (e.key === "Escape") { $("lb").className = ""; $("np").className = ""; } };
+/* § 5 / § 6: the record's section, the points about this candidate first (matched by its id, its slot, or shared names) */
+const STOP = new Set(["Strona", "Tamże", "Sprawdzić", "Commons", "Google", "Internet", "Archive", "Jedyny", "Najmocniejszy", "Pierwsze", "Druga", "Oryginał"]);
+function bullets(t) {
+  const out = [];
+  for (const line of String(t).split("\n")) {
+    if (/^\s*(?:[-*]|\d+\.)\s+/.test(line)) out.push(line.replace(/^\s*(?:[-*]|\d+\.)\s+/, ""));
+    else if (line.trim()) { if (out.length) out[out.length - 1] += " " + line.trim(); else out.push(line.trim()); }
+  }
+  return out;
+}
+const mdl = s => escH(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\*(.+?)\*/g, "<i>$1</i>").replace(/`(.+?)`/g, "<code>$1</code>");
+function score(b, i) {
+  let s = 0, m; const L = i.id.split("-").pop();
+  const re = /\b([SX]\d+²?)-([a-z]{1,2})(?:\s*[–-]\s*([a-z]{1,2})|((?:\/[a-z]{1,2})+))?/g;
+  while ((m = re.exec(b))) {
+    if (m[1] !== i.slot) continue;
+    s += (m[2] === L || (m[3] && L.length === m[2].length && L >= m[2] && L <= m[3]) || (m[4] && m[4].split("/").includes(L))) ? 10 : 0;
+  }
+  if (new RegExp("\\b" + i.slot + "(?![\\w-])").test(b)) s += 2;
+  for (const w of new Set(((i.title || "") + " " + (i.why || "")).match(/\p{Lu}\p{L}{4,}/gu) || [])) if (!STOP.has(w) && b.includes(w)) s += 1;
+  return s;
+}
+function showNotes(n, i) {
+  const sec = NOTES[n], bs = bullets(sec.t);
+  const hit = bs.map(b => [score(b, i), b]).filter(x => x[0] >= 1).sort((a, b) => b[0] - a[0]).slice(0, 4);
+  $("np").firstChild.innerHTML = `<div class="m">ikonografia.md § ${n} · ${escH(sec.h || "")} · do <b>${i.id}</b></div>` +
+    (hit.length ? `<ul>${hit.map(x => `<li class="hit">${mdl(x[1])}</li>`).join("")}</ul>` : `<p>Nie rozpoznano, który punkt dotyczy ${i.id}: cała sekcja poniżej.</p>`) +
+    `<details${hit.length ? "" : " open"}><summary>Cała sekcja (${bs.length} punktów)</summary><ul>${bs.map(b => `<li>${mdl(b)}</li>`).join("")}</ul></details>`;
+  $("np").className = "on";
+}
+$("np").onclick = e => { if (e.target.id === "np") $("np").className = ""; };
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("button.sec");
+  if (b) { e.stopPropagation(); showNotes(b.dataset.n, DATA.items.find(x => x.id === b.dataset.id)); return; }
+  const j = e.target.closest && e.target.closest("a.jump"); if (!j) return;
+  e.preventDefault(); e.stopPropagation();
+  if (!$("c-" + j.dataset.j)) { only = null; [...f.querySelectorAll(".k")].forEach((x, k) => x.classList.toggle("on", !k)); render(); }
+  const c = $("c-" + j.dataset.j); if (!c) return;
+  c.scrollIntoView({ behavior: "smooth", block: "center" }); c.classList.add("flash"); setTimeout(() => c.classList.remove("flash"), 1800);
+}, true);
 const f = $("f");
+const CNT = {}; for (const i of DATA.items) CNT[i.cls] = (CNT[i.cls] || 0) + 1;
 for (const k of [null, "A", "B", "C", "D", "E", "F"]) {
-  const b = document.createElement("button"); b.textContent = k || "wszystkie"; if (!k) b.className = "on";
+  if (k && !CNT[k]) continue;
+  const b = document.createElement("button"); if (!k) b.className = "on";
+  if (k) b.innerHTML = `<span class="cls" style="background:var(--${k})">${k}</span>${CLS_LABEL[k]}<small>${CNT[k]}</small>`; else b.textContent = "wszystkie";
   b.onclick = () => { only = k; [...f.querySelectorAll(".k")].forEach(x => x.classList.remove("on")); b.classList.add("on"); render(); };
   b.classList.add("k"); f.appendChild(b);
 }
@@ -128,6 +209,10 @@ for (const [k, label] of [["S", "małe"], ["", "średnie"], ["L", "duże"]]) {
   b.onclick = () => { document.documentElement.className = k; [...f.querySelectorAll(".z")].forEach(x => x.classList.remove("on")); b.classList.add("on"); };
   f.appendChild(b);
 }
+{ const nf = DATA.items.filter(needs).length;
+  $("key").innerHTML = `Przyciski = klasy praw (filtr). ${nf ? `<b>● ${nf}</b> kandydatów wymaga zgody, opłaty, ustalenia praw albo nie może być kadrowanych (ND); reszta jest do użycia od ręki. ` : "Wszystkie do użycia od ręki. "}` +
+    `Skróty: n. 36 / przyp. 36 = przypis tekstu · n5 przy skanie = 5. karta skanu · S3-a = inny kandydat tego arkusza (kliknij) · ² = slot drugorzędny` +
+    (Object.keys(NOTES).length ? " · § 5 / § 6 = kliknij: zapis z ikonografia.md (wyszukiwania bez wyniku / wątpliwości)." : "."); }
 document.addEventListener("DOMContentLoaded", render);
 </script>
 <script>/* miniatury: local copies as data URIs, appended by the step in sources.md § Thumbnails; never read or edit by hand */ var MINI = {};</script>

@@ -6,7 +6,7 @@
 `<record dir>` is `work/<id>/ikonografia/`. The rows file `kontaktowka.json` there has the shape of the sheet's DATA:
     {"text": "...", "note": "...", "slots": {"S1": "idea", ...},
      "items": [{"id": "S1-a", "slot": "S1", "src": "commons:File name.jpg", "title": ..., "date": ..., "creator": ...,
-                "holder": ..., "cls": "A", "size": ..., "page": ..., "full": ..., "why": ..., "metryka": ...,
+                "holder": ..., "cls": "A", "size": ..., "page": ..., "full": ..., "why": ..., "hint": ..., "metryka": ...,
                 "alt": [{"label", "url", "why"}], "also": ""}, ...]}
 Each build takes the renderer from the skill's current template, writes `kontaktowka.html`, embeds every
 `miniatury/*.jpg` (so a rebuild can never drop them) and refreshes MB's copy in `Claude outputs/` (pobierz.py).
@@ -23,6 +23,9 @@ Checks: duplicate ids, a slot not in `slots`, an unknown class or `src` kind sto
 thumbnail, holder or metryka are listed. The metryka stays hand-written (Kanon § 10.3 needs technique and Polish date
 forms the fields do not carry); the build only reports where it is missing.
 `--from-html` writes `kontaktowka.json` from an existing sheet's DATA block (once per old sheet; needs node).
+`hint` (optional): what `why` points at, in plain words (the passage or footnote, or where on the page it stands).
+The build puts § 5 and § 6 of `ikonografia.md` into DATA.notes, so "§ 5" / "§ 6" in a `why` opens them on the sheet
+(MB 09.11.2026); they are never copied into the rows file.
 """
 import json, pathlib, re, shutil, subprocess, sys, time, urllib.error, urllib.parse, urllib.request
 
@@ -34,8 +37,8 @@ TEMPLATE = HERE.parents[1] / "assets" / "template" / "kontaktowka.html"
 UA = pobierz.UA
 BROWSER_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
 CLASSES = set("ABCDEF")
-FIELDS = ("id", "slot", "thumb", "title", "date", "creator", "holder", "cls", "size", "page", "full", "why", "metryka",
-          "alt", "also")
+FIELDS = ("id", "slot", "thumb", "title", "date", "creator", "holder", "cls", "size", "page", "full", "why", "hint",
+          "metryka", "alt", "also")
 START, END = "const DATA = ", "\n/* ---- rendering"
 
 
@@ -159,9 +162,20 @@ def commons_info(names, cache_path):
     return cache
 
 
-def data_js(rows):
+def notes_from(d):
+    """§ 5 (searches that found nothing) and § 6 (doubts) of the record, for the sheet's "§ 5" / "§ 6" buttons."""
+    p = pathlib.Path(d) / "ikonografia.md"
+    if not p.exists():
+        return {}
+    t = p.read_text(encoding="utf-8")
+    return {m[1]: {"h": m[2].strip(), "t": m[3].strip()}
+            for m in re.finditer(r"^## ([56])\.[ \t]*([^\n]*)\n(.*?)(?=^## |\Z)", t, flags=re.M | re.S)}
+
+
+def data_js(rows, notes=None):
     """DATA as JSON, one item per line; `</` escaped so no string can close the script element."""
     head = {k: rows[k] for k in ("text", "note", "slots")}
+    head["notes"] = notes or {}
     lines = [json.dumps({k: i.get(k, [] if k == "alt" else "") for k in FIELDS}, ensure_ascii=False) for i in rows["items"]]
     s = json.dumps(head, ensure_ascii=False, indent=1)[:-2] + ',\n "items": [\n  ' + ",\n  ".join(lines) + "\n ]\n}"
     return s.replace("</", "<\\/")
@@ -195,7 +209,7 @@ def build(d, commons=False, outputs=None, quiet=False):
         return errs
     t = TEMPLATE.read_text(encoding="utf-8")
     a, b = t.index(START), t.index(END)
-    (d / "kontaktowka.html").write_text(t[:a] + START + data_js(rows) + ";" + t[b:], encoding="utf-8")
+    (d / "kontaktowka.html").write_text(t[:a] + START + data_js(rows, notes_from(d)) + ";" + t[b:], encoding="utf-8")
     pobierz.embed(d)
     if outputs:
         pobierz.mirror(d.parent.parent, outputs)

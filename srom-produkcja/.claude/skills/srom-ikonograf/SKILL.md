@@ -191,6 +191,14 @@ than a missing one. The order that worked, and what failed:
    thumbnail URL (about **700 px wide**, enough to judge a photograph without opening the holder's page: sources.md
    § Thumbnails), title as catalogued, date, creator, holder and shelfmark, rights class (rights.md), largest size
    available, the item page and the full-resolution URL, one line on why it fits; `alt` and `also` where they apply.
+   **The `why` is for MB without the record open** (MB 09.11.2026): plain words, no house shorthand (no bare leaf
+   `nN`, run codes such as TIT or OST-1, „MB”); a footnote is „przyp. n”, another candidate its id (the sheet links it),
+   a point in the record „§ 5” or „§ 6” (the sheet opens that section). A **`hint`** line only where the `why` alone
+   leaves MB looking: a page of text in a language other than Polish, English or Spanish (the passage, a line or two
+   with a Polish gloss, and where it stands: column, paragraph, line), a footnote or comparison he would have to look
+   up, an alternative to another row (which, and how it differs). One or two lines; most rows need none. The sheet
+   shows the class legend on its filter buttons and a ● flag on every candidate that needs permission, a fee, rights
+   settled (D, E, F) or may not be cropped (ND).
    **Deliver** as the root CLAUDE.md § Files MB must open says: send `kontaktowka.html` and `ikonografia.md` with
    SendUserFile (display render) as the turn's last tool call: the card is MB's button. End the reply with the
    `Files to open:` line (name, text, absolute path; 🔴 is for files, never for chat), giving for the sheet the copy
