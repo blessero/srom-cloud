@@ -57,6 +57,10 @@ the session that starts a new text adds its row.
 | TIT | Tittel, "Racial and Social Dimensions of Antiziganism" (On_Culture 10, 2020) | tittel |
 | WOH | West Ohueri, "Peripheral whiteness…" (Off White, MUP 2024) | westohueri |
 | SCH | Scheffknecht, "Zigeuner im Reichshof Lustenau" (Neujahrsblätter Lustenau 1, 2010) | scheffknecht |
+| STE | Steiner, "The Enemy Within" (*Combating the Hydra*, ch. 8, Purdue UP 2023) | steiner |
+| TPA | Tittel, ch. 2 of *Politische Theorie des Antiziganismus* (transcript 2025) | tittelpta |
+| DAV | Davis & Perheentupa, "Unsettling settler colonialism" (*Settler Colonial Studies*, 2026) | davis |
+| V18 | Volume 18, all texts | — |
 | V19 | Volume 19, all translated texts (shared terminology) | — |
 | GEN | Journal-wide policy and Kanon gaps | — |
 | SYS | Tooling and workflow | — |
