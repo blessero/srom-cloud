@@ -502,6 +502,20 @@ r = subprocess.run([sys.executable, CD, dcp, x2, "--only", "2"], capture_output=
 t("check_deposit --only 2: checks just the second article, ends DEPOSIT CHECK OK 1/1",
   r.returncode == 0 and " 002 " in r.stdout and " 001 " not in r.stdout and r.stdout.strip().splitlines()[-1] == "DEPOSIT CHECK OK 1/1", r.stdout + r.stderr)
 
+# validate_master.py (MB 10.11.2026): a translation's original_title/original_source must match the original's Crossref
+# record (pages, volume, issue, year, title). Offline: check_original() is fed the Pahulich record as Crossref gave it.
+sys.path.insert(0, os.path.dirname(VM)); import validate_master as _vm
+_meta = {"page": "40-61", "volume": "8", "issue": "1", "issued": {"date-parts": [[2025, 12, 11]]},
+         "title": ["Racialization of Roma, European Modernity, and the Entanglement of Empires"]}
+_good = {"original_title": "Racialization of Roma, European Modernity, and the Entanglement of Empires",
+         "original_source": "„Critical Romani Studies”, 2025, t. 8, nr 1, s. 40–61. Tekst opublikowany na licencji CC BY-NC 4.0"}
+_bad = dict(_good, original_source=_good["original_source"].replace("40–61", "40–60").replace("nr 1", "nr 2"),
+            original_title="Racialisation of Roma")
+_bm = _vm.check_original(_bad, _meta)
+t("validate_master: original matching its Crossref record → no mismatch; wrong pages, issue and title → three",
+  _vm.check_original(_good, _meta) == [] and len(_bm) == 3
+  and {m.split(":")[0] for m in _bm} == {"pages", "issue", "title"}, _bm)
+
 n, ok = len(res), sum(res)
 print(f"QUANT ALL PASS {n}/{n}" if ok == n else f"QUANT FAILED {n - ok}/{n}")
 sys.exit(0 if ok == n else 1)

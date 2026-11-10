@@ -3,13 +3,48 @@
 validate_master.py — pre-deposit invariant checker for the SROM master CSV.
 
 Run before minting DOIs / generating the Crossref deposit:
-    python3 validate_master.py srom_master_v3.csv
+    python3 validate_master.py srom_master_v3.csv            # also checks translations against the original's DOI record
+    python3 validate_master.py srom_master_v3.csv --offline  # skip that network check
+
+Translations (MB 10.11.2026): original_doi is looked up in Crossref (the record the original's publisher deposited,
+the same data its DOI landing page shows). original_title must match its title; original_source must give its pages,
+volume, issue and year. A mismatch is a blocking error; an unreachable Crossref is a warning.
 
 Exit code 0 = clean (deposit-ready). Exit code 1 = blocking errors present.
 Warnings never block but should be reviewed. This mirrors the hard-aborts in
 generate_crossref_xml.py plus schema/consistency checks the generator doesn't do.
 """
-import csv, sys, re
+import csv, json, sys, re, unicodedata, urllib.parse, urllib.request
+
+def crossref(doi):
+    """The Crossref record of a DOI, or raises."""
+    url = "https://api.crossref.org/works/" + urllib.parse.quote(doi, safe="/")
+    req = urllib.request.Request(url, headers={"User-Agent": "srom-validate-master/1.0"})
+    with urllib.request.urlopen(req, timeout=20) as f:
+        return json.load(f)["message"]
+
+DASH = re.compile(r"\s*[\u2010-\u2015-]\s*")
+
+def _norm(s):
+    return re.sub(r"[^\w]+", " ", unicodedata.normalize("NFKC", s or "").lower()).strip()
+
+def check_original(r, meta):
+    """Mismatches between a translation row and the original's Crossref record (empty list = match)."""
+    out, src = [], (r.get("original_source") or "")
+    pg = (meta.get("page") or "").strip()
+    if pg and DASH.sub("-", pg) not in DASH.sub("-", src):
+        out.append(f"pages: Crossref {pg}, not found in original_source")
+    for k in ("volume", "issue"):
+        v = (meta.get(k) or "").strip()
+        if v and not re.search(r"(?<!\d)" + re.escape(v) + r"(?!\d)", src):
+            out.append(f"{k}: Crossref {v}, not found in original_source")
+    yr = ((meta.get("issued") or {}).get("date-parts") or [[None]])[0][0]
+    if yr and str(yr) not in src:
+        out.append(f"year: Crossref {yr}, not found in original_source")
+    ct, ot = (meta.get("title") or [""])[0], r.get("original_title") or ""
+    if ct and ot.strip() and _norm(ct) != _norm(ot):
+        out.append(f"title: Crossref '{ct}' vs original_title '{ot}'")
+    return out
 
 SCHEMA = [
     'article_id','doi_suffix','doi','landing_url','pdf_url',
@@ -34,7 +69,9 @@ DOI_RE    = re.compile(r'^10\.\d{4,9}/[a-z0-9]{8}$')
 SITE      = 'https://studiaromologica.pl'   # knowledge base § Where these facts are also hard-coded
 
 def main():
-    path = sys.argv[1] if len(sys.argv) > 1 else 'srom_master_v3.csv'
+    args = [a for a in sys.argv[1:] if a != '--offline']
+    offline = '--offline' in sys.argv[1:]
+    path = args[0] if args else 'srom_master_v3.csv'
     try:
         rows = list(csv.DictReader(open(path, encoding='utf-8-sig')))
     except FileNotFoundError:
@@ -137,6 +174,12 @@ def main():
             W(f"{rid}: is_translation=TAK but original_title empty (Crossref original_language_title will be omitted)")
         if r.get('original_doi', '').strip() and not r['original_doi'].startswith('10.'):
             W(f"{rid}: original_doi doesn't look like a DOI: '{r['original_doi']}'")
+        elif r.get('original_doi', '').strip() and not offline:
+            try:
+                for m in check_original(r, crossref(r['original_doi'].strip())):
+                    E(f"{rid}: original vs its DOI record ({r['original_doi'].strip()}): {m}")
+            except Exception as ex:
+                W(f"{rid}: original_doi {r['original_doi'].strip()} not checked (Crossref: {ex})")
 
         # reviews (section III) from vol. 19 name the work reviewed on the cover page (C36)
         if r.get('section_nr', '').strip() == 'III' and r.get('volume', '').isdigit() and int(r['volume']) >= 19 \
