@@ -960,3 +960,36 @@ MB, chat 09.11.2026: "every association between epla and srom must be severed, o
 
 - 09.11.2026 17:31 status of C45 [general/Tittel PTA] (root): K60 item 1 take-back, reproduced on a copy of `workspace/srom-tlumacz/work/tittelpta/`: delivered `tittelpta_pl.md` → step 3 FAILS (typed ids, DO SPRAWDZENIA comments), step 4 CHECK OK; after `docx_in.py tittelpta_robocza.docx -o tittelpta_pl.md` on the copy → `TAKE-BACK OK tittelpta (5 files)`. That is how my K60 result came about. Decision (a): step 3 is meant to hold after the editor's edit, when `_pl.md` is re-imported from the Word master; no code change. One sentence added to the `take_back.py` docstring and the `<id>_pl.md` row of `handoff.md` (no test: the existing mismatch test already covers step 3; the new text is documentation). Nothing in `workspace/` touched. Tittel PTA is therefore not ready for take-back until MB's edit is done and srom-tlumacz re-imports.
 - 09.11.2026 17:31 status of C45, K59 count [general/Tittel PTA] (root): `kontaktowka.json` counted directly: 69 items, 17 slots, cls A 61 / B 3 / C 4 / E 1. 61 is right; K59's "60" was my miscount. Cowork's 69 / 17 stand; the record needs no edit. Target 8 is Cowork's.
+
+## K62 [Ndiaye] Ikonograf run done (Code session): record, contact sheet, two sheets marked back (09.11.2026 21:43)
+
+Code ran srom-ikonograf for Ndiaye, "Black Roma" (vol. 19) on MB's word (chat 09.11.2026: "run a thorough, imaginative but
+relevant ikonograf search"; second turn: "finish the task"). Written only in `workspace/srom-produkcja/work/ndiaye/ikonografia/`
+(and the `also` fields of `pahulich/ikonografia/kontaktowka.json` and `ostendorf/ikonografia/kontaktowka.json`, both rebuilt).
+- Record 🔴 `srom-produkcja/work/ndiaye/ikonografia/ikonografia.md`; sheet `kontaktowka.json` → `kontaktowka.html`
+  (119 rows, 32 slots, 10 deliberate leads without thumbnail); MB's copy `Claude outputs/Kontaktowka - Ndiaye.html`.
+  MB checked the thumbnails in the browser 09.11.2026. Nothing chosen, no permission asked; author e-mail not drafted
+  (MB: "too early").
+- **For you:** one line in STATUS.md, Ndiaye section: `Ikonografia: 0/10 chosen (3 = the author's figs), searched 09.11.2026
+  (32 slots, 119 rows), 0 permissions pending; record srom-produkcja/work/ndiaye/ikonografia/ikonografia.md.` Then
+  desk_sync so Biurko shows the sheet (MB noted it is not on Biurko yet). No ledger item: nothing waits on MB until he picks.
+- Doubts for the translation notes (record § 6), worth a look by srom-tlumacz, not entered anywhere else: Rabel 1631 vs
+  1632 (BnF, Louvre); Vallée 1657 in the bibliography vs 1662 in the text (the BnF copy that matches pp. 45/63 is 1662);
+  Davity p. 392 vs pp. 393–394; Minsheu's headword is "Egyptians"; Head "1679 abridgement" vs 1688 (the 1688 p. 5 matches).
+
+## K63 [Pahulich] [vol. 19 pool] Ikonograf S22 added to Pahulich's sheet; Turda & Balogun carded and out (Code session, 10.11.2026 00:40)
+
+MB in chat 10.11.2026: card the inbox PDF *The Racialization of Roma as "Black" in Interwar Romania and Beyond* (Turda &
+Balogun, *Slavic Review* 84/3, 2025) for the vol. 19 pool; then "ok, out it is then"; then find the sources of its 1940
+cartoon and Cornova villager for Pahulich's kontaktówka.
+- **Zizek (written in `workspace/srom-zizek/volumes/19-2026/`):** card `cards/div-class-title-the-racialization-of-roma-as-bla.md`
+  (OUT 2/3/3, check.py 10/10 anchors), `text/` extracted, pool row (Kind out, MB confirmed 10.11.2026 00:30), one line in
+  `block.md` § 7. The chosen block is unchanged. desk_sync after the pool row: problems=0.
+- **Ikonograf (written only in `srom-produkcja/work/pahulich/ikonografia/`):** new secondary slot S22 (extension), 8 rows:
+  Păun 1932, p. 525 with the remark (IA scan of the whole *Arhiva* X volume), the article's two plates (smith Simion Drosu,
+  his children), its map, sketch and table, Berman's *Fierăria satului* (Muzeul Satului, CC BY-SA 4.0), and the
+  *Sentinela* cartoon (no. 28, 30.06.1940, Arcanum p. 223/408, paywall; rights class D). Record §§ 1, 2, 5, 6, 7 updated;
+  sheet rebuilt (82 rows, 22 slots, 0 broken thumbnails); MB's copy `Claude outputs/Kontaktowka - Pahulich.html` refreshed.
+  Neither item is in Turda & Furtună (CRS 4/2): checked.
+- **For you:** Pahulich's STATUS line, if it gives counts: 22 slots / 82 rows, 0 chosen. No ledger item: the cartoon's rights
+  (Rădulescu d. 1972: heirs or the quotation exception) matter only if MB picks it; it is in the record § 6.

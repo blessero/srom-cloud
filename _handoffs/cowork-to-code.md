@@ -644,3 +644,16 @@ MB's Kontaktówki UX request (chat 09.11.2026). Made directly; review the diff b
 - `SKILL.md` step 5: the `why`/`hint` rule (plain words, no shorthand; hint only where needed).
 Checks: produkcja suite SUITE ALL PASS 29/29 before the change (nothing it reads was touched); all 7 records rebuilt, each sheet's script parses (node), rendered in jsdom: flags, legend, § panel and jumps work (tittelpta, ostendorf, davis, pahulich, q-slavery19c, q-stlouis1904, ostendorf18; 0 dangling id links). Backup of the two files before: `workspace/desk/backup_20261109b/`.
 Run with: Sonnet · low — scope checked: one HTML template (≈90 lines added), one Python script (≈15 lines), one SKILL.md paragraph; the risk is a regex in the template misreading a `why` (ids after another author's name are not linked); commit by path, push.
+
+## C47 — [general] desk_push.py: last_pushed.json goes stale when a push is not confirmed (10.11.2026 04:01)
+Found on Biurko today: two pushes after 09.11 19:46 (ikonograf at 20:52, a Sonnet sync at 10.11 02:54) were never `--confirm`ed, so `last_pushed.json` still held 19:46. The 02:54 push diffed against it and skipped ikonograf docs whose 19:46 `order` equalled the bundle while the store held the 20:52 values: the Kontaktówki tab had two pairs of equal `order` (ndiaye/westohueri 0, ostendorf/pahulich 1). Fixed in the store by hand (10 ikonograf `update`s, values from desk_bundle.json); the stale file is archived (`workspace/_archive/20261110/`), so the next versions-mode push is a full one.
+Suggested fix (yours to choose): write `generated` of the last confirmed push into `meta/sync` (e.g. `pushedFrom`) and have versions mode use `last_pushed.json` only when its `generated` equals that value read off the store; otherwise run as `--full` and say so. Also: `desk_sync.py` overwrites `desk_bundle.json` on every run, so a pushed bundle cannot be recovered afterwards; consider keeping the last pushed one.
+Also done today, nothing to commit: Kontaktówki sheets for Pahulich (15.8 MB) and West Ohueri republished on Biurko (page version 1794279561-d4df); `desk_sync.py` problems=0.
+Run with: Sonnet · medium — scope: one script, ≈20 lines and a test with a staged unconfirmed push; the risk is a false "same" letting a stale doc stand, so test that case first.
+
+## C48 — [general/Pahulich] srom-tlumacz termbase: V19-1 decided, one new row; please commit and push (10.11.2026 17:04)
+MB's decisions in chat 10.11.2026, applied directly (data only, no code):
+- `references/tlumacz-tb.tsv`: C-0046 *nomadic* PROVISIONAL → HOUSE (pl_family: „nomadyczny” a synonym; „koczownictwo”/„nomadyzm”; „koczownik”/„nomada”, never „nomad”; en_variants + *nomad(s)*; the Pahulich/Tittel deviation lines removed from pl_variants), C-0047 *itinerant/peripatetic* → HOUSE („wędrowny”); C-0054 new, HISTORY, HOUSE: *letter of safe conduct* / *travel privileges* → „list żelazny”, „glejt” a synonym, „przywileje podróżne” in avoid.
+- `references/tlumacz-decisions.md`: two lines (10.11.2026 17:04).
+Checks after the change: `tlumacz-check_tb.py --schema --shape --vocab --precedent --evidence` exit 0 (44 rows, 0 problems), selftest 9/9, HANDOFF CONTRACT 35/35.
+Run with: Haiku · low — scope checked: two data files, three rows and two log lines; commit by path, push; leave other sessions' files.
