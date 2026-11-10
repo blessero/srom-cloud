@@ -42,7 +42,7 @@ Legend for **Consumed by**: **X**=Crossref XML · **W**=WordPress via Importer �
 | 34 | `license_url` | X, W | Full CC URL → ACF + Crossref AccessIndicators `license_ref`. |
 | 35 | `is_translation` | X, W | `TAK`/`ADAPTACJA`/empty. Translations get `original_language_title`. |
 | 36 | `original_title` | X, W | Original title of a translated work. |
-| 37 | `original_source` | W | Original source citation. |
+| 37 | `original_source` | W | Original source citation; ends with the original's licence (e.g. „Tekst opublikowany na licencji CC BY-NC 4.0 (url)”). Printed on the cover page as „Pierwodruk”, which satisfies a first-publication acknowledgement (CRS terms; MB 10.11.2026). Our own `license` may differ from the original's only on the copyright holder's written consent (author-held © → the author's grant suffices; Pahulich 10.11.2026, CC BY-NC → CC BY). |
 | 38 | `original_doi` | X, W | Original work's DOI → Crossref `isTranslationOf` relation when present. |
 | 39 | `translators_struct` | X | **Optional** (added 27.09.2026). Translator(s) of a translated work, same encoding as `authors_struct`: `Given\|Surname\|Affiliation\|ORCID ;; …`. → Crossref `<person_name contributor_role="translator">`, after the authors. Not imported to WP (the Importer ignores unknown columns) and not bound in Data Merge. Empty for editorial translations (Kanon § 12.2.3: editorial translations are unsigned, MB 22.10.2026), so no warning when `is_translation`=`TAK` and it is empty. |
 | 40 | `pub_date_print` | — | Required (07.10.2026). `YYYY-MM-DD`, print publication date; cover page "Data publikacji". A back volume known only by its year: `YYYY` (C19). |
