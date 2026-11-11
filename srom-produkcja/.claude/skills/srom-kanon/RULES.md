@@ -12,7 +12,7 @@ Missing year/page/publisher, illegible or ambiguous element → **stop, flag, as
 
 ## 1. Front matter
 
-Author · affiliation (or `badacz niezależny, [town]`) · **ORCID** · title PL · title EN · title RMN (optional) · abstract PL ≤1000 chars · abstract EN (translation of the PL) · keywords 5–10 PL+EN, `;`-separated, group names in authority form · body · bibliography · author note ≤500 chars. Editorial: DOI, dates, licence, volume, pages. Translated articles: EN title/abstract/keywords are the original's (§ 12.2.2).
+Author · affiliation (or `badacz niezależny, [town]`) · ORCID (if the author has one; not required, MB 11.11.2026) · title PL · title EN · title RMN (optional) · abstract PL ≤1000 chars · abstract EN (translation of the PL) · keywords 5–10 PL+EN, `;`-separated, group names in authority form · body · bibliography · author note ≤500 chars. Editorial: DOI, dates, licence, volume, pages. Translated articles: EN title/abstract/keywords are the original's (§ 12.2.2).
 
 ## 2. Body
 

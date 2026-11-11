@@ -16,6 +16,9 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
   welcome. The test of an article's or a translation's fit.
 - **Language:** exclusively Polish: every article, translated ones included, is published in Polish. Only the
   abstracts, keywords, titles and contents are also given in English. The journal is not bilingual.
+- **Submissions** (MB, 11.11.2026): accepted in Polish, English and Spanish; another language by arrangement. A text accepted
+  in another language is translated by the editors. Submission address for now michalbartosz@studiaromologica.pl
+  (redakcja@ planned, GEN-127). Author guide: *Kodeks redakcyjny. Wskazówki dla autorów* (workspace `gen/GEN-140_…`).
 - **Translator:** unless stated otherwise, Michał Bartosz translates every translated text (MB, 06.10.2026). He is
   not named as translator anywhere public (MB, 22.10.2026; Kanon § 12.2.3, editorial translations are unsigned): no
   `tlumaczenie` front matter, no „Tłumaczenie:” in the title note or the article header, no line on the online cover,

@@ -2,7 +2,7 @@
 
 **Wersja 1.19 · obowiązuje od tomu 19/2026 · do użytku redakcji i składu**
 
-> Wersja dla autorów (*Wskazówki dla autorów*) jest skrótem tego dokumentu i nie zawiera § 13–17. W razie rozbieżności rozstrzyga niniejszy tekst.
+> Wersja dla autorów (*Kodeks redakcyjny. Wskazówki dla autorów*, PDF na stronie pisma) jest skrótem tego dokumentu i nie zawiera § 13–17. W razie rozbieżności rozstrzyga niniejszy tekst.
 
 ---
 
@@ -24,7 +24,7 @@ System cytowania: **przypisy dolne + pełna bibliografia załącznikowa**. Autor
 
 1. Imię i nazwisko autora
 2. Afiliacja (pełna nazwa instytucji, miasto, kraj) lub „badacz niezależny, [miasto]”
-3. ORCID – obowiązkowy
+3. ORCID – jeżeli autor go posiada
 4. Tytuł polski
 5. Tytuł angielski
 6. Tytuł romski – fakultatywny; weryfikacja u konsultanta językowego
@@ -658,7 +658,7 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 ## 16. Lista kontrolna
 
 **Przed przekazaniem do składu**
-- [ ] Komplet elementów z § 1; ORCID; licencja wskazana
+- [ ] Komplet elementów z § 1; ORCID, jeżeli autor go posiada; licencja wskazana
 - [ ] Braki w danych źródłowych zgłoszone autorowi, nie uzupełnione domysłem
 - [ ] Każdy cytat ma stronę; odwołania do dzieła jako całości potwierdzone przez redakcję
 - [ ] Brak znaczników `[BRAK …]` (§ 0)
@@ -716,5 +716,6 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.17, uzup. 22.10.2026 | Rozstrzygnięcie z 22.10.2026 (MB): § 12.2.3: przekład redakcyjny nie jest podpisywany – bez nazwiska tłumacza w nagłówku artykułu, w nocie o przekładzie, na stronie tytułowej wersji online i w metadanych deponowanych (`translators_struct` puste); tłumacz spoza redakcji – jak dotąd, chyba że zastrzeże anonimowość. Obowiązuje od tomu 19/2026; strony tytułowe wersji online i depozyt Crossref tomów 17–18 – od ich przebudowy przed pierwszym depozytem. Do włączenia w wersję 1.18. |
 | 1.18 | Włącza uzupełnienie wersji 1.17 z 22.10.2026 (§ 12.2.3). Nowe, opracowane na zlecenie MB z 24.10.2026 (ujednolicenie podpisów po tomie 18) i zatwierdzone przez MB tego samego dnia bez zmian: § 10.3 Metryka ilustracji – podpis jako opis i metryka; wzór `[opis], [datowanie], [rola] [twórca][, technika, wymiary]. [Źródło]. [Prawa].`; role `fot.`, `rys.`, `mal.`, `ryt.`, `lit.`, `proj.`, `oprac.`; inicjał i nazwisko jak w przypisie; technika i wymiary tylko z karty obiektu; źródło w trzech postaciach (obiekt w zbiorach, druk jako przedmiot ilustracji, `Repr. za:`), bez formuł `Źródło:`, `ze zbiorów`, bez pośredników; prawa tylko, gdy warunki tego wymagają; zestawienia, fragment; metryka sporządzana, nie przekładana, także w przekładach. § 10.1: odesłanie do § 10.3. § 13.2: licencja artykułu nie obejmuje ilustracji z innych źródeł (ich warunki podaje metryka; bez osobnej formuły przy licencji – MB, 25.10.2026). § 11: skróty metryki ilustracji. § 16: pozycja listy. |
 | 1.19 | Włącza uzupełnienie wersji 1.18 z 26.10.2026 (§ 12.2.3). Rozstrzygnięcie z 26.10.2026 (MB): § 12.2.3: tłumacz przekładów redakcyjnych – w stopce redakcyjnej tomu (`Tłumaczenia: Imię Nazwisko`) i na stronie *Redakcja*; nadal bez nazwiska w artykule, w PDF i w metadanych. |
+| 1.19, uzup. 11.11.2026 | Rozstrzygnięcie z 11.11.2026 (MB, *Kodeks redakcyjny. Wskazówki dla autorów*): nota pod tytułem, § 1 pkt 3, § 16: wersja dla autorów nosi tytuł *Kodeks redakcyjny. Wskazówki dla autorów*; ORCID nie jest obowiązkowy – podaje się go, jeżeli autor go posiada. Do włączenia w wersję 1.20. |
 
 Zmiany wchodzą w życie od kolejnego tomu. Tomy opublikowane nie podlegają retroaktywnemu ujednoliceniu.
