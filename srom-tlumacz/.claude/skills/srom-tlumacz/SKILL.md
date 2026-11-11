@@ -97,6 +97,17 @@ number and agent; negations, dates, figures; quotation boundaries exactly as the
 from another article of the same volume takes that article's Polish; modality never rewritten to avoid a gendered
 form; declined names in the right gender; titles of works translated at first mention (§ 4.3) and set per § 3.4; HOUSE
 terms applied (count them, and their `avoid` forms); every term chosen by the author kept apart (Gypsy ≠ Roma, § 12.2.6).
+Also: **false friends** — a Polish cognate that shifts the sense (*dane* for givens/*Gegebenheiten*; *moralizować*
+for to moralise = *umoralniać*; *oryginalny* for original = own; *wiarygodny* for plausible; *przesłuchanie* for an
+interview/*Befragung*; *rozporządzenie* for an Act of Parliament = *ustawa*) or carries a slur (*cygaństwo* ← *cyganić*);
+**reported theses** — a third party's claim in reported speech (German Konjunktiv) keeps a Polish marker (*miał*,
+*podobno*, *jakoby*), so it never reads as the author's; **who renders what** — a sentence saying how someone rendered
+a word credits that person with their word, not with ours.
+
+**4a. Second reader (optional)** — a blind comparison with another translation (e.g. an English reading draft) finds
+real errors, but each point is settled against the source before anything changes: a version from the same pipeline
+is not independent (Tittel PTA, 11.11.2026: 27 points held, 11 were the author's own wording that the English had
+smoothed). The outcome (changed / kept because the source has it) goes in the notes sheet.
 
 **5. For MB** — the notes sheet `<id>_uwagi.md` (Polish, plain words, recommendation with each choice) and one
 question per call in `MB-decisions.md` under the text's code (format: the session rules, CLAUDE.md);
