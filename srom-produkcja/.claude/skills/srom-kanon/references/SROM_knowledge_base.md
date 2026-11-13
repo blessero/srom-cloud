@@ -88,7 +88,7 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
 
 ## Indexing and ranking (confirmed by MB 03.10.2026; ministry rules and criteria verified 21.10.2026)
 
-- **Indexed in:** CEJSH, CEEOL (neither counts for the ministry list).
+- **Indexed in:** CEJSH, CEEOL (neither counts for the ministry list). After each volume: the DOIs go to both, with the other post-publication steps, per workspace `srom-produkcja/volumes/LAUNCH.md` (14.11.2026).
 - **Targets for re-listing by the ministry (MNiSW):** ERIH+, DOAJ, EBSCO-Ultimate (the regulation names five EBSCO collections), ICI Journals
   Master List: the four databases through
   which a journal outside Scopus/WoS can enter the list (Rozporządzenie MNiSW of 30.04.2026, Dz.U. 2026 poz. 630, § 6 ust. 2).
