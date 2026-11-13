@@ -1,6 +1,6 @@
 ---
 name: srom-tlumacz
-description: EN→PL scholarly translation for Studia Romologica (SROM), stage TRANS between srom-produkcja's RIP and INJECT. Turns a frozen English source (`<id>_src.md` + refs.json) into a Polish SROM-MD translation with its notes sheet for the editor, query rows, quotation sheet, Polish title/abstract/keywords and Word working copy, then takes the editor's Word master back. Use for translating or re-checking an SROM article from English, choosing Polish terms (termbase, HOUSE rows, vol. 18 precedent, race/racialisation vocabulary, group names, historical place names), re-sourcing quotations to Polish editions, translator's notes, `<id>_pl.md`, `<id>_uwagi.md`, termbase upkeep; also PL→EN keywords of Polish articles. Triggers: "przekład", "tłumaczenie", "przetłumacz", "TRANS", "termbase", "urasowienie". Not for extraction, keying, building or InDesign (srom-produkcja), the house rules (srom-kanon) or metadata (srom-quant).
+description: EN→PL scholarly translation for Studia Romologica (SROM), stage TRANS between srom-produkcja's RIP and INJECT, in two separate passes. First pass (any request to translate a text): frozen English source → Polish SROM-MD, notes sheet, queries, quotation sheet, Polish front matter, Word copy; termbase upkeep; the editor's Word master taken back. Second pass, only when MB asks for "polonizacja" (or "szlif językowy", "language pass") of a text, in its own session: native-Polish language pass in parts. Use for translating or re-checking an SROM article from English, Polish terms (termbase, HOUSE rows, race vocabulary, group and place names), Polish editions of quotations, translator's notes; also PL→EN keywords. Triggers: "przekład", "tłumaczenie", "przetłumacz", "TRANS", "termbase", "polonizacja". Not for extraction, building or InDesign (srom-produkcja), house rules (srom-kanon) or metadata (srom-quant).
 ---
 
 # srom-tlumacz — EN→PL translation for Studia Romologica
@@ -40,6 +40,8 @@ with the version in its header — and the group-name kartoteka `references/kart
 still does what this skill relies on; re-run after every srom-produkcja update).
 
 ## The procedure
+
+**This procedure is the first pass only.** It never includes the language pass („polonizacja”, § Two passes): a request to translate a text ("przetłumacz X", "translate X", "TRANS for X") runs steps 1–7 and stops; the reply ends by saying that the language pass is a separate stage and how MB starts it. The first pass may fix plain errors as it drafts, but no polishing round: no splitting into parts, no style sweep.
 
 One text = two steps, intake (a) and draft (b); the stage and its gates in the pipeline: srom-produkcja
 `references/stages.md` (stage 2, TRANS). Each step starts by writing its gates file in `work/<id>/`
@@ -116,9 +118,29 @@ what srom-produkcja's side must change (a refs.json slip, a group name, a Kanon 
 
 **6. Back** — after each editing round: rename the master, import it, check, log the delivery with sha256 in
 `STATUS.md` (`references/outputs.md` § Back). The md is never edited by hand after the first import.
+Before that, proofread
+only the sentences MB changed (diff of the import) and return the slips as one list or as tracked changes in a
+`_v2` copy (`references/polonizacja.md` rule 7); the stretches he edited are recorded in the text's STATUS section.
 
 **7. Termbase** — terms the draft fixed go in as PROVISIONAL rows; MB's sign-off makes them HOUSE, logged in
 `references/tlumacz-decisions.md`; then the preflight checks.
+
+## Two passes: translation, then polonizacja (separate stage)
+
+1. **First pass — translation** (steps 1–7 above): holistic. Terminology, facts, editions, quotations, coherence of
+   the argument as a whole. Ends with the draft, the notes sheet and the Word copy for MB.
+2. **Second pass — polonizacja** (`references/polonizacja.md`): native Polish, sentence by sentence, without
+   leaving the English. **Only when MB asks for it by name**, e.g. „polonizacja: Pahulich” (or „szlif językowy”,
+   „language pass” + the text); never started by a request to translate, never chained onto the first pass in the
+   same session.
+   - **A fresh session** reads only what the pass needs: the md (or MB's master), `src/<id>_src.md`, the termbase,
+     `references/polonizacja.md`, the text's STATUS section and notes sheet. It does not redo intake or terminology.
+   - **Parts of about 1,500–2,000 words** at paragraph boundaries (smaller where the prose is dense), numbered once and
+     recorded in the notes sheet; one part, or a few in a row, per session; each part ends with its checks and log
+     line, so the next session continues from the next part („polonizacja: Pahulich, część 3”).
+   - **State in STATUS.md** (the text's section): parts polished, parts left, stretches MB has edited (protected).
+   - A request to translate a text whose first pass is done does not restart it: report the state and how to start
+     the second pass. A polonizacja request for a text whose first pass is not done is refused with the state.
 
 ## Terminology (full rule: `references/tlumacz-tb-schema.md`)
 
@@ -150,6 +172,7 @@ what srom-produkcja's side must change (a refs.json slip, a group name, a Kanon 
 - `references/tlumacz-tb.tsv` — the termbase (HOUSE, PROVISIONAL, CANDIDATE rows; read in full at intake)
 - `references/tlumacz-tb-schema.md` — fields, statuses, standing, admission, decision rule, evidence standard
 - `references/tlumacz-decisions.md` — MB's dated termbase and house decisions (append-only)
+- `references/polonizacja.md` — the second pass (polonizacja), § Two passes: rules against over-editing and drift, suspects list, calibration test
 - `references/tlumacz-rasa.md` — race, racialisation and surroundings: per-case decisions, clusters B1–B10, Polish editions
 - `scripts/tlumacz-check_tb.py` — termbase integrity and evidence checks, `--selftest`
 - `scripts/tlumacz-draft_check.py` — draft checks (`<id>`, `--all`, `--selftest`)
