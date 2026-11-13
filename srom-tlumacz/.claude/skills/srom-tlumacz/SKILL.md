@@ -176,6 +176,8 @@ only the sentences MB changed (diff of the import) and return the slips as one l
 - `references/tlumacz-rasa.md` — race, racialisation and surroundings: per-case decisions, clusters B1–B10, Polish editions
 - `scripts/tlumacz-check_tb.py` — termbase integrity and evidence checks, `--selftest`
 - `scripts/tlumacz-draft_check.py` — draft checks (`<id>`, `--all`, `--selftest`)
+- `scripts/tlumacz-polish_check.py` — checks of one part of the second pass (change log, stance markers, quotations, HOUSE order, glosses, protected stretches; `--selftest`)
+- `scripts/tlumacz-track.py` — tracked-change replacements in a Word copy (`_v2`, author „Claude”; `--selftest`)
 - `scripts/tlumacz-front_check.py` — `<id>_front_pl.md` checker; its docstring is the format
 - `scripts/tlumacz-test_handoff.py` — contract test of the srom-produkcja behaviour used here
 - `scripts/tlumacz_paths.py` — finds this skill's references, the module folder and the other SROM skills

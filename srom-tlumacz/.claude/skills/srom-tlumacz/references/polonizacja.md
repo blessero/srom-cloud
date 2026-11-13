@@ -31,7 +31,9 @@ The rules below exist to stop both.
    verbs and nouns) and decide one treatment for each.
 3. Per part: read sentence by sentence with the English beside it; list the changes, **each with its fault class**
    (below); apply only those that pass the revert test (rule 2); then the audit (rule 5).
-4. After each part: pair check, build --draft, draft check; one log line in the notes sheet (`<id>_uwagi.md`
+4. After each part: `tlumacz-polish_check.py <before.md> <after.md> --src src/<id>_src.md --log <id>_polish_log.tsv
+   [--protect "<start>..<end>"]` (one log row per change: part, paragraph, class, before, after; exit 0 needed), pair check,
+   build --draft, draft check; one log line in the notes sheet (`<id>_uwagi.md`
    § Szlif językowy: part, changes per class, reverts, questions).
 5. Borderline cases: at most a few per part, **numbered once and never renumbered**; MB decides them at the end in
    one batch.
@@ -59,6 +61,11 @@ The rules below exist to stop both.
 7. **After every MB round:** proofread only the sentences MB changed (diff of the import against the previous md)
    for slips (agreement, typos, a dropped „że”, a „zaś” opening a clause, commas), and return them as one list or as
    tracked changes in a `_v2` copy, before any further pass.
+
+## Stance markers (list read by `scripts/tlumacz-polish_check.py`)
+English: Notably, Importantly, Therefore, Ultimately, In particular, Thus, Hence. A source paragraph with one must keep
+its Polish markers through the pass (rule 3); extend the line when a text needs another equivalent.
+Polish markers: warto zauważyć | warto podkreślić | co istotne | istotne | co ważne | co znamienne | znamienne | zatem | więc | tak więc | stąd | toteż | ostatecznie | koniec końców | zwłaszcza | w szczególności | szczególnie
 
 ## What to look for (suspects, not rules: every text is different)
 - **Grammar:** case agreement with *jako*; masculine-personal agreement; verb–noun collocation; pronoun reference

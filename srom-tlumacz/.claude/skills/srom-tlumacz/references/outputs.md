@@ -78,6 +78,9 @@ become HOUSE on MB's sign-off (`references/tlumacz-tb-schema.md`, `references/tl
    (`first8…last7`) of `<id>_robocza.docx`, `<id>_pl.md`, `<id>_front_pl.md` and, when they exist,
    `<id>_refs_tlum.json`, `<id>_pytania_tlum.csv`; the sha256 of the srom-produkcja `refs.json` checked against; the
    three verdicts. A new round = a new line that supersedes the old.
+5. Corrections to MB's master (his slips, the second pass after his edit) go back as tracked changes, never into the
+   master: `tlumacz-track.py <id>_robocza.docx edits.json -o <id>_robocza_v2.docx` (edits `[part, anchor, old, new]`,
+   `{FN:…}` for a new footnote; the script's docstring is the format), then the docx skill's validator and a re-import.
 
 ## Skeleton: `<id>_intake.md` (English; the plan)
 

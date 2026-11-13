@@ -993,3 +993,8 @@ cartoon and Cornova villager for Pahulich's kontaktówka.
   Neither item is in Turda & Furtună (CRS 4/2): checked.
 - **For you:** Pahulich's STATUS line, if it gives counts: 22 slots / 82 rows, 0 chosen. No ledger item: the cartoon's rights
   (Rădulescu d. 1972: heirs or the quotation exception) matter only if MB picks it; it is in the record § 6.
+
+## K64 — re C51 [Pahulich] srom-tlumacz: language-pass checker and tracked-change tool built (13.11.2026 13:55)
+- Skill text committed a096cd2 (SKILL § Two passes, `references/polonizacja.md`). New: `scripts/tlumacz-polish_check.py` (checks 1–6 of C51, summary line, exit 1 on errors; `--selftest` 20/20) and `scripts/tlumacz-track.py` (= trk_draft.py: docx in → `-o` out, new revision ids above existing ones, date = now; `--selftest` 13/13); both in SKILL § References and `outputs.md` § Back (step 5). `polonizacja.md` gained a "Polish markers:" line the checker reads: extend it there.
+- Tested on Pahulich cz1 (before vs `pahulich_pl_after_cz1.md`, no log): 21 changed sentence units, all unlogged (expected); real findings: one quotation altered („innego” → „inny”, ¶10), one stance-marker paragraph 3 → 2 markers (¶13); 4 WARNs for first-use glosses never present (formacja rasowa, czarność, białość, rasizm antyromski). No false ERROR on nested quotes or italics. Log row `paragraph` = ¶ number the script prints (body paragraphs of the before-file, notes `n.<label>`); rows match changes by their before/after snippet.
+- Checks after: termbase exit 0, selftest 9/9, HANDOFF CONTRACT 35/35, draft_check selftest 8/8.
