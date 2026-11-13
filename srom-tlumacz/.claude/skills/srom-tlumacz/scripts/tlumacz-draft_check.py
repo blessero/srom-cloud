@@ -55,28 +55,35 @@ def is_title(q):
 # ‘…’ span: the closing ’ is not an apostrophe (not followed by a letter), the opening ‘ not an elision (‘twas, ‘tis)
 SINGLE = r"(?<![\w’])‘(?!t[wi]s?\b)([^‘’]*(?:’(?=\w)[^‘’]*)*)’(?!\w)"
 
-def quoted_notes(src):
-    """Notes that carry a quotation of 4+ words. “double” quotations; in a British-style source (no “double” span
-    of 4+ words at all) the ‘single’ ones instead. Glosses are short, titles are title case: both fall below the bar."""
-    qre = r"“([^”]*)”"
-    if not any(len(q.split()) >= 4 and not is_title(q) for q in re.findall(qre, src)):
-        qre = SINGLE
-    labels, block = set(), []
+def quoted_notes(src, kinds=None):
+    """Notes that carry a quotation of 4+ words: the union of “double” and ‘single’ spans, per paragraph (a source may
+    mix the styles, C49). Glosses are short, titles are title case: both fall below the bar. `kinds`, if a dict,
+    receives {"double": n, "single": n}: notes found by each style (a note with both counts in both)."""
+    dre = r"“([^”]*)”"
+    def long(para):
+        d = [q for q in re.findall(dre, para) if len(q.split()) >= 4 and not is_title(q)]
+        s = [q for q in re.findall(SINGLE, para) if len(q.split()) >= 4 and not is_title(q)]
+        return d, s
+    labels, block, kd, ks = set(), [], set(), set()
+    def mark(nm, d, s):
+        if nm: labels.add(nm); (d and kd.add(nm)); (s and ks.add(nm))
     for para in [p for p in src.split("\n\n") if p.strip()] + [""]:
         m = re.match(r"\[\^(\w+)\]:", para)
         if m:
-            if any(len(q.split()) >= 4 and not is_title(q) for q in re.findall(qre, para)):
-                labels.add(m.group(1))
+            d, s = long(para)
+            if d or s: mark(m.group(1), d, s)
             continue
         if para.startswith(">"): block.append(para); continue
         if block:                                  # a block quotation: its own marker, else the next paragraph's first
             nm = re.search(r"\[\^(\w+)\]", " ".join(block)) or re.search(r"\[\^(\w+)\]", para)
-            if nm: labels.add(nm.group(1))
+            if nm: mark(nm.group(1), True, False)
             block = []
-        for q in re.finditer(qre, para):
-            if len(q.group(1).split()) >= 4 and not is_title(q.group(1)):
-                nm = re.search(r"\[\^(\w+)\]", para[q.end():])
-                if nm: labels.add(nm.group(1))
+        for rx in (dre, SINGLE):
+            for q in re.finditer(rx, para):
+                if len(q.group(1).split()) >= 4 and not is_title(q.group(1)):
+                    nm = re.search(r"\[\^(\w+)\]", para[q.end():])
+                    if nm: mark(nm.group(1), rx == dre, rx == SINGLE)
+    if isinstance(kinds, dict): kinds.update(double=len(kd), single=len(ks))
     return labels
 
 def check(aid, root=MODULE, want=("leftover", "marks", "quotes"), quiet=False):
@@ -101,13 +108,13 @@ def check(aid, root=MODULE, want=("leftover", "marks", "quotes"), quiet=False):
                     for x in re.findall(r"\d+(?:[–-]\d+)?", part):
                         a1, _, b1 = x.replace("–", "-").partition("-")
                         sheet |= {str(n) for n in range(int(a1), int(b1 or a1) + 1)}
-            found = quoted_notes(src or "")
+            kinds = {}; found = quoted_notes(src or "", kinds)
             bad = [r[0] for r in rows if r[3] not in CLASSES]
             opn = [r for r in rows if r[5].startswith("open")]
             unmatched = [r[0] for r in opn if not (set(re.findall(r"S\d+", r[5])) and set(re.findall(r"S\d+", r[5])) <= (a & b))]
             miss = found - sheet
             ok &= not (miss or bad or unmatched)
-            parts.append(f"quotes {len(found & sheet)}/{len(found)} ({len(bad)} bad class, {len(unmatched)} open rows unmatched)")
+            parts.append(f"quotes {len(found & sheet)}/{len(found)} (double {kinds['double']}, single {kinds['single']}; {len(bad)} bad class, {len(unmatched)} open rows unmatched)")
             if not quiet:
                 if miss: print("  quotation notes missing from the sheet:", sorted(miss, key=lambda x: (len(x), x)))
                 if bad: print("  bad class:", bad)
@@ -141,9 +148,9 @@ def selftest():
     single = ("A.[^1] B ‘one two three four five’.[^2] C ‘short gloss’[^3] and the author’s own, ‘tis fine.[^4] "
               "D “x”.[^5]\n\n[^1]: n.\n\n[^2]: n.\n")
     britsh_ok = quoted_notes(single.replace("D “x”.[^5]", "")) == {"2"} and quoted_notes(single) == {"2"}
-    doubled = quoted_notes("A ‘one two three four five’.[^1] B “six seven eight nine”.[^2]") == {"2"}
+    k = {}; doubled = quoted_notes("A ‘one two three four five’.[^1] B “six seven eight nine”.[^2]", k) == {"1", "2"} and k == {"double": 1, "single": 1}
     caught = 0
-    for name, ok in (("single-quote source: only the 4+ word span", britsh_ok), ("double-quote source ignores ‘…’", doubled)):
+    for name, ok in (("single-quote source: only the 4+ word span", britsh_ok), ("mixed source (C49): both styles found, split reported", doubled)):
         caught += ok
         if not ok: print("  NOT CAUGHT:", name)
     cases_n = len(cases) + 2
