@@ -657,3 +657,36 @@ MB's decisions in chat 10.11.2026, applied directly (data only, no code):
 - `references/tlumacz-decisions.md`: two lines (10.11.2026 17:04).
 Checks after the change: `tlumacz-check_tb.py --schema --shape --vocab --precedent --evidence` exit 0 (44 rows, 0 problems), selftest 9/9, HANDOFF CONTRACT 35/35.
 Run with: Haiku · low — scope checked: two data files, three rows and two log lines; commit by path, push; leave other sessions' files.
+
+## C49 — [general/Davis] srom-tlumacz `tlumacz-draft_check.py --quotes`: the double/single switch is global, so one double-quoted span hides every single-quoted quotation (11.11.2026 22:11)
+From `work/davis/lessons.md` (04.11.2026 19:05, route: tool). The Davis source runs in ‘single’ quotes, but n. 116 holds one “double” span of 4+ words that `is_title()` does not catch; `quoted_notes()` then fixes `qre` to “…” for the whole source and finds 11 quotation notes of 46. The report read `quotes 11/11`, clean, with 36 notes unchecked; the session counted all 46 by hand against intake G3. Same root as the British-style gap listed in C1 (West Ohueri), now in the mixed case.
+Suggested fix (yours to choose): drop the global switch; per paragraph and per note body take the union of “…” and `SINGLE` spans of 4+ words that are not titles. Risk: a ‘…’ inside a “…” counts twice (harmless: one note label) and an apostrophe misread as a closing ’ (`SINGLE` already guards the elision and the letter-after case). Also make the report show the split, e.g. `quotes 11/11 (46 expected: double 11, single 35)`, or at least warn when a source has both styles, so a partial pass cannot read as complete.
+Test first: add a selftest case with one “four word non-title span” in one note and ‘single’ running quotations of 4+ words in others; both notes must be found (today only the double one). Then rerun `tlumacz-draft_check.py davis --quotes`: the sheet should match 46 notes, and `tittelpta` (6/6) and `ostendorf` must not change.
+Nothing touched on our side: no script, no text; the lesson stays in `lessons.md` as written.
+Run with: Sonnet · low — scope: one function in one script (≈10 lines) and one selftest case; the risk is a false extra match making the 46 count differ, so check the Davis count and the two unchanged articles; commit by path, push.
+
+## C50 — [general/Pahulich] srom-tlumacz termbase: two new HOUSE rows, three decision lines; please commit and push (12.11.2026 18:37)
+MB's decisions in chat 12.11.2026 (comparison of his Word edit of Pahulich), applied directly (data only, no code):
+- `references/tlumacz-tb.tsv`: C-0055 *Black radical thought / theory / tradition* → „czarna myśl / teoria / tradycja radykalna” (HOUSE); C-0056 *entanglement* → „splątanie” (HOUSE; siblings *intertwined* „przeplatać się”, *interwoven* „przeplatanie się”; „spleciony” avoided because of C-0003).
+- `references/tlumacz-decisions.md`: three lines (the two rows; HOUSE terms keep the termbase word order, non-term collocations may move the adjective).
+Checks after the change: `tlumacz-check_tb.py --schema --shape --vocab --precedent --evidence` exit 0, selftest 9/9, HANDOFF CONTRACT 35/35.
+Not for you yet: the language-pass rules (workspace `srom-tlumacz/polonizacja_brief.md`, § Anti-overediting rules) will come as their own C-item after the final Pahulich review.
+Run with: Haiku · low — scope checked: two data files, two rows and three log lines; commit by path, push; leave other sessions' files.
+
+## C51 — [general/Pahulich] srom-tlumacz: step 4b (language pass) added; please commit, then build its checking script (13.11.2026 13:32)
+Applied directly (MB, chat 12–13.11.2026), text only:
+- `SKILL.md`: new step **4b. Polonizacja**; step 6 gains "proofread only the sentences MB changed"; one line in § References.
+- `references/polonizacja.md` (new): when, protected text (stretches MB edited are never polished), procedure, seven rules (fault class per change, revert test, stance markers kept, fidelity floor, audit after each part, HOUSE word order, proofreading MB's rounds), suspects list, calibration test.
+Checks after the change: termbase checks exit 0, selftest 9/9, HANDOFF CONTRACT 35/35, draft_check selftest 8/8, produkcja SUITE ALL PASS 29/29.
+
+**To build (yours):** `scripts/tlumacz-polish_check.py <before.md> <after.md> --src src/<id>_src.md [--log <id>_polish_log.tsv]`, run after each part of the pass:
+1. List every changed sentence (paragraph-aligned, word diff) with the fault class from the log (`--log`: one row per change: part, paragraph, class, before, after); a change without a logged class is an ERROR (rule 1).
+2. Stance markers: for each source paragraph with *Notably / Importantly / Therefore / Ultimately / In particular / Thus / Hence*, the Polish paragraph must still hold a marker from a list in `references/polonizacja.md` (warto zauważyć, co istotne, znamienne, zatem, więc, ostatecznie, zwłaszcza, w szczególności, tak więc …); a marker present before and gone after is a WARN to read (rule 3).
+3. Quotations: the text of every „…” span (and » « inside) must be identical before and after unless the log row's class is a fix; otherwise ERROR (rule 4).
+4. HOUSE word order: for each HOUSE row whose `pl_house` is noun + adjective, flag the reversed order in the after-text (e.g. „antyromski rasizm” for „rasizm antyromski”), inflected forms included (rule 6).
+5. First-use glosses: the first occurrence of every HOUSE row's term that has a `first_use` with a gloss must carry it (rule 4).
+6. Protected stretches: `--protect <start-anchor>..<end-anchor>` (repeatable); any change inside is an ERROR unless its class is *grammar* (rule 7).
+7. Summary line: `POLISH n changes (by class), r reverts listed, e errors, w warnings`; exit 1 on errors. Add a `--selftest` with negative controls for 1–6.
+Also worth taking into the skill as a tool: `workspace/srom-tlumacz/trk_draft.py` (Cowork's script of 12.11.2026 that wrote MB's v2 as tracked changes: exact-match replacement inside one paragraph of document.xml/footnotes.xml, w:del/w:ins with author and date, a {FN:…} token for a new tracked footnote; validated with the docx skill's validator, import round trip clean). Rename to `scripts/tlumacz-track.py`, add a selftest, document it in outputs.md § Back.
+Run with: Sonnet 5.5 · medium — scope: one new script (≈250 lines) with selftest, one tool moved in with a selftest, three lines of docs; the risk is false ERRORs on quotations split across runs or nested quotes, so test on Pahulich (`_archive/20261110/pahulich_jezyk_cz1_before/pahulich_pl.md` vs `pahulich_pl_after_cz1.md`) first.
+- **Addendum 13.11.2026 13:50 (MB):** "step 4b" is gone. The language pass is now a separate second pass, outside the numbered procedure: SKILL.md § Two passes (started only when MB asks for „polonizacja: <text>”, fresh session, parts of ≈1,500–2,000 words, state in STATUS.md); the procedure intro says it is the first pass only; the description names both passes and their triggers; `references/polonizacja.md` § When and Procedure step 1 changed to match. Checks after: termbase exit 0, HANDOFF CONTRACT 35/35, draft_check selftest 8/8. The script request above stands; read "step 4b" there as "the second pass".
