@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Zizek text extraction: PDF / DOCX / MD / TXT -> plain text with page markers.
+"""Zizek text extraction: PDF / DOCX / ODT / MD / TXT -> plain text with page markers.
 
 Deterministic on purpose: never let an LLM "clean" a text we are about to judge,
 it smooths over exactly the inconsistencies we are looking for.
@@ -64,7 +64,7 @@ def pdf_text(path: Path, pages):
 
 
 def docx_text(path: Path):
-    # pandoc keeps footnotes (as numbered notes at the end); python-docx would drop them
+    # (ODT too: pandoc reads it natively, C55) pandoc keeps footnotes (as numbered notes at the end); python-docx would drop them
     r = subprocess.run(["pandoc", str(path), "-t", "plain", "--wrap=none"],
                        capture_output=True, text=True, check=True)
     return r.stdout, None
@@ -74,7 +74,7 @@ def extract(path: Path, textdir: Path, pages, used: set):
     ext = path.suffix.lower()
     if ext == ".pdf":
         body, npages = pdf_text(path, pages)
-    elif ext == ".docx":
+    elif ext in (".docx", ".odt"):
         body, npages = docx_text(path)
     elif ext in (".md", ".txt"):
         body, npages = path.read_text(encoding="utf-8", errors="replace"), None

@@ -16,7 +16,7 @@ docx_in.py — author's Word file -> SROM-MD (then run normalize.py).
   with the source numbers; split paragraphs joined; every repair and every gap listed (see typed_notes)
 Last line: IMPORT OK / IMPORT CHECK n
 """
-import argparse, html, json, os, re, subprocess, sys, zipfile
+import argparse, html, json, os, re, shutil, subprocess, sys, tempfile, zipfile
 from collections import Counter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -581,6 +581,20 @@ def relabel(md, numbers):
     return re.sub(r"\[\^(\d+)\]", lambda x: "[^" + m.get(x.group(1), x.group(1)) + "]", md)
 
 
+def odt_to_docx(src, tmpdir):
+    """An ODT (or other soffice-readable word-processor file) is converted to DOCX in tmpdir; returns the new path (C55)."""
+    soffice = shutil.which("soffice") or "/Applications/LibreOffice.app/Contents/MacOS/soffice"
+    cmd = [soffice, "--headless", "--convert-to", "docx", "--outdir", tmpdir, src]
+    try:
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=180)
+    except (OSError, subprocess.TimeoutExpired) as e:
+        sys.exit(f"cannot read {src} as DOCX; convert it first: soffice --headless --convert-to docx \"{src}\" ({e})")
+    out = os.path.join(tmpdir, os.path.splitext(os.path.basename(src))[0] + ".docx")
+    if r.returncode or not os.path.exists(out):
+        sys.exit(f"soffice could not convert {src}: {r.stderr.strip() or r.stdout.strip()}")
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("docx")
@@ -588,6 +602,11 @@ def main():
     ap.add_argument("--typed-notes", action="store_true",
                     help="notes typed as text (superscript digits + numbered note paragraphs, page by page): make them real notes (E9)")
     a = ap.parse_args()
+    orig, conv_note = a.docx, None
+    if not zipfile.is_zipfile(a.docx) or "word/document.xml" not in zipfile.ZipFile(a.docx).namelist():
+        # not a DOCX (an ODT, typically): convert it with soffice instead of dying on a KeyError (C55)
+        a.docx = odt_to_docx(a.docx, tempfile.mkdtemp(prefix="docx_in_"))
+        conv_note = f"- input `{os.path.basename(orig)}` is not a DOCX: converted with soffice (`--convert-to docx`) before import; check footnotes, italics and tracked changes against the original"
     z = zipfile.ZipFile(a.docx)
     doc_xml = z.read("word/document.xml").decode("utf-8", "replace")
     parts = doc_xml + "".join(z.read(n).decode("utf-8", "replace") for n in ("word/footnotes.xml", "word/endnotes.xml") if n in z.namelist())
@@ -608,9 +627,10 @@ def main():
             Wn = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
             for cm in _et.fromstring(z.read("word/comments.xml")).iter(Wn + "comment"):
                 ctexts.append("".join(t.text or "" for t in cm.iter(Wn + "t")).strip())
-        rep = [f"# DOCX import (working copy) — {a.docx}", "",
+        rep = [f"# DOCX import (working copy) — {orig}", "",
                f"- tracked changes accepted: {ins} insertions, {dele} deletions · Word comments dropped: {comments}",
                f"- footnotes: {n_notes} · citation tokens: {n_tok} · open markers: {n_open}",
+               ] + ([conv_note] if conv_note else []) + [
                "", "## Word comments still in the file (not imported, for your attention)"] + \
               ([f"- {c}" for c in ctexts] or ["- none"]) + \
               ["", "Next: check.py (integrity; --pair against the source for a translation), then build.py"]
@@ -643,7 +663,7 @@ def main():
     md, bib = split_bibliography(md)
     open(a.out, "w", encoding="utf-8").write(md)
     base = a.out.rsplit(".", 1)[0]
-    extra = list(tn_rep)
+    extra = ([conv_note] if conv_note else []) + list(tn_rep)
     if tn_rep:
         extra.append(f"- the converted file (real notes) is `{os.path.basename(src)}` — open it in Word to compare")
     if bib:
@@ -657,7 +677,7 @@ def main():
     os.remove(lua)
     issues = [m for m in msgs if m.split("\t")[0] in ("FAKE-NOTE", "FIGURE", "IMAGE", "BOLDPARA", "TABS")]
     n_fn = len(re.findall(r"^\[\^[^\]]+\]:", md, re.M))   # outside the f-strings: Python < 3.12 allows no backslash in them
-    rep = [f"# DOCX import — {a.docx}", "",
+    rep = [f"# DOCX import — {orig}", "",
            f"- tracked changes accepted: {ins} insertions, {dele} deletions · comments dropped: {comments}"
            + ("  **← confirm nothing was pending**" if ins or dele or comments else ""),
            f"- footnotes: {n_fn} · citation fields: "

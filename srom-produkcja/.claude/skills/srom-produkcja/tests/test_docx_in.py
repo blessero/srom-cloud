@@ -124,5 +124,26 @@ t("E9: without --typed-notes nothing is converted (0 notes, typed digits flagged
 rx = subprocess.run([sys.executable, os.path.join(S, "docx_in.py"), docx, "-o", os.path.join(d, "mixed.md"), "--typed-notes"], capture_output=True, text=True)
 t("E9: a file that already has real Word notes is refused (mixed notes)", rx.returncode != 0 and "already has real Word footnotes" in rx.stderr, rx.stderr)
 
+# ---- C55: an ODT is converted (soffice) instead of dying on a KeyError; zizek's extract.py reads it via pandoc
+odt_src = os.path.join(d, "odt_src.md")
+open(odt_src, "w", encoding="utf-8").write("Pierwszy akapit z przypisem.[^1] I *kursywa* oraz drugi przypis.[^2]\n\n[^1]: Pierwszy przypis ODT.\n\n[^2]: Drugi przypis ODT.\n")
+odt = os.path.join(d, "in.odt")
+subprocess.run(["pandoc", odt_src, "-o", odt], check=True)
+ro = subprocess.run([sys.executable, os.path.join(S, "docx_in.py"), odt, "-o", os.path.join(d, "o.md")], capture_output=True, text=True)
+omd = open(os.path.join(d, "o.md"), encoding="utf-8").read() if os.path.exists(os.path.join(d, "o.md")) else ""
+orep = open(os.path.join(d, "o_import.md"), encoding="utf-8").read() if os.path.exists(os.path.join(d, "o_import.md")) else ""
+t("C55: ODT input is converted and imported with both footnotes, no KeyError",
+  ro.returncode == 0 and "KeyError" not in ro.stderr and "[^1]: Pierwszy przypis ODT." in omd and "[^2]: Drugi przypis ODT." in omd and "*kursywa*" in omd, (ro.stdout, ro.stderr, omd))
+t("C55: the import report names the original ODT and says it was converted", "in.odt" in orep and "converted with soffice" in orep, orep)
+bad = os.path.join(d, "missing.odt")
+rb = subprocess.run([sys.executable, os.path.join(S, "docx_in.py"), bad, "-o", os.path.join(d, "b.md")], capture_output=True, text=True)
+t("C55: a missing input stops with one clear line, not a traceback", rb.returncode != 0 and "Traceback" not in rb.stderr and "soffice" in rb.stderr, rb.stderr)
+EX_Z = os.path.join(os.path.dirname(ROOT), "srom-zizek", "scripts", "extract.py")
+vol = os.path.join(d, "vol"); os.makedirs(vol)
+rz = subprocess.run([sys.executable, EX_Z, vol, odt], capture_output=True, text=True)
+zt = [f for f in os.listdir(os.path.join(vol, "text"))] if os.path.isdir(os.path.join(vol, "text")) else []
+ztxt = open(os.path.join(vol, "text", zt[0]), encoding="utf-8").read() if zt else ""
+t("C55: srom-zizek extract.py reads an ODT with its footnotes", rz.returncode == 0 and "skipped" not in rz.stdout and "ERROR" not in rz.stdout and "Pierwszy przypis ODT" in ztxt, (rz.stdout, rz.stderr, ztxt))
+
 n, ok = len(res), sum(res)
 print(f"DOCXIN ALL PASS {n}/{n}" if ok == n else f"DOCXIN FAILED {n - ok}/{n}")
