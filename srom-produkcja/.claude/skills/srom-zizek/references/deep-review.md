@@ -123,8 +123,10 @@ The Pass 4 draft revised by the rulings, each finding marked stands / downgraded
   srom-tlumacz.
 - **For a SUBMISSION:** a separate section *Do autora* in Polish — the points to send, phrased as a
   referee would (what to fix, why, where), without SROM-internal matters (scores, block strategy, other
-  candidates). MB edits it before anything is sent.
-Then update the card (scores, verdict, link to `deep/<slug>-5.md`, a line on what changed and why).
+  candidates). MB edits it before anything is sent. Verdict for the editor: *przyjąć* / *przyjąć po drobnych
+  poprawkach* / *poprawki zasadnicze* / *odrzucić*. A submission has no card: the verdict goes in the text's STATUS.md
+  section, and RIP follows srom-produkcja `references/polish-original.md`.
+Then, for a paper with a card, update the card (scores, verdict, link to `deep/<slug>-5.md`, a line on what changed and why).
 
 ## Tips carried over from the kit
 - Steelman first; the rebuttal step then tests whether the critique survives.

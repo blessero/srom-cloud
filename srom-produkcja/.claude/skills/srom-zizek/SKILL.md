@@ -1,6 +1,6 @@
 ---
 name: srom-zizek
-description: Selection and critical review for Studia Romologica (SROM), the stage before RIP. Conceives and stress-tests a volume's thematic block (Część I), logs the reading pool, writes one-page comparable cards on candidate papers, proposes and tests the 4–5 papers that make the strongest block, and runs staged referee-grade deep reviews (blind read, field situating, citation audit, author's-advocate rebuttal) of finalists and of manuscripts submitted to SROM. Use for "Zizek", "concept", "pool", "card", "cards", "block", "deep review", judging a paper's quality, fit or value for Polish readers, choosing what SROM should translate, recenzja, ocena artykułu, wybór tekstów do tomu. Not for extraction for translation, keying or building (srom-produkcja), translating (srom-tlumacz), house style (srom-kanon) or metadata and DOI (srom-quant).
+description: Selection and critical review for Studia Romologica (SROM), the stage before RIP. Conceives and stress-tests a volume's thematic block (Część I), logs the reading pool, writes one-page comparable cards on candidate papers, proposes and tests the 4–5 papers that make the strongest block, and runs staged referee-grade deep reviews (blind read, field situating, citation audit, author's-advocate rebuttal) of finalists and of manuscripts submitted to SROM, and a one-session editor's assessment of submitted book reviews (Part III). Use for "Zizek", "concept", "pool", "card", "cards", "block", "deep review", judging a paper's quality, fit or value for Polish readers, choosing what SROM should translate, recenzja, ocena recenzji, ocena artykułu, wybór tekstów do tomu. Not for extraction for translation, keying or building (srom-produkcja), translating (srom-tlumacz), house style (srom-kanon) or metadata and DOI (srom-quant).
 ---
 
 # srom-zizek — selection and critical review
@@ -20,11 +20,14 @@ Zizek when MB has chosen it: `references/block.md` step 7 writes its brief, open
 live in the volume files (`concept.md` § Open questions, `block.md` § 6 with MB's dated decisions), not in
 `MB-decisions.md`, which holds production questions only.
 
+**Submitted Polish texts** (no selection): an article gets `deep` (Pass 5 *Do autora* and verdict), a book review
+gets `review` (`references/review.md`); no card. RIP then follows srom-produkcja `references/polish-original.md`.
+
 ## Files
 
 | what | where |
 |---|---|
-| method: concept, card (rubric, calibration anchors), block, deep review | this skill, `references/` |
+| method: concept, card (rubric, calibration anchors), block, deep review, review (book reviews) | this skill, `references/` |
 | scripts: `extract.py`, `check.py`, `build_abstracts.py` | this skill, `scripts/` |
 | empty volume (`concept.md`, `pool.md`, `block.md`) | this skill, `assets/template/` |
 | Zizek's working folder | workspace `srom-zizek/` |
@@ -32,7 +35,7 @@ live in the volume files (`concept.md` § Open questions, `block.md` § 6 with M
 | 254 articles and reviews of vols 1–18 with PL abstracts and keywords: **grep it**, too big to read whole | `srom-zizek/context/srom-abstracts.tsv` (built by `build_abstracts.py` from `_sources/`) |
 | the Polish lens: a seed MB corrects over time (**?MB** items are open) | `srom-zizek/context/polish-field.md` |
 | MB's source documents and his original drafts of the method (reference only) | `srom-zizek/_sources/` |
-| one volume: `concept.md`, `pool.md` (ledger of every file), `cards/`, `block.md`, `deep/`, `text/` (extracted, derived: regenerate rather than edit) | `srom-zizek/volumes/<N>-<year>/` |
+| one volume: `concept.md`, `pool.md` (ledger of every file), `cards/`, `block.md`, `deep/`, `reviews/`, `text/` (extracted, derived: regenerate rather than edit) | `srom-zizek/volumes/<N>-<year>/` |
 
 ## Running it in Cowork
 
@@ -75,6 +78,7 @@ python3 "$Z/build_abstracts.py"                                         # after 
 | **cards** | card every uncarded candidate: one subagent per paper, 3–5 at a time (staged as above); then run `check.py` on all new cards, read them and calibrate scores | `references/card.md` |
 | **block** | compare the cards, propose 2–3 alternative blocks, stress-test, recommend; after MB's choice, the brief for the intro and the translation | `references/block.md` |
 | **deep** <paper> | staged referee-grade review of one finalist, doubtful paper or submitted manuscript: a blind subagent reads (passes 0–2), Zizek situates and synthesises, a second subagent rebuts as the author's advocate | `references/deep-review.md` |
+| **review** <text> | editor's assessment of a submitted book review (Part III), one session, no subagents: the book identified against catalogues, description, evaluation, facts, form, verdict, *Do autora* | `references/review.md` |
 | anything else | free discussion: the same rules apply | — |
 
 **Start of a Zizek session:** look at `volumes/` for the current volume (the newest folder). Report in 2–4 lines: where

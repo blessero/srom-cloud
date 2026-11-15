@@ -11,7 +11,8 @@ options are in `SKILL.md` (srom-produkcja) and srom-tlumacz's `SKILL.md`. Paths 
 | 4 | **InDesign import** — layout and PDF | MB, on his Mac (InDesign) | every text |
 
 A Polish original goes 1 → 3 → 4: its RIP ends with the Word working copy, MB edits it, INJECT imports it again and
-builds. A stage starts only when the previous one has passed. Every check prints a verdict line; a stage passes when
+builds. Its RIP adds the verification and language steps of `polish-original.md` (they stand in for TRANS's intake):
+its Output, Pass and Gate out are that file's § Out and § Gates; the RIP → TRANS hand-off does not apply. A stage starts only when the previous one has passed. Every check prints a verdict line; a stage passes when
 every line in its **Pass** row is printed (and the manual reads are done), and fails on any other outcome.
 
 ## 1. RIP — preprocessing (srom-produkcja, SKILL.md steps 1–5; scenario C up to the hand-over)

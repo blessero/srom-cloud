@@ -50,7 +50,9 @@ at any time; `build.py` runs it itself.
 
 ## Scenarios
 
-**A. Polish Word file, footnotes** (any text written in Polish, no TRANS) — 1a → 2 → 3 → 4b → 5 (the editor's content edit in the working copy) → 2 → 6 → 7. If the author used Zotero/Mendeley, 1a has
+**A. Polish Word file, footnotes** (any text written in Polish, no TRANS; reviews and chronicles included) — first read
+`references/polish-original.md`: the checks a Polish original gets in place of TRANS's intake (quotations, names and
+transcription, facts), language corrections as tracked changes, the book-review header. 1a → 2 → 3 → 4b → V, L → 5 (the editor's content edit in the working copy) → 2 → 6 → 7. If the author used Zotero/Mendeley, 1a has
 already keyed the citations (`_cited.md`): complete `_refs.json`, run `--keyed art.md art_cited.md`, go on
 from the `_cited` file. Keying by hand is the only non-deterministic step; `--keyed` proves no page,
 note or work was lost. *Lite variant* for an article whose notes are already kanon-clean: skip 3–4,
@@ -142,6 +144,7 @@ paragraph tracking ±5/±10, one undo step). Clean template: `indesign/SROM_szab
 - `references/srom-md.md` — SROM-MD format, citation syntax, refs.json field conventions, roles
 - `references/handoff.md` — what goes to srom-tlumacz and what comes back; the handoff check
 - `references/stages.md` — the stages RIP → TRANS → INJECT → InDesign: input, output, pass/fail of each; the hand-off log
+- `references/polish-original.md` — RIP of a Polish original (articles, reviews): verification, language corrections, review header
 - `references/style-sheet.md` — the house style: every paragraph/character style, hierarchy and values
 - `references/indesign.md` — Word-import preset, template requirements, post-import and Ibidem scripts, first-article verification
 - `references/decisions.md` — Kanon rule → implementing file → test; toolchain-only conventions; open items

@@ -6,6 +6,11 @@ a wrong file past a gate. INJECT lessons go here too, in a `## INJECT` section a
 here (they go to a C-item), only what to do meanwhile; a line ending `(C<n>)` is deleted once that C-item is ticked in STATUS.md
 § For the skills.
 
+## DOCX in (step 1a)
+- **ODT (or RTF, DOC) from the author.** `docx_in.py` stops with a bare `KeyError: … 'word/document.xml'`. Convert first:
+  `soffice --headless --convert-to docx --outdir work/<id>/ <file>.odt`, then 1a on the DOCX; the conversion keeps the
+  footnotes (Bijak review, 15.11.2026: 5 of 5) (C55).
+
 ## PDF in (step 1b)
 - **Publisher boilerplate mid-paragraph.** Open-access T&F/Routledge PDFs put CONTACT, ©, the licence text and the first footnote on the
   page-2 foot, which the extractor leaves in the middle of the Introduction's paragraph ("…both states aimed to transform removed |
