@@ -20,7 +20,9 @@ The rules below exist to stop both.
 - **Everything MB has edited in Word.** The text's STATUS section names the stretches („edited by MB: never
   re-polished, proofread only”). There the pass may only fix slips (rule 7), never style.
 - Quotations (Polish editions pending or MB's own decision), HOUSE terms, facts, content. A wording problem at the
-  edge of a term or a quotation goes to MB as a question, never changed silently.
+  edge of a term or a quotation goes to MB as a question, never changed silently. Exception: a fidelity correction
+  inside a quotation (a lost conjunction, a case forced by a corrected verb) is allowed and logged as `fix`; style
+  inside a quotation never (MB 15.11.2026, PAH-104).
 
 ## Procedure
 1. Snapshot the md (or note the master's sha256). Split the unprotected body into parts of about 1,500–2,000 words
@@ -53,7 +55,9 @@ The rules below exist to stop both.
 4. **Fidelity floor.** Every content word of the English keeps a home in the Polish. Reporting and key verbs one to
    one (*discuss* „omawiać”, not „pisać o”; *construct* „skonstruować”; *contribute to* „przyczynić się do”). No
    added words („konkretną”). Quoted spans are compared word by word with the English after the pass: a change
-   inside a quotation is a logged fix or it is reverted. First-use glosses of HOUSE rows present.
+   inside a quotation is a logged fix or it is reverted. First-use glosses of HOUSE rows present. The rule binds the
+   pass's own wording: a faithful draft equivalent is not swapped for the listed one („wnieść wkład w” stays).
+   Claim-strength verbs (*suggest*, *propose* vs *argue*, *theorize*): a numbered question for MB, never a silent change.
 5. **Audit after each part.** Diff before/after; re-read only the changed sentences against the draft and the
    English; revert every change that fails rule 2 or rule 4. Report the number of reverts in the log line.
 6. **HOUSE terms keep the termbase's word order** („rasizm antyromski”); collocations that are not terms may move an
@@ -69,9 +73,15 @@ Polish markers: warto zauważyć | warto podkreślić | co istotne | istotne | c
 
 ## What to look for (suspects, not rules: every text is different)
 - **Grammar:** case agreement with *jako*; masculine-personal agreement; verb–noun collocation; pronoun reference
-  („jego” pointing at the wrong noun); a missing „że” after „Warto zauważyć,”.
-- **„który” chains:** at most one per sentence; turn a short defining clause into an adjectival participle
-  („system, który spycha” → „system spychający”). Adverbial -ąc participles expressing a result are the suspect, not
+  („jego” pointing at the wrong noun; a pronoun with no antecedent at all); a missing „że” after „Warto zauważyć,”;
+  parallel members kept parallel (*class-based or solely social*).
+- **Word choices to check** (from the 13.11.2026 calibration): „Tymczasem” for *Meanwhile* (adversative: „natomiast”);
+  „przywracać uwagę czemuś”; „skupienie na” (*focus on*); „zwykle … sporadycznie” (*tend to*); „cel” for *target*;
+  „znaczenie X … dla Y” with „dla” far off; *emphasize* „podkreślać”; *rates* „wskaźniki”; *including* „w tym”.
+  Consistency: „Europa Wschodnia/Zachodnia” capitalised one way; „/ ” spacing. *Anti-Roma attacks*: „ataki
+  antyromskie” and „ataki na Romów” are both right (MB 15.11.2026); neither is a suspect.
+- **„który” chains:** two or more in one sentence = suspect; a lone short defining clause becomes an adjectival
+  participle („system, który spycha” → „system spychający”) only when the paragraph already has three or more „który”. Adverbial -ąc participles expressing a result are the suspect, not
   the adjectival ones.
 - **Calques:** of discourse markers rendered word for word („Mówiąc konkretnie”); of collocations („szeroka
   publiczność” → „ogół społeczeństwa”, „brać na cel”, „warunki wstępne”); of English plurals („konteksty”,
@@ -86,10 +96,13 @@ Polish markers: warto zauważyć | warto podkreślić | co istotne | istotne | c
   the reading she supports; when both readings converge, a „co” referring to the whole clause keeps both.
 - **Echoes and inconsistency:** one rendering per event or concept within a paragraph („wypędzenie”, not
   „wygnanie” then „wypędzenie”).
-- **Register:** the elevated academic register MB uses (nie sposób, stanowi, bądź, tym samym, czynią to); not bookish
-  for its own sake.
+- **Register is MB's, not the pass's.** Register and synonym lifts (≈30 of MB's edits on pp. 42–44: nie sposób,
+  stanowi, bądź, tym samym…) stay out of the pass: that is where the 10.11.2026 pass over-edited. The gap is
+  recorded, not to be "fixed" later (MB 15.11.2026, PAH-104).
 
 ## Test before a new text (calibration)
-When the rules change, run the pass on a draft stretch that MB has already edited (Pahulich pp. 42–44: the draft is
-`_archive/20261110/pahulich_jezyk_cz1_before/pahulich_pl.md`, MB's version is the current master) and compare: what MB
-changed that the pass missed, and what the pass changed that MB left or reverted. Adjust the rules and suspects first.
+When the rules change, calibrate on a **held-out stretch**, not one the rules were drawn from (Pahulich pp. 42–44 are
+training data now: a test on them is circular). The pass runs blind: it reads this file only, not MB's version or the
+method brief; MB's term decisions are applied to the input first; MB edits the stretch afterwards and the two are
+compared: what MB changed that the pass missed, and what the pass changed that MB left or reverted. Adjust the rules and
+suspects first (MB 15.11.2026, PAH-104; report `pahulich/kalibracja_20261113/raport.md`).
