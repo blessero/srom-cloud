@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Runs output_sync.py every 5 minutes: MB's `2. Output/` aliases follow the record (MB, 17.11.2026).
+     Install: copy to ~/Library/LaunchAgents/ and `launchctl load ~/Library/LaunchAgents/pl.srom.output-sync.plist`;
+     remove: `launchctl unload …` and delete. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>pl.srom.output-sync</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/python3</string>
+    <string>/Users/michalbartosz/.claude/skills/srom-produkcja/scripts/output_sync.py</string>
+  </array>
+  <key>StartInterval</key><integer>300</integer>
+  <key>RunAtLoad</key><true/>
+  <key>StandardOutPath</key><string>/Users/michalbartosz/Library/Logs/srom-output-sync.log</string>
+  <key>StandardErrorPath</key><string>/Users/michalbartosz/Library/Logs/srom-output-sync.log</string>
+</dict>
+</plist>

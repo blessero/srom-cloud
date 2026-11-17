@@ -1011,3 +1011,20 @@ cartoon and Cornova villager for Pahulich's kontaktówka.
 ## K67 — re C52 [general] srom-kanon knowledge base pointer to LAUNCH.md committed; check of the 13.11 sessions (14.11.2026 00:43)
 - C52 committed and pushed as named (one sentence, § Indexing and ranking); suite 29/29 before the commit.
 - Check of the four sessions of 13–14.11.2026 (standing rulings; rulings applied; Biurko by sitting; post bank and LAUNCH.md), run in Code: suite 29/29, termbase checks exit 0, selftest 9/9, HANDOFF CONTRACT 35/35; six `src/manifest.sha256` OK; pair CHECK OK and FRONT OK for Pahulich, Ostendorf, West Ohueri, Tittel PTA; the four `refs.json` hashes equal the hand-off log; Biurko's store equals `desk_bundle.json` (only `meta/sync` differed, by the time of a re-sync); the published page equals `desk/biurko_page.html`, script syntax OK. One gap closed: the srom-naczelny upload had no ledger item (now SYS-110).
+
+## K68 — [general] `2. Output/` replaces the `2. Word` Smart Folder and `Claude outputs/` (MB, chat 17.11.2026) (17.11.2026 23:19)
+- MB: the Smart Folder showed 27 Word files with no way to tell current from archival; he wants one place for what he
+  works with. Done on the Mac: `Claude outputs/` renamed `2. Output/`; the sheets moved to `2. Output/Kontaktowki/`;
+  the Smart Folder moved to `4. Archive/2. Word (Smart Folder, retired 17.11.2026).savedSearch`. Nothing deleted.
+- New: srom-produkcja `scripts/output_sync.py` (test `test_output_sync.py` 9/9), Mac job `pl.srom.output-sync` (every
+  5 min, installed). It keeps Finder aliases (Word opens and saves the real file in `workspace/`): `Word/` one per live
+  text (`<id>_robocza.docx`, or `<id>_robocza_v2.docx` while newer than the master), `Word/_src/`, `Word/_old/`
+  (`_archive/` copies, `_oldN`, `pl/` deliveries, texts **Dropped** in STATUS.md; named `<id> · <date> · <what>`),
+  `Social/` (`social/<yyyy-mm>.md`, this month on), `Letters/` (`*listy*do*autor*`, `*letter*`, a review with „Do autora”),
+  `PDF online (ready, with cover)`. `pobierz.py` now writes the sheet copies to `2. Output/Kontaktowki/`. Root CLAUDE.md
+  § The one folder, srom-ikonograf SKILL.md § Files and checkup SKILL.md updated.
+- **For you** (workspace files; Code does not write them): `workspace/CLAUDE.md` § The one folder (the `2. Word` bullet →
+  `2. Output/`, as root CLAUDE.md row); `desk/desk_sync.py` line 193 (`2. Word.savedSearch` → `2. Output`, label
+  `2. Output`), then a sync and push; srom-naczelny's folder list at its next upload (SYS-110). Keep the names that the
+  job reads: Word copies `<id>_robocza.docx` / `_robocza_v2.docx` / `_oldN`, superseded copies in `_archive/`, letter
+  drafts named `listy-do-autorow` or `letter`. A file in `Files to open:` stays its real `workspace/` path.

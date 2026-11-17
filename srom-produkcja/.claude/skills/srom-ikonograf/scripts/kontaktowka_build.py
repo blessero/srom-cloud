@@ -9,7 +9,7 @@
                 "holder": ..., "cls": "A", "size": ..., "page": ..., "full": ..., "why": ..., "hint": ..., "metryka": ...,
                 "alt": [{"label", "url", "why"}], "also": ""}, ...]}
 Each build takes the renderer from the skill's current template, writes `kontaktowka.html`, embeds every
-`miniatury/*.jpg` (so a rebuild can never drop them) and refreshes MB's copy in `Claude outputs/` (pobierz.py).
+`miniatury/*.jpg` (so a rebuild can never drop them) and refreshes MB's copy in `2. Output/Kontaktowki/` (pobierz.py).
 `src` fills `thumb`, `full`, `page` and `size` where the row leaves them empty (a field given in the row always wins):
     commons:<file name>       Special:FilePath thumbnail (960), the File: page; `--commons-info` adds full URL and size
     loc:<coll>-<number>       tile.loc.gov `v.jpg` (ppmsca, cwpb, ds …: folder = number rounded down to 100)

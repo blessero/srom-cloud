@@ -21,17 +21,16 @@ modules work together; everything else is in each module's own files.
 ## The one folder (MB, 08.10.2026; review 07.10.2026, For MB 5)
 Everything lives in `SROM/Redakcja/` (Mac: `/Users/michalbartosz/ARBEIT/Bima/SROM/Redakcja`). MB starts Cowork on this
 folder (no "+"), and it is his Finder favourite. The four numbered folders are MB's; sessions keep their own files out
-of the top level (`Claude outputs/` holds only copies for MB, below).
+of the top level (`2. Output/` holds only aliases and copies for MB, below).
 
 | folder | what it holds | rule |
 |---|---|---|
 | `1. Inbox/` | anything MB drops in: author files, PDFs, texts for the corpus | a session copies what it needs into place and says where; the original stays until MB clears it (Cowork cannot delete) |
-| `2. Word` | a Finder Smart Folder: every `*_robocza.docx` in `workspace/` | the Word copies MB edits, in place; one in a `pl/` folder is a sealed delivery, never edited |
+| `2. Output/` | MB's short way to what he works with (MB, 17.11.2026; replaces the `2. Word` Smart Folder and `Claude outputs/`): `Word/` (one alias per live text: `<id>_robocza.docx`, or `<id>_robocza_v2.docx` while it is newer), `Word/_src/`, `Word/_old/` (archive copies, `_oldN`, `pl/` deliveries, dropped texts, named `<id> · <date> · <what>`), `Social/`, `Letters/`, `PDF online (ready, with cover)`: Finder aliases kept by srom-produkcja `scripts/output_sync.py` (Mac job `pl.srom.output-sync`, every 5 min); `Kontaktowki/`: copies of the contact sheets (srom-ikonograf's `pobierz.py`, Mac job, every 5 min) | write nothing there by hand: the files stay where the skills put them (`workspace/`), the job follows. Keep the names: a Word copy for MB is `<id>_robocza.docx`, corrections for him `<id>_robocza_v2.docx`, a superseded one `_oldN` or a copy in `workspace/_archive/`; a letter draft's name says `listy-do-autorow` or `letter`. Copies only in `Kontaktowki/`: never edited, never read as a source |
 | `3. PDF online/` | MB's InDesign exports for the website (preset "SROM online") | Cowork repairs the text layer and adds the cover (`cover_page.py`) into `3. PDF online/ready/` |
 | `4. Archive/` | old material (Cowork's bundle and dump, old cover templates and proofs, Code's dump) | no session reads it unless MB asks |
 | `SROM edit and trans/` | this repository: the skills, `_handoffs/`, the module records | Code sessions start here or in a module folder |
 | `workspace/` | Cowork's: the texts, the volume data, `STATUS.md`, `MB-decisions.md`, the desk, srom-zizek's data | not in git; Code reads it (`../workspace/` from here) but never writes it, except srom-zizek's data and srom-ikonograf's `work/<id>/ikonografia/` folders, as those skills say |
-| `Claude outputs/` | MB's copies at hand (MB, 26.10.2026): every contact sheet as `Kontaktowka - <Name>.html`, kept current by srom-ikonograf's `pobierz.py` (Mac job, every 5 min) | copies only: never edited, never read as a source; the master stays in `work/<id>/ikonografia/` |
 
 The old Code path `SROM/CODE/SROM/SROM edit and trans` is a link to this repository until MB deletes it (planned
 15.10.2026), so sessions started there still open; start new sessions from `SROM/Redakcja/`. Code keeps no copies of
@@ -176,7 +175,7 @@ in what time, not on the model. So:
 - **End every reply with one line** listing the files MB needs to open for what the reply is about, or
   `Files to open: none`. Only files MB must act on, not every file you touched. Each file is its name, a word saying
   which text it belongs to, and its absolute path in backticks (MB copies it), e.g.
-  `` Files to open: Kontaktowka - Tittel.html (Tittel) — `/Users/michalbartosz/ARBEIT/Bima/SROM/Redakcja/Claude outputs/Kontaktowka - Tittel.html` ``
+  `` Files to open: Kontaktowka - Tittel.html (Tittel) — `/Users/michalbartosz/ARBEIT/Bima/SROM/Redakcja/2. Output/Kontaktowki/Kontaktowka - Tittel.html` ``
   No ⭕ or `file://` links: they did not open in the app (MB, 24.10.2026).
 - **The button is the SendUserFile card** (MB, 24.10.2026: it opens the file reliably). Send every Markdown, HTML or
   PDF file in that line with SendUserFile (display: render) as the **last tool call** of the turn, so the card sits

@@ -57,7 +57,7 @@ else:
     run(); log2 = open(os.path.join(d, "pobierz.log")).read().splitlines()
     t("pobierz: done rows are not fetched again (only the refused row is retried)",
       sum("\tok\t" in l for l in log2) == 2 and sum("\tFAIL\t" in l for l in log2) == 2, log2)
-# pobierz.py: MB's copies of the sheets in Claude outputs (no network, no sips)
+# pobierz.py: MB's copies of the sheets in 2. Output/Kontaktowki (no network, no sips)
 w2 = tempfile.mkdtemp(); out = os.path.join(w2, "outputs"); work2 = os.path.join(w2, "work")
 for rid in ("pahulich", "q-test1"):
     os.makedirs(os.path.join(work2, rid, "ikonografia"))
@@ -66,7 +66,7 @@ mir = lambda *a: subprocess.run([sys.executable, os.path.join(IK, "scripts", "po
                                 capture_output=True, text=True)
 r = mir("--outputs", out, "--mirror")
 cp = lambda n: os.path.join(out, f"Kontaktowka - {n}.html")
-t("pobierz: sheet mirrored to Claude outputs as Kontaktowka - <Name>.html (text, query)",
+t("pobierz: sheet mirrored to 2. Output/Kontaktowki as Kontaktowka - <Name>.html (text, query)",
   r.returncode == 0 and sorted(os.listdir(out)) == ["Kontaktowka - Pahulich.html", "Kontaktowka - Zapytanie test1.html"]
   and open(cp("Pahulich")).read() == "<html>pahulich</html>", (r.stderr, os.listdir(out) if os.path.isdir(out) else None))
 ino = os.stat(cp("Pahulich")).st_ino; mir("--outputs", out, "--mirror"); same = os.stat(cp("Pahulich")).st_ino == ino
@@ -77,7 +77,7 @@ t("pobierz: sheet copy left alone when unchanged, refreshed after a rebuild",
   same and open(cp("Pahulich")).read() == "<html>rebuilt</html>" and not [f for f in os.listdir(out) if f.startswith(".")])
 mir("--mirror")
 t("pobierz: sheet copies never written from a test root without --outputs",
-  not os.path.exists(os.path.join(w2, "Claude outputs")) and sorted(os.listdir(w2)) == ["outputs", "work"])
+  not os.path.exists(os.path.join(w2, "2. Output")) and sorted(os.listdir(w2)) == ["outputs", "work"])
 # the triage scripts (known-item search): all compile; montage.py offline, if Pillow is there
 import py_compile
 bad = []
@@ -141,7 +141,7 @@ os.makedirs(os.path.join(rec, "miniatury")); open(os.path.join(rec, "miniatury",
 kb(rec, "--outputs", o3); r = kb(rec, "--outputs", o3); s3 = open(h, encoding="utf-8").read()
 t("build: every rebuild embeds miniatury/*.jpg, once each (a rebuild can no longer drop them)",
   r.returncode == 0 and s3.count('MINI["miniatury/S1-a.jpg"]') == 1, r.stderr)
-t("build: MB's copy refreshed in Claude outputs (--outputs)",
+t("build: MB's copy refreshed in 2. Output/Kontaktowki (--outputs)",
   open(os.path.join(o3, "Kontaktowka - X1.html"), encoding="utf-8").read() == s3)
 before = open(h, encoding="utf-8").read()
 for bad in ({"id": "S1-a", "slot": "S1", "cls": "A"}, {"id": "S9-a", "slot": "S9", "cls": "A"},
