@@ -55,9 +55,21 @@ before *Do autora*. Anchors: 5–10 verbatim words per finding. Severity L / M /
    load-bearing reasons.
 
 ## Do autora
-In Polish, the points to send, most important first, each with what, why and where (the anchor), phrased as an editor
-writes to a reviewer; nothing SROM-internal. MB edits it before anything is sent. When the RIP of the same text runs
-(polish-original.md § Book reviews), its queries go into the same letter (R5).
+In Polish, the points to send, most important first; nothing SROM-internal. MB edits it before anything is sent. When
+the RIP of the same text runs (polish-original.md § Book reviews), its queries go into the same letter (R5).
+
+Short and collegial, as MB writes (his cut of the Bijak letter, 15.11.2026, kept about two thirds of the draft):
+- Plain paragraphs, no numbers, no bold headings. Related small points share one paragraph (page numbers wanted and
+  a missing source: one paragraph).
+- Each point is the ask, with at most one clause of reason. One example, not a list of three; a tentative one as a
+  question: „może coś w reportażach budzi wątpliwości (proporcja dokumentu i narracji literackiej?)”.
+- Soft forms: *Prosimy o* for the main asks, *Dobrze byłoby…*, *wymagałoby*, *zapewne*. A query as a plain question
+  with what the record says: „Chodzi zapewne o X? Jest też Y.” Not „Prosimy o potwierdzenie, który…”.
+- Short names after the first: SR, EiK; the book's author is not named again.
+- Leave out what the editor does anyway: a slip with an obvious fix (a date, a typo), house transcription and name
+  forms, the language edit, choices the editor can make. An R1 notice is one short sentence („Dodajemy Dyskursus jako
+  wydawcę”).
+- Where the records disagree (pages 189, 190, 192), ask with the figures; don't impose one.
 
 ## Sources
 Every record and page used, with URL or record id; also in the workspace sources register.
