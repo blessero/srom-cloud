@@ -95,14 +95,13 @@ its comment or query and the reverse · the sources register has a line for ever
 The same procedure, plus:
 - **No abstract, no keywords** (Kanon § 1). The English title of the review is still needed for the master CSV: the
   author's, or drafted and shown to MB as a Word comment (R6).
-- **The header** (the book under review): the Kanon has no rule yet (GEN-144). Until MB decides, the vol. 18 layout
-  (Kledzik, Paszko): after the review's title, one paragraph each — the book's author (as on the title page; editors
-  `red.`), the title in italics with subtitle, publisher, place year, `ss.` page count, ISBN. Plain paragraphs in the
-  SROM-MD before the first body paragraph; MB gives them the header style in InDesign as in vol. 18 (C55 asks for a
-  style). Every element from a catalogue record of the book (the national library of the country of publication, or
-  WorldCat) and the publisher's page, two sources; the ISBN check digit computed. A book in Cyrillic: GEN-144's
-  recommended form (ALA-LC, the Polish translation of the title in square brackets, place as on the title page) until
-  MB decides; the original-script form goes in the notes sheet.
+- **The header** (the book under review): Kanon § 1, *Nagłówek recenzji* (MB, GEN-144, 15.11.2026): after the
+  review's title, one paragraph each — author, title in italics with subtitle, publisher, place year, `ss.` page count,
+  ISBN. Plain paragraphs in the SROM-MD before the first body paragraph until C55 item 2 gives them a style; MB styles
+  them in InDesign as in vol. 18. Every element from a catalogue record of the book (the national library of the
+  country of publication, or WorldCat) and the publisher's page, two sources; the ISBN check digit computed. A book in
+  Cyrillic: ALA-LC transliteration, the Polish translation of the title in square brackets, place as on the title page;
+  the original-script form goes in the notes sheet.
 - The book's title in the running text: Kanon § 4.3 (original in italics; Cyrillic in Polish transcription; a Polish
   translation in brackets at the first mention).
 - Order of work: srom-zizek `review` first. When its verdict asks only for small changes, the assessment and this RIP

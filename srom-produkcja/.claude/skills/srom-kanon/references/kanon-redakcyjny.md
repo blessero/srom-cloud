@@ -38,6 +38,8 @@ System cytowania: **przypisy dolne + pełna bibliografia załącznikowa**. Autor
 
 Sekcje I–V nie różnią się zasadami składu. Recenzje (dz. IV) i kroniki (dz. V) bez abstraktów i słów kluczowych.
 
+**Nagłówek recenzji.** Po tytule recenzji, każdy element w osobnym wierszu: autor recenzowanej książki (w brzmieniu ze strony tytułowej; redaktorzy z „red.”); tytuł kursywą, z podtytułem; wydawca, miejsce rok; „ss.” i liczba stron; ISBN (§ 9.7). Dane z rekordu katalogowego książki (biblioteka narodowa kraju wydania lub WorldCat) i ze strony wydawcy, nie z okładki; miejsce wydania w brzmieniu ze strony tytułowej (§ 7.2). Książka w cyrylicy: tytuł w transliteracji ALA-LC (§ 9.6), po nim przekład polski tytułu w nawiasie kwadratowym (§ 4.3). Wzór: recenzje w tomie 18/2025.
+
 ---
 
 ## 2. Tekst główny – struktura
@@ -717,5 +719,6 @@ Pozycje bibliograficzne deponuje się w Crossref **strukturalnie**. Źródłem d
 | 1.18 | Włącza uzupełnienie wersji 1.17 z 22.10.2026 (§ 12.2.3). Nowe, opracowane na zlecenie MB z 24.10.2026 (ujednolicenie podpisów po tomie 18) i zatwierdzone przez MB tego samego dnia bez zmian: § 10.3 Metryka ilustracji – podpis jako opis i metryka; wzór `[opis], [datowanie], [rola] [twórca][, technika, wymiary]. [Źródło]. [Prawa].`; role `fot.`, `rys.`, `mal.`, `ryt.`, `lit.`, `proj.`, `oprac.`; inicjał i nazwisko jak w przypisie; technika i wymiary tylko z karty obiektu; źródło w trzech postaciach (obiekt w zbiorach, druk jako przedmiot ilustracji, `Repr. za:`), bez formuł `Źródło:`, `ze zbiorów`, bez pośredników; prawa tylko, gdy warunki tego wymagają; zestawienia, fragment; metryka sporządzana, nie przekładana, także w przekładach. § 10.1: odesłanie do § 10.3. § 13.2: licencja artykułu nie obejmuje ilustracji z innych źródeł (ich warunki podaje metryka; bez osobnej formuły przy licencji – MB, 25.10.2026). § 11: skróty metryki ilustracji. § 16: pozycja listy. |
 | 1.19 | Włącza uzupełnienie wersji 1.18 z 26.10.2026 (§ 12.2.3). Rozstrzygnięcie z 26.10.2026 (MB): § 12.2.3: tłumacz przekładów redakcyjnych – w stopce redakcyjnej tomu (`Tłumaczenia: Imię Nazwisko`) i na stronie *Redakcja*; nadal bez nazwiska w artykule, w PDF i w metadanych. |
 | 1.19, uzup. 11.11.2026 | Rozstrzygnięcie z 11.11.2026 (MB, *Kodeks redakcyjny. Wskazówki dla autorów*): nota pod tytułem, § 1 pkt 3, § 16: wersja dla autorów nosi tytuł *Kodeks redakcyjny. Wskazówki dla autorów*; ORCID nie jest obowiązkowy – podaje się go, jeżeli autor go posiada. Do włączenia w wersję 1.20. |
+| 1.19, uzup. 15.11.2026 | Rozstrzygnięcie z 15.11.2026 (MB, GEN-144): § 1: nagłówek recenzji – autor, tytuł z podtytułem, wydawca, miejsce i rok, liczba stron, ISBN, każdy w osobnym wierszu; dane z rekordu katalogowego i strony wydawcy; książka w cyrylicy – transliteracja ALA-LC i przekład polski tytułu w nawiasie kwadratowym. Do włączenia w wersję 1.20. |
 
 Zmiany wchodzą w życie od kolejnego tomu. Tomy opublikowane nie podlegają retroaktywnemu ujednoliceniu.

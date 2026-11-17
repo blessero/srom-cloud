@@ -714,3 +714,11 @@ Found while checking the skills against the Bijak review (`1. Inbox/poprawki_aut
 1. `docx_in.py` on an `.odt` stops with a bare `KeyError: "There is no item named 'word/document.xml'"`. Cheapest: refuse any non-DOCX input with one line naming the `soffice --headless --convert-to docx` command. Better: convert it itself into a temp dir (soffice is in the VM and on the Mac) and say so in `_import.md`. Same for `srom-zizek/scripts/extract.py` (`.odt` not handled). A test with a small ODT carrying two footnotes.
 2. Review header (after MB answers GEN-144): a SROM-MD block for the book under review (e.g. `::: recenzja` with one line per element) rendered in one new paragraph style (cheapest: one style for all lines; values from MB's vol. 18 review pages, Kledzik/Paszko) in `config/styles.json`, `indesign/style_spec.json`, the template and `srom_style_setup.jsx`; the build checks every element is present (author, title, publisher/place/year, pages, ISBN with a valid check digit). Until then the header is plain paragraphs and MB styles it by hand, as in vol. 18.
 Run with: Sonnet 5.5 · medium — scope checked: item 1 is a guard or a subprocess call plus one test in each of two scripts; item 2 touches the style spec, config, template and setup script and their tests (the risk: a style name out of step with the template); do item 2 only after GEN-144.
+
+## C56 — [general] srom-kanon and srom-produkcja: book-review header (GEN-144); please commit and push (15.11.2026 16:51)
+MB decided GEN-144 on Biurko (15.11.2026): option (a) for Cyrillic, and the standing rulings bind Polish originals. Applied directly, text only:
+- `.claude/skills/srom-kanon/references/kanon-redakcyjny.md`: § 1, new paragraph *Nagłówek recenzji* after the line on Parts IV–V; § 17 new row "1.19, uzup. 15.11.2026" (to be folded into 1.20).
+- `.claude/skills/srom-produkcja/references/polish-original.md` § Book reviews: the header bullet now cites the Kanon rule instead of "until MB decides".
+C55 item 2 (the review-header style) may now be built: it follows this rule. Checks after the change: see the next line.
+Run with: Haiku · low — two text files, no code; commit by path, push.
+Checks after the change: produkcja SUITE ALL PASS 29/29, HANDOFF CONTRACT 35/35 (15.11.2026 16:53).
