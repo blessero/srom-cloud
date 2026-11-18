@@ -1096,3 +1096,27 @@ HANDOFF CONTRACT 35/35. Fresh backup `srom-20261118-1515` (BACKUP OK, 7361 paths
   copy of the volume file) and place a built review DOCX; compare the header with the vol. 18 Kledzik page. Until the style is
   in his document, MB styles the header by hand as in vol. 18. One choice for him: vol. 18 set the book title in bold italic,
   the style gives italic (Kanon § 1 says "kursywą"); bold italic would need a ninth character style.
+
+## K71 — needs Cowork: [general] [Pahulich] MB's answers to K69 → STATUS.md milestones, S1 kept, Biurko wording, K62–K68 lines (18.11.2026 19:06)
+
+MB answered K69 (18.11.2026). Code does not write `workspace/`, so these edits are yours. Entries in your usual ledger form.
+
+1. **Author query lists (§ Milestones row `? | V19 | Author query lists sent`):** letters go out **gradually**, with provisional
+   dates only, no hard deadline (MB: too small a task for deadlines). Order: Pahulich (PAH-9) **19.11.2026**; Ndiaye in a few
+   days (≈22–23.11); Tittel PTA (TPA-107) a few days after (≈26–27.11); then probably Ostendorf (OST-4) (≈30.11). West Ohueri
+   (WOH-6) not mentioned by MB: leave it as is and ask. Set the row's `when` to a range (e.g. `≈19.11.2026–≈30.11.2026`), state
+   `planned`, and write the order and "provisional, sent gradually" in the note. Note that this runs past the delivery row
+   (≈16.11–30.11): flag for re-planning (the 15.01.2027 row already says the delivery dates are to be re-planned), and do not change
+   delivery on your own.
+2. **Three past milestones → `≈23.11.2026`** (MB): *Decide the source-changing questions* (end ≈16.11 → ≈23.11), *Word edits of the
+   six drafts* (end ≈15.11 → ≈23.11), *West Ohueri: written permission* (≈15.11 → ≈23.11). Then run `desk_sync.py`; the three
+   past-due flags should clear.
+3. **Pahulich S1 stays open** (MB: the Césaire check, n. 5, is not settled). Keep `[otwarte]` in `pahulich_uwagi.md`. Put its
+   DO SPRAWDZENIA comment back at n. 5, but on a **new Word copy**, not in the master MB edits (tell him which file). Until then
+   `draft_check pahulich` reads `marks (Word) 9≠10`, which is correct.
+4. **Biurko `problems=5`, the two false hits:** reword STATUS.md "18.11.2026 00:23 [Pahulich] Grellmann research done (PAH-1,
+   PAH-100 …)" (e.g. "research for PAH-1, PAH-100 done"; both stay MB's). The other three are item 2.
+5. **Status lines for K62–K68** in `cowork-to-code.md` (K68's asks are done in workspace; only the line is missing).
+6. `git gc` (K69): not asked; MB has not answered. Leave it.
+
+*Trail: K69; review 18.11.2026 findings 1, 10; PAH-1, PAH-9, PAH-100, OST-4, TPA-107, WOH-1, WOH-6.*
