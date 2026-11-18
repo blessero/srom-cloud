@@ -9,9 +9,8 @@ Written 15.11.2026 (MB: "the ripping procedure … skipping all parts that are o
 
 ## In
 - The author's file, copied into `work/<id>/orig/` as received (never edited; MB's inbox file stays where it is).
-  DOCX goes straight to step 1a. **ODT, RTF or DOC**: convert first,
-  `soffice --headless --convert-to docx --outdir work/<id>/ work/<id>/orig/<file>`; `docx_in.py` reads DOCX only
-  (`rip-pitfalls.md`, C55).
+  DOCX goes straight to step 1a. **ODT, RTF or DOC** too: `docx_in.py` converts it with soffice itself and notes it in
+  `_import.md`; check the footnotes there (`rip-pitfalls.md`, C55).
 - `<id>` = the author's surname (lower case, ASCII); a new three-letter code and the text's sections in `STATUS.md` and
   `MB-decisions.md` (workspace `CLAUDE.md` § Questions for MB), with the volume and the Part (I–III) as MB gave them;
   not given → "volume and Part: MB" in the STATUS section, not a guess.

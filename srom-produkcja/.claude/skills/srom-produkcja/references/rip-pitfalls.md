@@ -7,9 +7,10 @@ here (they go to a C-item), only what to do meanwhile; a line ending `(C<n>)` is
 § For the skills.
 
 ## DOCX in (step 1a)
-- **ODT (or RTF, DOC) from the author.** `docx_in.py` stops with a bare `KeyError: … 'word/document.xml'`. Convert first:
-  `soffice --headless --convert-to docx --outdir work/<id>/ <file>.odt`, then 1a on the DOCX; the conversion keeps the
-  footnotes (Bijak review, 15.11.2026: 5 of 5) (C55).
+- **ODT (or RTF, DOC) from the author.** `docx_in.py` converts any non-DOCX input itself with soffice (into a temp
+  dir) and says so in `_import.md` (since 3c76320, C55); if soffice fails it stops with one line naming the
+  `soffice --headless --convert-to docx` command. The conversion keeps the footnotes (Bijak review, 15.11.2026: 5 of 5);
+  still check footnotes, italics and tracked changes in the import report.
 
 ## PDF in (step 1b)
 - **Publisher boilerplate mid-paragraph.** Open-access T&F/Routledge PDFs put CONTACT, ©, the licence text and the first footnote on the

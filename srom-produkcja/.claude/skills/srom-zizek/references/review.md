@@ -17,7 +17,8 @@ already have; its facts are right; it is readable. A review is not asked for a m
 that only retells or only praises fails the second point, however well written, and that is the commonest fault.
 
 ## Before writing
-1. `extract.py` the file (ODT: convert to DOCX first, `soffice --headless --convert-to docx`; C55) and read the whole
+1. `extract.py` the file (it reads ODT directly, footnotes kept; RTF or DOC: convert first,
+   `soffice --headless --convert-to docx`; C55) and read the whole
    text from `text/<slug>.txt`.
 2. Identify the book: a catalogue record (the national library of the country of publication; WorldCat; BN for
    Polish books) and the publisher's page — author and name forms (a pseudonym: both), title and subtitle, publisher,
