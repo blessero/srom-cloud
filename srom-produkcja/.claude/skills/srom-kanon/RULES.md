@@ -1,4 +1,4 @@
-# SROM RULES — English digest of the Kanon (v1.19)
+# SROM RULES — English digest of the Kanon (v1.20)
 
 Normative text: `references/kanon-redakcyjny.md` — *Kanon edytorski Studia Romologica* (Polish, internal), in this skill. This file is its compact English digest; **section numbers are the Kanon's**. If the two differ, the Kanon governs and this file is corrected. New rules go into the Kanon first (with a § 17 entry), then here.
 
@@ -13,6 +13,8 @@ Missing year/page/publisher, illegible or ambiguous element → **stop, flag, as
 ## 1. Front matter
 
 Author · affiliation (or `badacz niezależny, [town]`) · ORCID (if the author has one; not required, MB 11.11.2026) · title PL · title EN · title RMN (optional) · abstract PL ≤1000 chars · abstract EN (translation of the PL) · keywords 5–10 PL+EN, `;`-separated, group names in authority form · body · bibliography · author note ≤500 chars. Editorial: DOI, dates, licence, volume, pages. Translated articles: EN title/abstract/keywords are the original's (§ 12.2.2).
+
+**Book review header** (part IV; reviews and chronicles carry no abstract or keywords; MB 15.11.2026, GEN-144): after the review's title, each element on its own line: author of the book reviewed (as on the title page; editors with `red.`) · title in italics, with subtitle · publisher, place year · `ss.` and the page count · ISBN (§ 9.7). Data from the book's catalogue record (national library of the country of publication, or WorldCat) and the publisher's page, not the cover; place as on the title page (§ 7.2). Cyrillic book: title in ALA-LC (§ 9.6), then its Polish translation in square brackets (§ 4.3). Model: the reviews in vol. 18/2025.
 
 ## 2. Body
 

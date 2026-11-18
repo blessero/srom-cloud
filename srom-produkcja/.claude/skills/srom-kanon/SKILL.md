@@ -3,7 +3,7 @@ name: srom-kanon
 description: House style enforcement for Studia Romologica, the Polish-language Romani studies annual. Use when checking, correcting, copyediting or typesetting any article for this journal, or when asked about SRom citation format, footnotes, bibliography, dates, Cyrillic transcription/transliteration, archival citation, interview coding, captions, or Romani-name capitalisation. Also use when preparing SRom bibliography data for the master CSV or Crossref deposit, and when an article arrives in the wrong style and needs normalising. Triggers on "Studia Romologica", "SRom", "kanon edytorski", or a Polish humanities article that must follow the journal's footnote system. Not for running the conversion and build tools (srom-produkcja), translating (srom-tlumacz) or metadata, DOI and website work (srom-quant): those skills apply these rules.
 ---
 
-# Studia Romologica — house style (Kanon v1.19)
+# Studia Romologica — house style (Kanon v1.20)
 
 Polish-language journal. Footnotes + full end bibliography; **never author-date.** English appears only in metadata (title, abstract, keywords).
 
@@ -44,6 +44,7 @@ Missing year, page or publisher, or an illegible/ambiguous element → **do not 
 9. Proper names never italic, including Romani group names in any spelling — in the text (main text, notes, captions, bibliography), not in display elements (running head, speaker and affiliation in a talk, table of contents), where italic stays a typographic device (§ 3.4, 29.09.2026). Exception (§ 3.4): foreign exonyms not assimilated in Polish (*Ciganos*, *Gitanos*, *Bohémiens*, *Zigeuner*) are italic, every time; the kartoteka's `italic_house` column decides.
 10. Labels always Polish, even for foreign works: `red.`, never `Hrsg.`/`ed.`.
 11. Spelling of 2026 (§ 12.3): `przekład molierowski`, `ujęcie kantowskie` (lowercase -owski from personal names); `nieznane`, `niebędący` (nie + participle joined); `Tarnowianin`. Quotations and titles keep the source's spelling.
+12. Book review header (§ 1): author · *title: subtitle* · publisher, place year · `ss.` pages · ISBN, one per line, from the catalogue record, not the cover. ORCID in the front matter only if the author has one.
 
 ## Do not do silently
 
