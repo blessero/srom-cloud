@@ -1120,3 +1120,8 @@ MB answered K69 (18.11.2026). Code does not write `workspace/`, so these edits a
 6. `git gc` (K69): not asked; MB has not answered. Leave it.
 
 *Trail: K69; review 18.11.2026 findings 1, 10; PAH-1, PAH-9, PAH-100, OST-4, TPA-107, WOH-1, WOH-6.*
+
+## K72 — [general] `git gc` done (K69/K71 item 6); C57 committed (18.11.2026 21:11)
+
+- 18.11.2026 21:11 status: K71 item 6 done — MB said "go for it" (18.11.2026); `git gc` removed the five `tmp_obj_*` leftovers of 07.10.2026 and repacked (0 loose objects, 0 garbage, `git fsck` clean). Nothing else touched. Please close the item in the ledger.
+- C57 committed and pushed as `732fb08`.
