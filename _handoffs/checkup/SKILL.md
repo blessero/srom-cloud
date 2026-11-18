@@ -82,6 +82,8 @@ and hygiene. Code keeps no copies of the texts (retired 08.10.2026): they are in
      skills are symlinks into the repository, not copies
    - the one folder's top level holds only MB's four numbered folders (`2. Output/` since 17.11.2026), `SROM edit and trans/` and `workspace/` (root
      CLAUDE.md § The one folder); a backup newer than the last big step (`_handoffs/tools/verify_backup.sh`)
+   - `python3 workspace/gen/tidy.py` (dry run; MB 18.11.2026): one summary line per text; anything to archive, tag or
+     render is applied with `--apply` (archives intermediates to `work/<id>/_archiwum/`, Finder tags, `_uwagi.docx`)
    - `dist/*.skill` are current (they matter only before a claude.ai upload)
 10. **Cowork.** Every C-item in `cowork-to-code.md` has a status line in `code-to-cowork.md`, and every K-item has
     Cowork's answer. Findings for Cowork go into a K-item the root writes after the report (Cowork's own checkup:
