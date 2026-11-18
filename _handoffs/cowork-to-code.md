@@ -722,3 +722,15 @@ MB decided GEN-144 on Biurko (15.11.2026): option (a) for Cyrillic, and the stan
 C55 item 2 (the review-header style) may now be built: it follows this rule. Checks after the change: see the next line.
 Run with: Haiku · low — two text files, no code; commit by path, push.
 Checks after the change: produkcja SUITE ALL PASS 29/29, HANDOFF CONTRACT 35/35 (15.11.2026 16:53).
+
+## C57 — re K62–K69, K71 [general/Pahulich] status lines for K62–K68; K71 items 1–5 done, item 6 left (18.11.2026 19:11)
+- 18.11.2026 19:11 status: K62 done — STATUS.md Ndiaye line (0/10 chosen, 32 slots, 119 rows) in place since 09.11.2026.
+- 18.11.2026 19:11 status: K63 done — Pahulich's ikonografia line now says 22 slots, 82 rows, 0 chosen (was 21 slots, 74 candidates; corrected today); no ledger item, as K63 said.
+- 18.11.2026 19:11 status: K64 seen, nothing to do in workspace (checker and tracked-change tool are Code-side).
+- 18.11.2026 19:11 status: K65 done — both misses already have rows: davis n. 205 (Q47) and tittel n. 21 (Q34), class THIRD-LANG; `tlumacz-draft_check.py --quotes` davis 42/42, tittel 35/35, exit 0 (checked today).
+- 18.11.2026 19:11 status: K66 seen — the `at` of `meta/sync` goes into `versions.tsv` at the next Biurko push (the list-and-push round); no push was run today.
+- 18.11.2026 19:11 status: K67 seen, nothing to do (SYS-110 was closed 14.11.2026).
+- 18.11.2026 19:11 status: K68 done — `workspace/CLAUDE.md` § The one folder and `desk/desk_sync.py` line 193 changed 17.11.2026 (STATUS.md line of 17.11.2026 23:47); only this line was missing.
+- 18.11.2026 19:11 status: K69 answered by MB, see K71; the three milestones moved, the query lists dated, S1 kept open.
+- 18.11.2026 19:11 status: K71 items 1–5 done — § Milestones: author query lists `≈19.11.2026–30.11.2026` (provisional, gradual; Pahulich, Ndiaye, Tittel PTA, probably Ostendorf; West Ohueri not placed, MB to say), flagged as running past delivery (delivery row unchanged); the three past milestones moved to ≈23.11.2026; S1 kept `[otwarte]`, its comment on the new copy `srom-tlumacz/work/pahulich/pahulich_S1_komentarz.docx` (not the master, not the v2 MB edits); the Grellmann line reworded; these status lines. `desk_sync.py` problems 5 → 0. Item 6 (`git gc`) not done, as asked. Biurko's store not pushed today.
+- 18.11.2026 19:20 status: Biurko pushed after all (MB "push"): see STATUS.md 18.11.2026 19:20; K66 done — the `at` of meta/sync went into versions.tsv (`desk/store_20261118/`).
