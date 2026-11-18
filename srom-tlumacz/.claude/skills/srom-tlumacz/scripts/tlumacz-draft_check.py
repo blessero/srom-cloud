@@ -10,7 +10,9 @@
             capitalised multi-word names (institutions, projects, journals: kept in the original) are removed first.
             16 words, case-insensitive (the strictest of the old copies).
 --marks     "DO SPRAWDZENIA: S<n>" in <id>_pl.md = "- S<n>" lines in <id>_uwagi.md (the notes sheet is the only
-            lasting record: comments leave the text after the Word round trip).
+            lasting record: comments leave the text after the Word round trip). Past MB's first master the import
+            carries no comments: when <id>_pl.md has no S-mark and <id>_robocza.docx exists, the S-labels are read
+            from the master's Word comments instead, shown as "marks (Word) a=b" (review 18.11.2026).
 --quotes    <id>_quotes.tsv, if present (PLAN OUT-QUOTES): classes valid; every quotation of 4+ words in the source
             (“…” span not in title case, assigned to the next note marker;
             block quotation: its own marker, else the next paragraph's first) has a row naming its note ("n. <label>");
@@ -18,7 +20,7 @@
 Output per article: "DRAFT <id>: leftover n, marks a=b, quotes x/y (c bad class, o open rows unmatched)" or "quotes –".
 Exit 1 if any check fails. The draft is read, never written.
 """
-import os, re, sys, shutil, tempfile
+import os, re, sys, shutil, tempfile, zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from tlumacz_paths import MODULE   # the module folder that holds work/<id>/
 WORDS = r"(?i)\b(the|and|of|with|which|that|this|from|were|was|is|for|not|but|have|had)\b"
@@ -46,6 +48,16 @@ def marks(pl, uw):
     a = set(re.findall(r"DO SPRAWDZENIA: (S\d+)", pl))
     b = set(re.findall(r"^- (S\d+)\b", uw or "", re.M))
     return a, b
+
+def word_marks(docx):
+    """S-labels of the "DO SPRAWDZENIA: S<n>" comments in a Word file (word/comments.xml; runs joined first)."""
+    try:
+        with zipfile.ZipFile(docx) as z:
+            x = z.read("word/comments.xml").decode("utf-8") if "word/comments.xml" in z.namelist() else ""
+    except (OSError, zipfile.BadZipFile):
+        return set()
+    txt = " ".join(re.sub(r"<[^>]+>", "", c) for c in re.findall(r"<w:comment\b[^>]*>(.*?)</w:comment>", x, re.S))
+    return set(re.findall(r"DO SPRAWDZENIA: (S\d+)", txt))
 
 def is_title(q):
     """A quoted span in title case (most words capitalised) is a title, not a quotation to re-source."""
@@ -94,8 +106,11 @@ def check(aid, root=MODULE, want=("leftover", "marks", "quotes"), quiet=False):
         h = leftover(pl); ok &= not h; parts.append(f"leftover {len(h)}")
         if not quiet: [print("  …" + x + "…") for x in h]
     a, b = marks(pl, uw)
+    master, src_lbl = os.path.join(d, f"{aid}_robocza.docx"), ""
+    if not a and os.path.exists(master):                # past MB's first master: the marks live in Word comments
+        a, src_lbl = word_marks(master), " (Word)"
     if "marks" in want:
-        ok &= a == b; parts.append(f"marks {len(a)}={len(b)}" if a == b else f"marks {len(a)}≠{len(b)}")
+        ok &= a == b; parts.append(f"marks{src_lbl} {len(a)}={len(b)}" if a == b else f"marks{src_lbl} {len(a)}≠{len(b)}")
         if a != b and not quiet: print("  only in text:", sorted(a - b), "only in notes sheet:", sorted(b - a))
     if "quotes" in want:
         qs, src = rd(os.path.join(d, f"{aid}_quotes.tsv")), rd(os.path.join(d, "src", f"{aid}_src.md"))
@@ -153,7 +168,28 @@ def selftest():
     for name, ok in (("single-quote source: only the 4+ word span", britsh_ok), ("mixed source (C49): both styles found, split reported", doubled)):
         caught += ok
         if not ok: print("  NOT CAUGHT:", name)
-    cases_n = len(cases) + 2
+    def word_case():
+        # a master whose Word comments lost one S-mark of the notes sheet must fail (Pahulich S1, review 18.11.2026)
+        tmp = tempfile.mkdtemp(); d = os.path.join(tmp, "work", "tittel")
+        shutil.copytree(os.path.join(MODULE, "work", "tittel"), d, ignore=shutil.ignore_patterns("build", "research", "*.docx"))
+        p = os.path.join(d, "tittel_pl.md"); s = open(p, encoding="utf-8").read()
+        labels = sorted(set(re.findall(r"DO SPRAWDZENIA: (S\d+)", s)), key=lambda x: int(x[1:]))
+        open(p, "w", encoding="utf-8").write(re.sub(r"DO SPRAWDZENIA: S\d+", "DO SPRAWDZENIA:", s))
+        def docx(keep):
+            body = "".join(f'<w:comment w:id="{i}"><w:p><w:r><w:t>DO SPRAWDZENIA: </w:t></w:r><w:r><w:t>{x} – y</w:t></w:r></w:p></w:comment>'
+                           for i, x in enumerate(keep))
+            with zipfile.ZipFile(os.path.join(d, "tittel_robocza.docx"), "w") as z:
+                z.writestr("word/comments.xml", f'<w:comments xmlns:w="w">{body}</w:comments>')
+        with open(os.devnull, "w") as nul:
+            so = sys.stdout; sys.stdout = nul
+            try:
+                docx(labels); full = check("tittel", tmp, want=("marks",), quiet=True)
+                docx(labels[1:]); short = check("tittel", tmp, want=("marks",), quiet=True)
+            finally: sys.stdout = so
+        shutil.rmtree(tmp); return bool(labels) and full and not short
+    w_ok = word_case(); caught += w_ok
+    if not w_ok: print("  NOT CAUGHT: S-mark lost from the Word master's comments")
+    cases_n = len(cases) + 3
     for name, aid, fn, ch in cases:
         c = planted(aid, fn, ch); caught += c
         if not c: print("  NOT CAUGHT:", name)

@@ -45,7 +45,8 @@ paragraph; tokens, markers, locators and block lines copied unchanged.
 - Anything unresolved stays in the text as a comment: `<!-- DO SPRAWDZENIA: S<n> – … -->` (a page, a wording, a term,
   a query), `<!-- PRZYWRÓCIĆ ORYGINAŁ: … -->` (§ 12.2.4 a–b). **Comments never block**: the build strips them and
   passes; in Word they become comments and vanish on import. So every open comment is also an `S<n>` line in the
-  notes sheet, open until MB closes it (`--marks` counts both sides).
+  notes sheet, open until MB closes it (`--marks` counts both sides; past MB's first master it reads the S-labels
+  from the master's Word comments, `marks (Word) a=b`, so a comment lost in an edit round shows).
 
 **OUT-QUERIES `<id>_pytania_tlum.csv`.** UTF-8 with BOM, `;`, header `adresat;rodzaj;przypis;dzieło;szczegóły`.
 `adresat`: autor / redakcja. `rodzaj` in Polish: „błąd w oryginale — do decyzji”, „termin do rozstrzygnięcia”,
