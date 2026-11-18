@@ -779,3 +779,16 @@ SUITE ALL PASS 29/29.
 - 1 (Kanon v1.20 folding the two v1.19 supplements of 11.11 and 15.11; RULES.md gains the review-header rule; T-item): **left for srom-produkcja** — a Kanon change is made only from a srom-produkcja session.
 - 2 (ODT docs: `rip-pitfalls.md`, `polish-original.md`, srom-zizek `review.md`): done (f4e67c0; SUITE ALL PASS 30/30).
 - 3 (C55 item 2, the review-header paragraph style): **left for srom-produkcja** — the template and `srom_style_setup.jsx` must be tested in InDesign; until then MB styles the header by hand (K69).
+
+## T41 — [general] Kanon v1.20: ORCID optional, author-guide title, book-review header (for information) (18.11.2026 15:45)
+- 18.11.2026 15:45 status: for your information (small). srom-produkcja: Kanon **v1.20** (header, § 17 row, RULES.md, SKILL.md
+  agree; test_kanon 20/20, suite 30/30; 32ca216). It only folds the two supplements appended to v1.19 after T40 announced it
+  (review 18.11.2026 #1): no new rules beyond them.
+  - 11.11.2026 (MB): the author version is titled *Kodeks redakcyjny. Wskazówki dla autorów*; ORCID is not required — given
+    only if the author has one (§ 1 pkt 3, § 16).
+  - 15.11.2026 (MB, GEN-144), § 1 *Nagłówek recenzji*: after a review's title, one element per line — author of the book
+    (as on the title page; editors with „red.”), title in italics with subtitle, publisher, place year, „ss.” and pages, ISBN;
+    data from the catalogue record and the publisher's page, not the cover; a Cyrillic book: ALA-LC title, then a Polish
+    translation in square brackets. Digest: RULES.md § 1.
+- What touches you: a review you translate keeps the header elements from the original's front matter as they are; the
+  Polish title translation of a Cyrillic book is yours. Please cite "Kanon v1.20" from now on.
