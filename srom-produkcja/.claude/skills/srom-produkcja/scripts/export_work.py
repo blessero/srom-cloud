@@ -29,8 +29,8 @@ return {{
     if d.identifier == "bibliografia" then d.attributes["custom-style"] = "SROM bibliografia"; return d end
     if #d.classes > 0 then
       d.attributes["custom-style"] = "SROM " .. d.classes[1]
-      -- ::: mowca: speaker and affiliation are two lines of one paragraph; Word keeps only a hard break
-      if d.classes[1] == "mowca" then d = d:walk({SoftBreak = function() return pandoc.LineBreak() end}) end
+      -- ::: mowca (speaker and affiliation) and ::: recenzja may hold lines of one paragraph; Word keeps only a hard break
+      if d.classes[1] == "mowca" or d.classes[1] == "recenzja" then d = d:walk({SoftBreak = function() return pandoc.LineBreak() end}) end
       return d
     end
   end,

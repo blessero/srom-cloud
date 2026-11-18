@@ -191,7 +191,7 @@ local pass1 = {
     if c:sub(1, 5) == "SROM " then
       local cls = c:sub(6)
       if cls == "przyklad" then return d.content end   -- rebuilt around the code block
-      if cls == "mowca" then d = d:walk({LineBreak = function() return pandoc.SoftBreak() end}) end  -- export_work.py
+      if cls == "mowca" or cls == "recenzja" then d = d:walk({LineBreak = function() return pandoc.SoftBreak() end}) end  -- export_work.py
       return pandoc.Div(d.content, pandoc.Attr("", {cls}))
     end
     if c == "Table Caption" then return {} end        -- the reader already attached it to the table
@@ -235,7 +235,7 @@ local pass3 = {
 -- re-join consecutive Divs of a class whose paragraphs form one unit. Not podpis / tabela-* (one caption each),
 -- przyklad (one example per code block) or mowca (the first line of each block is a speaker).
 local JOIN = {["przypis-tytulowy"] = true, nota = true, motto = true, ["motto-zrodlo"] = true, dialog = true,
-              ["bez-wciecia"] = true}
+              ["bez-wciecia"] = true, recenzja = true}
 local function join_class(b) return b.t == "Div" and #b.classes == 1 and JOIN[b.classes[1]] and b.classes[1] end
 local pass4 = {
   Pandoc = function(doc)

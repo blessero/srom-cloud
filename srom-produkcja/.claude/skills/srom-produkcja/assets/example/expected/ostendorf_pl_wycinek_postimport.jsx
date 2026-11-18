@@ -4,7 +4,7 @@
 //@target indesign
 
 var EXPECTED_TOTAL = 7;
-var PARA_OK = ["\u015ar\u00f3dtytu\u0142", "\u015ar\u00f3dtytu\u0142 MA\u0141E", "Tekst", "Tekst BEZ WCI\u0118CIA", "Cytat", "Wyliczenie", "Przypis", "\u015ar\u00f3dtytu\u0142", "\u015ar\u00f3dtytu\u0142 MA\u0141E", "Bibliografia", "Podpis", "Tabela TYTU\u0141", "Tekst BEZ WCI\u0118CIA", "Cytat WIERSZ", "Tabela TRE\u015a\u0106", "Przyk\u0142ad FORMA", "Przyk\u0142ad GLOSA", "Przyk\u0142ad PRZEK\u0141AD", "Podpis", "Przypis GWIAZDKOWY", "Wyliczenie", "Motto", "Motto \u0179R\u00d3D\u0141O", "Cytat", "M\u00f3wca", "Afiliacja", "Tytu\u0142", "Autor", "Tekst INICJA\u0141", "Podpis LINIA", "Pagina", "Folio", "Spis tre\u015bci", "Spis AUTOR", "Spis J\u0118ZYKI"];
+var PARA_OK = ["\u015ar\u00f3dtytu\u0142", "\u015ar\u00f3dtytu\u0142 MA\u0141E", "Tekst", "Tekst BEZ WCI\u0118CIA", "Cytat", "Wyliczenie", "Przypis", "\u015ar\u00f3dtytu\u0142", "\u015ar\u00f3dtytu\u0142 MA\u0141E", "Bibliografia", "Podpis", "Tabela TYTU\u0141", "Tekst BEZ WCI\u0118CIA", "Cytat WIERSZ", "Tabela TRE\u015a\u0106", "Przyk\u0142ad FORMA", "Przyk\u0142ad GLOSA", "Przyk\u0142ad PRZEK\u0141AD", "Podpis", "Przypis GWIAZDKOWY", "Wyliczenie", "Motto", "Motto \u0179R\u00d3D\u0141O", "Cytat", "M\u00f3wca", "Afiliacja", "Recenzja NAG\u0141\u00d3WEK", "Tytu\u0142", "Autor", "Tekst INICJA\u0141", "Podpis LINIA", "Pagina", "Folio", "Spis tre\u015bci", "Spis AUTOR", "Spis J\u0118ZYKI"];
 var CHAR_OK = ["Kursywa", "Kapitaliki", "Pogrubienie", "Proste", "Gwiazdka", "Bez podzia\u0142u", "Kapitaliki GLOSA", "Indeks g\u00f3rny"];
 // kanon § 7.1 asterisk series: markers (character style) in the text, notes (paragraph style) at the end
 var AST_CHAR = "Gwiazdka";

@@ -26,7 +26,8 @@
     "motto_source": "Motto ŹRÓDŁO",
     "dialog": "Cytat",
     "speaker": "Mówca",
-    "speaker_affiliation": "Afiliacja"
+    "speaker_affiliation": "Afiliacja",
+    "review_header": "Recenzja NAGŁÓWEK"
   },
   "roles": {
     "_comment": "fenced-div class -> paragraph key above; lets front matter or special blocks carry a style",

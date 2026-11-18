@@ -96,8 +96,10 @@ The same procedure, plus:
   author's, or drafted and shown to MB as a Word comment (R6).
 - **The header** (the book under review): Kanon § 1, *Nagłówek recenzji* (MB, GEN-144, 15.11.2026): after the
   review's title, one paragraph each — author, title in italics with subtitle, publisher, place year, `ss.` page count,
-  ISBN. Plain paragraphs in the SROM-MD before the first body paragraph until C55 item 2 gives them a style; MB styles
-  them in InDesign as in vol. 18. Every element from a catalogue record of the book (the national library of the
+  ISBN, in a `::: recenzja` block before the first body paragraph (`srom-md.md`; review 18.11.2026 #3). The build sets them
+  in the paragraph style *Recenzja NAGŁÓWEK* and fails on a missing element or a wrong ISBN check digit. Until MB has
+  checked that style in InDesign (template `SROM_szablon_v3.idml`, or `srom_style_setup.jsx` on the volume file) and it
+  is in his document, he styles the header by hand as in vol. 18. Every element from a catalogue record of the book (the national library of the
   country of publication, or WorldCat) and the publisher's page, two sources; the ISBN check digit computed. A book in
   Cyrillic: ALA-LC transliteration, the Polish translation of the title in square brackets, place as on the title page;
   the original-script form goes in the notes sheet.

@@ -484,6 +484,76 @@ function speaker_label(inls)
   return out
 end
 
+-- ISBN-10 or ISBN-13 with a valid check digit (hyphens and spaces ignored)
+function isbn_ok(s)
+  local d = s:gsub("[%-%s]", ""):upper()
+  if d:match("^%d%d%d%d%d%d%d%d%d%d%d%d%d$") then
+    local sum = 0
+    for i = 1, 12 do sum = sum + tonumber(d:sub(i, i)) * ((i % 2 == 1) and 1 or 3) end
+    return (10 - sum % 10) % 10 == tonumber(d:sub(13, 13))
+  elseif d:match("^%d%d%d%d%d%d%d%d%d[%dX]$") then
+    local sum = 0
+    for i = 1, 10 do
+      local c = d:sub(i, i)
+      sum = sum + (c == "X" and 10 or tonumber(c)) * (11 - i)
+    end
+    return sum % 11 == 0
+  end
+  return false
+end
+
+-- Kanon § 1 Nagłówek recenzji (v1.20): the book under review, after the review's title, one element per line,
+-- in ::: recenzja (a paragraph or a line each): author · *title: subtitle* · publisher, place year · ss. pages · ISBN.
+-- All five lines in one paragraph style (review_header); the author line in the bold character style (as vol. 18).
+-- A missing or malformed element fails the build.
+function review_header(blocks)
+  local lines = {}
+  for _, x in ipairs(blocks) do
+    if x.t == "Para" or x.t == "Plain" then
+      local cur = pandoc.List()
+      for _, el in ipairs(x.content) do
+        if el.t == "SoftBreak" or el.t == "LineBreak" then
+          if #cur > 0 then table.insert(lines, cur) end
+          cur = pandoc.List()
+        else cur:insert(el) end
+      end
+      if #cur > 0 then table.insert(lines, cur) end
+    else err("unsupported block in ::: recenzja: " .. x.t) end
+  end
+  local function trim(inls)
+    while #inls > 0 and inls[1].t == "Space" do inls:remove(1) end
+    while #inls > 0 and inls[#inls].t == "Space" do inls:remove(#inls) end
+    return inls
+  end
+  local nb = "[%s\xC2\xA0]"
+  local function txt(i) return lines[i] and stringify(lines[i]):gsub("\xC2\xA0", " ") or "" end
+  local where = "review header (Kanon § 1, ::: recenzja): "
+  if #lines ~= 5 then
+    err(where .. #lines .. " line(s); five expected: author / title / publisher, place year / ss. pages / ISBN")
+  end
+  if txt(1) == "" then err(where .. "no author of the book") end
+  local italic = false
+  if lines[2] then
+    pandoc.walk_inline(pandoc.Span(lines[2]), {Span = function(s)
+      if s.attributes["custom-style"] == C.italic then italic = true end end})
+  end
+  if not italic then err(where .. "line 2 must be the book's title in italics: " .. txt(2)) end
+  if not (txt(3):match(",") and txt(3):match("%d%d%d%d")) then
+    err(where .. "line 3 must be 'publisher, place year': " .. txt(3))
+  end
+  if not txt(4):match("^ss%." .. nb .. "*[%dIVXLCivxlc]") then err(where .. "line 4 must be 'ss. <pages>': " .. txt(4)) end
+  local isbn = txt(5):match("^ISBN" .. nb .. "+([%dXx%-%s]+)$")
+  if not isbn then err(where .. "line 5 must be 'ISBN <number>': " .. txt(5))
+  elseif not isbn_ok(isbn) then err(where .. "ISBN check digit wrong (Kanon § 9.7): " .. txt(5)) end
+  local out = pandoc.List()
+  for i, line in ipairs(lines) do
+    line = trim(unbreak(line))
+    if i == 1 then line = pandoc.List({pandoc.Span(line, cstyle(C.speaker))}) end
+    out:insert(styled_para(line, P.review_header))
+  end
+  return out
+end
+
 -- Kanon § 2 (MB 02.10.2026): headings are not numbered, even where the original numbers them.
 -- A leading "1.", "1.2." or "IV." followed by a space is dropped; a year ("1989 i potem") is not a number with a dot.
 local function unnumber(inls)
@@ -578,6 +648,8 @@ process = function(blocks, ctx)
           if x.t == "Para" or x.t == "Plain" then out:insert(styled_para(speaker_label(unbreak(x.content)), P.dialog))
           else err("unsupported block in ::: dialog: " .. x.t) end
         end
+      elseif has_class(b, "recenzja") then
+        out:extend(review_header(b.content))
       elseif has_class(b, "mowca") then
         -- transcript: speaker on a line of its own; a second line = affiliation
         for k, x in ipairs(b.content) do
@@ -639,7 +711,7 @@ process = function(blocks, ctx)
     end
     -- the paragraph after a heading, a motto or a speaker's line starts without indent (like an opening);
     -- after a block quote or a dialogue it is indented (kanon §2)
-    prev = (t == "Header" or (t == "Div" and (has_class(b, "motto") or has_class(b, "mowca")))) and "Header" or t
+    prev = (t == "Header" or (t == "Div" and (has_class(b, "motto") or has_class(b, "mowca") or has_class(b, "recenzja")))) and "Header" or t
   end
   return out
 end
