@@ -60,6 +60,7 @@ the session that starts a new text adds its row.
 | STE | Steiner, "The Enemy Within" (*Combating the Hydra*, ch. 8, Purdue UP 2023) | steiner |
 | TPA | Tittel, ch. 2 of *Politische Theorie des Antiziganismus* (transcript 2025) | tittelpta |
 | DAV | Davis & Perheentupa, "Unsettling settler colonialism" (*Settler Colonial Studies*, 2026) | davis |
+| BIJ | Bijak, review of Raĭsʹka, *Bakhtalo* (Dyskursus 2025; Part III, vol. 19) | — (none yet) |
 | V18 | Volume 18, all texts | — |
 | V19 | Volume 19, all translated texts (shared terminology) | — |
 | GEN | Journal-wide policy and Kanon gaps | — |
