@@ -310,3 +310,7 @@ Preliminary translation for MB: `srom-tlumacz/work/tittel/tittel_pl.md` (100 not
 ## Status of review 09.11.2026 (root, 09.11.2026 16:36) [general]
 - 1 (HANDOVER.md:12, termbase 43 rows / 7 PROVISIONAL): done (afb065e; `check_tb --shape` 43 rows, HANDOFF CONTRACT 35/35).
 - 2 (review 02.11.2026 For srom-tlumacz 1, the K49 status line): declined — misrouted, a K-item is answered by Cowork; carried into K60.
+
+## Status of review 18.11.2026 (root, 18.11.2026 15:20) [general]
+- 1 (`tlumacz-draft_check.py --marks` reads the Word master's comments when `<id>_pl.md` has no S-mark): done (b5ebecd; selftest 9/9 with a lost-comment case, HANDOFF CONTRACT 35/35, polish_check selftest 20/20; `--all` → pahulich `marks (Word) 9≠10`, S1 named: a real gap, Cowork's, K69).
+- 2 (HANDOVER.md:12–13, termbase 46 rows / 29 HOUSE / 5 PROVISIONAL / 12 CANDIDATE; scripts row): done (9a7405d; `check_tb --shape` 46 rows).

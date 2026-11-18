@@ -1028,3 +1028,41 @@ cartoon and Cornova villager for Pahulich's kontaktówka.
   `2. Output`), then a sync and push; srom-naczelny's folder list at its next upload (SYS-110). Keep the names that the
   job reads: Word copies `<id>_robocza.docx` / `_robocza_v2.docx` / `_oldN`, superseded copies in `_archive/`, letter
   drafts named `listy-do-autorow` or `letter`. A file in `Files to open:` stays its real `workspace/` path.
+
+## K69 — needs MB: [general] [Pahulich] Review 18.11.2026: author letters gate INJECT; Pahulich S1 lost from the Word master; C status lines; Biurko problems (18.11.2026 15:20)
+
+Root checkup 18.11.2026 (`_handoffs/review-18.11.2026.md`). Tools green: suite 30/30, termbase 46 rows 0 problems,
+HANDOFF CONTRACT 35/35. Fresh backup `srom-20261118-1515` (BACKUP OK, 7361 paths, 721M).
+
+**Status of C-items committed with no K line** (Cowork does not read git):
+- C46 committed c536433; C48 6930020; C50 6086cb6; C53 8ab6911; C54 cb7cc20; C56 36cdcce — done as named.
+- C55 item 1 done 3c76320 (`docx_in.py` converts ODT/RTF/DOC with soffice itself; zizek `extract.py` reads `.odt`); the
+  three docs that still said "convert first" corrected in this review. C55 item 2 (the review-header style) is **left for a
+  srom-produkcja session**: it needs the InDesign template and setup script tested in InDesign. Until then the Bijak
+  review's header is styled by hand, as in vol. 18.
+
+**For you (workspace; Code does not write it):**
+1. **Pahulich S1 lost from the Word master.** `srom-tlumacz/work/pahulich/pahulich_uwagi.md` has S1 `[otwarte]` (Césaire,
+   n. 5, wording and page of *Rozprawa z kolonializmem*), but no Word copy since `pahulich_robocza_old1.docx` (12.11) holds
+   its DO SPRAWDZENIA comment; S2–S10 are there. The export tool keeps it (13.11 draft re-exported on a copy: S1–S10), so
+   it went in an edit round. If MB did not settle it in Word, put the comment back into the current master (or the `_v2`
+   he is editing) at n. 5; if he did, close S1 in the sheet. `tlumacz-draft_check.py pahulich` now reads the master's
+   comments (b5ebecd) and shows `marks (Word) 9≠10` until then.
+2. **Biurko problems=5** (`desk_sync.py` 18.11.2026 15:16): STATUS.md's line "18.11.2026 00:23 [Pahulich] Grellmann
+   research done (PAH-1, PAH-100 …)" reads as PAH-1 and PAH-100 decided; reword (e.g. "research for PAH-1, PAH-100
+   done"). The other three are milestone dates (below).
+3. Status lines for K62–K68 in `cowork-to-code.md` (K68's asks are done in workspace; only the line is missing).
+
+**Needs MB** (enter as ledger items, or under existing ones):
+- **When do the author letters go?** The "Author query lists sent" milestone has no date. Pahulich takes back cleanly on
+  copies (`TAKE-BACK OK pahulich (4 files)`) and its build fails only on the two dissertation places in notes 46 and 144
+  that the PAH-9 letter asks for (drafted 13.11, not sent). OST-4, TPA-107 and WOH-6 gate their texts the same way.
+  (a) a date now — **recommended**, delivery is planned ≈16–30.11; (b) send Pahulich's alone first.
+- **Three milestones past their dates:** source-changing questions (≈16.11), Word edits of the six drafts (≈15.11), West
+  Ohueri's written permission (≈15.11, WOH-1: no publication without it). New dates, or mark done.
+- **Pahulich S1** (item 1 above): did MB settle the Césaire check in Word? Yes → close S1; no → the comment goes back.
+- `_handoffs/checkup/SKILL.md` has an uncommitted step (`tidy.py` dry run, "MB 18.11.2026"), not made by this session:
+  commit it, yes / no.
+- `git gc` for five harmless temp objects in the repository: yes / leave it.
+
+*Trail: review 18.11.2026 findings 1, 5, 6, 10, 11, 12; C46, C48, C50, C53–C56; PAH-1, PAH-9, PAH-100, OST-4, TPA-107, WOH-1, WOH-6.*
