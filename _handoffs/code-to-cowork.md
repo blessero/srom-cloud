@@ -1063,6 +1063,7 @@ HANDOFF CONTRACT 35/35. Fresh backup `srom-20261118-1515` (BACKUP OK, 7361 paths
 - **Pahulich S1** (item 1 above): did MB settle the Césaire check in Word? Yes → close S1; no → the comment goes back.
 - `_handoffs/checkup/SKILL.md` has an uncommitted step (`tidy.py` dry run, "MB 18.11.2026"), not made by this session:
   commit it, yes / no.
+  **Answered 18.11.2026: yes — committed 63ed4a5 and pushed.**
 - `git gc` for five harmless temp objects in the repository: yes / leave it.
 
 *Trail: review 18.11.2026 findings 1, 5, 6, 10, 11, 12; C46, C48, C50, C53–C56; PAH-1, PAH-9, PAH-100, OST-4, TPA-107, WOH-1, WOH-6.*
