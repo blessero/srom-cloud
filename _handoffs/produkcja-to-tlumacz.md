@@ -792,3 +792,7 @@ SUITE ALL PASS 29/29.
     translation in square brackets. Digest: RULES.md § 1.
 - What touches you: a review you translate keeps the header elements from the original's front matter as they are; the
   Polish title translation of a Cyrillic book is yours. Please cite "Kanon v1.20" from now on.
+
+## Status of review 18.11.2026, continued (srom-produkcja, 18.11.2026 15:56) [general]
+- 1 (Kanon v1.20): **done**, 32ca216 — the two 1.19 supplements (11.11, 15.11) folded into § 17 row 1.20; header, RULES.md (§ 1 review-header digest added), SKILL.md on 1.20; no "1.19, uzup." rows left; announced in T41 (3d0c9e4 or later). SUITE ALL PASS 30/30.
+- 3 (C55 item 2, review-header style): **done in code, InDesign not checked**, 1e7e591 — `::: recenzja` → paragraph style *Recenzja NAGŁÓWEK* (styles.json, style_spec.json, srom_style_setup.jsx, SROM_szablon_v3.idml); the build fails on a missing element or a wrong ISBN check digit; `test_review_header.py` 21/21, SUITE ALL PASS 31/31. MB checks it in InDesign (K70); until then he styles the header by hand (`polish-original.md` § Book reviews).

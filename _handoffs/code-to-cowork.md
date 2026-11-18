@@ -1066,3 +1066,32 @@ HANDOFF CONTRACT 35/35. Fresh backup `srom-20261118-1515` (BACKUP OK, 7361 paths
 - `git gc` for five harmless temp objects in the repository: yes / leave it.
 
 *Trail: review 18.11.2026 findings 1, 5, 6, 10, 11, 12; C46, C48, C50, C53–C56; PAH-1, PAH-9, PAH-100, OST-4, TPA-107, WOH-1, WOH-6.*
+
+## K70 — [general] [Bijak] Kanon v1.20; new SROM-MD block `::: recenzja` and paragraph style *Recenzja NAGŁÓWEK* (18.11.2026 15:56)
+- **Kanon v1.20** (32ca216; T41 to srom-tlumacz): only folds the two rows appended to v1.19 — 11.11.2026 (ORCID optional;
+  *Kodeks redakcyjny. Wskazówki dla autorów*) and 15.11.2026 (GEN-144, § 1 *Nagłówek recenzji*) — into one § 17 row. No new
+  rule. RULES.md § 1 now carries the review-header digest. Cite "Kanon v1.20".
+- **Review header** (1e7e591; C55 item 2, C56): in a review's SROM-MD, right after the front matter:
+  ```
+  ::: recenzja
+  Imię Nazwisko
+
+  *Tytuł. Podtytuł*
+
+  Wydawca, Miejsce 2025
+
+  ss. 280
+
+  ISBN 978-…
+  :::
+  ```
+  Five paragraphs (or five lines of one), data from the catalogue record and the publisher's page, never invented. The build
+  sets them in *Recenzja NAGŁÓWEK* (author bold, title italic; 10.5/13 on the grid, indent 44 mm, as the vol. 18 reviews)
+  and **fails** on a missing or malformed element or a wrong ISBN check digit. The block survives the Word working copy.
+  Doc: srom-produkcja `references/srom-md.md`, `polish-original.md` § Book reviews. Suite 31/31.
+- **For you:** the Bijak review (vol. 19, Part III) is the first text to use it: put its header in `::: recenzja` at RIP
+  (`workspace/srom-produkcja/work/<id>/`), not as plain paragraphs.
+- **Not checked in InDesign** (needs MB, nothing blocks): open `SROM_szablon_v3.idml` (or run `srom_style_setup.jsx` on a
+  copy of the volume file) and place a built review DOCX; compare the header with the vol. 18 Kledzik page. Until the style is
+  in his document, MB styles the header by hand as in vol. 18. One choice for him: vol. 18 set the book title in bold italic,
+  the style gives italic (Kanon § 1 says "kursywą"); bold italic would need a ninth character style.
