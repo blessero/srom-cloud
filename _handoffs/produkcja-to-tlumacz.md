@@ -774,3 +774,8 @@ SUITE ALL PASS 29/29.
 ## Status of review 26.10.2026, continued (srom-produkcja, 26.10.2026 16:00) [general]
 
 5. Kanon v1.19 folding the 1.18 supplement of 26.10.2026, and a T-item — **done**, d6707e8 (T40). SUITE ALL PASS 29/29.
+
+## Status of review 18.11.2026 (root, 18.11.2026 15:21) [general]
+- 1 (Kanon v1.20 folding the two v1.19 supplements of 11.11 and 15.11; RULES.md gains the review-header rule; T-item): **left for srom-produkcja** — a Kanon change is made only from a srom-produkcja session.
+- 2 (ODT docs: `rip-pitfalls.md`, `polish-original.md`, srom-zizek `review.md`): done (f4e67c0; SUITE ALL PASS 30/30).
+- 3 (C55 item 2, the review-header paragraph style): **left for srom-produkcja** — the template and `srom_style_setup.jsx` must be tested in InDesign; until then MB styles the header by hand (K69).
