@@ -165,6 +165,11 @@ function main() {
   // 2. asterisk notes: paragraphs in their style anywhere in the story
   ps = [];
   if (story) { for (i = 0; i < story.paragraphs.length; i++) { if (story.paragraphs[i].appliedParagraphStyle.name === AST_STYLE) { ps.push(story.paragraphs[i]); } } }
+  // asterisk notes seated as the opening paragraph(s) of a page's first footnote live in the footnote story, not the text flow
+  for (i = 0; i < fns.length; i++) {
+    var fp = fns[i].texts[0].paragraphs;
+    for (j = 0; j < fp.length; j++) { if (fp[j].appliedParagraphStyle.name === AST_STYLE) { ps.push(fp[j]); } }
+  }
   for (i = 0; i < AST.length; i++) {
     want++; r = null;
     for (j = 0; j < ps.length && !r; j++) {

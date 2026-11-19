@@ -749,3 +749,4 @@ Run with: Haiku · low — one text file, no code; commit by path, push.
 Checks after the change: produkcja SUITE ALL PASS 31/31, `desk_sync.py` problems=0 (19.11.2026).
 
 C58 status (19.11.2026, Code, Sonnet 5.5 medium): item 1 done — the three .tpl scripts use SROM_RUNDOC when defined, else the active document; tested headless in InDesign on a throwaway copy of Pahulich_TEST.indd (ibidem RESULT: OK, gwiazdki RESULT: OK); goldens in assets/example/expected updated; suite SUITE ALL PASS 31/31. Items 2 and 3 left open (2 needs a design choice; 3 is a report line best added with 2).
+C58 items 2 and 3 done (19.11.2026, Code): `_doi.jsx` also scans the footnotes' paragraphs for asterisk notes (Pahulich copy: 107/109 → 109/109, RESULT: OK); `_ibidem.jsx` apply prints `story overset: yes/no` (branch forced on a throwaway copy: prints `no`). Goldens updated, SUITE ALL PASS 31/31. C58 complete.

@@ -144,6 +144,9 @@ function main() {
                  ScriptLanguage.JAVASCRIPT, undefined, UndoModes.ENTIRE_SCRIPT, "SROM Ibidem");
     out.push("");
     out.push("APPLIED: notes " + done.join(", ") + " retyped (Edit > Undo reverses it). The layout may have moved: run this script again.");
+    var ov = false;
+    try { ov = story && story.overflows; } catch (eo) {}
+    out.push("story overset: " + (ov ? "YES — autoflow, re-seat the asterisk notes (_gwiazdki.jsx), then run this script again" : "no"));
   }
   var report = out.join("\r");
   var f;
