@@ -37,3 +37,18 @@ here (they go to a C-item), only what to do meanwhile; a line ending `(C<n>)` is
 - **Run `check.py --keyed` on a skeleton early** (every note literal, 5 notes keyed), then widen: 25 errors at once hide which are real.
 - **A press/archive locator next to a key** ("*PZ* (31 May 1780): 5; [@x, s. 210]"): the check reads the colon page only when a key is present and
   then finds it lost. Write "…, s. 5" and flag the normalisation, or key the whole note.
+
+## INJECT
+- **Headless InDesign: `app.activeDocument` is empty.** The build's `_postimport`, `_ibidem` and `_gwiazdki` read it, and a document opened
+  hidden is not active. Run them through a wrapper that opens the file and defines `SROM_DOC`, `SROM_RUNDOC`, `SROM_APPLY`, `SROM_MODE`,
+  `SROM_REPORT` (pattern: `work/pahulich/test_sklad/uklad/run_on.jsx`), on a temp copy. (C58)
+- **Asterisk notes have no scripted place** (a separate frame above the notes puts the rule between `*` and the numbered notes). Set them
+  as the opening paragraph(s) of the page's first footnote, in text order (vol. 18 look); `_doi.jsx` then misses links in them (it
+  searches the text flow only), so check those by hand. (C58)
+- **`_ibidem.jsx apply` retypes notes longer:** the story goes overset and an asterisk note lands a page from its marker; no step reflows.
+  After Ibidem and after the final pass: autoflow, re-seat the asterisk notes, then verify (no overset, each note on its marker's page). (C58)
+- **Anchor sentences hold footnote markers (U+0004) mid-sentence**, so `findText` on the sentence finds nothing. Match on `story.contents`
+  with the markers stripped.
+- **A recursive ExtendScript helper with a shared loop index loops inside InDesign, and a running script cannot be stopped from outside**
+  (only a force-quit; the recovered copy is closed unsaved). Local index and a depth cap in every recursive helper; try it on a throwaway
+  copy before the real document.
