@@ -54,8 +54,8 @@ function findChar(doc, name) {
 }
 
 function main() {
-  if (app.documents.length === 0) { alert("SROM asterisk notes: no document open."); return; }
-  var doc = app.activeDocument, out = [], todo = [], bad = 0, i, pg, k, first, n = 0, cs, hits = [];
+  if (typeof SROM_RUNDOC === "undefined" && app.documents.length === 0) { alert("SROM asterisk notes: no document open."); return; }
+  var doc = ((typeof SROM_RUNDOC !== "undefined") ? SROM_RUNDOC : app.activeDocument), out = [], todo = [], bad = 0, i, pg, k, first, n = 0, cs, hits = [];
   var story = selectedStory() || mainStory(doc);
   out.push("SROM asterisk notes (kanon § 7.1) — " + doc.name);
   out.push("Each line = one marker and its note, with the asterisks they must get.");

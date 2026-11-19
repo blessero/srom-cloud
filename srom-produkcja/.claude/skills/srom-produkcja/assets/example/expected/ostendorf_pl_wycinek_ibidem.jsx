@@ -94,8 +94,8 @@ function selectedStory() {
 }
 
 function main() {
-  if (app.documents.length === 0) { alert("SROM Ibidem check: no document open."); return; }
-  var doc = app.activeDocument;
+  if (typeof SROM_RUNDOC === "undefined" && app.documents.length === 0) { alert("SROM Ibidem check: no document open."); return; }
+  var doc = (typeof SROM_RUNDOC !== "undefined") ? SROM_RUNDOC : app.activeDocument;
   // one article in a larger document: put the cursor in its text first
   var story = selectedStory() || mainStory(doc);
   var fns = story ? notesInOrder(story) : [];

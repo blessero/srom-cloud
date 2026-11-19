@@ -94,8 +94,8 @@ function selectedStory() {
 }
 
 function main() {
-  if (app.documents.length === 0) { alert("SROM post-import: no document open."); return; }
-  var doc = app.activeDocument, s, f, i, k, out = [], todo = [], nFn = 0;
+  if (typeof SROM_RUNDOC === "undefined" && app.documents.length === 0) { alert("SROM post-import: no document open."); return; }
+  var doc = ((typeof SROM_RUNDOC !== "undefined") ? SROM_RUNDOC : app.activeDocument), s, f, i, k, out = [], todo = [], nFn = 0;
   var st = {used: {}, foreign: {}, foreignChar: {}, local: {}, localWhere: {}, astMarks: 0, astParas: 0};
   var naNotes = [];
   // one article in a larger document: put the cursor in its text first; otherwise all stories are checked

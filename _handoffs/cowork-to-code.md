@@ -747,3 +747,5 @@ Run with: Sonnet 5.5 · medium — scope checked: three InDesign scripts and the
 Applied directly, text only: new section `## INJECT` at the end of `.claude/skills/srom-produkcja/references/rip-pitfalls.md` (lines: headless `activeDocument`, asterisk notes in the first footnote, Ibidem apply overset, anchor sentences with U+0004, a looping ExtendScript helper). Three of them end `(C58)` and go when C58 is ticked. Checks after the change: see the next line.
 Run with: Haiku · low — one text file, no code; commit by path, push.
 Checks after the change: produkcja SUITE ALL PASS 31/31, `desk_sync.py` problems=0 (19.11.2026).
+
+C58 status (19.11.2026, Code, Sonnet 5.5 medium): item 1 done — the three .tpl scripts use SROM_RUNDOC when defined, else the active document; tested headless in InDesign on a throwaway copy of Pahulich_TEST.indd (ibidem RESULT: OK, gwiazdki RESULT: OK); goldens in assets/example/expected updated; suite SUITE ALL PASS 31/31. Items 2 and 3 left open (2 needs a design choice; 3 is a report line best added with 2).
