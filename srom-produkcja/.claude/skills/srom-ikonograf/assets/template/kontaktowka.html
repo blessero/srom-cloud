@@ -64,6 +64,7 @@
    alt (optional): better copies, each {label, url, why}: why in a few words (larger scan, the original's holder
    rather than an aggregator, colour, a freer licence).
    also (optional): where else in the volume this image is proposed, e.g. "Tittel S3-a".
+   pageLabel (optional): the words on the page link when `page` is not the object's own record (default "strona obiektu").
    hint (optional): for MB, in plain words, what `why` points at: the quoted passage or footnote, or where on a page of
    text it stands (column, paragraph, line), when that is not obvious from the thumbnail (SKILL.md step 5).
    notes: § 5 and § 6 of ikonografia.md, put in by the build (never in the rows file); "§ 5" / "§ 6" in a `why` opens them. */
@@ -74,7 +75,7 @@ const DATA = {
   notes: {},
   items: [
     { id:"S1-a", slot:"S1", thumb:"", title:"", date:"", creator:"", holder:"", cls:"A", size:"",
-      page:"", full:"", why:"", hint:"", metryka:"", alt:[], also:"" }
+      page:"", pageLabel:"", full:"", why:"", hint:"", metryka:"", alt:[], also:"" }
   ]
 };
 /* ---- rendering (no edits needed below; no loading="lazy": the app's side panel never loads lazy images) ---- */
@@ -114,10 +115,10 @@ function render() {
       const alts = (i.alt || []).map(a => `<div class="alt">Lepsza kopia: ${link(a.url, a.label)}${a.why ? " — " + a.why : ""}</div>`).join("");
       c.innerHTML = `${i.thumb ? `<img src="${src(i)}" alt="" data-id="${i.id}">` : ""}
         <div class="b"><div><span class="cls" style="background:var(--${i.cls})" title="${CLS_LABEL[i.cls] || ""}">${i.cls}</span><span class="id">${i.id}</span>${rflag(i)}</div>
-        <div class="t">${i.page ? link(i.page, i.title) : i.title}</div>
+        <div class="t">${i.page && !i.pageLabel ? link(i.page, i.title) : i.title}</div>
         <div class="m">${[i.date, i.creator].filter(Boolean).join(" · ")}</div>
         <div class="m">${i.holder}${i.size ? " · " + i.size : ""}</div>
-        <div class="m">${link(i.page, "strona obiektu")}${i.full ? " · " + link(i.full, "pełna rozdzielczość") : ""}</div>
+        <div class="m">${link(i.page, i.pageLabel || "strona obiektu")}${i.full ? " · " + link(i.full, "pełna rozdzielczość") : ""}</div>
         ${i.why ? `<div class="why">${deco(i.why, i)}</div>` : ""}${i.hint ? `<div class="hint">${deco(i.hint, i)}</div>` : ""}${i.metryka ? `<div class="mt">Metryka (szkic): ${i.metryka}</div>` : ""}${alts}
         ${i.also ? `<div class="also">Też w: ${i.also}</div>` : ""}</div>`;
       g.appendChild(c);
@@ -149,7 +150,7 @@ document.addEventListener("click", e => {
 $("out").onclick = e => {
   const id = e.target.dataset && e.target.dataset.id; if (!id) return;
   const i = DATA.items.find(x => x.id === id);
-  $("lb").innerHTML = `<img src="${src(i)}" alt=""><div>${i.id} · ${link(i.page, "strona obiektu")}${i.full ? " · " + link(i.full, "pełna rozdzielczość") : ""}</div>`;
+  $("lb").innerHTML = `<img src="${src(i)}" alt=""><div>${i.id} · ${link(i.page, i.pageLabel || "strona obiektu")}${i.full ? " · " + link(i.full, "pełna rozdzielczość") : ""}</div>`;
   $("lb").className = "on";
 };
 $("lb").onclick = e => { if (e.target.tagName !== "A") $("lb").className = ""; };

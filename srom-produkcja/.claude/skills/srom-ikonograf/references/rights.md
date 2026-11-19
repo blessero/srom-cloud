@@ -25,6 +25,11 @@ Notes:
   photograph or scan of a public-domain visual work is not itself protected; a holder's "all rights reserved" on such
   a scan does not make it class D. Credit the holder still. Photographs of three-dimensional objects can be protected
   as photographs: treat them by the photographer's terms.
+- **Museums' own terms can be freer than CC.** The Louvre (collections.louvre.fr/en/page/cgu, art. 4.1.1.2 a, read
+  19.11.2026) lets anyone use its medium-format photos (about 1500 px) of works without copyright, free, in scientific
+  papers of EU publishers up to 1,500 copies and in digital scientific publications, with the photo credit and a permalink
+  to the record: class C for SROM (3D works included; larger files are RmnGP's, paid). Read a holder's terms before
+  writing a letter.
 - **"pdus" (HathiTrust) and US-only public domain** (US works before 1930, US federal works): fine for a US holder's
   scan of a pre-1900 item; for 20th-century items check the author's death date (EU: 70 years).
 - **The article's licence vs the image's.** The image keeps its own terms; the article's CC BY does not extend to

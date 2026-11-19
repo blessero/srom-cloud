@@ -138,6 +138,11 @@ TinEye, Yandex: in the browser, or MB by hand); search the catalogued title or t
 page, then its IIIF or download. Record the chain in the record's § 3 (credit = the holder, not the aggregator);
 a chain that ends before the holder stays a doubt in § 6.
 A better copy found this way goes on the contact sheet as `alt` (link + why it is better; SKILL.md step 4).
+**A photographer's page as a lead** (MB, 19.11.2026; narrow on purpose): only when the free file is poor *and* the image
+is a likely pick (a core slot, a pair, or one MB names). Good photos on a blog or Flickr page by an identifiable
+photographer with no licence = one class D row (`pageLabel` „wpis/strona fotografa, nie karta obiektu”, contact on the
+row). Do not search for such pages; log the ones met in passing or sent by MB. First check the holder's own photo terms:
+the museum's photo may already be free (Louvre, rights.md), which makes the letter unnecessary.
 
 **From a printed page or a PDF** (a thesis, an article; the only clue is a caption). Order that worked
 (25.10.2026): (1) `pdftotext -layout` the page for the caption and credit; `pdfimages -list` for the embedded image's

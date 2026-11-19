@@ -24,6 +24,9 @@ thumbnail, holder or metryka are listed. The metryka stays hand-written (Kanon �
 forms the fields do not carry); the build only reports where it is missing.
 `--from-html` writes `kontaktowka.json` from an existing sheet's DATA block (once per old sheet; needs node).
 `hint` (optional): what `why` points at, in plain words (the passage or footnote, or where on the page it stands).
+`pageLabel` (optional): the words on the `page` link when it is not the object's own record (default „strona obiektu”):
+a lead whose only link is the article that reproduces or cites the object says so, e.g. „artykuł źródłowy (Álvarez
+Calero 2017), nie karta obiektu” (MB 19.11.2026: a DOI that opened a paper was taken for the object page).
 The build puts § 5 and § 6 of `ikonografia.md` into DATA.notes, so "§ 5" / "§ 6" in a `why` opens them on the sheet
 (MB 09.11.2026); they are never copied into the rows file.
 """
@@ -37,8 +40,8 @@ TEMPLATE = HERE.parents[1] / "assets" / "template" / "kontaktowka.html"
 UA = pobierz.UA
 BROWSER_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
 CLASSES = set("ABCDEF")
-FIELDS = ("id", "slot", "thumb", "title", "date", "creator", "holder", "cls", "size", "page", "full", "why", "hint",
-          "metryka", "alt", "also")
+FIELDS = ("id", "slot", "thumb", "title", "date", "creator", "holder", "cls", "size", "page", "pageLabel", "full", "why",
+          "hint", "metryka", "alt", "also")
 START, END = "const DATA = ", "\n/* ---- rendering"
 
 

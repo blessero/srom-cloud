@@ -190,7 +190,8 @@ than a missing one. The order that worked, and what failed:
    or metryka. An old sheet with no rows file: `--from-html` once. Per candidate the
    thumbnail URL (about **700 px wide**, enough to judge a photograph without opening the holder's page: sources.md
    § Thumbnails), title as catalogued, date, creator, holder and shelfmark, rights class (rights.md), largest size
-   available, the item page and the full-resolution URL, one line on why it fits; `alt` and `also` where they apply.
+   available, the item page and the full-resolution URL, one line on why it fits; `alt` and `also` where they apply;
+   `pageLabel` when the only link is not the object's own record (an article or guide that reproduces it: MB 19.11.2026).
    **The `why` is for MB without the record open** (MB 09.11.2026): plain words, no house shorthand (no bare leaf
    `nN`, run codes such as TIT or OST-1, „MB”); a footnote is „przyp. n”, another candidate its id (the sheet links it),
    a point in the record „§ 5” or „§ 6” (the sheet opens that section). A **`hint`** line only where the `why` alone

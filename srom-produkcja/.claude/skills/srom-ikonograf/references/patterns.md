@@ -44,6 +44,9 @@ plus one or two he would not have thought of.
 9. **Compositions.** Pairs and sets that are read together on one page (*Po lewej / Po prawej / Od lewej*); details
    cut from paintings; a map cut from a larger sheet. Look for sets that compare (the same subject by different
    hands, the same classification in two empires).
+   **Pairs across slots** are a welcome ikonograf move (MB, 19.11.2026, praised): Cordier's *Zingara* (Borghese) beside
+   his *Maure* (Louvre), one sculptor and patron, even head beside head. When two candidates in different slots read
+   stronger together, say so in both rows' `why` and find the second one a print-worthy copy.
 10. **The caption carries the argument, the register stays dry** (Kanon § 10.2). An analytic caption names the
     mechanism (*blanqueamiento*, the fractions of "black blood") in bare facts, without outrage.
 11. **Provenance upward.** Prefer the original holder's copy and credit it; from an aggregator or a user upload, trace
