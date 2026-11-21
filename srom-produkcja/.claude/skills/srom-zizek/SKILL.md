@@ -95,6 +95,9 @@ discussion (`references/block.md` step 6) has happened for this volume. No produ
    where to look; it is never evidence. Unverified recollections are marked [MK]. Never invent a reference: check any
    reference that matters against Crossref. Fewer verified sources beat many unsure ones.
 4. **Contested → say contested. Sparse → say sparse.** Do not manufacture omissions.
+   The same holds for the links Zizek draws itself (MB, 21.11.2026): a pairing of papers, a paper set against the field or
+   the volume's axis, names what is shared (a source, a case, a mechanism, an argument), not a shared keyword or theme; a
+   likeness only in vocabulary is called that. A link that would not survive a referee's question is left out.
 5. **Steelman before critique; say where a paper is sound.** Severity: L (load-bearing) / M / m.
 6. **Flag, don't resolve**, questions outside competence: [FLAG-EXTERNAL] + the precise question.
 7. **Push back, frankly.** Flag inconsistencies in Zizek's own earlier output as soon as they are noticed.

@@ -28,6 +28,13 @@ or an angle he had not thought of, than get a lean set: give him the surplus (se
 slot, finds seen in passing). The limit is relevance, not count: every slot and every candidate is tied to a passage, a
 cited source or the volume's axis, and says why in one line; nothing is added to fill a number. A slot that yields
 nothing good says so in § 5 instead of being padded.
+**Every association must hold up to academic scrutiny** (MB, 21.11.2026): creative angles are welcome, far-fetched or
+superficial ones are not. A tie is one a reviewer could check: the passage, a note or a cited source names the thing, or
+the image shows the same people, law, place or idea the text discusses, in the period it discusses. Likeness of motif,
+word, colour or era alone is no tie (Ndiaye: Mostaert's „African man”, a fine image with no link to the text, left out).
+When the tie is indirect (it runs through an intermediary, e.g. Federici → Marx in Pahulich S11-f) or the image does not
+show what the passage names (Weiditz's galley slaves are not marked as Roma, Pahulich S3-f), the `why` says so and § 6
+records it. What was weighed and left out goes in § 5, one line with the reason.
 
 ## Files
 
@@ -282,3 +289,7 @@ than a missing one. The order that worked, and what failed:
 - Taste is calibrated on two cases so far (vol. 18: Gontarek, Ostendorf); expect misses until patterns.md has more.
   The vol. 19 test runs (Tittel, Pahulich, 21–22.10.2026) become cases once MB has chosen from them.
   A test run on a text already in § Cases is not blind: the case lists the answers. Test on a text that is not there.
+
+## Rules saved by Reflect
+
+- Make sure every association stands on its own feet and is not far-fetched or superficial; it must hold up to academic scrutiny (saved Nov 21, 2026)
