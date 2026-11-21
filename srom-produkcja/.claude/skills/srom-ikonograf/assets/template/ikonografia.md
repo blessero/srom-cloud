@@ -4,6 +4,20 @@
 Text: `[path]` · target: [n] images in print ([n] supplied by the author) · proposed: [n] slots ([n] secondary) ·
 started [dd.mm.yyyy HH:MM] · state: brief / searching / chosen / permissions / done
 Other records in the volume: [`work/<id>/ikonografia/`, … — shared sources and finds, or none]
+<!-- Everything above § 0, the prose of § 1 and § 2 are the log: MB's view (ikonografia_view.py: the sheet's „Zapis”
+panel, Biurko) shows § 0, the slots with their candidates (from kontaktowka.json + the § 1 table), § 6, § 4, § 3 once it
+has rows, § 7 and later sections, and § 5 last. Write for MB only in § 0 and in those sections. -->
+
+## 0. Na start
+
+**Propozycja wyboru ([dd.mm.yyyy])**: główne ([n]):
+- S1-a — [why it must go with the text, plain Polish, ≤ 20 words]
+
+Dodatkowe: S1-b ([a few words]), …
+
+**Warto wiedzieć**
+- [at most 3–4 lines MB needs first and finds nowhere else in the view: a find the text lacks, a decision waiting on him, a
+  lead time; no run notes, no repeats of the proposal]
 
 ## 1. Brief
 

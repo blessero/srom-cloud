@@ -27,6 +27,11 @@ forms the fields do not carry); the build only reports where it is missing.
 `pageLabel` (optional): the words on the `page` link when it is not the object's own record (default „strona obiektu”):
 a lead whose only link is the article that reproduces or cites the object says so, e.g. „artykuł źródłowy (Álvarez
 Calero 2017), nie karta obiektu” (MB 19.11.2026: a DOI that opened a paper was taken for the object page).
+`rec` (optional): ikonograf's proposal, "1" główne (must go with the text) or "2" dodatkowe (strong reserve); MB 21.11.2026.
+`pick` (optional): MB's choice, written from his „Kopiuj wybór” paste: "1", "2", "x" (archiwum), "0" (no tier: overrides
+`rec`). His clicks on the sheet live in his browser (localStorage, by record id) until he pastes them; the sheet shows
+the tiers, a „Wybór” filter row (wybór, główne, dodatkowe, bez decyzji, archiwum) and the gallery (← →, 1 / 2 / A).
+MB's view of `ikonografia.md` (ikonografia_view.py: § 0, slots with candidates, § 6, § 4, § 3, § 7, § 5) goes in for the „Zapis” panel; „target: **n**” in it is the print target.
 The build puts § 5 and § 6 of `ikonografia.md` into DATA.notes, so "§ 5" / "§ 6" in a `why` opens them on the sheet
 (MB 09.11.2026); they are never copied into the rows file.
 """
@@ -35,13 +40,15 @@ import json, pathlib, re, shutil, subprocess, sys, time, urllib.error, urllib.pa
 HERE = pathlib.Path(__file__).resolve()
 sys.path.insert(0, str(HERE.parent))
 import pobierz  # embed(), mirror(), WORK, OUTPUTS: one place for both
+import ikonografia_view  # MB's view of ikonografia.md -> the sheet's „Zapis” panel
 
 TEMPLATE = HERE.parents[1] / "assets" / "template" / "kontaktowka.html"
 UA = pobierz.UA
 BROWSER_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
 CLASSES = set("ABCDEF")
 FIELDS = ("id", "slot", "thumb", "title", "date", "creator", "holder", "cls", "size", "page", "pageLabel", "full", "why",
-          "hint", "metryka", "alt", "also")
+          "hint", "metryka", "alt", "also", "rec", "pick")
+PICKS = {"": "", "1": "główne", "2": "dodatkowe"}, {"", "1", "2", "x", "0"}  # rec values, pick values
 START, END = "const DATA = ", "\n/* ---- rendering"
 
 
@@ -175,10 +182,22 @@ def notes_from(d):
             for m in re.finditer(r"^## ([56])\.[ \t]*([^\n]*)\n(.*?)(?=^## |\Z)", t, flags=re.M | re.S)}
 
 
-def data_js(rows, notes=None):
+def record_from(d):
+    """ikonografia.md as HTML, its ## / ### headings, and the printed target ("target: **8**"), for the sheet."""
+    p = pathlib.Path(d) / "ikonografia.md"
+    if not p.exists():
+        return {}
+    t = p.read_text(encoding="utf-8")
+    h, toc = ikonografia_view.render_view(d)
+    m = re.search(r"target:\s*\**\s*(?:about\s+|≈\s*)?(\d+(?:\s*[–-]\s*\d+)?)", t[:3000])
+    return {"record": h, "toc": [list(x) for x in toc], "target": re.sub(r"\s+", "", m[1]) if m else None}
+
+
+def data_js(rows, notes=None, extra=None):
     """DATA as JSON, one item per line; `</` escaped so no string can close the script element."""
     head = {k: rows[k] for k in ("text", "note", "slots")}
     head["notes"] = notes or {}
+    head.update(extra or {})
     lines = [json.dumps({k: i.get(k, [] if k == "alt" else "") for k in FIELDS}, ensure_ascii=False) for i in rows["items"]]
     s = json.dumps(head, ensure_ascii=False, indent=1)[:-2] + ',\n "items": [\n  ' + ",\n  ".join(lines) + "\n ]\n}"
     return s.replace("</", "<\\/")
@@ -198,6 +217,10 @@ def build(d, commons=False, outputs=None, quiet=False):
             errs.append(f"{i.get('id')}: slot {i.get('slot')!r} not in slots")
         if i.get("cls") not in CLASSES:
             errs.append(f"{i.get('id')}: class {i.get('cls')!r} is not one of A–F")
+        if i.get("rec", "") not in PICKS[0]:
+            errs.append(f"{i.get('id')}: rec {i.get('rec')!r} is not \"1\", \"2\" or empty")
+        if i.get("pick", "") not in PICKS[1]:
+            errs.append(f"{i.get('id')}: pick {i.get('pick')!r} is not \"1\", \"2\", \"x\", \"0\" or empty")
     info = {}
     if commons:
         names = [i["src"].split(":", 1)[1].strip() for i in items if i.get("src", "").startswith("commons:")]
@@ -212,7 +235,7 @@ def build(d, commons=False, outputs=None, quiet=False):
         return errs
     t = TEMPLATE.read_text(encoding="utf-8")
     a, b = t.index(START), t.index(END)
-    (d / "kontaktowka.html").write_text(t[:a] + START + data_js(rows, notes_from(d)) + ";" + t[b:], encoding="utf-8")
+    (d / "kontaktowka.html").write_text(t[:a] + START + data_js(rows, notes_from(d), {"rid": d.parent.name, **record_from(d)}) + ";" + t[b:], encoding="utf-8")
     pobierz.embed(d)
     if outputs:
         pobierz.mirror(d.parent.parent, outputs)
@@ -220,6 +243,9 @@ def build(d, commons=False, outputs=None, quiet=False):
         miss = lambda k: [i["id"] for i in items if not i.get(k)]
         print(f"built {d / 'kontaktowka.html'}: {len(items)} rows in {len(slots)} slots; "
               f"{len(list((d / 'miniatury').glob('*.jpg'))) if (d / 'miniatury').is_dir() else 0} local thumbnails embedded")
+        r1, r2 = [i["id"] for i in items if i.get("rec") == "1"], [i["id"] for i in items if i.get("rec") == "2"]
+        print(f"  proposal: {len(r1)} główne, {len(r2)} dodatkowe; MB's recorded picks: "
+              f"{sum(1 for i in items if i.get('pick') in ('1', '2'))} chosen, {sum(1 for i in items if i.get('pick') == 'x')} archived")
         for k, what in (("thumb", "no thumbnail"), ("holder", "no holder"), ("metryka", "no metryka draft"), ("full", "no full-resolution URL")):
             m = miss(k)
             if m:

@@ -10,7 +10,8 @@ Never the journal's own site: the live-site hook does not see this script, so it
 Each run then copies every record's `kontaktowka.html` that is new or changed to `Redakcja/2. Output/Kontaktowki/` as
 `Kontaktowka - <Name>.html` (`Pahulich`, `Ostendorf18`, `Zapytanie slavery19c`): MB's copy at hand (SKILL.md § Files),
 never edited; the record stays the master. `--mirror` does only that (after a build, so the copy is current at once).
-A record whose `kontaktowka.json` is newer than its sheet is rebuilt first (kontaktowka_build.py).
+A record whose `kontaktowka.json` or `ikonografia.md` (the sheet's „Zapis” panel) is newer than its sheet is rebuilt
+first (kontaktowka_build.py).
 Usage: pobierz.py [--root <workspace work dir> [--outputs <dir>]] [--allow-file] [--mirror]
 """
 import base64, datetime, os, pathlib, re, shutil, subprocess, sys, tempfile, time
@@ -128,9 +129,10 @@ def main(argv):
                 fh.write("\t".join([now(), "FAIL" if res else "ok", name, res or detail, url]) + "\n")
         if new_thumb:
             embed(d)
-    for js in sorted(work.glob("*/ikonografia/kontaktowka.json")):  # a rows file edited since the last build
-        html = js.with_name("kontaktowka.html")
-        if not html.exists() or js.stat().st_mtime > html.stat().st_mtime:
+    for js in sorted(work.glob("*/ikonografia/kontaktowka.json")):  # rows or record edited since the last build
+        html, rec = js.with_name("kontaktowka.html"), js.with_name("ikonografia.md")
+        newest = max(js.stat().st_mtime, rec.stat().st_mtime if rec.exists() else 0)
+        if not html.exists() or newest > html.stat().st_mtime:
             rebuild(js.parent)
     if outputs:
         mirror(work, outputs)

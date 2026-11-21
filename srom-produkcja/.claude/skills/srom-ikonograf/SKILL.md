@@ -45,7 +45,8 @@ records it. What was weighed and left out goes in § 5, one line with the reason
 | rights classes, credits, finding the contact, permission letters (EN; PL/ES/FR on request) | `references/rights.md` |
 | downloads for Cowork runs, done on the Mac (§ Where it runs) | `scripts/pobierz.py`, `scripts/pl.srom.ikonograf-pobierz.plist` |
 | triage and known-item tools (§ Known-item search): OCR page finder for Internet Archive books; bulk Commons thumbnails; contact montages | `scripts/ia_find.py`, `scripts/commons_pages.py`, `scripts/montage.py` (Pillow) |
-| per-text record and contact sheet (templates) | `assets/template/ikonografia.md`, `assets/template/kontaktowka.html` (the renderer; never copied by hand) |
+| per-text record and contact sheet (templates) | `assets/template/ikonografia.md`, `assets/template/kontaktowka.html` (the renderer; never copied by hand; gallery hands from `assets/img/`, embedded) |
+| MB's view of a record (sheet's „Zapis” panel, Biurko); Markdown → HTML (no dependencies) | `scripts/ikonografia_view.py`, `scripts/md_html.py` |
 | the contact sheet, built from its rows file (step 5) | `scripts/kontaktowka_build.py` |
 | caption formula (metryka): the rule, never restated here | srom-kanon `references/kanon-redakcyjny.md` § 10.3 |
 | one text's work | workspace `srom-produkcja/work/<id>/ikonografia/`: `ikonografia.md` (§ 3 = the image register), `kontaktowka.json` (the sheet's rows: edit this) and `kontaktowka.html` (built from it), `zgody.md` (letters, step 7), `pliki/` (files going to print), `miniatury/` (local thumbnails, step 5) |
@@ -207,11 +208,20 @@ than a missing one. The order that worked, and what failed:
    up, an alternative to another row (which, and how it differs). One or two lines; most rows need none. The sheet
    shows the class legend on its filter buttons and a ● flag on every candidate that needs permission, a fee, rights
    settled (D, E, F) or may not be cropped (ND).
-   **Deliver** as the root CLAUDE.md § Files MB must open says: send `kontaktowka.html` and `ikonografia.md` with
-   SendUserFile (display render) as the turn's last tool call: the card is MB's button. End the reply with the
+   **Deliver** as the root CLAUDE.md § Files MB must open says: send `kontaktowka.html` (it carries the record's
+   view in its „Zapis” panel; the raw `ikonografia.md` is the log, not for MB) with SendUserFile (display render) as the turn's last tool call: the card is MB's button. End the reply with the
    `Files to open:` line (name, text, absolute path; 🔴 is for files, never for chat), giving for the sheet the copy
    in `2. Output/Kontaktowki/` (§ Files), MB's place to find it later. From Code, run `scripts/pobierz.py --mirror` after
    the last build so that copy is current at once; from Cowork the Mac job makes it within 5 minutes.
+   **Proposal and choice** (MB 21.11.2026). Every run ends with a clear proposal on the sheet: `rec` "1" (**główne**,
+   green: must go with the text, as many as the text needs, the print target only a guide) and "2" (**dodatkowe**,
+   amber: a short reserve, about 3–8); the record's **§ 0 Na start** holds „Propozycja wyboru” (one line per core pick)
+   and at most 3–4 lines „Warto wiedzieć”. **MB reads the record through its view** (`scripts/ikonografia_view.py`, on
+   the sheet and in Biurko): § 0, slots with their candidates, § 6, § 4, § 3 once it has rows, § 7, § 5 last; the header,
+   § 1 prose and § 2 are the log, for sessions, never shown to him (MB 21.11.2026: „just give me what I need”). MB
+   clicks główne / dodatkowe / archiwum on the cards or in the gallery (← →, keys 1 / 2 / A); his clicks live in his
+   browser until he pastes „Kopiuj wybór” in a chat, then write them into the rows as `pick` ("1", "2", "x" archive,
+   "0" no tier) and the chosen images into § 3. The sheet's „Zapis” button shows the whole `ikonografia.md` beside it.
    **Metryka draft** per candidate (`metryka` field), by Kanon § 10.3 from the data already on the row (no extra
    lookups): it shows MB what the caption would carry and catches a missing holder or shelfmark early. It is a draft,
    unchecked; the sheet labels it so.

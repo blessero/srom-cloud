@@ -7,22 +7,28 @@
 <style>
   :root { --bg:#f6f4ef; --card:#fff; --ink:#1d1d1b; --mute:#6b6862; --line:#dedad2; --hl:#fff4c2;
           --A:#2f7d4f; --B:#3b6fb0; --C:#8a6d1e; --D:#b0563b; --E:#7a4fa0; --F:#555;
-          --col:420px; --imgh:440px; }
+          --P1:#1f9d55; --P2:#e0a200; --PX:#8a857c;
+          --col:420px; --imgh:440px; --rpw:min(720px, 46vw); }
   :root.L { --col:640px; --imgh:680px; }
   :root.S { --col:260px; --imgh:240px; }
   @media (prefers-color-scheme: dark) { :root { --bg:#161614; --card:#21201d; --ink:#ecebe6; --mute:#a19d94; --line:#34322d; --hl:#3a3420; } }
   body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.45 -apple-system, "Helvetica Neue", sans-serif; }
-  header { padding:20px 24px 8px; }
+  header { padding:20px 24px 8px; display:flex; gap:16px; align-items:flex-start; }
+  header .hd { flex:1; min-width:0; }
   h1 { font-size:20px; margin:0 0 4px; } .sub { color:var(--mute); }
   nav { padding:0 24px 8px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
-  nav button { border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:14px; padding:3px 10px; cursor:pointer; }
+  nav button, header button { border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:14px; padding:3px 10px; cursor:pointer; font:inherit; }
   nav button.on { border-color:var(--ink); } nav .gap { width:14px; }
+  nav .lbl { color:var(--mute); font-size:12.5px; margin-right:2px; }
+  header button.rec { white-space:nowrap; padding:5px 12px; }
   section { padding:8px 24px 16px; }
-  h2 { font-size:15px; margin:12px 0 2px; } h2 small { color:var(--mute); font-weight:400; }
+  h2 { font-size:19px; margin:16px 0 4px; line-height:1.3; } h2 small { color:var(--mute); font-weight:400; font-size:17px; }
+  h2 .pc { font-size:13px; font-weight:400; margin-left:8px; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(min(var(--col), 100%), 1fr)); gap:16px; margin-top:8px; }
   .c { background:var(--card); border:1px solid var(--line); border-radius:8px; overflow:hidden; display:flex; flex-direction:column; }
   .c img { width:100%; height:var(--imgh); object-fit:contain; background:#00000010; display:block; cursor:zoom-in; }
   .c .b { padding:8px 10px 10px; display:flex; flex-direction:column; gap:3px; }
+  .top { display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
   .id { font-weight:600; } .t { font-style:italic; } .m { color:var(--mute); font-size:12.5px; }
   .why { font-size:13px; margin-top:3px; }
   .mt { font-size:12.5px; margin-top:3px; color:var(--mute); }
@@ -30,9 +36,28 @@
   .cls { display:inline-block; color:#fff; border-radius:4px; padding:0 6px; font-size:12px; font-weight:600; margin-right:4px; }
   .cp { border:0; background:none; color:var(--mute); cursor:pointer; padding:0 3px; font-size:12px; }
   a { color:inherit; }
-  #lb { position:fixed; inset:0; background:#000d; display:none; flex-direction:column; align-items:center; justify-content:center; gap:8px; cursor:zoom-out; z-index:9; }
-  #lb.on { display:flex; } #lb img { max-width:96vw; max-height:88vh; object-fit:contain; background:#fff; }
-  #lb div { color:#eee; font-size:13px; } #lb a { color:#fff; }
+  /* selection (MB 21.11.2026): 1 = główne (green), 2 = dodatkowe (amber), x = archiwum; rec = the ikonograf's proposal */
+  .pk { margin-left:auto; display:inline-flex; gap:3px; }
+  .pk button { border:1px solid var(--line); background:var(--card); color:var(--mute); border-radius:12px; padding:0 8px; font-size:12px; line-height:20px; cursor:pointer; }
+  .pk button .dot, .dot { display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:4px; vertical-align:0; }
+  .dot.p1 { background:var(--P1); } .dot.p2 { background:var(--P2); }
+  .pk button.on.p1 { background:var(--P1); border-color:var(--P1); color:#fff; } .pk button.on.p1 .dot { background:#fff; }
+  .pk button.on.p2 { background:var(--P2); border-color:var(--P2); color:#1d1d1b; } .pk button.on.p2 .dot { background:#1d1d1b; }
+  .pk button.on.px { background:var(--PX); border-color:var(--PX); color:#fff; }
+  .c.p1 { border:2px solid var(--P1); } .c.p2 { border:2px solid var(--P2); } .c.px { opacity:.75; }
+  .recn { font-size:12px; color:var(--mute); }
+  .recn .dot { width:8px; height:8px; }
+  #lb { position:fixed; inset:0; background:#000e; display:none; flex-direction:column; align-items:center; justify-content:center; gap:6px; z-index:9; }
+  #lb.on { display:flex; } #lb .im { max-width:calc(100vw - 260px); max-height:76vh; object-fit:contain; background:#fff; cursor:zoom-out; }
+  #lb .cap { color:#eee; font-size:14.5px; max-width:min(900px, 92vw); text-align:center; display:flex; flex-direction:column; gap:3px; }
+  #lb .cap .ti { font-size:16px; } #lb .cap .ti i { font-style:italic; } #lb .cap .m { color:#bbb; }
+  #lb a { color:#fff; } #lb .cp { color:#bbb; }
+  #lb .pk { margin:4px auto 0; } #lb .pk button:not(.on) { background:#2a2a28; border-color:#555; color:#ddd; } #lb .pk button { font-size:13px; line-height:24px; padding:0 10px; }
+  #lb .nx { position:fixed; top:50%; transform:translateY(-50%); background:none; border:0; cursor:pointer; padding:10px; opacity:.85; }
+  #lb .nx:hover { opacity:1; } #lb .nx img { width:110px; display:block; }
+  #lb .nx.l { left:8px; } #lb .nx.r { right:8px; } #lb .nx[disabled] { opacity:.15; cursor:default; }
+  #lb .pos { position:fixed; top:10px; right:16px; color:#aaa; font-size:12.5px; }
+  @media (max-width:700px) { #lb .im { max-width:96vw; } #lb .nx { top:auto; bottom:6px; transform:none; } #lb .nx img { width:64px; } }
   /* rights flag, key, hints, § notes, jumps (MB 09.11.2026) */
   .rflag { display:inline-block; font-size:11.5px; font-weight:600; border:1px solid currentColor; border-radius:4px; padding:0 5px; margin-left:6px; color:var(--D); }
   .rflag.E { color:var(--E); } .rflag.F { color:var(--F); } .rflag.C { color:var(--C); }
@@ -47,15 +72,46 @@
   #np .box { background:var(--card); color:var(--ink); width:min(760px, 94vw); max-height:84vh; overflow:auto; border-radius:8px; padding:12px 18px 16px; font-size:13.5px; }
   #np ul { padding-left:18px; margin:6px 0; } #np li { margin:5px 0; } #np li.hit { background:var(--hl); border-radius:4px; padding:2px 5px; list-style-position:inside; }
   #np summary { cursor:pointer; color:var(--mute); margin-top:8px; }
+  /* the record panel: ikonografia.md beside the sheet (MB 21.11.2026) */
+  #rp { position:fixed; top:0; right:0; bottom:0; width:var(--rpw); background:var(--card); border-left:1px solid var(--line); z-index:8; display:none; flex-direction:column; box-shadow:-6px 0 18px #0002; }
+  body.rp main, body.rp nav, body.rp #key, body.rp header { margin-right:var(--rpw); }
+  body.rp #rp { display:flex; }
+  #rp .rh { display:flex; gap:8px; align-items:center; padding:10px 16px; border-bottom:1px solid var(--line); }
+  #rp .rh b { flex:1; } #rp .rh button { border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:12px; padding:2px 10px; cursor:pointer; }
+  #rp .toc { padding:6px 16px; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:4px 10px; font-size:12.5px; }
+  #rp .toc a { color:var(--B); text-decoration:none; } #rp .toc a.l3 { color:var(--mute); }
+  #rp .rb { overflow:auto; padding:6px 20px 40px; font-size:13.5px; line-height:1.5; }
+  #rp .rb h1 { font-size:18px; margin:10px 0; } #rp .rb h2 { font-size:16.5px; margin:22px 0 6px; padding-top:6px; border-top:1px solid var(--line); }
+  #rp .rb h3 { font-size:14.5px; margin:16px 0 4px; }
+  #rp .rb code { font-size:12px; background:#00000010; border-radius:3px; padding:0 3px; word-break:break-all; }
+  #rp .rb pre { overflow:auto; background:#00000010; padding:8px; border-radius:4px; }
+  #rp .rb .tw { overflow-x:auto; margin:8px 0; }
+  #rp .rb table { border-collapse:collapse; font-size:12.5px; }
+  #rp .rb th, #rp .rb td { border:1px solid var(--line); padding:3px 6px; vertical-align:top; text-align:left; }
+  #rp .rb th { background:#00000008; }
+  #rp .rb blockquote { margin:6px 0; padding-left:10px; border-left:3px solid var(--line); color:var(--mute); }
+  #rp .rb li { margin:3px 0; } #rp .rb a { color:var(--B); word-break:break-word; }
+  #rp .rb .fl { background:var(--hl); border-radius:3px; }
+  #rp .rb h3 { font-size:14.5px; margin:14px 0 2px; } #rp .rb h4 { font-size:13.5px; margin:10px 0 2px; }
+  #rp .rb .lg { color:var(--mute); font-size:12px; } #rp .rb .sm { margin:0 0 2px; font-size:12.5px; color:var(--mute); }
+  #rp .rb .ty { margin-right:3px; } #rp .rb .an { border:1px solid var(--line); border-radius:8px; padding:0 6px; margin-right:6px; font-size:11.5px; }
+  #rp .rb .psg { font-style:italic; }
+  #rp .rb ul.cand { list-style:none; padding-left:4px; margin:2px 0 6px; } #rp .rb ul.cand li { margin:1px 0; font-size:13px; }
+  #rp .rb ul.cand .dot { width:8px; height:8px; margin-right:6px; }
+  #rp .grip { position:absolute; left:-5px; top:0; bottom:0; width:10px; cursor:col-resize; z-index:1; touch-action:none; }
+  #rp .grip:hover, #rp .grip.on { background:var(--B); opacity:.35; }
+  @media (max-width:900px) { :root { --rpw:100vw; } body.rp main, body.rp nav, body.rp #key, body.rp header { margin-right:0; } }
 </style>
 </head>
 <body>
-<header><h1 id="h"></h1><div class="sub" id="s"></div></header>
+<header><div class="hd"><h1 id="h"></h1><div class="sub" id="s"></div></div><button class="rec" id="rbtn" title="ikonografia.md: brief, kandydaci, rejestr, zgody, wyszukiwania, wątpliwości">📄 Zapis (ikonografia.md)</button></header>
 <nav id="f"></nav>
+<nav id="f2"></nav>
 <div id="key"></div>
 <main id="out"></main>
 <div id="lb"></div>
 <div id="np"><div class="box"></div></div>
+<aside id="rp"><div class="grip" id="grip" title="Przeciągnij, by zmienić szerokość"></div><div class="rh"><b>ikonografia.md</b><button id="rclose">zamknij ✕</button></div><div class="toc" id="rtoc"></div><div class="rb" id="rbody"></div></aside>
 <script>
 /* Built by scripts/kontaktowka_build.py from kontaktowka.json (edit that file, then build; never this block by hand).
    One object per candidate; slot ids match ikonografia.md § 1.
@@ -67,7 +123,10 @@
    pageLabel (optional): the words on the page link when `page` is not the object's own record (default "strona obiektu").
    hint (optional): for MB, in plain words, what `why` points at: the quoted passage or footnote, or where on a page of
    text it stands (column, paragraph, line), when that is not obvious from the thumbnail (SKILL.md step 5).
-   notes: § 5 and § 6 of ikonografia.md, put in by the build (never in the rows file); "§ 5" / "§ 6" in a `why` opens them. */
+   rec (optional): the ikonograf's proposal, "1" główne (must go with the text) or "2" dodatkowe (strong reserve).
+   pick (optional): MB's choice as recorded from his „Kopiuj wybór” paste: "1", "2", "x" (archiwum) or "0" (no tier).
+   notes: § 5 and § 6 of ikonografia.md, put in by the build (never in the rows file); "§ 5" / "§ 6" in a `why` opens them.
+   record / toc: ikonografia.md as HTML for the „Zapis” panel, put in by the build. */
 const DATA = {
   text: "[Author], „[short title]” ([vol.])",
   note: "Kandydaci [dd.mm.yyyy]. Klasa praw: A wolne · B uznanie autorstwa · C NC/ND · D zgoda · E autor nieznany · F płatne.",
@@ -75,18 +134,48 @@ const DATA = {
   notes: {},
   items: [
     { id:"S1-a", slot:"S1", thumb:"", title:"", date:"", creator:"", holder:"", cls:"A", size:"",
-      page:"", pageLabel:"", full:"", why:"", hint:"", metryka:"", alt:[], also:"" }
+      page:"", pageLabel:"", full:"", why:"", hint:"", metryka:"", alt:[], also:"", rec:"", pick:"" }
   ]
 };
 /* ---- rendering (no edits needed below; no loading="lazy": the app's side panel never loads lazy images) ---- */
 const $ = id => document.getElementById(id);
 $("h").textContent = DATA.text; $("s").textContent = (DATA.note || "").replace(/\s*(?:Klasa praw|Klasy|Prawa):\s*A wolne.*?płatne\.?/, "");
-let only = null;
+let only = null, view = "";            /* rights filter; selection view: "" = all but archive, sel, 1, 2, none, x */
 const CLS_LABEL = { A:"wolne", B:"uznanie autorstwa", C:"NC / ND", D:"zgoda", E:"autor nieznany", F:"płatne" };
 const RFLAG = { D:"wymaga zgody", E:"prawa nieznane", F:"płatne" };
+const PL = { "1":"główne", "2":"dodatkowe", "x":"archiwum" };
 const NOTES = DATA.notes || {};
 const IDS = new Set(DATA.items.map(i => i.id));
 const escH = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+/* ---- selection state: MB's clicks live in this browser (localStorage), over `pick` (recorded) and `rec` (proposed) ---- */
+const SKEY = "srom-kontaktowka:" + (DATA.rid || DATA.text);
+let LOCAL = {}, STORE_OK = true;
+try { LOCAL = JSON.parse(localStorage.getItem(SKEY) || "{}") || {}; localStorage.setItem(SKEY + ":t", "1"); localStorage.removeItem(SKEY + ":t"); } catch (x) { STORE_OK = false; }
+const saveLocal = () => { try { localStorage.setItem(SKEY, JSON.stringify(LOCAL)); } catch (x) { STORE_OK = false; } };
+const base = i => (i.pick === "0" ? "" : i.pick) || i.rec || "";
+const st = i => (i.id in LOCAL) ? LOCAL[i.id] : base(i);
+function setPick(id, p) {
+  const i = DATA.items.find(x => x.id === id); if (!i) return;
+  const v = st(i) === p ? "" : p;              /* clicking the active tier clears it */
+  if (v === base(i)) delete LOCAL[id]; else LOCAL[id] = v;
+  saveLocal(); render(true); counts();
+  if ($("lb").classList.contains("on")) lbShow(LBI, true);
+}
+const pkHtml = i => { const s = st(i); return `<span class="pk">` +
+  `<button class="p1${s === "1" ? " on" : ""}" data-pid="${i.id}" data-p="1" title="Główne: musi iść z tekstem (klawisz 1 w podglądzie)"><span class="dot p1"></span>główne</button>` +
+  `<button class="p2${s === "2" ? " on" : ""}" data-pid="${i.id}" data-p="2" title="Dodatkowe (klawisz 2 w podglądzie)"><span class="dot p2"></span>dodatkowe</button>` +
+  `<button class="px${s === "x" ? " on" : ""}" data-pid="${i.id}" data-p="x" title="${s === "x" ? "Przywróć z archiwum" : "Do archiwum: znika z widoku, zostaje w zakładce Archiwum"} (klawisz A w podglądzie)">${s === "x" ? "↩ z archiwum" : "archiwum"}</button></span>`; };
+const recNote = i => i.rec && i.rec !== st(i) ? `<span class="recn">propozycja: <span class="dot p${i.rec}"></span>${PL[i.rec]}</span>` : "";
+function inView(i) {
+  const s = st(i);
+  if (only && i.cls !== only) return false;
+  if (view === "x") return s === "x";
+  if (s === "x") return false;
+  if (view === "sel") return s === "1" || s === "2";
+  if (view === "1" || view === "2") return s === view;
+  if (view === "none") return !s;
+  return true;
+}
 /* rights flag: D, E, F always; C only when no-derivatives (no crop or detail) */
 function rflag(i) {
   if (RFLAG[i.cls]) return `<span class="rflag ${i.cls}" title="Klasa ${i.cls}: ${CLS_LABEL[i.cls]}">● ${RFLAG[i.cls]}</span>`;
@@ -102,19 +191,26 @@ function deco(s, i) {
 }
 const src = i => (window.MINI || {})[i.thumb] || i.thumb;
 const link = (u, t) => u ? `<a href="${u}" target="_blank" rel="noopener noreferrer" title="${u}">${t}</a><button class="cp" data-u="${u}" title="Kopiuj adres">⧉</button>` : "";
-function render() {
-  const out = $("out"); out.innerHTML = "";
+let VIS = [];                              /* the visible candidates with a thumbnail, in order: the gallery's sequence */
+function render(keep) {
+  const y = window.scrollY;
+  const out = $("out"); out.innerHTML = ""; VIS = [];
   for (const [slot, idea] of Object.entries(DATA.slots)) {
-    const items = DATA.items.filter(i => i.slot === slot && (!only || i.cls === only));
+    const all = DATA.items.filter(i => i.slot === slot);
+    const items = all.filter(inView);
     if (!items.length) continue;
+    const n1 = all.filter(i => st(i) === "1").length, n2 = all.filter(i => st(i) === "2").length;
     const sec = document.createElement("section");
-    sec.innerHTML = `<h2>${slot} <small>${idea}</small></h2>`;
+    sec.innerHTML = `<h2>${slot} <small>${idea}</small>${n1 || n2 ? `<span class="pc">${n1 ? `<span class="dot p1"></span>${n1} ` : ""}${n2 ? `<span class="dot p2"></span>${n2}` : ""}</span>` : ""}</h2>`;
     const g = document.createElement("div"); g.className = "grid";
     for (const i of items) {
-      const c = document.createElement("div"); c.className = "c" + (needs(i) ? " need " + i.cls : ""); c.id = "c-" + i.id;
+      const s = st(i);
+      if (i.thumb) VIS.push(i);
+      const c = document.createElement("div"); c.className = "c" + (needs(i) ? " need " + i.cls : "") + (s ? " p" + s : ""); c.id = "c-" + i.id;
       const alts = (i.alt || []).map(a => `<div class="alt">Lepsza kopia: ${link(a.url, a.label)}${a.why ? " — " + a.why : ""}</div>`).join("");
       c.innerHTML = `${i.thumb ? `<img src="${src(i)}" alt="" data-id="${i.id}">` : ""}
-        <div class="b"><div><span class="cls" style="background:var(--${i.cls})" title="${CLS_LABEL[i.cls] || ""}">${i.cls}</span><span class="id">${i.id}</span>${rflag(i)}</div>
+        <div class="b"><div class="top"><span class="cls" style="background:var(--${i.cls})" title="${CLS_LABEL[i.cls] || ""}">${i.cls}</span><span class="id">${i.id}</span>${rflag(i)}${pkHtml(i)}</div>
+        ${recNote(i) ? `<div>${recNote(i)}</div>` : ""}
         <div class="t">${i.page && !i.pageLabel ? link(i.page, i.title) : i.title}</div>
         <div class="m">${[i.date, i.creator].filter(Boolean).join(" · ")}</div>
         <div class="m">${i.holder}${i.size ? " · " + i.size : ""}</div>
@@ -125,21 +221,27 @@ function render() {
     }
     sec.appendChild(g); out.appendChild(sec);
   }
+  if (!out.children.length) out.innerHTML = `<section><p class="m">Nic w tym widoku.</p></section>`;
+  if (keep) window.scrollTo(0, y);
 }
 /* Links: a sandboxed preview (Biurko, chat panel) blocks target=_blank silently. Try a normal open; if blocked, copy the URL and say so. */
 function toast(m) {
   let n = $("toast"); if (!n) { n = document.createElement("div"); n.id = "toast";
-    n.style.cssText = "position:fixed;left:50%;bottom:16px;transform:translateX(-50%);background:#222;color:#fff;padding:8px 14px;border-radius:8px;font:13px sans-serif;max-width:90vw;word-break:break-all;z-index:99";
+    n.style.cssText = "position:fixed;left:50%;bottom:16px;transform:translateX(-50%);background:#222;color:#fff;padding:8px 14px;border-radius:8px;font:13px sans-serif;max-width:90vw;word-break:break-all;z-index:99;white-space:pre-line";
     document.body.appendChild(n); }
   n.textContent = m; n.style.display = "block";
   clearTimeout(n.t); n.t = setTimeout(() => n.style.display = "none", 6000);
 }
+function copy(u) { let ok = false;
+  try { const x = document.createElement("textarea"); x.value = u; document.body.appendChild(x); x.select(); ok = document.execCommand("copy"); x.remove(); } catch (x) {}
+  if (!ok) try { navigator.clipboard.writeText(u); ok = true; } catch (x) {}
+  return ok; }
 document.addEventListener("click", e => {
+  const pb = e.target.closest && e.target.closest("button[data-pid]");
+  if (pb) { e.stopPropagation(); setPick(pb.dataset.pid, pb.dataset.p); return; }
   const cp = e.target.closest && e.target.closest("button.cp");
-  if (cp) { e.stopPropagation(); const u = cp.dataset.u; let ok = false;
-    try { const x = document.createElement("textarea"); x.value = u; document.body.appendChild(x); x.select(); ok = document.execCommand("copy"); x.remove(); } catch (x) {}
-    if (!ok) try { navigator.clipboard.writeText(u); ok = true; } catch (x) {}
-    toast(ok ? "Adres skopiowany: " + u : "Nie udało się skopiować; adres: " + u); return; }
+  if (cp) { e.stopPropagation(); const u = cp.dataset.u;
+    toast(copy(u) ? "Adres skopiowany: " + u : "Nie udało się skopiować; adres: " + u); return; }
   const a = e.target.closest && e.target.closest("a[href^='http']"); if (!a) return;
   e.preventDefault(); e.stopPropagation();
   let w = null; try { w = window.open(a.href, "_blank", "noopener,noreferrer"); } catch (x) {}
@@ -147,14 +249,42 @@ document.addEventListener("click", e => {
   try { navigator.clipboard.writeText(a.href); } catch (x) {}
   toast("Podgląd blokuje otwieranie linków. Adres skopiowany: " + a.href);
 }, true);
-$("out").onclick = e => {
-  const id = e.target.dataset && e.target.dataset.id; if (!id) return;
-  const i = DATA.items.find(x => x.id === id);
-  $("lb").innerHTML = `<img src="${src(i)}" alt=""><div>${i.id} · ${link(i.page, i.pageLabel || "strona obiektu")}${i.full ? " · " + link(i.full, "pełna rozdzielczość") : ""}</div>`;
+/* ---- the gallery: ← → (the hands) through what is on screen, a short caption, the tiers at hand ---- */
+let LBI = -1;
+const short = s => { s = String(s || "").replace(/<[^>]+>/g, ""); const m = s.match(/^.{12,}?[.;:](?=\s|$)/); s = (m ? m[0] : s).replace(/[.;:]$/, ""); return s.length > 220 ? s.slice(0, 217) + "…" : s; };
+function lbShow(k, quiet) {
+  if (k < 0 || k >= VIS.length) return;
+  LBI = k; const i = VIS[k];
+  $("lb").innerHTML = `<span class="pos">${k + 1} / ${VIS.length} · ← → · 1 2 A · Esc</span>
+    <button class="nx l" title="Poprzedni (←)"${k ? "" : " disabled"}><img src="data:image/png;base64,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" alt="←"></button>
+    <img class="im" src="${src(i)}" alt="">
+    <button class="nx r" title="Następny (→)"${k < VIS.length - 1 ? "" : " disabled"}><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAABnBAMAAABbSXWAAAABSWlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGB8kJOcW8yiwMCQm1dSFOTupBARGaXA/oiBmUGEgZOBj0E2Mbm4wDfYLYQBCIoTy4uTS4pyGFDAt2sMjCD6sm5GYl5K5cv9YVF2jNualVtD3b77r2LAD7hSUouTgfQfIFZJLigqYWBgBLqGQam8pADEdgGyRZIzElOA7AggW6cI6EAguwUkng5hzwCxkyDsNSB2UUiQM5B9AMhWSEdiJyGxc3NKk6FuALmeJzUvNBhIcwCxDEMxQxCDO4MTDjVsYDXOQGjAwAAKL/RwKE4zNoLo4rFnYGC9+///ZzUGBvYJDAx/J/3//3vh//9/FzEwMN9hYDhQiNCfv4CBweITULwfIZY0jYFheycDg8QthJgKUB1/KwPDtiMFiUWJYCFmIGZKy2Rg+LScgYE3koFB+AIwaKMB4+JfsfmfKnMAAAAwUExURQAAAO3r6A4NDZ6dnWJiYmhoZ/r6+RgXFiQjIp+enlZWVcHAvoGAflhWVcC9u5STkfYIuq4AAAAQdFJOUwD+/f7+CwedYhpb/v6c/lP4RO4LAAAOuklEQVR42rWabYxcV3nHf+fMzuydBc89dwz2rhPPnLkLjdPU9q7dAo0QDaIfUBHRQmQTWpG6ETZWBS0VQkVQoZS2vHwqSBRREOoSNS1tJLq0SisBUSOVvohie9dunHUSz9zZbbwbk5177myzc2eWOacfZt/s2fULcu6XnXvvuf997vNynv/zPBdu+TjBa3LkJnp/s3caODsB5E597QTAxK0+JW4FeZWc/P0ngWP5i39/ywJltkLYidnt1th85m5/RSx0RmpXn/3DH0L2wdnbhLZUu30LJmY5ff+iri7EuDheSBfu/cC+C7OQe+8s8LWh+y721h27uKNCJp4SJwL/033IU9nPfbNyduul0cbDL3ZU7hvXLz31DeCDP3vy2NTEk1ugvY/+06/+7V0MPH9i8jotP7xvphFdiyF9kDwEonj31X3daSCg+5ntpc793rmZR1//uHl0KLoGmvxnv7UrAkYvb70aTh0CacPuG5aEAXn3AMDPFh7aJe5ZPXghWvl8ZwN6aG9SDp45PK8yl65BPj30lULPJN0djbV/850yhfI0wGjhLYuTPTOenPZboj6yb2F43+WtBjz9/YXWmg7KxXiLRtyW195y3R2YBiBeNNVXetBnB/xWO3Akhde/uMWA3qJal0iUn98Kt+W302bzZHH9R7znI0pCLuvfZbVzYR258XJZpgbvDjZOrWTstuKsNvmUBKwMUJiaKrsNla7yhf1LWzzj3GAkMXJN0lsImPC3JPBxqkl9bEyUUKsb+9HnnlhaXwQgc/d10TrsSS23YKjtoc0DEjq+xib1pjXKHAA4Cac/+u2X1m2Glpqu/A8USmX6NGImt8eOJLmcWQ61bcZaoQzkJr7Jw9+faWxxCC3JxCIgxGqpr4OQj23+HN3yH5H8xh9N2SBzpOs3o3r0KtnO1F984Sf+2U1cQEk3XhgdTYzEFgG7BT/48qZ5C5uq5rEMl+uNzhuvOrkgnYMlm/2zr8ZVs+HOAQLb0Vf2mfpK20tJvFg3XfHPp9Yx8v+wuXhhX7zh+f8nwWFn4sAvNoDVE97Hnt4QWX53jm49rmYUR86isIkQOh8qp3kMtMyEWgoyvzgJknCsCIwuh6NhGFbwVgUTf/qhCDKHa0EMzB7oxWov/tOSunDw+REnUDYCCIQTrtB00hWMOq8B4jAmMA4laBip/MQXuBqPTEumzi4fCekmGA1sRWbFzp8/fH74Mm7dw5KCAimKIHebilBKCIkCFQRQNdiGKOBwPPjYlMg9+vycjoV/djzSEYRL1+6gYTWsIjX469fDOPHjoo9RCFxSiGRJUg2rErslTc9CpvvgueDVICdHZjxTFm03f22oxcTg4qRS27jitfOtVrGW91zdXl0xOJM0SJzbfPDYBzvPWjIcveqtPPe6RX+vSKOg1RmOt3F/Of6vFS9dO0ldC3wzTOTWFjtwZB96O/vuesNP/mToh//+3WkLgk98Z1iopbnxyOwyQfMg09vsyWNLEeOithOTWJ3i+OUnr81OMECwUoX7xs5VbHma0oX92zytzyD9OKOjvjvHDiU//hKc6nwR4NiTG5sbICbe/zi4RhRGfpxR5eTytqKNNvyM72S8aU2A49VNVnLsyf7cONpAjlu5NH/onAgsZnvo7lxp/uA0IA+vg5d+4RvAsdWpHdnTO6cB7vOMWRLFsjXRDivloTUrhOuSZx99bvKGFKeyCPDTBZW2KiNJu7bTSreeneLFdPhqK007e3905eSPeixoO9olTnxbgdTY+V1mPFJ1exs0M1MmiINq9n3DH9/m7kB2+gGwVcJDNaBYvx0G2632VPXjlybo13jm4j8fWASI82nalr4X3z5Hdovpq2/uD4cBJ0QQxlWk0dM/F/kWBT2wJPQ2dhelc+0YEPqxIVx0+9BjwcyZOTfZXy9kBK3VOAb38n8teYjbV8jILDjlz/VL/b4P3w8yHA3DnsT659KKfKG/Dsk8+6P2vSOdkcGXc0YMucrK9uGojS7G2oB0Y4vX3mqnQNOd63NteeKJ+MU/8GNTbgJQ3F6qOTkfyfkwI3UoQpAAUt6sTBpfM93RM5kCle0DPeOsRhlZLxPYue7uF8flTDczthQBgb/rAhnb6FeSfy2U3NYD9x/SyOW5qKwwkowalTFaRz2xo5zOjOl+XQ9sSVUA3N/u31bl3DyOyccgNkVDKbZRPI7rWUUHdvlQlUP9CvEuja0nWBnYMAYb9alDUwAjwRkqSWFuV9C0RdMI4ypUmtpGZC/1C/TuCULNrtHxxjq37bNO9xAsX7gwHwkU1BvYpsQ4RcSYJHKxRMv+kJHqo+NqSL/RJYDVrhDRlx0fv1DHlQ8ePtQjvBVkxSpqVWxhWWgpAiT3vKdfIdnVAEBWlowolhJliCrXa1sXE6dMXUdlPwpjbEY50TCACGpjZ0Pwr2yzX2cemfEAXLGVCo+AFIV/Xdg0X1ZKpNrb024PXUnTdituqnTYgBzQYgiz98pprx9brpcolzUI6uD1a9t2HQaRLMOa+9pqklS01BkjColbfNsnt0mQ8pl1zUZgZRlS7DUFRaiBeuNy9dwulWxuXjYGfUZIE9njFydXt8sy60aTgFQ97/YIqa6z1XohABksa5OpXltkwe4GlcZDX8yubpveDrySXwDCoJWKvF30APEzpdKgJ6Dsdjsjw0U7Oxi3+vdbB4ZfeWb7fDrwVPaXAaoosKronnnAABZCbBTauW5YkHSjSoIV5Uha5K0m5sxA2gQ4/5eDqfCM8DQpKm0DiESJgh48v+i1mxVDuVf7VuLraml3YPvGi8h6b+kuBy4p1IxQFFW3KTg3BqCSbtEQCVdRVlaLhQhEpRpaYwiJ/TkNRjn30qUdpW6J3enFhfhlLxU5MZgXXioOpEQKr+3aYErlxdjEtGNAdlddx2+6wCAzadp2HubvfnpxB+huxi3EIMc6y+J15SGMlwovJYA0aNUDSkPT3kbx7Fb1ihjyizHRKwUB5MTiSys7NKJEzu5CaoiUqRh05KMExgHCKQN19idr7De0EcgyRjHjtJ2zGd3YbstbD5nOI7tDr1qtWgAdEQTC9QrvSNVBlQ8Wm6CR+PGMAluPiPgrkHq00IDVHft+Azy+a2mtFHcWXYNGIrRTJPuxiCS/HB12RICIfV9FWND2BPVDvVfJqh2d7/j/eADycLKoUr8WwmBRuXqQODfkiqmfHfTaed9IP021SSIPSIsyH5TWuEXmqR2hX+jV1WORGCYNjGunXt129oiV4CpxnLp2ikoGjdhrhIHhFCCOWy0DhEkl3n15R12vVVj1QHhQD4uKqCSVMUFkbYjDKOJYhqWIyvWPahMb2T65sxm/EoyNBnGjyooCV0OVTVyTcRToJhqFUMpFNKG61nXZiEJjceqBb+4s9UnmzVLEKFisKFCTkooTAU3tBNJSi8A0IJR6yYQStCZEhlpGAju9o4dksvk3iQUY9f1Oq02ytzkSq8CIRV9dKdbF4MtOKUMlZ6D+xhdCI1IRDJqOH4iVS6qoWPrxxR2lFn/8bASjzoBU2HqjESXTu/z9ygSm5AKEkVI0IqAsXaz9slNzOJNEEnzf/+3VnSnmb84AR1Cssw9ToSxN0SB9gSj4BbNGZpJAK2yinSv2ugcKrnz6Bux18ghhaHxjQYBsGtloxE6cQ7jIECdJUrBI0FCNaw1TA42M6KKh9qncDfbr7A/elgaegXSkXfMSrRsCTMtLW8OoqyOB70UIG1xtCZVCe9/ilZFGx8ZB7AeId32yeyOmeuxMYKUVBqFqykktzvaHrj7vl0WkXQT4xYa00ZgB+eoNm++S1XcirTDlJoRiNE4a4w59LV8oJspFiV+bAUgimMNQXI7diRtDM05VGDFdAt9NHzamnjHnnVNqEz0OCuDPaaUA3LKFKKhZVidvPCuYPVCrLJZro7H0PJMLYpy7dyUTN0uJJt0IPGjuzceLvaywOlLqGIBfm70h9Ml/aRt/NqNGGvl8LKIhB021ML4SyEsbzeQUcCM2GOq1s10rQTedNnsPzN4I+myAH8kxb+aedt43ebQJzXA7UanaY0DqohhMkcFgKvKilW6Yf+7NxebewakbSn3KuUhOfS/Vxp9zKbCvpvJuUDTjTAvK5wfxE1wrpc2gt8Yzwygtdbw0LU/fsEw68W0VgpX1UiyUAUH5vI7BJ3EUfUtTVJW0gNRVWZJUpR9ZLYVqvHrpxmacnvk3QESH2h3VE0rYkUAMisSZe68kcy8rykV3dRBcLCiadORyoPxiKtJ44JWbTJNe/3T7FT07NiNdzwFoU/cKV4ed54pRZ3+5TeeSskEKEBp47t6hfNtrW9+IpZv4dQGhzuqz4w3G9BpJVMG8nxSbYvqwn7mAcruC3RternSuRwoj7r9JyJyoyXvMkepoHBAJ5JVjgKvaJLYWfzlxB4MZIRpqS8lpnoFMwTD4xORNpM7EdvzsaFckUKV0+kvvOgngXARO7RLL5nABs0atqxZQIUE1IvfW99xs3viRp1ka7Wa6SYhR0d16kq8/v+mvRWO39vJCGkIJbMSH6k+s3nSUOfG93fvnSiIw+E31v7NA9nP9yTT72R9MfuC/CRtFU4jIPvKZW5k3zn44+0JpXpNyddBbTiwTF5/+0huuC+GHHzg1zbMf/KX/HK7tjTguvpZ9ZPrmA9h8a3dp3g8cLqm4K8+tv/1RZ6DXe8z+zqdgYoqJqezHpoAvfIDs6q3Mdk+99a/PB8o3Ngkc7/jyZi8X4NRRONOZ3Gjx5r56OXP3795ye+cTR8Kj7zp6tPim3b9+ZHJi6xh6c9jGbU+7MwDvvpSOTCso5a/Y7nfWC8OesnPvv+++t59hXfM2995Zjj97q8PuieAfg1jbYM7o6K6ZOzZ9F0CO1+3e36ypMiQPTk/dSWhOmPOhaYiE7p5L3FGpybdCoGLluUe+fOegJUDr+ARgl6f3mDv4OUWvrTX0EsgLBw+/4/OdO6wQcp2vPz8lkj0X7+T3Gb0dvsNpjSic4s5DAwb74Y/zWhzZj4R/c+tfldzm8VrhQvY1xL7jx/8DHjuLwWVc134AAAAASUVORK5CYII=" alt="→"></button>
+    <div class="cap"><div class="ti"><b>${i.id}</b> · <i>${i.title}</i></div>
+      <div class="m">${[i.date, i.creator].filter(Boolean).join(" · ")}</div>
+      ${i.why ? `<div title="${escH(i.why.replace(/<[^>]+>/g, ""))}">${short(i.why)}</div>` : ""}
+      <div class="m">${link(i.page, i.pageLabel || "strona obiektu")}${i.full ? " · " + link(i.full, "pełna rozdzielczość") : ""}</div>
+      <div>${pkHtml(i)}</div></div>`;
   $("lb").className = "on";
+  if (!quiet) { const c = $("c-" + i.id); if (c) c.scrollIntoView({ block: "center" }); }
+}
+$("out").onclick = e => {
+  const id = e.target.tagName === "IMG" && e.target.dataset && e.target.dataset.id; if (!id) return;
+  const k = VIS.findIndex(x => x.id === id); if (k >= 0) lbShow(k, true);
 };
-$("lb").onclick = e => { if (e.target.tagName !== "A") $("lb").className = ""; };
-document.onkeydown = e => { if (e.key === "Escape") { $("lb").className = ""; $("np").className = ""; } };
+$("lb").onclick = e => {
+  const nx = e.target.closest(".nx"); if (nx) { if (!nx.disabled) lbShow(LBI + (nx.classList.contains("l") ? -1 : 1)); return; }
+  if (e.target.closest(".cap")) return;
+  $("lb").className = "";
+};
+document.onkeydown = e => {
+  const lb = $("lb").classList.contains("on");
+  if (e.key === "Escape") { if (lb) $("lb").className = ""; else if ($("np").className) $("np").className = ""; else document.body.classList.remove("rp"); return; }
+  if (!lb || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === "ArrowRight") { lbShow(LBI + 1); e.preventDefault(); }
+  else if (e.key === "ArrowLeft") { lbShow(LBI - 1); e.preventDefault(); }
+  else if (e.key === "1" || e.key === "2") setPick(VIS[LBI].id, e.key);
+  else if (e.key === "a" || e.key === "A") { const id = VIS[LBI].id; setPick(id, "x"); }
+};
 /* § 5 / § 6: the record's section, the points about this candidate first (matched by its id, its slot, or shared names) */
 const STOP = new Set(["Strona", "Tamże", "Sprawdzić", "Commons", "Google", "Internet", "Archive", "Jedyny", "Najmocniejszy", "Pierwsze", "Druga", "Oryginał"]);
 function bullets(t) {
@@ -180,28 +310,65 @@ function score(b, i) {
 function showNotes(n, i) {
   const sec = NOTES[n], bs = bullets(sec.t);
   const hit = bs.map(b => [score(b, i), b]).filter(x => x[0] >= 1).sort((a, b) => b[0] - a[0]).slice(0, 4);
-  $("np").firstChild.innerHTML = `<div class="m">ikonografia.md § ${n} · ${escH(sec.h || "")} · do <b>${i.id}</b></div>` +
+  $("np").firstChild.innerHTML = `<div class="m">ikonografia.md § ${n} · ${escH(sec.h || "")} · do <b>${i.id}</b>${DATA.record ? ` · <button class="sec" data-open="${n}">otwórz w zapisie</button>` : ""}</div>` +
     (hit.length ? `<ul>${hit.map(x => `<li class="hit">${mdl(x[1])}</li>`).join("")}</ul>` : `<p>Nie rozpoznano, który punkt dotyczy ${i.id}: cała sekcja poniżej.</p>`) +
     `<details${hit.length ? "" : " open"}><summary>Cała sekcja (${bs.length} punktów)</summary><ul>${bs.map(b => `<li>${mdl(b)}</li>`).join("")}</ul></details>`;
   $("np").className = "on";
 }
 $("np").onclick = e => { if (e.target.id === "np") $("np").className = ""; };
+function jumpTo(id) {
+  if (!$("c-" + id) || !inView(DATA.items.find(x => x.id === id))) { only = null; view = ""; setOn(); render(); }
+  const c = $("c-" + id); if (!c) { toast(id + " jest w archiwum: zakładka Archiwum."); return; }
+  c.scrollIntoView({ behavior: "smooth", block: "center" }); c.classList.add("flash"); setTimeout(() => c.classList.remove("flash"), 1800);
+}
 document.addEventListener("click", e => {
-  const b = e.target.closest && e.target.closest("button.sec");
+  const o = e.target.closest && e.target.closest("button[data-open]");
+  if (o) { e.stopPropagation(); $("np").className = ""; openRecord("§" + o.dataset.open); return; }
+  const b = e.target.closest && e.target.closest("button.sec[data-n]");
   if (b) { e.stopPropagation(); showNotes(b.dataset.n, DATA.items.find(x => x.id === b.dataset.id)); return; }
   const j = e.target.closest && e.target.closest("a.jump"); if (!j) return;
-  e.preventDefault(); e.stopPropagation();
-  if (!$("c-" + j.dataset.j)) { only = null; [...f.querySelectorAll(".k")].forEach((x, k) => x.classList.toggle("on", !k)); render(); }
-  const c = $("c-" + j.dataset.j); if (!c) return;
-  c.scrollIntoView({ behavior: "smooth", block: "center" }); c.classList.add("flash"); setTimeout(() => c.classList.remove("flash"), 1800);
+  e.preventDefault(); e.stopPropagation(); jumpTo(j.dataset.j);
 }, true);
-const f = $("f");
+/* ---- the record panel ---- */
+function openRecord(to) {
+  if (!DATA.record) return;
+  if (!$("rbody").innerHTML) {
+    /* ids of this sheet inside the record become jumps to their cards */
+    $("rbody").innerHTML = DATA.record.split(/(<[^>]+>)/).map(p => p.startsWith("<") ? p :
+      p.replace(/(?<![\w-])([SX]\d+²?-[a-z]{1,2})(?![\p{L}\d])/gu, (m, id) => IDS.has(id) ? `<a class="jump" href="#" data-j="${id}">${m}</a>` : m)).join("");
+    $("rtoc").innerHTML = (DATA.toc || []).map(t => `<a href="#" class="l${t[0]}" data-sec="${t[1]}">${escH(t[2])}</a>`).join("");
+  }
+  document.body.classList.add("rp");
+  if (to) { const n = String(to).replace("§", "");
+    const h = [...$("rbody").querySelectorAll("h2")].find(x => x.textContent.trim().startsWith(n + "."));
+    if (h) h.scrollIntoView({ block: "start" }); }
+}
+$("rbtn").onclick = () => document.body.classList.contains("rp") ? document.body.classList.remove("rp") : openRecord();
+$("rclose").onclick = () => document.body.classList.remove("rp");
+$("rtoc").onclick = e => { const a = e.target.closest("a[data-sec]"); if (!a) return; e.preventDefault();
+  const h = document.getElementById(a.dataset.sec); if (h) h.scrollIntoView({ block: "start" }); };
+if (!DATA.record) $("rbtn").style.display = "none";
+/* the panel's width: drag its left edge (remembered in this browser) */
+{ const W = "srom-kontaktowka:rpw", setW = w => document.documentElement.style.setProperty("--rpw", Math.max(280, Math.min(w, innerWidth - 240)) + "px");
+  try { const w = +localStorage.getItem(W); if (w) setW(w); } catch (x) {}
+  const g = $("grip");
+  g.onpointerdown = e => { e.preventDefault(); g.classList.add("on"); try { g.setPointerCapture(e.pointerId); } catch (x) {}
+    document.body.style.userSelect = "none"; };
+  g.onpointermove = e => { if (g.classList.contains("on")) setW(innerWidth - e.clientX); };
+  g.onpointerup = g.onpointercancel = () => { if (!g.classList.contains("on")) return; g.classList.remove("on"); document.body.style.userSelect = "";
+    try { localStorage.setItem(W, parseInt(getComputedStyle(document.documentElement).getPropertyValue("--rpw"))); } catch (x) {} }; }
+/* ---- filters: rights classes, the selection, sizes ---- */
+const f = $("f"), f2 = $("f2");
 const CNT = {}; for (const i of DATA.items) CNT[i.cls] = (CNT[i.cls] || 0) + 1;
+function setOn() {
+  [...f.querySelectorAll(".k")].forEach(x => x.classList.toggle("on", (x.dataset.k || null) === only));
+  [...f2.querySelectorAll(".v")].forEach(x => x.classList.toggle("on", x.dataset.v === view));
+}
 for (const k of [null, "A", "B", "C", "D", "E", "F"]) {
   if (k && !CNT[k]) continue;
-  const b = document.createElement("button"); if (!k) b.className = "on";
-  if (k) b.innerHTML = `<span class="cls" style="background:var(--${k})">${k}</span>${CLS_LABEL[k]}<small>${CNT[k]}</small>`; else b.textContent = "wszystkie";
-  b.onclick = () => { only = k; [...f.querySelectorAll(".k")].forEach(x => x.classList.remove("on")); b.classList.add("on"); render(); };
+  const b = document.createElement("button"); if (k) b.dataset.k = k;
+  if (k) b.innerHTML = `<span class="cls" style="background:var(--${k})">${k}</span>${CLS_LABEL[k]}<small>${CNT[k]}</small>`; else b.textContent = "wszystkie klasy";
+  b.onclick = () => { only = k; setOn(); render(); };
   b.classList.add("k"); f.appendChild(b);
 }
 f.appendChild(Object.assign(document.createElement("span"), { className: "gap" }));
@@ -210,11 +377,39 @@ for (const [k, label] of [["S", "małe"], ["", "średnie"], ["L", "duże"]]) {
   b.onclick = () => { document.documentElement.className = k; [...f.querySelectorAll(".z")].forEach(x => x.classList.remove("on")); b.classList.add("on"); };
   f.appendChild(b);
 }
-{ const nf = DATA.items.filter(needs).length;
-  $("key").innerHTML = `Przyciski = klasy praw (filtr). ${nf ? `<b>● ${nf}</b> kandydatów wymaga zgody, opłaty, ustalenia praw albo nie może być kadrowanych (ND); reszta jest do użycia od ręki. ` : "Wszystkie do użycia od ręki. "}` +
+const VIEWS = [["", "wszystkie"], ["sel", "wybór"], ["1", "główne"], ["2", "dodatkowe"], ["none", "bez decyzji"], ["x", "archiwum"]];
+f2.appendChild(Object.assign(document.createElement("span"), { className: "lbl", textContent: "Wybór:" }));
+for (const [v, label] of VIEWS) {
+  const b = document.createElement("button"); b.dataset.v = v; b.classList.add("v");
+  b.onclick = () => { view = v; setOn(); render(); window.scrollTo(0, 0); };
+  f2.appendChild(b);
+}
+f2.appendChild(Object.assign(document.createElement("span"), { className: "gap" }));
+const exp = Object.assign(document.createElement("button"), { textContent: "Kopiuj wybór", title: "Kopiuje listę (główne, dodatkowe, archiwum) do wklejenia w czacie: zapisuję ją wtedy na stałe w kontaktowka.json" });
+exp.onclick = () => {
+  const by = p => DATA.items.filter(i => st(i) === p).map(i => i.id).join(", ") || "—";
+  const t = `Kontaktówka ${DATA.rid || DATA.text}: wybór MB ${new Date().toLocaleDateString("pl-PL")}\ngłówne: ${by("1")}\ndodatkowe: ${by("2")}\narchiwum: ${by("x")}`;
+  toast(copy(t) ? "Skopiowane, wklej w czacie:\n" + t : "Nie udało się skopiować:\n" + t);
+};
+f2.appendChild(exp);
+const rst = Object.assign(document.createElement("button"), { textContent: "↺ propozycje", title: "Usuwa Twoje zmiany zapisane w tej przeglądarce i wraca do propozycji (i wyboru już zapisanego w pliku)" });
+rst.onclick = () => { const n = Object.keys(LOCAL).length; if (!n) { toast("Brak zmian do cofnięcia."); return; }
+  if (!confirm(`Cofnąć ${n} zmian(y) zapisanych w tej przeglądarce?`)) return; LOCAL = {}; saveLocal(); render(true); counts(); };
+f2.appendChild(rst);
+function counts() {
+  const c = { "": 0, sel: 0, "1": 0, "2": 0, none: 0, x: 0 };
+  for (const i of DATA.items) { const s = st(i); if (s === "x") c.x++; else { c[""]++; if (s) { c.sel++; c[s]++; } else c.none++; } }
+  for (const b of f2.querySelectorAll(".v")) { const v = b.dataset.v, lab = VIEWS.find(x => x[0] === v)[1];
+    b.innerHTML = `${v === "1" || v === "2" ? `<span class="dot p${v}"></span>` : ""}${lab}<small>${c[v]}${v === "sel" && DATA.target ? " / ≈" + DATA.target : ""}</small>`; }
+}
+counts(); setOn();
+{ const nf = DATA.items.filter(needs).length, nr = DATA.items.filter(i => i.rec).length;
+  $("key").innerHTML = `${nr ? `<span class="dot p1"></span><b>główne</b> = muszą iść z tekstem, <span class="dot p2"></span><b>dodatkowe</b> = mocna rezerwa: na start moja propozycja (${nr}); klikaj, żeby zmienić, <b>archiwum</b> chowa kandydata z widoku. ` : `Wybór: <span class="dot p1"></span>główne, <span class="dot p2"></span>dodatkowe, archiwum chowa z widoku. `}` +
+    `Zmiany pamięta ta przeglądarka${STORE_OK ? "" : " (<b>tu nie może: ten podgląd nie zapisuje; otwórz plik w przeglądarce</b>)"}; „Kopiuj wybór” → wklej w czacie, a zapiszę go w pliku na stałe. Zdjęcie: kliknij, potem ← → i klawisze 1 / 2 / A.<br>` +
+    `Przyciski klas = filtr praw. ${nf ? `<b>● ${nf}</b> kandydatów wymaga zgody, opłaty, ustalenia praw albo nie może być kadrowanych (ND); reszta jest do użycia od ręki. ` : "Wszystkie do użycia od ręki. "}` +
     `Skróty: n. 36 / przyp. 36 = przypis tekstu · n5 przy skanie = 5. karta skanu · S3-a = inny kandydat tego arkusza (kliknij) · ² = slot drugorzędny` +
     (Object.keys(NOTES).length ? " · § 5 / § 6 = kliknij: zapis z ikonografia.md (wyszukiwania bez wyniku / wątpliwości)." : "."); }
-document.addEventListener("DOMContentLoaded", render);
+document.addEventListener("DOMContentLoaded", () => render());
 </script>
 <script>/* miniatury: local copies as data URIs, appended by the step in sources.md § Thumbnails; never read or edit by hand */ var MINI = {};</script>
 </body>

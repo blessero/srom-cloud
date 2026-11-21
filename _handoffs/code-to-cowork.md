@@ -1188,3 +1188,74 @@ From the ikonograf pass of 21.11 (record `workspace/srom-produkcja/work/pahulich
   Until she answers the draft stays as it is (the frozen source is not changed).
 
 *Trail: Pahulich ikonografia § 6 (21.11.2026); uwagi S9 [PAH-4]; PAH-9.*
+
+## K76 — [general] Kontaktówki: picks (główne/dodatkowe/archiwum), gallery, „Zapis” panel; proposals on the six vol. 19 sheets (21.11.2026 21:15)
+
+- **Sheets (MB, chat 21.11.2026):** bigger slot headings; click an image → gallery with ← → (MB's pointing hands), short caption
+  (title, date/maker, first clause of `why`), links and tier buttons; keys 1 / 2 / A. Every card has **główne** (green) /
+  **dodatkowe** (amber) / **archiwum**; a „Wybór” filter row (wszystkie, wybór n / target, główne, dodatkowe, bez decyzji,
+  archiwum — archived cards leave every other view). MB's clicks live in his browser (Edge, localStorage per record);
+  **„Kopiuj wybór”** gives a paste for chat; a session then writes it into `kontaktowka.json` as `pick` and § 3.
+  **„📄 Zapis (ikonografia.md)”** opens the whole record formatted in a side panel (contents bar; candidate ids jump to cards).
+- **Proposals (`rec`) and a „Propozycja wyboru” block first in each record's § 2:** Davis 11 + 8, Ndiaye 10 + 8, Ostendorf 9 + 8,
+  Pahulich 9 + 8, Tittel PTA 9 + 7, West Ohueri 8 + 7 (główne + dodatkowe). No image is główne on two sheets (shared ones are
+  główne on one, reserve on the other: Davis S1-a / Pahulich S10-e; Tittel PTA S3-a / Pahulich S1-e).
+  Core picks needing permission: Ostendorf S12-b (Zwettl), S35-a (Mirga-Tas); West Ohueri S15-a (BIRN); Davis S27-a (Borsod);
+  Ndiaye S3-a (Borghese consent), S3-f (Louvre, print run < 1,500). Ndiaye and West Ohueri records got a „## 2. Candidates” heading
+  (they had none).
+- **Skill (uncommitted, `srom-produkcja/.claude/skills/srom-ikonograf/`):** template `assets/template/kontaktowka.html`, new
+  `scripts/md_html.py` (Markdown → HTML, no dependencies), `assets/img/reka_*.png`, `kontaktowka_build.py` (`rec`, `pick`,
+  record, target), `pobierz.py` (rebuilds when `ikonografia.md` is newer too), SKILL.md step 5. All 10 sheets rebuilt; copies in
+  `2. Output/Kontaktowki/` refreshed. Checked in the browser pane (Pahulich, Davis): picks, counts, gallery, panel, 0 broken thumbnails.
+- STATUS line proposed: `21.11.2026 [general] Kontaktówki: tiers główne/dodatkowe/archiwum + gallery + „Zapis” panel; proposals on the six vol. 19 sheets (K76).`
+- **Round 2 (MB, same evening): the record as MB reads it.** New `scripts/ikonografia_view.py`: the sheet's „Zapis” panel (and
+  Biurko's reader) shows § 0 Na start, one merged „Sloty i kandydaci” (slot idea, type icon, angle, passage; each candidate
+  in one line: proposal dot, id, title linked to the object page, date), § 6, § 4, § 3 only once it has rows, § 7/§ 8, § 5
+  last. Header, § 1 prose and § 2 stay in the md as the sessions' log, never shown to MB. The six vol. 19 records got
+  „## 0. Na start”: the proposal (moved from § 2) + 3 lines „Warto wiedzieć”. Template `ikonografia.md` has § 0; the panel
+  is resizable (drag its left edge). SKILL.md step 5 says so.
+- Biurko's formatted .md previews and the „To open” tidy-up: separate Code session (K77 and after).
+
+*Trail: chat 21.11.2026; ikonografia records of the six texts § 2.*
+
+## K77 — [general] Biurko: working .md files readable formatted in the page („Czytnik”); page v26 + store pushed (21.11.2026 21:12)
+
+- **What MB gets:** a „Read” bar in each vol. 19 text's drawer (Tom 19: Uwagi (przekład), Uwagi (RIP), Ikonografia, and the
+  text's other .md red paths), „Read Ikonografia” in each Kontaktówki row, and a small „read” after each .md in „To open”. A click
+  opens the file formatted (headings, contents bar, tables, lists, links) in a panel inside Biurko; Esc or ✕ closes; „Copy path”
+  copies the Mac path. No new tab (claude.ai refuses those). „To open” itself unchanged (MB 08.11.2026 rule kept).
+- **How:** `desk/desk_sync.py` § Czytnik renders each file with srom-ikonograf `scripts/md_html.py` to `desk/czytnik/<path>.html`
+  (31 files, 864 KB; source sha256 in the copy and on the row) and adds `docs` to texts / ikonograf rows and `read` to files rows;
+  `desk/biurko_page.html` fetches the copy (fallback: framed). Staleness: the reader says "older than the file on your Mac:
+  republish" when the copy's sha ≠ the row's. Republish rule: `desk/desk_push.py` docstring § Czytnik.
+- **Done:** sync `problems=0 czytnik=31`; page published (version 26, with the 19.11 clipboard fix that was local only); store
+  batch 28 writes (texts ×6, files ×11, ikonograf ×10, meta/sync) committed; read back: page, two copies and texts/PAH match.
+  Tested in the browser pane on a local copy with the real bundle; not clicked on claude.ai (the pane is not signed in).
+- Backup: `desk/backup_20261121/` (page, sync, push, the live page before). Depends on `md_html.py`, still uncommitted (K76).
+- Note: the hosted Kontaktówki sheets (`kontaktowki/*.html`) were not republished; after K76's rebuild Biurko shows them "out of date".
+- STATUS line proposed: `21.11.2026 21:12 [general] Biurko „Czytnik”: notes sheets, ikonografia.md and the .md files in To open read formatted inside Biurko (Read buttons in Tom 19, Kontaktówki, files bar); desk_sync renders desk/czytnik/, page v26, store pushed (K77). Backup: desk/backup_20261121/.`
+
+*Trail: brief from the K76 session, 21.11.2026; desk_sync.py § Czytnik.*
+
+## K78 — [general] Biurko round 2: „To open” tidied, Read on every .md there, Kontaktówka button in each text's drawer (needs Cowork: two red marks in STATUS.md) (21.11.2026 22:04)
+
+- **To open** keeps only journal-wide files: MB-decisions.md, bijak-baxtalo.md, BACK-CATALOGUE.md, tom19_wydania_pl_lista.md,
+  tom19_listy_do_autorow.md, each with a Read button. A red path under `srom-tlumacz|srom-produkcja/work/<id>/` of a vol. 19 text
+  now sits in that text's drawer (Tom 19): .md as Read, others as file buttons (Pahulich_TEST.pdf, Tittel PTA pl_editions/,
+  TPA-113_inventory.md). `desk_sync.py` § Czytnik („To open” tidy).
+- **Off Biurko, files kept** (`HIDE` in desk_sync.py, with the reason): `pahulich_S1_komentarz.docx` (superseded 18.11.2026 22:12:
+  the S1 comment is in the new master, STATUS TEST RUN session 1); `tittelpta_quotes_checklist.md` (superseded 13.11.2026: TPA-110
+  merged into tom19_wydania_pl_lista.md, V19-105, R4). **Cowork:** remove the 🔴 before these two paths in STATUS.md (lines
+  „S1 stays open” 18.11.2026 19:10 and Tittel PTA notes line); then their HIDE entries can go.
+- **Kontaktówka** button next to „Word master” in each text's drawer (opens the sheet on the Mac, like the Kontaktówki tab).
+- Page v27 published (czytnik/ copy of the checklist removed, MB-decisions.html added); store batch 27 writes (texts ×6,
+  files 11 set / 10 deleted, meta/sync); read back: files 11 docs, texts/TPA has sheet, files, docs. Local browser test OK.
+- Open for MB: TPA-113_inventory.md (03.11.2026, five unclear „Cygan” places): still needed, or drop it from Biurko?
+- Done 21.11.2026 22:08 (K76 session's `ikonografia_view.py`): every `*/ikonografia/ikonografia.md` in Czytnik is rendered by
+  `render_view` (§ 0 Na start, slots + candidates, § 6/4/3/7, § 5 last; its sha covers `kontaktowka.json` too); other .md stay on
+  md_html. Classes styled in page and copies (.lg .sm .ty .an .psg ul.cand .dot.p1/.p2). Page v28; store 16 writes (texts ×6,
+  ikonograf ×9, meta/sync); read back: copy sha = row sha for Pahulich and Davis, „Na start” and candidate lists present.
+  Depends on `ikonografia_view.py` and `md_html.py`, both uncommitted (K76).
+- STATUS line proposed: `21.11.2026 22:04 [general] Biurko: To open holds journal-wide files only, all .md readable; per-text files in each text's drawer with a Kontaktówka button; S1_komentarz and the TPA quotes checklist off Biurko as superseded (K78).`
+
+*Trail: message from the K76 session (MB's round 2, 21.11.2026); desk_sync.py HIDE.*
