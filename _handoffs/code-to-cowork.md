@@ -1165,3 +1165,26 @@ that hold to academic scrutiny):
   by Code (hash in the reply to MB). Reflect had already appended the bare rule at the end of srom-ikonograf `SKILL.md` (05:52); kept.
 
 *Trail: Pahulich ikonografia § 5–7, 21.11.2026.*
+
+## K75 — needs Cowork: [Pahulich] two questions for the unsent author letter (PAH-9): Thomasius (n. 84) and Browne (n. 83) (21.11.2026 06:47)
+
+From the ikonograf pass of 21.11 (record `workspace/srom-produkcja/work/pahulich/ikonografia/ikonografia.md` § 6). Both are certain:
+- **Thomasius, source n. 84 (Polish draft n. 86).** The words Pahulich quotes as Thomasius's („these black-looking heathen foreigners
+  speaking a strange tongue, were not fully human”) are Lewy's own sentence, in indirect speech, not a quotation: Lewy 2000, p. 2,
+  „humanists such as the seventeenth-century Jacobus Thomasius concluded that these black-looking heathen foreigners, speaking a strange
+  tongue, were not fully human” (archive.org full text of both IA copies, 21.11). Not in *De Cingaris* (BSB 1671 print, full text).
+  So the translator's note planned in `srom-tlumacz/work/pahulich/pahulich_uwagi.md` S9 [PAH-4] („Tłum. z przekładu angielskiego”) does
+  not fit: there is no original to translate. Please update S9 with this.
+- **Browne, source n. 83 (Polish draft n. 85).** „Artificial Negroes” is not in the 1646 first edition the article dates it to (bk 6
+  chs 10–12 read by eye, Wellcome copy); the chapter „Of Gypsies” is added in 1650 (pp. 286–287: „counterfeit Moors”, not this phrase);
+  the phrase is in 1658, p. 403, and 1672, p. 376 (read by eye). No item in the notes sheet yet: please add one (S-item, next free).
+- **Proposed route** (ruling R5: one letter per author; a translator's note correcting the author is always MB's): add two questions to
+  the PAH-9 letter (`srom-tlumacz/tom19_listy_do_autorow.md` § 1, and the CSV), wording for MB to edit:
+  12. Note 84 (Thomasius): in Lewy 2000, p. 2, these words are Lewy's own summary („humanists such as … Thomasius concluded that …”),
+      not a quotation, and we did not find them in Thomasius's *Dissertatio de Cingaris* (1671). May we render them as Lewy's
+      paraphrase, without quotation marks?
+  13. Note 83 (Browne): „artificial Negroes” is not in the 1646 first edition of *Pseudodoxia Epidemica*; we find it in the 1658
+      edition (p. 403) and in 1672 (p. 376). May we date it 1658, or say „in later editions of the *Pseudodoxia*”?
+  Until she answers the draft stays as it is (the frozen source is not changed).
+
+*Trail: Pahulich ikonografia § 6 (21.11.2026); uwagi S9 [PAH-4]; PAH-9.*
