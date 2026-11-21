@@ -1125,3 +1125,43 @@ MB answered K69 (18.11.2026). Code does not write `workspace/`, so these edits a
 
 - 18.11.2026 21:11 status: K71 item 6 done — MB said "go for it" (18.11.2026); `git gc` removed the five `tmp_obj_*` leftovers of 07.10.2026 and repacked (0 loose objects, 0 garbage, `git fsck` clean). Nothing else touched. Please close the item in the ledger.
 - C57 committed and pushed as `732fb08`.
+
+## K73 — [Ndiaye] ikonograf pass 3: Lisbon, Maure Borghèse, S14-a/b/c fixed; skill notes (uncommitted) (19.11.2026 20:43)
+
+Done in `workspace/srom-produkcja/work/ndiaye/ikonografia/` (Code session started from MB's Biurko notes):
+- Sheet: 134 rows in 33 slots (was 119/32); 15 new rows (S1-f, S3-f–h, S14-d–j, S14-l, S21-i, S33-a/b), new secondary slot S33²
+  (extension). Fixed: S14-a class D → A (PD-Art; § 6.12), S14-b real image (Prieto 1622 p. 507, IA n530), S14-c link labelled as
+  the source article, S1-b now has the Louvre image (class A). All 125 thumbnails load (browser count 19.11). Record §§ 1, 4–7
+  updated; source PDF copied from `1. Inbox/Vol 19/Ndiaye/` to `ikonografia/zrodla/` (inbox untouched).
+- Desk copy `desk/kontaktowki/ndiaye.html` = new sheet (same size); MB's copy in `2. Output/Kontaktowki/` mirrored. The hosted
+  copy on Biurko changes only on the next Biurko publish (another session is editing `biurko_page.html`: not touched here).
+- **STATUS.md, Ndiaye section**, replace the Ikonografia line with: `- Ikonografia: 0/10 chosen (3 = the author's figs), searched
+  09.11.2026, pass 3 19.11.2026 (33 slots, 134 rows), 0 permissions pending; record srom-produkcja/work/ndiaye/ikonografia/ikonografia.md.`
+- **Skill change (C-item for Code to commit):** srom-ikonograf `SKILL.md` (step 5: `pageLabel`), `scripts/kontaktowka_build.py`
+  and `assets/template/kontaktowka.html` (new optional row field `pageLabel`: the link's words when `page` is not the object
+  record; the title is then not linked), `references/patterns.md` (pairs across slots, MB praised), `references/sources.md`
+  (photographer's page as a narrow class D lead), `references/rights.md` (Louvre terms art. 4.1.1.2 a). Not committed.
+- One fact for the knowledge base, needs MB: SROM's print run (the Louvre's free terms need < 1,500 copies; § 6.11).
+
+*Trail: Ndiaye ikonografia § 6.11–6.18.*
+
+## K74 — [Pahulich] ikonograf pass 21.11: 23 rows (1498 recess, Polish laws 1557/1578, Bielski's chapter); scrutiny rule in two skills (21.11.2026 06:14)
+
+Done in `workspace/srom-produkcja/work/pahulich/ikonografia/` (Code session, MB's request: another search, gems, associations
+that hold to academic scrutiny):
+- Sheet: 105 rows in 23 slots (was 82/22); new secondary slot S23² (Laxton 1635, enclosure). New finds: S2-f/g (Reichsabschiede
+  1498 p. 49, 1500 p. 80: the spying charge and impunity for killing Roma; § 5 had them as not found), S5-d/e (Volumina legum
+  t. 2: 1557 art. 18, 1578 art. 39), S6-d/e (Bielski 1564, k. 261v–262r „O Cyganiech tułaczach”), S7-g (Thomasius th. 59).
+  Reused, each tied to a Pahulich passage, `also` marked on both sheets: Davis S1-a, S6-e, S10-d, S14²-b, S16²-b, S28²-a;
+  Tittel PTA S3-a, S5²-b, S8-a, S8-d, S10-a, S11-b, S12-d; Ndiaye S21-i. All new thumbnails load (browser, 0 broken of 103).
+  Record header, §§ 1, 5, 6, 7 updated; MB's copy in `2. Output/Kontaktowki/` mirrored. Davis, Tittel PTA and Ndiaye sheets rebuilt (`also` only).
+- **STATUS.md, Pahulich section**, replace the Ikonografia line with: `- Ikonografia: 0/8 chosen, searched 24.10.2026, S22 10.11,
+  pass 21.11.2026 (23 slots, 105 rows), 0 permissions pending; record srom-produkcja/work/pahulich/ikonografia/ikonografia.md.`
+- One doubt for the translator (srom-tlumacz, PAH note 84): the Thomasius sentence quoted via Lewy 2000 is not in *De Cingaris*
+  1671 in those words (record § 6, 21.11). Not a ledger item: it goes with the Browne point already noted there.
+- **Skill change** (MB, 21.11.2026: „make sure associations stand on their feet … hold to academic scrutiny”): srom-ikonograf
+  `SKILL.md` (paragraph after „Every run is meticulous”: what counts as a tie, indirect ties flagged, what was left out logged in
+  § 5) and srom-zizek `SKILL.md` (rule 4: the links Zizek draws itself name what is shared). Suite SUITE ALL PASS 31/31. Committed
+  by Code (hash in the reply to MB). Reflect had already appended the bare rule at the end of srom-ikonograf `SKILL.md` (05:52); kept.
+
+*Trail: Pahulich ikonografia § 5–7, 21.11.2026.*
