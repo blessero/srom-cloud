@@ -27,7 +27,7 @@ Notes:
   as photographs: treat them by the photographer's terms.
 - **Museums' own terms can be freer than CC.** The Louvre (collections.louvre.fr/en/page/cgu, art. 4.1.1.2 a, read
   19.11.2026) lets anyone use its medium-format photos (about 1500 px) of works without copyright, free, in scientific
-  papers of EU publishers up to 1,500 copies and in digital scientific publications, with the photo credit and a permalink
+  papers of EU publishers up to 1,500 copies (SROM's run is 150: met) and in digital scientific publications, with the photo credit and a permalink
   to the record: class C for SROM (3D works included; larger files are RmnGP's, paid). Read a holder's terms before
   writing a letter.
 - **"pdus" (HathiTrust) and US-only public domain** (US works before 1930, US federal works): fine for a US holder's
@@ -95,8 +95,8 @@ Fill the brackets; one letter per holder listing all its items. **English by def
 only when MB asks. Per item: title as catalogued, creator, date, holder's shelfmark or inventory number, the item
 URL, and the intended use (print, about [⅓/½/full] page, [b/w or colour]; the online PDF). Ask for the best file and
 the preferred credit line. Send from MB's address; record the date in § 4. MB's title in the PL/ES/FR letters (sekretarz redakcji / secretario de redacción /
-secrétaire de rédaction) is a draft for "managing editor": MB corrects it once, here. Print run: not in the knowledge
-base; the letter does without it unless a holder asks.
+secrétaire de rédaction) is a draft for "managing editor": MB corrects it once, here. Print run: 150 copies (knowledge base,
+MB 22.11.2026); the letter does without it unless a holder asks.
 
 **Author (EN; in Polish to a Polish author)** — at the brief stage (SKILL.md step 1)
 > Subject: Images for your article in *Studia Romologica* [vol.]

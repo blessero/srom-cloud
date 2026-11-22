@@ -62,6 +62,8 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
   whose rights are a third party's stays rights-reserved and free to read (`license` = NONE), e.g. vol. 17 Chiriac,
   © 2018 Tom Lantos Institute. Kanon § 13.2 carries the CC BY rule for new volumes; this back-volume rule
   lives here only (the Kanon governs new volumes; its § 17: published volumes are not unified retroactively).
+- **Print run: 150 copies (MB, 22.11.2026).** It is well below the usual print-run ceilings in image-use terms (e.g. the
+  Louvre's 1,500-copy limit for free use of its photos), so those conditions are met. Check it again if a volume's run changes.
 - **Non-commercial status (MB, 08.10.2026):** SROM is always funded by a ministerial grant, has no permission to sell
   copies, gives them away free, and pays all open-access processing itself: its distribution is wholly non-commercial.
   So SROM's own use of a CC BY-NC source needs no separate consent. But a translation published from vol. 19 on goes
