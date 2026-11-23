@@ -13,7 +13,7 @@ def rd(*p):
 html = rd("assets", "template", "kontaktowka.html")
 t("template: no lazy <img> (the side panel never loads lazy images)", not re.search(r"<img[^>]*loading=", html))
 t("template: local thumbnails come from the MINI block, rendered after it loads",
-  "var MINI = {}" in html and "MINI" in html.split("var MINI")[0] and 'addEventListener("DOMContentLoaded", render)' in html
+  "var MINI = {}" in html and "MINI" in html.split("var MINI")[0] and 'addEventListener("DOMContentLoaded", () => render())' in html
   and html.index("var MINI = {}") > html.index("DOMContentLoaded"))
 t("template: better copy (alt) and also-in fields rendered", "Lepsza kopia:" in html and "Też w:" in html)
 t("template: size toggle and enlarged view", '"duże"' in html and 'id="lb"' in html)
@@ -124,7 +124,7 @@ open(os.path.join(rec, "kontaktowka.json"), "w", encoding="utf-8").write(_json.d
 r = kb(rec, "--outputs", o3); h = os.path.join(rec, "kontaktowka.html")
 D = sheet_data(h) if r.returncode == 0 else {"items": []}; by = {i["id"]: i for i in D["items"]}
 t("build: sheet written from the rows file with the current template", r.returncode == 0 and len(D["items"]) == 7
-  and 'addEventListener("DOMContentLoaded", render)' in open(h, encoding="utf-8").read(), r.stderr + r.stdout)
+  and 'addEventListener("DOMContentLoaded", () => render())' in open(h, encoding="utf-8").read(), r.stderr + r.stdout)
 t("build: src kinds resolved (commons, loc, si, ia, iiif, getty); a field given in the row wins",
   by.get("S1-a", {}).get("thumb") == "https://commons.wikimedia.org/wiki/Special:FilePath/Renty%2C_Daguerreotype%2C_by_JT_Zealy%2C_1850.jpg?width=960"
   and by["S1-a"]["page"] == "https://commons.wikimedia.org/wiki/File:Renty,_Daguerreotype,_by_JT_Zealy,_1850.jpg"
