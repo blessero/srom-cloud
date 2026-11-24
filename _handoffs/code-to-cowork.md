@@ -1305,3 +1305,6 @@ Done here: backup `BACKUP OK srom-20261124-1836.tar.gz: 8279 paths`; `workspace/
 - C64: committed 8a81811.
 
 *Trail: review 24.11.2026 findings 1–8; K70, K75, K79; C57–C64; PAH-4, PAH-9.*
+
+## K82 — [Bijak] K70 closed: MB confirmed Recenzja NAGŁÓWEK in InDesign (24.11.2026 18:50)
+MB (chat): in `12_Bijak_work.indd` the review header carries *Recenzja NAGŁÓWEK* (Paragraph Styles panel). K70 is done; K81 item 2 needs no errand item (the Cambria lesson still to route).
