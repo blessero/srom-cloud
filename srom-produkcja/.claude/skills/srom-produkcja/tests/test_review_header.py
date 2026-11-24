@@ -1,4 +1,4 @@
-"""Review header (Kanon § 1 Nagłówek recenzji, v1.20; C55 item 2, review 18.11.2026): a ::: recenzja block in SROM-MD is
+"""Review header (Kanon § 1 Nagłówek recenzji, 15.11.2026; C55 item 2, review 18.11.2026): a ::: recenzja block in SROM-MD is
 built into five paragraphs in one style (review_header), the author line bold, the title italic; a missing or malformed
 element (author, italic title, publisher place year, ss. pages, ISBN with a valid check digit) fails the build. The style is
 in config, spec, setup script and template, and the block survives the Word working copy."""

@@ -502,7 +502,7 @@ function isbn_ok(s)
   return false
 end
 
--- Kanon § 1 Nagłówek recenzji (v1.20): the book under review, after the review's title, one element per line,
+-- Kanon § 1 Nagłówek recenzji (15.11.2026): the book under review, after the review's title, one element per line,
 -- in ::: recenzja (a paragraph or a line each): author · *title: subtitle* · publisher, place year · ss. pages · ISBN.
 -- All five lines in one paragraph style (review_header); the author line in the bold character style (as vol. 18).
 -- A missing or malformed element fails the build.

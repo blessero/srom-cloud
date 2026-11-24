@@ -49,7 +49,7 @@ the sources register); a missing datum stays missing. Nothing in the author's te
    sources, or listed as unverified. A wrong or doubtful one → an author query (`<id>_pytania.csv`) and a Word comment
    in the `_v2` copy; never changed in the text. Name the community, the period and the source (srom-naczelny
    § Editorial work).
-5. **Web sources** — live, dated, archived where the Kanon asks (§ 8.6; `lookup.py webdates`).
+5. **Web sources** — the date as the author gave it, never completed (§ 8.6).
 6. **Kanon points the build cannot see** — headings (§ 2), italics of foreign words and the reversed italics (§ 3.4),
    Romani terms and glosses (§ 5), ethnonyms (§ 6.1: pejorative exonyms only inside quotations), abbreviations (§ 11).
    Parts I–II also: Polish abstract ≤ 1000 characters, 5–10 keywords, the English abstract a translation of the Polish

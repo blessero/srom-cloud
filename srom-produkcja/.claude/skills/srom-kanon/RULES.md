@@ -1,4 +1,4 @@
-# SROM RULES — English digest of the Kanon (v1.20)
+# SROM RULES — English digest of the Kanon (v1.21)
 
 Normative text: `references/kanon-redakcyjny.md` — *Kanon edytorski Studia Romologica* (Polish, internal), in this skill. This file is its compact English digest; **section numbers are the Kanon's**. If the two differ, the Kanon governs and this file is corrected. New rules go into the Kanon first (with a § 17 entry), then here.
 
@@ -123,7 +123,7 @@ Archive names never translated.
 
 **8.3 Press:** `J. Nowak, *Tytuł*, „Gazeta Krakowska”, 1963, nr 145, s. 3.` · unnumbered: `„Czas”, 03.05.1928, s. 2`.
 **8.4 Legal (official wording):** `Ustawa z dnia 6 stycznia 2005 r. …, Dz.U. 2005 nr 17 poz. 141, art. 20.` · `Wyrok TK z dnia 8 listopada 2016 r., sygn. akt P 126/15.`
-**8.6 Web:** `A. Kowalski, *Tytuł tekstu*, w: *Nazwa serwisu*, https://… [dostęp: 18.03.2025].` A source with a DOI prints neither URL nor access date (the DOI is never printed, § 9.7); the access date only when the author gives it (not added, not queried). A dated web text (blog post, article or release on a site, reprint on a page) prints its publication date after the site, `dd.mm.rrrr` (`…, w: *Serwis*, 05.10.2016, https://…`); missing or incomplete → taken from the page (text or page metadata) and filled in, listed in the query sheet; a reprint is cited where the author cites it. An undated page (changing content: institution page, database) has no date; marked as checked in the record. URLs are plain text in the typesetting file, never hyperlinks.
+**8.6 Web:** `A. Kowalski, *Tytuł tekstu*, w: *Nazwa serwisu*, https://… [dostęp: 18.03.2025].` A source with a DOI prints neither URL nor access date (the DOI is never printed, § 9.7); the access date only when the author gives it (not added, not queried). A dated web text (blog post, article or release on a site, reprint on a page) prints its publication date after the site, `dd.mm.rrrr` (`…, w: *Serwis*, 05.10.2016, https://…`); only when the author gives it, as given: the editors neither look it up on the page nor complete it, and a missing or incomplete date is no query; a reprint is cited where the author cites it. An undated page (changing content: institution page, database) has no date. URLs are plain text in the typesetting file, never hyperlinks.
 **8.7 AV:** `*Papusza*, reż. J. Kos-Krauze, K. Krauze, Polska 2013, 00:42:15.` · `*Tytuł nagrania*, nagranie audio, 1978 r., Archiwum MET, sygn. AT/N/45.`
 
 ## 9. Bibliography

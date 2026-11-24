@@ -796,3 +796,13 @@ SUITE ALL PASS 29/29.
 ## Status of review 18.11.2026, continued (srom-produkcja, 18.11.2026 15:56) [general]
 - 1 (Kanon v1.20): **done**, 32ca216 — the two 1.19 supplements (11.11, 15.11) folded into § 17 row 1.20; header, RULES.md (§ 1 review-header digest added), SKILL.md on 1.20; no "1.19, uzup." rows left; announced in T41 (db35f99). SUITE ALL PASS 30/30.
 - 3 (C55 item 2, review-header style): **done in code, InDesign not checked**, 1e7e591 — `::: recenzja` → paragraph style *Recenzja NAGŁÓWEK* (styles.json, style_spec.json, srom_style_setup.jsx, SROM_szablon_v3.idml); the build fails on a missing element or a wrong ISBN check digit; `test_review_header.py` 21/21, SUITE ALL PASS 31/31. MB checks it in InDesign (K70); until then he styles the header by hand (`polish-original.md` § Book reviews).
+
+## T42 — [general] Kanon v1.21: web-text date only from the author (for information) (24.11.2026 02:40)
+- 24.11.2026 02:40 status: for your information (small). srom-produkcja: Kanon **v1.21** (header, § 17 row, RULES.md, SKILL.md agree;
+  suite 31/31). It folds the two 24.11.2026 supplements appended to v1.20 after T41 (§ 1 pkt 12 author note articles only;
+  § 10.3 pkt 5 review cover without rights) and adds one rule (MB, 24.11.2026):
+  - § 8.6: a web text's publication date is printed only when the author gives it, as given; the editors do not look it up
+    on the page and do not complete it; a missing or incomplete date is no query. An undated page has no date and is no longer
+    "marked as checked" (supersedes v1.8).
+- What touches you: in a translation, the date of a web source stays as the original has it; add nothing from the page.
+  Please cite "Kanon v1.21" from now on.

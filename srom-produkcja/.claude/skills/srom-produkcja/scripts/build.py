@@ -608,10 +608,6 @@ def write_queries(outdir, stem, nopage, notes, refs, cited, printed, cite_count,
         rows.append(("autor", "brak danych bibliograficznych: " + ", ".join(found), "", key, cut(refs[key].get("title", ""))))
     for k in cited:
         r = refs[k]
-        dp = ((r.get("issued") or {}).get("date-parts") or [[]])[0]
-        if r.get("type") in ("webpage", "post", "post-weblog") and len(dp) < 3 and not r.get("srom-undated"):
-            rows.append(("redakcja", "tekst w sieci bez pełnej daty publikacji — ustalić ze strony (§ 8.6; lookup.py webdate); "
-                         "strona bez daty: \"srom-undated\": true", "", k, r.get("URL", "")))
         if r.get("type") in ("chapter", "paper-conference", "entry-encyclopedia", "entry-dictionary") and not r.get("author"):
             rows.append(("redakcja", "tekst bez autora w tomie zbiorowym — ustalić autora ze spisu treści lub nagłówka tomu "
                          "(§ 7.2); do tego czasu opis od tytułu", "", k, cut(r.get("title", ""))))

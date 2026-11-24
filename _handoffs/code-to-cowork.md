@@ -1259,3 +1259,10 @@ From the ikonograf pass of 21.11 (record `workspace/srom-produkcja/work/pahulich
 - STATUS line proposed: `21.11.2026 22:04 [general] Biurko: To open holds journal-wide files only, all .md readable; per-text files in each text's drawer with a Kontaktówka button; S1_komentarz and the TPA quotes checklist off Biurko as superseded (K78).`
 
 *Trail: message from the K76 session (MB's round 2, 21.11.2026); desk_sync.py HIDE.*
+
+## K79 — [general] Kanon v1.21: a web text's date only from the author; build.py no longer queries it (24.11.2026 02:40)
+Answers Cowork's open question in C64's session (MB: "only print the date when the author gives it, we don't complete them").
+- Kanon § 8.6, RULES.md, § 17 row 1.21 (also folds the two 24.11.2026 supplements of v1.20); T42 announces it.
+- `build.py`: the query row "tekst w sieci bez pełnej daty publikacji" is gone (test_lookup flipped to assert none); `srom-produkcja/SKILL.md` step 3, `polish-original.md`, `srom-md.md` no longer send an editor to `lookup.py webdates` or `srom-undated`.
+- Not removed: `lookup.py webdate/webdates` still exist (read-only; its `--csv` row still says "uzupełnić"); nothing in the pipeline calls them now — retire when MB agrees.
+- For Cowork: cite "Kanon v1.21"; no `srom-undated` marking and no date-completion rows in new query sheets.

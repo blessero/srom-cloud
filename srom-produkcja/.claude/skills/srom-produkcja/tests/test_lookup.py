@@ -64,7 +64,7 @@ t("webdates: only web texts without a full date and not srom-undated; year kept,
   "a2016: page 05.10.2016" in o and "b:" not in o and "c2016" not in o and "d2000" not in o and "LOOKUP OK 1" in o, o)
 t("webdates: query row for the editor", "a2016" in open(q3, encoding="utf-8-sig").read(), o)
 
-# build.py lists a cited web text without a full publication date (unless srom-undated)
+# Kanon v1.21 § 8.6: the date is printed only as the author gave it: build.py asks nothing about a web text's date
 bref = [{"id": "web2016", "type": "webpage", "author": [{"family": "Nowak", "given": "Anna"}], "title": "Tekst", "container-title": "Serwis",
          "URL": "https://example.org/t", "issued": {"date-parts": [[2016]]}},
         {"id": "webnd", "type": "webpage", "author": [{"family": "Kowal", "given": "Jan"}], "title": "Strona", "container-title": "Serwis",
@@ -73,9 +73,8 @@ brf = os.path.join(d, "brefs.json"); json.dump(bref, open(brf, "w", encoding="ut
 bmd = os.path.join(d, "art.md"); open(bmd, "w", encoding="utf-8").write("Tekst.[^1] Dalej.[^2]\n\n[^1]: [@web2016].\n\n[^2]: [@webnd].\n")
 subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "build.py"), bmd, "--refs", brf, "--out", os.path.join(d, "b")], capture_output=True, text=True)
 pyt = open(os.path.join(d, "b", "art_pytania.md"), encoding="utf-8").read() if os.path.exists(os.path.join(d, "b", "art_pytania.md")) else ""
-t("build: query row for a web text with year only; none for one marked srom-undated",
-  [l for l in pyt.splitlines() if "bez pełnej daty" in l and "web2016" in l]
-  and not [l for l in pyt.splitlines() if "bez pełnej daty" in l and "webnd" in l], pyt)
+t("build: no query row about a web text's publication date, year-only or missing (Kanon v1.21 § 8.6)",
+  not [l for l in pyt.splitlines() if "publikacji" in l and ("web2016" in l or "webnd" in l)], pyt)
 
 # dois (Kanon § 9.7): registry check of given DOIs; a Crossref DOI proposed only when year, first author, title agree
 drefs = [{"id": "yd2006", "type": "article-journal", "author": [{"family": "Yural-Davis", "given": "Nira"}], "title": "Belonging",
