@@ -20,6 +20,10 @@ The author's own photographs and collections: the article licence covers them un
 rights element. An author's photograph of someone else's object (an archival record, a museum piece) is two things:
 the photograph is the author's, the object's holder may still set terms for publishing it (ask, rights.md § Letters).
 
+**The cover or mockup of the book under review (MB 24.11.2026, Kanon § 10.3 pt 5): no rights search.** A review's image of
+the reviewed book's cover or mockup carries no rights element, no note on the cover's maker and needs no permission: do not
+classify it, search for its holder or draft a letter. Any other image in a review follows the classes above.
+
 Notes:
 - **Reproductions of public-domain art.** Under art. 14 of the EU DSM directive (in force in Poland and Spain), a faithful
   photograph or scan of a public-domain visual work is not itself protected; a holder's "all rights reserved" on such

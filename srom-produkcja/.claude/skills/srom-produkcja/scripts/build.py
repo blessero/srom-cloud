@@ -368,6 +368,9 @@ def build_bibliography(md_text, refs, cited, refs_path, workdir, report):
     for k in cited:
         gen.setdefault(section_of(refs[k]), []).append(k)
     present = [r for r in ROMAN if literal.get(r) or gen.get(r)]
+    if not present:                       # C61: nothing to list (an obituary with a bare URL): no empty „Bibliografia” heading
+        report["bib_sections"] = {}
+        return md_text
     lines = ["::: {.bibliografia}", "# Bibliografia", ""]
     for i, r in enumerate(present):
         if literal.get(r) and gen.get(r):

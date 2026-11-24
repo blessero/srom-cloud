@@ -773,3 +773,18 @@ C62 — DONE 24.11.2026 01:10 [general]: Kanon § 1 pt 12 reworded (articles onl
 
 ## C63 — [general] Kanon § 10.3: no rights or credit line for the cover image or mockup of the reviewed book in a review (24.11.2026 24.11.2026 01:10)
 MB, chat 24.11.2026. DONE (Kanon § 10.3 pt 5 new bullet, RULES.md § 10, § 17 addition to the 1.20 row; commit ceee8c9). No pointer added in § 10.1 (it refers to § 10.3) or in the srom-ikonograf SKILL.md (its rights rules live in references/rights.md, which was not changed; say if ikonograf should skip the rights search for review covers).
+
+## C64 — [general/Opocki/Bijak] C61 item 2 built in Cowork (MB: "go ahead"); C60 found already in place; srom-ikonograf: no rights search for review covers: please commit and push (24.11.2026 01:25)
+Done in Cowork on MB's word, uncommitted. Four files, nothing else changed (`git status --short` shows exactly these):
+- `srom-produkcja/.claude/skills/srom-produkcja/scripts/build.py` — `build_bibliography`: `if not present:` sets `report["bib_sections"] = {}` and returns `md_text` unchanged (C61 item 2).
+- `srom-produkcja/.claude/skills/srom-produkcja/tests/test_e2e.py` — one check after the "unknown bibliography section" case: a note-only text (one note, a bare URL, no refs) builds PASS with no „Bibliografia” in the .txt or in document.xml. It fails on the old build.py and passes on the new. In an existing file, so the suite stays 31 files.
+- `srom-produkcja/.claude/skills/srom-ikonograf/references/rights.md` — new paragraph after the author's-own-photographs paragraph: the cover or mockup of the book under review in a review gets no rights search, no class, no letter (MB 24.11.2026; follows Kanon § 10.3 pt 5, C63).
+- `srom-produkcja/.claude/skills/srom-ikonograf/SKILL.md` — step 7 (Permissions): one clause pointing to that paragraph.
+Checks: SUITE ALL PASS 31/31 (this VM: pandoc 3.6.4, the Mac used 3.8.3). Nine texts built before and after into separate dirs (`--proof`; `--source` for the `_src` ones): bijak, pahulich_pl, davis, ndiaye, ostendorf, steiner, tittel, westohueri identical (document.xml, footnotes.xml, citations, report apart from the path); opocki differs only by the dropped „Bibliografia” paragraph and its „Śródtytuł” count (1 → 0), as intended.
+Commit by path: `cowork: C64 [general]`, then `git pull --rebase origin main && git push origin HEAD:main`.
+Run with: Haiku · low — four files already changed and tested; commit by path and push (no code to write).
+
+C61 item 2 — DONE 24.11.2026 01:25 (Cowork, uncommitted until C64 is committed): see C64.
+C60 — NO CHANGE NEEDED 24.11.2026 01:25 [Pahulich/general]: the request is already met. `srom.csl` (web-page branch of `body-after-title`) prints `date-full` after the container since the import (05.10.2026), Kanon § 8.6 already has the dated-web-text paragraph and example `w: Nazwa serwisu, 05.10.2016, URL` (v1.8, 28.09.2026), and `test_csl.py` row `nowakblog` tests it. Matache 2016 (FXB Center) prints `05.10.2016` in both the Mac build of 18.11.2026 and today's (pahulich_pl.txt line 243, note 2), so the E1 line in `pahulich_uwagi.md` § E was stale. Nothing changed in srom.csl, Kanon or tests. One open difference for MB, not changed: § 8.6 says the editors supply a missing or incomplete date from the page; E1 as decided says "when the author gives it". Say if the Kanon should drop the editors' lookup.
+C62 — CONFIRMED 24.11.2026 01:25 (MB, chat): the reading is Parts I–II ("I and II indeed"); no change to the text applied in ceee8c9.
+C63 — FOLLOW-UP 24.11.2026 01:25 (MB, chat): srom-ikonograf skips the rights search for review covers; done in C64.

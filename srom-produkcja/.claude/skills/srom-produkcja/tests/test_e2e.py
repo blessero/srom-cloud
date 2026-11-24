@@ -282,6 +282,12 @@ fails("[-@key] (author suppressed) stops the build", "Tekst[^1].\n\n[^1]: Por. [
 
 fails("unknown bibliography section name stops the build", "Tekst.\n\n::: {#bibliografia}\n# Bibliografia\n\n## Archiwalia\n\nWpis.\n:::\n", "unknown bibliography section")
 
+# C61: a text with no literal and no cited entry (obituary: one note, a bare URL) prints no empty „Bibliografia” heading
+code, out, stem, rep = build(md_text="Tekst[^1].\n\n[^1]: https://example.org/nekrolog.\n")
+nb = open(os.path.join(out, stem + ".txt"), encoding="utf-8").read()
+nbx = zipfile.ZipFile(os.path.join(out, stem + ".docx")).read("word/document.xml").decode()
+check("note-only text builds with no Bibliografia paragraph (C61)", code == 0 and "Bibliografia" not in nb and "Bibliografia" not in nbx, (code, nb[:300], rep[:500]))
+
 # ---- motto, dialogue, transcript speaker (house style v2)
 dl = open(os.path.join(FX, "dialog.md"), encoding="utf-8").read()
 code, out, stem, rep = build(md_text=dl)

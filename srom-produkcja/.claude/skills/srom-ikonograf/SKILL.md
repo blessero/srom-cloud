@@ -244,7 +244,7 @@ than a missing one. The order that worked, and what failed:
    scan of a museum print is the museum's, an author's photograph of an archival record needs the archive's terms. Files: from Cowork, a `plik` row per file in `pobierz.tsv`
    (§ Where it runs), then check `pobierz.log`; from Claude Code on the Mac, `curl -L -o` the full-resolution URLs
    into `pliki/` (the Commons User-Agent from sources.md; a few seconds apart), or run `scripts/pobierz.py`.
-7. **Permissions** (rights.md), for every image in the register that needs one, whatever its origin. Per holder: find the best contact (rights.md § Finding
+7. **Permissions** (rights.md), for every image in the register that needs one, whatever its origin (not the cover or mockup of a reviewed book in a review: rights.md). Per holder: find the best contact (rights.md § Finding
    the contact: a named person and e-mail where one can be found, alternatives when unsure, each with where it was
    found), then draft one English letter listing all that holder's items with their catalogue data, into `zgody.md`,
    ready for MB to send (`🔴 zgody.md` in the record's § 4). MB sends; the date and the answer go in § 4. For class E,
