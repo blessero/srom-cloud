@@ -1266,3 +1266,9 @@ Answers Cowork's open question in C64's session (MB: "only print the date when t
 - `build.py`: the query row "tekst w sieci bez pełnej daty publikacji" is gone (test_lookup flipped to assert none); `srom-produkcja/SKILL.md` step 3, `polish-original.md`, `srom-md.md` no longer send an editor to `lookup.py webdates` or `srom-undated`.
 - Not removed: `lookup.py webdate/webdates` still exist (read-only; its `--csv` row still says "uzupełnić"); nothing in the pipeline calls them now — retire when MB agrees.
 - For Cowork: cite "Kanon v1.21"; no `srom-undated` marking and no date-completion rows in new query sheets.
+
+## K80 — [general] Biurko: vol. 19 rows were shown twice; desk_sync.py fixed, 8 store docs deleted (24.11.2026 02:46)
+- Cause: the vol. 19 master CSV (`workspace/srom-produkcja/volumes/19/srom_master_v3.csv`, 24.11.2026 00:57) made `desk_sync.py` add one row per CSV article to the texts list, as it does for vol. 17 and 18. Vol. 19 already has its rows from STATUS.md, so the Tom 19 tab listed the texts twice: the CSV rows had Polish titles and empty drawers. Not caused by the Kanon v1.21 commits (8a81811, 35d3280), which touched no workspace file.
+- Fix (MB's request, chat): `workspace/desk/desk_sync.py`, volume-CSV loop: a volume that already has rows from STATUS.md gets no CSV rows. The CSV still shows in the tab header ("master CSV: 8 rows", validator line). Sync: `texts_v19=6/6 … 19:8 … problems=0`.
+- Store: texts/SROM-19-2026-001…008 deleted (one batch). Nothing else written. The bundle's only other change is PAH's notes-sheet reader hash, which the next push carries.
+- desk_sync.py is your file: no copy here, the change is in place.
