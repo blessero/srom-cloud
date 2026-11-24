@@ -1272,3 +1272,36 @@ Answers Cowork's open question in C64's session (MB: "only print the date when t
 - Fix (MB's request, chat): `workspace/desk/desk_sync.py`, volume-CSV loop: a volume that already has rows from STATUS.md gets no CSV rows. The CSV still shows in the tab header ("master CSV: 8 rows", validator line). Sync: `texts_v19=6/6 … 19:8 … problems=0`.
 - Store: texts/SROM-19-2026-001…008 deleted (one batch). Nothing else written. The bundle's only other change is PAH's notes-sheet reader hash, which the next push carries.
 - desk_sync.py is your file: no copy here, the change is in place.
+
+## K81 — needs MB: [general] [Pahulich] [Bijak] Review 24.11.2026: PAH-9 letter misses K75's two questions; K70 check; C57–C64 status; housekeeping (24.11.2026 18:40)
+
+Review `_handoffs/review-24.11.2026.md` (afb299b). Tools green (SUITE ALL PASS 31/31, HANDOFF CONTRACT 35/35, termbase 46/0,
+every draft balanced); Pahulich takes back and **builds PASS** on copies. For Cowork, in your usual ledger form:
+
+1. **PAH-9 letter (needs MB; finding 1).** K75 (21.11) found two certain errors in Pahulich's sources; the letter, finalised 22.11
+   05:40 (`workspace/srom-tlumacz/tom19_listy_do_autorow.md` § 1, attachment `workspace/srom-tlumacz/work/pahulich/pahulich_queries_for_author.docx`),
+   has neither. Before it is sent: draft K75's questions 12 (Thomasius, n. 84: Lewy's paraphrase, not a quotation) and 13 (Browne,
+   n. 83: 1658 p. 403, not 1646) into the letter for MB to edit; update S9 [PAH-4] in `workspace/srom-tlumacz/work/pahulich/pahulich_uwagi.md`
+   (no Latin original to translate); add a Browne S-item. A ledger item for MB: "add the two questions: yes / no / reword".
+2. **K70 (needs MB; finding 4).** One look at the review header in `12_Bijak_work.indd` (built 23.11 from `SROM_szablon_v3.idml`):
+   does it carry *Recenzja NAGŁÓWEK*? An errand item on Biurko. The same session's lesson (a vol. 18 template with „Cambria (TT)”
+   breaks `srom_style_setup.jsx`; start from the v3 template) is a tool lesson: cheapest route is one line in srom-produkcja
+   `references/indesign.md` (C-item, or MB says leave it in `lessons.md`).
+3. **Status lines (finding 3):** K70, K73–K81 have none in `cowork-to-code.md`.
+4. **`ws2.json` at the top of Redakcja (needs MB; finding 5):** a Wikisource search dump from 19.11 („Molier”); archive to
+   `workspace/_archive/` on MB's yes.
+5. **srom-naczelny (MB; finding 8):** its preflight line expects `SUITE ALL PASS 29/29`; now 31/31. At the next upload.
+
+Done here: backup `BACKUP OK srom-20261124-1836.tar.gz: 8279 paths`; `workspace/gen/tidy.py --apply` (Pahulich
+`pahulich_pl_import.md` → `_archiwum/pahulich_pl_import~2.md`, 4 tags, 4 `_uwagi.docx` re-rendered; dry run after: all "=").
+
+**Status of C57–C64 from Code** (finding 2: since 19.11 Code's answers went into your file; collected here):
+- C57: done (K72).
+- C58: done — item 1 c9b1eef, items 2–3 1313ffe; SUITE ALL PASS 31/31. The three `(C58)` lines in `rip-pitfalls.md` § INJECT can go.
+- C59: done — committed 5746083 (`rip-pitfalls.md` § INJECT).
+- C60: no change needed (your C64); superseded by Kanon v1.21 § 8.6 (35d3280, K79).
+- C61: item 1 ceee8c9; item 2 your C64, committed 8a81811; item 3 afd1f96.
+- C62, C63: done — ceee8c9; folded into Kanon v1.21 (35d3280).
+- C64: committed 8a81811.
+
+*Trail: review 24.11.2026 findings 1–8; K70, K75, K79; C57–C64; PAH-4, PAH-9.*
