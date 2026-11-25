@@ -66,9 +66,15 @@ them. Update here, with the date. Facts confirmed by MB 03.10.2026 03:40.
   Louvre's 1,500-copy limit for free use of its photos), so those conditions are met. Check it again if a volume's run changes.
 - **Non-commercial status (MB, 08.10.2026):** SROM is always funded by a ministerial grant, has no permission to sell
   copies, gives them away free, and pays all open-access processing itself: its distribution is wholly non-commercial.
-  So SROM's own use of a CC BY-NC source needs no separate consent. But a translation published from vol. 19 on goes
-  out under CC BY, so a CC BY-NC (or ND, or non-CC) source needs the rights-holder's consent to CC BY or a kolegium
-  exception for that text; the translation note names the licence (Kanon § 12.2.3 pt 2).
+  So SROM's own use of a CC BY-NC source needs no separate consent.
+- **Translations inherit the original's licence (MB, 25.11.2026, GEN-145; replaces the rule "consent to CC BY or a
+  kolegium exception").** CC BY 4.0 stays the default for every text written for SROM. A translation goes out under
+  the licence of its original (CC BY → CC BY; CC BY-NC → CC BY-NC; CC BY-NC-ND → CC BY-NC-ND), and SROM does not ask
+  the rights-holder to relicense it to CC BY. No kolegium exception is needed. The translation note names the licence
+  (Kanon § 12.2.3 pt 2). A permission to translate that the original's licence requires (ND, or a non-CC original) is
+  still asked for and must be in hand before publication. Vol. 19: Pahulich and Ostendorf CC BY-NC 4.0; Davis &
+  Perheentupa and West Ohueri CC BY-NC-ND 4.0; Ndiaye and Tittel CC BY 4.0. Davis & Perheentupa's case for NC-ND
+  (bad-faith adaptation, back-translation, paper mills; mail ≈21.11.2026) was weighed and did not change the default.
 
 ## DOIs and metadata
 
