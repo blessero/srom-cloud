@@ -22,7 +22,7 @@ hand-off log line. A later line with a new `refs.json`: copy it in, update the m
 | `<id>_refs_tlum.json` | CSL-JSON entries the translation adds (Polish editions, Polish originals: § 12.2.4 a–b) | pair check with both `--refs` |
 | `<id>_pytania_tlum.csv` | query rows, merged by `build.py --queries` into the article's sheet | build report |
 | `<id>_quotes.tsv` | quotation re-sourcing sheet | `tlumacz-draft_check.py <id> --quotes` |
-| `<id>_uwagi.md` | notes sheet for MB (skeleton below): the lasting record of the draft's choices | `--marks` |
+| `<id>_uwagi.md` | not here since 25.11.2026: the text's one notes sheet, workspace `srom-produkcja/work/<id>/<id>_uwagi.md` (format: srom-produkcja `references/uwagi.md`); S-lines in its `<id>_uwagi_log.md` | `--marks` (reads sheet + log) |
 | `<id>_robocza.docx` | the Word working copy; **the master from MB's first edit** | import → pair check |
 | `research/` | originals, catalogue extracts, comparisons the draft rests on (downloaded texts git-ignored, ids and sha256 kept) | — |
 
@@ -97,18 +97,11 @@ Author: <name> — pronouns <from the source, quoted | asked MB>. Translator cre
 ## 5. Plan   files, checks, MB items, STATUS lines
 ```
 
-## Skeleton: `<id>_uwagi.md` (Polish; for MB)
+## The notes sheet `<id>_uwagi.md` (MB, 25.11.2026)
 
-```
-# [<Author>] „<tytuł polski>” — przekład wstępny: arkusz uwag dla MB (dd.mm.rrrr HH:MM)
-Pliki: … Word do pracy: `<id>_robocza.docx`. Autor(ka): …, formy …
-Komentarze nie zatrzymują kompilacji i po imporcie z Worda znikają z tekstu: pozycje S są jedynym trwałym zapisem.
-Stan dd.mm.rrrr: n otwartych.
-## <KOD>-<n> · 1. Do uzupełnienia przez MB — wydania polskie, strony, brzmienie
-- S1 [otwarte] [<KOD>-<n>] – przyp. 12: <co sprawdzić, gdzie, co jest w tekście teraz>
-## <KOD>-<n> · 2. Decyzje (rekomendacja przy każdej)
-## 3. Terminy i nazwy grup przyjęte w szkicu (forma, liczba wystąpień, dlaczego)
-## 4. Wątpliwości w oryginale (bez poprawiania; co bym zrobił)
-```
-An S-item closes as `[zamknięte dd.mm.rrrr (MB)]`. Each item that needs MB also gets its question in
-`MB-decisions.md` (workspace root) under the same ID (format: the workspace `CLAUDE.md`).
+One sheet per text, started at RIP: workspace `srom-produkcja/work/<id>/<id>_uwagi.md`; format and skeleton in srom-produkcja
+`references/uwagi.md`. The translation adds: questions for the author → part 1.2; changes made unless the author objects →
+1.4; MB's choices → part 2 (with their ledger items); terms (R3) → 3.4; obvious slips fixed (§ 12.2.8) → 3.1. Every
+`DO SPRAWDZENIA: S<n>` comment gets its `- S<n> …` line in `<id>_uwagi_log.md` beside the sheet (the sheet shows only
+what is open; `--marks` reads both). An S-item closes as `[zamknięte dd.mm.rrrr (MB)]` in the log and leaves the sheet.
+Each item that needs MB also gets its question in `MB-decisions.md` (workspace root) under the same ID.

@@ -160,8 +160,9 @@ in what time, not on the model. So:
 - Each question in the ledger: a plain-language heading, its kind (Decide / Approve / Look up / Ask author / Later),
   what it blocks, the options with the recommended one marked, the red path to the detail, and a *Trail* line. Add
   a row to the "At a glance" table at the top.
-- The notes sheet with the detail (`<id>_uwagi.md`, in both modules; srom-produkcja's were `<id>_queries.md`) carries
-  the same ID at the item's heading or label.
+- The notes sheet with the detail carries the same ID: since 25.11.2026 one per text, workspace
+  `srom-produkcja/work/<id>/<id>_uwagi.md`, for both modules (format: srom-produkcja `references/uwagi.md`); older texts may
+  still have a second one in `srom-tlumacz/work/<id>/` until merged.
 - Write for MB in plain words. Kanon §§, E/T items, refs keys, category letters (A1, B12, S10) go only in the *Trail*
   line. A question must make sense without opening another file.
 - Don't act on an undecided item as if it were settled; say which choice you are assuming, if any.

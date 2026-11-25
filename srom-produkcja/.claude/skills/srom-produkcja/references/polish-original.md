@@ -77,7 +77,7 @@ srom-tlumacz (no `src/` copy, no RIP → TRANS log line); polonizacja; the trans
 ## Out
 In `work/<id>/`: `<id>.md` (SROM-MD), `refs.json`, `_norm.md`, `<id>_intake.md`, `<id>_quotes.tsv` (if any
 quotation), `<id>_pytania.csv` (format: srom-tlumacz `outputs.md` OUT-QUERIES; `adresat` autor / redakcja),
-`<id>_uwagi.md` (Polish, for MB: srom-tlumacz's notes-sheet skeleton, sections 1, 2 and 4, plus "Poprawki językowe" with
+`<id>_uwagi.md` (the one notes sheet, `references/uwagi.md`; § 3 adds "Poprawki językowe" with
 the counts), `<id>_robocza.docx` (clean export) and `<id>_robocza_v2.docx` (tracked corrections and comments: the file
 MB opens), `build/` (`build.py <id>.md --refs refs.json --queries <id>_pytania.csv --out build --draft`: proof, report,
 query sheet). STATUS.md: the text's section, stage "RIP done, waiting for MB's Word edit"; questions for the author go

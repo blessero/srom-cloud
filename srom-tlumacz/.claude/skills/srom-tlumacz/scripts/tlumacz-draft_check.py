@@ -101,6 +101,9 @@ def quoted_notes(src, kinds=None):
 def check(aid, root=MODULE, want=("leftover", "marks", "quotes"), quiet=False):
     d = os.path.join(root, "work", aid)
     pl, uw = rd(os.path.join(d, f"{aid}_pl.md")), rd(os.path.join(d, f"{aid}_uwagi.md"))
+    if uw is None:   # one sheet per text (MB 25.11.2026): srom-produkcja/work/<id>/<id>_uwagi.md + its log of closed items
+        u = os.path.join(os.path.dirname(os.path.abspath(root)), "srom-produkcja", "work", aid, f"{aid}_uwagi")
+        uw = "\n".join(x for x in (rd(u + ".md"), rd(u + "_log.md")) if x) or None
     ok, parts = True, []
     if "leftover" in want:
         h = leftover(pl); ok &= not h; parts.append(f"leftover {len(h)}")

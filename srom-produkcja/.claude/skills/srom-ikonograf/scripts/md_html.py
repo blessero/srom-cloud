@@ -23,6 +23,8 @@ def inline(s):
             u = m[3]
             if u.startswith("http"):
                 out.append(f'<a href="{html.escape(u)}" target="_blank" rel="noopener noreferrer">{_emph(html.escape(m[2], quote=False))}</a>')
+            elif u.startswith("#"):  # a heading in the same file (MB 25.11.2026: a reference opens its fuller entry)
+                out.append(f'<a href="{html.escape(u)}">{_emph(html.escape(m[2], quote=False))}</a>')
             else:  # a local path: show it, no link (a sandboxed page cannot open it)
                 out.append(f'{_emph(html.escape(m[2], quote=False))} <code>{html.escape(u, quote=False)}</code>')
         else:

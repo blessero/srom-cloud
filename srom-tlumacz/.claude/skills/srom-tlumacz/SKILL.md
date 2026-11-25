@@ -76,7 +76,7 @@ later": then collect his decisions, never wait for them, and say which choice th
   correct silently (§ 12.2.8).
 
 **2. Draft** — `<id>_pl.md`, `<id>_front_pl.md`, `<id>_refs_tlum.json`, `<id>_pytania_tlum.csv`, `<id>_quotes.tsv`,
-`<id>_uwagi.md`; formats in `references/outputs.md`. Paragraph for paragraph; tokens and markers untouched;
+notes in the text's one notes sheet, workspace `srom-produkcja/work/<id>/<id>_uwagi.md` (format: srom-produkcja `references/uwagi.md`); formats in `references/outputs.md`. Paragraph for paragraph; tokens and markers untouched;
 `tlumaczenie:` in the YAML front matter only for a translator from outside the editorial team (Kanon § 12.2.3: editorial
 translations, MB's by default, are unsigned: no front matter, no name in the title note); one title-note block; every open point a `DO SPRAWDZENIA: S<n>` comment and the
 same `S<n>` line in the notes sheet (comments never block and vanish after Word).
@@ -111,7 +111,8 @@ real errors, but each point is settled against the source before anything change
 is not independent (Tittel PTA, 11.11.2026: 27 points held, 11 were the author's own wording that the English had
 smoothed). The outcome (changed / kept because the source has it) goes in the notes sheet.
 
-**5. For MB** — the notes sheet `<id>_uwagi.md` (Polish, plain words, recommendation with each choice) and one
+**5. For MB** — the text's one notes sheet (`srom-produkcja/work/<id>/<id>_uwagi.md`: questions for the author in part 1,
+MB's items in part 2, terms and what was fixed without asking in part 3; srom-produkcja `references/uwagi.md`) and one
 question per call in `MB-decisions.md` under the text's code (format: the session rules, CLAUDE.md);
 what srom-produkcja's side must change (a refs.json slip, a group name, a Kanon gap) goes in the text's section of
 `STATUS.md` and is done as a stage-1 correction (a new hand-off line). Then `<id>_robocza.docx` goes to MB.

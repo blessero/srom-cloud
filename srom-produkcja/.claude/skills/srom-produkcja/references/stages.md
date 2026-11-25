@@ -21,7 +21,8 @@ every line in its **Pass** row is printed (and the manual reads are done), and f
 - **Output** in `srom-produkcja/work/<id>/`: `<id>_src.md` (frozen SROM-MD, every reference a citation token, note
   labels = printed numbers), `refs.json`, `<id>_src_front.md` (the original's title, abstract, keywords),
   `<id>_src_robocza.docx` (Word copy for MB), `build/<id>_src_korekta.docx` and `build/<id>_src_pytania.md/.csv`
-  (`build.py --source`: the proof and the query sheet), `<id>_uwagi.md` (notes sheet for MB), MB's questions in
+  (`build.py --source`: the proof and the query sheet), `<id>_uwagi.md` (the one notes sheet of the text, started here and
+  kept by every later stage: `references/uwagi.md`), MB's questions in
   `MB-decisions.md`.
 - **Pass:** `EXTRACT OK` / `IMPORT OK` (or `CHECK n` with every listed line read against the source) ·
   `cite_map.py audit` → `CITEMAP OK` · footnoted source: `check.py --keyed` → `CHECK OK` and `mutate_keyed.py` →
@@ -37,7 +38,8 @@ every line in its **Pass** row is printed (and the manual reads are done), and f
 
 - **Input:** `srom-tlumacz/work/<id>/src/`, identical to the last hand-off log line (`shasum -a 256 -c manifest.sha256`).
 - **Output** in `srom-tlumacz/work/<id>/`: `<id>_intake.md`, `<id>_pl.md`, `<id>_front_pl.md`, `<id>_refs_tlum.json`
-  (only if the translation adds citations), `<id>_pytania_tlum.csv`, `<id>_quotes.tsv`, `<id>_uwagi.md`,
+  (only if the translation adds citations), `<id>_pytania_tlum.csv`, `<id>_quotes.tsv`, notes in the text's one sheet
+  `srom-produkcja/work/<id>/<id>_uwagi.md` (`references/uwagi.md`),
   `<id>_robocza.docx` → MB edits it in Word; from his first edit **the Word file is the master**.
 - **Pass (draft and every editing round):** manifest `OK` · `check.py --pair` → `CHECK OK` · `tlumacz-front_check.py` →
   `FRONT OK` · `build.py … --draft` → `PASS`, report "Errors: none", translator listed · `tlumacz-draft_check.py <id>` →
