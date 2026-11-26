@@ -139,7 +139,8 @@ than a missing one. The order that worked, and what failed:
 1. **Read.** The text (`work/<id>/<id>_src.md`, or the PDF/DOCX MB names), its `refs.json` if RIP made one, and
    any images the author supplied (count them; note their state and rights). Read `references/patterns.md`.
    Ask the author (Tier C) at once, in one short e-mail sent by MB (rights.md § Letters, Author): the author's own
-   photographs of the archival documents cited, field photographs, and any images the author would suggest.
+   photographs of the archival documents cited, field photographs, and any images the author would suggest. Name
+   only documents the notes cite from an archive, not from a printed edition (rights.md § Letters, Before any letter).
    Archival historians often hold the only usable copy (Ostendorf's photograph of the 1779 marriage record, vol. 18);
    record the date in § 4 and treat the answer as a slot's first candidates.
    Read the other texts of the same volume that have an `ikonografia/` record (`ls work/*/ikonografia/`): vol. 19's
@@ -246,7 +247,8 @@ than a missing one. The order that worked, and what failed:
    into `pliki/` (the Commons User-Agent from sources.md; a few seconds apart), or run `scripts/pobierz.py`.
 7. **Permissions** (rights.md), for every image in the register that needs one, whatever its origin (not the cover or mockup of a reviewed book in a review: rights.md). Per holder: find the best contact (rights.md § Finding
    the contact: a named person and e-mail where one can be found, alternatives when unsure, each with where it was
-   found), then draft one English letter listing all that holder's items with their catalogue data, into `zgody.md`,
+   found), then draft one English letter listing all that holder's items with their catalogue data, into `zgody.md`
+   (first rights.md § Letters, Before any letter: read the item's whole record and ask only what it leaves open),
    ready for MB to send (`🔴 zgody.md` in the record's § 4). MB sends; the date and the answer go in § 4. For class E,
    the due-diligence record. Anything that needs MB (a fee, a risky
    orphan, a crop of an ND image) is one question in `MB-decisions.md` under the text's code.

@@ -102,13 +102,30 @@ the preferred credit line. Send from MB's address; record the date in § 4. MB's
 secrétaire de rédaction) is a draft for "managing editor": MB corrects it once, here. Print run: 150 copies (knowledge base,
 MB 22.11.2026); the letter does without it unless a holder asks.
 
+**Before any letter** (MB, 26.11.2026; to an author, a holder or anyone else). Three checks, before the first draft:
+1. **Ask only for what the person can have.** Ask an author for photographs of a document only if the notes cite it from an archive (archive and
+   fond, call number or file). One cited from a printed edition, an anthology, a statistical work or another scholar's book they
+   most likely never saw in the original: leave it out, and find the print ourselves (usually digitised). If nothing is cited
+   from an archive, ask only for their own pictures or wishes. The same test for any ask: does their own work show they handled it?
+   *Davis 26.11.2026:* all four documents named (the 1773 decree, the *Opinio*, the conscription data, Rose Foster's letter) came via
+   Heiczinger 1978, Czoernig 1857 and Nelson 2002; the list was dropped.
+2. **Read everything we hold on the item first**: its row in `kontaktowka.json`, its § 2 line, § 5 (searches) and § 6 (doubts)
+   in `ikonografia.md`, the register (§ 3), any earlier letter in `zgody.md`, and the notes sheet. Ask only what those leave
+   open, and say in the letter what we already have (source, issue, page, where we saw it), so the person answers only the open
+   point. *Turda 26.11.2026:* a draft asked where the *Sentinela* drawing was first published and for a better scan; the row
+   already had no. 28, 30.06.1940, p. 7 and the Arcanum scan. Only the basis of the attribution and the rights holder were open.
+3. **Read the holder's own terms on the item page** before asking anyone how to handle an item (consent, cultural protocols,
+   warnings). Ask only what those terms leave open. *Davis 26.11.2026:* Territory Stories' page answers "how should we handle photographs of
+   Aboriginal children" (consent of the people or descendants; ICIP); a later question names specific photographs and asks
+   which organisation to approach.
+
 **Author (EN; in Polish to a Polish author)** — at the brief stage (SKILL.md step 1)
 > Subject: Images for your article in *Studia Romologica* [vol.]
 >
 > Dear [name],
 >
 > We illustrate the articles in *Studia Romologica* with period sources and photographs. For "[title]", do you have
-> your own photographs of the archival documents you cite (e.g. [one or two from the notes]), field photographs, or
+> your own photographs of the archival documents you cite (e.g. [one or two the notes cite from an archive, never from a printed edition: § Before any letter]), field photographs, or
 > images you would suggest? For each image, please tell us who made it and when, where the original is kept (the
 > archive, library or museum, and its call number or inventory number), and whether we may reproduce it in print and
 > in the online PDF; for a photograph you took of a document, also whether the archive allowed publication. We will
