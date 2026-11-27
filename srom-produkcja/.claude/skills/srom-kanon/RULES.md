@@ -67,7 +67,7 @@ Common nouns italic on first use (§ 5.1). Gloss: `rom. *kris* ‘sąd’` (§ 5
 
 ## 6. Ethnonyms, group names, authority file
 
-`Rom/Romowie/Romka` capitalised, `romski` lowercase. `Cyganie` capitalised, only in quotes/titles, historical source category, or self-identification, with a note on first use. `Porajmos`, `Samudaripen`, `Zagłada` capitalised (§ 6.1).
+`Rom/Romowie/Romka` capitalised, `romski` lowercase. `Cygan/Cyganie/Cyganka` capitalised, roman, no quotation marks; allowed in the author's own text (the name is in use in Polish discourse and titles; e.g. `Cyganów (Romów)`), the author's choice respected, no explanatory note required there; in translations a translator's note on first use (§ 12.2.6) (MB, 27.11.2026). `Porajmos`, `Samudaripen`, `Zagłada` capitalised (§ 6.1).
 **Author chooses spelling of group names**; consistent within the article; roman, never italic (§ 6.2), except foreign exonyms (§ 3.4). Authority file: author's form in text; standard form in index/keywords/deposit; see-references from variants, kept in `references/kartoteka.tsv` (column `italic_house` marks the foreign exonyms); translated articles use the standard form in the text (§ 6.3, § 12.2.6).
 
 ## 7. Footnotes
