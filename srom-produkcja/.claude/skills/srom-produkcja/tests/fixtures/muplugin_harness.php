@@ -143,4 +143,48 @@ do_action('wp_loaded');
 t('self-check idle when rules present', $FLUSHES === 1, "flushes=$FLUSHES");
 $OPT['rewrite_rules'] = ''; do_action('wp_loaded');
 t('self-check idle on plain permalinks / pending rebuild', $FLUSHES === 1, "flushes=$FLUSHES");
+// 9. v2.10: [srom_crossmark] only on the single article page with a DOI; ROR links after institutions in SROM_ROR
+function cm($atts = []) { global $H; return $H['sc']['srom_crossmark']($atts); }
+page(new WP_Post(12, 'srom_article'), 12);
+t('crossmark: article without DOI -> nothing', cm() === '', cm());
+page(new WP_Post(10, 'srom_volume'), 10);
+t('crossmark: volume page -> nothing', cm() === '', cm());
+page(new WP_Term(5, 'autor-x'), 11);
+t('crossmark: archive page, even with an article set up -> nothing', cm() === '', cm());
+page(new WP_Post(11, 'srom_article'), 21);
+t('crossmark: loop item of another article on the article page -> nothing', cm() === '', cm());
+page(new WP_Post(11, 'srom_article'), 11);
+t('crossmark: article with DOI in an excluded volume (17, default [17, 18]) -> nothing', cm() === '', cm());
+$GLOBALS['SROM_CROSSMARK_EXCLUDE'] = [18];
+$c = cm(['width' => '120']);
+t('crossmark: article with DOI -> Crossref script + BW horizontal logo, width as asked',
+  strpos($c, '<script src="https://crossmark-cdn.crossref.org/widget/v2.0/widget.js"></script>') === 0
+  && strpos($c, 'data-target="crossmark"') !== false
+  && strpos($c, 'src="https://crossmark-cdn.crossref.org/widget/v2.0/logos/CROSSMARK_BW_horizontal.svg" width="120"') !== false, $c);
+t('crossmark: once per page', cm() === '', cm());
+$GLOBALS['SROM_CROSSMARK_EXCLUDE'] = [17, 18];
+t('crossmark: head has the dc.identifier meta it reads', strpos(head(), '<meta name="dc.identifier" content="doi:10.68100/abcdefgh">') !== false);
+$GLOBALS['SROM_ROR'] = ['Uniwersytet Jagielloński' => 'https://ror.org/03bqmcz70', 'IFLA (Haga, Holandia)' => 'https://ror.org/026gatw61'];
+$DB[11]['authors_raw'] = "Jan|Kowalski|IFLA (Haga, Holandia) / Katedra X & Y; Uniwersytet Jagielloński|https://orcid.org/0000-0002-1825-0097\nAnna|Nowak|[bez afiliacji akademickiej]|";
+$au = sc('srom_authors');
+t('ROR: a link after each institution in the map, separators kept, the rest escaped',
+  strpos($au, 'IFLA (Haga, Holandia) <a class="srom-author-ror" href="https://ror.org/026gatw61"') !== false
+  && strpos($au, '>ROR</a> / Katedra X &amp; Y; Uniwersytet Jagielloński <a class="srom-author-ror" href="https://ror.org/03bqmcz70"') !== false
+  && substr_count($au, 'srom-author-ror') === 2, $au);
+t('author line: name, iD right after it, then — affiliation (v2.10)',
+  preg_match('~<span class="srom-author-name">Jan Kowalski</span><a class="srom-author-orcid" href="https://orcid.org/0000-0002-1825-0097" rel="noopener">ORCID</a> <span class="srom-author-aff">— IFLA~', $au) === 1, $au);
+t('ROR: a bracketed note gets none', strpos($au, '— [bez afiliacji akademickiej]</span>') !== false, $au);
+$GLOBALS['SROM_ROR'] = [];
+t('ROR: empty map -> affiliation as before', strpos(sc('srom_authors'), 'srom-author-ror') === false);
+// 10. v2.10: [srom_volume_field fallback="year"] — Tom without pub_date (vols 17, 16, 14) prints its year
+function vf($atts) { global $H; return $H['sc']['srom_volume_field']($atts); }
+page(new WP_Post(11, 'srom_article'), 11);                     // article 11 -> Tom 10 (vol. 17, year 2024, no pub_date)
+t('volume_field: empty pub_date, no fallback -> empty (as before)', vf(['name' => 'pub_date', 'format' => 'd.m.Y']) === '', vf(['name' => 'pub_date']));
+t('volume_field: empty pub_date, fallback="year" -> 2024', vf(['name' => 'pub_date', 'format' => 'd.m.Y', 'fallback' => 'year']) === '2024', vf(['name' => 'pub_date', 'fallback' => 'year']));
+$DB[10]['pub_date'] = '20251221';
+t('volume_field: pub_date set -> formatted date, fallback unused', vf(['name' => 'pub_date', 'format' => 'd.m.Y', 'fallback' => 'year']) === '21.12.2025', vf(['name' => 'pub_date', 'format' => 'd.m.Y', 'fallback' => 'year']));
+unset($DB[10]['pub_date']);
+t('volume_field: an unknown fallback field is ignored', vf(['name' => 'pub_date', 'fallback' => 'doi']) === '', vf(['name' => 'pub_date', 'fallback' => 'doi']));
+page(new WP_Post(10, 'srom_volume'), 10);
+t('volume_field: on the Tom page too', vf(['name' => 'pub_date', 'fallback' => 'year']) === '2024', vf(['name' => 'pub_date', 'fallback' => 'year']));
 echo $fails ? "HARNESS FAILED $fails\n" : "HARNESS ALL PASS\n";

@@ -12,10 +12,17 @@ character). --site: each landing page answers 200 with the right citation_doi, e
 byte-identical to the covered PDF there); a redirect is a fault, since the deposited address must be the page itself, not a
 301 to it (review 21.10.2026). Paced (PACE seconds per request), because the site blocks bursts (429, and Wordfence). Read-only.
 --only a-b (or n): only articles at those positions in the XML (1-based), so a long --site run fits in parts
-(C31, 30.10.2026); the CSV-only-rows check is skipped then. Last line: DEPOSIT CHECK OK n/n, or DEPOSIT CHECK FAILED k/n. Owner: srom-quant (taken over from Cowork, C15 addendum).
+(C31, 30.10.2026); the CSV-only-rows check is skipped then.
+Crossmark (28.11.2026): an article generate_crossref_xml.py gives Crossmark (CROSSMARK_POLICY_DOI set, its volume not in
+CROSSMARK_EXCLUDE) must carry <crossmark> with that policy DOI and studiaromologica.pl among its domains; any other article
+must not (an XML made under another setting). --site also asks doi.org once whether the policy DOI is registered and
+points at CROSSMARK_POLICY_URL (no request to the journal's site). --ready also opens each covered PDF there (local, no request): for an
+article with Crossmark, its cover must link the Crossmark dialog for its own DOI and pub_date_online; for one without, not. Last line: DEPOSIT CHECK OK n/n, or DEPOSIT CHECK FAILED k/n. Owner: srom-quant (taken over from Cowork, C15 addendum).
 """
 import csv, hashlib, json, os, re, sys, time, unicodedata, urllib.request, urllib.error
 import xml.etree.ElementTree as ET
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from generate_crossref_xml import CROSSMARK_DOMAIN, CROSSMARK_POLICY_DOI, CROSSMARK_POLICY_URL, crossmark_for, crossmark_pdf_url  # noqa: E402
 
 args = [a for a in sys.argv[1:] if not a.startswith("--")]
 SITE = "--site" in sys.argv
@@ -74,6 +81,12 @@ def get(url):
 
 arts = root.findall(".//c:journal_article", NS)
 failed, seen = 0, set()
+POLICY_BAD = ""
+if SITE and any(a.find("c:crossmark", NS) is not None for a in arts):     # one request to doi.org, never followed
+    st, _ = get(os.environ.get("SROM_DOI_RESOLVER", "https://doi.org/") + CROSSMARK_POLICY_DOI)
+    if not (isinstance(st, str) and st.split(" → ")[-1].rstrip("/") == CROSSMARK_POLICY_URL.rstrip("/")):
+        POLICY_BAD = f"policy DOI {CROSSMARK_POLICY_DOI} not registered or not pointing at {CROSSMARK_POLICY_URL} (doi.org: {st})"
+        print("!! " + POLICY_BAD)
 for pos, a in enumerate(arts, 1):
     if ONLY and not LO <= pos <= HI: continue
     doi = T(a.find("c:doi_data/c:doi", NS)).lower(); seen.add(doi)
@@ -108,6 +121,22 @@ for pos, a in enumerate(arts, 1):
     if flaws: probs.append(f"{len(flaws)} references with damaged text, e.g. ref {flaws[0][0]}: {', '.join(flaws[0][1])}")
     for el in a.iter():
         if el.text and el.tag.split('}')[-1] in ("title", "p") and textflaws(el.text): probs.append(f"damaged text in {el.tag.split('}')[-1]}"); break
+    cm, pol = a.find("c:crossmark", NS), crossmark_for(r)
+    if pol:
+        if cm is None: probs.append(f"no <crossmark> (vol. {r.get('volume')} has Crossmark, policy {pol}): regenerate the XML")
+        else:
+            if T(cm.find("c:crossmark_policy", NS)) != pol: probs.append(f"crossmark policy {T(cm.find('c:crossmark_policy', NS))} ≠ {pol}")
+            if CROSSMARK_DOMAIN not in [T(x) for x in cm.findall(".//c:domain", NS)]: probs.append(f"crossmark domains lack {CROSSMARK_DOMAIN}")
+    elif cm is not None: probs.append(f"<crossmark> in the XML, but vol. {r.get('volume')} has no Crossmark in generate_crossref_xml.py (CROSSMARK_POLICY_DOI / CROSSMARK_EXCLUDE)")
+    if cm is not None and POLICY_BAD: probs.append("Crossmark policy DOI not live (see above)")
+    if READY:
+        lp = os.path.join(READY, r["pdf_file"])
+        if pol and not os.path.exists(lp): probs.append(f"no covered PDF in ready/: {r['pdf_file']}")
+        elif os.path.exists(lp):
+            import pymupdf
+            uris = {l.get("uri") or "" for l in pymupdf.open(lp)[0].get_links()}
+            if pol and crossmark_pdf_url(r["doi"], r.get("pub_date_online", "")) not in uris: probs.append("covered PDF: no Crossmark link for this DOI and date on the cover")
+            if not pol and any("crossmark.crossref.org" in u for u in uris): probs.append("covered PDF has a Crossmark button, but its deposit has no Crossmark")
     if SITE:
         st, body = get(r["landing_url"]); time.sleep(PACE)
         if st != 200 or f'name="citation_doi" content="{r["doi"]}"' not in body.decode("utf-8", "replace"):
@@ -118,7 +147,7 @@ for pos, a in enumerate(arts, 1):
             lp = os.path.join(READY, r["pdf_file"])
             if not os.path.exists(lp) or hashlib.sha256(open(lp, "rb").read()).digest() != hashlib.sha256(pdf).digest():
                 probs.append("PDF on the site differs from ready/")
-    print(f"{'OK' if not probs else '!!'} {aid} {doi} pp. {pages[0]}–{pages[1]} · {dates} · refs {len(cits)} · {names}")
+    print(f"{'OK' if not probs else '!!'} {aid} {doi} pp. {pages[0]}–{pages[1]} · {dates} · refs {len(cits)}{' · Crossmark' if cm is not None else ''} · {names}")
     for p in probs: print(f"     - {p}")
     failed += bool(probs)
 for d in ([] if ONLY else sorted(set(rows) - seen)): print(f"!! {rows[d]['article_id']} {d}: in the CSV, not in the XML"); failed += 1

@@ -45,6 +45,15 @@ and the English one may grow down to ABSTRACT_BOTTOM (218 mm from the top; the f
 without the other). If it does not fit at 6.6 pt, the run stops and names the overflow. The header, footer and leading never change.
 Texts without abstracts (reviews, chronicles) get the header alone.
 
+Identifier marks (MB 28.11.2026; spec § Identifier marks): a small monochrome ORCID iD icon before each ORCID, a ROR
+icon after each institution that has a ROR ID in volumes/ror.tsv (linked to ror.org), and, for an article whose deposit
+carries Crossmark (generate_crossref_xml.crossmark_for: the switch set and its volume not in CROSSMARK_EXCLUDE; on a --proof
+always, to show the design), Crossref's "Check for updates" button under the
+identifier block, above the title, linked to the Crossmark dialog (domain=pdf, date_stamp = pub_date_online), with the
+Crossmark fields in the XMP. The icons are vector PDFs in assets/cover (converted unaltered from the publishers' SVGs; the
+ORCID iD recoloured to the ink). The text keeps a run of no-break spaces where an icon goes, so the line breaks around it
+and the text layer reads clean; the icon is drawn into that gap after the layout.
+
 A printed field holding a placeholder (10.XXXXX, todo…, TODO) or left empty stops the run, so a page with a fake DOI
 is never written; --proof prints it as it stands, marks the page PODGLĄD and names the file *_proof.pdf.
 """
@@ -55,6 +64,7 @@ import pymupdf
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from pdf_metadata import build as metadata, licence_name, placeholder  # noqa: E402
+import generate_crossref_xml as crossref  # noqa: E402  (ROR map, the Crossmark switch and its PDF link)
 
 MM = 72 / 25.4
 W, H = 165 * MM, 235 * MM                      # SROM trim size (InDesign template: 467.72 × 666.14 pt)
@@ -89,6 +99,13 @@ LABEL, LABEL_IN = 7, 6        # column labels ABSTRAKT / ABSTRACT; inline labels
 ITAL = 1.05                   # Fraunces Italic inside Epilogue (x-height 0.470 vs 0.531 em)
 FOOT = (6, 8.5)               # Epilogue
 SHORT = 4                     # a title word of this many letters or fewer never ends a line (MB 21.10.2026)
+# identifier marks (MB 28.11.2026): small, monochrome, vector
+ORCID_ICON = "orcid_id.pdf"   # the iD ring in the ink; "orcid_id_green.pdf" = ORCID's own green (its guidelines prefer it)
+ROR_ICON, CROSSMARK_ICON = "ror_icon.pdf", "crossmark_bw_horizontal.pdf"   # ROR in black (MB 28.11.2026)
+ICON = {"orcid": (6.5, 7.5), "ror": (7.5, 8)}   # icon height, size of the text it sits in (pt); the ROR icon's own
+                                                # white margin included (its letters are about half of it)
+ICON_GAP = 2.0                # pt between the icon and the text after it (ORCID) or before it (ROR)
+CROSSMARK_W, CROSSMARK_GAP = 62, 6.5   # button width (pt; height follows its 222:48 ratio); gap under the DOI line
 
 # Polish names of the CC 4.0 licences (official Polish translation).
 CC_PL = {"by": "Uznanie autorstwa", "by-sa": "Uznanie autorstwa – Na tych samych warunkach",
@@ -234,6 +251,80 @@ class Pen:
         return self.put(x0, 0, x1, body, page=self.scratch)
 
 
+def slot(kind):
+    """A run of no-break spaces in the mono face, as wide as the icon plus its gap; the icon is drawn into it later."""
+    h, size = ICON[kind]
+    w = h * icon_ratio(kind) + ICON_GAP
+    n = max(1, -int(-w // (0.6 * size)))           # Plex Mono: every advance 0.6 em
+    return f'<span class="m" style="font-size:{w / (0.6 * n):.3f}pt">{chr(0xA0) * n}</span>'
+
+
+_ICONS = {}
+def icon_doc(kind):
+    f = {"orcid": ORCID_ICON, "ror": ROR_ICON, "crossmark": CROSSMARK_ICON}[kind]
+    if f not in _ICONS:
+        _ICONS[f] = pymupdf.open(os.path.join(ASSETS, f))
+    return _ICONS[f]
+
+
+def icon_ratio(kind):
+    r = icon_doc(kind)[0].rect
+    return r.width / r.height
+
+
+def marks(row):
+    """[(kind, url)] in the order the header prints them: per author the ORCID (author line), then the ROR ID of
+    each institution of the affiliation found in ror.tsv."""
+    out = []
+    for name, aff, orcid, mail in authors(row):
+        if orcid.startswith("https://orcid.org/"):
+            out.append(("orcid", orcid))
+        if aff and not aff.startswith("["):
+            out += [("ror", crossref.ROR[i]) for i in crossref.institutions(aff) if i in crossref.ROR]
+    return out
+
+
+def affiliation(aff):
+    """The affiliation with a ROR slot after each institution that has a ROR ID (separators as written)."""
+    if aff.startswith("["):
+        return pl(aff)
+    parts = re.split(r"(;\s+|\s+/\s+)", aff)
+    return "".join(pl(x) if k % 2 else pl(x) + (slot("ror") if x.strip() in crossref.ROR else "") for k, x in enumerate(parts))
+
+
+def draw_marks(page, want):
+    """Find the slots (spans of no-break spaces in the mono face) in reading order and draw each wanted icon, linked,
+    into its slot. A count that does not match stops the run: an icon never goes to the wrong person."""
+    slots = [s for b in page.get_text("rawdict")["blocks"] for l in b.get("lines", []) for s in l["spans"]
+             if "Mono" in s["font"] and s["chars"] and all(c["c"] == "\u00a0" for c in s["chars"])]
+    if len(slots) != len(want):
+        raise SystemExit(f"ABORT: {len(want)} identifier icon(s) wanted, {len(slots)} slot(s) on the page")
+    for s, (kind, url) in zip(slots, want):
+        h, size = ICON[kind]
+        w = h * icon_ratio(kind)
+        x0 = s["bbox"][0] + (0 if kind == "orcid" else ICON_GAP)
+        cy = s["origin"][1] - 0.36 * size              # the middle of the capitals of the text beside it
+        r = pymupdf.Rect(x0, cy - h / 2, x0 + w, cy + h / 2)
+        page.show_pdf_page(r, icon_doc(kind), 0)
+        page.insert_link({"kind": pymupdf.LINK_URI, "from": r, "uri": url})
+
+
+def crossmark_on(row, proof=False):
+    """The button only where the deposit carries Crossmark; a proof shows it regardless (design preview, never uploaded)."""
+    return proof or bool(crossref.crossmark_for(row))
+
+
+def crossmark(page, row, y):
+    """Crossref's "Check for updates" button (black-and-white, horizontal), unaltered but for its size, at the text
+    column's left edge under the identifier block, above the title; linked to the Crossmark dialog."""
+    w = CROSSMARK_W
+    r = pymupdf.Rect(TX, y + CROSSMARK_GAP, TX + w, y + CROSSMARK_GAP + w / icon_ratio("crossmark"))
+    page.show_pdf_page(r, icon_doc("crossmark"), 0)
+    page.insert_link({"kind": pymupdf.LINK_URI, "from": r,
+                      "uri": crossref.crossmark_pdf_url(row.get("doi", ""), row.get("pub_date_online", ""))})
+    return r
+
+
 def a(href, text):
     return f'<a href="{esc(href)}" style="color:#424241; text-decoration:none">{text}</a>'
 
@@ -276,7 +367,7 @@ def band(pen, row):
             f'ISSN {esc(row.get("issn") or "1689-4758")}',
             f'Strony {esc(row.get("pages"))}' if row.get("pages") else "",
             a(land if land.startswith("http") and not placeholder(land) else doi_url, esc(doi_url))]
-    pen.put(TX, INFO_Y, LOGO[0] - 6, "".join(p(*INFO, s, "m") for s in info if s))
+    return pen.put(TX, INFO_Y, LOGO[0] - 6, "".join(p(*INFO, s, "m") for s in info if s))
 
 
 def header(pen, row):
@@ -285,13 +376,14 @@ def header(pen, row):
     blocks = [(0, p(*TITLE, esc(title_words(nbsp(row.get("title_pl")))), "n red")),
               (GAP["title_en"], p(*TITLE_EN, esc(title_words(row.get("title_en"))), "s"))]
     for i, (name, aff, orcid, mail) in enumerate(au):
-        ids = [x for x in (a(orcid, esc(orcid)) if orcid else "", a(f"mailto:{mail}", esc(mail)) if mail else "") if x]
+        oid = (slot("orcid") if orcid.startswith("https://orcid.org/") else "") + a(orcid, esc(orcid)) if orcid else ""
+        ids = [x for x in (oid, a(f"mailto:{mail}", esc(mail)) if mail else "") if x]
         line = lambda ids: p(*AUTHOR, f'<span class="n red">{esc(name)}</span><span style="font-size:7.5pt">{"".join(SEP + x for x in ids)}</span>')
         body = line(ids)
         if len(ids) == 2 and pen.height(TX, RX, body) > AUTHOR[1] + 1:      # too long for one line: the e-mail goes under it
             body = line(ids[:1]) + p(7.5, META[1], ids[1])
         if aff:
-            body += p(*META, pl(aff))
+            body += p(*META, affiliation(aff))
         blocks.append((GAP["author"] if i == 0 else GAP["author2"], body))
     extra = ""
     tr = translators(row)
@@ -350,14 +442,18 @@ def footer(pen, row):
     pen.put(TX, FOOT_LIC, RX, p(*FOOT, body))
 
 
-def page(row, size, fdir):
+def page(row, size, fdir, cm=False):
     doc = pymupdf.open()
     pen = Pen(doc.new_page(width=W, height=H), fdir)
-    band(pen, row)
+    yb = band(pen, row)
+    if cm and not placeholder(row.get("doi")):
+        if crossmark(pen.page, row, yb).y1 > TITLE_Y - 2:
+            raise SystemExit(f"ABORT: {row.get('article_id')}: the Crossmark button would touch the title")
     y = header(pen, row)
     for i, k in enumerate(k for k in ("pl", "en") if row.get("abstract_" + k)):
         y = abstract(pen, row, k, max(ABSTRACT_TOP, y + GAP["abstract"]) if i == 0 else y + GAP["abstract_en"], size)
     footer(pen, row)
+    draw_marks(pen.page, marks(row))
     return doc
 
 
@@ -366,7 +462,7 @@ def cover(row, proof=False):
     fdir = font_dir()
     for size in ABSTRACT_SIZES:
         try:
-            doc = page(row, size, fdir)
+            doc = page(row, size, fdir, crossmark_on(row, proof))
             break
         except ValueError:
             pass
@@ -384,18 +480,24 @@ def cover(row, proof=False):
     return doc, size
 
 
-def xmp(meta, row):
-    """XMP packet: Dublin Core, rights, and the PDF/PRISM fields of pdf_metadata.build()."""
+def xmp(meta, row, cm=False):
+    """XMP packet: Dublin Core, rights, and the PDF/PRISM fields of pdf_metadata.build(); with Crossmark on, its four
+    fields (Crossref: crossmark:DOI, crossmark:MajorVersionDate, pdfx:doi, pdfx:CrossmarkMajorVersionDate)."""
     e = lambda s: html.escape(s or "", quote=False)
     props = "".join(f"<{k}>{e(v)}</{k}>" for _, k, v in meta["props"] if k != "dc:identifier")
     ident = next((v for _, k, v in meta["props"] if k == "dc:identifier"), "")
     creators = "".join(f"<rdf:li>{e(a[0])}</rdf:li>" for a in authors(row))
     subjects = "".join(f"<rdf:li>{e(k)}</rdf:li>" for k in meta["keywords"])
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    doi, mv = row.get("doi", ""), row.get("pub_date_online", "")
+    cmx = (f"<crossmark:DOI>{e(doi)}</crossmark:DOI><crossmark:MajorVersionDate>{e(mv)}</crossmark:MajorVersionDate>"
+           f"<pdfx:doi>{e(doi)}</pdfx:doi><pdfx:CrossmarkMajorVersionDate>{e(mv)}</pdfx:CrossmarkMajorVersionDate>"
+           if cm and doi and not placeholder(doi) else "")
     return f"""<?xpacket begin="\ufeff" id="W5M0MpCehiHzreSzNTczkc9d"?>
 <x:xmpmeta xmlns:x="adobe:ns:meta/"><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xmpRights="http://ns.adobe.com/xap/1.0/rights/"
- xmlns:pdf="http://ns.adobe.com/pdf/1.3/" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:xmp="http://ns.adobe.com/xap/1.0/">
+ xmlns:pdf="http://ns.adobe.com/pdf/1.3/" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+ xmlns:crossmark="http://crossref.org/crossmark/2.0/" xmlns:pdfx="http://ns.adobe.com/pdfx/1.3/">
 <dc:format>application/pdf</dc:format>
 <dc:title><rdf:Alt><rdf:li xml:lang="x-default">{e(meta["title"])}</rdf:li></rdf:Alt></dc:title>
 <dc:creator><rdf:Seq>{creators}</rdf:Seq></dc:creator>
@@ -406,7 +508,7 @@ def xmp(meta, row):
 {f"<dc:identifier>{e(ident)}</dc:identifier>" if ident else ""}
 <xmpRights:Marked>True</xmpRights:Marked><xmpRights:WebStatement>{e(meta["licenceUrl"])}</xmpRights:WebStatement>
 <xmp:MetadataDate>{now}</xmp:MetadataDate>
-{props}
+{props}{cmx}
 </rdf:Description></rdf:RDF></x:xmpmeta>
 <?xpacket end="w"?>"""
 
@@ -437,7 +539,7 @@ def prepare(path, row):
             f"text layer: {spans} accent glyph(s) moved into their ActualText span, {maps} accent code(s) mapped, {wrapped} doubled accent(s) wrapped", warn)
 
 
-def selfcheck(path, doi):
+def selfcheck(path, doi, cm_url=""):
     """One line read back from the written file. U+FFFD as pdftotext counts it: MuPDF without its default
     TEXT_CID_FOR_UNKNOWN_UNICODE, which would hide the replacement character."""
     d = pymupdf.open(path)
@@ -447,7 +549,8 @@ def selfcheck(path, doi):
     tagged = key("MarkInfo/Marked") == "true" and key("StructTreeRoot") != "null"
     return (f"self-check: U+FFFD {fffd} · pages {len(d)} · tagged {'yes' if tagged else 'no'} · /Lang {key('Lang')}"
             f" · DisplayDocTitle {key('ViewerPreferences/DisplayDocTitle')}"
-            f" · DOI in XMP {'yes' if doi and f'<prism:doi>{doi}</prism:doi>' in d.get_xml_metadata() else 'no'}")
+            f" · DOI in XMP {'yes' if doi and f'<prism:doi>{doi}</prism:doi>' in d.get_xml_metadata() else 'no'}"
+            f" · Crossmark {('link' if cm_url in {l.get('uri') for l in d[0].get_links()} else 'MISSING') if cm_url else 'off'}")
 
 
 def main():
@@ -460,6 +563,7 @@ def main():
     if row is None:
         sys.exit(f"ABORT: {a.article_id}: no such row in {a.master}")
     EMAILS.update(load_emails(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(a.master))), "autorzy.tsv")))
+    crossref.load_ror(a.master)                        # volumes/ror.tsv: the ROR icons
     probs = check(row)
     if probs and not a.proof:
         sys.exit(f"ABORT: {a.article_id}: " + "; ".join(probs) + ". Fill the master CSV (or run with --proof).")
@@ -494,11 +598,12 @@ def main():
         art.set_metadata({"title": meta["title"], "author": meta["author"], "subject": meta["subject"],
                           "keywords": "; ".join(meta["keywords"]), "creator": "Studia Romologica (srom-quant cover_page.py)",
                           "producer": f"PyMuPDF {pymupdf.VersionBind}"})
-        art.set_xml_metadata(xmp(meta, row))
+        art.set_xml_metadata(xmp(meta, row, crossmark_on(row, a.proof)))
         path = os.path.join(a.out, re.sub(r"\.pdf$", "", row.get("pdf_file") or a.article_id) + tag + ".pdf")
         art.save(path, garbage=4, deflate=True, use_objstms=1)
         print(fixed)
-        print(selfcheck(path, row.get("doi", "")))
+        cm_url = crossref.crossmark_pdf_url(row.get("doi", ""), row.get("pub_date_online", "")) if crossmark_on(row, a.proof) else ""
+        print(selfcheck(path, row.get("doi", ""), cm_url))
         print(f"size: {os.path.getsize(path) / 1e6:.2f} MB (the article alone {os.path.getsize(a.article_pdf) / 1e6:.2f} MB)")
     print(f"written {path}"
           + "".join(f"\n!! {x}" for x in probs))

@@ -3,6 +3,7 @@
 ROR ID from volumes/ror.tsv. Offline; the output was validated against the Crossref 5.4.0 XSD when this was built."""
 import csv, json, os, re, shutil, subprocess, sys, tempfile
 from lxml import etree
+os.environ["SROM_CROSSMARK_POLICY_DOI"] = ""     # the fixtures run with Crossmark off unless a test turns it on (CMENV)
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GEN = os.path.join(os.path.dirname(ROOT), "srom-quant", "scripts", "generate_crossref_xml.py")
 res = []
@@ -48,6 +49,63 @@ pd = lambda a: [x.get("media_type") for x in a.findall("c:publication_date", ns)
 t("print date (C15): row with pub_date_print gets print + online publication_date, row without only online",
   arts and pd(arts[0]) == ["print", "online"] and pd(arts[1]) == ["online"]
   and arts[0].findtext("c:publication_date/c:year", namespaces=ns) == "2026", [pd(a) for a in arts])
+
+# Crossmark (MB 28.11.2026): off by default (no <crossmark>, the licence program bare, as deposited so far); with the policy
+# DOI set, <crossmark> after <pages> holds the policy, the site as domain, not exclusive, and the licence program inside
+# <custom_metadata> (5.4.0 allows crossmark OR the bare programs). Validated against the 5.4.0 XSD in this session.
+AI = "{http://www.crossref.org/AccessIndicators.xsd}program"
+t("crossmark off (default): no <crossmark>, licence program directly in the article",
+  arts and arts[0].find("c:crossmark", ns) is None and arts[0].find(AI) is not None, etree.tostring(arts[0])[:400] if arts else "")
+CMENV = dict(os.environ, SROM_CROSSMARK_POLICY_DOI="10.12345/crossmark-policy")
+outcm = os.path.join(d, "dep_cm.xml")
+r = subprocess.run([sys.executable, GEN, cp, outcm], capture_output=True, text=True, env=CMENV)
+acm = etree.parse(outcm).findall(".//c:journal_article", ns) if r.returncode == 0 else []
+cmk = [a.find("c:crossmark", ns) for a in acm]
+kids = lambda a: [etree.QName(x).localname for x in a]
+t("crossmark on: every article has it after <pages>, before <doi_data>; policy, domain, exclusive false",
+  len(acm) == 2 and all(c is not None for c in cmk)
+  and all(kids(a).index("crossmark") == kids(a).index("pages") + 1 and kids(a).index("doi_data") > kids(a).index("crossmark") for a in acm)
+  and all(c.findtext("c:crossmark_policy", namespaces=ns) == "10.12345/crossmark-policy"
+          and c.findtext(".//c:domain", namespaces=ns) == "studiaromologica.pl"
+          and c.findtext("c:crossmark_domain_exclusive", namespaces=ns) == "false" for c in cmk), r.stdout + r.stderr)
+t("crossmark on: the licence program moves inside <custom_metadata>; none bare; an article without a licence has no custom_metadata",
+  acm and acm[0].find(AI) is None and cmk[0].find("c:custom_metadata/" + AI.replace("{", "{", 1), ns) is not None
+  and cmk[0].find("c:custom_metadata", ns).find(AI).findtext("{http://www.crossref.org/AccessIndicators.xsd}license_ref") == rows[0]["license_url"]
+  and cmk[1].find("c:custom_metadata", ns) is None, etree.tostring(acm[0])[:900] if acm else "")
+outv = os.path.join(d, "dep_cm18.xml")
+r = subprocess.run([sys.executable, GEN, cp, outv], capture_output=True, text=True, env=dict(CMENV, SROM_CROSSMARK_EXCLUDE="19"))
+t("crossmark per volume (MB 28.11.2026): an excluded volume gets none, even with the policy DOI set",
+  r.returncode == 0 and "<crossmark>" not in open(outv, encoding="utf-8").read(), r.stdout + r.stderr)
+envd = {k: v for k, v in os.environ.items() if not k.startswith("SROM_CROSSMARK")}
+dflt = subprocess.run([sys.executable, "-c", "import sys; sys.path.insert(0, sys.argv[1]); import generate_crossref_xml as g; "
+                       "print(g.CROSSMARK_POLICY_DOI, [bool(g.crossmark_for({'volume': v})) for v in ('16', '17', '18', '19', '20')])",
+                       os.path.dirname(GEN)], capture_output=True, text=True, env=envd)
+t("crossmark defaults (MB 28.11.2026): on, policy 10.68100/crossmark-policy; vols 17–18 out, 16 and 19–20 in",
+  dflt.stdout.strip() == "10.68100/crossmark-policy [True, False, False, True, True]", dflt.stdout + dflt.stderr)
+pol = os.path.join(d, "policy.xml")
+r = subprocess.run([sys.executable, GEN, "--policy", pol], capture_output=True, text=True, env=CMENV)
+P = etree.parse(pol) if r.returncode == 0 else None
+ds = P.find(".//c:dataset", ns) if P is not None else None
+t("--policy: one <database> 'Studia Romologica Crossmark Policy Statement', a dataset of type crossmark_policy with the DOI and page",
+  ds is not None and ds.get("dataset_type") == "crossmark_policy"
+  and P.findtext(".//c:database_metadata/c:titles/c:title", namespaces=ns) == "Studia Romologica Crossmark Policy Statement"
+  and ds.findtext("c:doi_data/c:doi", namespaces=ns) == "10.12345/crossmark-policy"
+  and ds.findtext("c:doi_data/c:resource", namespaces=ns).startswith("https://studiaromologica.pl/"), r.stdout + r.stderr)
+# --ror-php: the mu-plugin's institution → ROR map from ror.tsv (a copy of the real plugin; malformed IDs left out)
+PLUG = os.path.join(os.path.dirname(ROOT), "srom-quant", "assets", "srom-scholarly.php")
+pcopy = os.path.join(d, "plugin.php"); shutil.copy(PLUG, pcopy)
+rt = os.path.join(d, "ror_php.tsv")
+open(rt, "w", encoding="utf-8").write("institution\tror\tror_name\tsource\nUniwersytet Jagielloński\thttps://ror.org/03bqmcz70\tx\tt\n"
+                                      "Instytut O'Hara\thttps://ror.org/01yc7t268\tx\tt\nMuzeum Y\t\t\tno match\nZły\thttps://ror.org/xyz\t\tt\n")
+r = subprocess.run([sys.executable, GEN, "--ror-php", rt, pcopy], capture_output=True, text=True)
+blk = re.search(r"ROR-MAP-BEGIN[^\n]*\n(.*?)[ \t]*// ROR-MAP-END", open(pcopy, encoding="utf-8").read(), re.S)
+t("--ror-php: the map holds the institutions with a well-formed ROR ID, quotes escaped; nothing else in the plugin changes",
+  r.returncode == 0 and blk and blk.group(1) == "    'Instytut O\\'Hara' => 'https://ror.org/01yc7t268',\n    'Uniwersytet Jagielloński' => 'https://ror.org/03bqmcz70',\n"
+  and re.sub(r"ROR-MAP-BEGIN.*?ROR-MAP-END", "", open(pcopy, encoding="utf-8").read(), flags=re.S)
+  == re.sub(r"ROR-MAP-BEGIN.*?ROR-MAP-END", "", open(PLUG, encoding="utf-8").read(), flags=re.S), r.stdout + r.stderr + (blk.group(1) if blk else ""))
+if shutil.which("php"):
+    lint = subprocess.run(["php", "-l", pcopy], capture_output=True, text=True, stdin=subprocess.DEVNULL)
+    t("--ror-php: the rewritten plugin passes php -l", "No syntax errors" in lint.stdout, lint.stdout + lint.stderr)
 
 # wikidata_qs.py: QuickStatements for the journal item and for articles with a final DOI (offline)
 WQ = os.path.join(os.path.dirname(GEN), "wikidata_qs.py")
@@ -194,6 +252,8 @@ with open(ccp, "w", encoding="utf-8-sig", newline="") as f:
 with open(os.path.join(os.path.dirname(cdir), "autorzy.tsv"), "w", encoding="utf-8") as f:   # ../autorzy.tsv, as volumes/
     f.write("sortuj\tosoba\torcid\tafiliacja\tnota\tkontakt\nNowak\tDr Anna Nowak\thttps://orcid.org/0000-0002-1825-0097\t\t\ta.nowak@uj.edu.pl\n"
             "Lis\tJan Lis\t\t\t\tjan.lis@x.pl\n")
+with open(os.path.join(os.path.dirname(cdir), "ror.tsv"), "w", encoding="utf-8") as f:      # ../ror.tsv, as volumes/
+    f.write("institution\tror\tror_name\tsource\nUniwersytet Jagielloński\thttps://ror.org/03bqmcz70\tJagiellonian University\ttest\n")
 art = pymupdf.open()
 for i in range(4):
     pg = art.new_page(width=cv.W, height=cv.H); pg.insert_text((72, 72), f"strona {11 + i}")
@@ -221,6 +281,57 @@ links = {l.get("uri") for l in doc[0].get_links()} if doc else set()
 t("cover_page: DOI line links to the landing page; ORCID, e-mail, licence deed, site; no publisher line",
   {"https://x.pl/articles/10.12345/ab3k9x21/", "https://orcid.org/0000-0002-1825-0097", "mailto:a.nowak@uj.edu.pl",
    "https://creativecommons.org/licenses/by/4.0/deed.pl", "https://studiaromologica.pl"} <= links and "Wydawca" not in txt, links)
+# identifier marks (MB 28.11.2026): ORCID iD icon before the iD, ROR icon after an institution in ror.tsv, both linked;
+# Crossmark off unless CROSSMARK_POLICY_DOI is set (or --proof)
+lk = [(l["uri"], l["from"]) for l in doc[0].get_links()] if doc else []
+url_r = doc[0].search_for("https://orcid.org/0000-0002-1825-0097")[0] if doc else None
+icon_o = [rr for u, rr in lk if u == "https://orcid.org/0000-0002-1825-0097" and abs(rr.width - 6.5) < .1]
+t("cover_page: ORCID iD icon (6.5 pt, linked) just before the iD on its line",
+  len(icon_o) == 1 and 0 < url_r.x0 - icon_o[0].x1 < 3 and icon_o[0].y0 < url_r.y1 and icon_o[0].y1 > url_r.y0, (icon_o, url_r))
+inst_r = doc[0].search_for("Jagielloński")[0] if doc else None
+icon_r = [rr for u, rr in lk if u == "https://ror.org/03bqmcz70"]
+t("cover_page: ROR icon linked to ror.org right after the institution that has one; none for the author without one",
+  len(icon_r) == 1 and 0 < icon_r[0].x0 - inst_r.x1 < 3 and icon_r[0].y0 < inst_r.y1 and icon_r[0].y1 > inst_r.y0
+  and sum(1 for u, _ in lk if "ror.org" in u) == 1, (icon_r, inst_r))
+t("cover_page: the marks leave the text layer clean (no-break spaces only)", "Uniwersytet Jagielloński" in txt and "\ufffd" not in txt, txt[:500])
+t("cover_page: Crossmark off by default — no button, no dialog link, self-check says off",
+  not any("crossmark" in u for u, _ in lk) and "Crossmark off" in r.stdout and "crossmark:DOI" not in doc.get_xml_metadata(), r.stdout)
+cmdir = os.path.join(cdir, "cm"); os.makedirs(cmdir, exist_ok=True)
+rcm = subprocess.run([sys.executable, CV, ccp, "SROM-19-2026-001", os.path.join(cdir, "art.pdf"), "--out", cmdir], capture_output=True, text=True,
+                     env=dict(os.environ, SROM_CROSSMARK_POLICY_DOI="10.12345/crossmark-policy"))
+dcm = pymupdf.open(os.path.join(cmdir, "Studia_Romologica_19_2026_Nowak_1.pdf")) if rcm.returncode == 0 else None
+CMU = "https://crossmark.crossref.org/dialog?doi=10.12345/ab3k9x21&domain=pdf&date_stamp=2026-07-02"
+cmr = [l["from"] for l in dcm[0].get_links() if l["uri"] == CMU] if dcm else []
+doi_r = dcm[0].search_for("https://doi.org/10.12345/ab3k9x21")[0] if dcm else None
+xm = dcm.get_xml_metadata() if dcm else ""
+t("cover_page: Crossmark on — button under the DOI line, above the title, at the text column, linked to the dialog (domain=pdf, online date)",
+  len(cmr) == 1 and abs(cmr[0].x0 - cv.TX) < .5 and cmr[0].y0 > doi_r.y1 and cmr[0].y1 < cv.TITLE_Y and abs(cmr[0].width - cv.CROSSMARK_W) < .5
+  and "Crossmark link" in rcm.stdout and "RESULT: OK" in rcm.stdout, rcm.stdout + rcm.stderr + str(cmr))
+t("cover_page: Crossmark on — XMP carries crossmark:DOI, MajorVersionDate and the pdfx pair; the XMP still parses",
+  all(x in xm for x in ("<crossmark:DOI>10.12345/ab3k9x21</crossmark:DOI>", "<crossmark:MajorVersionDate>2026-07-02</crossmark:MajorVersionDate>",
+                        "<pdfx:doi>10.12345/ab3k9x21</pdfx:doi>", "<pdfx:CrossmarkMajorVersionDate>2026-07-02</pdfx:CrossmarkMajorVersionDate>"))
+  and etree.fromstring(xm.split("?>", 1)[1].rsplit("<?xpacket", 1)[0].encode()) is not None, xm[-700:])
+t("cover_page: Crossmark leaves the header where it was (title, citation, abstracts at the same places)",
+  dcm and [round(w[1], 1) for w in dcm[0].get_text("words") if w[1] > cv.TITLE_Y - 3]
+  == [round(w[1], 1) for w in doc[0].get_text("words") if w[1] > cv.TITLE_Y - 3], "")
+cm18 = os.path.join(cdir, "cm18"); os.makedirs(cm18, exist_ok=True)
+r18 = subprocess.run([sys.executable, CV, ccp, "SROM-19-2026-001", os.path.join(cdir, "art.pdf"), "--out", cm18], capture_output=True, text=True,
+                     env=dict(os.environ, SROM_CROSSMARK_POLICY_DOI="10.12345/crossmark-policy", SROM_CROSSMARK_EXCLUDE="19"))
+d18 = pymupdf.open(os.path.join(cm18, "Studia_Romologica_19_2026_Nowak_1.pdf")) if r18.returncode == 0 else None
+t("cover_page: no button on an article whose volume's deposit has no Crossmark (switch set, volume not listed)",
+  d18 and not any("crossmark" in (l.get("uri") or "") for l in d18[0].get_links()) and "Crossmark off" in r18.stdout
+  and "crossmark:DOI" not in d18.get_xml_metadata(), r18.stdout + r18.stderr)
+blank = pymupdf.open().new_page()
+try:
+    cv.draw_marks(blank, [("orcid", "https://orcid.org/x")]); mism = False
+except SystemExit as e:
+    mism = "1 identifier icon(s) wanted, 0 slot(s)" in str(e)
+t("cover_page: an icon without its slot stops the run (never an icon beside the wrong name)", mism)
+cv.crossref.ROR["Uniwersytet Jagielloński"] = "https://ror.org/03bqmcz70"
+t("cover_page: affiliation — slot after each institution with a ROR ID, separators kept; a bracketed note gets none",
+  cv.affiliation("Uniwersytet Jagielloński / Muzeum Y; Uniwersytet Jagielloński").count("\u00a0</span>") == 2
+  and " / Muzeum Y; " in cv.affiliation("Uniwersytet Jagielloński / Muzeum Y; Uniwersytet Jagielloński")
+  and "span" not in cv.affiliation("[bez afiliacji akademickiej]"), cv.affiliation("Uniwersytet Jagielloński / Muzeum Y"))
 x = doc.get_xml_metadata() if doc else ""
 t("cover_page: Info + XMP metadata (title, PRISM DOI, licence)",
   doc and doc.metadata["title"] == "Romowie w Polsce i w Europie" and "<prism:doi>10.12345/ab3k9x21</prism:doi>" in x
@@ -318,6 +429,10 @@ if os.path.exists(tpl):
 t("cover_page: the original's source gets Kanon § 3.3 hard spaces (t. 34)",
   "t.\u00a034" in cv.pl("„Romani Studies”, 2024, t. 34, nr 1"), cv.pl("„Romani Studies”, 2024, t. 34, nr 1"))
 r = cvrun("SROM-19-2026-004", "--proof"); pf = os.path.join(cdir, "SROM-19-2026-004_okladka_proof.pdf")
+rp = cvrun("SROM-19-2026-001", "--proof"); pf1 = os.path.join(cdir, "SROM-19-2026-001_okladka_proof.pdf")
+t("cover_page --proof: the Crossmark button is shown (the page as it will be once Crossmark is on); not with a placeholder DOI",
+  os.path.exists(pf1) and any("crossmark.crossref.org/dialog" in (l.get("uri") or "") for l in pymupdf.open(pf1)[0].get_links())
+  and not any("crossmark" in (l.get("uri") or "") for l in pymupdf.open(pf)[0].get_links()), rp.stdout + rp.stderr)
 t("cover_page --proof: written as *_proof, marked PODGLĄD", os.path.exists(pf) and "PODGLĄD" in pymupdf.open(pf)[0].get_text()
   and "PROOF" in r.stdout, r.stdout + r.stderr)
 r = cvrun("SROM-19-2026-005"); d5 = pymupdf.open(os.path.join(cdir, "SROM-19-2026-005_okladka.pdf")) if r.returncode == 0 else None
@@ -497,10 +612,66 @@ t("check_deposit --site: a landing page that 301s fails (redirect named, not fol
   r1.returncode == 1 and f"landing page 301 → /p/1/" in r1.stdout and r2.returncode == 0
   and r2.stdout.strip().splitlines()[-1] == "DEPOSIT CHECK OK 1/1", r1.stdout + r2.stdout + r2.stderr)
 
+# --site and the policy DOI (28.11.2026): with Crossmark in the XML, doi.org is asked once (never followed) that the policy DOI
+# points at the policy page; a resolver that does not know it fails every Crossmark article
+class Resolver(http.server.BaseHTTPRequestHandler):
+    def log_message(self, *a): pass
+    def do_GET(self):
+        if self.path.endswith("10.12345/crossmark-policy"):
+            self.send_response(302); self.send_header("Location", "https://studiaromologica.pl/polityka-aktualizacji/"); self.end_headers()
+        elif self.path.startswith("/p/") or self.path.endswith(".pdf"):
+            body = b"%PDF-1.4 x" if self.path.endswith(".pdf") else b'<meta name="citation_doi" content="10.12345/ef5g6h71">'
+            self.send_response(200); self.send_header("Content-Length", str(len(body))); self.end_headers(); self.wfile.write(body)
+        else:
+            self.send_response(404); self.end_headers()
+rs = http.server.HTTPServer(("127.0.0.1", 0), Resolver); threading.Thread(target=rs.serve_forever, daemon=True).start()
+rbase = f"http://127.0.0.1:{rs.server_port}"
+dwrite([dict(drows[0], landing_url=rbase + "/p/1/", pdf_url=rbase + "/1.pdf")]); xs = os.path.join(cdd, "dep_pol.xml")
+subprocess.run([sys.executable, GEN, dcp, xs], capture_output=True, text=True, env=CMENV)
+def polrun(policy):
+    return subprocess.run([sys.executable, CD, dcp, xs, "--site"], capture_output=True, text=True,
+                          env=dict(os.environ, SROM_PACE="0", SROM_DOI_RESOLVER=rbase + "/", SROM_CROSSMARK_POLICY_DOI=policy))
+pg, pb = polrun("10.12345/crossmark-policy"), None
+dwrite([dict(drows[0], landing_url=rbase + "/p/1/", pdf_url=rbase + "/1.pdf")])
+subprocess.run([sys.executable, GEN, dcp, xs], capture_output=True, text=True, env=dict(CMENV, SROM_CROSSMARK_POLICY_DOI="10.12345/unknown"))
+pb = polrun("10.12345/unknown")
+rs.shutdown()
+t("check_deposit --site: the policy DOI pointing at the policy page passes; an unregistered one fails the Crossmark articles",
+  pg.returncode == 0 and pg.stdout.strip().endswith("DEPOSIT CHECK OK 1/1") and pb.returncode == 1
+  and "not registered or not pointing at" in pb.stdout and "Crossmark policy DOI not live" in pb.stdout, pg.stdout + pb.stdout + pb.stderr)
+
 dwrite(drows[:2])
 r = subprocess.run([sys.executable, CD, dcp, x2, "--only", "2"], capture_output=True, text=True)
 t("check_deposit --only 2: checks just the second article, ends DEPOSIT CHECK OK 1/1",
   r.returncode == 0 and " 002 " in r.stdout and " 001 " not in r.stdout and r.stdout.strip().splitlines()[-1] == "DEPOSIT CHECK OK 1/1", r.stdout + r.stderr)
+
+# check_deposit.py and Crossmark (MB 28.11.2026): the XML must match generate_crossref_xml.py's CROSSMARK_POLICY_DOI (all
+# articles with <crossmark> and that policy, or none); --ready: each covered PDF links the Crossmark dialog for its DOI and date.
+CMENV = dict(os.environ, SROM_CROSSMARK_POLICY_DOI="10.12345/crossmark-policy")
+dwrite(drows[:2]); x3 = os.path.join(cdd, "dep_cm.xml")
+subprocess.run([sys.executable, GEN, dcp, x3], capture_output=True, text=True, env=CMENV)
+r_on = subprocess.run([sys.executable, CD, dcp, x3], capture_output=True, text=True, env=CMENV)
+r_stale = subprocess.run([sys.executable, CD, dcp, x2], capture_output=True, text=True, env=CMENV)
+r_off = subprocess.run([sys.executable, CD, dcp, x3], capture_output=True, text=True)
+t("check_deposit: Crossmark on — an XML with it passes (lines say Crossmark); one made before the switch fails; with it off, a Crossmark XML fails",
+  r_on.returncode == 0 and r_on.stdout.count(" · Crossmark · ") == 2 and r_on.stdout.strip().endswith("DEPOSIT CHECK OK 2/2")
+  and r_stale.returncode == 1 and "no <crossmark>" in r_stale.stdout
+  and r_off.returncode == 1 and "has no Crossmark in generate_crossref_xml.py" in r_off.stdout, r_on.stdout + r_stale.stdout + r_off.stdout)
+rdy = os.path.join(cdd, "ready"); os.makedirs(rdy, exist_ok=True)
+for row, link in ((drows[0], True), (drows[1], False)):
+    pdoc = pymupdf.open(); pg = pdoc.new_page()
+    if link:
+        pg.insert_link({"kind": pymupdf.LINK_URI, "from": pymupdf.Rect(10, 10, 60, 20),
+                        "uri": f"https://crossmark.crossref.org/dialog?doi={row['doi']}&domain=pdf&date_stamp={row['pub_date_online']}"})
+    pdoc.save(os.path.join(rdy, row["pdf_file"]), use_objstms=1)
+r = subprocess.run([sys.executable, CD, dcp, x3, "--ready", rdy], capture_output=True, text=True, env=CMENV)
+r18 = subprocess.run([sys.executable, CD, dcp, x2, "--ready", rdy], capture_output=True, text=True, env=dict(CMENV, SROM_CROSSMARK_EXCLUDE="19"))
+t("check_deposit --ready: a volume without Crossmark — an XML without it passes, but a PDF carrying the button fails",
+  r18.returncode == 1 and "covered PDF has a Crossmark button, but its deposit has no Crossmark" in r18.stdout
+  and re.search(r"^OK 002 ", r18.stdout, re.M), r18.stdout + r18.stderr)
+t("check_deposit --ready: a covered PDF without the Crossmark link fails, the one with it passes (no site request)",
+  r.returncode == 1 and re.search(r"^OK 001 ", r.stdout, re.M) and re.search(r"^!! 002 ", r.stdout, re.M)
+  and "no Crossmark link" in r.stdout and r.stdout.strip().endswith("DEPOSIT CHECK FAILED 1/2"), r.stdout + r.stderr)
 
 # validate_master.py (MB 10.11.2026): a translation's original_title/original_source must match the original's Crossref
 # record (pages, volume, issue, year, title). Offline: check_original() is fed the Pahulich record as Crossref gave it.

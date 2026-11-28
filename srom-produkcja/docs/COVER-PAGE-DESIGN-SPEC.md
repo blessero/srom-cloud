@@ -66,6 +66,30 @@ header alone; e-mails from `autorzy.tsv`; dates from the CSV; hard spaces, Kanon
 - A page range in the citation never splits at its dash (no-break span).
 - The original's source line ("Pierwodruk") gets the Kanon § 3.3 hard spaces too ("t. 34").
 
+## Identifier marks (MB 28.11.2026: "discreet, preferably monochrome")
+- **ORCID iD** before each ORCID in the author line: MB's ring icon (`assets/cover/orcid_id.pdf`, recoloured to the ink),
+  6.5 pt, linked to the iD; the iD URL stays as text. `ORCID_ICON = "orcid_id_green.pdf"` gives ORCID's green (its display
+  guidelines ask for green "in most circumstances", black-and-white only for contrast).
+- **ROR** after each institution of the affiliation that has a ROR ID in `volumes/ror.tsv` (split as in the deposit:
+  "A; B", "A / B"): ROR's icon in black (`ror_icon.pdf`, MB 28.11.2026; ROR allows #53BAA1, #2C2C2C, black or white),
+  7.5 pt high with its own margin, linked to ror.org. An institution without a ROR ID in ror.tsv (an independent
+  scholar, a museum ROR does not list) gets no icon. ROR asks that the ID text be shown too where the icon is; the
+  cover shows the icon alone (MB's call).
+- **Crossmark** (only on an article whose deposit carries it: `CROSSMARK_POLICY_DOI` set and its volume in
+  not in `CROSSMARK_EXCLUDE` in `generate_crossref_xml.py`: every volume deposited since 28.11.2026; vols 17–18 after their
+  Feb–Mar 2027 back-fill; every
+  `--proof` shows it, as a design preview): Crossref's
+  black-and-white horizontal "Check for updates" button (`crossmark_bw_horizontal.pdf`, unaltered), 62 pt wide, at the
+  text column's left edge 6.5 pt under the DOI line, above the title (Crossref: "next to or above the title"); linked to
+  `https://crossmark.crossref.org/dialog?doi=<DOI>&domain=pdf&date_stamp=<pub_date_online>`. XMP gains `crossmark:DOI`,
+  `crossmark:MajorVersionDate`, `pdfx:doi`, `pdfx:CrossmarkMajorVersionDate`. The header block below does not move.
+- Mechanics: the text holds a run of no-break spaces in the mono face where an icon goes (so lines break around it and
+  the text layer reads clean); the icon is drawn into that gap after the layout. A count of gaps that does not match the
+  icons wanted stops the run.
+- Icons: vector PDFs converted once by LibreOffice from the publishers' SVGs (Crossmark CDN `CROSSMARK_BW_horizontal.svg`,
+  ROR `ror-icon-bw.svg` (CC BY-ND 4.0, unaltered), MB's `ORCID icon.svg`), 28.11.2026; MuPDF's own
+  SVG reader drops the Crossmark button's styles and gradient.
+
 ## Fonts (`.claude/skills/srom-quant/assets/cover/fonts/`, OFL; licences beside them)
 Static cuts from the Google Fonts variable files (the website's source), made for MuPDF:
 - Epilogue 400 and 600; Fraunces opsz 9, wght 400, SOFT 0, WONK 0 (Regular and Italic).

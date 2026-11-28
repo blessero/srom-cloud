@@ -28,6 +28,16 @@ t("Importer: volume pub_date from pub_date_print (preset and auto-created Tom), 
   and not any(re.search(r"'pub_date'\s*=>\s*array\(\s*'pub_date_online'", s) for s in imp.values()))
 t("Importer: php -l", all("No syntax errors" in subprocess.run([php, "-l", os.path.join(IMP, *p)], capture_output=True, text=True,
   stdin=subprocess.DEVNULL).stdout for p in (("srom-importer.php",), ("includes", "class-srom-imp-fields.php"), ("includes", "class-srom-imp-runner.php"))))
+# Crossmark volumes (MB 28.11.2026): the site's button list must equal the deposit's (generate_crossref_xml.py), so the
+# button never shows on an article whose deposit has no Crossmark
+gsrc = open(os.path.normpath(os.path.join(HERE, "..", "..", "srom-quant", "scripts", "generate_crossref_xml.py")), encoding="utf-8").read()
+pv = re.search(r"\$GLOBALS\['SROM_CROSSMARK_EXCLUDE'\] = \[([\d, ]*)\];", src)
+gv = re.search(r'os\.environ\.get\("SROM_CROSSMARK_EXCLUDE", "([\d,]*)"\)', gsrc)
+pp = re.search(r"define\('SROM_CROSSMARK_POLICY', '([^']*)'\);", src)
+gp = re.search(r'os\.environ\.get\("SROM_CROSSMARK_POLICY_DOI", "([^"]*)"\)', gsrc)
+t("Crossmark: plugin SROM_CROSSMARK_EXCLUDE = generator CROSSMARK_EXCLUDE, SROM_CROSSMARK_POLICY = CROSSMARK_POLICY_DOI",
+  pv and gv and pp and gp and {int(x) for x in pv.group(1).split(",") if x.strip()} == {int(x) for x in gv.group(1).split(",") if x.strip()}
+  and pp.group(1) == gp.group(1), (pv and pv.group(1), gv and gv.group(1), pp and pp.group(1), gp and gp.group(1)))
 h = subprocess.run([php, os.path.join(HERE, "fixtures", "muplugin_harness.php"), PLUGIN],
                    capture_output=True, text=True, stdin=subprocess.DEVNULL)
 cases = [l for l in h.stdout.splitlines() if l.startswith(("ok ", "FAIL "))]

@@ -2,8 +2,27 @@
 /**
  * Plugin Name: SROM Scholarly Infrastructure
  * Description: Full-DOI permalinks, Highwire citation_* meta tags, ScholarlyArticle JSON-LD, display shortcodes. Content model (CPTs, taxonomies, ACF groups) is owned by the SROM Importer plugin — this file registers NO post types.
- * Version: 2.9
+ * Version: 2.11
  * Install: drop into wp-content/mu-plugins/ (create the dir if absent) — loads always, cannot be deactivated by accident.
+ *
+ * v2.11 changes (28.11.2026, MB):
+ *  - Crossmark gate = the deposit's rule (generate_crossref_xml.crossmark_for): SROM_CROSSMARK_POLICY set and the article's
+ *    volume not in SROM_CROSSMARK_EXCLUDE ([17, 18] until their Feb–Mar 2027 back-fill, GEN-150). Replaces v2.10's
+ *    include list [19], so back volumes 16 → 13 and vol. 19 on get the button once deposited.
+ *  - ROR map: + Uniwersytet Adama Mickiewicza, Poznań (https://ror.org/04g6bbq64).
+ *
+ * v2.10 changes (identifier marks, MB 28.11.2026):
+ *  - [srom_crossmark width="150"]: Crossref's Crossmark button (their widget script and black-and-white horizontal
+ *    logo, unaltered but for the width), on the single article page only, for an article with a DOI whose volume is in
+ *    SROM_CROSSMARK_VOLUMES (the volumes whose deposits carry <crossmark>: from vol. 19, MB 28.11.2026; vols 17–18 join
+ *    after their Feb–Mar 2027 back-fill); '' in a loop item, on a volume, an archive or off-context. The page head
+ *    already has the "dc.identifier doi:…" meta Crossmark reads.
+ *  - [srom_authors]: the ORCID iD link right after the name, then the affiliation: "Name [iD] — Affiliation" (MB).
+ *  - [srom_volume_field fallback="year"]: when the asked field is empty, print that other Tom field instead
+ *    (pub_date is empty on Toms known only by their year: vols 17, 16, 14), unformatted.
+ *  - [srom_authors]: a ROR link (a.srom-author-ror, text "ROR", styled as an icon by the site CSS) after each
+ *    institution of the affiliation that has a ROR ID in SROM_ROR, the institution → ROR map written from
+ *    volumes/ror.tsv by generate_crossref_xml.py --ror-php. Institutions split as in the deposit ("A; B", "A / B").
  *
  * v2.9 changes (review 21.10.2026, Cowork C23):
  *  - No citation_online_date: it repeated the print date (the Tom's pub_date, or the year), and no field on the
@@ -89,6 +108,38 @@ if (!defined('ABSPATH')) exit;
 
 /** Crossref prefix — update ONCE after membership, then Settings -> Permalinks -> Save. */
 define('SROM_DOI_PREFIX', '10.68100');
+
+/** Crossmark, as in the deposits (generate_crossref_xml.py CROSSMARK_POLICY_DOI / CROSSMARK_EXCLUDE; test_muplugin.py
+ *  checks they are equal): the policy DOI, and the volumes deposited without Crossmark. [srom_crossmark] shows on an
+ *  article only when the policy is set and its volume is not excluded. Take a volume out only after its redeposit. */
+define('SROM_CROSSMARK_POLICY', '10.68100/crossmark-policy');
+$GLOBALS['SROM_CROSSMARK_EXCLUDE'] = [17, 18];
+
+/** Institution (as written in authors_raw) → ROR ID. Generated: generate_crossref_xml.py --ror-php <ror.tsv> <this file>;
+ *  do not edit by hand. */
+$GLOBALS['SROM_ROR'] = [
+    // ROR-MAP-BEGIN (generated from volumes/ror.tsv)
+    'Akademia im. Jakuba z Paradyża w Gorzowie Wielkopolskim' => 'https://ror.org/025c3rs34',
+    'Biuro Badań Historycznych, Instytut Pamięci Narodowej' => 'https://ror.org/04hxg8c23',
+    'Bułgarska Akademia Nauk' => 'https://ror.org/01x8hew03',
+    'IFLA (Haga, Holandia)' => 'https://ror.org/026gatw61',
+    'Instytut Etnologii i Antropologii Kulturowej, Uniwersytet Wrocławski' => 'https://ror.org/00yae6e25',
+    'Instytut Etnologii i Antropologii Społecznej Słowackiej Akademii Nauk' => 'https://ror.org/01y3dn551',
+    'Instytut Kulturoznawstwa Uniwersytetu Wrocławskiego' => 'https://ror.org/00yae6e25',
+    'Instytut Pamięci Narodowej' => 'https://ror.org/04hxg8c23',
+    'International Research Centre „Work and Human Lifecycle in Global History”, Humboldt-Universität zu Berlin' => 'https://ror.org/01hcx6992',
+    'Katedra Historii Społecznej i Edukacji, Uniwersytet Marii Curie-Skłodowskiej' => 'https://ror.org/015h0qg34',
+    'Katedra Historii, Washington University w St. Louis' => 'https://ror.org/01yc7t268',
+    'Uniwersytet Adama Mickiewicza, Poznań' => 'https://ror.org/04g6bbq64',
+    'Uniwersytet Ekonomiczny w Krakowie' => 'https://ror.org/0262te083',
+    'Uniwersytet Marii Curie-Skłodowskiej' => 'https://ror.org/015h0qg34',
+    'Uniwersytet Pedagogiczny w Krakowie' => 'https://ror.org/030mz2444',
+    'Wydział Filologii Polskiej i Klasycznej, Uniwersytet im. Adama Mickiewicza w Poznaniu' => 'https://ror.org/04g6bbq64',
+    'Wydział Historii, Gonzaga University' => 'https://ror.org/03ze70h02',
+    'Zakład Mobilności i Migracji, Instytut Etnologii Czeskiej Akademii Nauk' => 'https://ror.org/01qj7sc02',
+    'Zakład Profilaktyki Społecznej i Resocjalizacji, Uniwersytet Jagielloński' => 'https://ror.org/03bqmcz70',
+    // ROR-MAP-END
+];
 
 /* ---------------------------------------------------------------
  * 1. URL MACHINERY ONLY. CPTs are registered by the SROM Importer
@@ -386,7 +437,7 @@ add_shortcode('srom_doi', function () {
  * traversing the article->Tom relation. Allowed: volume, year, signature, theme, pub_date.
  * (Alias [srom_issue_field] kept for any pre-v2.2 template references.) */
 $srom_volume_field = function ($atts) {
-    $atts = shortcode_atts(['name' => '', 'format' => ''], $atts);
+    $atts = shortcode_atts(['name' => '', 'format' => '', 'fallback' => ''], $atts);
     $allowed = ['volume', 'year', 'signature', 'theme', 'pub_date'];
     if (!in_array($atts['name'], $allowed, true)) return '';
     // Article template first (traverse the relation), then the Tom template itself.
@@ -405,6 +456,9 @@ $srom_volume_field = function ($atts) {
         $ts = strtotime($val);
         if ($ts) $val = date_i18n($atts['format'], $ts);
     }
+    // v2.10: fallback="year" — the field is empty (a Tom known only by its year): print that field, as stored
+    if ($val === '' && $atts['fallback'] !== $atts['name'] && in_array($atts['fallback'], $allowed, true))
+        $val = (string) get_field($atts['fallback'], $vol_id);
     return esc_html($val);
 };
 add_shortcode('srom_volume_field', $srom_volume_field);
@@ -444,6 +498,49 @@ add_shortcode('srom_flipbook', function ($atts) {
     return '<div class="srom-flipbook" style="width:100%;max-width:100%">' . $html . '</div>';
 });
 
+/** The affiliation, escaped, with a ROR link after each institution found in SROM_ROR. Split as the deposit
+ *  splits it (generate_crossref_xml.institutions): "; " and " / ", separators kept as written. */
+function srom_aff_html($aff) {
+    $aff = (string) $aff;
+    $map = isset($GLOBALS['SROM_ROR']) ? $GLOBALS['SROM_ROR'] : [];
+    if (!$map || strpos($aff, '[') === 0) return esc_html($aff);
+    $parts = preg_split('~(;\s+|\s+/\s+)~u', $aff, -1, PREG_SPLIT_DELIM_CAPTURE);
+    $out = '';
+    foreach ($parts as $k => $x) {
+        $out .= esc_html($x);
+        $inst = trim($x);
+        if ($k % 2 === 0 && isset($map[$inst]))
+            $out .= ' <a class="srom-author-ror" href="' . esc_url($map[$inst]) . '" rel="noopener" title="ROR: '
+                  . esc_attr($inst) . '" aria-label="ROR: ' . esc_attr($inst) . '">ROR</a>';
+    }
+    return $out;
+}
+
+/* [srom_crossmark width="150"] — Crossref's Crossmark button, as Crossref gives it: their script, their black-and-white
+ * horizontal logo, nothing changed but the width. Single article page only (the page itself, never a loop item, a
+ * volume or an archive), and only for an article with a DOI. The head carries <meta name="dc.identifier" content="doi:…">
+ * (section 3), which the widget reads. */
+add_shortcode('srom_crossmark', function ($atts) {
+    static $done = false;
+    $atts = shortcode_atts(['width' => '150'], $atts);
+    $id = srom_page_id('srom_article');
+    if (!$id || $done) return '';
+    $cur = (int) get_the_ID();
+    if ($cur && $cur !== $id) return '';              // a loop item on the article page: not this article
+    $doi = (string) get_field('doi', $id);
+    if ($doi === '' || strpos($doi, '/') === false || strpos($doi, 'XXXXX') !== false) return '';
+    $vol = get_field('volume', $id);
+    $vol = is_object($vol) ? $vol->ID : $vol;
+    $num = $vol ? (int) get_field('volume', $vol) : 0;    // the Tom's own `volume` field = its number
+    if (!SROM_CROSSMARK_POLICY || !$num
+        || in_array($num, isset($GLOBALS['SROM_CROSSMARK_EXCLUDE']) ? (array) $GLOBALS['SROM_CROSSMARK_EXCLUDE'] : [], true)) return '';
+    $w = max(60, min(300, (int) $atts['width']));
+    $done = true;
+    return '<script src="https://crossmark-cdn.crossref.org/widget/v2.0/widget.js"></script>'
+         . '<a class="srom-crossmark" data-target="crossmark"><img src="https://crossmark-cdn.crossref.org/widget/v2.0/logos/CROSSMARK_BW_horizontal.svg" width="'
+         . $w . '" alt="Check for updates (Crossmark)" /></a>';
+});
+
 /* [srom_authors] — full author block from authors_raw: one .srom-author per
  * contributor; name links to the `autor` taxonomy archive when the term exists
  * (interlinking: click an author -> all their articles); ORCID link appended.
@@ -464,10 +561,11 @@ add_shortcode('srom_authors', function ($atts) {
             }
         }
         $out .= '<div class="srom-author"><span class="srom-author-name">' . $name_html . '</span>';
-        if ($a['aff'])
-            $out .= ' <span class="srom-author-aff">— ' . esc_html($a['aff']) . '</span>';
+        // v2.10: "Name [iD] — Affiliation" (MB 28.11.2026); the site CSS draws the link as the iD icon
         if ($atts['orcid'] === '1' && strpos($a['orcid'], 'https://orcid.org/') === 0) // strpos: PHP 7.4-safe
-            $out .= ' <a class="srom-author-orcid" href="' . esc_url($a['orcid']) . '" rel="noopener">ORCID</a>';
+            $out .= '<a class="srom-author-orcid" href="' . esc_url($a['orcid']) . '" rel="noopener">ORCID</a>';
+        if ($a['aff'])
+            $out .= ' <span class="srom-author-aff">— ' . srom_aff_html($a['aff']) . '</span>';
         $out .= '</div>';
     }
     return $out . '</div>';
@@ -628,7 +726,7 @@ add_shortcode('srom_diag', function () {
     $art  = srom_ctx_id('srom_article');
     $vol  = srom_ctx_id('srom_volume');
     $rows = [
-        'mu-plugin version'      => '2.9',
+        'mu-plugin version'      => '2.11',
         'PHP'                    => PHP_VERSION,
         'main query object'      => $ctx['id'] . ' (' . ($ctx['type'] ?: '—') . ')',
         'get_the_ID()'           => (string) get_the_ID(),

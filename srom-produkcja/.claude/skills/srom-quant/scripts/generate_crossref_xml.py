@@ -15,11 +15,21 @@ volumes/ror.tsv (institution as written in authors_struct, TAB, https://ror.org/
 the institutions not yet in the file, with ROR's own confident match ("chosen") or empty: check the file before
 a deposit.
 
+Crossmark (28.11.2026, MB): with CROSSMARK_POLICY_DOI set, every article of a volume not in CROSSMARK_EXCLUDE carries
+<crossmark> (vols 17–18 stay out until their Feb–Mar 2027 back-fill; every later deposit — vol. 19 on, back volumes 16 → 13 —
+has it from its first deposit) (policy DOI, the site as
+its domain, not exclusive) and its licence program moves inside it (<custom_metadata>: schema 5.4.0 allows the licence
+program either there or bare, not both). Empty = no Crossmark, as before. Set it only after the policy page's own DOI
+is registered:
+    python3 generate_crossref_xml.py --policy [output.xml]    # the policy page as a dataset (dataset_type crossmark_policy)
+cover_page.py draws the Crossmark button on the PDF cover by the same switch.
+Website ROR links: --ror-php <ror.tsv> <srom-scholarly.php> rewrites the plugin's institution → ROR map from ror.tsv.
+
 Before first use, fill in the CONFIG block (prefix, depositor, e-mail).
 Upload the result at https://doi.crossref.org (admin tool) or test first at
 https://test.crossref.org with the same credentials.
 """
-import csv, sys, html, datetime, pathlib, json, re, urllib.parse, urllib.request
+import csv, os, sys, html, datetime, pathlib, json, re, urllib.parse, urllib.request
 
 # ---------------- CONFIG ----------------
 DEPOSITOR_NAME  = "Studia Romologica / Komitet Opieki nad Zabytkami Kultury Żydowskiej w Tarnowie"
@@ -28,6 +38,18 @@ REGISTRANT      = "Komitet Opieki nad Zabytkami Kultury Żydowskiej w Tarnowie"
 JOURNAL_TITLE   = "Studia Romologica"
 ISSN_PRINT      = "1689-4758"
 LANG_DEFAULT    = "pl"
+# Crossmark (MB 28.11.2026). The policy page's DOI: set it only once that DOI is registered (--policy deposit), since
+# every article deposit then points at it. Empty = no Crossmark in the deposit, no button on the PDF cover.
+# On since 28.11.2026 (policy page published, MB): its DOI must be registered (--policy deposit) before any other deposit.
+# The environment variables are for tests and trial runs only.
+CROSSMARK_POLICY_DOI = os.environ.get("SROM_CROSSMARK_POLICY_DOI", "10.68100/crossmark-policy")
+# Volumes whose deposits do NOT carry Crossmark (deposited before it): no <crossmark>, no PDF button, no site button
+# (srom-scholarly.php SROM_CROSSMARK_EXCLUDE, kept equal by test_muplugin.py). A volume leaves this list only with the
+# redeposit that adds it (vols 17–18: GEN-150, Feb–Mar 2027).
+CROSSMARK_EXCLUDE = {int(v) for v in os.environ.get("SROM_CROSSMARK_EXCLUDE", "17,18").split(",") if v.strip()}
+CROSSMARK_POLICY_PLAN = "10.68100/crossmark-policy"
+CROSSMARK_POLICY_URL = "https://studiaromologica.pl/polityka-aktualizacji/"
+CROSSMARK_DOMAIN = "studiaromologica.pl"
 # -----------------------------------------
 
 E = lambda s: html.escape((s or "").strip(), quote=True)
@@ -144,6 +166,31 @@ def contributors_block(r, authors, translators):
                 f'    </contributors>\n')
     return ""
 
+def crossmark_pdf_url(doi, date_stamp):
+    """The Crossmark button's link in a PDF (Crossref, Participating in Crossmark, step 5): date_stamp = the day of the
+    PDF's last major version, for SROM the online publication date (pub_date_online) until a correction says otherwise."""
+    return f"https://crossmark.crossref.org/dialog?doi={doi}&domain=pdf&date_stamp={date_stamp}"
+
+
+def crossmark_for(row):
+    """The policy DOI this article's deposit carries, or "": the switch is set and its volume is not in CROSSMARK_EXCLUDE."""
+    v = str(row.get("volume") or "").strip()
+    return CROSSMARK_POLICY_DOI if CROSSMARK_POLICY_DOI and v.isdigit() and int(v) not in CROSSMARK_EXCLUDE else ""
+
+
+def crossmark_xml(lic_xml, policy):
+    """<crossmark> when a policy DOI is given: the licence program goes inside, in <custom_metadata> (5.4.0: crossmark OR
+    the bare programs); without one, the licence program as before."""
+    if not policy:
+        return lic_xml
+    inner = "".join("    " + ln + "\n" for ln in lic_xml.splitlines()) if lic_xml else ""
+    return ('    <crossmark>\n'
+            f'      <crossmark_policy>{E(policy)}</crossmark_policy>\n'
+            f'      <crossmark_domains><crossmark_domain><domain>{E(CROSSMARK_DOMAIN)}</domain></crossmark_domain></crossmark_domains>\n'
+            '      <crossmark_domain_exclusive>false</crossmark_domain_exclusive>\n'
+            + (f'      <custom_metadata>\n{inner}      </custom_metadata>\n' if inner else "")
+            + '    </crossmark>\n')
+
 def article_xml(r, pub_y, pub_m, pub_d, cites=""):
     lang = r.get("language") or LANG_DEFAULT
     authors = parse_authors(r.get("authors_struct"))
@@ -190,7 +237,7 @@ def article_xml(r, pub_y, pub_m, pub_d, cites=""):
       <first_page>{E(r["pages_from"])}</first_page>
       <last_page>{E(r["pages_to"])}</last_page>
     </pages>
-{lic_xml}{rel_xml}    <doi_data>
+{crossmark_xml(lic_xml, crossmark_for(r))}{rel_xml}    <doi_data>
       <doi>{E(r["doi"])}</doi>
       <resource content_version="vor">{E(r["landing_url"])}</resource>
       <collection property="crawler-based">
@@ -199,9 +246,79 @@ def article_xml(r, pub_y, pub_m, pub_d, cites=""):
     </doi_data>
 {cites}  </journal_article>"""
 
+def head_xml(batch_id, now):
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+<doi_batch xmlns="http://www.crossref.org/schema/5.4.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1"
+           version="5.4.0"
+           xsi:schemaLocation="http://www.crossref.org/schema/5.4.0 https://www.crossref.org/schemas/crossref5.4.0.xsd">
+<head>
+  <doi_batch_id>{batch_id}</doi_batch_id>
+  <timestamp>{now:%Y%m%d%H%M%S}</timestamp>
+  <depositor>
+    <depositor_name>{E(DEPOSITOR_NAME)}</depositor_name>
+    <email_address>{E(DEPOSITOR_EMAIL)}</email_address>
+  </depositor>
+  <registrant>{E(REGISTRANT)}</registrant>
+</head>
+"""
+
+
+def policy_xml(doi=None, url=CROSSMARK_POLICY_URL, now=None):
+    """The Crossmark policy page as Crossref asks for it: a <database> "… Crossmark Policy Statement" holding one
+    dataset of type crossmark_policy, with its own DOI resolving to the page (one page, Polish and English)."""
+    doi = doi or CROSSMARK_POLICY_DOI or CROSSMARK_POLICY_PLAN
+    now = now or datetime.datetime.now()
+    return head_xml(f"srom-crossmark-policy-{now:%Y%m%d%H%M%S}", now) + f"""<body>
+<database>
+  <database_metadata language="{LANG_DEFAULT}">
+    <titles><title>{E(JOURNAL_TITLE)} Crossmark Policy Statement</title></titles>
+    <publisher><publisher_name>{E(REGISTRANT)}</publisher_name></publisher>
+  </database_metadata>
+  <dataset dataset_type="crossmark_policy">
+    <titles><title>Polityka aktualizacji treści (Crossmark) – {E(JOURNAL_TITLE)}</title></titles>
+    <database_date><publication_date><month>{now:%m}</month><day>{now:%d}</day><year>{now:%Y}</year></publication_date></database_date>
+    <doi_data>
+      <doi>{E(doi)}</doi>
+      <resource>{E(url)}</resource>
+    </doi_data>
+  </dataset>
+</database>
+</body>
+</doi_batch>
+"""
+
+
+def ror_php(tsv, plugin):
+    """Rewrite the mu-plugin's institution → ROR map (between ROR-MAP-BEGIN and ROR-MAP-END) from ror.tsv."""
+    rows = []
+    for ln in pathlib.Path(tsv).read_text(encoding="utf-8").splitlines()[1:]:
+        c = ln.split("\t")
+        if len(c) > 1 and re.fullmatch(r"https://ror\.org/0[a-z0-9]{6}[0-9]{2}", c[1].strip()):
+            rows.append((c[0].strip(), c[1].strip()))
+    q = lambda x: "'" + x.replace("\\", "\\\\").replace("'", "\\'") + "'"
+    block = "".join(f"    {q(i)} => {q(u)},\n" for i, u in sorted(rows))
+    src = pathlib.Path(plugin).read_text(encoding="utf-8")
+    new, n = re.subn(r"(// ROR-MAP-BEGIN[^\n]*\n).*?([ \t]*// ROR-MAP-END)", lambda m: m.group(1) + block + m.group(2),
+                     src, flags=re.S)
+    if n != 1:
+        sys.exit(f"ABORT: {plugin}: no single ROR-MAP-BEGIN … ROR-MAP-END block")
+    pathlib.Path(plugin).write_text(new, encoding="utf-8")
+    print(f"ROR map: {len(rows)} institution(s) written into {plugin}" + ("" if new != src else " (unchanged)"))
+
+
 def main():
     if sys.argv[1:2] == ["--ror"]:
         return ror_fill(sys.argv[2])
+    if sys.argv[1:2] == ["--ror-php"]:
+        return ror_php(sys.argv[2], sys.argv[3])
+    if sys.argv[1:2] == ["--policy"]:
+        out = sys.argv[2] if len(sys.argv) > 2 else "crossref_deposit_crossmark_policy.xml"
+        pathlib.Path(out).write_text(policy_xml(), encoding="utf-8")
+        doi = CROSSMARK_POLICY_DOI or CROSSMARK_POLICY_PLAN
+        print(f"OK: {out} (policy DOI {doi} → {CROSSMARK_POLICY_URL}). Deposit it before any article deposit.")
+        return
     src = sys.argv[1] if len(sys.argv) > 1 else "srom_master_v3.csv"
     load_ror(src)
     rows = list(csv.DictReader(open(src, encoding="utf-8-sig")))
@@ -230,22 +347,7 @@ def main():
         parts.append(article_xml(r, pub_y, pub_m, pub_d, cites))
     articles = "\n".join(parts)
 
-    xml = f"""<?xml version="1.0" encoding="UTF-8"?>
-<doi_batch xmlns="http://www.crossref.org/schema/5.4.0"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1"
-           version="5.4.0"
-           xsi:schemaLocation="http://www.crossref.org/schema/5.4.0 https://www.crossref.org/schemas/crossref5.4.0.xsd">
-<head>
-  <doi_batch_id>{batch_id}</doi_batch_id>
-  <timestamp>{now:%Y%m%d%H%M%S}</timestamp>
-  <depositor>
-    <depositor_name>{E(DEPOSITOR_NAME)}</depositor_name>
-    <email_address>{E(DEPOSITOR_EMAIL)}</email_address>
-  </depositor>
-  <registrant>{E(REGISTRANT)}</registrant>
-</head>
-<body>
+    xml = head_xml(batch_id, now) + f"""<body>
 <journal>
   <journal_metadata language="{LANG_DEFAULT}">
     <full_title>{E(JOURNAL_TITLE)}</full_title>
